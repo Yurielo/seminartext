@@ -121,7 +121,7 @@ Gold topics:
 
 Всего:
 
-47 gold topics
+48 gold topics
 
 Плотность gold:
 
@@ -1058,4 +1058,3 @@ Product Owner:
 - принимает итоговый результат.
 
 Нельзя менять критический путь проекта без Product Owner review.
-

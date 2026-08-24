@@ -2018,6 +2018,566 @@ PYADD
 
 
 
+project_topic_benchmark_run() {
+  local project_arg="${1:-}"
+  local only_case=""
+  local tolerance=2
+  local detail="${SEMINARTEXT_TOPICS_DETAIL:-auto}"
+  local model="${SEMINARTEXT_TOPICS_MODEL:-gemma3:4b}"
+
+  if [[ "$project_arg" == "-h" || "$project_arg" == "--help" ]]; then
+    cat <<'HELP'
+Использование:
+
+  seminartext project-topic-benchmark-run PROJECT
+  seminartext project-topic-benchmark-run PROJECT --only video_001_window_04
+  seminartext project-topic-benchmark-run PROJECT --tolerance 0|1|2
+
+Запускает текущий production Topic Engine на Gold benchmark и сохраняет
+машиночитаемый результат в analysis/benchmark/results/.
+HELP
+    return 0
+  fi
+
+  if [[ -z "$project_arg" ]]; then
+    echo 'Ошибка: укажите проект.' >&2
+    echo 'Пример: seminartext project-topic-benchmark-run "Стресс код"' >&2
+    return 2
+  fi
+
+  shift || true
+
+  while (($#)); do
+    case "$1" in
+      --only)
+        [[ $# -ge 2 ]] || { echo "Ошибка: после --only нужен case_id" >&2; return 2; }
+        only_case="$2"
+        shift 2
+        ;;
+      --tolerance)
+        [[ $# -ge 2 ]] || { echo "Ошибка: после --tolerance нужно 0, 1 или 2" >&2; return 2; }
+        tolerance="$2"
+        shift 2
+        ;;
+      --detail)
+        [[ $# -ge 2 ]] || { echo "Ошибка: после --detail нужен low|auto|high" >&2; return 2; }
+        detail="$2"
+        shift 2
+        ;;
+      --model)
+        [[ $# -ge 2 ]] || { echo "Ошибка: после --model нужно имя модели" >&2; return 2; }
+        model="$2"
+        shift 2
+        ;;
+      -h|--help)
+        cat <<'HELP'
+Использование:
+
+  seminartext project-topic-benchmark-run PROJECT
+  seminartext project-topic-benchmark-run PROJECT --only video_001_window_04
+  seminartext project-topic-benchmark-run PROJECT --tolerance 0|1|2
+
+Запускает текущий production Topic Engine на Gold benchmark и сохраняет
+машиночитаемый результат в analysis/benchmark/results/.
+HELP
+        return 0
+        ;;
+      *)
+        echo "Ошибка: неизвестный параметр benchmark-run: $1" >&2
+        return 2
+        ;;
+    esac
+  done
+
+  case "$tolerance" in
+    0|1|2) ;;
+    *)
+      echo "Ошибка: --tolerance должен быть 0, 1 или 2" >&2
+      return 2
+      ;;
+  esac
+
+  case "$detail" in
+    low|auto|high) ;;
+    *)
+      echo "Ошибка: --detail должен быть low, auto или high" >&2
+      return 2
+      ;;
+  esac
+
+  local projects_root="${SEMINARTEXT_PROJECTS:-$HOME/Documents/seminartext_projects}"
+  local project_dir
+
+  project_arg="${project_arg/#\~/$HOME}"
+
+  if [[ -d "$project_arg" ]]; then
+    project_dir="$project_arg"
+  else
+    project_dir="$projects_root/$(sanitize_name "$project_arg")"
+  fi
+
+  [[ -d "$project_dir" ]] || {
+    echo "Ошибка: проект не найден: $project_dir" >&2
+    return 1
+  }
+
+  local benchmark="$project_dir/analysis/benchmark/topic_benchmark.json"
+  local topics_module="${SEMINARTEXT_TOPICS_MODULE:-/Users/yurielokhin/bin/seminartext_topics.py}"
+  local results_dir="$project_dir/analysis/benchmark/results"
+
+  [[ -f "$benchmark" ]] || {
+    echo "Ошибка: benchmark не найден:" >&2
+    echo "  $benchmark" >&2
+    return 1
+  }
+
+  [[ -f "$topics_module" ]] || {
+    echo "Ошибка: не найден Topic Engine:" >&2
+    echo "  $topics_module" >&2
+    return 1
+  }
+
+  mkdir -p "$results_dir"
+
+  "$SEMINARTEXT_PYTHON" - \
+    "$benchmark" \
+    "$topics_module" \
+    "$results_dir" \
+    "$tolerance" \
+    "$detail" \
+    "$model" \
+    "$only_case" <<'PYRUN'
+import hashlib
+import importlib.util
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+benchmark_path = Path(sys.argv[1])
+module_path = Path(sys.argv[2])
+results_dir = Path(sys.argv[3])
+tolerance = int(sys.argv[4])
+detail = sys.argv[5]
+model = sys.argv[6]
+only_case = sys.argv[7].strip()
+
+
+def load_json(path):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"Ошибка: benchmark JSON повреждён: {exc}")
+
+
+def import_topic_engine(path):
+    spec = importlib.util.spec_from_file_location(
+        "seminartext_topics",
+        path,
+    )
+    if spec is None or spec.loader is None:
+        raise SystemExit(f"Ошибка: не удалось загрузить Topic Engine: {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    if not hasattr(module, "analyze_window_boundaries"):
+        raise SystemExit(
+            "Ошибка: Topic Engine не содержит analyze_window_boundaries"
+        )
+    return module
+
+
+def as_segment(item, case_id):
+    missing = [key for key in ("id", "start", "end", "text") if key not in item]
+    if missing:
+        raise SystemExit(
+            f"Ошибка: case {case_id}: segment без полей {missing}"
+        )
+    return {
+        "id": int(item["id"]),
+        "start": str(item["start"]),
+        "end": str(item["end"]),
+        "text": str(item["text"]),
+    }
+
+
+def validate_case(case):
+    case_id = case.get("case_id", "<unknown>")
+    segments = [as_segment(x, case_id) for x in case.get("segments", [])]
+    if not segments:
+        raise SystemExit(f"Ошибка: case {case_id}: нет transcript segments")
+
+    segment_ids = [x["id"] for x in segments]
+    if len(segment_ids) != len(set(segment_ids)):
+        raise SystemExit(f"Ошибка: case {case_id}: повторяющиеся segment id")
+
+    gold = case.get("gold", {})
+    boundaries = [int(x) for x in gold.get("boundaries", [])]
+    topics = gold.get("topics", [])
+
+    if not boundaries:
+        raise SystemExit(f"Ошибка: case {case_id}: нет gold.boundaries")
+    if not isinstance(topics, list) or not topics:
+        raise SystemExit(f"Ошибка: case {case_id}: нет gold.topics")
+    if len(boundaries) != len(topics):
+        raise SystemExit(
+            f"Ошибка: case {case_id}: gold boundaries/topics mismatch"
+        )
+    if boundaries != sorted(boundaries):
+        raise SystemExit(f"Ошибка: case {case_id}: gold.boundaries не отсортированы")
+    if len(boundaries) != len(set(boundaries)):
+        raise SystemExit(f"Ошибка: case {case_id}: повтор gold.boundaries")
+
+    valid_ids = set(segment_ids)
+    missing = [x for x in boundaries if x not in valid_ids]
+    if missing:
+        raise SystemExit(
+            f"Ошибка: case {case_id}: gold boundaries вне segments: {missing}"
+        )
+
+    return segments, boundaries, topics
+
+
+def match_boundaries(gold, predicted, tol):
+    remaining = set(range(len(predicted)))
+    matches = []
+
+    for g in gold:
+        candidates = [
+            (abs(predicted[i] - g), predicted[i], i)
+            for i in remaining
+            if abs(predicted[i] - g) <= tol
+        ]
+        if not candidates:
+            continue
+        distance, pred, idx = min(candidates)
+        remaining.remove(idx)
+        matches.append({
+            "gold": g,
+            "predicted": pred,
+            "distance": distance,
+        })
+
+    matched_gold = {x["gold"] for x in matches}
+    matched_pred = {x["predicted"] for x in matches}
+    false_negatives = [x for x in gold if x not in matched_gold]
+    false_positives = [x for x in predicted if x not in matched_pred]
+    return matches, false_positives, false_negatives
+
+
+def metrics_for(gold, predicted, tol):
+    matches, fp, fn = match_boundaries(gold, predicted, tol)
+    tp = len(matches)
+    precision = tp / len(predicted) if predicted else 0.0
+    recall = tp / len(gold) if gold else 0.0
+    f1 = (
+        2 * precision * recall / (precision + recall)
+        if precision + recall
+        else 0.0
+    )
+    distances = [x["distance"] for x in matches]
+    return {
+        "gold_boundaries": gold,
+        "predicted_boundaries": predicted,
+        "matched_boundaries": matches,
+        "false_positives": fp,
+        "false_negatives": fn,
+        "true_positives": tp,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "mean_boundary_distance": (
+            sum(distances) / len(distances)
+            if distances
+            else None
+        ),
+        "max_boundary_distance": max(distances) if distances else None,
+        "gold_topic_count": len(gold),
+        "predicted_topic_count": len(predicted),
+        "topic_count_error": len(predicted) - len(gold),
+        "absolute_topic_count_error": abs(len(predicted) - len(gold)),
+    }
+
+
+def fmt_float(value, digits=3):
+    if value is None:
+        return "n/a"
+    return f"{value:.{digits}f}"
+
+
+benchmark = load_json(benchmark_path)
+topic_engine = import_topic_engine(module_path)
+
+cases = benchmark.get("cases", [])
+selected = [
+    case
+    for case in cases
+    if case.get("review", {}).get("status") == "gold_complete"
+]
+
+if only_case:
+    selected = [case for case in selected if case.get("case_id") == only_case]
+    if not selected:
+        raise SystemExit(
+            f"Ошибка: gold_complete benchmark case не найден: {only_case}"
+        )
+
+if not selected:
+    raise SystemExit("Ошибка: нет ни одного gold_complete case")
+
+case_results = []
+
+for case in selected:
+    case_id = case.get("case_id", "<unknown>")
+    segments, gold_boundaries, gold_topics = validate_case(case)
+
+    try:
+        predicted = topic_engine.analyze_window_boundaries(
+            segments,
+            detail=detail,
+            model=model,
+        )
+    except Exception as exc:
+        raise SystemExit(
+            f"Ошибка: Topic Engine не смог выполнить prediction "
+            f"для {case_id}: {exc}"
+        )
+
+    if not isinstance(predicted, list) or not predicted:
+        raise SystemExit(
+            f"Ошибка: Topic Engine вернул пустой prediction для {case_id}"
+        )
+
+    valid_ids = {x["id"] for x in segments}
+    predicted = sorted(set(int(x) for x in predicted))
+    invalid = [x for x in predicted if x not in valid_ids]
+    if invalid:
+        raise SystemExit(
+            f"Ошибка: Topic Engine вернул ID вне окна для {case_id}: {invalid}"
+        )
+
+    case_metrics = metrics_for(gold_boundaries, predicted, tolerance)
+    case_metrics.update({
+        "case_id": case_id,
+        "source_id": case.get("source_id"),
+        "window_number": case.get("window_number"),
+        "start": case.get("start"),
+        "end": case.get("end"),
+        "status": case.get("review", {}).get("status"),
+    })
+    case_results.append(case_metrics)
+
+    print()
+    print(case_id)
+    print()
+    print(f"Gold topics:       {case_metrics['gold_topic_count']}")
+    print(f"Predicted topics:  {case_metrics['predicted_topic_count']}")
+    print()
+    print("Gold boundaries:")
+    print(" ".join(str(x) for x in case_metrics["gold_boundaries"]))
+    print()
+    print("Predicted:")
+    print(" ".join(str(x) for x in case_metrics["predicted_boundaries"]))
+    print()
+    print(f"Tolerance: +/-{tolerance}")
+    print()
+    print(f"TP: {case_metrics['true_positives']}")
+    print(f"FP: {len(case_metrics['false_positives'])}")
+    print(f"FN: {len(case_metrics['false_negatives'])}")
+    print()
+    print(f"Precision: {fmt_float(case_metrics['precision'])}")
+    print(f"Recall:    {fmt_float(case_metrics['recall'])}")
+    print(f"F1:        {fmt_float(case_metrics['f1'])}")
+    print()
+    print(
+        "Mean boundary distance: "
+        f"{fmt_float(case_metrics['mean_boundary_distance'], 2)} segments"
+    )
+    print(
+        "Max boundary distance:  "
+        f"{fmt_float(case_metrics['max_boundary_distance'], 2)} segments"
+    )
+    print(
+        "Topic count error: "
+        f"{case_metrics['topic_count_error']:+d}"
+    )
+
+total_gold = sum(x["gold_topic_count"] for x in case_results)
+total_predicted = sum(x["predicted_topic_count"] for x in case_results)
+total_tp = sum(x["true_positives"] for x in case_results)
+total_fp = sum(len(x["false_positives"]) for x in case_results)
+total_fn = sum(len(x["false_negatives"]) for x in case_results)
+
+aggregate_precision = (
+    total_tp / (total_tp + total_fp)
+    if total_tp + total_fp
+    else 0.0
+)
+aggregate_recall = (
+    total_tp / (total_tp + total_fn)
+    if total_tp + total_fn
+    else 0.0
+)
+aggregate_f1 = (
+    2 * aggregate_precision * aggregate_recall
+    / (aggregate_precision + aggregate_recall)
+    if aggregate_precision + aggregate_recall
+    else 0.0
+)
+
+all_distances = [
+    match["distance"]
+    for case in case_results
+    for match in case["matched_boundaries"]
+]
+mean_distance = (
+    sum(all_distances) / len(all_distances)
+    if all_distances
+    else None
+)
+mean_topic_count_error = (
+    sum(x["topic_count_error"] for x in case_results)
+    / len(case_results)
+)
+mean_absolute_topic_count_error = (
+    sum(x["absolute_topic_count_error"] for x in case_results)
+    / len(case_results)
+)
+
+aggregate = {
+    "case_count": len(case_results),
+    "total_cases": len(cases),
+    "gold_complete_cases": sum(
+        1
+        for case in cases
+        if case.get("review", {}).get("status") == "gold_complete"
+    ),
+    "gold_topic_count": total_gold,
+    "predicted_topic_count": total_predicted,
+    "true_positives": total_tp,
+    "false_positives": total_fp,
+    "false_negatives": total_fn,
+    "boundary_precision": aggregate_precision,
+    "boundary_recall": aggregate_recall,
+    "boundary_f1": aggregate_f1,
+    "mean_boundary_distance": mean_distance,
+    "mean_topic_count_error": mean_topic_count_error,
+    "mean_absolute_topic_count_error": mean_absolute_topic_count_error,
+}
+
+print()
+print("TOPIC BENCHMARK - DATASET A")
+print("===========================")
+print()
+print(
+    f"Cases: {aggregate['case_count']}/"
+    f"{aggregate['gold_complete_cases']}"
+)
+print()
+print(f"Gold topics:       {total_gold}")
+print(f"Predicted topics:  {total_predicted}")
+print()
+print(f"Boundary Precision: {fmt_float(aggregate_precision)}")
+print(f"Boundary Recall:    {fmt_float(aggregate_recall)}")
+print(f"Boundary F1:        {fmt_float(aggregate_f1)}")
+print()
+print(
+    "Mean boundary distance: "
+    f"{fmt_float(mean_distance, 2)} segments"
+)
+print(
+    "Mean topic count error: "
+    f"{fmt_float(mean_topic_count_error, 2)}"
+)
+print()
+print("Per-window:")
+for case in case_results:
+    print(
+        f"  {case['case_id']}: "
+        f"P={case['precision']:.3f} "
+        f"R={case['recall']:.3f} "
+        f"F1={case['f1']:.3f} "
+        f"topics {case['predicted_topic_count']}/"
+        f"{case['gold_topic_count']} "
+        f"err {case['topic_count_error']:+d}"
+    )
+
+engine_source = module_path.read_bytes()
+engine_version = {
+    "name": "seminartext_topics",
+    "entrypoint": "analyze_window_boundaries",
+    "source_path": str(module_path),
+    "source_sha256": hashlib.sha256(engine_source).hexdigest(),
+}
+
+parameters = {
+    "embedding_model": None,
+    "change_point_method": "ollama_structured_semantic_boundaries",
+    "threshold": None,
+    "smoothing": None,
+    "minimum_topic_size": topic_engine.DETAIL[detail]["hard_min_sec"],
+    "maximum_topic_size": {
+        "low": 10 * 60,
+        "auto": 5 * 60,
+        "high": 3 * 60,
+    }.get(detail),
+    "detail": detail,
+    "model": model,
+    "temperature": 0,
+    "boundary_tolerance_segments": tolerance,
+    "other_relevant_parameters": {
+        "window_seconds": getattr(topic_engine, "WINDOW_SEC", None),
+        "target_per_hour": topic_engine.DETAIL[detail]["target_per_hour"],
+        "min_sec": topic_engine.DETAIL[detail]["min_sec"],
+        "hard_min_sec": topic_engine.DETAIL[detail]["hard_min_sec"],
+        "refinement_max_depth": 2,
+    },
+}
+
+timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+result = {
+    "schema_version": 1,
+    "type": "seminartext_topic_benchmark_run",
+    "engine_version": engine_version,
+    "benchmark_version": {
+        "schema_version": benchmark.get("schema_version"),
+        "type": benchmark.get("type"),
+        "source_id": benchmark.get("source_id"),
+        "source_path": str(benchmark_path),
+        "source_sha256": hashlib.sha256(
+            benchmark_path.read_bytes()
+        ).hexdigest(),
+    },
+    "timestamp": timestamp,
+    "parameters": parameters,
+    "tolerance": tolerance,
+    "aggregate_metrics": aggregate,
+    "cases": case_results,
+}
+
+result_path = results_dir / f"topic_benchmark_run_{timestamp}.json"
+result_path.write_text(
+    json.dumps(result, ensure_ascii=False, indent=2) + "\n",
+    encoding="utf-8",
+)
+
+latest_path = results_dir / "topic_benchmark_run.json"
+latest_path.write_text(
+    json.dumps(result, ensure_ascii=False, indent=2) + "\n",
+    encoding="utf-8",
+)
+
+print()
+print(f"JSON: {result_path}")
+print(f"LATEST: {latest_path}")
+print()
+print("BENCHMARK COMPLETE")
+PYRUN
+}
+
+
+
+
+
 project_topic_benchmark_show() {
   local project_arg="${1:-}"
   local case_id="${2:-}"
@@ -4381,6 +4941,11 @@ main() {
     project-topic-benchmark-check)
       shift
       project_topic_benchmark_check "$@"
+      exit $?
+      ;;
+    project-topic-benchmark-run)
+      shift
+      project_topic_benchmark_run "$@"
       exit $?
       ;;
     project-topic-benchmark-show)
