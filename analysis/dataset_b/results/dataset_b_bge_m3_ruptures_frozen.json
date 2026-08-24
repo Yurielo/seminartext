@@ -1,0 +1,1802 @@
+{
+  "schema_version": 1,
+  "type": "seminartext_bge_m3_ruptures_topic_engine_experiment",
+  "timestamp": "20260824T202948Z",
+  "parameters": {
+    "embedding_model": "bge-m3:latest",
+    "embedding_endpoint": "http://127.0.0.1:11434/api/embed",
+    "block_seconds": 15,
+    "context_blocks": 2,
+    "signal": "1 - cosine(mean(left_context), mean(right_context))",
+    "smoothing": "fixed three-point kernel [0.25, 0.5, 0.25]",
+    "change_point_library": "ruptures",
+    "ruptures_version": "1.1.9",
+    "change_point_method": "PELT",
+    "ruptures_model": "rbf",
+    "penalty": 0.5,
+    "min_size_blocks": 3,
+    "jump": 1,
+    "min_gap_segment_ids": 3,
+    "broad_parameter_search": false
+  },
+  "dependencies": {
+    "python": "see local venv",
+    "numpy": "2.5.2",
+    "ruptures": "1.1.9"
+  },
+  "benchmark_version": {
+    "source_path": "analysis/dataset_b/topic_benchmark_dataset_b.json",
+    "source_sha256": "a8a4817eea4ad8639eb4d5fa0801cd5f22fd9a5ccb8489b9868f38967b255fcb",
+    "gold_complete_cases": 6,
+    "gold_topic_count": 34
+  },
+  "comparison_targets": {
+    "current_ollama_semantic_baseline_tol2": {
+      "precision": 0.5,
+      "recall": 0.458,
+      "f1": 0.478
+    },
+    "issue_7_sliding_subwindow_tol2": {
+      "precision": 0.383,
+      "recall": 0.479,
+      "f1": 0.426
+    },
+    "issue_9_local_peak_bge_m3_tol2": {
+      "precision": 0.577,
+      "recall": 0.312,
+      "f1": 0.405
+    }
+  },
+  "bge_m3_ruptures": {
+    "predictions": {
+      "dataset_b_video_001_window_01": [
+        1,
+        9,
+        16,
+        30,
+        44,
+        56,
+        65,
+        71,
+        89,
+        95
+      ],
+      "dataset_b_video_001_window_06": [
+        508,
+        517,
+        529,
+        555,
+        563,
+        570,
+        582
+      ],
+      "dataset_b_video_001_window_11": [
+        948,
+        959,
+        981,
+        985,
+        994,
+        1000,
+        1012,
+        1023
+      ],
+      "dataset_b_video_001_window_15": [
+        1325,
+        1334,
+        1340,
+        1348,
+        1355,
+        1360,
+        1370,
+        1378,
+        1384,
+        1391,
+        1402,
+        1406
+      ],
+      "dataset_b_video_001_window_20": [
+        1776,
+        1781,
+        1788,
+        1795,
+        1803,
+        1809,
+        1816,
+        1831,
+        1839,
+        1846,
+        1854,
+        1869
+      ],
+      "dataset_b_video_001_window_25": [
+        2286,
+        2297,
+        2311,
+        2319,
+        2326,
+        2330,
+        2335,
+        2349,
+        2356,
+        2368,
+        2374
+      ]
+    },
+    "cases": {
+      "dataset_b_video_001_window_01": {
+        "block_count": 47,
+        "embedding_count": 47,
+        "feature_count": 46,
+        "ruptures_breakpoints": [
+          3,
+          6,
+          12,
+          18,
+          24,
+          28,
+          31,
+          38,
+          41
+        ],
+        "predicted_boundaries": [
+          1,
+          9,
+          16,
+          30,
+          44,
+          56,
+          65,
+          71,
+          89,
+          95
+        ],
+        "top_features": [
+          {
+            "feature_index": 29,
+            "score": 0.3903547161368186
+          },
+          {
+            "feature_index": 39,
+            "score": 0.3850677456738818
+          },
+          {
+            "feature_index": 21,
+            "score": 0.36956269860647695
+          },
+          {
+            "feature_index": 38,
+            "score": 0.36706414700700196
+          },
+          {
+            "feature_index": 22,
+            "score": 0.36614455526773765
+          },
+          {
+            "feature_index": 28,
+            "score": 0.3586866173015616
+          },
+          {
+            "feature_index": 40,
+            "score": 0.35593396280574485
+          },
+          {
+            "feature_index": 19,
+            "score": 0.35280022536454836
+          },
+          {
+            "feature_index": 20,
+            "score": 0.34809977150443416
+          },
+          {
+            "feature_index": 30,
+            "score": 0.3471269703918295
+          },
+          {
+            "feature_index": 23,
+            "score": 0.3425369380594208
+          },
+          {
+            "feature_index": 4,
+            "score": 0.34086695407157624
+          }
+        ]
+      },
+      "dataset_b_video_001_window_06": {
+        "block_count": 45,
+        "embedding_count": 45,
+        "feature_count": 44,
+        "ruptures_breakpoints": [
+          4,
+          12,
+          26,
+          30,
+          34,
+          40
+        ],
+        "predicted_boundaries": [
+          508,
+          517,
+          529,
+          555,
+          563,
+          570,
+          582
+        ],
+        "top_features": [
+          {
+            "feature_index": 16,
+            "score": 0.3550713091785115
+          },
+          {
+            "feature_index": 20,
+            "score": 0.34677010163837046
+          },
+          {
+            "feature_index": 32,
+            "score": 0.34648538929072514
+          },
+          {
+            "feature_index": 24,
+            "score": 0.345046790280054
+          },
+          {
+            "feature_index": 23,
+            "score": 0.3447705994485607
+          },
+          {
+            "feature_index": 17,
+            "score": 0.3440606922252658
+          },
+          {
+            "feature_index": 12,
+            "score": 0.3431325292095232
+          },
+          {
+            "feature_index": 15,
+            "score": 0.3391908773826782
+          },
+          {
+            "feature_index": 31,
+            "score": 0.3360211843134301
+          },
+          {
+            "feature_index": 21,
+            "score": 0.3356540814109498
+          },
+          {
+            "feature_index": 18,
+            "score": 0.3333917596506687
+          },
+          {
+            "feature_index": 33,
+            "score": 0.3321981827079702
+          }
+        ]
+      },
+      "dataset_b_video_001_window_11": {
+        "block_count": 45,
+        "embedding_count": 45,
+        "feature_count": 44,
+        "ruptures_breakpoints": [
+          5,
+          16,
+          19,
+          23,
+          26,
+          32,
+          38
+        ],
+        "predicted_boundaries": [
+          948,
+          959,
+          981,
+          985,
+          994,
+          1000,
+          1012,
+          1023
+        ],
+        "top_features": [
+          {
+            "feature_index": 0,
+            "score": 0.43426149400317937
+          },
+          {
+            "feature_index": 34,
+            "score": 0.36297879741630834
+          },
+          {
+            "feature_index": 6,
+            "score": 0.35082771350971587
+          },
+          {
+            "feature_index": 35,
+            "score": 0.3392028045389808
+          },
+          {
+            "feature_index": 14,
+            "score": 0.3389063985111359
+          },
+          {
+            "feature_index": 33,
+            "score": 0.3362838542559813
+          },
+          {
+            "feature_index": 1,
+            "score": 0.33573121785665516
+          },
+          {
+            "feature_index": 28,
+            "score": 0.33530336982746
+          },
+          {
+            "feature_index": 9,
+            "score": 0.3338967287444098
+          },
+          {
+            "feature_index": 7,
+            "score": 0.33377459042142593
+          },
+          {
+            "feature_index": 8,
+            "score": 0.33342545221530884
+          },
+          {
+            "feature_index": 36,
+            "score": 0.33251512441577585
+          }
+        ]
+      },
+      "dataset_b_video_001_window_15": {
+        "block_count": 44,
+        "embedding_count": 44,
+        "feature_count": 43,
+        "ruptures_breakpoints": [
+          5,
+          8,
+          11,
+          15,
+          18,
+          23,
+          26,
+          29,
+          32,
+          37,
+          40
+        ],
+        "predicted_boundaries": [
+          1325,
+          1334,
+          1340,
+          1348,
+          1355,
+          1360,
+          1370,
+          1378,
+          1384,
+          1391,
+          1402,
+          1406
+        ],
+        "top_features": [
+          {
+            "feature_index": 40,
+            "score": 0.39322104351523246
+          },
+          {
+            "feature_index": 8,
+            "score": 0.36129465558252327
+          },
+          {
+            "feature_index": 17,
+            "score": 0.34723814733098757
+          },
+          {
+            "feature_index": 9,
+            "score": 0.34687385139764826
+          },
+          {
+            "feature_index": 16,
+            "score": 0.3460468236523113
+          },
+          {
+            "feature_index": 21,
+            "score": 0.3411714537268043
+          },
+          {
+            "feature_index": 39,
+            "score": 0.33946043568564466
+          },
+          {
+            "feature_index": 22,
+            "score": 0.331955618641565
+          },
+          {
+            "feature_index": 5,
+            "score": 0.32296716962917454
+          },
+          {
+            "feature_index": 15,
+            "score": 0.3207727705835149
+          },
+          {
+            "feature_index": 7,
+            "score": 0.31567294181658223
+          },
+          {
+            "feature_index": 30,
+            "score": 0.3152599133687004
+          }
+        ]
+      },
+      "dataset_b_video_001_window_20": {
+        "block_count": 48,
+        "embedding_count": 48,
+        "feature_count": 47,
+        "ruptures_breakpoints": [
+          3,
+          7,
+          11,
+          15,
+          18,
+          21,
+          29,
+          32,
+          35,
+          38,
+          44
+        ],
+        "predicted_boundaries": [
+          1776,
+          1781,
+          1788,
+          1795,
+          1803,
+          1809,
+          1816,
+          1831,
+          1839,
+          1846,
+          1854,
+          1869
+        ],
+        "top_features": [
+          {
+            "feature_index": 0,
+            "score": 0.3783550117659036
+          },
+          {
+            "feature_index": 46,
+            "score": 0.36440536273235746
+          },
+          {
+            "feature_index": 1,
+            "score": 0.35893435049362576
+          },
+          {
+            "feature_index": 2,
+            "score": 0.3391441386120492
+          },
+          {
+            "feature_index": 30,
+            "score": 0.33775167664725836
+          },
+          {
+            "feature_index": 31,
+            "score": 0.33681603846286357
+          },
+          {
+            "feature_index": 36,
+            "score": 0.32941800654533826
+          },
+          {
+            "feature_index": 29,
+            "score": 0.31643316881698436
+          },
+          {
+            "feature_index": 45,
+            "score": 0.31405840673691865
+          },
+          {
+            "feature_index": 16,
+            "score": 0.3077762729777157
+          },
+          {
+            "feature_index": 3,
+            "score": 0.29929797195963387
+          },
+          {
+            "feature_index": 35,
+            "score": 0.29450814683878324
+          }
+        ]
+      },
+      "dataset_b_video_001_window_25": {
+        "block_count": 48,
+        "embedding_count": 48,
+        "feature_count": 47,
+        "ruptures_breakpoints": [
+          5,
+          11,
+          14,
+          18,
+          21,
+          24,
+          31,
+          34,
+          39,
+          42
+        ],
+        "predicted_boundaries": [
+          2286,
+          2297,
+          2311,
+          2319,
+          2326,
+          2330,
+          2335,
+          2349,
+          2356,
+          2368,
+          2374
+        ],
+        "top_features": [
+          {
+            "feature_index": 2,
+            "score": 0.3871337173904144
+          },
+          {
+            "feature_index": 3,
+            "score": 0.38587708672736465
+          },
+          {
+            "feature_index": 1,
+            "score": 0.36182791149551674
+          },
+          {
+            "feature_index": 0,
+            "score": 0.3615168607885862
+          },
+          {
+            "feature_index": 19,
+            "score": 0.33301903991373233
+          },
+          {
+            "feature_index": 4,
+            "score": 0.33114074841464536
+          },
+          {
+            "feature_index": 20,
+            "score": 0.3281178891823107
+          },
+          {
+            "feature_index": 18,
+            "score": 0.3104167431036393
+          },
+          {
+            "feature_index": 22,
+            "score": 0.30505481638691684
+          },
+          {
+            "feature_index": 21,
+            "score": 0.30416389970576174
+          },
+          {
+            "feature_index": 46,
+            "score": 0.30116900333223884
+          },
+          {
+            "feature_index": 15,
+            "score": 0.30100418856773264
+          }
+        ]
+      }
+    },
+    "runtime_seconds": 8.866279290989041,
+    "embedding_count": 277,
+    "embedding_batches": 12,
+    "prompt_eval_count": 11484,
+    "ollama_total_duration_ns": 8728665667,
+    "metrics": {
+      "0": {
+        "aggregate": {
+          "case_count": 6,
+          "gold_topic_count": 34,
+          "predicted_topic_count": 60,
+          "true_positives": 8,
+          "false_positives": 52,
+          "false_negatives": 26,
+          "boundary_precision": 0.13333333333333333,
+          "boundary_recall": 0.23529411764705882,
+          "boundary_f1": 0.1702127659574468
+        },
+        "cases": [
+          {
+            "gold_boundaries": [
+              1,
+              16,
+              79,
+              94
+            ],
+            "predicted_boundaries": [
+              1,
+              9,
+              16,
+              30,
+              44,
+              56,
+              65,
+              71,
+              89,
+              95
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 1,
+                "predicted": 1,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 16,
+                "predicted": 16,
+                "distance": 0,
+                "signed_offset": 0
+              }
+            ],
+            "false_positives": [
+              9,
+              30,
+              44,
+              56,
+              65,
+              71,
+              89,
+              95
+            ],
+            "false_negatives": [
+              79,
+              94
+            ],
+            "true_positives": 2,
+            "precision": 0.2,
+            "recall": 0.5,
+            "f1": 0.28571428571428575,
+            "gold_topic_count": 4,
+            "predicted_topic_count": 10,
+            "topic_count_error": 6,
+            "case_id": "dataset_b_video_001_window_01"
+          },
+          {
+            "gold_boundaries": [
+              508,
+              525,
+              538,
+              556,
+              569,
+              581
+            ],
+            "predicted_boundaries": [
+              508,
+              517,
+              529,
+              555,
+              563,
+              570,
+              582
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 508,
+                "predicted": 508,
+                "distance": 0,
+                "signed_offset": 0
+              }
+            ],
+            "false_positives": [
+              517,
+              529,
+              555,
+              563,
+              570,
+              582
+            ],
+            "false_negatives": [
+              525,
+              538,
+              556,
+              569,
+              581
+            ],
+            "true_positives": 1,
+            "precision": 0.14285714285714285,
+            "recall": 0.16666666666666666,
+            "f1": 0.15384615384615383,
+            "gold_topic_count": 6,
+            "predicted_topic_count": 7,
+            "topic_count_error": 1,
+            "case_id": "dataset_b_video_001_window_06"
+          },
+          {
+            "gold_boundaries": [
+              948,
+              951,
+              977,
+              990,
+              1007,
+              1021
+            ],
+            "predicted_boundaries": [
+              948,
+              959,
+              981,
+              985,
+              994,
+              1000,
+              1012,
+              1023
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 948,
+                "predicted": 948,
+                "distance": 0,
+                "signed_offset": 0
+              }
+            ],
+            "false_positives": [
+              959,
+              981,
+              985,
+              994,
+              1000,
+              1012,
+              1023
+            ],
+            "false_negatives": [
+              951,
+              977,
+              990,
+              1007,
+              1021
+            ],
+            "true_positives": 1,
+            "precision": 0.125,
+            "recall": 0.16666666666666666,
+            "f1": 0.14285714285714288,
+            "gold_topic_count": 6,
+            "predicted_topic_count": 8,
+            "topic_count_error": 2,
+            "case_id": "dataset_b_video_001_window_11"
+          },
+          {
+            "gold_boundaries": [
+              1325,
+              1341,
+              1358,
+              1368,
+              1403
+            ],
+            "predicted_boundaries": [
+              1325,
+              1334,
+              1340,
+              1348,
+              1355,
+              1360,
+              1370,
+              1378,
+              1384,
+              1391,
+              1402,
+              1406
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 1325,
+                "predicted": 1325,
+                "distance": 0,
+                "signed_offset": 0
+              }
+            ],
+            "false_positives": [
+              1334,
+              1340,
+              1348,
+              1355,
+              1360,
+              1370,
+              1378,
+              1384,
+              1391,
+              1402,
+              1406
+            ],
+            "false_negatives": [
+              1341,
+              1358,
+              1368,
+              1403
+            ],
+            "true_positives": 1,
+            "precision": 0.08333333333333333,
+            "recall": 0.2,
+            "f1": 0.11764705882352941,
+            "gold_topic_count": 5,
+            "predicted_topic_count": 12,
+            "topic_count_error": 7,
+            "case_id": "dataset_b_video_001_window_15"
+          },
+          {
+            "gold_boundaries": [
+              1776,
+              1787,
+              1804,
+              1806,
+              1837
+            ],
+            "predicted_boundaries": [
+              1776,
+              1781,
+              1788,
+              1795,
+              1803,
+              1809,
+              1816,
+              1831,
+              1839,
+              1846,
+              1854,
+              1869
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 1776,
+                "predicted": 1776,
+                "distance": 0,
+                "signed_offset": 0
+              }
+            ],
+            "false_positives": [
+              1781,
+              1788,
+              1795,
+              1803,
+              1809,
+              1816,
+              1831,
+              1839,
+              1846,
+              1854,
+              1869
+            ],
+            "false_negatives": [
+              1787,
+              1804,
+              1806,
+              1837
+            ],
+            "true_positives": 1,
+            "precision": 0.08333333333333333,
+            "recall": 0.2,
+            "f1": 0.11764705882352941,
+            "gold_topic_count": 5,
+            "predicted_topic_count": 12,
+            "topic_count_error": 7,
+            "case_id": "dataset_b_video_001_window_20"
+          },
+          {
+            "gold_boundaries": [
+              2286,
+              2292,
+              2315,
+              2323,
+              2330,
+              2344,
+              2351,
+              2377
+            ],
+            "predicted_boundaries": [
+              2286,
+              2297,
+              2311,
+              2319,
+              2326,
+              2330,
+              2335,
+              2349,
+              2356,
+              2368,
+              2374
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 2286,
+                "predicted": 2286,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 2330,
+                "predicted": 2330,
+                "distance": 0,
+                "signed_offset": 0
+              }
+            ],
+            "false_positives": [
+              2297,
+              2311,
+              2319,
+              2326,
+              2335,
+              2349,
+              2356,
+              2368,
+              2374
+            ],
+            "false_negatives": [
+              2292,
+              2315,
+              2323,
+              2344,
+              2351,
+              2377
+            ],
+            "true_positives": 2,
+            "precision": 0.18181818181818182,
+            "recall": 0.25,
+            "f1": 0.2105263157894737,
+            "gold_topic_count": 8,
+            "predicted_topic_count": 11,
+            "topic_count_error": 3,
+            "case_id": "dataset_b_video_001_window_25"
+          }
+        ],
+        "recall_by_third": {
+          "early": {
+            "hit": 7,
+            "total": 15,
+            "recall": 0.4666666666666667
+          },
+          "middle": {
+            "hit": 1,
+            "total": 11,
+            "recall": 0.09090909090909091
+          },
+          "late": {
+            "hit": 0,
+            "total": 8,
+            "recall": 0.0
+          }
+        }
+      },
+      "1": {
+        "aggregate": {
+          "case_count": 6,
+          "gold_topic_count": 34,
+          "predicted_topic_count": 60,
+          "true_positives": 16,
+          "false_positives": 44,
+          "false_negatives": 18,
+          "boundary_precision": 0.26666666666666666,
+          "boundary_recall": 0.47058823529411764,
+          "boundary_f1": 0.3404255319148936
+        },
+        "cases": [
+          {
+            "gold_boundaries": [
+              1,
+              16,
+              79,
+              94
+            ],
+            "predicted_boundaries": [
+              1,
+              9,
+              16,
+              30,
+              44,
+              56,
+              65,
+              71,
+              89,
+              95
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 1,
+                "predicted": 1,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 16,
+                "predicted": 16,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 94,
+                "predicted": 95,
+                "distance": 1,
+                "signed_offset": 1
+              }
+            ],
+            "false_positives": [
+              9,
+              30,
+              44,
+              56,
+              65,
+              71,
+              89
+            ],
+            "false_negatives": [
+              79
+            ],
+            "true_positives": 3,
+            "precision": 0.3,
+            "recall": 0.75,
+            "f1": 0.4285714285714285,
+            "gold_topic_count": 4,
+            "predicted_topic_count": 10,
+            "topic_count_error": 6,
+            "case_id": "dataset_b_video_001_window_01"
+          },
+          {
+            "gold_boundaries": [
+              508,
+              525,
+              538,
+              556,
+              569,
+              581
+            ],
+            "predicted_boundaries": [
+              508,
+              517,
+              529,
+              555,
+              563,
+              570,
+              582
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 508,
+                "predicted": 508,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 556,
+                "predicted": 555,
+                "distance": 1,
+                "signed_offset": -1
+              },
+              {
+                "gold": 569,
+                "predicted": 570,
+                "distance": 1,
+                "signed_offset": 1
+              },
+              {
+                "gold": 581,
+                "predicted": 582,
+                "distance": 1,
+                "signed_offset": 1
+              }
+            ],
+            "false_positives": [
+              517,
+              529,
+              563
+            ],
+            "false_negatives": [
+              525,
+              538
+            ],
+            "true_positives": 4,
+            "precision": 0.5714285714285714,
+            "recall": 0.6666666666666666,
+            "f1": 0.6153846153846153,
+            "gold_topic_count": 6,
+            "predicted_topic_count": 7,
+            "topic_count_error": 1,
+            "case_id": "dataset_b_video_001_window_06"
+          },
+          {
+            "gold_boundaries": [
+              948,
+              951,
+              977,
+              990,
+              1007,
+              1021
+            ],
+            "predicted_boundaries": [
+              948,
+              959,
+              981,
+              985,
+              994,
+              1000,
+              1012,
+              1023
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 948,
+                "predicted": 948,
+                "distance": 0,
+                "signed_offset": 0
+              }
+            ],
+            "false_positives": [
+              959,
+              981,
+              985,
+              994,
+              1000,
+              1012,
+              1023
+            ],
+            "false_negatives": [
+              951,
+              977,
+              990,
+              1007,
+              1021
+            ],
+            "true_positives": 1,
+            "precision": 0.125,
+            "recall": 0.16666666666666666,
+            "f1": 0.14285714285714288,
+            "gold_topic_count": 6,
+            "predicted_topic_count": 8,
+            "topic_count_error": 2,
+            "case_id": "dataset_b_video_001_window_11"
+          },
+          {
+            "gold_boundaries": [
+              1325,
+              1341,
+              1358,
+              1368,
+              1403
+            ],
+            "predicted_boundaries": [
+              1325,
+              1334,
+              1340,
+              1348,
+              1355,
+              1360,
+              1370,
+              1378,
+              1384,
+              1391,
+              1402,
+              1406
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 1325,
+                "predicted": 1325,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 1341,
+                "predicted": 1340,
+                "distance": 1,
+                "signed_offset": -1
+              },
+              {
+                "gold": 1403,
+                "predicted": 1402,
+                "distance": 1,
+                "signed_offset": -1
+              }
+            ],
+            "false_positives": [
+              1334,
+              1348,
+              1355,
+              1360,
+              1370,
+              1378,
+              1384,
+              1391,
+              1406
+            ],
+            "false_negatives": [
+              1358,
+              1368
+            ],
+            "true_positives": 3,
+            "precision": 0.25,
+            "recall": 0.6,
+            "f1": 0.35294117647058826,
+            "gold_topic_count": 5,
+            "predicted_topic_count": 12,
+            "topic_count_error": 7,
+            "case_id": "dataset_b_video_001_window_15"
+          },
+          {
+            "gold_boundaries": [
+              1776,
+              1787,
+              1804,
+              1806,
+              1837
+            ],
+            "predicted_boundaries": [
+              1776,
+              1781,
+              1788,
+              1795,
+              1803,
+              1809,
+              1816,
+              1831,
+              1839,
+              1846,
+              1854,
+              1869
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 1776,
+                "predicted": 1776,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 1787,
+                "predicted": 1788,
+                "distance": 1,
+                "signed_offset": 1
+              },
+              {
+                "gold": 1804,
+                "predicted": 1803,
+                "distance": 1,
+                "signed_offset": -1
+              }
+            ],
+            "false_positives": [
+              1781,
+              1795,
+              1809,
+              1816,
+              1831,
+              1839,
+              1846,
+              1854,
+              1869
+            ],
+            "false_negatives": [
+              1806,
+              1837
+            ],
+            "true_positives": 3,
+            "precision": 0.25,
+            "recall": 0.6,
+            "f1": 0.35294117647058826,
+            "gold_topic_count": 5,
+            "predicted_topic_count": 12,
+            "topic_count_error": 7,
+            "case_id": "dataset_b_video_001_window_20"
+          },
+          {
+            "gold_boundaries": [
+              2286,
+              2292,
+              2315,
+              2323,
+              2330,
+              2344,
+              2351,
+              2377
+            ],
+            "predicted_boundaries": [
+              2286,
+              2297,
+              2311,
+              2319,
+              2326,
+              2330,
+              2335,
+              2349,
+              2356,
+              2368,
+              2374
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 2286,
+                "predicted": 2286,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 2330,
+                "predicted": 2330,
+                "distance": 0,
+                "signed_offset": 0
+              }
+            ],
+            "false_positives": [
+              2297,
+              2311,
+              2319,
+              2326,
+              2335,
+              2349,
+              2356,
+              2368,
+              2374
+            ],
+            "false_negatives": [
+              2292,
+              2315,
+              2323,
+              2344,
+              2351,
+              2377
+            ],
+            "true_positives": 2,
+            "precision": 0.18181818181818182,
+            "recall": 0.25,
+            "f1": 0.2105263157894737,
+            "gold_topic_count": 8,
+            "predicted_topic_count": 11,
+            "topic_count_error": 3,
+            "case_id": "dataset_b_video_001_window_25"
+          }
+        ],
+        "recall_by_third": {
+          "early": {
+            "hit": 10,
+            "total": 15,
+            "recall": 0.6666666666666666
+          },
+          "middle": {
+            "hit": 2,
+            "total": 11,
+            "recall": 0.18181818181818182
+          },
+          "late": {
+            "hit": 4,
+            "total": 8,
+            "recall": 0.5
+          }
+        }
+      },
+      "2": {
+        "aggregate": {
+          "case_count": 6,
+          "gold_topic_count": 34,
+          "predicted_topic_count": 60,
+          "true_positives": 21,
+          "false_positives": 39,
+          "false_negatives": 13,
+          "boundary_precision": 0.35,
+          "boundary_recall": 0.6176470588235294,
+          "boundary_f1": 0.4468085106382979
+        },
+        "cases": [
+          {
+            "gold_boundaries": [
+              1,
+              16,
+              79,
+              94
+            ],
+            "predicted_boundaries": [
+              1,
+              9,
+              16,
+              30,
+              44,
+              56,
+              65,
+              71,
+              89,
+              95
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 1,
+                "predicted": 1,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 16,
+                "predicted": 16,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 94,
+                "predicted": 95,
+                "distance": 1,
+                "signed_offset": 1
+              }
+            ],
+            "false_positives": [
+              9,
+              30,
+              44,
+              56,
+              65,
+              71,
+              89
+            ],
+            "false_negatives": [
+              79
+            ],
+            "true_positives": 3,
+            "precision": 0.3,
+            "recall": 0.75,
+            "f1": 0.4285714285714285,
+            "gold_topic_count": 4,
+            "predicted_topic_count": 10,
+            "topic_count_error": 6,
+            "case_id": "dataset_b_video_001_window_01"
+          },
+          {
+            "gold_boundaries": [
+              508,
+              525,
+              538,
+              556,
+              569,
+              581
+            ],
+            "predicted_boundaries": [
+              508,
+              517,
+              529,
+              555,
+              563,
+              570,
+              582
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 508,
+                "predicted": 508,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 556,
+                "predicted": 555,
+                "distance": 1,
+                "signed_offset": -1
+              },
+              {
+                "gold": 569,
+                "predicted": 570,
+                "distance": 1,
+                "signed_offset": 1
+              },
+              {
+                "gold": 581,
+                "predicted": 582,
+                "distance": 1,
+                "signed_offset": 1
+              }
+            ],
+            "false_positives": [
+              517,
+              529,
+              563
+            ],
+            "false_negatives": [
+              525,
+              538
+            ],
+            "true_positives": 4,
+            "precision": 0.5714285714285714,
+            "recall": 0.6666666666666666,
+            "f1": 0.6153846153846153,
+            "gold_topic_count": 6,
+            "predicted_topic_count": 7,
+            "topic_count_error": 1,
+            "case_id": "dataset_b_video_001_window_06"
+          },
+          {
+            "gold_boundaries": [
+              948,
+              951,
+              977,
+              990,
+              1007,
+              1021
+            ],
+            "predicted_boundaries": [
+              948,
+              959,
+              981,
+              985,
+              994,
+              1000,
+              1012,
+              1023
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 948,
+                "predicted": 948,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 1021,
+                "predicted": 1023,
+                "distance": 2,
+                "signed_offset": 2
+              }
+            ],
+            "false_positives": [
+              959,
+              981,
+              985,
+              994,
+              1000,
+              1012
+            ],
+            "false_negatives": [
+              951,
+              977,
+              990,
+              1007
+            ],
+            "true_positives": 2,
+            "precision": 0.25,
+            "recall": 0.3333333333333333,
+            "f1": 0.28571428571428575,
+            "gold_topic_count": 6,
+            "predicted_topic_count": 8,
+            "topic_count_error": 2,
+            "case_id": "dataset_b_video_001_window_11"
+          },
+          {
+            "gold_boundaries": [
+              1325,
+              1341,
+              1358,
+              1368,
+              1403
+            ],
+            "predicted_boundaries": [
+              1325,
+              1334,
+              1340,
+              1348,
+              1355,
+              1360,
+              1370,
+              1378,
+              1384,
+              1391,
+              1402,
+              1406
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 1325,
+                "predicted": 1325,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 1341,
+                "predicted": 1340,
+                "distance": 1,
+                "signed_offset": -1
+              },
+              {
+                "gold": 1358,
+                "predicted": 1360,
+                "distance": 2,
+                "signed_offset": 2
+              },
+              {
+                "gold": 1368,
+                "predicted": 1370,
+                "distance": 2,
+                "signed_offset": 2
+              },
+              {
+                "gold": 1403,
+                "predicted": 1402,
+                "distance": 1,
+                "signed_offset": -1
+              }
+            ],
+            "false_positives": [
+              1334,
+              1348,
+              1355,
+              1378,
+              1384,
+              1391,
+              1406
+            ],
+            "false_negatives": [],
+            "true_positives": 5,
+            "precision": 0.4166666666666667,
+            "recall": 1.0,
+            "f1": 0.5882352941176471,
+            "gold_topic_count": 5,
+            "predicted_topic_count": 12,
+            "topic_count_error": 7,
+            "case_id": "dataset_b_video_001_window_15"
+          },
+          {
+            "gold_boundaries": [
+              1776,
+              1787,
+              1804,
+              1806,
+              1837
+            ],
+            "predicted_boundaries": [
+              1776,
+              1781,
+              1788,
+              1795,
+              1803,
+              1809,
+              1816,
+              1831,
+              1839,
+              1846,
+              1854,
+              1869
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 1776,
+                "predicted": 1776,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 1787,
+                "predicted": 1788,
+                "distance": 1,
+                "signed_offset": 1
+              },
+              {
+                "gold": 1804,
+                "predicted": 1803,
+                "distance": 1,
+                "signed_offset": -1
+              },
+              {
+                "gold": 1837,
+                "predicted": 1839,
+                "distance": 2,
+                "signed_offset": 2
+              }
+            ],
+            "false_positives": [
+              1781,
+              1795,
+              1809,
+              1816,
+              1831,
+              1846,
+              1854,
+              1869
+            ],
+            "false_negatives": [
+              1806
+            ],
+            "true_positives": 4,
+            "precision": 0.3333333333333333,
+            "recall": 0.8,
+            "f1": 0.47058823529411764,
+            "gold_topic_count": 5,
+            "predicted_topic_count": 12,
+            "topic_count_error": 7,
+            "case_id": "dataset_b_video_001_window_20"
+          },
+          {
+            "gold_boundaries": [
+              2286,
+              2292,
+              2315,
+              2323,
+              2330,
+              2344,
+              2351,
+              2377
+            ],
+            "predicted_boundaries": [
+              2286,
+              2297,
+              2311,
+              2319,
+              2326,
+              2330,
+              2335,
+              2349,
+              2356,
+              2368,
+              2374
+            ],
+            "matched_boundaries": [
+              {
+                "gold": 2286,
+                "predicted": 2286,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 2330,
+                "predicted": 2330,
+                "distance": 0,
+                "signed_offset": 0
+              },
+              {
+                "gold": 2351,
+                "predicted": 2349,
+                "distance": 2,
+                "signed_offset": -2
+              }
+            ],
+            "false_positives": [
+              2297,
+              2311,
+              2319,
+              2326,
+              2335,
+              2356,
+              2368,
+              2374
+            ],
+            "false_negatives": [
+              2292,
+              2315,
+              2323,
+              2344,
+              2377
+            ],
+            "true_positives": 3,
+            "precision": 0.2727272727272727,
+            "recall": 0.375,
+            "f1": 0.3157894736842105,
+            "gold_topic_count": 8,
+            "predicted_topic_count": 11,
+            "topic_count_error": 3,
+            "case_id": "dataset_b_video_001_window_25"
+          }
+        ],
+        "recall_by_third": {
+          "early": {
+            "hit": 10,
+            "total": 15,
+            "recall": 0.6666666666666666
+          },
+          "middle": {
+            "hit": 6,
+            "total": 11,
+            "recall": 0.5454545454545454
+          },
+          "late": {
+            "hit": 5,
+            "total": 8,
+            "recall": 0.625
+          }
+        }
+      }
+    }
+  }
+}

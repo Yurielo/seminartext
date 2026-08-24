@@ -93,10 +93,17 @@ def source_metadata(project_dir: Path, source_id: str) -> dict:
 def segment_payload(segment: dict) -> dict:
     return {
         "id": segment["id"],
-        "start": segment.get("start_tc") or segment["start"],
-        "end": segment.get("end_tc") or segment["end"],
+        "start": srt_timecode(segment.get("start_tc") or segment["start"]),
+        "end": srt_timecode(segment.get("end_tc") or segment["end"]),
         "text": segment["text"],
     }
+
+
+def srt_timecode(value: object) -> str:
+    text = str(value)
+    if ":" in text and "." in text and "," not in text:
+        return text.replace(".", ",")
+    return text
 
 
 def build_benchmark(project_dir: Path, source_id: str) -> dict:
@@ -132,8 +139,8 @@ def build_benchmark(project_dir: Path, source_id: str) -> dict:
                 "source_id": source_id,
                 "window_number": window_number,
                 "selection_index": index,
-                "start": first.get("start_tc") or first["start"],
-                "end": last.get("end_tc") or last["end"],
+                "start": srt_timecode(first.get("start_tc") or first["start"]),
+                "end": srt_timecode(last.get("end_tc") or last["end"]),
                 "first_segment_id": first["id"],
                 "last_segment_id": last["id"],
                 "segment_count": len(window),
@@ -148,8 +155,8 @@ def build_benchmark(project_dir: Path, source_id: str) -> dict:
                     "transcript_srt": str(transcript_srt),
                     "segment_range": [first["id"], last["id"]],
                     "timestamp_range": [
-                        first.get("start_tc") or first["start"],
-                        last.get("end_tc") or last["end"],
+                        srt_timecode(first.get("start_tc") or first["start"]),
+                        srt_timecode(last.get("end_tc") or last["end"]),
                     ],
                 },
                 "segments": [segment_payload(segment) for segment in window],

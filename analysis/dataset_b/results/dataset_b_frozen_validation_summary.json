@@ -1,0 +1,1153 @@
+{
+  "schema_version": 1,
+  "type": "seminartext_dataset_b_frozen_validation_summary",
+  "issue": 15,
+  "benchmark": {
+    "path": "analysis/dataset_b/topic_benchmark_dataset_b.json",
+    "status": "gold_complete",
+    "gold_complete_cases": 6,
+    "case_count": 6,
+    "gold_topic_count": 34
+  },
+  "source_results": {
+    "sliding_and_baseline": "analysis/dataset_b/results/dataset_b_sliding_subwindow_frozen.json",
+    "bge_m3_local_peak": "analysis/dataset_b/results/dataset_b_bge_m3_changepoint_frozen.json",
+    "bge_m3_ruptures_pelt": "analysis/dataset_b/results/dataset_b_bge_m3_ruptures_frozen.json"
+  },
+  "engines": {
+    "ollama_baseline": {
+      "label": "Frozen Ollama semantic baseline",
+      "runtime": {
+        "runtime_seconds": 83.277,
+        "model_calls": 6
+      },
+      "aggregate_by_tolerance": [
+        {
+          "tolerance": 0,
+          "precision": 0.179,
+          "recall": 0.206,
+          "f1": 0.192,
+          "predicted_topic_count": 39,
+          "true_positives": 7,
+          "false_positives": 32,
+          "false_negatives": 27
+        },
+        {
+          "tolerance": 1,
+          "precision": 0.308,
+          "recall": 0.353,
+          "f1": 0.329,
+          "predicted_topic_count": 39,
+          "true_positives": 12,
+          "false_positives": 27,
+          "false_negatives": 22
+        },
+        {
+          "tolerance": 2,
+          "precision": 0.333,
+          "recall": 0.382,
+          "f1": 0.356,
+          "predicted_topic_count": 39,
+          "true_positives": 13,
+          "false_positives": 26,
+          "false_negatives": 21
+        }
+      ],
+      "recall_by_third_tolerance_2": {
+        "early": {
+          "hit": 8,
+          "total": 15,
+          "recall": 0.533
+        },
+        "middle": {
+          "hit": 4,
+          "total": 11,
+          "recall": 0.364
+        },
+        "late": {
+          "hit": 1,
+          "total": 8,
+          "recall": 0.125
+        }
+      },
+      "per_window_by_tolerance": {
+        "0": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.143,
+            "recall": 0.25,
+            "f1": 0.182,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 4,
+            "true_positives": 1,
+            "false_positives": 6,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 0.286,
+            "recall": 0.333,
+            "f1": 0.308,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 5,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 1.0,
+            "recall": 0.167,
+            "f1": 0.286,
+            "predicted_topic_count": 1,
+            "gold_topic_count": 6,
+            "true_positives": 1,
+            "false_positives": 0,
+            "false_negatives": 5
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.083,
+            "recall": 0.2,
+            "f1": 0.118,
+            "predicted_topic_count": 12,
+            "gold_topic_count": 5,
+            "true_positives": 1,
+            "false_positives": 11,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.2,
+            "recall": 0.2,
+            "f1": 0.2,
+            "predicted_topic_count": 5,
+            "gold_topic_count": 5,
+            "true_positives": 1,
+            "false_positives": 4,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.143,
+            "recall": 0.125,
+            "f1": 0.133,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 8,
+            "true_positives": 1,
+            "false_positives": 6,
+            "false_negatives": 7
+          }
+        ],
+        "1": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.143,
+            "recall": 0.25,
+            "f1": 0.182,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 4,
+            "true_positives": 1,
+            "false_positives": 6,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 0.286,
+            "recall": 0.333,
+            "f1": 0.308,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 5,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 1.0,
+            "recall": 0.167,
+            "f1": 0.286,
+            "predicted_topic_count": 1,
+            "gold_topic_count": 6,
+            "true_positives": 1,
+            "false_positives": 0,
+            "false_negatives": 5
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.25,
+            "recall": 0.6,
+            "f1": 0.353,
+            "predicted_topic_count": 12,
+            "gold_topic_count": 5,
+            "true_positives": 3,
+            "false_positives": 9,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.2,
+            "recall": 0.2,
+            "f1": 0.2,
+            "predicted_topic_count": 5,
+            "gold_topic_count": 5,
+            "true_positives": 1,
+            "false_positives": 4,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.571,
+            "recall": 0.5,
+            "f1": 0.533,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 8,
+            "true_positives": 4,
+            "false_positives": 3,
+            "false_negatives": 4
+          }
+        ],
+        "2": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.143,
+            "recall": 0.25,
+            "f1": 0.182,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 4,
+            "true_positives": 1,
+            "false_positives": 6,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 0.286,
+            "recall": 0.333,
+            "f1": 0.308,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 5,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 1.0,
+            "recall": 0.167,
+            "f1": 0.286,
+            "predicted_topic_count": 1,
+            "gold_topic_count": 6,
+            "true_positives": 1,
+            "false_positives": 0,
+            "false_negatives": 5
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.25,
+            "recall": 0.6,
+            "f1": 0.353,
+            "predicted_topic_count": 12,
+            "gold_topic_count": 5,
+            "true_positives": 3,
+            "false_positives": 9,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.4,
+            "recall": 0.4,
+            "f1": 0.4,
+            "predicted_topic_count": 5,
+            "gold_topic_count": 5,
+            "true_positives": 2,
+            "false_positives": 3,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.571,
+            "recall": 0.5,
+            "f1": 0.533,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 8,
+            "true_positives": 4,
+            "false_positives": 3,
+            "false_negatives": 4
+          }
+        ]
+      },
+      "dataset_a_tolerance_2": {
+        "precision": 0.5,
+        "recall": 0.458,
+        "f1": 0.478,
+        "predicted": 44,
+        "early": 0.8,
+        "middle": 0.25,
+        "late": 0.167
+      },
+      "dataset_b_tolerance_2": {
+        "precision": 0.333,
+        "recall": 0.382,
+        "f1": 0.356,
+        "predicted": 39
+      },
+      "delta_b_minus_a_tolerance_2": {
+        "precision": -0.167,
+        "recall": -0.076,
+        "f1": -0.122,
+        "predicted": -5
+      }
+    },
+    "sliding_subwindow": {
+      "label": "Issue #7 sliding sub-window",
+      "runtime": {
+        "runtime_seconds": 270.741,
+        "model_calls": 24
+      },
+      "aggregate_by_tolerance": [
+        {
+          "tolerance": 0,
+          "precision": 0.228,
+          "recall": 0.382,
+          "f1": 0.286,
+          "predicted_topic_count": 57,
+          "true_positives": 13,
+          "false_positives": 44,
+          "false_negatives": 21
+        },
+        {
+          "tolerance": 1,
+          "precision": 0.351,
+          "recall": 0.588,
+          "f1": 0.44,
+          "predicted_topic_count": 57,
+          "true_positives": 20,
+          "false_positives": 37,
+          "false_negatives": 14
+        },
+        {
+          "tolerance": 2,
+          "precision": 0.368,
+          "recall": 0.618,
+          "f1": 0.462,
+          "predicted_topic_count": 57,
+          "true_positives": 21,
+          "false_positives": 36,
+          "false_negatives": 13
+        }
+      ],
+      "recall_by_third_tolerance_2": {
+        "early": {
+          "hit": 10,
+          "total": 15,
+          "recall": 0.667
+        },
+        "middle": {
+          "hit": 8,
+          "total": 11,
+          "recall": 0.727
+        },
+        "late": {
+          "hit": 3,
+          "total": 8,
+          "recall": 0.375
+        }
+      },
+      "per_window_by_tolerance": {
+        "0": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.111,
+            "recall": 0.25,
+            "f1": 0.154,
+            "predicted_topic_count": 9,
+            "gold_topic_count": 4,
+            "true_positives": 1,
+            "false_positives": 8,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 0.222,
+            "recall": 0.333,
+            "f1": 0.267,
+            "predicted_topic_count": 9,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 7,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 0.2,
+            "recall": 0.333,
+            "f1": 0.25,
+            "predicted_topic_count": 10,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 8,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.091,
+            "recall": 0.2,
+            "f1": 0.125,
+            "predicted_topic_count": 11,
+            "gold_topic_count": 5,
+            "true_positives": 1,
+            "false_positives": 10,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.4,
+            "recall": 0.8,
+            "f1": 0.533,
+            "predicted_topic_count": 10,
+            "gold_topic_count": 5,
+            "true_positives": 4,
+            "false_positives": 6,
+            "false_negatives": 1
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.375,
+            "recall": 0.375,
+            "f1": 0.375,
+            "predicted_topic_count": 8,
+            "gold_topic_count": 8,
+            "true_positives": 3,
+            "false_positives": 5,
+            "false_negatives": 5
+          }
+        ],
+        "1": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.111,
+            "recall": 0.25,
+            "f1": 0.154,
+            "predicted_topic_count": 9,
+            "gold_topic_count": 4,
+            "true_positives": 1,
+            "false_positives": 8,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 0.333,
+            "recall": 0.5,
+            "f1": 0.4,
+            "predicted_topic_count": 9,
+            "gold_topic_count": 6,
+            "true_positives": 3,
+            "false_positives": 6,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 0.4,
+            "recall": 0.667,
+            "f1": 0.5,
+            "predicted_topic_count": 10,
+            "gold_topic_count": 6,
+            "true_positives": 4,
+            "false_positives": 6,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.273,
+            "recall": 0.6,
+            "f1": 0.375,
+            "predicted_topic_count": 11,
+            "gold_topic_count": 5,
+            "true_positives": 3,
+            "false_positives": 8,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.4,
+            "recall": 0.8,
+            "f1": 0.533,
+            "predicted_topic_count": 10,
+            "gold_topic_count": 5,
+            "true_positives": 4,
+            "false_positives": 6,
+            "false_negatives": 1
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.625,
+            "recall": 0.625,
+            "f1": 0.625,
+            "predicted_topic_count": 8,
+            "gold_topic_count": 8,
+            "true_positives": 5,
+            "false_positives": 3,
+            "false_negatives": 3
+          }
+        ],
+        "2": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.111,
+            "recall": 0.25,
+            "f1": 0.154,
+            "predicted_topic_count": 9,
+            "gold_topic_count": 4,
+            "true_positives": 1,
+            "false_positives": 8,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 0.333,
+            "recall": 0.5,
+            "f1": 0.4,
+            "predicted_topic_count": 9,
+            "gold_topic_count": 6,
+            "true_positives": 3,
+            "false_positives": 6,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 0.4,
+            "recall": 0.667,
+            "f1": 0.5,
+            "predicted_topic_count": 10,
+            "gold_topic_count": 6,
+            "true_positives": 4,
+            "false_positives": 6,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.364,
+            "recall": 0.8,
+            "f1": 0.5,
+            "predicted_topic_count": 11,
+            "gold_topic_count": 5,
+            "true_positives": 4,
+            "false_positives": 7,
+            "false_negatives": 1
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.4,
+            "recall": 0.8,
+            "f1": 0.533,
+            "predicted_topic_count": 10,
+            "gold_topic_count": 5,
+            "true_positives": 4,
+            "false_positives": 6,
+            "false_negatives": 1
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.625,
+            "recall": 0.625,
+            "f1": 0.625,
+            "predicted_topic_count": 8,
+            "gold_topic_count": 8,
+            "true_positives": 5,
+            "false_positives": 3,
+            "false_negatives": 3
+          }
+        ]
+      },
+      "dataset_a_tolerance_2": {
+        "precision": 0.383,
+        "recall": 0.479,
+        "f1": 0.426,
+        "predicted": 60,
+        "early": 0.5,
+        "middle": 0.688,
+        "late": 0.167
+      },
+      "dataset_b_tolerance_2": {
+        "precision": 0.368,
+        "recall": 0.618,
+        "f1": 0.462,
+        "predicted": 57
+      },
+      "delta_b_minus_a_tolerance_2": {
+        "precision": -0.015,
+        "recall": 0.139,
+        "f1": 0.036,
+        "predicted": -3
+      }
+    },
+    "bge_m3_local_peak": {
+      "label": "Issue #9 bge-m3 local peak",
+      "runtime": {
+        "runtime_seconds": 11.611,
+        "embedding_count": 277,
+        "embedding_batches": 12
+      },
+      "aggregate_by_tolerance": [
+        {
+          "tolerance": 0,
+          "precision": 0.385,
+          "recall": 0.294,
+          "f1": 0.333,
+          "predicted_topic_count": 26,
+          "true_positives": 10,
+          "false_positives": 16,
+          "false_negatives": 24
+        },
+        {
+          "tolerance": 1,
+          "precision": 0.577,
+          "recall": 0.441,
+          "f1": 0.5,
+          "predicted_topic_count": 26,
+          "true_positives": 15,
+          "false_positives": 11,
+          "false_negatives": 19
+        },
+        {
+          "tolerance": 2,
+          "precision": 0.615,
+          "recall": 0.471,
+          "f1": 0.533,
+          "predicted_topic_count": 26,
+          "true_positives": 16,
+          "false_positives": 10,
+          "false_negatives": 18
+        }
+      ],
+      "recall_by_third_tolerance_2": {
+        "early": {
+          "hit": 9,
+          "total": 15,
+          "recall": 0.6
+        },
+        "middle": {
+          "hit": 6,
+          "total": 11,
+          "recall": 0.545
+        },
+        "late": {
+          "hit": 1,
+          "total": 8,
+          "recall": 0.125
+        }
+      },
+      "per_window_by_tolerance": {
+        "0": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.25,
+            "recall": 0.25,
+            "f1": 0.25,
+            "predicted_topic_count": 4,
+            "gold_topic_count": 4,
+            "true_positives": 1,
+            "false_positives": 3,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 1.0,
+            "recall": 0.333,
+            "f1": 0.5,
+            "predicted_topic_count": 2,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 0,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 0.5,
+            "recall": 0.333,
+            "f1": 0.4,
+            "predicted_topic_count": 4,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 2,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.4,
+            "recall": 0.4,
+            "f1": 0.4,
+            "predicted_topic_count": 5,
+            "gold_topic_count": 5,
+            "true_positives": 2,
+            "false_positives": 3,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.2,
+            "recall": 0.2,
+            "f1": 0.2,
+            "predicted_topic_count": 5,
+            "gold_topic_count": 5,
+            "true_positives": 1,
+            "false_positives": 4,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.333,
+            "recall": 0.25,
+            "f1": 0.286,
+            "predicted_topic_count": 6,
+            "gold_topic_count": 8,
+            "true_positives": 2,
+            "false_positives": 4,
+            "false_negatives": 6
+          }
+        ],
+        "1": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.5,
+            "recall": 0.5,
+            "f1": 0.5,
+            "predicted_topic_count": 4,
+            "gold_topic_count": 4,
+            "true_positives": 2,
+            "false_positives": 2,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 1.0,
+            "recall": 0.333,
+            "f1": 0.5,
+            "predicted_topic_count": 2,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 0,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 0.5,
+            "recall": 0.333,
+            "f1": 0.4,
+            "predicted_topic_count": 4,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 2,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.6,
+            "recall": 0.6,
+            "f1": 0.6,
+            "predicted_topic_count": 5,
+            "gold_topic_count": 5,
+            "true_positives": 3,
+            "false_positives": 2,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.4,
+            "recall": 0.4,
+            "f1": 0.4,
+            "predicted_topic_count": 5,
+            "gold_topic_count": 5,
+            "true_positives": 2,
+            "false_positives": 3,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.667,
+            "recall": 0.5,
+            "f1": 0.571,
+            "predicted_topic_count": 6,
+            "gold_topic_count": 8,
+            "true_positives": 4,
+            "false_positives": 2,
+            "false_negatives": 4
+          }
+        ],
+        "2": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.5,
+            "recall": 0.5,
+            "f1": 0.5,
+            "predicted_topic_count": 4,
+            "gold_topic_count": 4,
+            "true_positives": 2,
+            "false_positives": 2,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 1.0,
+            "recall": 0.333,
+            "f1": 0.5,
+            "predicted_topic_count": 2,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 0,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 0.5,
+            "recall": 0.333,
+            "f1": 0.4,
+            "predicted_topic_count": 4,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 2,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.8,
+            "recall": 0.8,
+            "f1": 0.8,
+            "predicted_topic_count": 5,
+            "gold_topic_count": 5,
+            "true_positives": 4,
+            "false_positives": 1,
+            "false_negatives": 1
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.4,
+            "recall": 0.4,
+            "f1": 0.4,
+            "predicted_topic_count": 5,
+            "gold_topic_count": 5,
+            "true_positives": 2,
+            "false_positives": 3,
+            "false_negatives": 3
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.667,
+            "recall": 0.5,
+            "f1": 0.571,
+            "predicted_topic_count": 6,
+            "gold_topic_count": 8,
+            "true_positives": 4,
+            "false_positives": 2,
+            "false_negatives": 4
+          }
+        ]
+      },
+      "dataset_a_tolerance_2": {
+        "precision": 0.577,
+        "recall": 0.312,
+        "f1": 0.405,
+        "predicted": 26,
+        "early": 0.45,
+        "middle": 0.25,
+        "late": 0.167
+      },
+      "dataset_b_tolerance_2": {
+        "precision": 0.615,
+        "recall": 0.471,
+        "f1": 0.533,
+        "predicted": 26
+      },
+      "delta_b_minus_a_tolerance_2": {
+        "precision": 0.038,
+        "recall": 0.159,
+        "f1": 0.128,
+        "predicted": 0
+      }
+    },
+    "bge_m3_ruptures_pelt": {
+      "label": "Issue #11 bge-m3 + ruptures.Pelt",
+      "runtime": {
+        "runtime_seconds": 8.866,
+        "embedding_count": 277,
+        "embedding_batches": 12
+      },
+      "aggregate_by_tolerance": [
+        {
+          "tolerance": 0,
+          "precision": 0.133,
+          "recall": 0.235,
+          "f1": 0.17,
+          "predicted_topic_count": 60,
+          "true_positives": 8,
+          "false_positives": 52,
+          "false_negatives": 26
+        },
+        {
+          "tolerance": 1,
+          "precision": 0.267,
+          "recall": 0.471,
+          "f1": 0.34,
+          "predicted_topic_count": 60,
+          "true_positives": 16,
+          "false_positives": 44,
+          "false_negatives": 18
+        },
+        {
+          "tolerance": 2,
+          "precision": 0.35,
+          "recall": 0.618,
+          "f1": 0.447,
+          "predicted_topic_count": 60,
+          "true_positives": 21,
+          "false_positives": 39,
+          "false_negatives": 13
+        }
+      ],
+      "recall_by_third_tolerance_2": {
+        "early": {
+          "hit": 10,
+          "total": 15,
+          "recall": 0.667
+        },
+        "middle": {
+          "hit": 6,
+          "total": 11,
+          "recall": 0.545
+        },
+        "late": {
+          "hit": 5,
+          "total": 8,
+          "recall": 0.625
+        }
+      },
+      "per_window_by_tolerance": {
+        "0": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.2,
+            "recall": 0.5,
+            "f1": 0.286,
+            "predicted_topic_count": 10,
+            "gold_topic_count": 4,
+            "true_positives": 2,
+            "false_positives": 8,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 0.143,
+            "recall": 0.167,
+            "f1": 0.154,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 6,
+            "true_positives": 1,
+            "false_positives": 6,
+            "false_negatives": 5
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 0.125,
+            "recall": 0.167,
+            "f1": 0.143,
+            "predicted_topic_count": 8,
+            "gold_topic_count": 6,
+            "true_positives": 1,
+            "false_positives": 7,
+            "false_negatives": 5
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.083,
+            "recall": 0.2,
+            "f1": 0.118,
+            "predicted_topic_count": 12,
+            "gold_topic_count": 5,
+            "true_positives": 1,
+            "false_positives": 11,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.083,
+            "recall": 0.2,
+            "f1": 0.118,
+            "predicted_topic_count": 12,
+            "gold_topic_count": 5,
+            "true_positives": 1,
+            "false_positives": 11,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.182,
+            "recall": 0.25,
+            "f1": 0.211,
+            "predicted_topic_count": 11,
+            "gold_topic_count": 8,
+            "true_positives": 2,
+            "false_positives": 9,
+            "false_negatives": 6
+          }
+        ],
+        "1": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.3,
+            "recall": 0.75,
+            "f1": 0.429,
+            "predicted_topic_count": 10,
+            "gold_topic_count": 4,
+            "true_positives": 3,
+            "false_positives": 7,
+            "false_negatives": 1
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 0.571,
+            "recall": 0.667,
+            "f1": 0.615,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 6,
+            "true_positives": 4,
+            "false_positives": 3,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 0.125,
+            "recall": 0.167,
+            "f1": 0.143,
+            "predicted_topic_count": 8,
+            "gold_topic_count": 6,
+            "true_positives": 1,
+            "false_positives": 7,
+            "false_negatives": 5
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.25,
+            "recall": 0.6,
+            "f1": 0.353,
+            "predicted_topic_count": 12,
+            "gold_topic_count": 5,
+            "true_positives": 3,
+            "false_positives": 9,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.25,
+            "recall": 0.6,
+            "f1": 0.353,
+            "predicted_topic_count": 12,
+            "gold_topic_count": 5,
+            "true_positives": 3,
+            "false_positives": 9,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.182,
+            "recall": 0.25,
+            "f1": 0.211,
+            "predicted_topic_count": 11,
+            "gold_topic_count": 8,
+            "true_positives": 2,
+            "false_positives": 9,
+            "false_negatives": 6
+          }
+        ],
+        "2": [
+          {
+            "case_id": "dataset_b_video_001_window_01",
+            "precision": 0.3,
+            "recall": 0.75,
+            "f1": 0.429,
+            "predicted_topic_count": 10,
+            "gold_topic_count": 4,
+            "true_positives": 3,
+            "false_positives": 7,
+            "false_negatives": 1
+          },
+          {
+            "case_id": "dataset_b_video_001_window_06",
+            "precision": 0.571,
+            "recall": 0.667,
+            "f1": 0.615,
+            "predicted_topic_count": 7,
+            "gold_topic_count": 6,
+            "true_positives": 4,
+            "false_positives": 3,
+            "false_negatives": 2
+          },
+          {
+            "case_id": "dataset_b_video_001_window_11",
+            "precision": 0.25,
+            "recall": 0.333,
+            "f1": 0.286,
+            "predicted_topic_count": 8,
+            "gold_topic_count": 6,
+            "true_positives": 2,
+            "false_positives": 6,
+            "false_negatives": 4
+          },
+          {
+            "case_id": "dataset_b_video_001_window_15",
+            "precision": 0.417,
+            "recall": 1.0,
+            "f1": 0.588,
+            "predicted_topic_count": 12,
+            "gold_topic_count": 5,
+            "true_positives": 5,
+            "false_positives": 7,
+            "false_negatives": 0
+          },
+          {
+            "case_id": "dataset_b_video_001_window_20",
+            "precision": 0.333,
+            "recall": 0.8,
+            "f1": 0.471,
+            "predicted_topic_count": 12,
+            "gold_topic_count": 5,
+            "true_positives": 4,
+            "false_positives": 8,
+            "false_negatives": 1
+          },
+          {
+            "case_id": "dataset_b_video_001_window_25",
+            "precision": 0.273,
+            "recall": 0.375,
+            "f1": 0.316,
+            "predicted_topic_count": 11,
+            "gold_topic_count": 8,
+            "true_positives": 3,
+            "false_positives": 8,
+            "false_negatives": 5
+          }
+        ]
+      },
+      "dataset_a_tolerance_2": {
+        "precision": 0.381,
+        "recall": 0.5,
+        "f1": 0.432,
+        "predicted": 63,
+        "early": 0.65,
+        "middle": 0.438,
+        "late": 0.333
+      },
+      "dataset_b_tolerance_2": {
+        "precision": 0.35,
+        "recall": 0.618,
+        "f1": 0.447,
+        "predicted": 60
+      },
+      "delta_b_minus_a_tolerance_2": {
+        "precision": -0.031,
+        "recall": 0.118,
+        "f1": 0.015,
+        "predicted": -3
+      }
+    }
+  }
+}

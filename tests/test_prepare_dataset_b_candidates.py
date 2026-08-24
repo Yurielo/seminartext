@@ -62,6 +62,7 @@ def write_project(root):
 
 def test_select_evenly_spaced_is_deterministic():
     assert module.select_evenly_spaced(26, 6) == [0, 5, 10, 15, 20, 25]
+    assert module.srt_timecode("00:00:01.250") == "00:00:01,250"
     assert module.eligible_window_indices(
         [
             [{"start": 0.0, "end": 601.0}],
