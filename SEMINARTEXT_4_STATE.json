@@ -1,0 +1,220 @@
+{
+  "schema_version": 2,
+  "updated": "2026-08-23",
+  "current_stage": "hybrid_topic_engine",
+  "current_project": "Стресс код",
+
+  "architecture": {
+    "topic_engine_leader": "bge-m3 + 15-sec semantic blocks + ruptures",
+    "llm_boundary_engine_role": "baseline",
+    "llm_primary_future_roles": [
+      "topic_titles",
+      "topic_summaries",
+      "local_semantic_validation",
+      "knowledge_engine"
+    ]
+  },
+
+  "stages": {
+    "evidence_foundation": {
+      "status": "in_progress"
+    },
+
+    "topic_benchmark_dataset_a": {
+      "status": "complete",
+      "project": "Стресс код",
+      "source_id": "video_001",
+      "gold_cases_total": 6,
+      "gold_cases_labeled": 6,
+      "gold_topics_total": 47,
+      "integrity_checked": true,
+      "gold_complete": true
+    },
+
+    "topic_engine": {
+      "status": "in_progress",
+      "stable": false,
+      "current_architecture": "hybrid_embedding_change_point"
+    },
+
+    "embedding_engine": {
+      "status": "experimental_leader",
+      "embedding_model": "bge-m3",
+      "embedding_dimensions": 1024,
+      "block_sec": 15,
+      "change_point_library": "ruptures",
+      "ruptures_version": "1.1.9"
+    },
+
+    "embedding_binseg_known_count": {
+      "status": "tested",
+      "exact_f1": 0.143,
+      "tolerance_2_id_f1": 0.738,
+      "tolerance_5_id_f1": 0.833,
+      "mean_nearest_delta_id": 2.0
+    },
+
+    "embedding_pelt_auto_count": {
+      "status": "tested",
+      "best_penalty": 0.5,
+      "tolerance_2_id_f1": 0.657,
+      "mean_topic_count_error": 1.67
+    },
+
+    "candidate_count_scorer": {
+      "status": "tested_not_selected",
+      "tolerance_2_id_f1": 0.694,
+      "mean_topic_count_error": 1.67,
+      "known_problem": "systematic_over_segmentation"
+    },
+
+    "dataset_b": {
+      "status": "next",
+      "required": true,
+      "must_use_different_seminar": true,
+      "target_gold_windows": "6-8",
+      "purpose": "unseen_transfer_test",
+      "freeze_topic_engine_parameters_until_test": true
+    },
+
+    "topic_benchmark_runner": {
+      "status": "pending",
+      "command": "project-topic-benchmark-run"
+    },
+
+    "global_seminar_structure": {
+      "status": "pending",
+      "blocked_by": "topic_engine"
+    },
+
+    "multi_source_alignment": {
+      "status": "pending"
+    },
+
+    "document_pipeline": {
+      "status": "pending_partial"
+    },
+
+    "knowledge_engine": {
+      "status": "pending"
+    },
+
+    "human_review": {
+      "status": "pending"
+    },
+
+    "obsidian_schema": {
+      "status": "pending",
+      "required": true
+    },
+
+    "obsidian_mvp": {
+      "status": "blocked",
+      "required": true,
+      "blocked_by": "topic_engine",
+      "start_when": "topic_engine.stable == true",
+      "do_not_skip": true
+    },
+
+    "obsidian_export": {
+      "status": "pending",
+      "planned_command": "project-obsidian-export"
+    },
+
+    "obsidian_sync": {
+      "status": "pending",
+      "planned_command": "project-obsidian-sync",
+      "requirements": [
+        "stable_ids",
+        "idempotent_sync",
+        "duplicate_prevention",
+        "preserve_human_edits",
+        "machine_managed_vs_human_managed_content",
+        "conflict_detection",
+        "change_log"
+      ]
+    },
+
+    "cross_seminar_knowledge_graph": {
+      "status": "pending"
+    },
+
+    "learning_architecture": {
+      "status": "pending"
+    },
+
+    "marketing_passport": {
+      "status": "pending"
+    },
+
+    "site_integration": {
+      "status": "pending"
+    },
+
+    "media_engine": {
+      "status": "pending_partial"
+    },
+
+    "knowledge_assistant": {
+      "status": "future"
+    }
+  },
+
+  "knowledge_layer_ready": {
+    "required_now": true,
+    "requirements": [
+      "stable_project_id",
+      "stable_video_id",
+      "stable_document_id",
+      "stable_source_id",
+      "stable_topic_id",
+      "source_provenance",
+      "source_links",
+      "time_boundaries",
+      "page_references",
+      "slide_references",
+      "markdown_compatibility",
+      "wikilink_compatibility",
+      "idempotent_export"
+    ]
+  },
+
+  "obsidian_mvp_requirements": [
+    "vault_configuration",
+    "folder_schema",
+    "properties_standard",
+    "stable_entity_ids",
+    "seminar_card",
+    "video_source_card",
+    "topic_export",
+    "topic_hierarchy",
+    "timecodes",
+    "page_and_slide_references",
+    "existing_entity_wikilinks",
+    "provenance",
+    "source_backlinks",
+    "safe_reexport",
+    "duplicate_prevention"
+  ],
+
+  "next_actions": [
+    "list_available_seminartext_projects",
+    "select_different_seminar_for_dataset_b",
+    "create_dataset_b_gold_benchmark",
+    "label_6_to_8_gold_windows",
+    "verify_dataset_b_integrity",
+    "run_frozen_embedding_engine_on_dataset_b",
+    "evaluate_transfer_quality",
+    "define_train_validation_test_split",
+    "solve_automatic_topic_count",
+    "implement_project_topic_benchmark_run",
+    "reach_topic_segmentation_stable",
+    "start_obsidian_schema",
+    "start_obsidian_mvp"
+  ],
+
+  "product_owner_rule": {
+    "product_owner_is_lead": true,
+    "critical_path_changes_require_product_owner_review": true
+  }
+}
