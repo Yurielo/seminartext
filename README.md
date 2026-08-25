@@ -39,6 +39,21 @@ gh pr list --repo Yurielo/seminartext
 
 The final branch push for a task is the push-capability check for that task.
 
+### YouTube downloads
+
+`project-transcribe` downloads YouTube audio through the installed `yt-dlp`.
+SeminarText uses conservative retry options when the first download attempt
+fails. If YouTube still returns an authorization or HTTP 403 error for a video
+that is available in your local browser session, run the command with browser
+cookies enabled:
+
+```bash
+SEMINARTEXT_YTDLP_COOKIES_FROM_BROWSER=chrome seminartext project-transcribe "$HOME/Documents/seminartext_projects/И Цзин" --only video_001
+```
+
+Use the browser name/profile accepted by `yt-dlp --cookies-from-browser` for
+your local setup.
+
 ### Task workflow
 
 For each GitHub Issue:
