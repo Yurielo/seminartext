@@ -1,0 +1,120 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+REPO="$HOME/Documents/seminartext"
+BIN="$HOME/bin"
+
+CODE="$REPO/seminartext"
+ROADMAP="$REPO/SEMINARTEXT_4_ROADMAP.md"
+STATE="$REPO/SEMINARTEXT_4_STATE.json"
+
+DEPLOY_CODE="$BIN/seminartext_4.0_work"
+DEPLOY_ROADMAP="$BIN/SEMINARTEXT_4_ROADMAP.md"
+DEPLOY_STATE="$BIN/SEMINARTEXT_4_STATE.json"
+
+die() {
+  echo "FAIL: $*" >&2
+  exit 1
+}
+
+cmd_status() {
+  cd "$REPO"
+
+  echo "SEMINARTEXT DEV STATUS"
+  echo "========================================"
+  echo
+
+  echo "SOURCE OF TRUTH"
+  echo "  $REPO"
+  echo
+
+  echo "GIT"
+  echo "  Branch: $(git branch --show-current)"
+  echo "  Commit: $(git rev-parse --short HEAD)"
+  echo "  Date:   $(git log -1 --format='%ci')"
+  echo
+
+  echo "WORKING TREE"
+  if [[ -z "$(git status --short)" ]]; then
+    echo "  clean"
+  else
+    git status --short | sed 's/^/  /'
+  fi
+
+  echo
+  echo "MASTER FILES"
+  ls -lh "$CODE" "$ROADMAP" "$STATE" | sed 's/^/  /'
+
+  echo
+  echo "MASTER HASHES"
+  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" | sed 's/^/  /'
+
+  echo
+  echo "DEPLOYED HASHES"
+  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE"; do
+    if [[ -f "$f" ]]; then
+      shasum -a 256 "$f" | sed 's/^/  /'
+    else
+      echo "  MISSING: $f"
+    fi
+  done
+}
+
+cmd_check() {
+  cd "$REPO"
+
+  echo "SEMINARTEXT DEV CHECK"
+  echo "========================================"
+
+  [[ -f "$CODE" ]] || die "нет master code"
+  [[ -f "$ROADMAP" ]] || die "нет master Roadmap"
+  [[ -f "$STATE" ]] || die "нет master State"
+
+  bash -n "$CODE" || die "ошибка Bash syntax"
+  echo "[OK] Bash syntax"
+
+  python3 -m json.tool "$STATE" >/dev/null \
+    || die "SEMINARTEXT_4_STATE.json invalid"
+  echo "[OK] State JSON"
+
+  roadmap_size="$(wc -c < "$ROADMAP" | tr -d ' ')"
+  (( roadmap_size > 10000 )) \
+    || die "Roadmap подозрительно мал: $roadmap_size bytes"
+
+  required_markers=(
+    "# 0. Operating Model / Human Gates"
+    "# 2. Hybrid Topic Engine / Topic Segmentation"
+    "Dataset B — independent frozen validation"
+    "## 2.6 Dataset C"
+    "# 5. Document Pipeline"
+    "## 5.x Source Registry / External Sources"
+    "# 10. Knowledge Base / Obsidian Integration"
+    "## 10.x Source Cards"
+    "# CURRENT NEXT ACTION"
+  )
+
+  for marker in "${required_markers[@]}"; do
+    grep -Fq "$marker" "$ROADMAP" \
+      || die "Roadmap: отсутствует '$marker'"
+  done
+
+  echo "[OK] Roadmap structure"
+
+  echo
+  echo "CHECK: PASS"
+}
+
+case "${1:-}" in
+  status)
+    cmd_status
+    ;;
+  check)
+    cmd_check
+    ;;
+  *)
+    echo "Использование:"
+    echo "  scripts/seminartext-dev status"
+    echo "  scripts/seminartext-dev check"
+    exit 2
+    ;;
+esac
