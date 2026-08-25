@@ -1245,8 +1245,8 @@ ruptures / change-point detection
 6. После этого определить train / validation / test.
 7. Решить задачу automatic topic count.
 8. Реализовать следующий production Topic Engine шаг только после checkpoint.
-10. Довести Topic Segmentation до STABLE.
-11. Перейти к Obsidian Schema / Obsidian MVP.
+9. Довести Topic Segmentation до STABLE.
+10. Перейти к Obsidian Schema / Obsidian MVP.
 
 ---
 
