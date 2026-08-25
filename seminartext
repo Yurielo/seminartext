@@ -211,24 +211,51 @@ is_youtube_url() {
 }
 
 download_youtube_audio() {
-  local url="$1" dir="$2" log="$3" out
+  local url="$1" dir="$2" log="$3" out="" status=1
   command -v yt-dlp >/dev/null 2>&1 || {
     echo "Ошибка: для YouTube требуется yt-dlp. Установите: brew install yt-dlp" >&2
     return 1
   }
 
   rm -f "$dir"/.youtube_source.* 2>/dev/null || true
+  local ytdlp_help=""
+  ytdlp_help="$(yt-dlp --help 2>/dev/null || true)"
+
   local args=(--ignore-config --no-playlist -f "bestaudio/best" -x --audio-format m4a --audio-quality 0 -o "$dir/.youtube_source.%(ext)s")
+  [[ "$ytdlp_help" == *"--force-ipv4"* ]] && args+=(--force-ipv4)
+  [[ "$ytdlp_help" == *"--http-chunk-size"* ]] && args+=(--http-chunk-size 10M)
+
   if [[ -n "${SEMINARTEXT_YTDLP_COOKIES_FROM_BROWSER:-}" ]]; then
+    [[ "$ytdlp_help" == *"--cookies-from-browser"* ]] || {
+      echo "Ошибка: установленный yt-dlp не поддерживает --cookies-from-browser." >&2
+      return 1
+    }
     args+=(--cookies-from-browser "$SEMINARTEXT_YTDLP_COOKIES_FROM_BROWSER")
   fi
 
   echo "Скачиваю аудиодорожку YouTube..." | tee -a "$log" >&2
+  local -a attempt_args
+  attempt_args=("${args[@]}")
+
   set +e
-  yt-dlp "${args[@]}" "$url" 2>&1 | tee -a "$log" >&2
-  local status=${PIPESTATUS[0]}
+  yt-dlp "${attempt_args[@]}" "$url" 2>&1 | tee -a "$log" >&2
+  status=${PIPESTATUS[0]}
   set -e
-  (( status == 0 )) || return "$status"
+
+  if (( status != 0 )) && [[ "$ytdlp_help" == *"--extractor-args"* ]]; then
+    echo "yt-dlp не смог скачать аудио; повторяю с YouTube client fallback..." | tee -a "$log" >&2
+    rm -f "$dir"/.youtube_source.* 2>/dev/null || true
+    attempt_args=("${args[@]}" --extractor-args "youtube:player_client=android,web")
+    set +e
+    yt-dlp "${attempt_args[@]}" "$url" 2>&1 | tee -a "$log" >&2
+    status=${PIPESTATUS[0]}
+    set -e
+  fi
+
+  if (( status != 0 )); then
+    echo "Ошибка: yt-dlp не смог скачать аудиодорожку YouTube. Если видео доступно только через браузерную сессию, задайте SEMINARTEXT_YTDLP_COOKIES_FROM_BROWSER." >&2
+    return "$status"
+  fi
 
   out="$(find "$dir" -maxdepth 1 -type f -name '.youtube_source.*' | head -n1)"
   [[ -n "$out" && -s "$out" ]] || {
@@ -705,7 +732,7 @@ run_whisper_piece() {
 
 process_record() {
   local input="$1" requested="$2" source_type="${3:-файл}"
-  local name dir wav raw clean review srt docx log info marker transcript_number
+  local name="" dir="" wav="" raw="" clean="" review="" srt="" docx="" log="" info="" marker="" transcript_number=""
   local media_input="$input" youtube_media=""
   name="$(sanitize_name "$requested")"
   dir="$(choose_output_dir "$name" "$input")"
@@ -744,7 +771,12 @@ process_record() {
   local chunks="$dir/.chunks" parts="$dir/.parts"
   local chunk_seconds="${SEMINARTEXT_CHUNK_SECONDS:-300}"
 
-  cleanup_temp() { rm -f "$wav"; [[ -n "$youtube_media" ]] && rm -f "$youtube_media"; rm -rf "$chunks" "$parts"; }
+  cleanup_temp() {
+    [[ -n "${wav:-}" ]] && rm -f "$wav"
+    [[ -n "${youtube_media:-}" ]] && rm -f "$youtube_media"
+    [[ -n "${chunks:-}" ]] && rm -rf "$chunks"
+    [[ -n "${parts:-}" ]] && rm -rf "$parts"
+  }
   trap cleanup_temp RETURN INT TERM
 
   echo
