@@ -1908,61 +1908,61 @@ for raw in items:
 
     else:
         # Если файл с тем же именем уже полностью скопирован,
-    # переиспользуем его вместо создания дубликата.
-    same_name = target_dir / src.name
-
-    try:
-        src_size = src.stat().st_size
-    except OSError as exc:
-        print(f"[ОШИБКА] Не удалось определить размер: {src}: {exc}")
-        continue
-
-    reuse_existing = False
-
-    if same_name.is_file():
-        try:
-            dst_size = same_name.stat().st_size
-        except OSError:
-            dst_size = -1
-
-        if src_size > 0 and dst_size == src_size:
-            dst = same_name
-            reuse_existing = True
-            print(f"[REUSE] Уже скопирован полный файл:")
-            print(f"        {dst}")
-
-    if not reuse_existing:
-        dst = unique_destination(target_dir, src)
-        partial = dst.with_name(dst.name + ".partial")
-
-        # Старый partial от аварийного завершения не используем.
-        try:
-            partial.unlink(missing_ok=True)
-        except OSError:
-            pass
-
-        print(f"[COPY] {src}")
-        print(f"    -> {dst}")
-        print(f"    size: {src_size} bytes")
+        # переиспользуем его вместо создания дубликата.
+        same_name = target_dir / src.name
 
         try:
-            shutil.copy2(src, partial)
+            src_size = src.stat().st_size
+        except OSError as exc:
+            print(f"[ОШИБКА] Не удалось определить размер: {src}: {exc}")
+            continue
 
-            copied_size = partial.stat().st_size
+        reuse_existing = False
 
-            if copied_size != src_size:
-                raise IOError(
-                    f"неполная копия: {copied_size} из {src_size} bytes"
-                )
+        if same_name.is_file():
+            try:
+                dst_size = same_name.stat().st_size
+            except OSError:
+                dst_size = -1
 
-            partial.replace(dst)
+            if src_size > 0 and dst_size == src_size:
+                dst = same_name
+                reuse_existing = True
+                print(f"[REUSE] Уже скопирован полный файл:")
+                print(f"        {dst}")
 
-        except BaseException:
+        if not reuse_existing:
+            dst = unique_destination(target_dir, src)
+            partial = dst.with_name(dst.name + ".partial")
+
+            # Старый partial от аварийного завершения не используем.
             try:
                 partial.unlink(missing_ok=True)
             except OSError:
                 pass
-            raise
+
+            print(f"[COPY] {src}")
+            print(f"    -> {dst}")
+            print(f"    size: {src_size} bytes")
+
+            try:
+                shutil.copy2(src, partial)
+
+                copied_size = partial.stat().st_size
+
+                if copied_size != src_size:
+                    raise IOError(
+                        f"неполная копия: {copied_size} из {src_size} bytes"
+                    )
+
+                partial.replace(dst)
+
+            except BaseException:
+                try:
+                    partial.unlink(missing_ok=True)
+                except OSError:
+                    pass
+                raise
 
         rel = str(dst.relative_to(project))
 
