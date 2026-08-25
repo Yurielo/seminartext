@@ -139,9 +139,26 @@
       "status": "future"
     },
     "dataset_c": {
-      "status": "next",
+      "status": "candidates_prepared_needs_review",
       "required": true,
       "must_use_different_seminar": true,
+      "project": "И Цзин",
+      "source_id": "video_001",
+      "candidate_cases_total": 6,
+      "available_window_count": 24,
+      "eligible_window_count": 23,
+      "selected_window_numbers": [
+        1,
+        5,
+        10,
+        14,
+        19,
+        23
+      ],
+      "gold_cases_labeled": 0,
+      "gold_complete": false,
+      "candidate_benchmark": "analysis/dataset_c/topic_benchmark_dataset_c.json",
+      "review_report": "analysis/DATASET_C_PREPARATION.md",
       "purpose": "second_unseen_transfer_test_before_architecture_decision",
       "human_gate_for_gold": "DOMAIN_AUTHORING",
       "freeze_topic_engine_parameters_until_test": true
@@ -188,7 +205,6 @@
     "duplicate_prevention"
   ],
   "next_actions": [
-    "prepare_independent_dataset_c",
     "manual_gold_dataset_c_when_required",
     "run_frozen_a_b_c_validation",
     "compare_generalization_across_datasets",

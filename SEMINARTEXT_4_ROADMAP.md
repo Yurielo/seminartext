@@ -310,14 +310,14 @@ Dataset B:
 
 Dataset C:
 
-следующий независимый unseen test
-→ NEXT
+И Цзин
+→ candidate windows prepared; manual Gold DOMAIN_AUTHORING next
 
 ---
 
 ## 2.6 Dataset C — next independent validation
 
-Статус: NEXT
+Статус: CANDIDATES PREPARED / NEEDS MANUAL GOLD
 
 Цель:
 
@@ -326,11 +326,19 @@ Dataset C:
 
 План:
 
-- [ ] выбрать третий семинар;
-- [ ] подготовить независимые candidate windows;
+- [x] выбрать третий семинар: И Цзин / video_001;
+- [x] подготовить независимые candidate windows: 6 cases, 24 available windows, 23 eligible windows;
 - [ ] получить manual Gold только там, где требуется `DOMAIN_AUTHORING`;
 - [ ] прогнать frozen A/B/C validation без tuning;
 - [ ] принять architecture decision checkpoint перед Stage 3.
+
+Artifact:
+
+`analysis/dataset_c/topic_benchmark_dataset_c.json`
+
+Review:
+
+`analysis/DATASET_C_PREPARATION.md`
 
 ---
 
@@ -1229,17 +1237,16 @@ ruptures / change-point detection
 
 Следующая обязательная задача:
 
-1. Выбрать ДРУГОЙ семинар.
-2. Создать Dataset B.
-3. Разметить 6–8 gold windows.
-4. Не менять параметры Topic Engine до unseen test.
-5. Прогнать текущий embedding engine по Dataset B.
-6. Проверить переносимость архитектуры.
-7. После этого определить train / validation / test.
-8. Решить задачу автоматического topic count.
-9. Реализовать project-topic-benchmark-run.
-10. Довести Topic Segmentation до STABLE.
-11. Перейти к Obsidian Schema / Obsidian MVP.
+1. Разметить Dataset C Gold windows через `DOMAIN_AUTHORING`.
+2. Не менять параметры Topic Engine до frozen A/B/C validation.
+3. Прогнать текущие frozen engines по Dataset C.
+4. Сравнить переносимость архитектуры на Dataset A/B/C.
+5. Принять architecture decision checkpoint перед Stage 3.
+6. После этого определить train / validation / test.
+7. Решить задачу automatic topic count.
+8. Реализовать следующий production Topic Engine шаг только после checkpoint.
+9. Довести Topic Segmentation до STABLE.
+10. Перейти к Obsidian Schema / Obsidian MVP.
 
 ---
 
