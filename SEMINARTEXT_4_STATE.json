@@ -1,25 +1,23 @@
 {
   "schema_version": 2,
-  "updated": "2026-08-23",
+  "updated": "2026-08-25",
   "current_stage": "hybrid_topic_engine",
   "current_project": "Стресс код",
-
   "architecture": {
-    "topic_engine_leader": "bge-m3 + 15-sec semantic blocks + ruptures",
+    "topic_engine_leader": "stage 2 hybrid candidates under frozen A/B/C validation",
     "llm_boundary_engine_role": "baseline",
     "llm_primary_future_roles": [
       "topic_titles",
       "topic_summaries",
       "local_semantic_validation",
       "knowledge_engine"
-    ]
+    ],
+    "architecture_decision_status": "pending Dataset C and checkpoint"
   },
-
   "stages": {
     "evidence_foundation": {
       "status": "in_progress"
     },
-
     "topic_benchmark_dataset_a": {
       "status": "complete",
       "project": "Стресс код",
@@ -30,13 +28,11 @@
       "integrity_checked": true,
       "gold_complete": true
     },
-
     "topic_engine": {
       "status": "in_progress",
       "stable": false,
-      "current_architecture": "hybrid_embedding_change_point"
+      "current_architecture": "stage_2_hybrid_topic_engine_under_validation"
     },
-
     "embedding_engine": {
       "status": "experimental_leader",
       "embedding_model": "bge-m3",
@@ -45,7 +41,6 @@
       "change_point_library": "ruptures",
       "ruptures_version": "1.1.9"
     },
-
     "embedding_binseg_known_count": {
       "status": "tested",
       "exact_f1": 0.143,
@@ -53,61 +48,54 @@
       "tolerance_5_id_f1": 0.833,
       "mean_nearest_delta_id": 2.0
     },
-
     "embedding_pelt_auto_count": {
       "status": "tested",
       "best_penalty": 0.5,
       "tolerance_2_id_f1": 0.657,
       "mean_topic_count_error": 1.67
     },
-
     "candidate_count_scorer": {
       "status": "tested_not_selected",
       "tolerance_2_id_f1": 0.694,
       "mean_topic_count_error": 1.67,
       "known_problem": "systematic_over_segmentation"
     },
-
     "dataset_b": {
-      "status": "next",
-      "required": true,
-      "must_use_different_seminar": true,
-      "target_gold_windows": "6-8",
-      "purpose": "unseen_transfer_test",
-      "freeze_topic_engine_parameters_until_test": true
+      "status": "complete",
+      "project": "Заблокированные эмоции",
+      "source_id": "video_001",
+      "gold_cases_total": 6,
+      "gold_cases_labeled": 6,
+      "gold_topics_total": 34,
+      "gold_complete": true,
+      "frozen_validation_complete": true,
+      "report": "analysis/DATASET_B_FROZEN_VALIDATION.md",
+      "result_summary": "analysis/dataset_b/results/dataset_b_frozen_validation_summary.json"
     },
-
     "topic_benchmark_runner": {
-      "status": "pending",
+      "status": "complete",
       "command": "project-topic-benchmark-run"
     },
-
     "global_seminar_structure": {
       "status": "pending",
       "blocked_by": "topic_engine"
     },
-
     "multi_source_alignment": {
       "status": "pending"
     },
-
     "document_pipeline": {
       "status": "pending_partial"
     },
-
     "knowledge_engine": {
       "status": "pending"
     },
-
     "human_review": {
       "status": "pending"
     },
-
     "obsidian_schema": {
       "status": "pending",
       "required": true
     },
-
     "obsidian_mvp": {
       "status": "blocked",
       "required": true,
@@ -115,12 +103,10 @@
       "start_when": "topic_engine.stable == true",
       "do_not_skip": true
     },
-
     "obsidian_export": {
       "status": "pending",
       "planned_command": "project-obsidian-export"
     },
-
     "obsidian_sync": {
       "status": "pending",
       "planned_command": "project-obsidian-sync",
@@ -134,32 +120,38 @@
         "change_log"
       ]
     },
-
     "cross_seminar_knowledge_graph": {
       "status": "pending"
     },
-
     "learning_architecture": {
       "status": "pending"
     },
-
     "marketing_passport": {
       "status": "pending"
     },
-
     "site_integration": {
       "status": "pending"
     },
-
     "media_engine": {
       "status": "pending_partial"
     },
-
     "knowledge_assistant": {
       "status": "future"
+    },
+    "dataset_c": {
+      "status": "next",
+      "required": true,
+      "must_use_different_seminar": true,
+      "purpose": "second_unseen_transfer_test_before_architecture_decision",
+      "human_gate_for_gold": "DOMAIN_AUTHORING",
+      "freeze_topic_engine_parameters_until_test": true
+    },
+    "architecture_decision_checkpoint": {
+      "status": "pending",
+      "after": "frozen A/B/C validation",
+      "before": "Stage 3 global seminar structure"
     }
   },
-
   "knowledge_layer_ready": {
     "required_now": true,
     "requirements": [
@@ -178,7 +170,6 @@
       "idempotent_export"
     ]
   },
-
   "obsidian_mvp_requirements": [
     "vault_configuration",
     "folder_schema",
@@ -196,25 +187,85 @@
     "safe_reexport",
     "duplicate_prevention"
   ],
-
   "next_actions": [
-    "list_available_seminartext_projects",
-    "select_different_seminar_for_dataset_b",
-    "create_dataset_b_gold_benchmark",
-    "label_6_to_8_gold_windows",
-    "verify_dataset_b_integrity",
-    "run_frozen_embedding_engine_on_dataset_b",
-    "evaluate_transfer_quality",
-    "define_train_validation_test_split",
+    "prepare_independent_dataset_c",
+    "manual_gold_dataset_c_when_required",
+    "run_frozen_a_b_c_validation",
+    "compare_generalization_across_datasets",
+    "architecture_decision_checkpoint_before_stage_3",
     "solve_automatic_topic_count",
-    "implement_project_topic_benchmark_run",
     "reach_topic_segmentation_stable",
     "start_obsidian_schema",
     "start_obsidian_mvp"
   ],
-
   "product_owner_rule": {
     "product_owner_is_lead": true,
-    "critical_path_changes_require_product_owner_review": true
+    "critical_path_changes_require_product_owner_review": true,
+    "escalate_to_yuri_only_when_human_gate_requires": true,
+    "default_human_gate": "AUTO"
+  },
+  "operating_model": {
+    "governing_principle": "Do not minimize Yuri's participation. Minimize Yuri's participation in operations where his expertise is not needed.",
+    "workflow_doc": "DEVELOPMENT_WORKFLOW.md",
+    "decision_record": "decisions/0001-operating-model-and-human-gates.md",
+    "github_source_of_truth": {
+      "roadmap": "SEMINARTEXT_4_ROADMAP.md",
+      "state": "SEMINARTEXT_4_STATE.json",
+      "issues": "task contracts and Definitions of Done",
+      "pull_requests": "implementation, evidence, review, and merge decisions",
+      "tests_and_benchmarks": "executable evidence",
+      "decisions": "decisions/"
+    },
+    "standard_execution_loop": "ROADMAP -> PO ISSUE/DoD -> CODEX IMPLEMENT -> AUTOMATED TEST/QA -> PR -> PO REVIEW -> [DOMAIN GATE only if needed] -> MERGE -> STATE/ROADMAP UPDATE -> NEXT ISSUE",
+    "experimental_ml_loop": "BUILD -> TEST -> BENCHMARK -> HUMAN REVIEW when semantically required -> DECISION -> MERGE"
+  },
+  "human_gate_classifications": {
+    "default": "AUTO",
+    "values": {
+      "AUTO": "Proceed without Yuri when automated QA and Product Owner review are sufficient.",
+      "DOMAIN_REVIEW": "Yuri reviews prepared evidence/options before acceptance.",
+      "DOMAIN_AUTHORING": "Yuri supplies authoritative semantic content such as Gold labels.",
+      "LOCAL_ACTION": "Yuri performs a local/UI/account action unavailable to tools."
+    }
+  },
+  "roles": {
+    "product_owner": {
+      "owner": "ChatGPT",
+      "responsibilities": [
+        "roadmap and priorities",
+        "issue sequencing and Definition of Done",
+        "experiment evidence and PR review",
+        "accept/reject work and merge/next-step decisions",
+        "escalate to Yuri only when domain/product/human decision is required"
+      ]
+    },
+    "domain_owner": {
+      "owner": "Yuri",
+      "required_for": [
+        "semantic Gold labeling and disputed topic boundaries",
+        "authoritative terminology and author-methodology meaning",
+        "genuinely ambiguous interpretations",
+        "product/business decisions that cannot be inferred safely",
+        "acceptance of conceptual model changes",
+        "local-machine actions unavailable to tools"
+      ],
+      "not_normally_required_for": [
+        "copying requirements between ChatGPT, GitHub, and Codex",
+        "routine coding/test/branch/commit/PR mechanics",
+        "routine benchmark aggregation",
+        "routine documentation updates",
+        "automatable technical QA"
+      ]
+    },
+    "codex": {
+      "responsibilities": [
+        "read GitHub Issue as task contract",
+        "implement within scope",
+        "run tests and QA",
+        "document evidence",
+        "commit, push, and open PR",
+        "do not redefine requirements or bypass human gates"
+      ]
+    }
   }
 }

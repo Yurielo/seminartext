@@ -1,6 +1,13 @@
 # seminartext
 SeminarText 4.0 — seminar processing, transcription, topic analysis and knowledge extraction pipeline
 
+## Operating model
+
+The project operating model is documented in
+[`DEVELOPMENT_WORKFLOW.md`](DEVELOPMENT_WORKFLOW.md). Future Issues should state
+their human-gate classification: `AUTO`, `DOMAIN_REVIEW`, `DOMAIN_AUTHORING`, or
+`LOCAL_ACTION`.
+
 ## Codex GitHub workflow
 
 Local Codex work should use GitHub Issues and Pull Requests directly, without

@@ -1,6 +1,6 @@
 # SeminarText 4.x Roadmap
 
-Последнее обновление: 2026-08-23
+Последнее обновление: 2026-08-25
 
 ## Главная цель
 
@@ -18,6 +18,33 @@ Sources
 → Obsidian Knowledge Base
 → Cross-Seminar Knowledge Graph
 → Learning / Marketing / Site / Media / Knowledge Assistant
+
+---
+
+# 0. Operating Model / Human Gates
+
+Статус: ACTIVE
+
+Принцип:
+
+Do not minimize Yuri's participation. Minimize Yuri's participation in
+operations where his expertise is not needed.
+
+Роли, GitHub source-of-truth, стандартный execution loop и human-gate
+classification описаны в `DEVELOPMENT_WORKFLOW.md`.
+
+Human-gate classification for Issues:
+
+- `AUTO` — Codex и automated QA могут работать без Yuri;
+- `DOMAIN_REVIEW` — Yuri проверяет подготовленные evidence/options;
+- `DOMAIN_AUTHORING` — Yuri должен предоставить authoritative semantic content;
+- `LOCAL_ACTION` — Yuri выполняет local/UI/account action, недоступное tools.
+
+Default: `AUTO`. Escalation только при явном обосновании.
+
+Decision record:
+
+`decisions/0001-operating-model-and-human-gates.md`
 
 ---
 
@@ -251,26 +278,25 @@ cohesion и separation естественно растут при дополни
 
 ---
 
-## 2.5 Dataset B — NEXT CRITICAL STEP
+## 2.5 Dataset B — independent frozen validation
 
-Статус: NEXT
+Статус: DONE
 
-Необходимо создать независимый Gold Dataset из ДРУГОГО семинара.
+Независимый Gold Dataset создан из другого семинара:
 
-Не использовать новые окна того же video_001 как единственный test.
+Заблокированные эмоции / video_001
 
-Цель:
+Результат:
 
-проверить переносимость Topic Engine на unseen material.
+- [x] Dataset B candidate windows prepared;
+- [x] manual Gold labels recorded;
+- [x] GOLD COMPLETE: 6/6;
+- [x] total Gold topics: 34;
+- [x] frozen validation run for baseline, sliding, bge-m3 local peak, and bge-m3 + ruptures.Pelt.
 
-План:
+Report:
 
-- [ ] выбрать другой семинар;
-- [ ] выбрать 6–8 окон примерно по 10–12 минут;
-- [ ] вручную разметить gold boundaries;
-- [ ] при возможности дать названия gold topics;
-- [ ] проверить integrity;
-- [ ] не менять параметры embedding engine до теста Dataset B.
+`analysis/DATASET_B_FROZEN_VALIDATION.md`
 
 Dataset A:
 
@@ -279,14 +305,38 @@ Dataset A:
 
 Dataset B:
 
-другой семинар
-→ unseen test
+Заблокированные эмоции
+→ frozen unseen validation complete
+
+Dataset C:
+
+следующий независимый unseen test
+→ NEXT
 
 ---
 
-## 2.6 Будущая структура benchmark datasets
+## 2.6 Dataset C — next independent validation
 
-После Dataset B:
+Статус: NEXT
+
+Цель:
+
+проверить переносимость Stage 2 Hybrid Topic Engine ещё на одном независимом
+семинаре до architecture decision checkpoint.
+
+План:
+
+- [ ] выбрать третий семинар;
+- [ ] подготовить независимые candidate windows;
+- [ ] получить manual Gold только там, где требуется `DOMAIN_AUTHORING`;
+- [ ] прогнать frozen A/B/C validation без tuning;
+- [ ] принять architecture decision checkpoint перед Stage 3.
+
+---
+
+## 2.7 Будущая структура benchmark datasets
+
+После Dataset C:
 
 TRAIN
 → настройка параметров
@@ -308,7 +358,7 @@ TEST
 
 ---
 
-## 2.7 Автоматическое определение количества тем
+## 2.8 Автоматическое определение количества тем
 
 Главная нерешённая задача Topic Engine.
 
@@ -328,7 +378,7 @@ TEST
 
 ---
 
-## 2.8 Benchmark Runner
+## 2.9 Benchmark Runner
 
 Планируемая команда:
 
@@ -355,11 +405,12 @@ project-topic-benchmark-run
 
 ---
 
-## 2.9 Критерий завершения Topic Engine
+## 2.10 Критерий завершения Topic Engine
 
 TOPIC SEGMENTATION STABLE
 
-Критерии будут формально определены после Dataset B и validation/test benchmark.
+Критерии будут формально определены после frozen A/B/C validation и
+architecture decision checkpoint.
 
 ---
 
