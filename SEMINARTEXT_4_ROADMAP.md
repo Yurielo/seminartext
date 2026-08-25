@@ -525,6 +525,108 @@ architecture decision checkpoint.
 
 ---
 
+## 5.x Source Registry / External Sources
+
+Статус: PENDING
+
+SeminarText должен поддерживать регистрацию первичных источников знаний
+без обязательного копирования оригинального файла в проект или Obsidian Vault.
+
+Типы источников:
+
+- book
+- article
+- research
+- document
+- presentation
+- website
+- external_author
+- other
+
+Для каждого источника необходим стабильный `source_id`.
+
+Минимальные данные:
+
+- source_id
+- source_type
+- title
+- author
+- year
+- language
+- local_file
+- external_url
+- project
+- seminar
+- status
+- fingerprint
+- provenance
+
+### Локальные файлы
+
+PDF/DOCX/PPTX и другие оригиналы могут храниться:
+
+- на локальном диске;
+- на внешнем диске;
+- в Dropbox;
+- в iCloud Drive;
+- в другом локально доступном хранилище.
+
+Оригинальный файл НЕ обязан копироваться в Obsidian Vault.
+
+Требования:
+
+- [ ] регистрация файла без копирования
+- [ ] опциональное копирование
+- [ ] сохранение исходного пути
+- [ ] проверка доступности файла
+- [ ] размер и тип файла
+- [ ] fingerprint/checksum
+- [ ] обнаружение замены файла
+- [ ] изменение пути без изменения source_id
+- [ ] поддержка внешних дисков
+- [ ] поддержка локально доступных Dropbox/iCloud файлов
+
+Планируемые команды:
+
+    seminartext source-add "/path/to/book.pdf"
+
+    seminartext project-source-add PROJECT "/path/to/book.pdf"
+
+### PDF / Book Pipeline
+
+    Original PDF
+        ↓
+    Source Registry
+        ↓
+    Page-aware extraction
+        ↓
+    Chapters / Sections
+        ↓
+    Knowledge Engine
+        ↓
+    Human Review
+        ↓
+    Obsidian
+
+Любое производное знание должно сохранять:
+
+    source_id
+    page / page range
+    chapter / section
+    original file
+
+Не смешивать:
+
+- оригинальный источник;
+- содержание семинара;
+- авторскую интерпретацию;
+- внешний научный источник;
+- AI summary;
+- AI hypothesis.
+
+
+---
+
 # 6. Knowledge Engine / Concept Engine
 
 Статус: PENDING
@@ -860,6 +962,52 @@ seminartext project-obsidian-sync "<project>"
 - Obsidian Local REST API;
 - MCP;
 - другие безопасные интеграции.
+
+---
+
+## 10.x Source Cards
+
+Obsidian должен содержать самостоятельные карточки первичных источников.
+
+Пример:
+
+    Type: Source
+    Source_type: Book
+    Source_ID: book_bradley_nelson_emotion_code
+    Title: The Emotion Code
+    Author: Bradley Nelson
+    Language: en
+    Local_file: /Users/.../The Emotion Code.pdf
+    External_URL:
+    Project:
+    Seminar:
+    Status: registered
+
+Требования:
+
+- [ ] Source Card
+- [ ] стабильный Source_ID
+- [ ] Source ↔ Project
+- [ ] Source ↔ Seminar
+- [ ] Source ↔ Concept
+- [ ] Source ↔ Method
+- [ ] ссылка на локальный оригинал
+- [ ] внешний URL
+- [ ] PDF может находиться вне Vault
+- [ ] page-level provenance
+- [ ] chapter/section provenance
+
+Рекомендуемая структура Vault:
+
+    06 Исследования и источники/
+        Книги/
+        Статьи/
+        Исследования/
+        Внешние авторы/
+
+Markdown-карточка является сущностью Knowledge Base.
+Оригинальный PDF является evidence/source asset.
+
 
 ---
 

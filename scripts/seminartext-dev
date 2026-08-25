@@ -1,0 +1,454 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+REPO="$HOME/Documents/seminartext"
+BIN="$HOME/bin"
+BACKUP_ROOT="$HOME/.seminartext-deploy-backups"
+
+CODE="$REPO/seminartext"
+ROADMAP="$REPO/SEMINARTEXT_4_ROADMAP.md"
+STATE="$REPO/SEMINARTEXT_4_STATE.json"
+
+DEPLOY_CODE="$BIN/seminartext_4.0_work"
+DEPLOY_ROADMAP="$BIN/SEMINARTEXT_4_ROADMAP.md"
+DEPLOY_STATE="$BIN/SEMINARTEXT_4_STATE.json"
+
+die() {
+  echo "FAIL: $*" >&2
+  exit 1
+}
+
+hash_file() {
+  shasum -a 256 "$1" | awk '{print $1}'
+}
+
+require_repo() {
+  [[ -d "$REPO/.git" ]] || die "Git repository не найден: $REPO"
+
+  local actual
+  actual="$(cd "$REPO" && git rev-parse --show-toplevel)"
+  [[ "$actual" == "$REPO" ]] \
+    || die "неверный Git source of truth: $actual"
+}
+
+validate_roadmap_file() {
+  local file="$1"
+
+  [[ -f "$file" ]] || die "Roadmap не найден: $file"
+
+  local roadmap_size
+  roadmap_size="$(wc -c < "$file" | tr -d ' ')"
+
+  (( roadmap_size > 10000 )) \
+    || die "Roadmap подозрительно мал: $roadmap_size bytes"
+
+  local required_markers=(
+    "# 0. Operating Model / Human Gates"
+    "# 2. Hybrid Topic Engine / Topic Segmentation"
+    "Dataset B — independent frozen validation"
+    "## 2.6 Dataset C"
+    "# 5. Document Pipeline"
+    "## 5.x Source Registry / External Sources"
+    "# 10. Knowledge Base / Obsidian Integration"
+    "## 10.x Source Cards"
+    "# CURRENT NEXT ACTION"
+  )
+
+  local marker
+  for marker in "${required_markers[@]}"; do
+    grep -Fq "$marker" "$file" \
+      || die "Roadmap: отсутствует '$marker'"
+  done
+}
+
+cmd_status() {
+  require_repo
+  cd "$REPO"
+
+  echo "SEMINARTEXT DEV STATUS"
+  echo "========================================"
+  echo
+
+  echo "SOURCE OF TRUTH"
+  echo "  $REPO"
+  echo
+
+  echo "GIT"
+  echo "  Branch: $(git branch --show-current)"
+  echo "  Commit: $(git rev-parse --short HEAD)"
+  echo "  Date:   $(git log -1 --format='%ci')"
+  echo
+
+  echo "WORKING TREE"
+  if [[ -z "$(git status --short)" ]]; then
+    echo "  clean"
+  else
+    git status --short | sed 's/^/  /'
+  fi
+
+  echo
+  echo "MASTER FILES"
+  ls -lh "$CODE" "$ROADMAP" "$STATE" | sed 's/^/  /'
+
+  echo
+  echo "MASTER HASHES"
+  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" | sed 's/^/  /'
+
+  echo
+  echo "DEPLOYED HASHES"
+  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE"; do
+    if [[ -f "$f" ]]; then
+      shasum -a 256 "$f" | sed 's/^/  /'
+    else
+      echo "  MISSING: $f"
+    fi
+  done
+
+  echo
+  echo "SYNC"
+  local mismatches=0
+
+  if [[ -f "$DEPLOY_CODE" ]] \
+     && [[ "$(hash_file "$CODE")" == "$(hash_file "$DEPLOY_CODE")" ]]; then
+    echo "  Code:    SYNC"
+  else
+    echo "  Code:    DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
+  if [[ -f "$DEPLOY_ROADMAP" ]] \
+     && [[ "$(hash_file "$ROADMAP")" == "$(hash_file "$DEPLOY_ROADMAP")" ]]; then
+    echo "  Roadmap: SYNC"
+  else
+    echo "  Roadmap: DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
+  if [[ -f "$DEPLOY_STATE" ]] \
+     && [[ "$(hash_file "$STATE")" == "$(hash_file "$DEPLOY_STATE")" ]]; then
+    echo "  State:   SYNC"
+  else
+    echo "  State:   DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
+  echo
+  if (( mismatches == 0 )); then
+    echo "DEPLOY STATUS: SYNC"
+  else
+    echo "DEPLOY STATUS: DIFFERENT ($mismatches/3)"
+  fi
+}
+
+cmd_check() {
+  require_repo
+  cd "$REPO"
+
+  echo "SEMINARTEXT DEV CHECK"
+  echo "========================================"
+
+  [[ -f "$CODE" ]] || die "нет master code"
+  [[ -f "$ROADMAP" ]] || die "нет master Roadmap"
+  [[ -f "$STATE" ]] || die "нет master State"
+
+  bash -n "$CODE" || die "ошибка Bash syntax"
+  echo "[OK] Bash syntax"
+
+  python3 -m json.tool "$STATE" >/dev/null \
+    || die "SEMINARTEXT_4_STATE.json invalid"
+  echo "[OK] State JSON"
+
+  validate_roadmap_file "$ROADMAP"
+  echo "[OK] Roadmap structure"
+
+  echo
+  echo "CHECK: PASS"
+}
+
+cmd_checkpoint() {
+  require_repo
+  cd "$REPO"
+
+  local message="${1:-}"
+  shift || true
+
+  [[ -n "$message" ]] || {
+    echo "Использование:"
+    echo '  scripts/seminartext-dev checkpoint "commit message" FILE [FILE ...]'
+    return 2
+  }
+
+  (($# > 0)) || die "checkpoint: не указаны файлы"
+
+  cmd_check
+  echo
+
+  local file
+  for file in "$@"; do
+    git ls-files --error-unmatch -- "$file" >/dev/null 2>&1 \
+      || die "checkpoint разрешён только для уже tracked-файлов: $file"
+  done
+
+  git add -- "$@"
+
+  if git diff --cached --quiet; then
+    die "checkpoint: нет изменений для commit"
+  fi
+
+  echo "STAGED:"
+  git diff --cached --name-status
+  echo
+
+  git commit -m "$message"
+
+  echo
+  echo "CHECKPOINT: OK"
+  echo "Commit: $(git rev-parse --short HEAD)"
+}
+
+cmd_deploy() {
+  require_repo
+  cd "$REPO"
+
+  cmd_check
+
+  # Незакоммиченные изменения tracked-файлов запрещают deploy.
+  # Неотслеживаемые файлы сами по себе deploy не блокируют.
+  if [[ -n "$(git status --porcelain --untracked-files=no)" ]]; then
+    echo
+    git status --short --untracked-files=no
+    die "deploy запрещён: есть незакоммиченные tracked-изменения"
+  fi
+
+  local stamp commit backup
+  stamp="$(date '+%Y%m%d_%H%M%S')"
+  commit="$(git rev-parse --short HEAD)"
+  backup="$BACKUP_ROOT/${stamp}__${commit}"
+
+  mkdir -p "$backup" "$BIN"
+
+  echo
+  echo "DEPLOY"
+  echo "========================================"
+  echo "Source: $REPO"
+  echo "Commit: $commit"
+  echo "Backup: $backup"
+  echo
+
+  # Сохраняем точное текущее deployed-состояние.
+  [[ -f "$DEPLOY_CODE" ]] \
+    && cp -p "$DEPLOY_CODE" "$backup/seminartext_4.0_work"
+  [[ -f "$DEPLOY_ROADMAP" ]] \
+    && cp -p "$DEPLOY_ROADMAP" "$backup/SEMINARTEXT_4_ROADMAP.md"
+  [[ -f "$DEPLOY_STATE" ]] \
+    && cp -p "$DEPLOY_STATE" "$backup/SEMINARTEXT_4_STATE.json"
+
+  cat > "$backup/manifest.txt" <<MANIFEST
+created=$stamp
+source_repo=$REPO
+source_commit=$commit
+source_branch=$(git branch --show-current)
+MANIFEST
+
+  local tmp_code tmp_roadmap tmp_state
+  tmp_code="$DEPLOY_CODE.new.$$"
+  tmp_roadmap="$DEPLOY_ROADMAP.new.$$"
+  tmp_state="$DEPLOY_STATE.new.$$"
+
+  cleanup_deploy_tmp() {
+    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state"
+  }
+  trap cleanup_deploy_tmp RETURN INT TERM
+
+  cp -p "$CODE" "$tmp_code"
+  cp -p "$ROADMAP" "$tmp_roadmap"
+  cp -p "$STATE" "$tmp_state"
+
+  # Проверяем именно будущие deployed-файлы ДО замены.
+  bash -n "$tmp_code" \
+    || die "deploy temp code: Bash syntax FAIL"
+
+  python3 -m json.tool "$tmp_state" >/dev/null \
+    || die "deploy temp State JSON invalid"
+
+  validate_roadmap_file "$tmp_roadmap"
+
+  chmod +x "$tmp_code"
+
+  # Atomic replace на том же filesystem.
+  mv "$tmp_code" "$DEPLOY_CODE"
+  mv "$tmp_roadmap" "$DEPLOY_ROADMAP"
+  mv "$tmp_state" "$DEPLOY_STATE"
+
+  # Финальная проверка hashes.
+  [[ "$(hash_file "$CODE")" == "$(hash_file "$DEPLOY_CODE")" ]] \
+    || die "deploy hash mismatch: code"
+
+  [[ "$(hash_file "$ROADMAP")" == "$(hash_file "$DEPLOY_ROADMAP")" ]] \
+    || die "deploy hash mismatch: Roadmap"
+
+  [[ "$(hash_file "$STATE")" == "$(hash_file "$DEPLOY_STATE")" ]] \
+    || die "deploy hash mismatch: State"
+
+  echo "[OK] Code deployed"
+  echo "[OK] Roadmap deployed"
+  echo "[OK] State deployed"
+  echo "[OK] SHA-256 verified"
+  echo
+  echo "DEPLOY: PASS"
+  echo "Backup: $backup"
+}
+
+cmd_rollback() {
+  require_repo
+
+  local requested="${1:-latest}"
+
+  mkdir -p "$BACKUP_ROOT"
+
+  if [[ "$requested" == "list" ]]; then
+    echo "AVAILABLE DEPLOY BACKUPS"
+    echo "========================================"
+    find "$BACKUP_ROOT" \
+      -mindepth 1 -maxdepth 1 -type d \
+      -print | sort -r
+    return 0
+  fi
+
+  local backup
+
+  if [[ "$requested" == "latest" ]]; then
+    backup="$(
+      find "$BACKUP_ROOT" \
+        -mindepth 1 -maxdepth 1 -type d \
+        -print | sort -r | head -n 1
+    )"
+  else
+    if [[ -d "$requested" ]]; then
+      backup="$requested"
+    elif [[ -d "$BACKUP_ROOT/$requested" ]]; then
+      backup="$BACKUP_ROOT/$requested"
+    else
+      die "rollback backup не найден: $requested"
+    fi
+  fi
+
+  [[ -n "${backup:-}" && -d "$backup" ]] \
+    || die "нет доступных deploy-backups"
+
+  local backup_code backup_roadmap backup_state
+  backup_code="$backup/seminartext_4.0_work"
+  backup_roadmap="$backup/SEMINARTEXT_4_ROADMAP.md"
+  backup_state="$backup/SEMINARTEXT_4_STATE.json"
+
+  [[ -f "$backup_code" ]] \
+    || die "backup не содержит code: $backup"
+
+  [[ -f "$backup_roadmap" ]] \
+    || die "backup не содержит Roadmap: $backup"
+
+  [[ -f "$backup_state" ]] \
+    || die "backup не содержит State: $backup"
+
+  bash -n "$backup_code" \
+    || die "backup code syntax invalid"
+
+  python3 -m json.tool "$backup_state" >/dev/null \
+    || die "backup State JSON invalid"
+
+  # Для rollback не требуем актуальные Roadmap markers:
+  # старый backup может законно относиться к предыдущей schema.
+  local rollback_guard
+  rollback_guard="$BACKUP_ROOT/pre_rollback_$(date '+%Y%m%d_%H%M%S')"
+  mkdir -p "$rollback_guard"
+
+  [[ -f "$DEPLOY_CODE" ]] \
+    && cp -p "$DEPLOY_CODE" "$rollback_guard/seminartext_4.0_work"
+  [[ -f "$DEPLOY_ROADMAP" ]] \
+    && cp -p "$DEPLOY_ROADMAP" "$rollback_guard/SEMINARTEXT_4_ROADMAP.md"
+  [[ -f "$DEPLOY_STATE" ]] \
+    && cp -p "$DEPLOY_STATE" "$rollback_guard/SEMINARTEXT_4_STATE.json"
+
+  local tmp_code tmp_roadmap tmp_state
+  tmp_code="$DEPLOY_CODE.rollback.$$"
+  tmp_roadmap="$DEPLOY_ROADMAP.rollback.$$"
+  tmp_state="$DEPLOY_STATE.rollback.$$"
+
+  cp -p "$backup_code" "$tmp_code"
+  cp -p "$backup_roadmap" "$tmp_roadmap"
+  cp -p "$backup_state" "$tmp_state"
+
+  chmod +x "$tmp_code"
+
+  mv "$tmp_code" "$DEPLOY_CODE"
+  mv "$tmp_roadmap" "$DEPLOY_ROADMAP"
+  mv "$tmp_state" "$DEPLOY_STATE"
+
+  echo "ROLLBACK: PASS"
+  echo "Restored: $backup"
+  echo "Previous deployed state saved:"
+  echo "$rollback_guard"
+}
+
+show_help() {
+  cat <<'HELP'
+Использование:
+
+  scripts/seminartext-dev status
+
+      Показывает Git source of truth, master/deployed hashes и sync status.
+
+  scripts/seminartext-dev check
+
+      Проверяет master code, State JSON и структуру Roadmap.
+
+  scripts/seminartext-dev checkpoint "MESSAGE" FILE [FILE ...]
+
+      Создаёт commit только для явно перечисленных tracked-файлов.
+      Не добавляет случайные untracked-файлы.
+
+  scripts/seminartext-dev deploy
+
+      Выполняет check, запрещает deploy при tracked dirty state,
+      создаёт backup ~/bin, атомарно разворачивает master-файлы
+      и проверяет SHA-256.
+
+  scripts/seminartext-dev rollback list
+
+      Показывает доступные deploy-backups.
+
+  scripts/seminartext-dev rollback latest
+
+      Восстанавливает последний deploy-backup.
+
+  scripts/seminartext-dev rollback BACKUP
+
+      Восстанавливает конкретный backup.
+HELP
+}
+
+case "${1:-}" in
+  status)
+    cmd_status
+    ;;
+  check)
+    cmd_check
+    ;;
+  checkpoint)
+    shift
+    cmd_checkpoint "$@"
+    ;;
+  deploy)
+    cmd_deploy
+    ;;
+  rollback)
+    shift
+    cmd_rollback "$@"
+    ;;
+  -h|--help|help|"")
+    show_help
+    ;;
+  *)
+    die "неизвестная команда: $1"
+    ;;
+esac
