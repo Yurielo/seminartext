@@ -150,8 +150,9 @@ Production aligner пока не выбран. Следующий POC/bake-off �
 первым выбором для alignment уже существующих transcripts.
 
 Немедленный следующий experiment: **Word Alignment Bake-off** на одном
-контролируемом русском audio fragment (примерно 10–20 минут), с одним source и
-verified text. Сравнение не включает Topic Engine или Gold и оценивает:
+контролируемом русском audio fragment из целевого авторского корпуса (примерно
+10–20 минут), с одним source и verified text. Dataset E для bake-off не
+используется. Сравнение не включает Topic Engine или Gold и оценивает:
 
 - word/phrase alignment accuracy и start/end timing quality;
 - unaligned/missing words, repetitions/hallucinations и Russian handling;
@@ -159,7 +160,9 @@ verified text. Сравнение не включает Topic Engine или Gold
 - installation/maintenance complexity на Apple Silicon;
 - ability to align an already-existing transcript и provenance quality.
 
-Bake-off выполняется до Gold E и до дальнейшего Topic Engine tuning.
+Bake-off выполняется до дальнейшего Topic Engine tuning. Gold E больше не
+планируется: Dataset E исключён из Topic Engine evidence решением Product Owner
+в Issue #34.
 
 Тестовый реальный проект:
 
@@ -424,22 +427,27 @@ Topic Engine architecture selection.
 
 ## 2.7 Gold Expansion и состояния datasets
 
+Authoritative Dataset E exclusion policy:
+`analysis/DATASET_E_TOPIC_ENGINE_EVIDENCE_POLICY_2026-08-26.md`.
+
 Policy:
 
 - Dataset D = **LOCKED TEST**;
-- Dataset E/F = **DEVELOPMENT**;
+- Dataset E = **EXCLUDED FROM TOPIC ENGINE EVIDENCE**;
+- Dataset F = potential **DEVELOPMENT** source после source/ASR quality repair;
 - future Gold expansion intentionally diversifies seminar structure and subject
-  matter.
+  matter внутри контролируемого целевого авторского корпуса.
 
 Quality gate:
 
 - Dataset D: `SOURCE QUALITY INSUFFICIENT`; repair/replace source is required
   before any locked-test evaluation;
-- Dataset E: original source required resegmentation; the topic-agnostic text
-  segmentation prototype is `READY FOR GOLD` at text-layer level;
+- Dataset E: original source required resegmentation; historical topic-agnostic
+  text segmentation prototype retained as transcript-segmentation engineering
+  evidence only and is **not** `READY FOR GOLD` or benchmark evidence;
 - Dataset F: `SOURCE QUALITY INSUFFICIENT`.
 
-Dataset E prototype facts:
+Historical Dataset E prototype facts (not Topic Engine evidence):
 
 - 189 coarse cues → 704 derived segments;
 - median duration 30.77s → 7.869s;
@@ -447,14 +455,23 @@ Dataset E prototype facts:
 - conservation and deterministic byte-identical generation: PASS;
 - timestamps are derived estimates, not source-exact.
 
-Gold E starts only after Word Timeline alignment/timing policy is accepted.
+These facts preserve the architectural lesson that arbitrary SRT cue granularity
+is unsuitable as the canonical coordinate system. Dataset E must not be used for
+Gold creation, tuning, architecture/model/configuration comparison,
+`TOPIC SEGMENTATION STABLE` acceptance, or conclusions about the Product Owner's
+seminar corpus. Gold E is not planned.
 
 ## 2.8 Будущая структура benchmark datasets
 
 Текущее разделение evidence:
 
 DEVELOPMENT / CALIBRATION
-→ Dataset A, Dataset B history/error analysis, Dataset E after timing policy
+→ Dataset A, Dataset B history/error analysis, and future controlled
+target-corpus development sources; Dataset F is a potential source after repair
+
+EXCLUDED FROM TOPIC ENGINE EVIDENCE
+→ Dataset E; historical artifacts may be retained only as transcript-segmentation
+engineering evidence
 
 LOCKED TEST
 → Dataset D only after source repair and then without development tuning
@@ -1324,7 +1341,8 @@ Knowledge Base должна обслуживать:
 WORD TIMELINE / ALIGNMENT FOUNDATION
 
 Dataset C blind validation, Gold Expansion Strategy, Transcript Segmentation
-Quality Gate и Dataset E topic-agnostic resegmentation prototype завершены.
+Quality Gate и historical Dataset E topic-agnostic resegmentation prototype
+завершены. Dataset E исключён из Topic Engine evidence решением Product Owner.
 
 Следующая обязательная последовательность:
 
@@ -1335,17 +1353,19 @@ Quality Gate и Dataset E topic-agnostic resegmentation prototype заверше
 5. **Word Alignment Bake-off — NEXT.**
 6. Freeze Word Timeline architecture and provenance schema.
 7. Integrate selected alignment approach experimentally.
-8. Upgrade Dataset E timing when source media is available.
-9. Create Gold E only after timing policy acceptance.
-10. Repair/replace Dataset D source while preserving the locked-test firewall.
-11. Repair Dataset F source quality.
-12. Expand development Gold.
-13. Resume Local Peak development on development data only.
-14. Freeze next Topic Engine candidate.
-15. Blind evaluation on untouched Dataset D.
-16. Define formal `TOPIC SEGMENTATION STABLE` acceptance criteria.
-17. Global Video Review / Seminar Structure.
-18. Obsidian / Knowledge Layer after stable segmentation + provenance foundation.
+8. Retain Dataset E artifacts as historical transcript-segmentation engineering
+   evidence only; do not create Gold E or upgrade it for Topic Engine evaluation.
+9. Repair/replace Dataset D source while preserving the locked-test firewall.
+10. Repair Dataset F source quality and assess it as a potential controlled
+    DEVELOPMENT source.
+11. Expand development Gold using controlled target-corpus sources only.
+12. Resume Local Peak development on development data only; Dataset E excluded.
+13. Freeze next Topic Engine candidate.
+14. Blind evaluation on untouched Dataset D.
+15. Define formal `TOPIC SEGMENTATION STABLE` acceptance criteria without
+    Dataset E.
+16. Global Video Review / Seminar Structure.
+17. Obsidian / Knowledge Layer after stable segmentation + provenance foundation.
 
 ---
 

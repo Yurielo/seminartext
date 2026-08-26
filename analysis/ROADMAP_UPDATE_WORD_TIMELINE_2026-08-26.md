@@ -4,6 +4,18 @@ Date: 2026-08-26
 
 This decision record updates the intended SeminarText 4.x roadmap direction after Dataset C blind validation, Gold Expansion planning, Transcript Segmentation Quality Gate (#29), Dataset E resegmentation prototype (#30), and the architecture review of word-level alignment options.
 
+## Superseding Dataset E evidence policy — Issue #34
+
+The Product Owner has excluded Dataset E — «Нумеролог» from Topic Engine
+development and evaluation evidence. Any earlier wording in this record that
+described Dataset E as `DEVELOPMENT`, `READY FOR GOLD`, or a future Gold target is
+superseded. Historical 189 → 704 resegmentation facts remain valid only as
+transcript-segmentation engineering evidence; they are not Topic Engine benchmark
+evidence.
+
+Authoritative policy record:
+`analysis/DATASET_E_TOPIC_ENGINE_EVIDENCE_POLICY_2026-08-26.md`.
+
 ## Product Owner decision
 
 1. **Word Timeline becomes part of Evidence Foundation.**
@@ -16,11 +28,11 @@ This decision record updates the intended SeminarText 4.x roadmap direction afte
    - benchmark segments;
    - topics.
 4. SRT cue granularity must not be treated as the canonical coordinate system for Topic Engine or Gold.
-5. Dataset E resegmentation prototype is accepted at the **text segmentation** level. Its estimated timestamps remain non-source-exact and must be marked as such.
+5. Dataset E resegmentation prototype is retained at the **text segmentation engineering** level only. Its estimated timestamps remain non-source-exact and must be marked as such; the prototype is excluded from Topic Engine evidence.
 6. Dataset C is closed for parameter/architecture selection after blind validation.
 7. Dataset D remains a future LOCKED TEST; current selected D source is `SOURCE QUALITY INSUFFICIENT` and must not be used until source/ASR quality is repaired.
-8. Dataset E is DEVELOPMENT and may proceed after word-timestamp/alignment architecture is resolved.
-9. Dataset F remains blocked by source-quality/ASR issues until repaired.
+8. Dataset E is **EXCLUDED FROM TOPIC ENGINE EVIDENCE** and must not proceed to Gold, tuning, architecture selection, model/config comparison, or acceptance evidence.
+9. Dataset F remains a potential DEVELOPMENT source but is blocked by source-quality/ASR issues until repaired.
 10. Local Peak remains the **primary experimental candidate**, not production baseline. PELT remains recall-oriented comparator.
 
 ## Evidence Foundation additions
@@ -76,7 +88,9 @@ Candidates for empirical POC/bake-off:
 
 ## Immediate next experiment
 
-**Word Alignment Bake-off** on one controlled Russian audio fragment (~10–20 minutes), using the same source and verified text.
+**Word Alignment Bake-off** on one controlled target-corpus Russian audio fragment
+(~10–20 minutes), using the same source and verified text. Dataset E must not be
+used for this bake-off.
 
 Compare at least:
 
@@ -135,22 +149,28 @@ Post-C diagnosis:
 Strategy:
 
 - Dataset D = LOCKED TEST;
-- Dataset E/F = DEVELOPMENT;
-- future Gold expansion should intentionally diversify seminar structure and subject matter.
+- Dataset E = EXCLUDED FROM TOPIC ENGINE EVIDENCE;
+- Dataset F = potential DEVELOPMENT source after source/ASR quality repair;
+- future Gold expansion should intentionally diversify seminar structure and subject matter within the controlled target corpus.
 
 Quality-gate results:
 
 - Dataset D: `SOURCE QUALITY INSUFFICIENT`;
-- Dataset E: original source `RESEGMENTATION REQUIRED`, prototype derived segmentation now `READY FOR GOLD` at text-layer level;
+- Dataset E: original source `RESEGMENTATION REQUIRED`; historical prototype is retained as transcript-segmentation engineering evidence only and is not `READY FOR GOLD`;
 - Dataset F: `SOURCE QUALITY INSUFFICIENT`.
 
-Dataset E prototype:
+Historical Dataset E prototype (not Topic Engine evidence):
 - 189 coarse cues → 704 derived segments;
 - median duration 30.77s → 7.869s;
 - median words 63 → 17;
 - text conservation PASS;
 - deterministic byte-identical output PASS;
 - timestamps currently derived estimates because source media / word-level timestamps are unavailable.
+
+The prototype may support the architectural conclusion that arbitrary SRT cue
+granularity is not a canonical coordinate system. It must not support Topic
+Engine Gold, tuning, architecture/model/configuration comparison,
+`TOPIC SEGMENTATION STABLE` acceptance, or target-corpus performance claims.
 
 ## Revised near-term sequence
 
@@ -161,17 +181,16 @@ Dataset E prototype:
 5. **Word Alignment Bake-off — NEXT.**
 6. Freeze Word Timeline architecture and provenance schema.
 7. Integrate selected alignment approach first as experimental Evidence Foundation component.
-8. Rebuild/upgrade Dataset E timing from estimates to source-grounded word timing when media is available.
-9. Create Gold E only after alignment/timing policy is accepted.
-10. Repair/replace source for Dataset D while preserving locked-test firewall.
-11. Prepare Dataset F only after ASR/source-quality repair.
-12. Expand development Gold beyond A/B/E as needed.
-13. Resume next Local Peak architecture experiment using development data only.
-14. Freeze next Topic Engine candidate.
-15. First blind evaluation on untouched Dataset D.
-16. Define formal `TOPIC SEGMENTATION STABLE` acceptance criteria from cross-dataset evidence.
-17. Proceed to Global Video Review / Seminar Structure.
-18. Obsidian / Knowledge Layer follows after stable topic segmentation and provenance foundation.
+8. Retain Dataset E outputs as historical transcript-segmentation engineering evidence only; do not create Gold E or upgrade it for Topic Engine evaluation.
+9. Repair/replace source for Dataset D while preserving locked-test firewall.
+10. Prepare Dataset F only after ASR/source-quality repair and confirm that it is a controlled target-corpus source.
+11. Expand development Gold beyond A/B using controlled target-corpus sources only.
+12. Resume next Local Peak architecture experiment using development data only; Dataset E excluded.
+13. Freeze next Topic Engine candidate.
+14. First blind evaluation on untouched Dataset D.
+15. Define formal `TOPIC SEGMENTATION STABLE` acceptance criteria from eligible cross-dataset evidence without Dataset E.
+16. Proceed to Global Video Review / Seminar Structure.
+17. Obsidian / Knowledge Layer follows after stable topic segmentation and provenance foundation.
 
 ## Roadmap wording to deprecate
 
@@ -181,8 +200,11 @@ The roadmap must no longer state:
 - Dataset C as the next independent validation;
 - that frozen A/B/C validation is still pending;
 - that SRT cue IDs are the implicit long-term canonical segmentation layer;
-- that Topic Engine architecture choice should be made before resolving transcript/word-timeline provenance.
+- that Topic Engine architecture choice should be made before resolving transcript/word-timeline provenance;
+- Dataset E as `DEVELOPMENT`, `READY FOR GOLD`, or planned Gold E evidence.
 
 ## Next action
 
-Create and execute a dedicated **Word Alignment Bake-off** Issue before any further Gold E annotation or Topic Engine tuning.
+Create and execute a dedicated **Word Alignment Bake-off** Issue on controlled
+target-corpus audio before further Topic Engine tuning. Dataset E and Gold E are
+not part of the sequence.
