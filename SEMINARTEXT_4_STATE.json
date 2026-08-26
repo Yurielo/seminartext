@@ -1,10 +1,18 @@
 {
-  "schema_version": 2,
-  "updated": "2026-08-25",
-  "current_stage": "hybrid_topic_engine",
+  "schema_version": 3,
+  "updated": "2026-08-26",
+  "policy_checkpoint": "evidence_first_parallel_v1",
+  "current_stage": "canonical_evidence_foundation_parallel_tracks",
+  "current_milestone": "final_controlled_word_alignment_decision",
   "current_project": "Стресс код",
   "architecture": {
-    "topic_engine_leader": "stage 2 hybrid candidates under frozen A/B/C validation",
+    "accepted_direction": "evidence_first_parallel_development",
+    "architecture_decision_status": "accepted_by_product_owner",
+    "decision_record": "decisions/0002-evidence-first-parallel-development.md",
+    "canonical_foundation": "canonical_evidence_layer",
+    "topic_engine_leader": "local_peak_primary_experimental_candidate",
+    "topic_engine_comparator": "pelt_recall_oriented_comparator",
+    "topic_engine_role": "critical_parallel_scalability_track",
     "llm_boundary_engine_role": "baseline",
     "llm_primary_future_roles": [
       "topic_titles",
@@ -12,14 +20,78 @@
       "local_semantic_validation",
       "knowledge_engine"
     ],
-    "architecture_decision_status": "pending Dataset C and checkpoint"
+    "knowledge_prototype_topic_inputs": [
+      "verified_manual_topics",
+      "gold_topics",
+      "explicitly_marked_semi_automatic_topics"
+    ],
+    "knowledge_prototype_blocked_by_topic_engine_stable": false,
+    "development_principle": "ADOPT_ADAPT_BUILD",
+    "external_solution_classifications": [
+      "ADOPT",
+      "ADAPT",
+      "REJECT",
+      "BUILD"
+    ],
+    "layer_boundaries": {
+      "boundary_detection": "local_semantic_transitions",
+      "seminar_structure": "hierarchy_merge_and_recurrence_of_local_topics",
+      "knowledge_engine": "concepts_and_relations_across_topics_and_seminars"
+    },
+    "tracks": {
+      "semantic_automation": {
+        "status": "active_parallel",
+        "purpose": "scale_boundary_and_topic_draft_automation"
+      },
+      "knowledge_product": {
+        "status": "planned_parallel_after_minimum_canonical_evidence",
+        "purpose": "bounded_golden_seminar_vertical_slice"
+      }
+    }
+  },
+  "canonical_evidence_policy": {
+    "machine_data_is_primary": true,
+    "txt_srt_docx_role": "views_and_exports",
+    "speaker_ready": true,
+    "speaker_id": {
+      "required_in_schema": true,
+      "nullable_initially": true,
+      "diarization_required_now": false
+    },
+    "minimum_knowledge_entities": [
+      "Seminar",
+      "Source",
+      "Topic",
+      "Concept",
+      "Evidence"
+    ]
   },
   "stages": {
     "evidence_foundation": {
-      "status": "in_progress"
+      "name": "canonical_evidence_layer",
+      "status": "in_progress",
+      "immediate_foundation": "word_timeline"
+    },
+    "word_alignment": {
+      "status": "additional_final_controlled_experiment_required",
+      "prior_bakeoff_verdict": "ADDITIONAL_ALIGNMENT_EXPERIMENT_REQUIRED",
+      "evidence_reference": "GitHub Issue #33",
+      "production_aligner_frozen": false,
+      "provisional_legacy_aligner": "stable_ts_constrained_align_words",
+      "provisional_new_asr_path": "whisper_cpp_large_v3_dtw_with_validated_point_to_interval_policy",
+      "next_action": "final_controlled_word_alignment_decision_on_frozen_target_corpus_sample"
+    },
+    "canonical_evidence_schema_v1": {
+      "status": "pending_after_word_alignment_decision",
+      "implementation_in_scope": false
+    },
+    "word_timeline_mvp": {
+      "status": "pending",
+      "scope": "one_controlled_target_corpus_source"
     },
     "topic_benchmark_dataset_a": {
       "status": "complete",
+      "role": "DEVELOPMENT_CALIBRATION",
       "project": "Стресс код",
       "source_id": "video_001",
       "gold_cases_total": 6,
@@ -28,10 +100,83 @@
       "integrity_checked": true,
       "gold_complete": true
     },
+    "dataset_b": {
+      "status": "complete",
+      "role": "DEVELOPMENT_ERROR_ANALYSIS_HISTORY",
+      "project": "Заблокированные эмоции",
+      "source_id": "video_001",
+      "gold_cases_total": 6,
+      "gold_cases_labeled": 6,
+      "gold_topics_total": 34,
+      "gold_complete": true,
+      "frozen_validation_complete": true,
+      "report": "analysis/DATASET_B_FROZEN_VALIDATION.md",
+      "result_summary": "analysis/dataset_b/results/dataset_b_frozen_validation_summary.json"
+    },
+    "dataset_c": {
+      "status": "complete_closed",
+      "role": "FROZEN_CLOSED_EVIDENCE",
+      "project": "И Цзин",
+      "source_id": "video_001",
+      "gold_cases_total": 6,
+      "gold_cases_labeled": 6,
+      "gold_topics_total": 24,
+      "gold_complete": true,
+      "blind_validation_complete": true,
+      "available_for_tuning": false,
+      "available_for_architecture_selection": false,
+      "local_peak_tolerance_2_id_f1": 0.583,
+      "pelt_tolerance_2_id_f1": 0.345,
+      "report": "analysis/DATASET_C_BLIND_VALIDATION.md"
+    },
+    "dataset_d": {
+      "status": "locked_test_blocked_by_source_quality",
+      "role": "LOCKED_TEST",
+      "source_quality": "SOURCE_QUALITY_INSUFFICIENT",
+      "repair_mode": "topic_agnostic_only",
+      "topic_engine_access_allowed": false,
+      "unlock_conditions": [
+        "source_repaired_or_replaced_topic_agnostically",
+        "topic_engine_candidate_and_configuration_frozen",
+        "acceptance_criteria_and_analysis_plan_frozen"
+      ]
+    },
+    "dataset_e": {
+      "status": "EXCLUDED_FROM_TOPIC_ENGINE_EVIDENCE",
+      "project": "Нумеролог",
+      "allowed_use": "historical_transcript_segmentation_engineering_evidence_only",
+      "gold_creation_allowed": false,
+      "topic_engine_development_allowed": false,
+      "policy": "analysis/DATASET_E_TOPIC_ENGINE_EVIDENCE_POLICY_2026-08-26.md"
+    },
+    "dataset_f": {
+      "status": "quarantined_potential_development",
+      "project": "Резонансные техники",
+      "role": "POTENTIAL_DEVELOPMENT_AFTER_REPAIR",
+      "source_quality": "SOURCE_QUALITY_INSUFFICIENT",
+      "topic_engine_development_allowed": false,
+      "requirements": [
+        "source_or_asr_quality_repair",
+        "controlled_target_corpus_confirmation"
+      ]
+    },
     "topic_engine": {
-      "status": "in_progress",
+      "status": "in_progress_parallel",
       "stable": false,
-      "current_architecture": "stage_2_hybrid_topic_engine_under_validation"
+      "topic_automation_usable": false,
+      "current_architecture": "local_peak_primary_experimental_candidate",
+      "role": "critical_for_scale_not_a_knowledge_prototype_gate",
+      "next_algorithmic_gate": "external_topic_semantic_segmentation_survey_and_baseline_challenge"
+    },
+    "external_semantic_segmentation_survey": {
+      "status": "pending",
+      "required_before": "substantial_new_custom_topic_engine_algorithms",
+      "classifications": [
+        "ADOPT",
+        "ADAPT",
+        "REJECT",
+        "BUILD"
+      ]
     },
     "embedding_engine": {
       "status": "experimental_leader",
@@ -60,25 +205,33 @@
       "mean_topic_count_error": 1.67,
       "known_problem": "systematic_over_segmentation"
     },
-    "dataset_b": {
-      "status": "complete",
-      "project": "Заблокированные эмоции",
-      "source_id": "video_001",
-      "gold_cases_total": 6,
-      "gold_cases_labeled": 6,
-      "gold_topics_total": 34,
-      "gold_complete": true,
-      "frozen_validation_complete": true,
-      "report": "analysis/DATASET_B_FROZEN_VALIDATION.md",
-      "result_summary": "analysis/dataset_b/results/dataset_b_frozen_validation_summary.json"
-    },
     "topic_benchmark_runner": {
       "status": "complete",
       "command": "project-topic-benchmark-run"
     },
+    "golden_seminar_vertical_slice": {
+      "status": "planned",
+      "default_project": "Стресс код",
+      "blocked_by": "minimum_canonical_evidence_foundation",
+      "not_blocked_by": "topic_engine.stable",
+      "allowed_topic_inputs": [
+        "verified_manual",
+        "gold",
+        "explicitly_marked_semi_automatic"
+      ],
+      "minimum_entities": [
+        "Seminar",
+        "Source",
+        "Topic",
+        "Concept",
+        "Evidence"
+      ]
+    },
     "global_seminar_structure": {
-      "status": "pending",
-      "blocked_by": "topic_engine"
+      "status": "pending_poc",
+      "blocked_by": "minimum_canonical_evidence_and_verified_topics",
+      "not_blocked_by": "perfect_automatic_boundaries",
+      "poc_project": "Стресс код"
     },
     "multi_source_alignment": {
       "status": "pending"
@@ -87,50 +240,43 @@
       "status": "pending_partial"
     },
     "knowledge_engine": {
-      "status": "pending"
+      "status": "bounded_prototype_planned",
+      "not_blocked_by": "topic_engine.stable"
     },
     "human_review": {
-      "status": "pending"
+      "status": "required_for_verified_knowledge"
     },
     "obsidian_schema": {
-      "status": "pending",
+      "status": "bounded_prototype_planned",
       "required": true
     },
     "obsidian_mvp": {
-      "status": "blocked",
+      "status": "planned_unblocked",
       "required": true,
-      "blocked_by": "topic_engine",
-      "start_when": "topic_engine.stable == true",
+      "blocked_by": "minimum_canonical_evidence_foundation",
+      "not_blocked_by": "topic_engine.stable",
+      "start_when": "golden_seminar_vertical_slice.minimum_evidence_contract_ready",
       "do_not_skip": true
     },
     "obsidian_export": {
-      "status": "pending",
+      "status": "not_implemented",
       "planned_command": "project-obsidian-export"
     },
     "obsidian_sync": {
-      "status": "pending",
-      "planned_command": "project-obsidian-sync",
-      "requirements": [
-        "stable_ids",
-        "idempotent_sync",
-        "duplicate_prevention",
-        "preserve_human_edits",
-        "machine_managed_vs_human_managed_content",
-        "conflict_detection",
-        "change_log"
-      ]
+      "status": "deferred_not_required_for_prototype",
+      "planned_command": "project-obsidian-sync"
     },
     "cross_seminar_knowledge_graph": {
-      "status": "pending"
+      "status": "future_after_multi_seminar_mvp"
     },
     "learning_architecture": {
-      "status": "pending"
+      "status": "future"
     },
     "marketing_passport": {
-      "status": "pending"
+      "status": "future_not_required_for_prototype"
     },
     "site_integration": {
-      "status": "pending"
+      "status": "future_not_required_for_prototype"
     },
     "media_engine": {
       "status": "pending_partial"
@@ -138,82 +284,93 @@
     "knowledge_assistant": {
       "status": "future"
     },
-    "dataset_c": {
-      "status": "candidates_prepared_needs_review",
-      "required": true,
-      "must_use_different_seminar": true,
-      "project": "И Цзин",
-      "source_id": "video_001",
-      "candidate_cases_total": 6,
-      "available_window_count": 24,
-      "eligible_window_count": 23,
-      "selected_window_numbers": [
-        1,
-        5,
-        10,
-        14,
-        19,
-        23
-      ],
-      "gold_cases_labeled": 0,
-      "gold_complete": false,
-      "candidate_benchmark": "analysis/dataset_c/topic_benchmark_dataset_c.json",
-      "review_report": "analysis/DATASET_C_PREPARATION.md",
-      "purpose": "second_unseen_transfer_test_before_architecture_decision",
-      "human_gate_for_gold": "DOMAIN_AUTHORING",
-      "freeze_topic_engine_parameters_until_test": true
-    },
     "architecture_decision_checkpoint": {
-      "status": "pending",
-      "after": "frozen A/B/C validation",
-      "before": "Stage 3 global seminar structure"
+      "status": "accepted",
+      "decision": "evidence_first_parallel_development",
+      "decision_record": "decisions/0002-evidence-first-parallel-development.md"
     }
+  },
+  "topic_automation_product_evaluation": {
+    "future_gate": "TOPIC_AUTOMATION_USABLE",
+    "boundary_f1_is_sufficient_alone": false,
+    "required_dimensions": [
+      "boundary_precision_recall_f1",
+      "over_segmentation",
+      "under_segmentation",
+      "topic_count_error",
+      "human_correction_time_per_source_hour",
+      "semantic_usefulness",
+      "cross_seminar_generalization",
+      "provenance_completeness"
+    ]
   },
   "knowledge_layer_ready": {
     "required_now": true,
+    "minimum_vertical_slice_ready": false,
     "requirements": [
-      "stable_project_id",
-      "stable_video_id",
-      "stable_document_id",
+      "stable_seminar_id",
       "stable_source_id",
       "stable_topic_id",
+      "stable_concept_id",
+      "stable_evidence_id",
       "source_provenance",
-      "source_links",
-      "time_boundaries",
-      "page_references",
-      "slide_references",
+      "source_locator",
       "markdown_compatibility",
-      "wikilink_compatibility",
-      "idempotent_export"
+      "wikilink_compatibility"
     ]
   },
   "obsidian_mvp_requirements": [
-    "vault_configuration",
-    "folder_schema",
-    "properties_standard",
-    "stable_entity_ids",
-    "seminar_card",
-    "video_source_card",
-    "topic_export",
-    "topic_hierarchy",
-    "timecodes",
-    "page_and_slide_references",
-    "existing_entity_wikilinks",
+    "minimum_canonical_evidence_schema",
+    "stable_ids_for_seminar_source_topic_concept_evidence",
+    "golden_seminar_card",
+    "source_cards",
+    "verified_topic_cards",
+    "concept_candidates",
+    "evidence_links",
     "provenance",
-    "source_backlinks",
-    "safe_reexport",
-    "duplicate_prevention"
+    "product_review"
+  ],
+  "obsidian_prototype_not_required": [
+    "full_bidirectional_sync",
+    "graph_database",
+    "production_rag",
+    "site_integration",
+    "marketing_passport"
+  ],
+  "near_term_execution_sequence": [
+    {"order": 1, "milestone": "architecture_and_state_consistency_repair", "status": "complete"},
+    {"order": 2, "milestone": "final_controlled_word_alignment_decision", "status": "next"},
+    {"order": 3, "milestone": "canonical_evidence_schema_v1", "status": "pending"},
+    {"order": 4, "milestone": "word_timeline_mvp_one_controlled_source", "status": "pending"},
+    {"order": 5, "milestone": "parallel_split_knowledge_slice_and_topic_baseline_track", "status": "pending"},
+    {"order": 6, "milestone": "global_seminar_structure_poc", "status": "pending"},
+    {"order": 7, "milestone": "freeze_topic_engine_candidate", "status": "pending"},
+    {"order": 8, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "pending"},
+    {"order": 9, "milestone": "dataset_d_blind_evaluation", "status": "pending"},
+    {"order": 10, "milestone": "define_and_assess_topic_automation_usable", "status": "pending"},
+    {"order": 11, "milestone": "expand_knowledge_engine", "status": "pending"},
+    {"order": 12, "milestone": "multi_seminar_knowledge_mvp", "status": "pending"},
+    {"order": 13, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
   ],
   "next_actions": [
-    "manual_gold_dataset_c_when_required",
-    "run_frozen_a_b_c_validation",
-    "compare_generalization_across_datasets",
-    "architecture_decision_checkpoint_before_stage_3",
-    "solve_automatic_topic_count",
-    "reach_topic_segmentation_stable",
-    "start_obsidian_schema",
-    "start_obsidian_mvp"
+    "final_controlled_word_alignment_decision",
+    "canonical_evidence_schema_v1",
+    "word_timeline_mvp_one_controlled_source",
+    "parallel_golden_seminar_knowledge_slice_and_external_topic_baseline_survey"
   ],
+  "roadmap_state_consistency": {
+    "checkpoint": "evidence_first_parallel_v1",
+    "roadmap": "SEMINARTEXT_4_ROADMAP.md",
+    "state": "SEMINARTEXT_4_STATE.json",
+    "adr": "decisions/0002-evidence-first-parallel-development.md",
+    "review": "analysis/ROADMAP_STATE_CONSISTENCY_REVIEW_2026-08-26.md",
+    "must_agree_on": [
+      "dataset_roles_A_through_F",
+      "milestone_completion",
+      "blocking_dependencies",
+      "near_term_execution_sequence"
+    ]
+  },
   "product_owner_rule": {
     "product_owner_is_lead": true,
     "critical_path_changes_require_product_owner_review": true,
@@ -223,7 +380,10 @@
   "operating_model": {
     "governing_principle": "Do not minimize Yuri's participation. Minimize Yuri's participation in operations where his expertise is not needed.",
     "workflow_doc": "DEVELOPMENT_WORKFLOW.md",
-    "decision_record": "decisions/0001-operating-model-and-human-gates.md",
+    "decision_records": [
+      "decisions/0001-operating-model-and-human-gates.md",
+      "decisions/0002-evidence-first-parallel-development.md"
+    ],
     "github_source_of_truth": {
       "roadmap": "SEMINARTEXT_4_ROADMAP.md",
       "state": "SEMINARTEXT_4_STATE.json",
