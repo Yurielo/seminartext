@@ -3,7 +3,7 @@
   "type": "seminartext_topic_benchmark",
   "dataset_id": "dataset_c",
   "dataset_name": "Dataset C",
-  "status": "candidate_needs_review",
+  "status": "gold_complete",
   "source_id": "video_001",
   "window_count": 6,
   "selection_policy": {
@@ -574,12 +574,44 @@
         }
       ],
       "gold": {
-        "boundaries": [],
-        "topics": []
+        "boundaries": [
+          1,
+          24,
+          66,
+          79,
+          83
+        ],
+        "topics": [
+          {
+            "start_id": 1,
+            "title": "Введение. И Цзин как практический инструмент",
+            "summary": ""
+          },
+          {
+            "start_id": 24,
+            "title": "Жизнь в эпоху перемен",
+            "summary": ""
+          },
+          {
+            "start_id": 66,
+            "title": "Как жить в изменяющемся мире: гармония вместо противостояния",
+            "summary": ""
+          },
+          {
+            "start_id": 79,
+            "title": "Организационное замечание участникам: включить камеры",
+            "summary": ""
+          },
+          {
+            "start_id": 83,
+            "title": "Возвращение к теме перемен. Конфуций об изучении И Цзин",
+            "summary": ""
+          }
+        ]
       },
       "review": {
-        "status": "needs_review",
-        "notes": "Dataset C candidate only. Manual Gold labels must be created without using Topic Engine predictions."
+        "status": "gold_complete",
+        "notes": "Dataset C. Product Owner manual Gold labels recorded without using Topic Engine predictions."
       }
     },
     {
@@ -1173,12 +1205,38 @@
         }
       ],
       "gold": {
-        "boundaries": [],
-        "topics": []
+        "boundaries": [
+          373,
+          399,
+          431,
+          433
+        ],
+        "topics": [
+          {
+            "start_id": 373,
+            "title": "Толкование образов и высказываний Книги Перемен",
+            "summary": ""
+          },
+          {
+            "start_id": 399,
+            "title": "Расширение рамок восприятия: рефрейминг и контекст",
+            "summary": ""
+          },
+          {
+            "start_id": 431,
+            "title": "Организационный перерыв",
+            "summary": ""
+          },
+          {
+            "start_id": 433,
+            "title": "Дуальность мира и И Цзин: полярности, инь и ян",
+            "summary": ""
+          }
+        ]
       },
       "review": {
-        "status": "needs_review",
-        "notes": "Dataset C candidate only. Manual Gold labels must be created without using Topic Engine predictions."
+        "status": "gold_complete",
+        "notes": "Dataset C. Product Owner manual Gold labels recorded without using Topic Engine predictions."
       }
     },
     {
@@ -1904,12 +1962,38 @@
         }
       ],
       "gold": {
-        "boundaries": [],
-        "topics": []
+        "boundaries": [
+          867,
+          906,
+          940,
+          966
+        ],
+        "topics": [
+          {
+            "start_id": 867,
+            "title": "Уровни сознания, мировоззрение и границы восприятия реальности",
+            "summary": ""
+          },
+          {
+            "start_id": 906,
+            "title": "Вопрос об уровне науки и нравственности учёных",
+            "summary": ""
+          },
+          {
+            "start_id": 940,
+            "title": "Дуальность и притча Чжуан-цзы о старике и кобылице",
+            "summary": ""
+          },
+          {
+            "start_id": 966,
+            "title": "Обсуждение смысла притчи: отказ от жёстких оценок «хорошо/плохо»",
+            "summary": ""
+          }
+        ]
       },
       "review": {
-        "status": "needs_review",
-        "notes": "Dataset C candidate only. Manual Gold labels must be created without using Topic Engine predictions."
+        "status": "gold_complete",
+        "notes": "Dataset C. Product Owner manual Gold labels recorded without using Topic Engine predictions."
       }
     },
     {
@@ -2533,12 +2617,38 @@
         }
       ],
       "gold": {
-        "boundaries": [],
-        "topics": []
+        "boundaries": [
+          1276,
+          1303,
+          1336,
+          1361
+        ],
+        "topics": [
+          {
+            "start_id": 1276,
+            "title": "Делание и неделание как стратегии достижения результата",
+            "summary": ""
+          },
+          {
+            "start_id": 1303,
+            "title": "Цели жизни, контакт с собой и самоценность",
+            "summary": ""
+          },
+          {
+            "start_id": 1336,
+            "title": "Структура гексограммы: позиции, триграммы и связи между чертами",
+            "summary": ""
+          },
+          {
+            "start_id": 1361,
+            "title": "Сильные и слабые позиции. Гармония 63-й и 64-й гексограмм",
+            "summary": ""
+          }
+        ]
       },
       "review": {
-        "status": "needs_review",
-        "notes": "Dataset C candidate only. Manual Gold labels must be created without using Topic Engine predictions."
+        "status": "gold_complete",
+        "notes": "Dataset C. Product Owner manual Gold labels recorded without using Topic Engine predictions."
       }
     },
     {
@@ -3198,12 +3308,32 @@
         }
       ],
       "gold": {
-        "boundaries": [],
-        "topics": []
+        "boundaries": [
+          1738,
+          1761,
+          1808
+        ],
+        "topics": [
+          {
+            "start_id": 1738,
+            "title": "Уточнение эмоционального состояния через И Цзин",
+            "summary": ""
+          },
+          {
+            "start_id": 1761,
+            "title": "Перевод И Цзин Юлиана Щуцкого и интерпретация древнекитайских образов",
+            "summary": ""
+          },
+          {
+            "start_id": 1808,
+            "title": "Практическое применение гексограмм: мудры и мышечное тестирование",
+            "summary": ""
+          }
+        ]
       },
       "review": {
-        "status": "needs_review",
-        "notes": "Dataset C candidate only. Manual Gold labels must be created without using Topic Engine predictions."
+        "status": "gold_complete",
+        "notes": "Dataset C. Product Owner manual Gold labels recorded without using Topic Engine predictions."
       }
     },
     {
@@ -3863,12 +3993,38 @@
         }
       ],
       "gold": {
-        "boundaries": [],
-        "topics": []
+        "boundaries": [
+          2156,
+          2181,
+          2214,
+          2234
+        ],
+        "topics": [
+          {
+            "start_id": 2156,
+            "title": "Направление взгляда как инструмент выявления и коррекции стресса",
+            "summary": ""
+          },
+          {
+            "start_id": 2181,
+            "title": "Структура телесной коррекции: простукивание, прослеживание, аффирмация и карта И Цзин",
+            "summary": ""
+          },
+          {
+            "start_id": 2214,
+            "title": "Критерий завершения коррекции: снятие стресса",
+            "summary": ""
+          },
+          {
+            "start_id": 2234,
+            "title": "План дальнейшей практической работы и вопросы участников",
+            "summary": ""
+          }
+        ]
       },
       "review": {
-        "status": "needs_review",
-        "notes": "Dataset C candidate only. Manual Gold labels must be created without using Topic Engine predictions."
+        "status": "gold_complete",
+        "notes": "Dataset C. Product Owner manual Gold labels recorded without using Topic Engine predictions."
       }
     }
   ]
