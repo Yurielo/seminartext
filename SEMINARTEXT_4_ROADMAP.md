@@ -1,6 +1,6 @@
 # SeminarText 4.x Roadmap
 
-Последнее обновление: 2026-08-25
+Последнее обновление: 2026-08-26
 
 ## Главная цель
 
@@ -92,6 +92,74 @@ Decision record:
 - [ ] номер страницы документа
 - [ ] номер слайда
 - [ ] возможность перейти от знания к исходному evidence
+
+## Word Timeline / Alignment
+
+Статус: NEXT ARCHITECTURE FOUNDATION
+
+Canonical architecture:
+
+`media → ASR transcript → word timeline → fine-grained benchmark segments → Gold topic boundaries → Topic Engine`
+
+Не смешивать три разных уровня:
+
+- **ASR words / speech-recognition units** — распознанные token/word units с
+  текстом и timing;
+- **benchmark segments** — детерминированные группы word units для размещения
+  Gold boundaries;
+- **topics** — смысловые интервалы, определяемые Gold или Topic Engine поверх
+  benchmark segments.
+
+SRT cue granularity остаётся полезным input/provenance, но не является
+долгосрочной canonical coordinate system для Gold или Topic Engine.
+
+Необходимо поддерживать:
+
+- [ ] source-grounded word timestamps;
+- [ ] stable word IDs;
+- [ ] text + start/end для каждого word/token unit;
+- [ ] confidence, если доступен;
+- [ ] timing provenance (`source_exact`, `forced_alignment`,
+  `derived_estimate` или equivalent);
+- [ ] source media mapping;
+- [ ] deterministic segment → word-range mapping;
+- [ ] topic → segment → word → source timestamp provenance;
+- [ ] сохранение original transcript text и provenance;
+- [ ] forced alignment для legacy transcripts, где это возможно;
+- [ ] явную маркировку всех estimated timestamps как estimates.
+
+Предпочтительное направление canonical artifact:
+
+`transcript_words.json`
+
+Точная schema ещё не зафиксирована.
+
+### Word Alignment technology status
+
+Production aligner пока не выбран. Следующий POC/bake-off сравнит:
+
+- `stable-ts` — основной кандидат для alignment existing transcripts к audio и
+  regrouping вокруг coarse timestamps;
+- `WhisperX` — reference forced-alignment solution;
+- `whisper.cpp` DTW — minimal-stack candidate, так как SeminarText уже
+  использует whisper.cpp;
+- `MLX Whisper` — Apple-Silicon candidate для будущего ASR с direct word
+  timestamps.
+
+`faster-whisper` остаётся secondary/future ASR candidate, но не является
+первым выбором для alignment уже существующих transcripts.
+
+Немедленный следующий experiment: **Word Alignment Bake-off** на одном
+контролируемом русском audio fragment (примерно 10–20 минут), с одним source и
+verified text. Сравнение не включает Topic Engine или Gold и оценивает:
+
+- word/phrase alignment accuracy и start/end timing quality;
+- unaligned/missing words, repetitions/hallucinations и Russian handling;
+- deterministic reproducibility, runtime и RAM;
+- installation/maintenance complexity на Apple Silicon;
+- ability to align an already-existing transcript и provenance quality.
+
+Bake-off выполняется до Gold E и до дальнейшего Topic Engine tuning.
 
 Тестовый реальный проект:
 
@@ -278,7 +346,7 @@ cohesion и separation естественно растут при дополни
 
 ---
 
-## 2.5 Dataset B — independent frozen validation
+## 2.5 Dataset B — historical frozen validation
 
 Статус: DONE
 
@@ -303,57 +371,93 @@ Dataset A:
 Стресс код
 → development / calibration
 
+6/6 Gold complete, 48 Gold topics.
+
 Dataset B:
 
 Заблокированные эмоции
-→ frozen unseen validation complete
+→ historical frozen validation; development / error-analysis source
+
+6/6 Gold complete, 34 Gold topics.
 
 Dataset C:
 
 И Цзин
-→ candidate windows prepared; manual Gold DOMAIN_AUTHORING next
+→ blind validation complete; closed for tuning / architecture selection
 
 ---
 
-## 2.6 Dataset C — next independent validation
+## 2.6 Dataset C — blind validation milestone
 
-Статус: CANDIDATES PREPARED / NEEDS MANUAL GOLD
+Статус: DONE / CLOSED FOR TUNING AND ARCHITECTURE SELECTION
 
-Цель:
+Dataset C:
 
-проверить переносимость Stage 2 Hybrid Topic Engine ещё на одном независимом
-семинаре до architecture decision checkpoint.
+- И Цзин / video_001;
+- 6/6 Gold complete;
+- 24 Gold topics;
+- blind validation completed.
 
-План:
+Frozen results:
 
-- [x] выбрать третий семинар: И Цзин / video_001;
-- [x] подготовить независимые candidate windows: 6 cases, 24 available windows, 23 eligible windows;
-- [ ] получить manual Gold только там, где требуется `DOMAIN_AUTHORING`;
-- [ ] прогнать frozen A/B/C validation без tuning;
-- [ ] принять architecture decision checkpoint перед Stage 3.
+- Local Peak ±2 F1 = `0.583`;
+- PELT ±2 F1 = `0.345`;
+- Local Peak internal F1 excluding automatic window-start boundaries ≈ `0.444`.
 
-Artifact:
+Post-C diagnosis:
 
-`analysis/dataset_c/topic_benchmark_dataset_c.json`
+- Local Peak main bottleneck = boundary detection, not localization;
+- 9/10 Dataset C FN were true detection misses;
+- PELT rescued 6/10 Local Peak FN, but at severe over-segmentation cost;
+- Local Peak = primary experimental candidate, not production baseline;
+- PELT = recall-oriented comparator;
+- production baseline is not declared.
 
-Review:
+Artifacts:
 
-`analysis/DATASET_C_PREPARATION.md`
+`analysis/DATASET_C_BLIND_VALIDATION.md`
+
+Dataset C is frozen evidence and must not be reused for parameter tuning or
+Topic Engine architecture selection.
 
 ---
 
-## 2.7 Будущая структура benchmark datasets
+## 2.7 Gold Expansion и состояния datasets
 
-После Dataset C:
+Policy:
 
-TRAIN
-→ настройка параметров
+- Dataset D = **LOCKED TEST**;
+- Dataset E/F = **DEVELOPMENT**;
+- future Gold expansion intentionally diversifies seminar structure and subject
+  matter.
 
-VALIDATION
-→ выбор block size / penalty / scoring
+Quality gate:
 
-TEST
-→ финальная независимая проверка
+- Dataset D: `SOURCE QUALITY INSUFFICIENT`; repair/replace source is required
+  before any locked-test evaluation;
+- Dataset E: original source required resegmentation; the topic-agnostic text
+  segmentation prototype is `READY FOR GOLD` at text-layer level;
+- Dataset F: `SOURCE QUALITY INSUFFICIENT`.
+
+Dataset E prototype facts:
+
+- 189 coarse cues → 704 derived segments;
+- median duration 30.77s → 7.869s;
+- median words 63 → 17;
+- conservation and deterministic byte-identical generation: PASS;
+- timestamps are derived estimates, not source-exact.
+
+Gold E starts only after Word Timeline alignment/timing policy is accepted.
+
+## 2.8 Будущая структура benchmark datasets
+
+Текущее разделение evidence:
+
+DEVELOPMENT / CALIBRATION
+→ Dataset A, Dataset B history/error analysis, Dataset E after timing policy
+
+LOCKED TEST
+→ Dataset D only after source repair and then without development tuning
 
 Желательная дальнейшая цель:
 
@@ -366,9 +470,10 @@ TEST
 
 ---
 
-## 2.8 Автоматическое определение количества тем
+## 2.9 Автоматическое определение количества тем
 
-Главная нерешённая задача Topic Engine.
+Будущая задача Topic Engine после Word Alignment Bake-off и расширения
+development evidence. Она не является текущим architecture checkpoint.
 
 Кандидаты:
 
@@ -386,7 +491,7 @@ TEST
 
 ---
 
-## 2.9 Benchmark Runner
+## 2.10 Benchmark Runner
 
 Планируемая команда:
 
@@ -413,12 +518,13 @@ project-topic-benchmark-run
 
 ---
 
-## 2.10 Критерий завершения Topic Engine
+## 2.11 Критерий завершения Topic Engine
 
 TOPIC SEGMENTATION STABLE
 
-Критерии будут формально определены после frozen A/B/C validation и
-architecture decision checkpoint.
+Критерии будут формально определены по cross-dataset evidence после следующего
+frozen Topic Engine candidate и blind evaluation на восстановленном, untouched
+Dataset D.
 
 ---
 
@@ -1215,38 +1321,31 @@ Knowledge Base должна обслуживать:
 
 Текущий этап:
 
-HYBRID TOPIC ENGINE
+WORD TIMELINE / ALIGNMENT FOUNDATION
 
-Gold Dataset A:
+Dataset C blind validation, Gold Expansion Strategy, Transcript Segmentation
+Quality Gate и Dataset E topic-agnostic resegmentation prototype завершены.
 
-Стресс код
-GOLD COMPLETE: 6/6
+Следующая обязательная последовательность:
 
-Текущий архитектурный лидер:
-
-BGE-M3
-+
-15-second semantic blocks
-+
-ruptures / change-point detection
-
-Лучший эксперимент при известном количестве тем:
-
-±2 ID F1 = 0.738
-±5 ID F1 = 0.833
-
-Следующая обязательная задача:
-
-1. Разметить Dataset C Gold windows через `DOMAIN_AUTHORING`.
-2. Не менять параметры Topic Engine до frozen A/B/C validation.
-3. Прогнать текущие frozen engines по Dataset C.
-4. Сравнить переносимость архитектуры на Dataset A/B/C.
-5. Принять architecture decision checkpoint перед Stage 3.
-6. После этого определить train / validation / test.
-7. Решить задачу automatic topic count.
-8. Реализовать следующий production Topic Engine шаг только после checkpoint.
-9. Довести Topic Segmentation до STABLE.
-10. Перейти к Obsidian Schema / Obsidian MVP.
+1. Dataset C milestone — DONE.
+2. Gold Expansion Strategy — DONE.
+3. Transcript Segmentation Quality Gate — DONE.
+4. Dataset E topic-agnostic resegmentation prototype — DONE.
+5. **Word Alignment Bake-off — NEXT.**
+6. Freeze Word Timeline architecture and provenance schema.
+7. Integrate selected alignment approach experimentally.
+8. Upgrade Dataset E timing when source media is available.
+9. Create Gold E only after timing policy acceptance.
+10. Repair/replace Dataset D source while preserving the locked-test firewall.
+11. Repair Dataset F source quality.
+12. Expand development Gold.
+13. Resume Local Peak development on development data only.
+14. Freeze next Topic Engine candidate.
+15. Blind evaluation on untouched Dataset D.
+16. Define formal `TOPIC SEGMENTATION STABLE` acceptance criteria.
+17. Global Video Review / Seminar Structure.
+18. Obsidian / Knowledge Layer after stable segmentation + provenance foundation.
 
 ---
 
