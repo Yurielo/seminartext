@@ -3,7 +3,7 @@
   "updated": "2026-08-27",
   "policy_checkpoint": "evidence_first_parallel_v1",
   "current_stage": "evidence_first_parallel_split",
-  "current_milestone": "parallel_obsidian_knowledge_prototype_and_topic_baseline_track",
+  "current_milestone": "parallel_obsidian_knowledge_prototype_and_treeseg_hierarchy_poc",
   "current_project": "Стресс код",
   "architecture": {
     "accepted_direction": "evidence_first_parallel_development",
@@ -40,7 +40,7 @@
     },
     "tracks": {
       "semantic_automation": {
-        "status": "active_parallel",
+        "status": "baseline_complete_treeseg_hierarchy_poc_next",
         "purpose": "scale_boundary_and_topic_draft_automation"
       },
       "knowledge_product": {
@@ -201,17 +201,31 @@
       "topic_automation_usable": false,
       "current_architecture": "local_peak_primary_experimental_candidate",
       "role": "critical_for_scale_not_a_knowledge_prototype_gate",
-      "next_algorithmic_gate": "external_topic_semantic_segmentation_survey_and_baseline_challenge"
+      "next_algorithmic_gate": "bounded_treeseg_adaptation_global_seminar_structure_poc"
     },
     "external_semantic_segmentation_survey": {
-      "status": "next_parallel",
+      "status": "complete_accepted",
       "required_before": "substantial_new_custom_topic_engine_algorithms",
       "classifications": [
         "ADOPT",
         "ADAPT",
         "REJECT",
         "BUILD"
-      ]
+      ],
+      "issue": 45,
+      "report": "analysis/EXTERNAL_TOPIC_BASELINE_SURVEY_ISSUE_45.md",
+      "result": "analysis/external_topic_baselines/results/baseline_challenge.json",
+      "treeseg_classification": "ADAPT",
+      "treeseg_role": "isolated_boundary_challenger_and_temporal_hierarchy_global_seminar_structure_poc_candidate",
+      "treeseg_production_status": "not_production",
+      "tolerance_2_f1": {
+        "treeseg": {"dataset_a": 0.632, "dataset_b": 0.659},
+        "local_peak": {"dataset_a": 0.405, "dataset_b": 0.533},
+        "chonkie": {"dataset_a": 0.358, "dataset_b": 0.427}
+      },
+      "retained_primary": "local_peak_primary_experimental_boundary_candidate",
+      "retained_comparator": "pelt_recall_oriented_comparator",
+      "next_action": "treeseg_adaptation_global_seminar_structure_poc"
     },
     "embedding_engine": {
       "status": "experimental_leader",
@@ -273,10 +287,12 @@
       ]
     },
     "global_seminar_structure": {
-      "status": "pending_poc",
+      "status": "next_parallel_treeseg_hierarchy_poc",
       "blocked_by": "minimum_canonical_evidence_and_verified_topics",
       "not_blocked_by": "perfect_automatic_boundaries",
-      "poc_project": "Стресс код"
+      "poc_project": "Стресс код",
+      "selected_poc_candidate": "treeseg_temporal_hierarchy_adaptation",
+      "production_promotion": false
     },
     "multi_source_alignment": {
       "status": "pending"
@@ -388,8 +404,8 @@
     {"order": 2, "milestone": "final_controlled_word_alignment_decision", "status": "complete"},
     {"order": 3, "milestone": "canonical_evidence_schema_v1", "status": "complete"},
     {"order": 4, "milestone": "word_timeline_mvp_one_controlled_source", "status": "complete"},
-    {"order": 5, "milestone": "parallel_obsidian_knowledge_prototype_and_topic_baseline_track", "status": "next_parallel"},
-    {"order": 6, "milestone": "global_seminar_structure_poc", "status": "pending"},
+    {"order": 5, "milestone": "parallel_golden_slice_and_topic_baseline_foundations", "status": "complete"},
+    {"order": 6, "milestone": "parallel_obsidian_knowledge_prototype_and_treeseg_hierarchy_poc", "status": "next_parallel"},
     {"order": 7, "milestone": "freeze_topic_engine_candidate", "status": "pending"},
     {"order": 8, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "pending"},
     {"order": 9, "milestone": "dataset_d_blind_evaluation", "status": "pending"},
@@ -400,14 +416,14 @@
   ],
   "next_actions": [
     "obsidian_knowledge_prototype",
-    "external_topic_semantic_segmentation_survey_and_baseline_challenge"
+    "treeseg_adaptation_global_seminar_structure_poc"
   ],
   "roadmap_state_consistency": {
     "checkpoint": "evidence_first_parallel_v1",
     "roadmap": "SEMINARTEXT_4_ROADMAP.md",
     "state": "SEMINARTEXT_4_STATE.json",
     "adr": "decisions/0002-evidence-first-parallel-development.md",
-    "review": "analysis/ROADMAP_STATE_CONSISTENCY_REVIEW_2026-08-26.md",
+    "review": "analysis/ROADMAP_STATE_POST_BASELINE_CONSISTENCY_REVIEW_2026-08-27.md",
     "must_agree_on": [
       "dataset_roles_A_through_F",
       "milestone_completion",
