@@ -144,7 +144,7 @@ optional/nullable field с первого schema contract. Реализация 
 
 ## Word Timeline / Alignment
 
-Статус: CANONICAL EVIDENCE SCHEMA V1 ACCEPTED / WORD TIMELINE MVP NEXT
+Статус: WORD TIMELINE MVP ACCEPTED / PARALLEL SPLIT NEXT
 
 Canonical architecture:
 
@@ -223,12 +223,23 @@ Evidence и ограничения зафиксированы в
 `decisions/0003-whisperx-word-alignment.md`.
 
 Canonical Evidence Schema v1 завершена verdict
-`CANONICAL_EVIDENCE_SCHEMA_V1_ACCEPTED`. Немедленный следующий milestone:
-**Word Timeline MVP on one controlled source**. Production integration в schema
-milestone не выполнялась. Golden Seminar Knowledge Slice остаётся разрешённой
-parallel preparation при auditable evidence и без выдачи estimated timing за
-source-exact. Gold E не планируется: Dataset E исключён из Topic Engine evidence
-решением Product Owner в Issue #34.
+`CANONICAL_EVIDENCE_SCHEMA_V1_ACCEPTED`. Word Timeline MVP на одном controlled
+source завершён verdict `WORD_TIMELINE_MVP_ACCEPTED`: 1434 canonical Words,
+1432 forced-aligned, два explicit unaligned без synthetic timing, 124 cues, 29
+детерминированных word ranges и пять source-navigation EvidenceRefs. Bundle
+валидируется и воспроизводится byte-identically. Evidence зафиксировано в
+`analysis/WORD_TIMELINE_MVP_ONE_CONTROLLED_SOURCE.md`.
+
+Немедленный следующий milestone — **parallel split** без возврата к линейной
+Topic-Engine-first зависимости:
+
+- Golden Seminar Knowledge Slice → Obsidian Knowledge Prototype → Product
+  Review;
+- External Topic/Semantic Segmentation Survey → Baseline Challenge → Topic
+  Engine improvement.
+
+Gold E не планируется: Dataset E исключён из Topic Engine evidence решением
+Product Owner в Issue #34.
 
 ## 1.1 Минимальный Canonical Evidence contract для vertical slice
 
@@ -1469,7 +1480,7 @@ Knowledge Base должна обслуживать:
 
 # CURRENT NEXT ACTION
 
-Текущий этап: **CANONICAL EVIDENCE FOUNDATION / PARALLEL TRACK PREPARATION**.
+Текущий этап: **EVIDENCE-FIRST PARALLEL SPLIT**.
 
 Принята следующая обязательная последовательность без преждевременной реализации
 поздних stages:
@@ -1477,8 +1488,8 @@ Knowledge Base должна обслуживать:
 1. Architecture + State consistency repair — **DONE (Issue #36)**.
 2. Final controlled Word Alignment decision — **DONE (Issue #38)**.
 3. Canonical Evidence Schema v1 — **DONE (Issue #40)**.
-4. **Word Timeline MVP on one controlled source — NEXT.**
-5. Parallel split:
+4. Word Timeline MVP on one controlled source — **DONE (Issue #42)**.
+5. **Parallel split — NEXT (BOTH TRACKS IN PARALLEL):**
    - Golden Seminar Knowledge Slice → Obsidian Knowledge Prototype → Product
      Review;
    - External Topic/Semantic Segmentation Survey → Baseline Challenge → Topic
