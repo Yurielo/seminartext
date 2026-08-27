@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-08-27",
+  "method": "Primary-source snapshot from official repositories, package metadata, documentation, and papers; activity dates are repository default-branch commit dates.",
+  "candidates": [
+    {
+      "name": "Chonkie SemanticChunker",
+      "repository": "https://github.com/feyninc/chonkie",
+      "documentation": "https://docs.chonkie.ai/oss/installation",
+      "version_or_commit": "1.7.0 / 664454b689d68614bcfc0b1d57fc2a28b5862825",
+      "last_default_branch_commit": "2026-08-26",
+      "license": "MIT"
+    },
+    {
+      "name": "TreeSeg / topic-treeseg package fork",
+      "repository": "https://github.com/geraldthewes/topic-treeseg",
+      "paper": "https://arxiv.org/abs/2407.12028",
+      "original_repository": "https://github.com/AugmendTech/treeseg",
+      "version_or_commit": "0.1.0 / f18929a23693bdcb669aef1ab1a18fd035e50e57",
+      "last_default_branch_commit": "2025-05-22",
+      "license": "Apache-2.0",
+      "activity_note": "Package fork is alpha and quiet; original repository is archived."
+    },
+    {
+      "name": "BERTopic",
+      "repository": "https://github.com/MaartenGr/BERTopic",
+      "hierarchical_topics_documentation": "https://maartengr.github.io/BERTopic/getting_started/hierarchicaltopics/hierarchicaltopics.html",
+      "version_or_commit": "0.17.4 / 9036123c97aaa9a6cc4bec4a6db1a7caf9209df6",
+      "last_default_branch_commit": "2026-08-27",
+      "license": "MIT"
+    },
+    {
+      "name": "ruptures PELT",
+      "repository": "https://github.com/deepcharles/ruptures",
+      "documentation": "https://centre-borelli.github.io/ruptures-docs/",
+      "version_or_commit": "1.1.9 repository-pinned comparator; current upstream 1.1.10 / ee1c8ff8a548d54c641b2bb471562165931f31c7",
+      "last_default_branch_commit": "2026-05-26",
+      "license": "BSD-2-Clause"
+    },
+    {
+      "name": "NLTK TextTilingTokenizer",
+      "repository": "https://github.com/nltk/nltk",
+      "documentation": "https://www.nltk.org/api/nltk.tokenize.texttiling.html",
+      "paper": "https://aclanthology.org/J97-1003/",
+      "version_or_commit": "3.10.3 / a79356490469d741dba11b5cb97acccd12be0d8e",
+      "last_default_branch_commit": "2026-08-26",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "Chonky multilingual neural paragraph splitter",
+      "repository": "https://github.com/mirth/chonky",
+      "model": "https://huggingface.co/mirth/chonky_mmbert_small_multilingual_1",
+      "version_or_commit": "41118ef1c14a06daf56d2f494a84279cb3ff65e4",
+      "last_default_branch_commit": "2025-10-23",
+      "license": "MIT"
+    },
+    {
+      "name": "Text Segmentation as a Supervised Learning Task",
+      "repository": "https://github.com/koomri/text-segmentation",
+      "paper": "https://arxiv.org/abs/1803.09337",
+      "version_or_commit": "874d6ef3ca0e402709b70924608d0894be9a93e1",
+      "last_default_branch_commit": "2019-10-02",
+      "license": "No repository license detected"
+    },
+    {
+      "name": "Contrasting Traditional Models and LLMs: An Evaluation Based on Text Segmentation",
+      "repository": "https://github.com/uniba-mi/text-segmentation",
+      "paper": "https://aclanthology.org/2025.konvens-2.21/",
+      "version_or_commit": "98ba4a115fed7a8a98a5184fe742a4398ec951a8",
+      "last_default_branch_commit": "2026-02-02",
+      "license": "GPL-3.0"
+    }
+  ]
+}

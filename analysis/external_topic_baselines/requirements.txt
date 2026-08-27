@@ -1,0 +1,4 @@
+chonkie==1.7.0
+matplotlib==3.10.8
+nltk==3.10.3
+topic_treeseg @ git+https://github.com/geraldthewes/topic-treeseg.git@f18929a23693bdcb669aef1ab1a18fd035e50e57
