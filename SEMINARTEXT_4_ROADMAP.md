@@ -128,16 +128,15 @@ data, а не конкурирующими источниками истины.
 
 Необходимо поддерживать:
 
-- [ ] project_id
-- [ ] video_id
-- [ ] document_id
-- [ ] source_id
-- [ ] stable topic_id
-- [ ] source provenance
-- [ ] временной диапазон
-- [ ] номер страницы документа
-- [ ] номер слайда
-- [ ] возможность перейти от знания к исходному evidence
+- [x] project_id
+- [x] source_id для video/document и других source kinds
+- [x] stable word/segment/topic/evidence IDs
+- [x] source и transcript revision provenance
+- [x] временной диапазон без fake timing
+- [x] номер страницы документа
+- [x] номер слайда
+- [x] character/image locators
+- [x] возможность перейти от canonical entity к исходному evidence
 
 Canonical evidence schema должна быть speaker-ready: `speaker_id` включается как
 optional/nullable field с первого schema contract. Реализация diarization сейчас
@@ -145,7 +144,7 @@ optional/nullable field с первого schema contract. Реализация 
 
 ## Word Timeline / Alignment
 
-Статус: TECHNOLOGY SELECTED / CANONICAL EVIDENCE SCHEMA V1 NEXT
+Статус: CANONICAL EVIDENCE SCHEMA V1 ACCEPTED / WORD TIMELINE MVP NEXT
 
 Canonical architecture:
 
@@ -165,24 +164,27 @@ SRT cue granularity остаётся полезным input/provenance, но н�
 
 Необходимо поддерживать:
 
-- [ ] source-grounded word timestamps;
-- [ ] stable word IDs;
-- [ ] text + start/end для каждого word/token unit;
-- [ ] confidence, если доступен;
-- [ ] timing provenance (`source_exact`, `forced_alignment`,
+- [x] source-grounded word timing contract;
+- [x] stable word IDs;
+- [x] original text/character span + nullable start/end для каждого word unit;
+- [x] nullable confidence;
+- [x] timing provenance (`source_exact`, `forced_alignment`,
   `derived_estimate` или equivalent);
-- [ ] source media mapping;
-- [ ] deterministic segment → word-range mapping;
-- [ ] topic → segment → word → source timestamp provenance;
-- [ ] сохранение original transcript text и provenance;
-- [ ] forced alignment для legacy transcripts, где это возможно;
-- [ ] явную маркировку всех estimated timestamps как estimates.
+- [x] source media mapping;
+- [x] deterministic segment → word-range mapping;
+- [x] topic → segment → word → source locator provenance;
+- [x] сохранение original transcript text и revision provenance;
+- [x] forced-alignment provenance contract для legacy transcripts;
+- [x] явную маркировку estimated и unavailable timing.
 
-Предпочтительное направление canonical artifact:
+Принятый canonical artifact:
 
-`transcript_words.json`
+`seminartext.canonical_evidence` JSON bundle schema v1.0.0
 
-Точная schema ещё не зафиксирована.
+Schema зафиксирована в `schemas/canonical_evidence_v1.schema.json`, cross-record
+invariants — в `schemas/validate_canonical_evidence_v1.py`, rationale — в
+`analysis/CANONICAL_EVIDENCE_SCHEMA_V1.md`, решение — в ADR 0004. TXT, SRT, DOCX
+и Markdown остаются только derived views.
 
 ### Word Alignment technology status
 
@@ -220,9 +222,10 @@ Evidence и ограничения зафиксированы в
 `analysis/FINAL_CONTROLLED_WORD_ALIGNMENT_DECISION_2026-08-27.md` и ADR
 `decisions/0003-whisperx-word-alignment.md`.
 
-Немедленный следующий milestone: **Canonical Evidence Schema v1**, затем Word
-Timeline MVP на одном controlled source. Production integration в alignment
-decision не выполнялась. Golden Seminar Knowledge Slice остаётся разрешённой
+Canonical Evidence Schema v1 завершена verdict
+`CANONICAL_EVIDENCE_SCHEMA_V1_ACCEPTED`. Немедленный следующий milestone:
+**Word Timeline MVP on one controlled source**. Production integration в schema
+milestone не выполнялась. Golden Seminar Knowledge Slice остаётся разрешённой
 parallel preparation при auditable evidence и без выдачи estimated timing за
 source-exact. Gold E не планируется: Dataset E исключён из Topic Engine evidence
 решением Product Owner в Issue #34.
@@ -238,8 +241,9 @@ source-exact. Gold E не планируется: Dataset E исключён и�
 - `Evidence`.
 
 Минимальные свойства: stable ID, entity type, source link/provenance, lifecycle
-status и доступный source locator (time/page/slide/character range). Полная
-canonical transcript schema в этом milestone не реализуется.
+status и typed source locator (time/page/slide/character/image range). Полная
+canonical transcript schema v1 принята архитектурно; production population
+начинается только в Word Timeline MVP.
 
 Тестовый реальный проект:
 
@@ -1471,9 +1475,9 @@ Knowledge Base должна обслуживать:
 поздних stages:
 
 1. Architecture + State consistency repair — **DONE (Issue #36)**.
-2. **Final controlled Word Alignment decision — NEXT.**
-3. Canonical Evidence Schema v1.
-4. Word Timeline MVP on one controlled source.
+2. Final controlled Word Alignment decision — **DONE (Issue #38)**.
+3. Canonical Evidence Schema v1 — **DONE (Issue #40)**.
+4. **Word Timeline MVP on one controlled source — NEXT.**
 5. Parallel split:
    - Golden Seminar Knowledge Slice → Obsidian Knowledge Prototype → Product
      Review;
