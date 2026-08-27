@@ -6,18 +6,60 @@
 
 Развить SeminarText из системы транскрипции и обработки семинаров в систему построения, развития и обслуживания единой авторской базы знаний.
 
-Архитектурный принцип:
+Архитектурный принцип: **Evidence-First Parallel Development**.
 
+```text
 Sources
-→ Evidence Foundation
-→ Topic Engine
-→ Seminar Structure
-→ Multi-source Alignment
-→ Knowledge Engine
-→ Human Review
-→ Obsidian Knowledge Base
-→ Cross-Seminar Knowledge Graph
-→ Learning / Marketing / Site / Media / Knowledge Assistant
+  ↓
+Canonical Evidence Layer
+  ├── Track A: Semantic Automation
+  │     Word Timeline → benchmark segments → Boundary Engine
+  │     → Topic Draft → Seminar Structure
+  │
+  └── Track B: Knowledge Product
+        Evidence → verified/manual/semi-auto Topics
+        → Concepts → Relations → Obsidian Knowledge Prototype
+
+Tracks converge into:
+Verified Knowledge Layer
+  ↓
+Cross-Seminar Knowledge
+  ↓
+Learning / Marketing / Site / Media / Knowledge Assistant
+```
+
+`TOPIC SEGMENTATION STABLE` больше не блокирует Knowledge/Obsidian MVP. Track B
+может использовать verified manual, Gold или semi-automatic topics, пока Track A
+улучшает автоматизацию параллельно. Topic Engine остаётся критическим компонентом
+масштабирования и не отменяется.
+
+Accepted decision record:
+
+`decisions/0002-evidence-first-parallel-development.md`
+
+Roadmap/State consistency checkpoint: `evidence_first_parallel_v1`.
+
+## ADOPT → ADAPT → BUILD
+
+Перед существенной custom-разработкой выполняется bounded survey внешних решений.
+Каждый жизнеспособный вариант классифицируется как `ADOPT`, `ADAPT`, `REJECT` или
+`BUILD`. Правило особенно важно для alignment, diarization, semantic
+segmentation/topic modeling, retrieval/RAG, Obsidian integration и graph
+technology.
+
+Enterprise-scale architecture не переносится в local-first SeminarText без
+доказанной необходимости.
+
+## Разделение ответственности слоёв
+
+- **Boundary Detection** находит локальные semantic transitions.
+- **Seminar Structure** строит hierarchy, merge и recurrence локальных topics на
+  уровне полного семинара.
+- **Knowledge Engine** выделяет concepts и relations внутри и между
+  topics/seminars.
+
+Эти задачи связаны provenance, но не являются одним алгоритмом или одним quality
+gate.
 
 ---
 
@@ -48,7 +90,7 @@ Decision record:
 
 ---
 
-# 1. Evidence Foundation / Базовая инфраструктура
+# 1. Canonical Evidence Layer / Evidence Foundation
 
 Статус: DONE / IN PROGRESS
 
@@ -76,6 +118,10 @@ Decision record:
 - [x] SRT
 - [x] DOCX
 
+Canonical machine-readable data является первичным representation. TXT, SRT,
+DOCX и будущие Markdown views должны постепенно стать exports/views canonical
+data, а не конкурирующими источниками истины.
+
 ## Evidence / Provenance
 
 Все производные данные должны сохранять связь с исходником.
@@ -93,9 +139,13 @@ Decision record:
 - [ ] номер слайда
 - [ ] возможность перейти от знания к исходному evidence
 
+Canonical evidence schema должна быть speaker-ready: `speaker_id` включается как
+optional/nullable field с первого schema contract. Реализация diarization сейчас
+не требуется.
+
 ## Word Timeline / Alignment
 
-Статус: NEXT ARCHITECTURE FOUNDATION
+Статус: IMMEDIATE ARCHITECTURE FOUNDATION / FINAL CONTROLLED DECISION REQUIRED
 
 Canonical architecture:
 
@@ -136,7 +186,11 @@ SRT cue granularity остаётся полезным input/provenance, но н�
 
 ### Word Alignment technology status
 
-Production aligner пока не выбран. Следующий POC/bake-off сравнит:
+Первичный bake-off завершился verdict
+`ADDITIONAL ALIGNMENT EXPERIMENT REQUIRED`. Production aligner пока не выбран.
+Финальный bounded experiment должен закрыть оставшиеся manual timing и
+point-to-interval вопросы, не меняя production автоматически. Проверенные роли
+кандидатов:
 
 - `stable-ts` — основной кандидат для alignment existing transcripts к audio и
   regrouping вокруг coarse timestamps;
@@ -149,10 +203,10 @@ Production aligner пока не выбран. Следующий POC/bake-off �
 `faster-whisper` остаётся secondary/future ASR candidate, но не является
 первым выбором для alignment уже существующих transcripts.
 
-Немедленный следующий experiment: **Word Alignment Bake-off** на одном
-контролируемом русском audio fragment из целевого авторского корпуса (примерно
-10–20 минут), с одним source и verified text. Dataset E для bake-off не
-используется. Сравнение не включает Topic Engine или Gold и оценивает:
+Немедленный следующий experiment: **Final Controlled Word Alignment Decision**
+на том же frozen controlled target-corpus Russian fragment с verified text.
+Dataset E не используется. Сравнение не включает Topic Engine или topic Gold и
+закрывает:
 
 - word/phrase alignment accuracy и start/end timing quality;
 - unaligned/missing words, repetitions/hallucinations и Russian handling;
@@ -160,9 +214,25 @@ Production aligner пока не выбран. Следующий POC/bake-off �
 - installation/maintenance complexity на Apple Silicon;
 - ability to align an already-existing transcript и provenance quality.
 
-Bake-off выполняется до дальнейшего Topic Engine tuning. Gold E больше не
-планируется: Dataset E исключён из Topic Engine evidence решением Product Owner
-в Issue #34.
+Решение Word Timeline необходимо для Canonical Evidence Schema v1 и последующего
+Word Timeline MVP. Оно не блокирует подготовительную работу Golden Seminar
+Knowledge Slice, если slice сохраняет auditable evidence и не выдаёт estimated
+timing за source-exact. Gold E не планируется: Dataset E исключён из Topic Engine
+evidence решением Product Owner в Issue #34.
+
+## 1.1 Минимальный Canonical Evidence contract для vertical slice
+
+Минимальные entities:
+
+- `Seminar`;
+- `Source`;
+- `Topic`;
+- `Concept`;
+- `Evidence`.
+
+Минимальные свойства: stable ID, entity type, source link/provenance, lifecycle
+status и доступный source locator (time/page/slide/character range). Полная
+canonical transcript schema в этом milestone не реализуется.
 
 Тестовый реальный проект:
 
@@ -176,13 +246,16 @@ Bake-off выполняется до дальнейшего Topic Engine tuning.
 
 ---
 
-# 2. Hybrid Topic Engine / Topic Segmentation
+# 2. Track A — Semantic Automation / Boundary Detection
 
-Статус: CURRENT STAGE
+Статус: ACTIVE PARALLEL SCALABILITY TRACK
 
 Цель:
 
-Автоматически определять естественные смысловые границы семинара и формировать устойчивые смысловые темы.
+Автоматически определять локальные смысловые границы и формировать Topic Draft,
+который затем может использовать Seminar Structure. Этот Track отвечает за
+масштабирование и продолжает Gold/benchmark работу, но не блокирует bounded
+Knowledge Product prototype.
 
 ---
 
@@ -489,8 +562,9 @@ LOCKED TEST
 
 ## 2.9 Автоматическое определение количества тем
 
-Будущая задача Topic Engine после Word Alignment Bake-off и расширения
-development evidence. Она не является текущим architecture checkpoint.
+Будущая задача Topic Engine после Final Controlled Word Alignment Decision и
+расширения development evidence. Она не является текущим architecture
+checkpoint.
 
 Кандидаты:
 
@@ -535,21 +609,45 @@ project-topic-benchmark-run
 
 ---
 
-## 2.11 Критерий завершения Topic Engine
+## 2.11 Критерий применимости Topic Automation
 
-TOPIC SEGMENTATION STABLE
+Будущий product gate: **TOPIC AUTOMATION USABLE**.
 
-Критерии будут формально определены по cross-dataset evidence после следующего
-frozen Topic Engine candidate и blind evaluation на восстановленном, untouched
-Dataset D.
+Boundary F1 остаётся важной диагностической метрикой, но не определяет production
+readiness в одиночку. До открытия Dataset D необходимо заранее определить
+eligible evidence и acceptance criteria, включая:
+
+- Boundary Precision/Recall/F1 при заявленных tolerances;
+- over-segmentation и under-segmentation;
+- topic-count error;
+- **Human Correction Time / Hour** исходного материала;
+- semantic usefulness для Seminar Structure и Knowledge Product;
+- cross-seminar generalization на контролируемом авторском корпусе;
+- provenance completeness и отсутствие source/timing fabrication.
+
+Оценка выполняется после freeze кандидата и topic-agnostic repair Dataset D.
+Dataset D остаётся untouched `LOCKED TEST` до единственного разрешённого blind
+evaluation.
+
+## 2.12 External Topic / Semantic Segmentation Survey
+
+Статус: REQUIRED BEFORE SUBSTANTIAL NEW CUSTOM ALGORITHMS
+
+Bounded survey должен классифицировать внешние semantic segmentation,
+topic-structure и related baseline решения как `ADOPT`, `ADAPT`, `REJECT` или
+`BUILD`. Затем выбранные baselines проходят challenge на eligible development
+evidence. Dataset C закрыт, Dataset D locked, Dataset E excluded.
 
 ---
 
-# 3. Global Video Review / Seminar Structure
+# 3. Global Seminar Structure
 
-Статус: PENDING
+Статус: POC PLANNED / PARALLEL
 
-После стабильного локального Topic Engine:
+Первый POC разрешён на Golden Seminar (`Стресс код`) с verified manual, Gold или
+semi-automatic topics до perfect automatic boundaries. POC проверяет отдельную
+задачу hierarchy/merge/recurrence и не считается доказательством качества
+Boundary Engine.
 
 - [ ] собрать темы всех окон в структуру полного видео;
 - [ ] убрать window-boundary artifacts;
@@ -758,13 +856,17 @@ PDF/DOCX/PPTX и другие оригиналы могут храниться:
 
 ---
 
-# 6. Knowledge Engine / Concept Engine
+# 6. Track B — Knowledge Product / Knowledge Engine
 
-Статус: PENDING
+Статус: BOUNDED GOLDEN SLICE PLANNED
 
 Цель:
 
 превращать структурированные материалы семинаров в связанную авторскую систему знаний.
+
+Первый vertical slice использует только минимальные entities `Seminar`, `Source`,
+`Topic`, `Concept`, `Evidence` и auditable provenance. Расширенные entity types
+ниже остаются будущим направлением, а не prerequisite prototype.
 
 Основные типы сущностей:
 
@@ -925,27 +1027,40 @@ Review queue:
 
 ---
 
-# 9. MANDATORY GATE — OBSIDIAN
+# 9. Golden Seminar Vertical Slice / Obsidian Knowledge Prototype
 
-Статус: DO NOT SKIP
+Статус: UNBLOCKED AFTER MINIMUM CANONICAL EVIDENCE FOUNDATION
 
-После:
+Первый bounded slice выполняется на controlled target-corpus seminar — по
+умолчанию `Стресс код`. Разрешённый input topics: existing verified/Gold/manual
+topics и явно помеченные semi-automatic drafts.
 
-TOPIC SEGMENTATION STABLE
+Минимальный результат использует entities:
 
-и определения базовой Knowledge Schema
+- `Seminar`;
+- `Source`;
+- `Topic`;
+- `Concept`;
+- `Evidence`.
 
-обязательный следующий крупный milestone:
+Prototype должен проверить evidence navigation, provenance, usefulness и human
+review, но не требует:
 
-OBSIDIAN MVP / KNOWLEDGE BASE INTEGRATION
+- `TOPIC SEGMENTATION STABLE`;
+- full bidirectional Obsidian sync;
+- graph database;
+- production RAG;
+- site integration;
+- Marketing Passport.
 
-Не откладывать Obsidian на конец SeminarText 4.x.
+Topic Engine продолжает развиваться параллельно как путь автоматизации этого
+ручного/verified workflow в масштабе.
 
 ---
 
 # 10. Knowledge Base / Obsidian Integration
 
-Статус: PENDING
+Статус: BOUNDED PROTOTYPE PLANNED
 
 Цель:
 
@@ -955,16 +1070,20 @@ SeminarText становится механизмом автоматическо
 
 ---
 
-## 10.1 Obsidian Schema
+## 10.1 Obsidian Knowledge Prototype Schema
 
 Определить структуру Vault.
 
-Типы заметок:
+Минимальные типы заметок prototype:
 
 - Seminar
-- Video / Source
+- Source
 - Topic
 - Concept
+- Evidence
+
+Возможные последующие типы:
+
 - Term
 - Method
 - Practice
@@ -1023,13 +1142,16 @@ SeminarText напрямую создаёт Markdown-файлы внутри в�
 
 После обработки SeminarText должен уметь автоматически наполнять соответствующие разделы Obsidian.
 
-Пример:
+Допустимые prototype inputs:
 
 SeminarText
-→ Topic Engine
+→ verified/manual/Gold/semi-automatic Topics
 → Knowledge Engine
 → Review
 → Obsidian
+
+После повышения автоматизации тот же contract принимает Topic Draft от Topic
+Engine без изменения provenance requirements.
 
 Автоматически:
 
@@ -1336,36 +1458,56 @@ Knowledge Base должна обслуживать:
 
 # CURRENT NEXT ACTION
 
-Текущий этап:
+Текущий этап: **CANONICAL EVIDENCE FOUNDATION / PARALLEL TRACK PREPARATION**.
 
-WORD TIMELINE / ALIGNMENT FOUNDATION
+Принята следующая обязательная последовательность без преждевременной реализации
+поздних stages:
 
-Dataset C blind validation, Gold Expansion Strategy, Transcript Segmentation
-Quality Gate и historical Dataset E topic-agnostic resegmentation prototype
-завершены. Dataset E исключён из Topic Engine evidence решением Product Owner.
+1. Architecture + State consistency repair — **DONE (Issue #36)**.
+2. **Final controlled Word Alignment decision — NEXT.**
+3. Canonical Evidence Schema v1.
+4. Word Timeline MVP on one controlled source.
+5. Parallel split:
+   - Golden Seminar Knowledge Slice → Obsidian Knowledge Prototype → Product
+     Review;
+   - External Topic/Semantic Segmentation Survey → Baseline Challenge → Topic
+     Engine improvement.
+6. Global Seminar Structure POC using verified/manual topics where needed.
+7. Freeze Topic Engine candidate.
+8. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
+9. Dataset D blind evaluation after candidate/config/criteria freeze.
+10. Define and assess `TOPIC AUTOMATION USABLE`.
+11. Expand Knowledge Engine.
+12. Multi-seminar Knowledge MVP.
+13. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
+    Assistant.
 
-Следующая обязательная последовательность:
+Dataset guardrails apply throughout: A/B are development/history evidence; C is
+closed/frozen; D is locked; E is excluded; F remains quarantined/potential
+development until source/ASR repair.
 
-1. Dataset C milestone — DONE.
-2. Gold Expansion Strategy — DONE.
-3. Transcript Segmentation Quality Gate — DONE.
-4. Dataset E topic-agnostic resegmentation prototype — DONE.
-5. **Word Alignment Bake-off — NEXT.**
-6. Freeze Word Timeline architecture and provenance schema.
-7. Integrate selected alignment approach experimentally.
-8. Retain Dataset E artifacts as historical transcript-segmentation engineering
-   evidence only; do not create Gold E or upgrade it for Topic Engine evaluation.
-9. Repair/replace Dataset D source while preserving the locked-test firewall.
-10. Repair Dataset F source quality and assess it as a potential controlled
-    DEVELOPMENT source.
-11. Expand development Gold using controlled target-corpus sources only.
-12. Resume Local Peak development on development data only; Dataset E excluded.
-13. Freeze next Topic Engine candidate.
-14. Blind evaluation on untouched Dataset D.
-15. Define formal `TOPIC SEGMENTATION STABLE` acceptance criteria without
-    Dataset E.
-16. Global Video Review / Seminar Structure.
-17. Obsidian / Knowledge Layer after stable segmentation + provenance foundation.
+## Roadmap ↔ State consistency requirement
+
+`SEMINARTEXT_4_ROADMAP.md` is human-readable strategy.
+`SEMINARTEXT_4_STATE.json` is machine-readable operational state. They must share
+the checkpoint `evidence_first_parallel_v1` and must not disagree on dataset
+roles, milestone completion, blockers, or next actions.
+
+Every architecture/state milestone PR must:
+
+1. update both files when shared facts change;
+2. validate State as JSON;
+3. review A/B/C/D/E/F roles and the ordered next-action sequence;
+4. preserve historical experiment artifacts rather than rewriting them;
+5. record accepted architectural changes in `decisions/`.
+
+State should eventually be schema-validated or generated from one policy source.
+A lightweight consistency check is preferred; a large governance subsystem is
+not part of the current milestone.
+
+Consistency review for this checkpoint:
+
+`analysis/ROADMAP_STATE_CONSISTENCY_REVIEW_2026-08-26.md`.
 
 ---
 
