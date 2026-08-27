@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "issue": 45,
+  "policy": {
+    "allowed_datasets": [
+      "A",
+      "B"
+    ],
+    "forbidden_datasets": [
+      "C",
+      "D",
+      "E"
+    ],
+    "dataset_a_sha256": "3e0e8ae09ca3523c93a70ebf57fda0aadd331e8f06216647791ba4fa9a55f803",
+    "dataset_b_sha256": "a8a4817eea4ad8639eb4d5fa0801cd5f22fd9a5ccb8489b9868f38967b255fcb"
+  },
+  "shared": {
+    "embedding_model": "bge-m3:latest",
+    "embedding_endpoint": "http://127.0.0.1:11434/api/embed",
+    "boundary_tolerances_segment_ids": [
+      0,
+      1,
+      2
+    ],
+    "topic_density_prior_per_hour": 37.5,
+    "topic_density_prior_source": "midpoint of the repository's existing 30-45 topics/hour auto-detail range"
+  },
+  "chonkie_semantic": {
+    "version": "1.7.0",
+    "threshold": 0.075,
+    "threshold_rationale": "fixed before aggregate scoring; a 7.5% local-minima percentile matches the midpoint product density prior for roughly 100 transcript units per 12-minute benchmark window",
+    "chunk_size_characters": 1000000,
+    "chunk_size_rationale": "disable capacity-forced cuts so only SemanticChunker semantic boundaries are evaluated",
+    "similarity_window": 3,
+    "min_sentences_per_chunk": 1,
+    "min_characters_per_sentence": 24,
+    "filter_window": 5,
+    "filter_polyorder": 3,
+    "filter_tolerance": 0.2
+  },
+  "treeseg": {
+    "version": "0.1.0+git.f18929a23693",
+    "min_segment_size": 2,
+    "lambda_balance": 0,
+    "utterance_expansion_width": 2,
+    "target_k": "round(window_duration_hours * 37.5), minimum 2",
+    "target_k_rationale": "TreeSeg requires K; use the pre-existing product density prior rather than per-case Gold counts"
+  },
+  "nltk_texttiling": {
+    "version": "3.10.3",
+    "w": 20,
+    "k": 10,
+    "cutoff_policy": "HC",
+    "stopwords": "nltk_data/corpora/stopwords:russian"
+  }
+}
