@@ -1,0 +1,55 @@
+{
+  "alignment_evidence": {
+    "path": "analysis/word_timeline_mvp/frozen_whisperx_alignment.json",
+    "sha256": "c68ad139278edb81daeaa7f22b7f233fa2cf1ca89e682f53cdfcdc4cadf17786"
+  },
+  "artifact_id": "artifact_stress_code_video_001_fragment_600_1496_r1",
+  "artifact_type": "issue_42_word_timeline_population_manifest",
+  "benchmark_word_chunk_size": 50,
+  "cues": {
+    "path": "analysis/word_alignment_decision/frozen_segments.json",
+    "sha256": "3f3ab7b6cf29bc1d353ce2066eac3a049ca1d2cfcf96c6c4c360211886a7990e"
+  },
+  "expected": {
+    "aligned_words": 1432,
+    "cue_count": 124,
+    "unaligned": [
+      {
+        "sequence": 970,
+        "text": "думаешь,"
+      },
+      {
+        "sequence": 971,
+        "text": "что"
+      }
+    ],
+    "word_count": 1434
+  },
+  "navigation_word_sequences": [
+    3,
+    299,
+    696,
+    1070,
+    1393
+  ],
+  "project": {
+    "id": "project_stress_code",
+    "title": "Стресс код"
+  },
+  "schema_version": 1,
+  "source": {
+    "content_sha256": "f4d4b81f4997a12aad5dab0890b6137387d355b24de79fe7e728b003cf0a460a",
+    "duration_seconds": 16357.56,
+    "id": "source_stress_code_video_001",
+    "kind": "video",
+    "legacy_source_id": "video_001",
+    "title": "Стресс Код, декабрь 2022, День 1"
+  },
+  "transcript": {
+    "id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+    "path": "analysis/word_alignment_decision/frozen_reference.txt",
+    "revision_kind": "verified",
+    "revision_number": 1,
+    "text_sha256": "728981fc34eea6e47b6cd68c332c674a2c478b21b38f76f75fbb81d3e915c715"
+  }
+}

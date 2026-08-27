@@ -2,8 +2,8 @@
   "schema_version": 3,
   "updated": "2026-08-27",
   "policy_checkpoint": "evidence_first_parallel_v1",
-  "current_stage": "canonical_evidence_foundation_parallel_tracks",
-  "current_milestone": "word_timeline_mvp_one_controlled_source",
+  "current_stage": "evidence_first_parallel_split",
+  "current_milestone": "parallel_split_knowledge_slice_and_topic_baseline_track",
   "current_project": "Стресс код",
   "architecture": {
     "accepted_direction": "evidence_first_parallel_development",
@@ -44,7 +44,7 @@
         "purpose": "scale_boundary_and_topic_draft_automation"
       },
       "knowledge_product": {
-        "status": "planned_parallel_after_minimum_canonical_evidence",
+        "status": "ready_parallel",
         "purpose": "bounded_golden_seminar_vertical_slice"
       }
     }
@@ -69,8 +69,8 @@
   "stages": {
     "evidence_foundation": {
       "name": "canonical_evidence_layer",
-      "status": "in_progress",
-      "immediate_foundation": "word_timeline_mvp_one_controlled_source"
+      "status": "minimum_foundation_complete",
+      "immediate_foundation": "parallel_split_knowledge_slice_and_topic_baseline_track"
     },
     "word_alignment": {
       "status": "complete_technology_selected",
@@ -90,7 +90,7 @@
       "point_to_interval_normalization_required": false,
       "unaligned_word_policy": "preserve_text_and_character_span_mark_unaligned_leave_native_timing_absent_retain_coarse_provenance_queue_review",
       "fallback": "unchanged_whisper_cpp_large_v3_coarse_srt_without_canonical_word_timeline_claim",
-      "next_action": "word_timeline_mvp_one_controlled_source"
+      "next_action": "parallel_split_knowledge_slice_and_topic_baseline_track"
     },
     "canonical_evidence_schema_v1": {
       "status": "complete_accepted",
@@ -102,12 +102,27 @@
       "report": "analysis/CANONICAL_EVIDENCE_SCHEMA_V1.md",
       "decision_record": "decisions/0004-canonical-evidence-schema-v1.md",
       "contract_implementation_complete": true,
+      "controlled_source_population_complete": true,
       "production_population_complete": false,
       "exports_are_derived_views": true
     },
     "word_timeline_mvp": {
-      "status": "next",
-      "scope": "one_controlled_target_corpus_source"
+      "status": "complete_accepted",
+      "verdict": "WORD_TIMELINE_MVP_ACCEPTED",
+      "scope": "one_controlled_target_corpus_source",
+      "project": "Стресс код",
+      "source_id": "video_001",
+      "canonical_bundle": "analysis/word_timeline_mvp/canonical_evidence_bundle.json",
+      "canonical_bundle_sha256": "8b1a5b1ffced298cd21a8ede3dbe61d82a00950f2de6da1ba186ffae4cd93d14",
+      "population_runner": "analysis/word_timeline_mvp/build_canonical_evidence.py",
+      "report": "analysis/WORD_TIMELINE_MVP_ONE_CONTROLLED_SOURCE.md",
+      "word_count": 1434,
+      "aligned_words": 1432,
+      "unaligned_words": 2,
+      "deterministic_repeat": true,
+      "json_schema_valid": true,
+      "cross_record_valid": true,
+      "production_integration_complete": false
     },
     "topic_benchmark_dataset_a": {
       "status": "complete",
@@ -189,7 +204,7 @@
       "next_algorithmic_gate": "external_topic_semantic_segmentation_survey_and_baseline_challenge"
     },
     "external_semantic_segmentation_survey": {
-      "status": "pending",
+      "status": "next_parallel",
       "required_before": "substantial_new_custom_topic_engine_algorithms",
       "classifications": [
         "ADOPT",
@@ -230,9 +245,10 @@
       "command": "project-topic-benchmark-run"
     },
     "golden_seminar_vertical_slice": {
-      "status": "planned",
+      "status": "next_parallel",
       "default_project": "Стресс код",
-      "blocked_by": "minimum_canonical_evidence_foundation",
+      "blocked_by": null,
+      "unblocked_by": "word_timeline_mvp_accepted",
       "not_blocked_by": "topic_engine.stable",
       "allowed_topic_inputs": [
         "verified_manual",
@@ -361,8 +377,8 @@
     {"order": 1, "milestone": "architecture_and_state_consistency_repair", "status": "complete"},
     {"order": 2, "milestone": "final_controlled_word_alignment_decision", "status": "complete"},
     {"order": 3, "milestone": "canonical_evidence_schema_v1", "status": "complete"},
-    {"order": 4, "milestone": "word_timeline_mvp_one_controlled_source", "status": "next"},
-    {"order": 5, "milestone": "parallel_split_knowledge_slice_and_topic_baseline_track", "status": "pending"},
+    {"order": 4, "milestone": "word_timeline_mvp_one_controlled_source", "status": "complete"},
+    {"order": 5, "milestone": "parallel_split_knowledge_slice_and_topic_baseline_track", "status": "next_parallel"},
     {"order": 6, "milestone": "global_seminar_structure_poc", "status": "pending"},
     {"order": 7, "milestone": "freeze_topic_engine_candidate", "status": "pending"},
     {"order": 8, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "pending"},
@@ -373,8 +389,8 @@
     {"order": 13, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
   ],
   "next_actions": [
-    "word_timeline_mvp_one_controlled_source",
-    "parallel_golden_seminar_knowledge_slice_and_external_topic_baseline_survey"
+    "golden_seminar_knowledge_slice",
+    "external_topic_semantic_segmentation_survey_and_baseline_challenge"
   ],
   "roadmap_state_consistency": {
     "checkpoint": "evidence_first_parallel_v1",
