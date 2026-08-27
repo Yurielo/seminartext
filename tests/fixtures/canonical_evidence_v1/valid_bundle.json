@@ -1,0 +1,277 @@
+{
+  "alignment_runs": [
+    {
+      "aligner": "whisperx",
+      "aligner_version": "3.8.6",
+      "config_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "id": "alignment_stress_code_video_001_r1",
+      "model": "jonatasgrosman/wav2vec2-large-xlsr-53-russian",
+      "model_revision": "2329100508896c6d9b157019803ab5601e6f3406",
+      "model_sha256": "d1cdb1a7921de7d363f967a9b0101a713602e109dba62b6f3f9ae2e0b2df0c1c",
+      "source_content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "source_id": "source_stress_code_video_001",
+      "status": "valid",
+      "transcript_revision_id": "transcript_stress_code_video_001_r1",
+      "transcript_text_sha256": "99d274d403bdec383ef2ef8bcb245fbbb044afa34a7e939565201a7ec293710b"
+    }
+  ],
+  "artifact_id": "artifact_stress_code_controlled_v1",
+  "artifact_type": "seminartext.canonical_evidence",
+  "benchmark_segments": [
+    {
+      "id": "segment_stress_code_video_001_r1_000000",
+      "lifecycle_status": "verified",
+      "sequence": 0,
+      "transcript_revision_id": "transcript_stress_code_video_001_r1",
+      "word_count": 3,
+      "word_end_id": "transcript_stress_code_video_001_r1:word:000002",
+      "word_start_id": "transcript_stress_code_video_001_r1:word:000000"
+    },
+    {
+      "id": "segment_stress_code_video_001_r1_000001",
+      "lifecycle_status": "verified",
+      "sequence": 1,
+      "transcript_revision_id": "transcript_stress_code_video_001_r1",
+      "word_count": 2,
+      "word_end_id": "transcript_stress_code_video_001_r1:word:000004",
+      "word_start_id": "transcript_stress_code_video_001_r1:word:000003"
+    }
+  ],
+  "cues": [
+    {
+      "char_end": 28,
+      "char_start": 0,
+      "id": "transcript_stress_code_video_001_r1:cue:000000",
+      "lifecycle_status": "verified",
+      "sequence": 0,
+      "source_locator": {
+        "end_seconds": 14.0,
+        "start_seconds": 10.0,
+        "type": "time_interval"
+      },
+      "text": "Сегодня мы говорим о стрессе",
+      "transcript_revision_id": "transcript_stress_code_video_001_r1"
+    }
+  ],
+  "evidence_refs": [
+    {
+      "id": "evidence_stress_code_pdf_001_page_003",
+      "lifecycle_status": "active",
+      "locator": {
+        "page_end": 3,
+        "page_start": 3,
+        "type": "pdf_page_range"
+      },
+      "project_id": "project_stress_code",
+      "source_id": "source_stress_code_pdf_001",
+      "target": {
+        "entity_id": "source_stress_code_pdf_001",
+        "entity_type": "source"
+      },
+      "transcript_revision_id": null
+    },
+    {
+      "id": "evidence_stress_code_video_001_topic_000000",
+      "lifecycle_status": "verified",
+      "locator": {
+        "end_seconds": 13.1,
+        "start_seconds": 10.0,
+        "type": "time_interval"
+      },
+      "project_id": "project_stress_code",
+      "source_id": "source_stress_code_video_001",
+      "target": {
+        "entity_id": "topic_stress_code_video_001_r1_gold_000000",
+        "entity_type": "topic"
+      },
+      "transcript_revision_id": "transcript_stress_code_video_001_r1"
+    }
+  ],
+  "project": {
+    "id": "project_stress_code",
+    "lifecycle_status": "active",
+    "title": "Стресс код"
+  },
+  "schema_version": "1.0.0",
+  "sources": [
+    {
+      "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "duration_seconds": 120.0,
+      "id": "source_stress_code_video_001",
+      "kind": "video",
+      "lifecycle_status": "active",
+      "project_id": "project_stress_code",
+      "sequence": 0,
+      "title": "Контрольный видеоисточник"
+    },
+    {
+      "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "duration_seconds": null,
+      "id": "source_stress_code_pdf_001",
+      "kind": "pdf",
+      "lifecycle_status": "active",
+      "project_id": "project_stress_code",
+      "sequence": 1,
+      "title": "Раздаточный материал"
+    }
+  ],
+  "topics": [
+    {
+      "benchmark_segment_ids": [
+        "segment_stress_code_video_001_r1_000000",
+        "segment_stress_code_video_001_r1_000001"
+      ],
+      "id": "topic_stress_code_video_001_r1_gold_000000",
+      "lifecycle_status": "verified",
+      "origin": "gold",
+      "sequence": 0,
+      "title": "Обсуждение стресса",
+      "topic_set_id": "topicset_stress_code_video_001_r1_gold",
+      "transcript_revision_id": "transcript_stress_code_video_001_r1",
+      "word_end_id": "transcript_stress_code_video_001_r1:word:000004",
+      "word_start_id": "transcript_stress_code_video_001_r1:word:000000"
+    }
+  ],
+  "transcript_revisions": [
+    {
+      "authority": "authoritative",
+      "canonical_text": "Сегодня мы говорим о стрессе",
+      "id": "transcript_stress_code_video_001_r1",
+      "lifecycle_status": "verified",
+      "parent_revision_id": null,
+      "revision_kind": "verified",
+      "revision_number": 1,
+      "source_id": "source_stress_code_video_001",
+      "text_sha256": "99d274d403bdec383ef2ef8bcb245fbbb044afa34a7e939565201a7ec293710b"
+    }
+  ],
+  "words": [
+    {
+      "alignment_status": "aligned",
+      "char_end": 7,
+      "char_start": 0,
+      "confidence": 0.98,
+      "end_seconds": 10.45,
+      "id": "transcript_stress_code_video_001_r1:word:000000",
+      "lifecycle_status": "verified",
+      "normalized_text": "сегодня",
+      "qa_flags": [],
+      "sequence": 0,
+      "source_cue_ids": [
+        "transcript_stress_code_video_001_r1:cue:000000"
+      ],
+      "source_id": "source_stress_code_video_001",
+      "speaker_id": null,
+      "start_seconds": 10.0,
+      "text": "Сегодня",
+      "timing_provenance": {
+        "alignment_run_id": "alignment_stress_code_video_001_r1",
+        "kind": "forced_alignment",
+        "method": null
+      },
+      "transcript_revision_id": "transcript_stress_code_video_001_r1"
+    },
+    {
+      "alignment_status": "aligned",
+      "char_end": 10,
+      "char_start": 8,
+      "confidence": 0.97,
+      "end_seconds": 10.75,
+      "id": "transcript_stress_code_video_001_r1:word:000001",
+      "lifecycle_status": "verified",
+      "normalized_text": null,
+      "qa_flags": [],
+      "sequence": 1,
+      "source_cue_ids": [
+        "transcript_stress_code_video_001_r1:cue:000000"
+      ],
+      "source_id": "source_stress_code_video_001",
+      "speaker_id": null,
+      "start_seconds": 10.5,
+      "text": "мы",
+      "timing_provenance": {
+        "alignment_run_id": "alignment_stress_code_video_001_r1",
+        "kind": "forced_alignment",
+        "method": null
+      },
+      "transcript_revision_id": "transcript_stress_code_video_001_r1"
+    },
+    {
+      "alignment_status": "aligned",
+      "char_end": 18,
+      "char_start": 11,
+      "confidence": 0.96,
+      "end_seconds": 11.55,
+      "id": "transcript_stress_code_video_001_r1:word:000002",
+      "lifecycle_status": "verified",
+      "normalized_text": null,
+      "qa_flags": [],
+      "sequence": 2,
+      "source_cue_ids": [
+        "transcript_stress_code_video_001_r1:cue:000000"
+      ],
+      "source_id": "source_stress_code_video_001",
+      "speaker_id": null,
+      "start_seconds": 10.8,
+      "text": "говорим",
+      "timing_provenance": {
+        "alignment_run_id": "alignment_stress_code_video_001_r1",
+        "kind": "forced_alignment",
+        "method": null
+      },
+      "transcript_revision_id": "transcript_stress_code_video_001_r1"
+    },
+    {
+      "alignment_status": "unaligned",
+      "char_end": 20,
+      "char_start": 19,
+      "confidence": null,
+      "end_seconds": null,
+      "id": "transcript_stress_code_video_001_r1:word:000003",
+      "lifecycle_status": "verified",
+      "normalized_text": null,
+      "qa_flags": [
+        "unaligned_review_required"
+      ],
+      "sequence": 3,
+      "source_cue_ids": [
+        "transcript_stress_code_video_001_r1:cue:000000"
+      ],
+      "source_id": "source_stress_code_video_001",
+      "speaker_id": null,
+      "start_seconds": null,
+      "text": "о",
+      "timing_provenance": {
+        "alignment_run_id": null,
+        "kind": "unavailable",
+        "method": null
+      },
+      "transcript_revision_id": "transcript_stress_code_video_001_r1"
+    },
+    {
+      "alignment_status": "aligned",
+      "char_end": 28,
+      "char_start": 21,
+      "confidence": 0.94,
+      "end_seconds": 13.1,
+      "id": "transcript_stress_code_video_001_r1:word:000004",
+      "lifecycle_status": "verified",
+      "normalized_text": null,
+      "qa_flags": [],
+      "sequence": 4,
+      "source_cue_ids": [
+        "transcript_stress_code_video_001_r1:cue:000000"
+      ],
+      "source_id": "source_stress_code_video_001",
+      "speaker_id": null,
+      "start_seconds": 12.25,
+      "text": "стрессе",
+      "timing_provenance": {
+        "alignment_run_id": "alignment_stress_code_video_001_r1",
+        "kind": "forced_alignment",
+        "method": null
+      },
+      "transcript_revision_id": "transcript_stress_code_video_001_r1"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "expected_error": "unaligned word must have null timing",
+    "name": "unaligned_word_with_fake_timing",
+    "path": ["words", 3, "start_seconds"],
+    "value": 11.6
+  },
+  {
+    "expected_error": "word range must be contiguous and word_count exact",
+    "name": "segment_range_count_mismatch",
+    "path": ["benchmark_segments", 0, "word_count"],
+    "value": 2
+  },
+  {
+    "expected_error": "stale transcript text",
+    "name": "alignment_bound_to_other_transcript_hash",
+    "path": ["alignment_runs", 0, "transcript_text_sha256"],
+    "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  {
+    "expected_error": "orphan target reference",
+    "name": "evidence_ref_with_orphan_topic",
+    "path": ["evidence_refs", 1, "target", "entity_id"],
+    "value": "topic_missing"
+  },
+  {
+    "expected_error": "incompatible with source kind",
+    "name": "pdf_evidence_with_fake_timestamp",
+    "path": ["evidence_refs", 0, "locator"],
+    "value": {
+      "end_seconds": 4.0,
+      "start_seconds": 3.0,
+      "type": "time_interval"
+    }
+  },
+  {
+    "expected_error": "records are not in canonical deterministic order",
+    "name": "nondeterministic_source_order",
+    "operation": "reverse",
+    "path": ["sources"]
+  }
+]

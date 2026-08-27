@@ -3,7 +3,7 @@
   "updated": "2026-08-27",
   "policy_checkpoint": "evidence_first_parallel_v1",
   "current_stage": "canonical_evidence_foundation_parallel_tracks",
-  "current_milestone": "canonical_evidence_schema_v1",
+  "current_milestone": "word_timeline_mvp_one_controlled_source",
   "current_project": "Стресс код",
   "architecture": {
     "accepted_direction": "evidence_first_parallel_development",
@@ -70,7 +70,7 @@
     "evidence_foundation": {
       "name": "canonical_evidence_layer",
       "status": "in_progress",
-      "immediate_foundation": "canonical_evidence_schema_v1_then_word_timeline"
+      "immediate_foundation": "word_timeline_mvp_one_controlled_source"
     },
     "word_alignment": {
       "status": "complete_technology_selected",
@@ -90,14 +90,23 @@
       "point_to_interval_normalization_required": false,
       "unaligned_word_policy": "preserve_text_and_character_span_mark_unaligned_leave_native_timing_absent_retain_coarse_provenance_queue_review",
       "fallback": "unchanged_whisper_cpp_large_v3_coarse_srt_without_canonical_word_timeline_claim",
-      "next_action": "canonical_evidence_schema_v1"
+      "next_action": "word_timeline_mvp_one_controlled_source"
     },
     "canonical_evidence_schema_v1": {
-      "status": "next",
-      "implementation_in_scope": false
+      "status": "complete_accepted",
+      "verdict": "CANONICAL_EVIDENCE_SCHEMA_V1_ACCEPTED",
+      "schema_version": "1.0.0",
+      "canonical_artifact_type": "seminartext.canonical_evidence",
+      "schema": "schemas/canonical_evidence_v1.schema.json",
+      "cross_record_validator": "schemas/validate_canonical_evidence_v1.py",
+      "report": "analysis/CANONICAL_EVIDENCE_SCHEMA_V1.md",
+      "decision_record": "decisions/0004-canonical-evidence-schema-v1.md",
+      "contract_implementation_complete": true,
+      "production_population_complete": false,
+      "exports_are_derived_views": true
     },
     "word_timeline_mvp": {
-      "status": "pending",
+      "status": "next",
       "scope": "one_controlled_target_corpus_source"
     },
     "topic_benchmark_dataset_a": {
@@ -351,8 +360,8 @@
   "near_term_execution_sequence": [
     {"order": 1, "milestone": "architecture_and_state_consistency_repair", "status": "complete"},
     {"order": 2, "milestone": "final_controlled_word_alignment_decision", "status": "complete"},
-    {"order": 3, "milestone": "canonical_evidence_schema_v1", "status": "next"},
-    {"order": 4, "milestone": "word_timeline_mvp_one_controlled_source", "status": "pending"},
+    {"order": 3, "milestone": "canonical_evidence_schema_v1", "status": "complete"},
+    {"order": 4, "milestone": "word_timeline_mvp_one_controlled_source", "status": "next"},
     {"order": 5, "milestone": "parallel_split_knowledge_slice_and_topic_baseline_track", "status": "pending"},
     {"order": 6, "milestone": "global_seminar_structure_poc", "status": "pending"},
     {"order": 7, "milestone": "freeze_topic_engine_candidate", "status": "pending"},
@@ -364,7 +373,6 @@
     {"order": 13, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
   ],
   "next_actions": [
-    "canonical_evidence_schema_v1",
     "word_timeline_mvp_one_controlled_source",
     "parallel_golden_seminar_knowledge_slice_and_external_topic_baseline_survey"
   ],
@@ -393,7 +401,8 @@
     "decision_records": [
       "decisions/0001-operating-model-and-human-gates.md",
       "decisions/0002-evidence-first-parallel-development.md",
-      "decisions/0003-whisperx-word-alignment.md"
+      "decisions/0003-whisperx-word-alignment.md",
+      "decisions/0004-canonical-evidence-schema-v1.md"
     ],
     "github_source_of_truth": {
       "roadmap": "SEMINARTEXT_4_ROADMAP.md",
