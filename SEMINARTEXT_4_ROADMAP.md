@@ -235,8 +235,11 @@ Topic-Engine-first зависимости:
 
 - Golden Seminar Knowledge Slice — **DONE (Issue #44)** → **Obsidian Knowledge
   Prototype NEXT** → Product Review;
-- External Topic/Semantic Segmentation Survey → Baseline Challenge → Topic
-  Engine improvement.
+- External Topic/Semantic Segmentation Survey + Baseline Challenge — **DONE
+  (Issue #45)** → bounded TreeSeg adaptation / Global Seminar Structure POC
+  **NEXT**. TreeSeg is an isolated challenger and hierarchy POC candidate;
+  Local Peak remains the primary experimental Boundary candidate and PELT the
+  recall comparator.
 
 Gold E не планируется: Dataset E исключён из Topic Engine evidence решением
 Product Owner в Issue #34.
@@ -653,23 +656,37 @@ evaluation.
 
 ## 2.12 External Topic / Semantic Segmentation Survey
 
-Статус: REQUIRED BEFORE SUBSTANTIAL NEW CUSTOM ALGORITHMS
+Статус: DONE / ACCEPTED (Issue #45)
 
-Bounded survey должен классифицировать внешние semantic segmentation,
-topic-structure и related baseline решения как `ADOPT`, `ADAPT`, `REJECT` или
-`BUILD`. Затем выбранные baselines проходят challenge на eligible development
-evidence. Dataset C закрыт, Dataset D locked, Dataset E excluded.
+Bounded survey и baseline challenge завершены на development Datasets A/B.
+При tolerance ±2 TreeSeg получил F1 `0.632` на A и `0.659` на B против Local
+Peak `0.405`/`0.533` и Chonkie `0.358`/`0.427`. TreeSeg классифицирован как
+`ADAPT`: isolated Boundary challenger и кандидат для temporal hierarchy / Global
+Seminar Structure POC, но не production algorithm. Local Peak остаётся primary
+experimental Boundary candidate, PELT — recall-oriented comparator.
+
+Evidence: `analysis/EXTERNAL_TOPIC_BASELINE_SURVEY_ISSUE_45.md` и
+`analysis/external_topic_baselines/results/baseline_challenge.json`.
+
+Следующий Semantic milestone — bounded TreeSeg adaptation / full-seminar
+hierarchy POC preparation на уже разрешённом Golden Seminar. Dataset C не
+перезапускался и остаётся closed/frozen; Dataset D остаётся untouched
+`LOCKED TEST`; Dataset E остаётся excluded.
 
 ---
 
 # 3. Global Seminar Structure
 
-Статус: POC PLANNED / PARALLEL
+Статус: TREESEG HIERARCHY POC NEXT / PARALLEL
 
 Первый POC разрешён на Golden Seminar (`Стресс код`) с verified manual, Gold или
 semi-automatic topics до perfect automatic boundaries. POC проверяет отдельную
 задачу hierarchy/merge/recurrence и не считается доказательством качества
 Boundary Engine.
+
+TreeSeg выбран в Issue #45 как `ADAPT` candidate для bounded temporal hierarchy
+POC. Это не production promotion и не заменяет Local Peak как primary
+experimental Boundary candidate.
 
 - [ ] собрать темы всех окон в структуру полного видео;
 - [ ] убрать window-boundary artifacts;
@@ -1501,12 +1518,14 @@ Knowledge Base должна обслуживать:
 2. Final controlled Word Alignment decision — **DONE (Issue #38)**.
 3. Canonical Evidence Schema v1 — **DONE (Issue #40)**.
 4. Word Timeline MVP on one controlled source — **DONE (Issue #42)**.
-5. **Parallel split — ACTIVE (BOTH TRACKS IN PARALLEL):**
-   - Golden Seminar Knowledge Slice — **DONE (Issue #44)** → **Obsidian
-     Knowledge Prototype NEXT** → Product Review;
-   - External Topic/Semantic Segmentation Survey → Baseline Challenge → Topic
-     Engine improvement.
-6. Global Seminar Structure POC using verified/manual topics where needed.
+5. Parallel foundations — **DONE**: Golden Seminar Knowledge Slice (Issue #44)
+   and External Topic/Semantic Segmentation Survey + Baseline Challenge
+   (Issue #45).
+6. **Parallel split — ACTIVE (EXACTLY TWO NEXT ACTIONS):**
+   - Knowledge: **Obsidian Knowledge Prototype NEXT** → Product Review;
+   - Semantic: bounded TreeSeg adaptation / Global Seminar Structure POC using
+     verified/manual topics where needed — **NEXT**. Local Peak остаётся primary
+     experimental Boundary candidate, PELT — recall comparator.
 7. Freeze Topic Engine candidate.
 8. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
 9. Dataset D blind evaluation after candidate/config/criteria freeze.
