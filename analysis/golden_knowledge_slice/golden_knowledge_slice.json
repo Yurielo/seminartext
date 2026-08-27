@@ -1,0 +1,440 @@
+{
+  "artifact_id": "golden_slice_stress_code_video_001_v1",
+  "artifact_type": "seminartext.golden_knowledge_slice",
+  "canonical_evidence": {
+    "artifact_id": "artifact_stress_code_video_001_fragment_600_1496_r1",
+    "path": "analysis/word_timeline_mvp/canonical_evidence_bundle.json",
+    "schema_version": "1.0.0",
+    "sha256": "8b1a5b1ffced298cd21a8ede3dbe61d82a00950f2de6da1ba186ffae4cd93d14"
+  },
+  "concepts": [
+    {
+      "aliases": [
+        "адаптивность"
+      ],
+      "derivation_status": "provisional_manual_curation",
+      "description": "Способность изменять реакцию в ответ на условия среды рассматривается как практическая задача работы со стрессом.",
+      "evidence_ids": [
+        "evidence_adaptive_task"
+      ],
+      "id": "concept_adaptation_to_environment",
+      "identity_rationale": "Сохранён отдельный узкий объект: evidence прямо использует форму «адаптивными» и связывает её с условиями среды; более широкие значения адаптации не объединялись.",
+      "preferred_label": "Адаптация к среде",
+      "review_status": "product_review_required",
+      "sequence": 0,
+      "topic_ids": [
+        "topic_stress_adaptation_survival"
+      ]
+    },
+    {
+      "aliases": [],
+      "derivation_status": "provisional_manual_curation",
+      "description": "Выживаемость связывается с приспособлением к среде и позднее повторно используется как практический результат обучения и работы с коллегами.",
+      "evidence_ids": [
+        "evidence_survival_environment",
+        "evidence_modern_survival_and_practice"
+      ],
+      "id": "concept_survival_in_changing_environment",
+      "identity_rationale": "Один concept связывает два явных употребления «выживаемость» и «среда»; это ручное объединение по повторяющейся формулировке, не автоматический semantic merge.",
+      "preferred_label": "Выживаемость в меняющейся среде",
+      "review_status": "product_review_required",
+      "sequence": 1,
+      "topic_ids": [
+        "topic_stress_adaptation_survival",
+        "topic_personal_professional_kinesiology"
+      ]
+    },
+    {
+      "aliases": [],
+      "derivation_status": "provisional_manual_curation",
+      "description": "Кинезиология в выбранном фрагменте представлена как практика и для личных задач, и для профессиональной работы с людьми.",
+      "evidence_ids": [
+        "evidence_personal_and_professional_use",
+        "evidence_modern_survival_and_practice"
+      ],
+      "id": "concept_personal_and_professional_practice",
+      "identity_rationale": "Две области применения сохранены в одном concept, потому что source evidence явно противопоставляет и одновременно объединяет их; отдельные профессии не обобщались.",
+      "preferred_label": "Личное и профессиональное применение кинезиологии",
+      "review_status": "product_review_required",
+      "sequence": 2,
+      "topic_ids": [
+        "topic_personal_professional_kinesiology"
+      ]
+    },
+    {
+      "aliases": [],
+      "derivation_status": "provisional_manual_curation",
+      "description": "Личные коррекции предлагается выполнять с коллегами и, по возможности, с более опытным участником, а не полагаться только на самокоррекцию.",
+      "evidence_ids": [
+        "evidence_peer_supported_corrections"
+      ],
+      "id": "concept_peer_supported_correction",
+      "identity_rationale": "Concept ограничен прямо описанной формой совместной практики; он не превращён в общую модель наставничества или супервизии.",
+      "preferred_label": "Коррекция с поддержкой коллег",
+      "review_status": "product_review_required",
+      "sequence": 3,
+      "topic_ids": [
+        "topic_personal_professional_kinesiology"
+      ]
+    },
+    {
+      "aliases": [],
+      "derivation_status": "provisional_manual_curation",
+      "description": "Практическая ценность техник связывается с работой над вопросами здоровья, отношений, финансов, карьеры и других жизненных областей.",
+      "evidence_ids": [
+        "evidence_problem_domains",
+        "evidence_problem_resolution_with_unaligned_words"
+      ],
+      "id": "concept_multiple_life_problem_domains",
+      "identity_rationale": "Перечень областей не преобразован в ontology classes; concept лишь фиксирует evidence-grounded утверждение о нескольких областях применения.",
+      "preferred_label": "Несколько областей жизненных запросов",
+      "review_status": "product_review_required",
+      "sequence": 4,
+      "topic_ids": [
+        "topic_personal_professional_kinesiology"
+      ]
+    },
+    {
+      "aliases": [],
+      "derivation_status": "provisional_manual_curation",
+      "description": "Наличие внутренней мотивации описывается как условие, при котором находятся время, деньги и другие возможности для действия и обучения.",
+      "evidence_ids": [
+        "evidence_motivation_changes_action",
+        "evidence_motivation_overcomes_obstacles"
+      ],
+      "id": "concept_motivation_as_condition_for_action",
+      "identity_rationale": "Concept объединяет два соседних прямых объяснения мотивации; он не отождествляется с клиническими или психологическими теориями мотивации.",
+      "preferred_label": "Мотивация как условие действия",
+      "review_status": "product_review_required",
+      "sequence": 5,
+      "topic_ids": [
+        "topic_motivation_obstacles_sabotage"
+      ]
+    },
+    {
+      "aliases": [],
+      "derivation_status": "provisional_manual_curation",
+      "description": "Саботаж описывается как ситуация, когда сознательное желание встречает противодействие подсознания и создаёт препятствия действию.",
+      "evidence_ids": [
+        "evidence_sabotage_internal_resistance"
+      ],
+      "id": "concept_sabotage_as_internal_resistance",
+      "identity_rationale": "Формулировка следует только выбранному source span; concept не объединён автоматически с прокрастинацией, сопротивлением или отсутствием мотивации.",
+      "preferred_label": "Саботаж как внутреннее сопротивление",
+      "review_status": "product_review_required",
+      "sequence": 6,
+      "topic_ids": [
+        "topic_motivation_obstacles_sabotage"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000013",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000000",
+      "claim": "Задача работы со стрессом формулируется как обучение адаптивности.",
+      "id": "evidence_adaptive_task",
+      "locator": {
+        "end_seconds": 609.95,
+        "start_seconds": 600.14,
+        "type": "time_interval"
+      },
+      "quote": "И наша задача быть адаптивными к этому. С этим мы работаем, научаемся быть адаптивными.",
+      "sequence": 0,
+      "timing_status": "aligned_word_range",
+      "unaligned_word_ids": []
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000076",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000043",
+      "claim": "Повышение выживаемости связывается с условиями окружающей среды и эволюционной необходимостью выжить.",
+      "id": "evidence_survival_environment",
+      "locator": {
+        "end_seconds": 660.28,
+        "start_seconds": 632.791,
+        "type": "time_interval"
+      },
+      "quote": "Цель повышения выживаемости в той среде, которая есть в нашей окружении. Вопрос\nвыживаемости. Это традиционная эволюционная история, что индивидууму и виду\nнужно выжить. Полагается, что мы жили в дикой среде, и там были определенные",
+      "sequence": 1,
+      "timing_status": "aligned_word_range",
+      "unaligned_word_ids": []
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000600",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000567",
+      "claim": "Участие в кинезиологии рассматривается и для профессиональной деятельности, и для себя.",
+      "id": "evidence_personal_and_professional_use",
+      "locator": {
+        "end_seconds": 1004.25,
+        "start_seconds": 983.557,
+        "type": "time_interval"
+      },
+      "quote": "прозвучало, да, то есть есть подходы, как бы заходы, для чего мы можем участвовать\nв кинезиологии, да, для профессиональной деятельности и для себя, да. То есть и\nоба этих варианта, они, ну, безусловно, работают.",
+      "sequence": 2,
+      "timing_status": "aligned_word_range",
+      "unaligned_word_ids": []
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000735",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000664",
+      "claim": "Личные коррекции предлагается делать с коллегами и более опытными участниками.",
+      "id": "evidence_peer_supported_corrections",
+      "locator": {
+        "end_seconds": 1074.69,
+        "start_seconds": 1035.73,
+        "type": "time_interval"
+      },
+      "quote": "школа в том, что вы остаетесь с нами в группе, в группах, и в общей группе в\nWhatsApp, вы там вроде бы есть, да, и в группе по семинару вы остаетесь. То\nесть вы с коллегами, с теми коллегами, с которыми вы обучаетесь, вы можете\nпроходить, делать личные коррекции. Лучше, конечно, это делать с более опытными\nтоварищами,\nкак Татьяна, там, да, она, ну, многие из вас знают, что вы опытный товарищ, вот.",
+      "sequence": 3,
+      "timing_status": "aligned_word_range",
+      "unaligned_word_ids": []
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000827",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000764",
+      "claim": "Парная практика связывается с развитием навыков, современной выживаемостью и возможностью профессиональной работы.",
+      "id": "evidence_modern_survival_and_practice",
+      "locator": {
+        "end_seconds": 1128.6,
+        "start_seconds": 1091.68,
+        "type": "time_interval"
+      },
+      "quote": "вот в парах, там, с коллегами, вы и свои навыки, да, по выяснению,\nповысите, повысите, тоже, как бы, ну, условно говоря, выживаемость в современной\nсреде, то есть вы получите еще дополнительный источник дохода, если вы, ну,\nвдруг решите, что это, как бы, ваше, что вы можете с этим работать. Востребованность\nв такой работе, она, ну, как бы, вот, сильно высока и сильно не обеспечена.",
+      "sequence": 4,
+      "timing_status": "aligned_word_range",
+      "unaligned_word_ids": []
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000953",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000912",
+      "claim": "В source перечисляются вопросы здоровья, отношений, финансов, карьеры и детей.",
+      "id": "evidence_problem_domains",
+      "locator": {
+        "end_seconds": 1190.528,
+        "start_seconds": 1173.06,
+        "type": "time_interval"
+      },
+      "quote": "каждого есть вопросы, какие-то вопросы, да, есть. У кого-то по здоровью, у кого-то\nпо отношению, у кого-то по финансам, у кого-то по карьере, по детям и так далее,\nда, то есть, ну, у нас, ну, не бывает такого, что... Есть и сразу.",
+      "sequence": 5,
+      "timing_status": "aligned_word_range",
+      "unaligned_word_ids": []
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001055",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000954",
+      "claim": "Разные жизненные проблемы сопоставляются с возможностью работы техниками; внутри span сохранены две unaligned Words без собственного timing.",
+      "id": "evidence_problem_resolution_with_unaligned_words",
+      "locator": {
+        "end_seconds": 1258.237,
+        "start_seconds": 1191.892,
+        "type": "time_interval"
+      },
+      "quote": "Есть все и все сразу, да. И, вот, честно говоря, вот, порой, как бы, да, вот,\nдумаешь, что\nНо лучше бы оно так и было, чем... Есть там разные... Лично, когда приемы ведешь,\nбывает на приемах глубоко обеспеченные люди, сильно богатые. По сравнению с\nкоторыми ты таким не являешься.\nИ те проблемы, с которыми они приходят, и думаешь, что вот это богатство в таком\nформате, оно лучше, чтобы лучше было, как сейчас у тебя есть. Вот так. Но при\nэтом всем мы при наших техниках можем вот эти проблемы, большинство проблем решать,\nв том числе и по здоровью, и по всем остальным.",
+      "sequence": 6,
+      "timing_status": "aligned_envelope_with_explicit_unaligned_words",
+      "unaligned_word_ids": [
+        "transcript_stress_code_video_001_fragment_600_1496_r1:word:000970",
+        "transcript_stress_code_video_001_fragment_600_1496_r1:word:000971"
+      ]
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001221",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001145",
+      "claim": "Изменение мотивации показано как фактор, меняющий готовность действовать при прежних внешних обстоятельствах.",
+      "id": "evidence_motivation_changes_action",
+      "locator": {
+        "end_seconds": 1376.17,
+        "start_seconds": 1329.381,
+        "type": "time_interval"
+      },
+      "quote": "Погладить. Или еще что-то такое. Вот. И можем попробовать изменить мотивацию.\nЕсли вас там пригласить на прогулку Брэд Питт, к примеру, или Владимир Владимирович,\nсразу же обстоятельства меняются. Все остается то же самое. Город тот же самый.\nВы та же самая. Но что-то в этом поменялось. И что поменялось? Мотивация. Появилось\nизменение.\nВот. То же самое, как бы, касаемо... То, чем мы занимаемся. Обучение или еще\nчто-то. Это вот... Только... Только вопрос мотивации. Когда... Вот... Мы не",
+      "sequence": 7,
+      "timing_status": "aligned_word_range",
+      "unaligned_word_ids": []
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001328",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001243",
+      "claim": "При внутренней мотивации препятствия описываются как разрешимые и находятся необходимые ресурсы.",
+      "id": "evidence_motivation_overcomes_obstacles",
+      "locator": {
+        "end_seconds": 1431.94,
+        "start_seconds": 1391.111,
+        "type": "time_interval"
+      },
+      "quote": "Которые могут стать препятствиями для того, чтобы пойти учиться. Разные. Да? Вопросы.\nНо при наличии мотивации внутреннего, да? Желания и необходимости у человека\nрешаются. Эти все вопросы решаются. Находится время, находятся деньги, возможности\nи так далее. Да? Вот на... На этом. И обратная ситуация. Когда у человека есть...\nЛибо отсутствует мотивация, либо мотивация обратная. Вам человек обязательно\nобъяснит, почему он, там, не готов, как бы, обучаться. Ну, это не только, как\nбы, про обучение. Это про любую сферу. Поэтому... Вот. Ну, еще вот у нас есть",
+      "sequence": 8,
+      "timing_status": "aligned_word_range",
+      "unaligned_word_ids": []
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001392",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001329",
+      "claim": "Саботаж описывается как противодействие подсознания сознательному желанию и источник препятствий.",
+      "id": "evidence_sabotage_internal_resistance",
+      "locator": {
+        "end_seconds": 1466.71,
+        "start_seconds": 1432.0,
+        "type": "time_interval"
+      },
+      "quote": "такие... Такое понятие, как саботаж. Это вот у нас... Этому отдельный семинар\nпосвящен. Это крайне важная тема. Когда... Вроде как хочется, да? На уровне\nсознания. А подсознание этому противится. Вот. И... Ну, к этому, как бы... К\nработе с этим...\nК этому вопросам тоже нужно... Нужно приходить. Когда это... Какие-то уровни осознания\nставят нам препятствия. Палки в колеса, так поставляют. Да? Вот. Таким образом.",
+      "sequence": 9,
+      "timing_status": "aligned_word_range",
+      "unaligned_word_ids": []
+    }
+  ],
+  "product_review": {
+    "required": true,
+    "status": "pending"
+  },
+  "schema_version": "1.0.0",
+  "seminar": {
+    "canonical_project_id": "project_stress_code",
+    "id": "seminar_stress_code",
+    "source_ids": [
+      "source_stress_code_video_001"
+    ],
+    "title": "Стресс код",
+    "topic_ids": [
+      "topic_stress_adaptation_survival",
+      "topic_personal_professional_kinesiology",
+      "topic_motivation_obstacles_sabotage"
+    ]
+  },
+  "sources": [
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "content_sha256": "f4d4b81f4997a12aad5dab0890b6137387d355b24de79fe7e728b003cf0a460a",
+      "duration_seconds": 16357.56,
+      "id": "source_stress_code_video_001",
+      "kind": "video",
+      "title": "Стресс Код, декабрь 2022, День 1"
+    }
+  ],
+  "topics": [
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000119",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000000",
+      "concept_ids": [
+        "concept_adaptation_to_environment",
+        "concept_survival_in_changing_environment"
+      ],
+      "coverage": "partial_start_clipped_to_canonical_bundle",
+      "evidence_ids": [
+        "evidence_adaptive_task",
+        "evidence_survival_environment"
+      ],
+      "id": "topic_stress_adaptation_survival",
+      "locator": {
+        "end_seconds": 691.518,
+        "start_seconds": 600.14,
+        "type": "time_interval"
+      },
+      "sequence": 0,
+      "structure_origin": "gold_dataset_a",
+      "structure_provenance": {
+        "benchmark_sha256": "3e0e8ae09ca3523c93a70ebf57fda0aadd331e8f06216647791ba4fa9a55f803",
+        "case_id": "video_001_window_01",
+        "gold_start_segment_id": 86,
+        "review_status": "gold_complete"
+      },
+      "summary": "Юрий рассматривает стресс как работу нервной системы, направленную на адаптацию и повышение выживаемости в меняющихся условиях среды.",
+      "timing_status": "aligned_word_range",
+      "title": "Стресс как механизм адаптации и выживания",
+      "unaligned_word_ids": []
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001055",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:000553",
+      "concept_ids": [
+        "concept_survival_in_changing_environment",
+        "concept_personal_and_professional_practice",
+        "concept_peer_supported_correction",
+        "concept_multiple_life_problem_domains"
+      ],
+      "coverage": "complete_manual_slice_range",
+      "evidence_ids": [
+        "evidence_personal_and_professional_use",
+        "evidence_peer_supported_corrections",
+        "evidence_modern_survival_and_practice",
+        "evidence_problem_domains",
+        "evidence_problem_resolution_with_unaligned_words"
+      ],
+      "id": "topic_personal_professional_kinesiology",
+      "locator": {
+        "end_seconds": 1258.237,
+        "start_seconds": 970.901,
+        "type": "time_interval"
+      },
+      "sequence": 1,
+      "structure_origin": "manual_issue_44",
+      "structure_provenance": {
+        "review_status": "product_review_required",
+        "selection_basis": "coherent source discussion; no Topic Engine output used"
+      },
+      "summary": "Обсуждаются личное и профессиональное применение кинезиологии, совместная практика коррекций и области жизненных запросов.",
+      "timing_status": "aligned_envelope_with_explicit_unaligned_words",
+      "title": "Личное и профессиональное применение кинезиологии",
+      "unaligned_word_ids": [
+        "transcript_stress_code_video_001_fragment_600_1496_r1:word:000970",
+        "transcript_stress_code_video_001_fragment_600_1496_r1:word:000971"
+      ]
+    },
+    {
+      "canonical_source_id": "source_stress_code_video_001",
+      "canonical_transcript_revision_id": "transcript_stress_code_video_001_fragment_600_1496_r1",
+      "canonical_word_end_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001433",
+      "canonical_word_start_id": "transcript_stress_code_video_001_fragment_600_1496_r1:word:001107",
+      "concept_ids": [
+        "concept_motivation_as_condition_for_action",
+        "concept_sabotage_as_internal_resistance"
+      ],
+      "coverage": "complete_manual_slice_range",
+      "evidence_ids": [
+        "evidence_motivation_changes_action",
+        "evidence_motivation_overcomes_obstacles",
+        "evidence_sabotage_internal_resistance"
+      ],
+      "id": "topic_motivation_obstacles_sabotage",
+      "locator": {
+        "end_seconds": 1489.194,
+        "start_seconds": 1298.07,
+        "type": "time_interval"
+      },
+      "sequence": 2,
+      "structure_origin": "manual_issue_44",
+      "structure_provenance": {
+        "review_status": "product_review_required",
+        "selection_basis": "coherent source discussion; no Topic Engine output used"
+      },
+      "summary": "На примерах объясняется роль внутренней мотивации в действии и обучении, а саботаж описывается как внутреннее противодействие желанию.",
+      "timing_status": "aligned_word_range",
+      "title": "Мотивация, препятствия и саботаж",
+      "unaligned_word_ids": []
+    }
+  ]
+}

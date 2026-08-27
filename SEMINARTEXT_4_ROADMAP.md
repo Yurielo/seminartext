@@ -233,8 +233,8 @@ source завершён verdict `WORD_TIMELINE_MVP_ACCEPTED`: 1434 canonical Wor
 Немедленный следующий milestone — **parallel split** без возврата к линейной
 Topic-Engine-first зависимости:
 
-- Golden Seminar Knowledge Slice → Obsidian Knowledge Prototype → Product
-  Review;
+- Golden Seminar Knowledge Slice — **DONE (Issue #44)** → **Obsidian Knowledge
+  Prototype NEXT** → Product Review;
 - External Topic/Semantic Segmentation Survey → Baseline Challenge → Topic
   Engine improvement.
 
@@ -880,7 +880,7 @@ PDF/DOCX/PPTX и другие оригиналы могут храниться:
 
 # 6. Track B — Knowledge Product / Knowledge Engine
 
-Статус: BOUNDED GOLDEN SLICE PLANNED
+Статус: GOLDEN KNOWLEDGE SLICE ACCEPTED / OBSIDIAN PROTOTYPE NEXT
 
 Цель:
 
@@ -889,6 +889,13 @@ PDF/DOCX/PPTX и другие оригиналы могут храниться:
 Первый vertical slice использует только минимальные entities `Seminar`, `Source`,
 `Topic`, `Concept`, `Evidence` и auditable provenance. Расширенные entity types
 ниже остаются будущим направлением, а не prerequisite prototype.
+
+Issue #44 завершён verdict `GOLDEN_KNOWLEDGE_SLICE_ACCEPTED`: bounded slice
+`Стресс код` содержит 3 Topics, 7 provisional Concepts и 10 Evidence spans с
+детерминированной навигацией до canonical Words и absolute source time. Один
+Gold Topic сохранён с исходным provenance; два Topic range явно manual и требуют
+Product Review. Evidence с двумя unaligned Words сохраняет limitation без fake
+timing. Отчёт: `analysis/GOLDEN_KNOWLEDGE_SLICE_STRESS_CODE.md`.
 
 Основные типы сущностей:
 
@@ -1051,7 +1058,7 @@ Review queue:
 
 # 9. Golden Seminar Vertical Slice / Obsidian Knowledge Prototype
 
-Статус: UNBLOCKED AFTER MINIMUM CANONICAL EVIDENCE FOUNDATION
+Статус: GOLDEN SLICE ACCEPTED / OBSIDIAN KNOWLEDGE PROTOTYPE NEXT
 
 Первый bounded slice выполняется на controlled target-corpus seminar — по
 умолчанию `Стресс код`. Разрешённый input topics: existing verified/Gold/manual
@@ -1078,11 +1085,16 @@ review, но не требует:
 Topic Engine продолжает развиваться параллельно как путь автоматизации этого
 ручного/verified workflow в масштабе.
 
+Accepted Golden Slice является frozen input для следующего Knowledge Product
+milestone. Obsidian prototype должен отобразить Seminar/Source/Topic/Concept/
+Evidence как Markdown-ready cards/frontmatter/wikilinks, сохраняя provisional и
+Product Review статусы; full sync по-прежнему не требуется.
+
 ---
 
 # 10. Knowledge Base / Obsidian Integration
 
-Статус: BOUNDED PROTOTYPE PLANNED
+Статус: BOUNDED OBSIDIAN KNOWLEDGE PROTOTYPE NEXT
 
 Цель:
 
@@ -1489,9 +1501,9 @@ Knowledge Base должна обслуживать:
 2. Final controlled Word Alignment decision — **DONE (Issue #38)**.
 3. Canonical Evidence Schema v1 — **DONE (Issue #40)**.
 4. Word Timeline MVP on one controlled source — **DONE (Issue #42)**.
-5. **Parallel split — NEXT (BOTH TRACKS IN PARALLEL):**
-   - Golden Seminar Knowledge Slice → Obsidian Knowledge Prototype → Product
-     Review;
+5. **Parallel split — ACTIVE (BOTH TRACKS IN PARALLEL):**
+   - Golden Seminar Knowledge Slice — **DONE (Issue #44)** → **Obsidian
+     Knowledge Prototype NEXT** → Product Review;
    - External Topic/Semantic Segmentation Survey → Baseline Challenge → Topic
      Engine improvement.
 6. Global Seminar Structure POC using verified/manual topics where needed.

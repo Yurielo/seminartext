@@ -1,0 +1,277 @@
+{
+  "artifact_id": "golden_slice_stress_code_video_001_v1",
+  "artifact_type": "issue_44_golden_knowledge_slice_curation",
+  "canonical_bundle": {
+    "path": "analysis/word_timeline_mvp/canonical_evidence_bundle.json",
+    "sha256": "8b1a5b1ffced298cd21a8ede3dbe61d82a00950f2de6da1ba186ffae4cd93d14"
+  },
+  "concepts": [
+    {
+      "aliases": [
+        "адаптивность"
+      ],
+      "description": "Способность изменять реакцию в ответ на условия среды рассматривается как практическая задача работы со стрессом.",
+      "evidence_ids": [
+        "evidence_adaptive_task"
+      ],
+      "id": "concept_adaptation_to_environment",
+      "identity_rationale": "Сохранён отдельный узкий объект: evidence прямо использует форму «адаптивными» и связывает её с условиями среды; более широкие значения адаптации не объединялись.",
+      "preferred_label": "Адаптация к среде",
+      "review_status": "product_review_required",
+      "sequence": 0,
+      "topic_ids": [
+        "topic_stress_adaptation_survival"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Выживаемость связывается с приспособлением к среде и позднее повторно используется как практический результат обучения и работы с коллегами.",
+      "evidence_ids": [
+        "evidence_survival_environment",
+        "evidence_modern_survival_and_practice"
+      ],
+      "id": "concept_survival_in_changing_environment",
+      "identity_rationale": "Один concept связывает два явных употребления «выживаемость» и «среда»; это ручное объединение по повторяющейся формулировке, не автоматический semantic merge.",
+      "preferred_label": "Выживаемость в меняющейся среде",
+      "review_status": "product_review_required",
+      "sequence": 1,
+      "topic_ids": [
+        "topic_stress_adaptation_survival",
+        "topic_personal_professional_kinesiology"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Кинезиология в выбранном фрагменте представлена как практика и для личных задач, и для профессиональной работы с людьми.",
+      "evidence_ids": [
+        "evidence_personal_and_professional_use",
+        "evidence_modern_survival_and_practice"
+      ],
+      "id": "concept_personal_and_professional_practice",
+      "identity_rationale": "Две области применения сохранены в одном concept, потому что source evidence явно противопоставляет и одновременно объединяет их; отдельные профессии не обобщались.",
+      "preferred_label": "Личное и профессиональное применение кинезиологии",
+      "review_status": "product_review_required",
+      "sequence": 2,
+      "topic_ids": [
+        "topic_personal_professional_kinesiology"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Личные коррекции предлагается выполнять с коллегами и, по возможности, с более опытным участником, а не полагаться только на самокоррекцию.",
+      "evidence_ids": [
+        "evidence_peer_supported_corrections"
+      ],
+      "id": "concept_peer_supported_correction",
+      "identity_rationale": "Concept ограничен прямо описанной формой совместной практики; он не превращён в общую модель наставничества или супервизии.",
+      "preferred_label": "Коррекция с поддержкой коллег",
+      "review_status": "product_review_required",
+      "sequence": 3,
+      "topic_ids": [
+        "topic_personal_professional_kinesiology"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Практическая ценность техник связывается с работой над вопросами здоровья, отношений, финансов, карьеры и других жизненных областей.",
+      "evidence_ids": [
+        "evidence_problem_domains",
+        "evidence_problem_resolution_with_unaligned_words"
+      ],
+      "id": "concept_multiple_life_problem_domains",
+      "identity_rationale": "Перечень областей не преобразован в ontology classes; concept лишь фиксирует evidence-grounded утверждение о нескольких областях применения.",
+      "preferred_label": "Несколько областей жизненных запросов",
+      "review_status": "product_review_required",
+      "sequence": 4,
+      "topic_ids": [
+        "topic_personal_professional_kinesiology"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Наличие внутренней мотивации описывается как условие, при котором находятся время, деньги и другие возможности для действия и обучения.",
+      "evidence_ids": [
+        "evidence_motivation_changes_action",
+        "evidence_motivation_overcomes_obstacles"
+      ],
+      "id": "concept_motivation_as_condition_for_action",
+      "identity_rationale": "Concept объединяет два соседних прямых объяснения мотивации; он не отождествляется с клиническими или психологическими теориями мотивации.",
+      "preferred_label": "Мотивация как условие действия",
+      "review_status": "product_review_required",
+      "sequence": 5,
+      "topic_ids": [
+        "topic_motivation_obstacles_sabotage"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Саботаж описывается как ситуация, когда сознательное желание встречает противодействие подсознания и создаёт препятствия действию.",
+      "evidence_ids": [
+        "evidence_sabotage_internal_resistance"
+      ],
+      "id": "concept_sabotage_as_internal_resistance",
+      "identity_rationale": "Формулировка следует только выбранному source span; concept не объединён автоматически с прокрастинацией, сопротивлением или отсутствием мотивации.",
+      "preferred_label": "Саботаж как внутреннее сопротивление",
+      "review_status": "product_review_required",
+      "sequence": 6,
+      "topic_ids": [
+        "topic_motivation_obstacles_sabotage"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "claim": "Задача работы со стрессом формулируется как обучение адаптивности.",
+      "id": "evidence_adaptive_task",
+      "sequence": 0,
+      "word_end_sequence": 13,
+      "word_start_sequence": 0
+    },
+    {
+      "claim": "Повышение выживаемости связывается с условиями окружающей среды и эволюционной необходимостью выжить.",
+      "id": "evidence_survival_environment",
+      "sequence": 1,
+      "word_end_sequence": 76,
+      "word_start_sequence": 43
+    },
+    {
+      "claim": "Участие в кинезиологии рассматривается и для профессиональной деятельности, и для себя.",
+      "id": "evidence_personal_and_professional_use",
+      "sequence": 2,
+      "word_end_sequence": 600,
+      "word_start_sequence": 567
+    },
+    {
+      "claim": "Личные коррекции предлагается делать с коллегами и более опытными участниками.",
+      "id": "evidence_peer_supported_corrections",
+      "sequence": 3,
+      "word_end_sequence": 735,
+      "word_start_sequence": 664
+    },
+    {
+      "claim": "Парная практика связывается с развитием навыков, современной выживаемостью и возможностью профессиональной работы.",
+      "id": "evidence_modern_survival_and_practice",
+      "sequence": 4,
+      "word_end_sequence": 827,
+      "word_start_sequence": 764
+    },
+    {
+      "claim": "В source перечисляются вопросы здоровья, отношений, финансов, карьеры и детей.",
+      "id": "evidence_problem_domains",
+      "sequence": 5,
+      "word_end_sequence": 953,
+      "word_start_sequence": 912
+    },
+    {
+      "claim": "Разные жизненные проблемы сопоставляются с возможностью работы техниками; внутри span сохранены две unaligned Words без собственного timing.",
+      "id": "evidence_problem_resolution_with_unaligned_words",
+      "sequence": 6,
+      "word_end_sequence": 1055,
+      "word_start_sequence": 954
+    },
+    {
+      "claim": "Изменение мотивации показано как фактор, меняющий готовность действовать при прежних внешних обстоятельствах.",
+      "id": "evidence_motivation_changes_action",
+      "sequence": 7,
+      "word_end_sequence": 1221,
+      "word_start_sequence": 1145
+    },
+    {
+      "claim": "При внутренней мотивации препятствия описываются как разрешимые и находятся необходимые ресурсы.",
+      "id": "evidence_motivation_overcomes_obstacles",
+      "sequence": 8,
+      "word_end_sequence": 1328,
+      "word_start_sequence": 1243
+    },
+    {
+      "claim": "Саботаж описывается как противодействие подсознания сознательному желанию и источник препятствий.",
+      "id": "evidence_sabotage_internal_resistance",
+      "sequence": 9,
+      "word_end_sequence": 1392,
+      "word_start_sequence": 1329
+    }
+  ],
+  "project_id": "project_stress_code",
+  "schema_version": 1,
+  "seminar": {
+    "id": "seminar_stress_code",
+    "title": "Стресс код"
+  },
+  "source_id": "source_stress_code_video_001",
+  "topics": [
+    {
+      "concept_ids": [
+        "concept_adaptation_to_environment",
+        "concept_survival_in_changing_environment"
+      ],
+      "coverage": "partial_start_clipped_to_canonical_bundle",
+      "evidence_ids": [
+        "evidence_adaptive_task",
+        "evidence_survival_environment"
+      ],
+      "id": "topic_stress_adaptation_survival",
+      "sequence": 0,
+      "structure_origin": "gold_dataset_a",
+      "structure_provenance": {
+        "benchmark_sha256": "3e0e8ae09ca3523c93a70ebf57fda0aadd331e8f06216647791ba4fa9a55f803",
+        "case_id": "video_001_window_01",
+        "gold_start_segment_id": 86,
+        "review_status": "gold_complete"
+      },
+      "summary": "Юрий рассматривает стресс как работу нервной системы, направленную на адаптацию и повышение выживаемости в меняющихся условиях среды.",
+      "title": "Стресс как механизм адаптации и выживания",
+      "word_end_sequence": 119,
+      "word_start_sequence": 0
+    },
+    {
+      "concept_ids": [
+        "concept_survival_in_changing_environment",
+        "concept_personal_and_professional_practice",
+        "concept_peer_supported_correction",
+        "concept_multiple_life_problem_domains"
+      ],
+      "coverage": "complete_manual_slice_range",
+      "evidence_ids": [
+        "evidence_personal_and_professional_use",
+        "evidence_peer_supported_corrections",
+        "evidence_modern_survival_and_practice",
+        "evidence_problem_domains",
+        "evidence_problem_resolution_with_unaligned_words"
+      ],
+      "id": "topic_personal_professional_kinesiology",
+      "sequence": 1,
+      "structure_origin": "manual_issue_44",
+      "structure_provenance": {
+        "review_status": "product_review_required",
+        "selection_basis": "coherent source discussion; no Topic Engine output used"
+      },
+      "summary": "Обсуждаются личное и профессиональное применение кинезиологии, совместная практика коррекций и области жизненных запросов.",
+      "title": "Личное и профессиональное применение кинезиологии",
+      "word_end_sequence": 1055,
+      "word_start_sequence": 553
+    },
+    {
+      "concept_ids": [
+        "concept_motivation_as_condition_for_action",
+        "concept_sabotage_as_internal_resistance"
+      ],
+      "coverage": "complete_manual_slice_range",
+      "evidence_ids": [
+        "evidence_motivation_changes_action",
+        "evidence_motivation_overcomes_obstacles",
+        "evidence_sabotage_internal_resistance"
+      ],
+      "id": "topic_motivation_obstacles_sabotage",
+      "sequence": 2,
+      "structure_origin": "manual_issue_44",
+      "structure_provenance": {
+        "review_status": "product_review_required",
+        "selection_basis": "coherent source discussion; no Topic Engine output used"
+      },
+      "summary": "На примерах объясняется роль внутренней мотивации в действии и обучении, а саботаж описывается как внутреннее противодействие желанию.",
+      "title": "Мотивация, препятствия и саботаж",
+      "word_end_sequence": 1433,
+      "word_start_sequence": 1107
+    }
+  ]
+}
