@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated": "2026-08-27",
+  "updated": "2026-08-28",
   "policy_checkpoint": "evidence_first_parallel_v1",
   "current_stage": "evidence_first_parallel_split",
   "current_milestone": "parallel_obsidian_knowledge_prototype_and_treeseg_hierarchy_poc",
@@ -46,6 +46,11 @@
       "knowledge_product": {
         "status": "golden_slice_complete_obsidian_next",
         "purpose": "bounded_obsidian_knowledge_prototype_then_product_review"
+      },
+      "data_evaluation": {
+        "status": "gold_expansion_v2_ready_for_manual_annotation",
+        "purpose": "prediction_independent_author_corpus_gold_preparation_and_freeze",
+        "primary_next_action": false
       }
     }
   },
@@ -123,6 +128,45 @@
       "json_schema_valid": true,
       "cross_record_valid": true,
       "production_integration_complete": false
+    },
+    "gold_expansion_v2": {
+      "status": "ready_for_gold_annotation",
+      "issue": 50,
+      "track": "data_evaluation",
+      "report": "analysis/GOLD_EXPANSION_V2_NEW_AUTHOR_DATASETS.md",
+      "manual_gold_complete": false,
+      "role_freeze_complete": false,
+      "topic_engine_candidates_run": false,
+      "primary_next_actions_unchanged": true,
+      "remaining_human_gate": "product_owner_role_review_then_domain_owner_manual_annotation_and_product_owner_gold_acceptance",
+      "candidates": {
+        "g1_healing_knives": {
+          "project": "Лечебные ножи",
+          "source_id": "video_001",
+          "source_quality": "SOURCE_READY",
+          "verdict": "READY_FOR_GOLD_ANNOTATION",
+          "transcript_lifecycle": "ASR_PROVISIONAL_HUMAN_REVIEW_REQUIRED",
+          "word_count": 7934,
+          "aligned_words": 7841,
+          "unaligned_words": 93,
+          "annotation_packets": 6,
+          "proposed_role": "DEVELOPMENT",
+          "role_status": "proposal_pending_product_owner_acceptance"
+        },
+        "g2_sigil_magic_december_2022": {
+          "project": "Магия сигил",
+          "source_id": "video_001",
+          "source_quality": "SOURCE_READY",
+          "verdict": "READY_FOR_GOLD_ANNOTATION",
+          "transcript_lifecycle": "ASR_PROVISIONAL_HUMAN_REVIEW_REQUIRED",
+          "word_count": 28795,
+          "aligned_words": 28429,
+          "unaligned_words": 366,
+          "annotation_packets": 6,
+          "proposed_role": "FROZEN_VALIDATION_CANDIDATE",
+          "role_status": "proposal_pending_product_owner_acceptance"
+        }
+      }
     },
     "topic_benchmark_dataset_a": {
       "status": "complete",
