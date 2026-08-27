@@ -1,0 +1,29 @@
+{
+  "artifact_type": "word_alignment_bakeoff_sample_manifest",
+  "frozen_text": {
+    "characters": 8832,
+    "normalization": "SRT cue text unchanged; cue separators normalized to LF",
+    "sha256": "728981fc34eea6e47b6cd68c332c674a2c478b21b38f76f75fbb81d3e915c715"
+  },
+  "schema_version": 1,
+  "selection": {
+    "actual_end": 1496.78,
+    "actual_start": 600.0,
+    "cue_count": 124,
+    "dataset": "Dataset A / development-calibration",
+    "duration": 896.78,
+    "requested_end": 1500.0,
+    "requested_start": 600.0,
+    "rule": "all complete SRT cues inside requested interval",
+    "source_id": "video_001"
+  },
+  "source_media": {
+    "bytes": 1781736051,
+    "path": "/Users/yurielokhin/Documents/seminartext_projects/Стресс код/source/video/Стресс Код декабрь 2022 День 1.mp4",
+    "sha256": "f4d4b81f4997a12aad5dab0890b6137387d355b24de79fe7e728b003cf0a460a"
+  },
+  "source_srt": {
+    "path": "/Users/yurielokhin/Documents/seminartext_projects/Стресс код/transcript/video_001/transcript.srt",
+    "sha256": "9614b41c5e7a9973f960338ef63e0c22967238d60b59932e96b4016b5d6cb913"
+  }
+}
