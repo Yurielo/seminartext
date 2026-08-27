@@ -1,0 +1,103 @@
+{
+  "artifact_type": "gold_expansion_v2_source_identity_quality_evidence",
+  "candidates": [
+    {
+      "audio_quality": {
+        "decode_errors": 0,
+        "decode_status": "pass",
+        "max_volume_db": -4.4,
+        "mean_volume_db": -23.1,
+        "silence_events_at_least_2_seconds": 45,
+        "silence_max_seconds": 13.598,
+        "silence_total_seconds": 155.616
+      },
+      "candidate_id": "G1",
+      "corpus_identity": {
+        "basis": "Product Owner supplied this source explicitly as an author-corpus candidate; project/source metadata and transcript topic agree",
+        "status": "TARGET_AUTHOR_CORPUS_CONFIRMED",
+        "voice_biometrics_used": false
+      },
+      "duration_seconds": 5436.4,
+      "filename": "Лечебные ножи. Введение.mp4",
+      "language": "ru",
+      "media": {
+        "audio": "AAC LC, mono, 32000 Hz, 126250 bit/s",
+        "container": "QuickTime/MOV MP4",
+        "video": "H.264 High, 1760x900, 25 fps"
+      },
+      "project": {
+        "duplicate_found_before_creation": false,
+        "location": "/Users/yurielokhin/Documents/seminartext_projects/Лечебные ножи",
+        "source_id": "video_001",
+        "source_registration": "project-add --video-link",
+        "structure_check": "pass"
+      },
+      "sha256": "dbc6b6e438593ec91a93a1150f786c0bb046e0d5cca54b2f570a293ecedd4546",
+      "size_bytes": 279145404,
+      "source_path": "/Users/yurielokhin/Копия с Transcend/Видео/Лечебные ножи. Введение.mp4",
+      "spot_checks": [
+        {"anchor": "begin", "fresh_asr_vs_srt_token_jaccard": 0.7692, "start_seconds": 10.0, "status": "match"},
+        {"anchor": "middle", "fresh_asr_vs_srt_token_jaccard": 0.4091, "start_seconds": 2718.2, "status": "match"},
+        {"anchor": "end", "fresh_asr_vs_srt_token_jaccard": 0.451, "start_seconds": 5346.4, "status": "match"}
+      ],
+      "transcript": {
+        "authority": "candidate",
+        "lifecycle": "ASR_PROVISIONAL_HUMAN_REVIEW_REQUIRED",
+        "prior_transcript_found": false,
+        "revision_kind": "asr",
+        "srt_sha256": "c6f63022991ff8cf50621c6b25d82b6154b7fce3bb719fc68982546723e471c3",
+        "workflow": "SeminarText 3.0 whisper.cpp large-v3 plus Silero VAD"
+      }
+    },
+    {
+      "audio_quality": {
+        "decode_errors": 0,
+        "decode_status": "pass_with_documented_near_peak_and_long_pauses",
+        "max_volume_db": -0.1,
+        "mean_volume_db": -24.8,
+        "silence_events_at_least_2_seconds": 280,
+        "silence_max_seconds": 167.828,
+        "silence_total_seconds": 1190.84
+      },
+      "candidate_id": "G2",
+      "corpus_identity": {
+        "basis": "Product Owner supplied this source explicitly as an author-corpus candidate; project/source metadata and transcript topic agree",
+        "status": "TARGET_AUTHOR_CORPUS_CONFIRMED",
+        "voice_biometrics_used": false
+      },
+      "duration_seconds": 17876.32,
+      "filename": "Магия сигил декабрь 2022.mp4",
+      "language": "ru",
+      "media": {
+        "audio": "AAC LC, mono, 32000 Hz, 126250 bit/s",
+        "container": "QuickTime/MOV MP4",
+        "video": "H.264 High, 1760x900, 25 fps"
+      },
+      "project": {
+        "duplicate_found_before_creation": false,
+        "location": "/Users/yurielokhin/Documents/seminartext_projects/Магия сигил",
+        "source_id": "video_001",
+        "source_registration": "project-add --video-link",
+        "structure_check": "pass"
+      },
+      "sha256": "79acf478b5036f3ca831a87af9eaa72826a7b48c6f7a9a25b3c81ecdf46404ee",
+      "size_bytes": 1671180535,
+      "source_path": "/Users/yurielokhin/Копия с Transcend/Видео/Магия сигил декабрь 2022.mp4",
+      "spot_checks": [
+        {"anchor": "begin", "fresh_asr_vs_srt_token_jaccard": 0.6905, "start_seconds": 10.0, "status": "match"},
+        {"anchor": "middle", "fresh_asr_vs_srt_token_jaccard": 0.3714, "start_seconds": 8938.16, "status": "match"},
+        {"anchor": "end", "fresh_asr_vs_srt_token_jaccard": 0.6939, "start_seconds": 17786.32, "status": "match"}
+      ],
+      "transcript": {
+        "authority": "candidate",
+        "lifecycle": "ASR_PROVISIONAL_HUMAN_REVIEW_REQUIRED",
+        "prior_transcript_found": false,
+        "revision_kind": "asr",
+        "srt_sha256": "8666d61e1dc5580fedd8d3cb169ba8aaf77125339977beb8a7ec8165de59e41b",
+        "workflow": "SeminarText 3.0 whisper.cpp large-v3 plus Silero VAD"
+      }
+    }
+  ],
+  "issue": 50,
+  "schema_version": 1
+}

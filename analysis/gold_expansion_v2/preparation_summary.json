@@ -1,0 +1,84 @@
+{
+  "artifact_type": "gold_expansion_v2_preparation_summary",
+  "candidates": [
+    {
+      "aligned_words": 7841,
+      "annotation_packets": "analysis/gold_expansion_v2/healing_knives/gold_annotation_packets.json",
+      "candidate_id": "G1",
+      "canonical_bundle": "analysis/gold_expansion_v2/healing_knives/canonical_evidence_bundle.json",
+      "canonical_sha256": "1ade5a9de967e38ea94e05ace21d34064e1aebe4e35a0fc5f1a85e4f91c925f3",
+      "cue_count": 707,
+      "deterministic_population": true,
+      "source_quality": {
+        "cue_count": 707,
+        "cue_duration_seconds": {
+          "max": 26.36,
+          "median": 7.55,
+          "p90": 11.034,
+          "p95": 12.591
+        },
+        "cue_words": {
+          "max": 18,
+          "median": 12,
+          "p90": 15.0
+        },
+        "end_coverage_ratio": 0.999698,
+        "gap_count": 4,
+        "gaps_over_30_seconds": 0,
+        "max_gap_seconds": 1.62,
+        "max_overlap_seconds": 0.13,
+        "overlap_count": 15,
+        "source_duration_seconds": 5436.4,
+        "transcript_end_seconds": 5434.76,
+        "unique_normalized_cue_ratio": 1.0,
+        "unique_normalized_cues": 707
+      },
+      "transcript_lifecycle": "ASR / provisional / human review required",
+      "unaligned_words": 93,
+      "word_count": 7934
+    },
+    {
+      "aligned_words": 28429,
+      "annotation_packets": "analysis/gold_expansion_v2/sigil_magic_december_2022/gold_annotation_packets.json",
+      "candidate_id": "G2",
+      "canonical_bundle": "analysis/gold_expansion_v2/sigil_magic_december_2022/canonical_evidence_bundle.json",
+      "canonical_sha256": "144935de132654947298c38c3fc8b081d346afaebe97301a94443780f0064ff6",
+      "cue_count": 2421,
+      "deterministic_population": true,
+      "source_quality": {
+        "cue_count": 2421,
+        "cue_duration_seconds": {
+          "max": 173.93,
+          "median": 7.01,
+          "p90": 10.59,
+          "p95": 12.54
+        },
+        "cue_words": {
+          "max": 21,
+          "median": 13,
+          "p90": 15.0
+        },
+        "end_coverage_ratio": 0.999975,
+        "gap_count": 25,
+        "gaps_over_30_seconds": 0,
+        "max_gap_seconds": 9.84,
+        "max_overlap_seconds": 0.13,
+        "overlap_count": 39,
+        "source_duration_seconds": 17876.32,
+        "transcript_end_seconds": 17875.88,
+        "unique_normalized_cue_ratio": 0.983891,
+        "unique_normalized_cues": 2382
+      },
+      "transcript_lifecycle": "ASR / provisional / human review required",
+      "unaligned_words": 366,
+      "word_count": 28795
+    }
+  ],
+  "guardrails": {
+    "dataset_c_d_e_unchanged": true,
+    "final_gold_boundaries_created": false,
+    "gold_a_b_c_unchanged": true,
+    "topic_engine_candidates_run": false
+  },
+  "schema_version": 1
+}

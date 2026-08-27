@@ -1,0 +1,24 @@
+{
+  "cue_count": 707,
+  "cue_duration_seconds": {
+    "max": 26.36,
+    "median": 7.55,
+    "p90": 11.034,
+    "p95": 12.591
+  },
+  "cue_words": {
+    "max": 18,
+    "median": 12,
+    "p90": 15.0
+  },
+  "end_coverage_ratio": 0.999698,
+  "gap_count": 4,
+  "gaps_over_30_seconds": 0,
+  "max_gap_seconds": 1.62,
+  "max_overlap_seconds": 0.13,
+  "overlap_count": 15,
+  "source_duration_seconds": 5436.4,
+  "transcript_end_seconds": 5434.76,
+  "unique_normalized_cue_ratio": 1.0,
+  "unique_normalized_cues": 707
+}
