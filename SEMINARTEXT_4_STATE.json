@@ -1,9 +1,9 @@
 {
   "schema_version": 3,
-  "updated": "2026-08-26",
+  "updated": "2026-08-27",
   "policy_checkpoint": "evidence_first_parallel_v1",
   "current_stage": "canonical_evidence_foundation_parallel_tracks",
-  "current_milestone": "final_controlled_word_alignment_decision",
+  "current_milestone": "canonical_evidence_schema_v1",
   "current_project": "Стресс код",
   "architecture": {
     "accepted_direction": "evidence_first_parallel_development",
@@ -70,19 +70,30 @@
     "evidence_foundation": {
       "name": "canonical_evidence_layer",
       "status": "in_progress",
-      "immediate_foundation": "word_timeline"
+      "immediate_foundation": "canonical_evidence_schema_v1_then_word_timeline"
     },
     "word_alignment": {
-      "status": "additional_final_controlled_experiment_required",
+      "status": "complete_technology_selected",
       "prior_bakeoff_verdict": "ADDITIONAL_ALIGNMENT_EXPERIMENT_REQUIRED",
-      "evidence_reference": "GitHub Issue #33",
-      "production_aligner_frozen": false,
-      "provisional_legacy_aligner": "stable_ts_constrained_align_words",
-      "provisional_new_asr_path": "whisper_cpp_large_v3_dtw_with_validated_point_to_interval_policy",
-      "next_action": "final_controlled_word_alignment_decision_on_frozen_target_corpus_sample"
+      "decision_verdict": "WORD_ALIGNMENT_TECHNOLOGY_SELECTED",
+      "evidence_references": [
+        "GitHub Issue #33",
+        "GitHub Issue #38",
+        "analysis/FINAL_CONTROLLED_WORD_ALIGNMENT_DECISION_2026-08-27.md"
+      ],
+      "decision_record": "decisions/0003-whisperx-word-alignment.md",
+      "selected_technology": "whisperx_3_8_6_alignment_only",
+      "selected_role": "existing_verified_transcript_to_native_word_intervals",
+      "reference_alignment_model": "jonatasgrosman/wav2vec2-large-xlsr-53-russian",
+      "classification": "ADOPT",
+      "production_integration_complete": false,
+      "point_to_interval_normalization_required": false,
+      "unaligned_word_policy": "preserve_text_and_character_span_mark_unaligned_leave_native_timing_absent_retain_coarse_provenance_queue_review",
+      "fallback": "unchanged_whisper_cpp_large_v3_coarse_srt_without_canonical_word_timeline_claim",
+      "next_action": "canonical_evidence_schema_v1"
     },
     "canonical_evidence_schema_v1": {
-      "status": "pending_after_word_alignment_decision",
+      "status": "next",
       "implementation_in_scope": false
     },
     "word_timeline_mvp": {
@@ -339,8 +350,8 @@
   ],
   "near_term_execution_sequence": [
     {"order": 1, "milestone": "architecture_and_state_consistency_repair", "status": "complete"},
-    {"order": 2, "milestone": "final_controlled_word_alignment_decision", "status": "next"},
-    {"order": 3, "milestone": "canonical_evidence_schema_v1", "status": "pending"},
+    {"order": 2, "milestone": "final_controlled_word_alignment_decision", "status": "complete"},
+    {"order": 3, "milestone": "canonical_evidence_schema_v1", "status": "next"},
     {"order": 4, "milestone": "word_timeline_mvp_one_controlled_source", "status": "pending"},
     {"order": 5, "milestone": "parallel_split_knowledge_slice_and_topic_baseline_track", "status": "pending"},
     {"order": 6, "milestone": "global_seminar_structure_poc", "status": "pending"},
@@ -353,7 +364,6 @@
     {"order": 13, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
   ],
   "next_actions": [
-    "final_controlled_word_alignment_decision",
     "canonical_evidence_schema_v1",
     "word_timeline_mvp_one_controlled_source",
     "parallel_golden_seminar_knowledge_slice_and_external_topic_baseline_survey"
@@ -382,7 +392,8 @@
     "workflow_doc": "DEVELOPMENT_WORKFLOW.md",
     "decision_records": [
       "decisions/0001-operating-model-and-human-gates.md",
-      "decisions/0002-evidence-first-parallel-development.md"
+      "decisions/0002-evidence-first-parallel-development.md",
+      "decisions/0003-whisperx-word-alignment.md"
     ],
     "github_source_of_truth": {
       "roadmap": "SEMINARTEXT_4_ROADMAP.md",

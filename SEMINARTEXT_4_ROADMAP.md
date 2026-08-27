@@ -145,7 +145,7 @@ optional/nullable field с первого schema contract. Реализация 
 
 ## Word Timeline / Alignment
 
-Статус: IMMEDIATE ARCHITECTURE FOUNDATION / FINAL CONTROLLED DECISION REQUIRED
+Статус: TECHNOLOGY SELECTED / CANONICAL EVIDENCE SCHEMA V1 NEXT
 
 Canonical architecture:
 
@@ -186,39 +186,46 @@ SRT cue granularity остаётся полезным input/provenance, но н�
 
 ### Word Alignment technology status
 
-Первичный bake-off завершился verdict
-`ADDITIONAL ALIGNMENT EXPERIMENT REQUIRED`. Production aligner пока не выбран.
-Финальный bounded experiment должен закрыть оставшиеся manual timing и
-point-to-interval вопросы, не меняя production автоматически. Проверенные роли
-кандидатов:
+Final Controlled Word Alignment Decision завершён verdict
+`WORD ALIGNMENT TECHNOLOGY SELECTED`.
 
-- `stable-ts` — основной кандидат для alignment existing transcripts к audio и
-  regrouping вокруг coarse timestamps;
-- `WhisperX` — reference forced-alignment solution;
-- `whisper.cpp` DTW — minimal-stack candidate, так как SeminarText уже
-  использует whisper.cpp;
-- `MLX Whisper` — Apple-Silicon candidate для будущего ASR с direct word
-  timestamps.
+Выбран `WhisperX 3.8.6` в alignment-only role:
 
-`faster-whisper` остаётся secondary/future ASR candidate, но не является
-первым выбором для alignment уже существующих transcripts.
+`existing verified transcript + source audio -> native word intervals`
 
-Немедленный следующий experiment: **Final Controlled Word Alignment Decision**
-на том же frozen controlled target-corpus Russian fragment с verified text.
-Dataset E не используется. Сравнение не включает Topic Engine или topic Gold и
-закрывает:
+Reference configuration использует isolated Python 3.13 CPU worker и Russian
+alignment model `jonatasgrosman/wav2vec2-large-xlsr-53-russian`. WhisperX ASR не
+запускается; verified transcript остаётся semantic source of truth.
 
-- word/phrase alignment accuracy и start/end timing quality;
-- unaligned/missing words, repetitions/hallucinations и Russian handling;
-- deterministic reproducibility, runtime и RAM;
-- installation/maintenance complexity на Apple Silicon;
-- ability to align an already-existing transcript и provenance quality.
+Canonical adapter обязан:
 
-Решение Word Timeline необходимо для Canonical Evidence Schema v1 и последующего
-Word Timeline MVP. Оно не блокирует подготовительную работу Golden Seminar
-Knowledge Slice, если slice сохраняет auditable evidence и не выдаёт estimated
-timing за source-exact. Gold E не планируется: Dataset E исключён из Topic Engine
-evidence решением Product Owner в Issue #34.
+- сохранять original text/character spans и stable word IDs;
+- сохранять source, transcript, aligner, model и configuration provenance;
+- хранить native start/end/score только для успешно aligned words;
+- явно помечать unsupported words как `unaligned` без synthetic timing;
+- сохранять coarse cue bounds только как provenance, не word interval;
+- выставлять QA flags для unaligned, long и low-confidence intervals.
+
+Candidate classification:
+
+- `WhisperX` — `ADOPT`;
+- `stable-ts` — `REJECT`: 188 zero-duration words, встроенная bounded
+  normalization не исправила их, upstream archived;
+- `whisper.cpp large-v3 DTW` — `REJECT` для existing-transcript alignment:
+  fresh ASR с WER 19.456%, experimental point anchors и zero durations;
+- `MLX Whisper` — `NOT APPLICABLE`: релевантный existing-transcript alignment
+  path отсутствует.
+
+Evidence и ограничения зафиксированы в
+`analysis/FINAL_CONTROLLED_WORD_ALIGNMENT_DECISION_2026-08-27.md` и ADR
+`decisions/0003-whisperx-word-alignment.md`.
+
+Немедленный следующий milestone: **Canonical Evidence Schema v1**, затем Word
+Timeline MVP на одном controlled source. Production integration в alignment
+decision не выполнялась. Golden Seminar Knowledge Slice остаётся разрешённой
+parallel preparation при auditable evidence и без выдачи estimated timing за
+source-exact. Gold E не планируется: Dataset E исключён из Topic Engine evidence
+решением Product Owner в Issue #34.
 
 ## 1.1 Минимальный Canonical Evidence contract для vertical slice
 
