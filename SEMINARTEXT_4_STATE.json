@@ -3,7 +3,7 @@
   "updated": "2026-08-27",
   "policy_checkpoint": "evidence_first_parallel_v1",
   "current_stage": "evidence_first_parallel_split",
-  "current_milestone": "parallel_split_knowledge_slice_and_topic_baseline_track",
+  "current_milestone": "parallel_obsidian_knowledge_prototype_and_topic_baseline_track",
   "current_project": "Стресс код",
   "architecture": {
     "accepted_direction": "evidence_first_parallel_development",
@@ -44,8 +44,8 @@
         "purpose": "scale_boundary_and_topic_draft_automation"
       },
       "knowledge_product": {
-        "status": "ready_parallel",
-        "purpose": "bounded_golden_seminar_vertical_slice"
+        "status": "golden_slice_complete_obsidian_next",
+        "purpose": "bounded_obsidian_knowledge_prototype_then_product_review"
       }
     }
   },
@@ -245,11 +245,20 @@
       "command": "project-topic-benchmark-run"
     },
     "golden_seminar_vertical_slice": {
-      "status": "next_parallel",
+      "status": "complete_accepted",
+      "verdict": "GOLDEN_KNOWLEDGE_SLICE_ACCEPTED",
       "default_project": "Стресс код",
       "blocked_by": null,
       "unblocked_by": "word_timeline_mvp_accepted",
       "not_blocked_by": "topic_engine.stable",
+      "artifact": "analysis/golden_knowledge_slice/golden_knowledge_slice.json",
+      "artifact_sha256": "177d030a6ac3e3dc0a28d655db0f12321e09caba8eff494c078aeb828339d4d6",
+      "report": "analysis/GOLDEN_KNOWLEDGE_SLICE_STRESS_CODE.md",
+      "topic_count": 3,
+      "concept_count": 7,
+      "evidence_count": 10,
+      "minimum_evidence_contract_ready": true,
+      "next_action": "obsidian_knowledge_prototype",
       "allowed_topic_inputs": [
         "verified_manual",
         "gold",
@@ -276,22 +285,23 @@
       "status": "pending_partial"
     },
     "knowledge_engine": {
-      "status": "bounded_prototype_planned",
+      "status": "golden_slice_complete_obsidian_prototype_next",
       "not_blocked_by": "topic_engine.stable"
     },
     "human_review": {
       "status": "required_for_verified_knowledge"
     },
     "obsidian_schema": {
-      "status": "bounded_prototype_planned",
+      "status": "next_knowledge_product",
       "required": true
     },
     "obsidian_mvp": {
-      "status": "planned_unblocked",
+      "status": "next_parallel",
       "required": true,
-      "blocked_by": "minimum_canonical_evidence_foundation",
+      "blocked_by": null,
+      "unblocked_by": "golden_knowledge_slice_accepted",
       "not_blocked_by": "topic_engine.stable",
-      "start_when": "golden_seminar_vertical_slice.minimum_evidence_contract_ready",
+      "start_when": "golden_knowledge_slice_accepted",
       "do_not_skip": true
     },
     "obsidian_export": {
@@ -378,7 +388,7 @@
     {"order": 2, "milestone": "final_controlled_word_alignment_decision", "status": "complete"},
     {"order": 3, "milestone": "canonical_evidence_schema_v1", "status": "complete"},
     {"order": 4, "milestone": "word_timeline_mvp_one_controlled_source", "status": "complete"},
-    {"order": 5, "milestone": "parallel_split_knowledge_slice_and_topic_baseline_track", "status": "next_parallel"},
+    {"order": 5, "milestone": "parallel_obsidian_knowledge_prototype_and_topic_baseline_track", "status": "next_parallel"},
     {"order": 6, "milestone": "global_seminar_structure_poc", "status": "pending"},
     {"order": 7, "milestone": "freeze_topic_engine_candidate", "status": "pending"},
     {"order": 8, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "pending"},
@@ -389,7 +399,7 @@
     {"order": 13, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
   ],
   "next_actions": [
-    "golden_seminar_knowledge_slice",
+    "obsidian_knowledge_prototype",
     "external_topic_semantic_segmentation_survey_and_baseline_challenge"
   ],
   "roadmap_state_consistency": {
