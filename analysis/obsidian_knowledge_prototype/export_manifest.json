@@ -1,0 +1,48 @@
+{
+  "artifact_type": "seminartext.obsidian_knowledge_prototype_export",
+  "canonical_evidence": {
+    "artifact_id": "artifact_stress_code_video_001_fragment_600_1496_r1",
+    "path": "analysis/word_timeline_mvp/canonical_evidence_bundle.json",
+    "sha256": "8b1a5b1ffced298cd21a8ede3dbe61d82a00950f2de6da1ba186ffae4cd93d14"
+  },
+  "export_schema_version": "1.0.0",
+  "files": {
+    "00_START_HERE.md": "3f98d28e5c09b7586222d0bb93d88acda43635473bd0d53e281590036a5c118f",
+    "Concepts/concept_adaptation_to_environment.md": "73bc1614072042068842ebcbc3f986ace275c8ef9b5d4e37ea2cae4124fecb14",
+    "Concepts/concept_motivation_as_condition_for_action.md": "565a2fd172467f7cbe624c9022762ead1d7f5d10802f9861e27172f894883fa2",
+    "Concepts/concept_multiple_life_problem_domains.md": "e1a714b5828c56e522366791d20abdb5f6f5730c0c50607070df0f9449f89a3d",
+    "Concepts/concept_peer_supported_correction.md": "723acc967b4cdcceb557a5f73e50f778465fc24ab2ab5b10a32195c6d7d30730",
+    "Concepts/concept_personal_and_professional_practice.md": "427ed360a977c66963b6c23baa6dace9e8ea3e477f619433ee837269efb17ddd",
+    "Concepts/concept_sabotage_as_internal_resistance.md": "bed7e36dcdd26ca4ddcba75c4a1700f9925eb0afff173603ebfcf7bf5216b7c5",
+    "Concepts/concept_survival_in_changing_environment.md": "78c02742afab739bcd7d608a5d73923ea8fbd426e7ea07c05ac1bcee29d87943",
+    "Evidence/evidence_adaptive_task.md": "8b04311cbd87adf8661b83645aba612f3c0945d58ca4123cb954a908cb75cb85",
+    "Evidence/evidence_modern_survival_and_practice.md": "840b26d73a494e6d52031f2370570135bea45bc52bcd2c2e9056051d006f34d3",
+    "Evidence/evidence_motivation_changes_action.md": "2d9696b91072465c88715b7a0f71b7ce8c12dc9fa9cb4acfba868f8f3a19bbe0",
+    "Evidence/evidence_motivation_overcomes_obstacles.md": "af27d3ca21bc750537b324e5883a425e181797299b253468aa225482b0ef2594",
+    "Evidence/evidence_peer_supported_corrections.md": "a191f4040b9efb5f83f76406bee9692e5ec0fbeaccd87c34786eb91d65604c09",
+    "Evidence/evidence_personal_and_professional_use.md": "4a35a637e1a619049f90bd8a3b69511dafd4b135fc1dff291773ee1c61dd6407",
+    "Evidence/evidence_problem_domains.md": "ea0d71bb7f6d4d107fbfb77708756a5a04e060a9b14cb6fde605d10a28fd3c7c",
+    "Evidence/evidence_problem_resolution_with_unaligned_words.md": "b2ebe8da944720567345c1ea37a70a9c00d1980a8c4c496df67c4b8c8c0d27d2",
+    "Evidence/evidence_sabotage_internal_resistance.md": "2da751a3896233a47881d5fc7df8e1a53f0e458daee3eacbb6ac25469cdcd9c9",
+    "Evidence/evidence_survival_environment.md": "a8386e61f882c1d336001bb22e696171ebbcc9a8f98c3c7de424a2659487f50d",
+    "PRODUCT_OWNER_REVIEW_GUIDE.md": "b7b28b6a7e36aa5964b096b0f2826c8240af0faf0e697013c0e918eaa1ac932b",
+    "Seminars/seminar_stress_code.md": "b347146c26288228e670dac7b3784e25d90c77b31591ebc4908df722efe1cb15",
+    "Sources/source_stress_code_video_001.md": "2ea5844eb5a6f3100e506e29bcdd6822c76f54f2e9cfbbf61481bb9a86f0866b",
+    "Topics/topic_motivation_obstacles_sabotage.md": "5094ddddeb08522efcc799d8a3fdf47ed3152062af1e5eafdcc431c205ed076a",
+    "Topics/topic_personal_professional_kinesiology.md": "b107ef0abfc68d88360146952afea879e8f83a869a1b706de44cc53067a1a79e",
+    "Topics/topic_stress_adaptation_survival.md": "16c58d92c0935ba94b695f3a90c8c532a365e729b159bdf0109b685953322b8c",
+    "_meta/canonical_evidence_reference.md": "13e9d7a8cecf123f5c9c3344c7e5f37a991a9223a46f6f06acef6fbeebc44010"
+  },
+  "generated_note_count": 25,
+  "golden_slice": {
+    "artifact_id": "golden_slice_stress_code_video_001_v1",
+    "path": "analysis/golden_knowledge_slice/golden_knowledge_slice.json",
+    "sha256": "177d030a6ac3e3dc0a28d655db0f12321e09caba8eff494c078aeb828339d4d6"
+  },
+  "portable": true,
+  "product_review": {
+    "required": true,
+    "status": "pending"
+  },
+  "source_of_truth": "canonical_evidence_json_not_markdown"
+}
