@@ -235,10 +235,10 @@ source завершён verdict `WORD_TIMELINE_MVP_ACCEPTED`: 1434 canonical Wor
 `analysis/WORD_TIMELINE_MVP_ONE_CONTROLLED_SOURCE.md`.
 
 Немедленный следующий milestone — **parallel split** без возврата к линейной
-Topic-Engine-first зависимости. Два primary next actions остаются неизменными:
+Topic-Engine-first зависимости. Два primary parallel направления сохраняются:
 
-- Golden Seminar Knowledge Slice — **DONE (Issue #44)** → **Obsidian Knowledge
-  Prototype NEXT** → Product Review;
+- Golden Seminar Knowledge Slice — **DONE (Issue #44)** → bounded Obsidian
+  Knowledge Prototype **READY FOR PRODUCT REVIEW (Issue #51)**;
 - External Topic/Semantic Segmentation Survey + Baseline Challenge — **DONE
   (Issue #45)** → bounded TreeSeg adaptation / Global Seminar Structure POC
   **NEXT**. TreeSeg is an isolated challenger and hierarchy POC candidate;
@@ -1105,7 +1105,7 @@ Review queue:
 
 # 9. Golden Seminar Vertical Slice / Obsidian Knowledge Prototype
 
-Статус: GOLDEN SLICE ACCEPTED / OBSIDIAN KNOWLEDGE PROTOTYPE NEXT
+Статус: OBSIDIAN KNOWLEDGE PROTOTYPE READY FOR PRODUCT REVIEW
 
 Первый bounded slice выполняется на controlled target-corpus seminar — по
 умолчанию `Стресс код`. Разрешённый input topics: existing verified/Gold/manual
@@ -1133,15 +1133,24 @@ Topic Engine продолжает развиваться параллельно 
 ручного/verified workflow в масштабе.
 
 Accepted Golden Slice является frozen input для следующего Knowledge Product
-milestone. Obsidian prototype должен отобразить Seminar/Source/Topic/Concept/
-Evidence как Markdown-ready cards/frontmatter/wikilinks, сохраняя provisional и
-Product Review статусы; full sync по-прежнему не требуется.
+milestone. Bounded Obsidian prototype Issue #51 детерминированно отображает
+Seminar/Source/Topic/Concept/Evidence как 25 Markdown notes с frontmatter,
+wikilinks и exact Evidence → source/time/Word provenance. Все семь Concepts
+остаются `provisional_manual_curation` / `product_review_required`. Verdict:
+`OBSIDIAN_KNOWLEDGE_PROTOTYPE_READY_FOR_PRODUCT_REVIEW`; Product Review ещё не
+пройден. Full sync по-прежнему не требуется.
+
+Artifact и review guide:
+
+- `analysis/obsidian_knowledge_prototype/vault/00_START_HERE.md`;
+- `analysis/obsidian_knowledge_prototype/vault/PRODUCT_OWNER_REVIEW_GUIDE.md`;
+- `analysis/OBSIDIAN_KNOWLEDGE_PROTOTYPE_GOLDEN_SEMINAR.md`.
 
 ---
 
 # 10. Knowledge Base / Obsidian Integration
 
-Статус: BOUNDED OBSIDIAN KNOWLEDGE PROTOTYPE NEXT
+Статус: BOUNDED PROTOTYPE READY FOR PRODUCT REVIEW
 
 Цель:
 
@@ -1178,22 +1187,29 @@ SeminarText становится механизмом автоматическо
 
 Определить:
 
-- [ ] folder structure
-- [ ] Properties / YAML
-- [ ] stable entity IDs
-- [ ] Wikilinks
-- [ ] relationship types
-- [ ] aliases
-- [ ] provenance fields
-- [ ] timestamps
+- [x] bounded folder structure
+- [x] Properties / YAML 1.2-compatible frontmatter
+- [x] stable entity IDs
+- [x] Wikilinks and backlink-ready reverse links
+- [x] bounded relationship links from accepted Golden Slice
+- [x] source-supported aliases
+- [x] provenance fields
+- [x] exact/available source timestamps
 - [ ] page references
 - [ ] slide references
-- [ ] lifecycle/status
-- [ ] canonical vs candidate entities
+- [x] lifecycle/status
+- [x] canonical source of truth vs derived/provisional entities
 
 ---
 
 ## 10.2 Obsidian Export MVP
+
+Bounded prototype runner:
+
+`analysis/obsidian_knowledge_prototype/export_obsidian_vault.py`
+
+Статус: deterministic bounded exporter complete; production project command
+ещё не реализована и требует решения после Product Review.
 
 Планируемая команда:
 
@@ -1552,7 +1568,8 @@ Knowledge Base должна обслуживать:
    and External Topic/Semantic Segmentation Survey + Baseline Challenge
    (Issue #45).
 6. **Parallel split — ACTIVE (EXACTLY TWO NEXT ACTIONS):**
-   - Knowledge: **Obsidian Knowledge Prototype NEXT** → Product Review;
+   - Knowledge: **Obsidian Knowledge Prototype Product Review NEXT**; prototype
+     verdict ready, но Product Review ещё не пройден;
    - Semantic: bounded TreeSeg adaptation / Global Seminar Structure POC using
      verified/manual topics where needed — **NEXT**. Local Peak остаётся primary
      experimental Boundary candidate, PELT — recall comparator.
