@@ -1,0 +1,29 @@
+{
+  "artifact_type": "gold_expansion_v2_preparation_config",
+  "candidates": [
+    {
+      "alignment_path": "analysis/gold_expansion_v2/g1/alignment_evidence.json",
+      "candidate_id": "G1",
+      "duration_seconds": 5436.4,
+      "project_path": "/Users/yurielokhin/Documents/seminartext_projects/Лечебные ножи",
+      "project_title": "Лечебные ножи",
+      "slug": "healing_knives",
+      "source_path": "/Users/yurielokhin/Копия с Transcend/Видео/Лечебные ножи. Введение.mp4",
+      "source_sha256": "dbc6b6e438593ec91a93a1150f786c0bb046e0d5cca54b2f570a293ecedd4546",
+      "source_title": "Лечебные ножи. Введение"
+    },
+    {
+      "alignment_path": "analysis/gold_expansion_v2/g2/alignment_evidence.json",
+      "candidate_id": "G2",
+      "duration_seconds": 17876.32,
+      "project_path": "/Users/yurielokhin/Documents/seminartext_projects/Магия сигил",
+      "project_title": "Магия сигил",
+      "slug": "sigil_magic_december_2022",
+      "source_path": "/Users/yurielokhin/Копия с Transcend/Видео/Магия сигил декабрь 2022.mp4",
+      "source_sha256": "79acf478b5036f3ca831a87af9eaa72826a7b48c6f7a9a25b3c81ecdf46404ee",
+      "source_title": "Магия сигил декабрь 2022"
+    }
+  ],
+  "issue": 50,
+  "schema_version": 1
+}

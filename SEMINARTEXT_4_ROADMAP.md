@@ -1,6 +1,6 @@
 # SeminarText 4.x Roadmap
 
-Последнее обновление: 2026-08-26
+Последнее обновление: 2026-08-28
 
 ## Главная цель
 
@@ -16,9 +16,13 @@ Canonical Evidence Layer
   │     Word Timeline → benchmark segments → Boundary Engine
   │     → Topic Draft → Seminar Structure
   │
-  └── Track B: Knowledge Product
-        Evidence → verified/manual/semi-auto Topics
-        → Concepts → Relations → Obsidian Knowledge Prototype
+  ├── Track B: Knowledge Product
+  │     Evidence → verified/manual/semi-auto Topics
+  │     → Concepts → Relations → Obsidian Knowledge Prototype
+  │
+  └── Track C: Data / Evaluation
+        Source Quality → reviewable transcript → canonical word evidence
+        → manual Gold annotation → role/window freeze
 
 Tracks converge into:
 Verified Knowledge Layer
@@ -231,7 +235,7 @@ source завершён verdict `WORD_TIMELINE_MVP_ACCEPTED`: 1434 canonical Wor
 `analysis/WORD_TIMELINE_MVP_ONE_CONTROLLED_SOURCE.md`.
 
 Немедленный следующий milestone — **parallel split** без возврата к линейной
-Topic-Engine-first зависимости:
+Topic-Engine-first зависимости. Два primary next actions остаются неизменными:
 
 - Golden Seminar Knowledge Slice — **DONE (Issue #44)** → **Obsidian Knowledge
   Prototype NEXT** → Product Review;
@@ -240,6 +244,11 @@ Topic-Engine-first зависимости:
   **NEXT**. TreeSeg is an isolated challenger and hierarchy POC candidate;
   Local Peak remains the primary experimental Boundary candidate and PELT the
   recall comparator.
+
+Поддерживающий Data/Evaluation track идёт параллельно, но не становится третьим
+primary next action: Gold Expansion v2 для `Лечебные ножи. Введение` и `Магия
+сигил декабрь 2022` подготовлен в Issue #50 до состояния
+`READY_FOR_GOLD_ANNOTATION`. Ручная разметка и role freeze ещё не выполнены.
 
 Gold E не планируется: Dataset E исключён из Topic Engine evidence решением
 Product Owner в Issue #34.
@@ -558,6 +567,27 @@ is unsuitable as the canonical coordinate system. Dataset E must not be used for
 Gold creation, tuning, architecture/model/configuration comparison,
 `TOPIC SEGMENTATION STABLE` acceptance, or conclusions about the Product Owner's
 seminar corpus. Gold E is not planned.
+
+### Gold Expansion v2 — author-corpus candidates
+
+Статус: **READY FOR MANUAL GOLD ANNOTATION (Issue #50)**.
+
+Topic-agnostic Source Quality Gate и Canonical Evidence Schema v1 validation
+пройдены для двух новых источников. Machine ASR остаётся provisional и требует
+human review; final Gold boundaries, titles и summaries не создавались. Для
+каждого источника зафиксированы шесть prediction-independent annotation windows:
+
+- G1 `Лечебные ножи. Введение`: 7,934 canonical words, 7,841 aligned, 93
+  explicit unaligned; proposed role `DEVELOPMENT`;
+- G2 `Магия сигил декабрь 2022`: 28,795 canonical words, 28,429 aligned, 366
+  explicit unaligned; proposed role `FROZEN_VALIDATION_CANDIDATE`.
+
+Обе роли являются предложениями и требуют Product Owner acceptance. G2 нельзя
+считать `FROZEN_VALIDATION` до завершения manual Gold и formal role freeze.
+Ни один Topic Engine candidate на G1/G2 не запускался; A/B/C Gold, Dataset C,
+Dataset D (`LOCKED_TEST`) и Dataset E не использовались и не изменялись.
+Полный evidence и remaining human gates:
+`analysis/GOLD_EXPANSION_V2_NEW_AUTHOR_DATASETS.md`.
 
 ## 2.8 Будущая структура benchmark datasets
 
@@ -1526,6 +1556,12 @@ Knowledge Base должна обслуживать:
    - Semantic: bounded TreeSeg adaptation / Global Seminar Structure POC using
      verified/manual topics where needed — **NEXT**. Local Peak остаётся primary
      experimental Boundary candidate, PELT — recall comparator.
+
+Supporting Data/Evaluation status (not a next action): Gold Expansion v2
+preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Owner
+role review and manual Gold annotation remain human gates and do not replace
+either next action above.
+
 7. Freeze Topic Engine candidate.
 8. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
 9. Dataset D blind evaluation after candidate/config/criteria freeze.
