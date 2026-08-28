@@ -1,0 +1,118 @@
+{
+  "evaluation_policy": "objective_structure_only_no_hierarchy_gold_no_f1",
+  "leaf_count": 31,
+  "parent_count": 23,
+  "parent_count_per_level": {
+    "0": 1,
+    "1": 2,
+    "2": 4,
+    "3": 4,
+    "4": 4,
+    "5": 6,
+    "6": 2
+  },
+  "hierarchy_depth": 7,
+  "parent_group_duration_seconds_by_level": {
+    "0": {
+      "min": 16347.25,
+      "median": 16347.25,
+      "p90": 16347.25,
+      "max": 16347.25
+    },
+    "1": {
+      "min": 3223.53,
+      "median": 8173.625,
+      "p90": 12133.701,
+      "max": 13123.72
+    },
+    "2": {
+      "min": 1062.42,
+      "median": 2527.29,
+      "p90": 8029.216,
+      "max": 10230.25
+    },
+    "3": {
+      "min": 725.14,
+      "median": 3619.57,
+      "p90": 5132.851,
+      "max": 5159.44
+    },
+    "4": {
+      "min": 2172.65,
+      "median": 2579.72,
+      "p90": 2846.002,
+      "max": 2898.16
+    },
+    "5": {
+      "min": 323.43,
+      "median": 1449.08,
+      "p90": 1793.12,
+      "max": 2111.71
+    },
+    "6": {
+      "min": 919.55,
+      "median": 1055.855,
+      "p90": 1164.899,
+      "max": 1192.16
+    }
+  },
+  "terminal_parent_count": 12,
+  "terminal_group_leaf_count_distribution": {
+    "min": 2,
+    "median": 3.0,
+    "p90": 3.0,
+    "max": 3
+  },
+  "terminal_group_duration_seconds_distribution": {
+    "min": 323.43,
+    "median": 1348.89,
+    "p90": 2167.608,
+    "max": 2172.65
+  },
+  "singleton_rate": 0.0,
+  "fragmentation_indicators": {
+    "terminal_groups_with_two_or_fewer_leaves": 5,
+    "terminal_groups_shorter_than_15_minutes": 2,
+    "source_window_transition_edges": 21,
+    "source_window_transition_edges_joined_in_terminal_groups": 13
+  },
+  "over_merge_indicators": {
+    "terminal_groups_longer_than_60_minutes": 0,
+    "terminal_groups_broader_than_six_leaves": 0,
+    "nonroot_parent_groups_covering_more_than_75_percent_of_leaves": 1,
+    "largest_top_level_child_leaf_share": 0.806452
+  },
+  "coverage": {
+    "topicized_representation_leaf_coverage": 1.0,
+    "topicized_representation_time_coverage": 1.0,
+    "covered_source_ids": [
+      "video_001"
+    ],
+    "golden_seminar_source_files_total": 4,
+    "golden_seminar_source_file_coverage": 0.25,
+    "limitation": "Allowed existing local topics cover the full first-day representation only; no hierarchy input was invented for video_002..video_004."
+  },
+  "temporal_order_integrity": {
+    "valid": true,
+    "violation_count": 0,
+    "violations": []
+  },
+  "runtime_seconds": 27.890806,
+  "determinism": {
+    "runs": 2,
+    "identical_structure_across_two_runs": true,
+    "structure_sha256": "edde504ac2f73e85e165c85e5a2fa223cc6a9cdcb28f2c3ab31d2aabf40f8f1f",
+    "run_structure_sha256": [
+      "edde504ac2f73e85e165c85e5a2fa223cc6a9cdcb28f2c3ab31d2aabf40f8f1f",
+      "edde504ac2f73e85e165c85e5a2fa223cc6a9cdcb28f2c3ab31d2aabf40f8f1f"
+    ],
+    "run_runtime_seconds": [
+      14.000412,
+      13.890394
+    ]
+  },
+  "schema_version": 1,
+  "generated_at": "2026-08-28T06:49:01.203934+00:00",
+  "issue": 52,
+  "final_technical_verdict": "TREESEG_HIERARCHY_POC_READY_FOR_PRODUCT_REVIEW"
+}

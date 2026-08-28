@@ -241,7 +241,8 @@ Topic-Engine-first зависимости. Два primary parallel направ�
   Knowledge Prototype **READY FOR PRODUCT REVIEW (Issue #51)**;
 - External Topic/Semantic Segmentation Survey + Baseline Challenge — **DONE
   (Issue #45)** → bounded TreeSeg adaptation / Global Seminar Structure POC
-  **NEXT**. TreeSeg is an isolated challenger and hierarchy POC candidate;
+  **READY FOR PRODUCT REVIEW (Issue #52)**. TreeSeg remains an isolated
+  challenger and hierarchy POC candidate;
   Local Peak remains the primary experimental Boundary candidate and PELT the
   recall comparator.
 
@@ -698,16 +699,17 @@ experimental Boundary candidate, PELT — recall-oriented comparator.
 Evidence: `analysis/EXTERNAL_TOPIC_BASELINE_SURVEY_ISSUE_45.md` и
 `analysis/external_topic_baselines/results/baseline_challenge.json`.
 
-Следующий Semantic milestone — bounded TreeSeg adaptation / full-seminar
-hierarchy POC preparation на уже разрешённом Golden Seminar. Dataset C не
-перезапускался и остаётся closed/frozen; Dataset D остаётся untouched
-`LOCKED TEST`; Dataset E остаётся excluded.
+Bounded TreeSeg adaptation / Global Seminar Structure POC выполнен на полной
+существующей topicized representation Day 1 Golden Seminar и готов к отдельному
+Product Owner review (Issue #52). Dataset C не перезапускался и остаётся
+closed/frozen; Dataset D остаётся untouched `LOCKED TEST`; Dataset E остаётся
+excluded.
 
 ---
 
 # 3. Global Seminar Structure
 
-Статус: TREESEG HIERARCHY POC NEXT / PARALLEL
+Статус: TREESEG HIERARCHY POC READY FOR PRODUCT REVIEW / PARALLEL
 
 Первый POC разрешён на Golden Seminar (`Стресс код`) с verified manual, Gold или
 semi-automatic topics до perfect automatic boundaries. POC проверяет отдельную
@@ -718,7 +720,15 @@ TreeSeg выбран в Issue #45 как `ADAPT` candidate для bounded tempor
 POC. Это не production promotion и не заменяет Local Peak как primary
 experimental Boundary candidate.
 
-- [ ] собрать темы всех окон в структуру полного видео;
+- [x] собрать все 31 existing local topics полной topicized representation
+  `video_001` в воспроизводимую temporal hierarchy (Issue #52);
+- [x] сохранить leaf/parent levels, temporal order, intervals, child relations и
+  provenance к transcript evidence;
+- [x] посчитать objective structural metrics без искусственного hierarchy F1 и
+  подтвердить deterministic structure в двух запусках;
+- [x] подготовить full overview, beginning/middle/end evidence examples, flat
+  baseline и Product Owner rubric;
+- [ ] получить отдельный Product Owner verdict по semantic usefulness;
 - [ ] убрать window-boundary artifacts;
 - [ ] merge дублирующихся тем;
 - [ ] убрать ложное дробление;
@@ -731,6 +741,15 @@ experimental Boundary candidate.
   - chapter
   - topic
   - subtopic при необходимости.
+
+Issue #52 evidence:
+`analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md`,
+`analysis/treeseg_global_structure_poc/hierarchy.json` и
+`analysis/treeseg_global_structure_poc/PRODUCT_OWNER_REVIEW_PACKET.md`.
+Технический verdict:
+`TREESEG_HIERARCHY_POC_READY_FOR_PRODUCT_REVIEW`. POC покрывает 100% existing
+Day 1 topicized representation, но только 1/4 source files Golden Seminar; для
+Days 2–4 никакой новый hierarchy Gold или local-topic input не создавался.
 
 ---
 
@@ -1570,9 +1589,15 @@ Knowledge Base должна обслуживать:
 6. **Parallel split — ACTIVE (EXACTLY TWO NEXT ACTIONS):**
    - Knowledge: **Obsidian Knowledge Prototype Product Review NEXT**; prototype
      verdict ready, но Product Review ещё не пройден;
-   - Semantic: bounded TreeSeg adaptation / Global Seminar Structure POC using
-     verified/manual topics where needed — **NEXT**. Local Peak остаётся primary
-     experimental Boundary candidate, PELT — recall comparator.
+   - Semantic: bounded TreeSeg adaptation / Global Seminar Structure POC —
+     **READY FOR PRODUCT REVIEW (Issue #52)**. Local Peak остаётся primary
+     experimental Boundary candidate, PELT — recall comparator, TreeSeg —
+     isolated external `ADAPT` challenger. Product Review ещё не пройден.
+
+Machine-readable human review actions:
+
+- `obsidian_knowledge_prototype_product_review`;
+- `treeseg_hierarchy_poc_product_review`.
 
 Supporting Data/Evaluation status (not a next action): Gold Expansion v2
 preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Owner

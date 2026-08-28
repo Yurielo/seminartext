@@ -1,0 +1,37 @@
+{
+  "issue": 52,
+  "role": "global_seminar_structure_temporal_hierarchy_only",
+  "input": {
+    "project_name": "Стресс код",
+    "source_id": "video_001",
+    "topics_relative_path": "topics/seminar_topics.json",
+    "transcript_relative_path": "transcript/video_001.json",
+    "expected_topics_sha256": "3dddc246f295be0f32197502c95e596404dc8ec0c5e70c505bb16367734e3581",
+    "expected_transcript_sha256": "935a8a838041d74d6f31ce65c00ddb54ec1b72780905ab8a67e341ca75ae5123",
+    "expected_topic_count": 31,
+    "expected_segment_count": 2155
+  },
+  "treeseg": {
+    "upstream_repository": "https://github.com/geraldthewes/topic-treeseg",
+    "upstream_commit": "f18929a23693bdcb669aef1ab1a18fd035e50e57",
+    "package_version": "0.1.0",
+    "license": "Apache-2.0",
+    "min_segment_size": 2,
+    "lambda_balance": 0.0,
+    "utterance_expansion_width": 2,
+    "text_key": "composite",
+    "requested_max_terminal_groups": 31
+  },
+  "embeddings": {
+    "provider": "ollama",
+    "endpoint": "http://127.0.0.1:11434",
+    "model": "bge-m3:latest",
+    "expected_model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab"
+  },
+  "metrics": {
+    "source_window_seconds": 720.0,
+    "fragment_short_duration_seconds": 900.0,
+    "overmerge_long_duration_seconds": 3600.0,
+    "overmerge_broad_leaf_count": 6
+  }
+}

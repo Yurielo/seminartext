@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-28T06:49:01.203934+00:00",
+  "project": "Стресс код",
+  "inputs": {
+    "topics": {
+      "path": "topics/seminar_topics.json",
+      "sha256": "3dddc246f295be0f32197502c95e596404dc8ec0c5e70c505bb16367734e3581"
+    },
+    "transcript": {
+      "path": "transcript/video_001.json",
+      "sha256": "935a8a838041d74d6f31ce65c00ddb54ec1b72780905ab8a67e341ca75ae5123"
+    }
+  },
+  "counts": {
+    "local_topics": 31,
+    "transcript_segments": 2155
+  },
+  "excluded_from_structure_input": [
+    "topic.title",
+    "topic.summary"
+  ],
+  "runtime_pins_verified": {
+    "package_version": "0.1.0",
+    "upstream_commit": "f18929a23693bdcb669aef1ab1a18fd035e50e57",
+    "embedding_model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab"
+  }
+}

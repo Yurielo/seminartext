@@ -1,0 +1,3 @@
+# TreeSeg is pinned to the exact Issue #45 ADAPT challenger revision.
+matplotlib==3.10.8
+topic_treeseg @ git+https://github.com/geraldthewes/topic-treeseg.git@f18929a23693bdcb669aef1ab1a18fd035e50e57
