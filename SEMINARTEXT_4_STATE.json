@@ -3,7 +3,7 @@
   "updated": "2026-08-28",
   "policy_checkpoint": "evidence_first_parallel_v1",
   "current_stage": "evidence_first_parallel_split",
-  "current_milestone": "parallel_obsidian_product_review_and_treeseg_hierarchy_poc",
+  "current_milestone": "parallel_obsidian_product_review_and_treeseg_hierarchy_poc_product_review",
   "current_project": "Стресс код",
   "architecture": {
     "accepted_direction": "evidence_first_parallel_development",
@@ -40,8 +40,8 @@
     },
     "tracks": {
       "semantic_automation": {
-        "status": "baseline_complete_treeseg_hierarchy_poc_next",
-        "purpose": "scale_boundary_and_topic_draft_automation"
+        "status": "treeseg_hierarchy_poc_ready_for_product_review",
+        "purpose": "product_review_of_bounded_treeseg_hierarchy_poc"
       },
       "knowledge_product": {
         "status": "obsidian_prototype_ready_for_product_review",
@@ -245,7 +245,7 @@
       "topic_automation_usable": false,
       "current_architecture": "local_peak_primary_experimental_candidate",
       "role": "critical_for_scale_not_a_knowledge_prototype_gate",
-      "next_algorithmic_gate": "bounded_treeseg_adaptation_global_seminar_structure_poc"
+      "next_algorithmic_gate": "treeseg_hierarchy_poc_product_review"
     },
     "external_semantic_segmentation_survey": {
       "status": "complete_accepted",
@@ -269,7 +269,7 @@
       },
       "retained_primary": "local_peak_primary_experimental_boundary_candidate",
       "retained_comparator": "pelt_recall_oriented_comparator",
-      "next_action": "treeseg_adaptation_global_seminar_structure_poc"
+      "next_action": "treeseg_hierarchy_poc_product_review"
     },
     "embedding_engine": {
       "status": "experimental_leader",
@@ -331,12 +331,27 @@
       ]
     },
     "global_seminar_structure": {
-      "status": "next_parallel_treeseg_hierarchy_poc",
-      "blocked_by": "minimum_canonical_evidence_and_verified_topics",
+      "status": "treeseg_hierarchy_poc_ready_for_product_review",
+      "blocked_by": "separate_product_owner_semantic_usefulness_review",
       "not_blocked_by": "perfect_automatic_boundaries",
       "poc_project": "Стресс код",
       "selected_poc_candidate": "treeseg_temporal_hierarchy_adaptation",
-      "production_promotion": false
+      "poc_issue": 52,
+      "technical_verdict": "TREESEG_HIERARCHY_POC_READY_FOR_PRODUCT_REVIEW",
+      "report": "analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md",
+      "hierarchy_artifact": "analysis/treeseg_global_structure_poc/hierarchy.json",
+      "product_owner_review_packet": "analysis/treeseg_global_structure_poc/PRODUCT_OWNER_REVIEW_PACKET.md",
+      "input_scope": "full_existing_topicized_representation_video_001_day_1",
+      "golden_seminar_source_file_coverage": 0.25,
+      "leaf_count": 31,
+      "parent_count": 23,
+      "hierarchy_depth": 7,
+      "temporal_order_integrity": true,
+      "deterministic_two_runs": true,
+      "hierarchy_gold_created": false,
+      "product_review_complete": false,
+      "production_promotion": false,
+      "topic_engine_candidate_frozen": false
     },
     "multi_source_alignment": {
       "status": "pending"
@@ -464,7 +479,7 @@
     {"order": 3, "milestone": "canonical_evidence_schema_v1", "status": "complete"},
     {"order": 4, "milestone": "word_timeline_mvp_one_controlled_source", "status": "complete"},
     {"order": 5, "milestone": "parallel_golden_slice_and_topic_baseline_foundations", "status": "complete"},
-    {"order": 6, "milestone": "parallel_obsidian_product_review_and_treeseg_hierarchy_poc", "status": "next_parallel"},
+    {"order": 6, "milestone": "parallel_obsidian_product_review_and_treeseg_hierarchy_poc_product_review", "status": "next_parallel"},
     {"order": 7, "milestone": "freeze_topic_engine_candidate", "status": "pending"},
     {"order": 8, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "pending"},
     {"order": 9, "milestone": "dataset_d_blind_evaluation", "status": "pending"},
@@ -475,7 +490,7 @@
   ],
   "next_actions": [
     "obsidian_knowledge_prototype_product_review",
-    "treeseg_adaptation_global_seminar_structure_poc"
+    "treeseg_hierarchy_poc_product_review"
   ],
   "roadmap_state_consistency": {
     "checkpoint": "evidence_first_parallel_v1",
