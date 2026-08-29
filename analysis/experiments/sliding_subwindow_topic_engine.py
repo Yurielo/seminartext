@@ -27,7 +27,11 @@ DEFAULT_BENCHMARK = (
     / "benchmark"
     / "topic_benchmark.json"
 )
-DEFAULT_TOPICS_MODULE = Path("/Users/yurielokhin/bin/seminartext_topics.py")
+DEFAULT_TOPICS_MODULE = (
+    Path(__file__).resolve().parents[2]
+    / "seminartext_modules"
+    / "seminartext_topics.py"
+)
 
 
 def load_json(path: Path) -> dict:

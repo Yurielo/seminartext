@@ -1,17 +1,21 @@
 #!/bin/bash
 set -Eeuo pipefail
 
-REPO="$HOME/Documents/seminartext"
-BIN="$HOME/bin"
-BACKUP_ROOT="$HOME/.seminartext-deploy-backups"
+REPO="${SEMINARTEXT_DEV_REPO:-$HOME/Documents/seminartext}"
+BIN="${SEMINARTEXT_DEV_BIN:-$HOME/bin}"
+BACKUP_ROOT="${SEMINARTEXT_DEV_BACKUP_ROOT:-$HOME/.seminartext-deploy-backups}"
 
 CODE="$REPO/seminartext"
 ROADMAP="$REPO/SEMINARTEXT_4_ROADMAP.md"
 STATE="$REPO/SEMINARTEXT_4_STATE.json"
+TOPICS="$REPO/seminartext_modules/seminartext_topics.py"
+TRANSLATE="$REPO/seminartext_modules/seminartext_translate.py"
 
 DEPLOY_CODE="$BIN/seminartext_4.0_work"
 DEPLOY_ROADMAP="$BIN/SEMINARTEXT_4_ROADMAP.md"
 DEPLOY_STATE="$BIN/SEMINARTEXT_4_STATE.json"
+DEPLOY_TOPICS="$BIN/seminartext_topics.py"
+DEPLOY_TRANSLATE="$BIN/seminartext_translate.py"
 
 die() {
   echo "FAIL: $*" >&2
@@ -88,15 +92,15 @@ cmd_status() {
 
   echo
   echo "MASTER FILES"
-  ls -lh "$CODE" "$ROADMAP" "$STATE" | sed 's/^/  /'
+  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" | sed 's/^/  /'
 
   echo
   echo "MASTER HASHES"
-  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" | sed 's/^/  /'
+  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" | sed 's/^/  /'
 
   echo
   echo "DEPLOYED HASHES"
-  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE"; do
+  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE"; do
     if [[ -f "$f" ]]; then
       shasum -a 256 "$f" | sed 's/^/  /'
     else
@@ -132,11 +136,27 @@ cmd_status() {
     mismatches=$((mismatches + 1))
   fi
 
+  if [[ -f "$DEPLOY_TOPICS" ]] \
+     && [[ "$(hash_file "$TOPICS")" == "$(hash_file "$DEPLOY_TOPICS")" ]]; then
+    echo "  Topics:  SYNC"
+  else
+    echo "  Topics:  DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
+  if [[ -f "$DEPLOY_TRANSLATE" ]] \
+     && [[ "$(hash_file "$TRANSLATE")" == "$(hash_file "$DEPLOY_TRANSLATE")" ]]; then
+    echo "  Translate: SYNC"
+  else
+    echo "  Translate: DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
   echo
   if (( mismatches == 0 )); then
     echo "DEPLOY STATUS: SYNC"
   else
-    echo "DEPLOY STATUS: DIFFERENT ($mismatches/3)"
+    echo "DEPLOY STATUS: DIFFERENT ($mismatches/5)"
   fi
 }
 
@@ -150,6 +170,8 @@ cmd_check() {
   [[ -f "$CODE" ]] || die "нет master code"
   [[ -f "$ROADMAP" ]] || die "нет master Roadmap"
   [[ -f "$STATE" ]] || die "нет master State"
+  [[ -f "$TOPICS" ]] || die "нет master Topic Engine module"
+  [[ -f "$TRANSLATE" ]] || die "нет master Translate module"
 
   bash -n "$CODE" || die "ошибка Bash syntax"
   echo "[OK] Bash syntax"
@@ -157,6 +179,18 @@ cmd_check() {
   python3 -m json.tool "$STATE" >/dev/null \
     || die "SEMINARTEXT_4_STATE.json invalid"
   echo "[OK] State JSON"
+
+  python3 - "$TOPICS" "$TRANSLATE" <<'PYMODULES' \
+    || die "ошибка Python syntax в runtime-модулях"
+import ast
+import sys
+from pathlib import Path
+
+for raw_path in sys.argv[1:]:
+    path = Path(raw_path)
+    ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+PYMODULES
+  echo "[OK] Runtime module syntax"
 
   validate_roadmap_file "$ROADMAP"
   echo "[OK] Roadmap structure"
@@ -242,6 +276,10 @@ cmd_deploy() {
     && cp -p "$DEPLOY_ROADMAP" "$backup/SEMINARTEXT_4_ROADMAP.md"
   [[ -f "$DEPLOY_STATE" ]] \
     && cp -p "$DEPLOY_STATE" "$backup/SEMINARTEXT_4_STATE.json"
+  [[ -f "$DEPLOY_TOPICS" ]] \
+    && cp -p "$DEPLOY_TOPICS" "$backup/seminartext_topics.py"
+  [[ -f "$DEPLOY_TRANSLATE" ]] \
+    && cp -p "$DEPLOY_TRANSLATE" "$backup/seminartext_translate.py"
 
   cat > "$backup/manifest.txt" <<MANIFEST
 created=$stamp
@@ -250,19 +288,23 @@ source_commit=$commit
 source_branch=$(git branch --show-current)
 MANIFEST
 
-  local tmp_code tmp_roadmap tmp_state
+  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate
   tmp_code="$DEPLOY_CODE.new.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.new.$$"
   tmp_state="$DEPLOY_STATE.new.$$"
+  tmp_topics="$DEPLOY_TOPICS.new.$$"
+  tmp_translate="$DEPLOY_TRANSLATE.new.$$"
 
   cleanup_deploy_tmp() {
-    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state"
+    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate"
   }
   trap cleanup_deploy_tmp RETURN INT TERM
 
   cp -p "$CODE" "$tmp_code"
   cp -p "$ROADMAP" "$tmp_roadmap"
   cp -p "$STATE" "$tmp_state"
+  cp -p "$TOPICS" "$tmp_topics"
+  cp -p "$TRANSLATE" "$tmp_translate"
 
   # Проверяем именно будущие deployed-файлы ДО замены.
   bash -n "$tmp_code" \
@@ -273,12 +315,25 @@ MANIFEST
 
   validate_roadmap_file "$tmp_roadmap"
 
-  chmod +x "$tmp_code"
+  python3 - "$tmp_topics" "$tmp_translate" <<'PYMODULES' \
+    || die "deploy temp runtime module syntax invalid"
+import ast
+import sys
+from pathlib import Path
+
+for raw_path in sys.argv[1:]:
+    path = Path(raw_path)
+    ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+PYMODULES
+
+  chmod +x "$tmp_code" "$tmp_topics" "$tmp_translate"
 
   # Atomic replace на том же filesystem.
   mv "$tmp_code" "$DEPLOY_CODE"
   mv "$tmp_roadmap" "$DEPLOY_ROADMAP"
   mv "$tmp_state" "$DEPLOY_STATE"
+  mv "$tmp_topics" "$DEPLOY_TOPICS"
+  mv "$tmp_translate" "$DEPLOY_TRANSLATE"
 
   # Финальная проверка hashes.
   [[ "$(hash_file "$CODE")" == "$(hash_file "$DEPLOY_CODE")" ]] \
@@ -290,9 +345,17 @@ MANIFEST
   [[ "$(hash_file "$STATE")" == "$(hash_file "$DEPLOY_STATE")" ]] \
     || die "deploy hash mismatch: State"
 
+  [[ "$(hash_file "$TOPICS")" == "$(hash_file "$DEPLOY_TOPICS")" ]] \
+    || die "deploy hash mismatch: Topic Engine"
+
+  [[ "$(hash_file "$TRANSLATE")" == "$(hash_file "$DEPLOY_TRANSLATE")" ]] \
+    || die "deploy hash mismatch: Translate"
+
   echo "[OK] Code deployed"
   echo "[OK] Roadmap deployed"
   echo "[OK] State deployed"
+  echo "[OK] Topic Engine module deployed"
+  echo "[OK] Translate module deployed"
   echo "[OK] SHA-256 verified"
   echo
   echo "DEPLOY: PASS"
@@ -336,10 +399,12 @@ cmd_rollback() {
   [[ -n "${backup:-}" && -d "$backup" ]] \
     || die "нет доступных deploy-backups"
 
-  local backup_code backup_roadmap backup_state
+  local backup_code backup_roadmap backup_state backup_topics backup_translate
   backup_code="$backup/seminartext_4.0_work"
   backup_roadmap="$backup/SEMINARTEXT_4_ROADMAP.md"
   backup_state="$backup/SEMINARTEXT_4_STATE.json"
+  backup_topics="$backup/seminartext_topics.py"
+  backup_translate="$backup/seminartext_translate.py"
 
   [[ -f "$backup_code" ]] \
     || die "backup не содержит code: $backup"
@@ -368,8 +433,12 @@ cmd_rollback() {
     && cp -p "$DEPLOY_ROADMAP" "$rollback_guard/SEMINARTEXT_4_ROADMAP.md"
   [[ -f "$DEPLOY_STATE" ]] \
     && cp -p "$DEPLOY_STATE" "$rollback_guard/SEMINARTEXT_4_STATE.json"
+  [[ -f "$DEPLOY_TOPICS" ]] \
+    && cp -p "$DEPLOY_TOPICS" "$rollback_guard/seminartext_topics.py"
+  [[ -f "$DEPLOY_TRANSLATE" ]] \
+    && cp -p "$DEPLOY_TRANSLATE" "$rollback_guard/seminartext_translate.py"
 
-  local tmp_code tmp_roadmap tmp_state
+  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate=""
   tmp_code="$DEPLOY_CODE.rollback.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.rollback.$$"
   tmp_state="$DEPLOY_STATE.rollback.$$"
@@ -377,15 +446,30 @@ cmd_rollback() {
   cp -p "$backup_code" "$tmp_code"
   cp -p "$backup_roadmap" "$tmp_roadmap"
   cp -p "$backup_state" "$tmp_state"
+  if [[ -f "$backup_topics" ]]; then
+    tmp_topics="$DEPLOY_TOPICS.rollback.$$"
+    cp -p "$backup_topics" "$tmp_topics"
+  fi
+  if [[ -f "$backup_translate" ]]; then
+    tmp_translate="$DEPLOY_TRANSLATE.rollback.$$"
+    cp -p "$backup_translate" "$tmp_translate"
+  fi
 
   chmod +x "$tmp_code"
+  [[ -z "$tmp_topics" ]] || chmod +x "$tmp_topics"
+  [[ -z "$tmp_translate" ]] || chmod +x "$tmp_translate"
 
   mv "$tmp_code" "$DEPLOY_CODE"
   mv "$tmp_roadmap" "$DEPLOY_ROADMAP"
   mv "$tmp_state" "$DEPLOY_STATE"
+  [[ -z "$tmp_topics" ]] || mv "$tmp_topics" "$DEPLOY_TOPICS"
+  [[ -z "$tmp_translate" ]] || mv "$tmp_translate" "$DEPLOY_TRANSLATE"
 
   echo "ROLLBACK: PASS"
   echo "Restored: $backup"
+  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" ]]; then
+    echo "Legacy backup: отсутствующие runtime-модули оставлены без изменения."
+  fi
   echo "Previous deployed state saved:"
   echo "$rollback_guard"
 }
