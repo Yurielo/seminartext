@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "integrity_contract_version": "1.0.0",
+  "allowed_statuses": [
+    "PASS",
+    "FAIL",
+    "WARN",
+    "NOT_IMPLEMENTED",
+    "NOT_APPLICABLE"
+  ],
+  "exit_codes": {
+    "0": "No implemented blocking gate failed; future NOT_IMPLEMENTED gates still make project integrity PARTIAL.",
+    "1": "At least one implemented blocking gate failed.",
+    "2": "Integrity contract or checker execution failed internally."
+  },
+  "runtime_components": [
+    {
+      "id": "cli",
+      "repository_path": "seminartext",
+      "deployed_name": "seminartext_4.0_work",
+      "required": true
+    },
+    {
+      "id": "topics",
+      "repository_path": "seminartext_modules/seminartext_topics.py",
+      "deployed_name": "seminartext_topics.py",
+      "required": true
+    },
+    {
+      "id": "translate",
+      "repository_path": "seminartext_modules/seminartext_translate.py",
+      "deployed_name": "seminartext_translate.py",
+      "required": true
+    },
+    {
+      "id": "version",
+      "repository_path": "SEMINARTEXT_VERSION",
+      "deployed_name": "SEMINARTEXT_VERSION",
+      "required": true
+    },
+    {
+      "id": "state",
+      "repository_path": "SEMINARTEXT_4_STATE.json",
+      "deployed_name": "SEMINARTEXT_4_STATE.json",
+      "required": true
+    },
+    {
+      "id": "roadmap",
+      "repository_path": "SEMINARTEXT_4_ROADMAP.md",
+      "deployed_name": "SEMINARTEXT_4_ROADMAP.md",
+      "required": true
+    }
+  ],
+  "test_policy": {
+    "command": ["{test_python}", "-m", "pytest", "-q", "-rs", "-p", "no:cacheprovider"],
+    "skip_policy": "WARN_UNTIL_G4_DEPENDENCY_TRUTH",
+    "known_current_limitation": "jsonschema-dependent Word Timeline tests may skip until Issue #58/G4 defines dependency truth. Every skip remains visible and makes G7 WARN."
+  },
+  "gates": [
+    {
+      "id": "G1",
+      "name": "Git Truth",
+      "implementation": "IMPLEMENTED",
+      "blocking_policy": "blocking",
+      "invariant": "Repository identity, cleanliness, origin/main relation, and required tracked runtime source are truthful."
+    },
+    {
+      "id": "G2",
+      "name": "Runtime Truth",
+      "implementation": "IMPLEMENTED",
+      "blocking_policy": "blocking",
+      "invariant": "Any detected installed runtime is complete and byte-identical to repository-governed runtime source."
+    },
+    {
+      "id": "G3",
+      "name": "Governance Truth",
+      "implementation": "IMPLEMENTED",
+      "blocking_policy": "blocking",
+      "invariant": "The existing repository governance checker passes and does not mutate governed files."
+    },
+    {
+      "id": "G4",
+      "name": "Dependency Truth",
+      "implementation": "NOT_IMPLEMENTED",
+      "blocking_policy": "future_blocking",
+      "reason": "Activated by Issue #58 or a dedicated governed dependency-contract follow-up."
+    },
+    {
+      "id": "G5",
+      "name": "Canonical Contract Truth",
+      "implementation": "NOT_IMPLEMENTED",
+      "blocking_policy": "future_blocking",
+      "reason": "Future gate will compose all accepted canonical schemas and cross-record validators."
+    },
+    {
+      "id": "G6",
+      "name": "End-to-End Truth",
+      "implementation": "NOT_IMPLEMENTED",
+      "blocking_policy": "future_blocking",
+      "reason": "Future gate requires an explicit supported end-to-end fixture; expensive ML/model execution is outside v1."
+    },
+    {
+      "id": "G7",
+      "name": "Test Truth",
+      "implementation": "IMPLEMENTED",
+      "blocking_policy": "blocking",
+      "invariant": "The supported full pytest command is executed; failures and skips are never hidden."
+    },
+    {
+      "id": "G8",
+      "name": "Product State Truth",
+      "implementation": "IMPLEMENTED_FOUNDATION",
+      "blocking_policy": "blocking_implemented_invariants",
+      "invariant": "Version, declared CLI commands, and production-integration maturity claims do not contradict repository reality."
+    }
+  ]
+}

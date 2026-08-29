@@ -1,0 +1,10 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." >/dev/null 2>&1 && pwd)"
+INTEGRITY_PYTHON="${SEMINARTEXT_INTEGRITY_PYTHON:-python3}"
+
+cd "$REPO_ROOT"
+export PYTHONDONTWRITEBYTECODE=1
+exec "$INTEGRITY_PYTHON" -m integrity.runner --root "$REPO_ROOT" "$@"

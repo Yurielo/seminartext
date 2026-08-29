@@ -71,6 +71,16 @@ Experimental or ML loop:
 
 `BUILD -> TEST -> BENCHMARK -> HUMAN REVIEW when semantically required -> DECISION -> MERGE`
 
+Before starting the next Issue after every merge, run the repository-owned
+Project Integrity Gate:
+
+`./scripts/seminartext-integrity -> PASS/PARTIAL/FAIL review -> NEXT ISSUE`
+
+The gate is read-only. `BOOTSTRAP_IMPLEMENTATION: PASS` means the observer ran;
+`PROJECT_INTEGRITY: FAIL` remains a blocking finding and must be reported or
+repaired under a separate governed Issue. Future gates shown as
+`NOT_IMPLEMENTED` are never treated as PASS.
+
 Semantic Automation, Knowledge Product, and Data/Evaluation may advance in
 parallel when their inputs and human gates permit. Topic Engine stability is a
 scalability track, not a blocker for bounded knowledge prototypes that use

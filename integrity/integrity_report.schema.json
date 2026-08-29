@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seminartext.local/schemas/project-integrity-report-v1.json",
+  "title": "SeminarText Project Integrity Report v1",
+  "type": "object",
+  "required": [
+    "report_schema_version",
+    "integrity_contract_version",
+    "head_sha",
+    "repository_root",
+    "deployment_dir",
+    "gates",
+    "bootstrap_implementation",
+    "project_integrity",
+    "implemented_blocking_failures",
+    "internal_errors",
+    "exit_code"
+  ],
+  "properties": {
+    "report_schema_version": {"const": 1},
+    "integrity_contract_version": {"type": ["string", "null"]},
+    "head_sha": {"type": ["string", "null"]},
+    "repository_root": {"type": "string"},
+    "deployment_dir": {"type": "string"},
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "status", "reason", "evidence"],
+        "properties": {
+          "id": {"pattern": "^G[1-8]$"},
+          "name": {"type": "string"},
+          "status": {
+            "enum": ["PASS", "FAIL", "WARN", "NOT_IMPLEMENTED", "NOT_APPLICABLE"]
+          },
+          "reason": {"type": "string"},
+          "evidence": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "bootstrap_implementation": {"enum": ["PASS", "FAIL"]},
+    "project_integrity": {"enum": ["PASS", "FAIL", "PARTIAL"]},
+    "implemented_blocking_failures": {
+      "type": "array",
+      "items": {"pattern": "^G[1-8]$"}
+    },
+    "internal_errors": {"type": "array"},
+    "exit_code": {"enum": [0, 1, 2]}
+  },
+  "additionalProperties": false
+}
