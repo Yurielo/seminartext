@@ -1,26 +1,50 @@
 #!/usr/bin/env python3
-"""Dependency-free validator for Canonical Knowledge Contract v1.
+"""Layered validator for Canonical Knowledge Contract v1.
 
-The JSON schema defines record shape; this module closes the semantic gaps:
-stable IDs, cross-record references, lifecycle/lineage mechanics, and links to
-the existing Canonical Evidence and Golden Knowledge Slice artifacts.
+Layer 1 delegates structural truth to the committed JSON Schema. Layers 2-4
+add invariants that JSON Schema cannot express cleanly: field mechanics,
+cross-record references, and lifecycle/review semantics.
 """
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+try:
+    from jsonschema import Draft202012Validator
+except ModuleNotFoundError:  # Truthful fail-closed behavior outside dev_test.
+    Draft202012Validator = None  # type: ignore[assignment,misc]
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SCHEMA_PATH = Path(__file__).with_name("canonical_knowledge_v1.schema.json")
+LIFECYCLE_PATH = Path(__file__).with_name("canonical_knowledge_lifecycle_v1.json")
 ID_RE = re.compile(r"^[a-z][a-z0-9._:-]{2,127}$")
-SHA_RE = re.compile(r"^[a-f0-9]{64}$")
-LIFECYCLES = {"PROVISIONAL", "ACCEPTED", "REJECTED", "SUPERSEDED"}
-ACTIONS = {"ACCEPT", "RENAME", "SPLIT", "MERGE", "REJECT", "DEFER"}
 RELATIONS = {"supports", "contradicts", "refines", "depends_on", "associated_with"}
-ACTORS = {"human_domain_reviewer", "product_owner", "system_validator"}
 COLLECTIONS = ("seminars", "topics", "concepts", "relations", "review_decisions")
+ENTITY_COLLECTIONS = ("seminars", "topics", "concepts", "relations")
+
+
+def _load_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+@lru_cache(maxsize=1)
+def _schema_validator():
+    if Draft202012Validator is None:
+        return None
+    schema = _load_json(SCHEMA_PATH)
+    Draft202012Validator.check_schema(schema)
+    return Draft202012Validator(schema)
+
+
+@lru_cache(maxsize=1)
+def _lifecycle_contract() -> dict[str, Any]:
+    return _load_json(LIFECYCLE_PATH)
 
 
 def _id(value: Any) -> bool:
@@ -28,7 +52,11 @@ def _id(value: Any) -> bool:
 
 
 def _path_forbidden(value: str) -> bool:
-    return value.startswith(("/", "~", "\\")) or bool(re.match(r"^[A-Za-z]:[\\/]", value)) or any(x in value for x in ("/Users/", "/home/", "file://", "vscode://"))
+    return (
+        value.startswith(("/", "~", "\\"))
+        or bool(re.match(r"^[A-Za-z]:[\\/]", value))
+        or any(marker in value for marker in ("/Users/", "/home/", "file://", "vscode://"))
+    )
 
 
 def _walk_strings(value: Any, path: str = "$"):
@@ -38,202 +66,212 @@ def _walk_strings(value: Any, path: str = "$"):
         for key, child in value.items():
             yield from _walk_strings(child, f"{path}.{key}")
     elif isinstance(value, list):
-        for i, child in enumerate(value):
-            yield from _walk_strings(child, f"{path}[{i}]")
+        for index, child in enumerate(value):
+            yield from _walk_strings(child, f"{path}[{index}]")
 
 
-def _required(errors: list[str], obj: Any, path: str, fields: set[str]) -> bool:
-    if not isinstance(obj, dict):
-        errors.append(f"{path}: expected object")
-        return False
-    missing = sorted(fields - obj.keys())
-    if missing:
-        errors.append(f"{path}: missing fields {missing}")
-        return False
-    return True
+def _layer1_structure(document: Any) -> list[str]:
+    validator = _schema_validator()
+    if validator is None:
+        return [
+            "L1_SCHEMA $.dependency: jsonschema is required for authoritative "
+            "Canonical Knowledge structural validation; install the supported dev_test profile"
+        ]
+    errors = sorted(validator.iter_errors(document), key=lambda error: (error.json_path, error.message))
+    return [f"L1_SCHEMA {error.json_path}: {error.message}" for error in errors]
 
 
-def _check_id(errors: list[str], value: Any, path: str) -> None:
-    if not _id(value):
-        errors.append(f"{path}: invalid stable id")
+def _check_refs(errors: list[str], values: list[str], path: str, available: set[str]) -> None:
+    for index, value in enumerate(values):
+        if value not in available:
+            errors.append(f"L3_REFERENCE {path}[{index}]: dangling reference {value}")
 
 
-def _check_refs(errors: list[str], values: Any, path: str, available: set[str]) -> None:
-    if not isinstance(values, list):
-        errors.append(f"{path}: expected array")
-        return
-    for i, value in enumerate(values):
-        _check_id(errors, value, f"{path}[{i}]")
-        if _id(value) and value not in available:
-            errors.append(f"{path}[{i}]: dangling reference {value}")
+def _records(document: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    return {name: document[name] for name in COLLECTIONS}
 
 
-def _sha(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as fh:
-        for block in iter(lambda: fh.read(1024 * 1024), b""):
-            h.update(block)
-    return h.hexdigest()
-
-
-def validate_knowledge(document: Any, evidence_bundle: dict[str, Any] | None = None, source_slice: dict[str, Any] | None = None) -> list[str]:
+def _layer2_field_invariants(document: dict[str, Any], records: dict[str, list[dict[str, Any]]]) -> list[str]:
     errors: list[str] = []
-    if not _required(errors, document, "$", {"schema_version", "artifact_type", "artifact_id", "version", "canonical_evidence", "source_evidence", "project", *COLLECTIONS, "relation_type_registry"}):
-        return errors
-    if document.get("schema_version") != "1.0.0":
-        errors.append("$.schema_version: expected 1.0.0")
-    if document.get("artifact_type") != "seminartext.canonical_knowledge":
-        errors.append("$.artifact_type: unexpected artifact type")
-    _check_id(errors, document.get("artifact_id"), "$.artifact_id")
-    if document.get("version") != 1:
-        errors.append("$.version: expected 1")
 
     for path, value in _walk_strings(document):
         if _path_forbidden(value):
-            errors.append(f"{path}: absolute or machine-specific path is forbidden")
+            errors.append(f"L2_FIELD {path}: absolute or machine-specific path is forbidden")
 
-    pointers = ("canonical_evidence", "source_evidence")
-    for name in pointers:
-        ptr = document.get(name)
-        if _required(errors, ptr, f"$.{name}", {"artifact_id", "schema_version", "sha256", "path"}):
-            _check_id(errors, ptr.get("artifact_id"), f"$.{name}.artifact_id")
-            if not isinstance(ptr.get("schema_version"), str) or not ptr["schema_version"]:
-                errors.append(f"$.{name}.schema_version: expected non-empty string")
-            if not SHA_RE.fullmatch(str(ptr.get("sha256", ""))):
-                errors.append(f"$.{name}.sha256: expected lowercase SHA-256")
-            if not isinstance(ptr.get("path"), str) or _path_forbidden(ptr.get("path", "")):
-                errors.append(f"$.{name}.path: expected repository-relative path")
+    all_ids = [document["project"]["id"]]
+    all_ids.extend(item["id"] for name in COLLECTIONS for item in records[name])
+    for duplicate in sorted({item_id for item_id in all_ids if all_ids.count(item_id) > 1}):
+        errors.append(f"L2_FIELD $: duplicate stable id {duplicate}")
 
-    project = document.get("project")
-    if _required(errors, project, "$.project", {"id", "title", "status", "version", "provenance"}):
-        _check_id(errors, project.get("id"), "$.project.id")
-        if project.get("status") not in LIFECYCLES:
-            errors.append("$.project.status: invalid lifecycle")
-        if not isinstance(project.get("version"), int) or project["version"] < 1:
-            errors.append("$.project.version: expected positive integer")
+    registry_ids = [entry["id"] for entry in document["relation_type_registry"]]
+    if set(registry_ids) != RELATIONS or len(registry_ids) != len(RELATIONS):
+        errors.append("L2_FIELD $.relation_type_registry: must contain exactly the controlled relation registry")
 
-    records: dict[str, list[dict[str, Any]]] = {}
-    all_ids: list[str] = [project.get("id")] if isinstance(project, dict) and _id(project.get("id")) else []
-    for name in COLLECTIONS:
-        value = document.get(name)
-        if not isinstance(value, list):
-            errors.append(f"$.{name}: expected array")
-            records[name] = []
-            continue
-        records[name] = [x for x in value if isinstance(x, dict)]
-        if len(records[name]) != len(value):
-            errors.append(f"$.{name}: every item must be an object")
-        for i, item in enumerate(value):
-            path = f"$.{name}[{i}]"
-            if isinstance(item, dict):
-                _check_id(errors, item.get("id"), f"{path}.id")
-                if _id(item.get("id")):
-                    all_ids.append(item["id"])
-    duplicates = sorted({x for x in all_ids if all_ids.count(x) > 1})
-    for duplicate in duplicates:
-        errors.append(f"$: duplicate stable id {duplicate}")
+    for index, topic in enumerate(records["topics"]):
+        source_scope = topic["source_scope"]
+        if "order_start" in source_scope and "order_end" in source_scope:
+            if source_scope["order_end"] < source_scope["order_start"]:
+                errors.append(f"L2_FIELD $.topics[{index}].source_scope: order_end precedes order_start")
+        temporal_scope = topic.get("temporal_scope")
+        if temporal_scope and "start_seconds" in temporal_scope and "end_seconds" in temporal_scope:
+            if temporal_scope["end_seconds"] <= temporal_scope["start_seconds"]:
+                errors.append(f"L2_FIELD $.topics[{index}].temporal_scope: end_seconds must follow start_seconds")
 
-    project_id = project.get("id") if isinstance(project, dict) else None
-    seminar_ids = {x.get("id") for x in records["seminars"] if _id(x.get("id"))}
-    topic_ids = {x.get("id") for x in records["topics"] if _id(x.get("id"))}
-    concept_ids = {x.get("id") for x in records["concepts"] if _id(x.get("id"))}
-    relation_ids = {x.get("id") for x in records["relations"] if _id(x.get("id"))}
-    decision_ids = {x.get("id") for x in records["review_decisions"] if _id(x.get("id"))}
-    entity_ids = set(all_ids)
+    for index, decision in enumerate(records["review_decisions"]):
+        path = f"$.review_decisions[{index}]"
+        if decision["output_version"] < decision["input_version"]:
+            errors.append(f"L2_FIELD {path}: output_version cannot precede input_version")
+        action = decision["action"]
+        if action == "RENAME" and decision["target_ids"] != decision["result_ids"]:
+            errors.append(f"L2_FIELD {path}: RENAME must preserve identity")
+        if action == "SPLIT" and len(decision["result_ids"]) < 2:
+            errors.append(f"L2_FIELD {path}: SPLIT requires at least two result IDs")
+        if action == "MERGE" and len(decision["target_ids"]) < 2:
+            errors.append(f"L2_FIELD {path}: MERGE requires at least two target IDs")
 
-    for i, seminar in enumerate(records["seminars"]):
-        path = f"$.seminars[{i}]"
-        if _required(errors, seminar, path, {"id", "project_id", "title", "status", "version", "provenance", "topic_refs"}):
-            if seminar.get("project_id") != project_id:
-                errors.append(f"{path}.project_id: must reference project")
-            if seminar.get("status") not in LIFECYCLES:
-                errors.append(f"{path}.status: invalid lifecycle")
-            _check_refs(errors, seminar.get("topic_refs"), f"{path}.topic_refs", topic_ids)
-            _check_refs(errors, seminar.get("evidence_refs", []), f"{path}.evidence_refs", set(source_slice and [e.get("id") for e in source_slice.get("evidence", [])] or []))
-
-    evidence_ids = set(e.get("id") for e in (source_slice or {}).get("evidence", []) if _id(e.get("id")))
-    source_ids = set(s.get("id") for s in (evidence_bundle or {}).get("sources", []) if _id(s.get("id")))
-    revision_ids = set(r.get("id") for r in (evidence_bundle or {}).get("transcript_revisions", []) if _id(r.get("id")))
-    for i, topic in enumerate(records["topics"]):
-        path = f"$.topics[{i}]"
-        if _required(errors, topic, path, {"id", "seminar_id", "source_scope", "title", "summary", "evidence_refs", "concept_refs", "status", "provenance", "version"}):
-            if topic.get("seminar_id") not in seminar_ids:
-                errors.append(f"{path}.seminar_id: dangling reference")
-            scope = topic.get("source_scope")
-            if _required(errors, scope, f"{path}.source_scope", {"source_ids", "transcript_revision_ids"}):
-                _check_refs(errors, scope.get("source_ids"), f"{path}.source_scope.source_ids", source_ids)
-                _check_refs(errors, scope.get("transcript_revision_ids"), f"{path}.source_scope.transcript_revision_ids", revision_ids)
-            _check_refs(errors, topic.get("evidence_refs"), f"{path}.evidence_refs", evidence_ids)
-            _check_refs(errors, topic.get("concept_refs"), f"{path}.concept_refs", concept_ids)
-            if topic.get("status") not in LIFECYCLES:
-                errors.append(f"{path}.status: invalid lifecycle")
-
-    for i, concept in enumerate(records["concepts"]):
-        path = f"$.concepts[{i}]"
-        required = {"id", "preferred_label", "aliases", "status", "scope", "description", "provenance", "evidence_refs", "topic_refs", "version", "created_from", "supersedes", "redirects"}
-        if _required(errors, concept, path, required):
-            _check_refs(errors, concept.get("evidence_refs"), f"{path}.evidence_refs", evidence_ids)
-            _check_refs(errors, concept.get("topic_refs"), f"{path}.topic_refs", topic_ids)
-            _check_refs(errors, concept.get("created_from"), f"{path}.created_from", evidence_ids | topic_ids | decision_ids)
-            _check_refs(errors, concept.get("supersedes"), f"{path}.supersedes", concept_ids)
-            _check_refs(errors, concept.get("redirects"), f"{path}.redirects", concept_ids)
-            if concept.get("status") not in LIFECYCLES:
-                errors.append(f"{path}.status: invalid lifecycle")
-            if not isinstance(concept.get("aliases"), list):
-                errors.append(f"{path}.aliases: expected array")
-
-    registry = document.get("relation_type_registry")
-    if not isinstance(registry, list) or {x.get("id") for x in registry if isinstance(x, dict)} != RELATIONS:
-        errors.append("$.relation_type_registry: must contain exactly the controlled relation registry")
-    for i, relation in enumerate(records["relations"]):
-        path = f"$.relations[{i}]"
-        required = {"id", "source_concept_id", "target_concept_id", "relation_type", "status", "provenance", "evidence_refs", "version"}
-        if _required(errors, relation, path, required):
-            if relation.get("source_concept_id") not in concept_ids or relation.get("target_concept_id") not in concept_ids:
-                errors.append(f"{path}: relation endpoint must reference a Concept")
-            if relation.get("relation_type") not in RELATIONS:
-                errors.append(f"{path}.relation_type: not in controlled registry")
-            _check_refs(errors, relation.get("evidence_refs"), f"{path}.evidence_refs", evidence_ids)
-            if relation.get("status") not in LIFECYCLES:
-                errors.append(f"{path}.status: invalid lifecycle")
-
-    for i, decision in enumerate(records["review_decisions"]):
-        path = f"$.review_decisions[{i}]"
-        required = {"id", "action", "target_ids", "result_ids", "reason", "actor_type", "timestamp", "input_version", "output_version", "provenance"}
-        if _required(errors, decision, path, required):
-            action = decision.get("action")
-            if action not in ACTIONS:
-                errors.append(f"{path}.action: invalid action")
-            _check_refs(errors, decision.get("target_ids"), f"{path}.target_ids", entity_ids)
-            _check_refs(errors, decision.get("result_ids"), f"{path}.result_ids", entity_ids)
-            if decision.get("actor_type") not in ACTORS:
-                errors.append(f"{path}.actor_type: invalid actor type")
-            if not isinstance(decision.get("input_version"), int) or not isinstance(decision.get("output_version"), int):
-                errors.append(f"{path}: input/output versions must be integers")
-            elif decision["output_version"] < decision["input_version"]:
-                errors.append(f"{path}: output_version cannot precede input_version")
-            # Mechanical lineage rules only; no semantic decision is inferred.
-            if action == "RENAME" and decision.get("target_ids") != decision.get("result_ids"):
-                errors.append(f"{path}: RENAME must preserve concept identity")
-            if action == "SPLIT" and len(decision.get("result_ids", [])) < 2:
-                errors.append(f"{path}: SPLIT requires at least two result IDs")
-            if action == "MERGE" and len(decision.get("target_ids", [])) < 2:
-                errors.append(f"{path}: MERGE requires at least two target IDs")
-            if decision.get("source_revision") and decision["source_revision"] not in decision_ids:
-                errors.append(f"{path}.source_revision: dangling decision reference")
-
-    # Existing Canonical Evidence and Golden Slice are external, immutable inputs.
-    if evidence_bundle is not None:
-        if document["canonical_evidence"].get("artifact_id") != evidence_bundle.get("artifact_id"):
-            errors.append("$.canonical_evidence.artifact_id: does not match loaded Canonical Evidence")
-    if source_slice is not None:
-        if document["source_evidence"].get("artifact_id") != source_slice.get("artifact_id"):
-            errors.append("$.source_evidence.artifact_id: does not match loaded Golden Slice")
-        for name in ("topics", "concepts"):
-            for item in source_slice.get(name, []):
-                if item.get("id") not in ({x.get("id") for x in records[name]}):
-                    errors.append(f"$: source {name} identity missing from canonical knowledge: {item.get('id')}")
     return errors
+
+
+def _layer3_reference_integrity(
+    document: dict[str, Any],
+    records: dict[str, list[dict[str, Any]]],
+    evidence_bundle: dict[str, Any] | None,
+    source_slice: dict[str, Any] | None,
+) -> list[str]:
+    errors: list[str] = []
+    project_id = document["project"]["id"]
+    seminar_ids = {item["id"] for item in records["seminars"]}
+    topic_ids = {item["id"] for item in records["topics"]}
+    concept_ids = {item["id"] for item in records["concepts"]}
+    decision_ids = {item["id"] for item in records["review_decisions"]}
+    entity_ids = {project_id} | seminar_ids | topic_ids | concept_ids | {item["id"] for item in records["relations"]} | decision_ids
+    evidence_ids = {item["id"] for item in (source_slice or {}).get("evidence", []) if _id(item.get("id"))}
+    source_ids = {item["id"] for item in (evidence_bundle or {}).get("sources", []) if _id(item.get("id"))}
+    revision_ids = {item["id"] for item in (evidence_bundle or {}).get("transcript_revisions", []) if _id(item.get("id"))}
+
+    for index, seminar in enumerate(records["seminars"]):
+        path = f"$.seminars[{index}]"
+        if seminar["project_id"] != project_id:
+            errors.append(f"L3_REFERENCE {path}.project_id: must reference project")
+        _check_refs(errors, seminar["topic_refs"], f"{path}.topic_refs", topic_ids)
+        _check_refs(errors, seminar.get("evidence_refs", []), f"{path}.evidence_refs", evidence_ids)
+
+    for index, topic in enumerate(records["topics"]):
+        path = f"$.topics[{index}]"
+        if topic["seminar_id"] not in seminar_ids:
+            errors.append(f"L3_REFERENCE {path}.seminar_id: dangling reference {topic['seminar_id']}")
+        _check_refs(errors, topic["source_scope"]["source_ids"], f"{path}.source_scope.source_ids", source_ids)
+        _check_refs(errors, topic["source_scope"]["transcript_revision_ids"], f"{path}.source_scope.transcript_revision_ids", revision_ids)
+        _check_refs(errors, topic["evidence_refs"], f"{path}.evidence_refs", evidence_ids)
+        _check_refs(errors, topic["concept_refs"], f"{path}.concept_refs", concept_ids)
+
+    for index, concept in enumerate(records["concepts"]):
+        path = f"$.concepts[{index}]"
+        _check_refs(errors, concept["evidence_refs"], f"{path}.evidence_refs", evidence_ids)
+        _check_refs(errors, concept["topic_refs"], f"{path}.topic_refs", topic_ids)
+        _check_refs(errors, concept["created_from"], f"{path}.created_from", evidence_ids | topic_ids | decision_ids)
+        _check_refs(errors, concept["supersedes"], f"{path}.supersedes", concept_ids)
+        _check_refs(errors, concept["redirects"], f"{path}.redirects", concept_ids)
+
+    for index, relation in enumerate(records["relations"]):
+        path = f"$.relations[{index}]"
+        if relation["source_concept_id"] not in concept_ids or relation["target_concept_id"] not in concept_ids:
+            errors.append(f"L3_REFERENCE {path}: relation endpoint must reference a Concept")
+        _check_refs(errors, relation["evidence_refs"], f"{path}.evidence_refs", evidence_ids)
+
+    for index, decision in enumerate(records["review_decisions"]):
+        path = f"$.review_decisions[{index}]"
+        _check_refs(errors, decision["target_ids"], f"{path}.target_ids", entity_ids)
+        _check_refs(errors, decision["result_ids"], f"{path}.result_ids", entity_ids)
+        if decision.get("source_revision") and decision["source_revision"] not in decision_ids:
+            errors.append(f"L3_REFERENCE {path}.source_revision: dangling decision reference")
+        _check_refs(errors, decision.get("supersedes", []), f"{path}.supersedes", decision_ids)
+
+    if evidence_bundle is not None and document["canonical_evidence"]["artifact_id"] != evidence_bundle.get("artifact_id"):
+        errors.append("L3_REFERENCE $.canonical_evidence.artifact_id: does not match loaded Canonical Evidence")
+    if source_slice is not None:
+        if document["source_evidence"]["artifact_id"] != source_slice.get("artifact_id"):
+            errors.append("L3_REFERENCE $.source_evidence.artifact_id: does not match loaded Golden Slice")
+        for name in ("topics", "concepts"):
+            present = {item["id"] for item in records[name]}
+            for item in source_slice.get(name, []):
+                if item.get("id") not in present:
+                    errors.append(f"L3_REFERENCE $: source {name} identity missing from canonical knowledge: {item.get('id')}")
+    return errors
+
+
+def _layer4_lifecycle(document: dict[str, Any], records: dict[str, list[dict[str, Any]]]) -> list[str]:
+    errors: list[str] = []
+    contract = _lifecycle_contract()
+    source_statuses = contract["source_statuses"]
+    lifecycle_rules = contract["knowledge_lifecycles"]
+    actor_policy = contract["actor_policy"]
+    decisions = records["review_decisions"]
+    record_by_id = {document["project"]["id"]: document["project"]}
+    record_by_id.update({item["id"]: item for name in ENTITY_COLLECTIONS for item in records[name]})
+
+    for index, topic in enumerate(records["topics"]):
+        provenance = topic["provenance"]
+        source_status = provenance.get("source_status")
+        if provenance["origin"] == "golden_slice" and source_status is None:
+            errors.append(f"L4_LIFECYCLE $.topics[{index}].provenance.source_status: required for Golden Slice Topic")
+        elif source_status is not None and source_status not in source_statuses:
+            errors.append(f"L4_LIFECYCLE $.topics[{index}].provenance.source_status: unsupported source status {source_status}")
+
+    for index, decision in enumerate(decisions):
+        path = f"$.review_decisions[{index}]"
+        actor = decision["actor_type"]
+        action = decision["action"]
+        if action not in actor_policy[actor]["allowed_actions"]:
+            errors.append(f"L4_LIFECYCLE {path}: {actor} cannot perform semantic action {action}")
+        target_records = [record_by_id[target_id] for target_id in decision["target_ids"] if target_id in record_by_id]
+        if actor == "system_validator":
+            if decision["result_ids"]:
+                errors.append(f"L4_LIFECYCLE {path}: AUTO DEFER must not create result IDs")
+            if any(item["status"] != "PROVISIONAL" for item in target_records):
+                errors.append(f"L4_LIFECYCLE {path}: AUTO DEFER targets must remain PROVISIONAL")
+        if action == "ACCEPT" and any(item["status"] != "ACCEPTED" for item in target_records):
+            errors.append(f"L4_LIFECYCLE {path}: ACCEPT targets must have ACCEPTED lifecycle")
+        if action == "REJECT" and any(item["status"] != "REJECTED" for item in target_records):
+            errors.append(f"L4_LIFECYCLE {path}: REJECT targets must have REJECTED lifecycle")
+        if action in {"MERGE", "SPLIT"} and any(item["status"] != "SUPERSEDED" for item in target_records):
+            errors.append(f"L4_LIFECYCLE {path}: {action} targets must have SUPERSEDED lifecycle")
+        if action == "DEFER" and any(item["status"] != "PROVISIONAL" for item in target_records):
+            errors.append(f"L4_LIFECYCLE {path}: DEFER targets must remain PROVISIONAL")
+
+    for item_id, item in record_by_id.items():
+        status = item["status"]
+        rule = lifecycle_rules[status]
+        if not rule.get("decision_required"):
+            continue
+        matching = [
+            decision
+            for decision in decisions
+            if item_id in decision["target_ids"] and decision["action"] in rule["required_actions"]
+        ]
+        if not matching:
+            errors.append(
+                f"L4_LIFECYCLE $.id[{item_id}]: {status} requires explicit "
+                f"{'/'.join(rule['required_actions'])} DOMAIN_REVIEW decision"
+            )
+    return errors
+
+
+def validate_knowledge(
+    document: Any,
+    evidence_bundle: dict[str, Any] | None = None,
+    source_slice: dict[str, Any] | None = None,
+) -> list[str]:
+    """Return deterministic layered validation errors; an empty list is valid."""
+    structural_errors = _layer1_structure(document)
+    if structural_errors:
+        return structural_errors
+    records = _records(document)
+    return (
+        _layer2_field_invariants(document, records)
+        + _layer3_reference_integrity(document, records, evidence_bundle, source_slice)
+        + _layer4_lifecycle(document, records)
+    )
 
 
 def main() -> int:
@@ -242,12 +280,11 @@ def main() -> int:
     parser.add_argument("--canonical-evidence", type=Path)
     parser.add_argument("--source-slice", type=Path)
     args = parser.parse_args()
-    document = json.loads(args.document.read_text(encoding="utf-8"))
-    root = Path(__file__).resolve().parents[1]
-    evidence_path = args.canonical_evidence or (root / "analysis/word_timeline_mvp/canonical_evidence_bundle.json")
-    source_path = args.source_slice or (root / "analysis/golden_knowledge_slice/golden_knowledge_slice.json")
-    evidence = json.loads(evidence_path.read_text(encoding="utf-8")) if evidence_path.is_file() else None
-    source = json.loads(source_path.read_text(encoding="utf-8")) if source_path.is_file() else None
+    document = _load_json(args.document)
+    evidence_path = args.canonical_evidence or (ROOT / "analysis/word_timeline_mvp/canonical_evidence_bundle.json")
+    source_path = args.source_slice or (ROOT / "analysis/golden_knowledge_slice/golden_knowledge_slice.json")
+    evidence = _load_json(evidence_path) if evidence_path.is_file() else None
+    source = _load_json(source_path) if source_path.is_file() else None
     errors = validate_knowledge(document, evidence, source)
     if errors:
         print(f"{args.document}: INVALID")

@@ -13,10 +13,14 @@ frozen Local Peak candidate, or any production/export workflow.
 
 `schemas/canonical_knowledge_v1.schema.json` defines stable IDs and records for
 Project, Seminar, contextual Topic, reusable Concept, controlled Relation, and
-ReviewDecision. `schemas/validate_canonical_knowledge_v1.py` adds deterministic
-cross-record checks: unique IDs, non-dangling references, lifecycle values,
-version ordering, rename/merge/split mechanics, controlled relation types,
-provenance, external evidence links, and rejection of absolute machine paths.
+ReviewDecision. `schemas/validate_canonical_knowledge_v1.py` uses the committed
+JSON Schema as the authoritative structural layer through `jsonschema` and adds
+deterministic field, cross-record and lifecycle checks: unique IDs,
+non-dangling references, version ordering, rename/merge/split mechanics,
+controlled relation types, provenance, external evidence links, and rejection
+of absolute machine paths. Source-status/lifecycle policy is data-driven by
+`schemas/canonical_knowledge_lifecycle_v1.json`; AUDIT-R2 details are recorded
+in `analysis/AUDIT_R2_CANONICAL_KNOWLEDGE_VALIDATION.md`.
 
 Topics are source-scoped structural intervals and are not reusable identities.
 Concepts are reusable identities whose identity is their stable ID, not their
@@ -59,7 +63,7 @@ sync is implemented by Issue #64.
 | Corrections | Version fields plus immutable decision and redirect/supersession links. |
 | Canonical Evidence compatibility | External artifact pointer and fixture validation; v1 schema untouched. |
 | Golden Slice compatibility | Exact 3/7/10 identity/evidence links; no decisions or semantic changes. |
-| Determinism/safety | Dependency-free validator, stable IDs, no absolute paths, fail-closed refs. |
+| Determinism/safety | Schema-authoritative validator in the pinned `dev_test` profile, stable IDs, no absolute paths, fail-closed refs. |
 
 Human gates remain explicit: semantic identity, final naming, relation meaning,
 conflict resolution, and real merge/split decisions require DOMAIN_REVIEW;
