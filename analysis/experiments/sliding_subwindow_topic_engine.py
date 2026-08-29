@@ -421,6 +421,14 @@ def main() -> int:
         "schema_version": 1,
         "type": "seminartext_sliding_subwindow_topic_engine_experiment",
         "timestamp": timestamp,
+        "engine_identity": {
+            "engine_id": "legacy_ollama_sliding_subwindow_experiment",
+            "role_id": "historical_experiment_not_candidate",
+            "lifecycle_registry": "governance/topic_engine_lifecycle.json",
+            "production_runtime": False,
+            "production_promoted": False,
+        },
+        "dataset_identity": {"dataset_id": "A", "dataset_role": "DEVELOPMENT_CALIBRATION"},
         "parameters": {
             "detail": args.detail,
             "model": args.model,

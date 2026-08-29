@@ -519,6 +519,18 @@ def main() -> None:
             "artifact": "treeseg_global_seminar_structure_hierarchy",
             "issue": 52,
             "generated_at": now,
+            "engine_identity": {
+                "engine_id": "treeseg_external_adapt_v1",
+                "role_id": "challenger",
+                "lifecycle_registry": "governance/topic_engine_lifecycle.json",
+                "production_runtime": False,
+                "production_promoted": False,
+            },
+            "dataset_identity": {
+                "dataset_id": "A",
+                "dataset_role": "DEVELOPMENT_CALIBRATION",
+                "input_kind": "accepted_golden_seminar_local_topic_sequence",
+            },
             "role": "external_isolated_adapt_challenger_global_structure_only",
             "input_scope": "full_existing_topicized_representation_video_001_day_1",
             "titles_used_for_structure": False,

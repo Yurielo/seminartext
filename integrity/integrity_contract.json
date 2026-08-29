@@ -63,6 +63,24 @@
       "required": true
     },
     {
+      "id": "topic_engine_governance",
+      "repository_path": "seminartext_modules/topic_engine_governance.py",
+      "deployed_name": "seminartext_modules/topic_engine_governance.py",
+      "required": true
+    },
+    {
+      "id": "topic_engine_lifecycle",
+      "repository_path": "governance/topic_engine_lifecycle.json",
+      "deployed_name": "governance/topic_engine_lifecycle.json",
+      "required": true
+    },
+    {
+      "id": "topic_engine_freeze",
+      "repository_path": "governance/topic_engine_freeze.json",
+      "deployed_name": "governance/topic_engine_freeze.json",
+      "required": true
+    },
+    {
       "id": "version",
       "repository_path": "SEMINARTEXT_VERSION",
       "deployed_name": "SEMINARTEXT_VERSION",

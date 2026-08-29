@@ -15,6 +15,9 @@ CANONICAL_VALIDATOR="$REPO/schemas/validate_canonical_evidence_v1.py"
 CANONICAL_SCHEMA="$REPO/schemas/canonical_evidence_v1.schema.json"
 DATASET_GOVERNANCE="$REPO/seminartext_modules/dataset_governance.py"
 DATASET_REGISTRY="$REPO/governance/dataset_registry.json"
+TOPIC_ENGINE_GOVERNANCE="$REPO/seminartext_modules/topic_engine_governance.py"
+TOPIC_ENGINE_LIFECYCLE="$REPO/governance/topic_engine_lifecycle.json"
+TOPIC_ENGINE_FREEZE="$REPO/governance/topic_engine_freeze.json"
 VERSION_FILE="$REPO/SEMINARTEXT_VERSION"
 GOVERNANCE_CHECK="$REPO/scripts/check_governance.py"
 
@@ -28,6 +31,9 @@ DEPLOY_CANONICAL_VALIDATOR="$BIN/schemas/validate_canonical_evidence_v1.py"
 DEPLOY_CANONICAL_SCHEMA="$BIN/schemas/canonical_evidence_v1.schema.json"
 DEPLOY_DATASET_GOVERNANCE="$BIN/seminartext_modules/dataset_governance.py"
 DEPLOY_DATASET_REGISTRY="$BIN/governance/dataset_registry.json"
+DEPLOY_TOPIC_ENGINE_GOVERNANCE="$BIN/seminartext_modules/topic_engine_governance.py"
+DEPLOY_TOPIC_ENGINE_LIFECYCLE="$BIN/governance/topic_engine_lifecycle.json"
+DEPLOY_TOPIC_ENGINE_FREEZE="$BIN/governance/topic_engine_freeze.json"
 DEPLOY_VERSION="$BIN/SEMINARTEXT_VERSION"
 
 die() {
@@ -106,15 +112,15 @@ cmd_status() {
 
   echo
   echo "MASTER FILES"
-  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$VERSION_FILE" | sed 's/^/  /'
+  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "MASTER HASHES"
-  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$VERSION_FILE" | sed 's/^/  /'
+  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "DEPLOYED HASHES"
-  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE" "$DEPLOY_EVIDENCE_FOUNDATION" "$DEPLOY_CANONICAL_VALIDATOR" "$DEPLOY_CANONICAL_SCHEMA" "$DEPLOY_DATASET_GOVERNANCE" "$DEPLOY_DATASET_REGISTRY" "$DEPLOY_VERSION"; do
+  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE" "$DEPLOY_EVIDENCE_FOUNDATION" "$DEPLOY_CANONICAL_VALIDATOR" "$DEPLOY_CANONICAL_SCHEMA" "$DEPLOY_DATASET_GOVERNANCE" "$DEPLOY_DATASET_REGISTRY" "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" "$DEPLOY_TOPIC_ENGINE_FREEZE" "$DEPLOY_VERSION"; do
     if [[ -f "$f" ]]; then
       shasum -a 256 "$f" | sed 's/^/  /'
     else
@@ -206,6 +212,19 @@ cmd_status() {
     mismatches=$((mismatches + 1))
   fi
 
+  for spec in \
+    "Topic Engine governance|$TOPIC_ENGINE_GOVERNANCE|$DEPLOY_TOPIC_ENGINE_GOVERNANCE" \
+    "Topic Engine lifecycle|$TOPIC_ENGINE_LIFECYCLE|$DEPLOY_TOPIC_ENGINE_LIFECYCLE" \
+    "Topic Engine freeze|$TOPIC_ENGINE_FREEZE|$DEPLOY_TOPIC_ENGINE_FREEZE"; do
+    IFS='|' read -r label source deployed <<< "$spec"
+    if [[ -f "$deployed" ]] && [[ "$(hash_file "$source")" == "$(hash_file "$deployed")" ]]; then
+      echo "  $label: SYNC"
+    else
+      echo "  $label: DIFFERENT"
+      mismatches=$((mismatches + 1))
+    fi
+  done
+
   if [[ -f "$DEPLOY_VERSION" ]] \
      && [[ "$(hash_file "$VERSION_FILE")" == "$(hash_file "$DEPLOY_VERSION")" ]]; then
     echo "  Version: SYNC"
@@ -218,7 +237,7 @@ cmd_status() {
   if (( mismatches == 0 )); then
     echo "DEPLOY STATUS: SYNC"
   else
-    echo "DEPLOY STATUS: DIFFERENT ($mismatches/11)"
+    echo "DEPLOY STATUS: DIFFERENT ($mismatches/14)"
   fi
 }
 
@@ -239,6 +258,9 @@ cmd_check() {
   [[ -f "$CANONICAL_SCHEMA" ]] || die "нет master Canonical schema"
   [[ -f "$DATASET_GOVERNANCE" ]] || die "нет master Dataset Governance module"
   [[ -f "$DATASET_REGISTRY" ]] || die "нет master Dataset Registry"
+  [[ -f "$TOPIC_ENGINE_GOVERNANCE" ]] || die "нет master Topic Engine Governance module"
+  [[ -f "$TOPIC_ENGINE_LIFECYCLE" ]] || die "нет master Topic Engine Lifecycle"
+  [[ -f "$TOPIC_ENGINE_FREEZE" ]] || die "нет master Topic Engine Freeze record"
   [[ -f "$VERSION_FILE" ]] || die "нет authoritative version-файла"
   [[ -f "$GOVERNANCE_CHECK" ]] || die "нет governance consistency checker"
 
@@ -249,7 +271,7 @@ cmd_check() {
     || die "SEMINARTEXT_4_STATE.json invalid"
   echo "[OK] State JSON"
 
-  python3 - "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$DATASET_GOVERNANCE" <<'PYMODULES' \
+  python3 - "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$DATASET_GOVERNANCE" "$TOPIC_ENGINE_GOVERNANCE" <<'PYMODULES' \
     || die "ошибка Python syntax в runtime-модулях"
 import ast
 import sys
@@ -270,6 +292,14 @@ PYMODULES
   python3 "$DATASET_GOVERNANCE" validate --registry "$DATASET_REGISTRY" >/dev/null \
     || die "Dataset Registry policy validation failed"
   echo "[OK] Dataset Registry"
+
+  python3 -m json.tool "$TOPIC_ENGINE_LIFECYCLE" >/dev/null \
+    || die "Topic Engine Lifecycle invalid"
+  python3 -m json.tool "$TOPIC_ENGINE_FREEZE" >/dev/null \
+    || die "Topic Engine Freeze invalid"
+  python3 "$TOPIC_ENGINE_GOVERNANCE" validate --lifecycle "$TOPIC_ENGINE_LIFECYCLE" >/dev/null \
+    || die "Topic Engine Lifecycle validation failed"
+  echo "[OK] Topic Engine freeze governance"
 
   validate_roadmap_file "$ROADMAP"
   echo "[OK] Roadmap structure"
@@ -373,6 +403,12 @@ cmd_deploy() {
     && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_DATASET_GOVERNANCE" "$backup/seminartext_modules/dataset_governance.py"; }
   [[ -f "$DEPLOY_DATASET_REGISTRY" ]] \
     && { mkdir -p "$backup/governance"; cp -p "$DEPLOY_DATASET_REGISTRY" "$backup/governance/dataset_registry.json"; }
+  [[ -f "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" ]] \
+    && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" "$backup/seminartext_modules/topic_engine_governance.py"; }
+  [[ -f "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" ]] \
+    && { mkdir -p "$backup/governance"; cp -p "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" "$backup/governance/topic_engine_lifecycle.json"; }
+  [[ -f "$DEPLOY_TOPIC_ENGINE_FREEZE" ]] \
+    && { mkdir -p "$backup/governance"; cp -p "$DEPLOY_TOPIC_ENGINE_FREEZE" "$backup/governance/topic_engine_freeze.json"; }
   [[ -f "$DEPLOY_VERSION" ]] \
     && cp -p "$DEPLOY_VERSION" "$backup/SEMINARTEXT_VERSION"
 
@@ -383,7 +419,7 @@ source_commit=$commit
 source_branch=$(git branch --show-current)
 MANIFEST
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_evidence_foundation tmp_canonical_validator tmp_canonical_schema tmp_dataset_governance tmp_dataset_registry tmp_version
+  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_evidence_foundation tmp_canonical_validator tmp_canonical_schema tmp_dataset_governance tmp_dataset_registry tmp_topic_engine_governance tmp_topic_engine_lifecycle tmp_topic_engine_freeze tmp_version
   tmp_code="$DEPLOY_CODE.new.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.new.$$"
   tmp_state="$DEPLOY_STATE.new.$$"
@@ -394,10 +430,13 @@ MANIFEST
   tmp_canonical_schema="$DEPLOY_CANONICAL_SCHEMA.new.$$"
   tmp_dataset_governance="$DEPLOY_DATASET_GOVERNANCE.new.$$"
   tmp_dataset_registry="$DEPLOY_DATASET_REGISTRY.new.$$"
+  tmp_topic_engine_governance="$DEPLOY_TOPIC_ENGINE_GOVERNANCE.new.$$"
+  tmp_topic_engine_lifecycle="$DEPLOY_TOPIC_ENGINE_LIFECYCLE.new.$$"
+  tmp_topic_engine_freeze="$DEPLOY_TOPIC_ENGINE_FREEZE.new.$$"
   tmp_version="$DEPLOY_VERSION.new.$$"
 
   cleanup_deploy_tmp() {
-    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" "$tmp_canonical_schema" "$tmp_dataset_governance" "$tmp_dataset_registry" "$tmp_version"
+    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" "$tmp_canonical_schema" "$tmp_dataset_governance" "$tmp_dataset_registry" "$tmp_topic_engine_governance" "$tmp_topic_engine_lifecycle" "$tmp_topic_engine_freeze" "$tmp_version"
   }
   trap cleanup_deploy_tmp RETURN INT TERM
 
@@ -412,6 +451,9 @@ MANIFEST
   cp -p "$CANONICAL_SCHEMA" "$tmp_canonical_schema"
   cp -p "$DATASET_GOVERNANCE" "$tmp_dataset_governance"
   cp -p "$DATASET_REGISTRY" "$tmp_dataset_registry"
+  cp -p "$TOPIC_ENGINE_GOVERNANCE" "$tmp_topic_engine_governance"
+  cp -p "$TOPIC_ENGINE_LIFECYCLE" "$tmp_topic_engine_lifecycle"
+  cp -p "$TOPIC_ENGINE_FREEZE" "$tmp_topic_engine_freeze"
   cp -p "$VERSION_FILE" "$tmp_version"
 
   # Проверяем именно будущие deployed-файлы ДО замены.
@@ -423,7 +465,7 @@ MANIFEST
 
   validate_roadmap_file "$tmp_roadmap"
 
-  python3 - "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" "$tmp_dataset_governance" <<'PYMODULES' \
+  python3 - "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" "$tmp_dataset_governance" "$tmp_topic_engine_governance" <<'PYMODULES' \
     || die "deploy temp runtime module syntax invalid"
 import ast
 import sys
@@ -436,6 +478,10 @@ PYMODULES
 
   python3 -m json.tool "$tmp_dataset_registry" >/dev/null \
     || die "deploy temp Dataset Registry invalid"
+  python3 -m json.tool "$tmp_topic_engine_lifecycle" >/dev/null \
+    || die "deploy temp Topic Engine Lifecycle invalid"
+  python3 -m json.tool "$tmp_topic_engine_freeze" >/dev/null \
+    || die "deploy temp Topic Engine Freeze invalid"
 
   chmod +x "$tmp_code" "$tmp_topics" "$tmp_translate"
 
@@ -445,12 +491,15 @@ PYMODULES
   mv "$tmp_state" "$DEPLOY_STATE"
   mv "$tmp_topics" "$DEPLOY_TOPICS"
   mv "$tmp_translate" "$DEPLOY_TRANSLATE"
-  mkdir -p "$(dirname "$DEPLOY_EVIDENCE_FOUNDATION")" "$(dirname "$DEPLOY_CANONICAL_VALIDATOR")" "$(dirname "$DEPLOY_DATASET_REGISTRY")"
+  mkdir -p "$(dirname "$DEPLOY_EVIDENCE_FOUNDATION")" "$(dirname "$DEPLOY_CANONICAL_VALIDATOR")" "$(dirname "$DEPLOY_DATASET_REGISTRY")" "$(dirname "$DEPLOY_TOPIC_ENGINE_GOVERNANCE")"
   mv "$tmp_evidence_foundation" "$DEPLOY_EVIDENCE_FOUNDATION"
   mv "$tmp_canonical_validator" "$DEPLOY_CANONICAL_VALIDATOR"
   mv "$tmp_canonical_schema" "$DEPLOY_CANONICAL_SCHEMA"
   mv "$tmp_dataset_governance" "$DEPLOY_DATASET_GOVERNANCE"
   mv "$tmp_dataset_registry" "$DEPLOY_DATASET_REGISTRY"
+  mv "$tmp_topic_engine_governance" "$DEPLOY_TOPIC_ENGINE_GOVERNANCE"
+  mv "$tmp_topic_engine_lifecycle" "$DEPLOY_TOPIC_ENGINE_LIFECYCLE"
+  mv "$tmp_topic_engine_freeze" "$DEPLOY_TOPIC_ENGINE_FREEZE"
   mv "$tmp_version" "$DEPLOY_VERSION"
 
   # Финальная проверка hashes.
@@ -484,6 +533,13 @@ PYMODULES
   [[ "$(hash_file "$DATASET_REGISTRY")" == "$(hash_file "$DEPLOY_DATASET_REGISTRY")" ]] \
     || die "deploy hash mismatch: Dataset Registry"
 
+  [[ "$(hash_file "$TOPIC_ENGINE_GOVERNANCE")" == "$(hash_file "$DEPLOY_TOPIC_ENGINE_GOVERNANCE")" ]] \
+    || die "deploy hash mismatch: Topic Engine Governance"
+  [[ "$(hash_file "$TOPIC_ENGINE_LIFECYCLE")" == "$(hash_file "$DEPLOY_TOPIC_ENGINE_LIFECYCLE")" ]] \
+    || die "deploy hash mismatch: Topic Engine Lifecycle"
+  [[ "$(hash_file "$TOPIC_ENGINE_FREEZE")" == "$(hash_file "$DEPLOY_TOPIC_ENGINE_FREEZE")" ]] \
+    || die "deploy hash mismatch: Topic Engine Freeze"
+
   PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" project-evidence-check --help >/dev/null 2>&1 \
     || die "deployed functional smoke failed: project-evidence-check"
 
@@ -501,6 +557,7 @@ PYMODULES
   echo "[OK] Evidence Foundation module deployed"
   echo "[OK] Canonical validator/schema deployed"
   echo "[OK] Dataset Governance module/Registry deployed"
+  echo "[OK] Topic Engine Governance module/Lifecycle/Freeze deployed"
   echo "[OK] Deployed functional smoke"
   echo "[OK] Version contract deployed"
   echo "[OK] SHA-256 verified"
@@ -546,7 +603,7 @@ cmd_rollback() {
   [[ -n "${backup:-}" && -d "$backup" ]] \
     || die "нет доступных deploy-backups"
 
-  local backup_code backup_roadmap backup_state backup_topics backup_translate backup_evidence_foundation backup_canonical_validator backup_canonical_schema backup_dataset_governance backup_dataset_registry backup_version
+  local backup_code backup_roadmap backup_state backup_topics backup_translate backup_evidence_foundation backup_canonical_validator backup_canonical_schema backup_dataset_governance backup_dataset_registry backup_topic_engine_governance backup_topic_engine_lifecycle backup_topic_engine_freeze backup_version
   backup_code="$backup/seminartext_4.0_work"
   backup_roadmap="$backup/SEMINARTEXT_4_ROADMAP.md"
   backup_state="$backup/SEMINARTEXT_4_STATE.json"
@@ -557,6 +614,9 @@ cmd_rollback() {
   backup_canonical_schema="$backup/schemas/canonical_evidence_v1.schema.json"
   backup_dataset_governance="$backup/seminartext_modules/dataset_governance.py"
   backup_dataset_registry="$backup/governance/dataset_registry.json"
+  backup_topic_engine_governance="$backup/seminartext_modules/topic_engine_governance.py"
+  backup_topic_engine_lifecycle="$backup/governance/topic_engine_lifecycle.json"
+  backup_topic_engine_freeze="$backup/governance/topic_engine_freeze.json"
   backup_version="$backup/SEMINARTEXT_VERSION"
 
   [[ -f "$backup_code" ]] \
@@ -600,10 +660,16 @@ cmd_rollback() {
     && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_DATASET_GOVERNANCE" "$rollback_guard/seminartext_modules/dataset_governance.py"; }
   [[ -f "$DEPLOY_DATASET_REGISTRY" ]] \
     && { mkdir -p "$rollback_guard/governance"; cp -p "$DEPLOY_DATASET_REGISTRY" "$rollback_guard/governance/dataset_registry.json"; }
+  [[ -f "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" ]] \
+    && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" "$rollback_guard/seminartext_modules/topic_engine_governance.py"; }
+  [[ -f "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" ]] \
+    && { mkdir -p "$rollback_guard/governance"; cp -p "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" "$rollback_guard/governance/topic_engine_lifecycle.json"; }
+  [[ -f "$DEPLOY_TOPIC_ENGINE_FREEZE" ]] \
+    && { mkdir -p "$rollback_guard/governance"; cp -p "$DEPLOY_TOPIC_ENGINE_FREEZE" "$rollback_guard/governance/topic_engine_freeze.json"; }
   [[ -f "$DEPLOY_VERSION" ]] \
     && cp -p "$DEPLOY_VERSION" "$rollback_guard/SEMINARTEXT_VERSION"
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate="" tmp_evidence_foundation="" tmp_canonical_validator="" tmp_canonical_schema="" tmp_dataset_governance="" tmp_dataset_registry="" tmp_version=""
+  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate="" tmp_evidence_foundation="" tmp_canonical_validator="" tmp_canonical_schema="" tmp_dataset_governance="" tmp_dataset_registry="" tmp_topic_engine_governance="" tmp_topic_engine_lifecycle="" tmp_topic_engine_freeze="" tmp_version=""
   tmp_code="$DEPLOY_CODE.rollback.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.rollback.$$"
   tmp_state="$DEPLOY_STATE.rollback.$$"
@@ -644,6 +710,21 @@ cmd_rollback() {
     mkdir -p "$(dirname "$tmp_dataset_registry")"
     cp -p "$backup_dataset_registry" "$tmp_dataset_registry"
   fi
+  if [[ -f "$backup_topic_engine_governance" ]]; then
+    tmp_topic_engine_governance="$DEPLOY_TOPIC_ENGINE_GOVERNANCE.rollback.$$"
+    mkdir -p "$(dirname "$tmp_topic_engine_governance")"
+    cp -p "$backup_topic_engine_governance" "$tmp_topic_engine_governance"
+  fi
+  if [[ -f "$backup_topic_engine_lifecycle" ]]; then
+    tmp_topic_engine_lifecycle="$DEPLOY_TOPIC_ENGINE_LIFECYCLE.rollback.$$"
+    mkdir -p "$(dirname "$tmp_topic_engine_lifecycle")"
+    cp -p "$backup_topic_engine_lifecycle" "$tmp_topic_engine_lifecycle"
+  fi
+  if [[ -f "$backup_topic_engine_freeze" ]]; then
+    tmp_topic_engine_freeze="$DEPLOY_TOPIC_ENGINE_FREEZE.rollback.$$"
+    mkdir -p "$(dirname "$tmp_topic_engine_freeze")"
+    cp -p "$backup_topic_engine_freeze" "$tmp_topic_engine_freeze"
+  fi
   if [[ -f "$backup_version" ]]; then
     tmp_version="$DEPLOY_VERSION.rollback.$$"
     cp -p "$backup_version" "$tmp_version"
@@ -663,11 +744,14 @@ cmd_rollback() {
   [[ -z "$tmp_canonical_schema" ]] || mv "$tmp_canonical_schema" "$DEPLOY_CANONICAL_SCHEMA"
   [[ -z "$tmp_dataset_governance" ]] || mv "$tmp_dataset_governance" "$DEPLOY_DATASET_GOVERNANCE"
   [[ -z "$tmp_dataset_registry" ]] || mv "$tmp_dataset_registry" "$DEPLOY_DATASET_REGISTRY"
+  [[ -z "$tmp_topic_engine_governance" ]] || mv "$tmp_topic_engine_governance" "$DEPLOY_TOPIC_ENGINE_GOVERNANCE"
+  [[ -z "$tmp_topic_engine_lifecycle" ]] || mv "$tmp_topic_engine_lifecycle" "$DEPLOY_TOPIC_ENGINE_LIFECYCLE"
+  [[ -z "$tmp_topic_engine_freeze" ]] || mv "$tmp_topic_engine_freeze" "$DEPLOY_TOPIC_ENGINE_FREEZE"
   [[ -z "$tmp_version" ]] || mv "$tmp_version" "$DEPLOY_VERSION"
 
   echo "ROLLBACK: PASS"
   echo "Restored: $backup"
-  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_dataset_governance" || ! -f "$backup_dataset_registry" || ! -f "$backup_version" ]]; then
+  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_dataset_governance" || ! -f "$backup_dataset_registry" || ! -f "$backup_topic_engine_governance" || ! -f "$backup_topic_engine_lifecycle" || ! -f "$backup_topic_engine_freeze" || ! -f "$backup_version" ]]; then
     echo "Legacy backup: отсутствующие runtime/version-файлы оставлены без изменения."
   fi
   echo "Previous deployed state saved:"

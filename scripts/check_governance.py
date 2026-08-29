@@ -46,6 +46,8 @@ def check(root: Path) -> list[str]:
     mvp_path = root / "SEMINARTEXT_4_MVP_DEFINITION.md"
     cli_path = root / "seminartext"
     dataset_registry_path = root / "governance" / "dataset_registry.json"
+    topic_lifecycle_path = root / "governance" / "topic_engine_lifecycle.json"
+    topic_freeze_path = root / "governance" / "topic_engine_freeze.json"
 
     required_files = (
         version_path,
@@ -55,6 +57,8 @@ def check(root: Path) -> list[str]:
         mvp_path,
         cli_path,
         dataset_registry_path,
+        topic_lifecycle_path,
+        topic_freeze_path,
     )
     for path in required_files:
         if not path.is_file():
@@ -136,6 +140,42 @@ def check(root: Path) -> list[str]:
         if datasets[dataset_id].get("role_status") != "PROPOSAL_PENDING_PRODUCT_OWNER_ACCEPTANCE":
             fail(f"Dataset {dataset_id} role must remain a pending proposal")
 
+    lifecycle = json.loads(topic_lifecycle_path.read_text(encoding="utf-8"))
+    freeze = json.loads(topic_freeze_path.read_text(encoding="utf-8"))
+    topic_state = state["stages"]["topic_engine"]
+    engines = {entry.get("role_id"): entry for entry in lifecycle.get("engines", [])}
+    required_roles = {
+        "production_legacy",
+        "experimental_primary",
+        "comparator",
+        "challenger",
+        "frozen_candidate",
+    }
+    if set(engines) != required_roles:
+        fail("Topic Engine lifecycle role inventory drift")
+    if engines["production_legacy"].get("engine_id") != topic_state.get("runtime_engine_id"):
+        fail("Topic Engine runtime identity drift between lifecycle and State")
+    if engines["experimental_primary"].get("engine_id") != topic_state.get("experimental_primary_engine_id"):
+        fail("Topic Engine experimental-primary identity drift")
+    if engines["comparator"].get("engine_id") != topic_state.get("comparator_engine_id"):
+        fail("Topic Engine comparator identity drift")
+    if engines["challenger"].get("engine_id") != topic_state.get("challenger_engine_id"):
+        fail("Topic Engine challenger identity drift")
+    if topic_state.get("frozen_candidate_engine_id") != "bge_m3_local_peak_v1":
+        fail("State frozen Topic Engine candidate drift")
+    if engines["frozen_candidate"].get("engine_id") != "bge_m3_local_peak_v1":
+        fail("Lifecycle frozen Topic Engine candidate drift")
+    if freeze.get("status") != "FROZEN_APPROVED":
+        fail("Topic Engine freeze decision is not recorded")
+    if freeze.get("product_owner_disposition") != "FREEZE_LOCAL_PEAK_FOR_DATASET_D_CANDIDACY":
+        fail("Topic Engine Product Owner freeze disposition drift")
+    if freeze.get("dataset_d", {}).get("open_allowed") is not False:
+        fail("Topic Engine freeze record must keep Dataset D closed")
+    if lifecycle.get("benchmark_segment_semantics", {}).get("semantic_topic_output") is not False:
+        fail("Canonical BenchmarkSegments must be topic-neutral")
+    if lifecycle.get("new_custom_family_policy") != "DENY_UNLESS_EXPLICIT_PRODUCT_OWNER_ISSUE":
+        fail("new custom Topic Engine families must be fail-closed")
+
     roadmap = roadmap_path.read_text(encoding="utf-8")
     workflow = workflow_path.read_text(encoding="utf-8")
     cli = cli_path.read_text(encoding="utf-8")
@@ -160,6 +200,7 @@ def check(root: Path) -> list[str]:
         "mvp_definition=linked",
         "obsolete_active_gates=absent",
         "dataset_registry=consistent_fail_closed",
+        "topic_engine_lifecycle=consistent_candidate_frozen_dataset_d_blocked",
     ]
 
 

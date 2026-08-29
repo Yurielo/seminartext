@@ -506,6 +506,18 @@ def main() -> int:
         "schema_version": 1,
         "type": "seminartext_bge_m3_ruptures_topic_engine_experiment",
         "timestamp": timestamp,
+        "engine_identity": {
+            "engine_id": "bge_m3_pelt_v1",
+            "role_id": "comparator",
+            "lifecycle_registry": "governance/topic_engine_lifecycle.json",
+            "production_runtime": False,
+            "production_promoted": False,
+        },
+        "engine_version": {
+            "source_path": str(Path(__file__).resolve()),
+            "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        },
+        "dataset_identity": {"dataset_id": "A", "dataset_role": "DEVELOPMENT_CALIBRATION"},
         "parameters": {
             "embedding_model": args.embedding_model,
             "embedding_endpoint": args.endpoint,
