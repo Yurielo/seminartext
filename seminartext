@@ -1,7 +1,6 @@
 #!/bin/bash
 set -Eeuo pipefail
 
-VERSION="3.0"
 SEMINARTEXT_ENTRYPOINT="${BASH_SOURCE[0]}"
 while [[ -L "$SEMINARTEXT_ENTRYPOINT" ]]; do
   SEMINARTEXT_ENTRYPOINT_DIR="$(cd -P "$(dirname "$SEMINARTEXT_ENTRYPOINT")" >/dev/null 2>&1 && pwd)"
@@ -11,6 +10,16 @@ while [[ -L "$SEMINARTEXT_ENTRYPOINT" ]]; do
 done
 SEMINARTEXT_ENTRYPOINT_DIR="$(cd -P "$(dirname "$SEMINARTEXT_ENTRYPOINT")" >/dev/null 2>&1 && pwd)"
 SEMINARTEXT_ENTRYPOINT="$SEMINARTEXT_ENTRYPOINT_DIR/$(basename "$SEMINARTEXT_ENTRYPOINT")"
+SEMINARTEXT_VERSION_FILE="${SEMINARTEXT_VERSION_FILE:-$SEMINARTEXT_ENTRYPOINT_DIR/SEMINARTEXT_VERSION}"
+[[ -f "$SEMINARTEXT_VERSION_FILE" ]] || {
+  echo "Ошибка: не найден authoritative version-файл: $SEMINARTEXT_VERSION_FILE" >&2
+  exit 1
+}
+VERSION="$(tr -d '[:space:]' < "$SEMINARTEXT_VERSION_FILE")"
+[[ "$VERSION" =~ ^4\.[0-9]+\.[0-9]+$ ]] || {
+  echo "Ошибка: некорректная версия SeminarText: $VERSION" >&2
+  exit 1
+}
 TRANSCRIPTS_ROOT="${SEMINARTEXT_OUTPUT:-$HOME/Documents/Расшифровки}"
 MODEL="${SEMINARTEXT_MODEL:-}"
 VAD_MODEL="${SEMINARTEXT_VAD_MODEL:-}"
@@ -103,6 +112,51 @@ runtime_identity() {
   echo "translate.sha256=$(sha256_file "$translate_module")"
 }
 
+resolve_governance_pair() {
+  local state_override="${SEMINARTEXT_STATE_FILE:-}"
+  local roadmap_override="${SEMINARTEXT_ROADMAP_FILE:-}"
+  local repo_override="${SEMINARTEXT_REPO:-}"
+  local detected_root=""
+
+  if [[ -n "$state_override" || -n "$roadmap_override" ]]; then
+    [[ -n "$state_override" && -n "$roadmap_override" ]] || {
+      echo "Ошибка: SEMINARTEXT_STATE_FILE и SEMINARTEXT_ROADMAP_FILE задаются вместе." >&2
+      return 1
+    }
+    GOVERNANCE_STATE="${state_override/#\~/$HOME}"
+    GOVERNANCE_ROADMAP="${roadmap_override/#\~/$HOME}"
+    GOVERNANCE_SOURCE_KIND="explicit_pair"
+  elif [[ -n "$repo_override" ]]; then
+    repo_override="${repo_override/#\~/$HOME}"
+    GOVERNANCE_STATE="$repo_override/SEMINARTEXT_4_STATE.json"
+    GOVERNANCE_ROADMAP="$repo_override/SEMINARTEXT_4_ROADMAP.md"
+    GOVERNANCE_SOURCE_KIND="repository_override"
+  elif command -v git >/dev/null 2>&1; then
+    detected_root="$(git -C "$SEMINARTEXT_ENTRYPOINT_DIR" rev-parse --show-toplevel 2>/dev/null || true)"
+    if [[ -n "$detected_root" && "$SEMINARTEXT_ENTRYPOINT" == "$detected_root/"* ]]; then
+      GOVERNANCE_STATE="$detected_root/SEMINARTEXT_4_STATE.json"
+      GOVERNANCE_ROADMAP="$detected_root/SEMINARTEXT_4_ROADMAP.md"
+      GOVERNANCE_SOURCE_KIND="repository"
+    fi
+  fi
+
+  if [[ -z "${GOVERNANCE_STATE:-}" ]]; then
+    GOVERNANCE_STATE="$SEMINARTEXT_ENTRYPOINT_DIR/SEMINARTEXT_4_STATE.json"
+    GOVERNANCE_ROADMAP="$SEMINARTEXT_ENTRYPOINT_DIR/SEMINARTEXT_4_ROADMAP.md"
+    GOVERNANCE_SOURCE_KIND="deployed_snapshot"
+  fi
+
+  [[ -f "$GOVERNANCE_STATE" ]] || {
+    echo "Ошибка: не найден governed State: $GOVERNANCE_STATE" >&2
+    echo "Для installed CLI задайте SEMINARTEXT_REPO=/путь/к/repository или установите verified deploy snapshot." >&2
+    return 1
+  }
+  [[ -f "$GOVERNANCE_ROADMAP" ]] || {
+    echo "Ошибка: не найден governed Roadmap: $GOVERNANCE_ROADMAP" >&2
+    return 1
+  }
+}
+
 find_model() {
   local name="$1" candidate
   for candidate in \
@@ -126,9 +180,8 @@ resolve_models() {
 }
 
 show_help() {
+  printf 'SEMINARTEXT %s\n\n' "$VERSION"
 cat <<'HELP'
-SEMINARTEXT 3.0
-
 ОСНОВНЫЕ КОМАНДЫ
 
   seminartext файл.mp4
@@ -163,6 +216,41 @@ SEMINARTEXT 3.0
   seminartext clean файл.txt
 
       Очистка уже существующей расшифровки без повторного Whisper.
+
+ПРОЕКТНЫЙ WORKFLOW
+
+  seminartext init PROJECT
+  seminartext project-add PROJECT [sources]
+  seminartext project-link-youtube PROJECT SOURCE_ID URL
+  seminartext project-check PROJECT
+  seminartext project-transcribe PROJECT
+  seminartext project-documents PROJECT
+  seminartext project-corpus PROJECT
+  seminartext project-topics PROJECT
+
+      Создание, наполнение, проверка и обработка seminar-проекта.
+
+BENCHMARK И GOLD
+
+  seminartext project-topic-benchmark-init PROJECT
+  seminartext project-topic-benchmark-label PROJECT CASE_ID [options]
+  seminartext project-topic-benchmark-check PROJECT
+  seminartext project-topic-benchmark-run PROJECT [options]
+  seminartext project-topic-benchmark-show PROJECT CASE_ID
+
+      Подготовка, ручная разметка, read-only проверка и запуск Topic benchmark.
+
+СТАТУС И ДИАГНОСТИКА
+
+  seminartext roadmap-status
+  seminartext runtime-identity
+  seminartext doctor
+
+      Governed roadmap/state, runtime SHA-256 identity и проверка окружения.
+
+  seminartext help
+
+      Эта справка.
 
 ПАРАМЕТРЫ РАСШИФРОВКИ
 
@@ -200,6 +288,13 @@ SEMINARTEXT 3.0
   SEMINARTEXT_OUTPUT
   SEMINARTEXT_MODEL
   SEMINARTEXT_VAD_MODEL
+  SEMINARTEXT_PYTHON
+  SEMINARTEXT_PROJECTS
+  SEMINARTEXT_REPO
+  SEMINARTEXT_STATE_FILE + SEMINARTEXT_ROADMAP_FILE
+  SEMINARTEXT_DEPLOY_DIR
+  SEMINARTEXT_TOPICS_MODULE
+  SEMINARTEXT_TRANSLATE_MODULE
   SEMINARTEXT_YTDLP_COOKIES_FROM_BROWSER
 
 По умолчанию результаты:
@@ -2800,7 +2895,6 @@ project_topic_benchmark_check() {
   fi
 
   local benchmark="$project_dir/analysis/benchmark/topic_benchmark.json"
-  local state="$HOME/bin/SEMINARTEXT_4_STATE.json"
 
   [[ -f "$benchmark" ]] || {
     echo "Ошибка: benchmark не найден:" >&2
@@ -2808,19 +2902,12 @@ project_topic_benchmark_check() {
     return 1
   }
 
-  [[ -f "$state" ]] || {
-    echo "Ошибка: state-файл не найден:" >&2
-    echo "  $state" >&2
-    return 1
-  }
-
-  "$SEMINARTEXT_PYTHON" - "$benchmark" "$state" <<'PYCHECK'
+  "$SEMINARTEXT_PYTHON" - "$benchmark" <<'PYCHECK'
 import json
 import sys
 from pathlib import Path
 
 benchmark_path = Path(sys.argv[1])
-state_path = Path(sys.argv[2])
 
 data = json.loads(benchmark_path.read_text(encoding="utf-8"))
 cases = data.get("cases", [])
@@ -2909,35 +2996,7 @@ print(
     if integrity_ok
     else "BENCHMARK INTEGRITY: FAIL"
 )
-
-state = json.loads(state_path.read_text(encoding="utf-8"))
-
-benchmark_state = (
-    state.setdefault("stages", {})
-         .setdefault("topic_benchmark", {})
-)
-
-benchmark_state["gold_cases_total"] = len(cases)
-benchmark_state["gold_cases_labeled"] = sum(
-    1
-    for case in cases
-    if case.get("review", {}).get("status") == "gold_complete"
-)
-benchmark_state["integrity_checked"] = integrity_ok
-benchmark_state["gold_complete"] = integrity_ok
-benchmark_state["status"] = (
-    "complete" if integrity_ok else "in_progress"
-)
-
-state_path.write_text(
-    json.dumps(state, ensure_ascii=False, indent=2) + "\n",
-    encoding="utf-8"
-)
-
-print()
-print("STATE UPDATED:")
-print(f"  integrity_checked = {integrity_ok}")
-print(f"  gold_complete = {integrity_ok}")
+print("READ-ONLY CHECK: benchmark and governance files were not modified")
 
 if not integrity_ok:
     raise SystemExit(1)
@@ -4925,131 +4984,181 @@ PYSCAN
 
 
 roadmap_status() {
-  local state="$HOME/bin/SEMINARTEXT_4_STATE.json"
-  local roadmap="$HOME/bin/SEMINARTEXT_4_ROADMAP.md"
+  resolve_governance_pair || return 1
 
-  [[ -f "$state" ]] || {
-    echo "Ошибка: не найден файл состояния:"
-    echo "  $state"
-    return 1
-  }
+  local deploy_dir="${SEMINARTEXT_DEPLOY_DIR:-$HOME/bin}"
+  local deploy_state="$deploy_dir/SEMINARTEXT_4_STATE.json"
+  local deploy_roadmap="$deploy_dir/SEMINARTEXT_4_ROADMAP.md"
 
-  python3 - "$state" "$roadmap" <<'PYROADMAP'
+  python3 - \
+    "$GOVERNANCE_STATE" \
+    "$GOVERNANCE_ROADMAP" \
+    "$GOVERNANCE_SOURCE_KIND" \
+    "$deploy_state" \
+    "$deploy_roadmap" \
+    "$VERSION" <<'PYROADMAP'
+import hashlib
 import json
 import sys
 from pathlib import Path
 
-state_path = Path(sys.argv[1])
-roadmap_path = Path(sys.argv[2])
+state_path = Path(sys.argv[1]).resolve()
+roadmap_path = Path(sys.argv[2]).resolve()
+source_kind = sys.argv[3]
+deploy_state = Path(sys.argv[4]).expanduser().resolve()
+deploy_roadmap = Path(sys.argv[5]).expanduser().resolve()
+cli_version = sys.argv[6]
 
 data = json.loads(state_path.read_text(encoding="utf-8"))
-stages = data.get("stages", {})
+state_version = str(data.get("seminartext_version", "unknown"))
+if state_version != cli_version:
+    raise SystemExit(
+        f"Ошибка: version drift: CLI={cli_version}, State={state_version}"
+    )
 
-dataset_a = stages.get("topic_benchmark_dataset_a", {})
-topic = stages.get("topic_engine", {})
-embedding = stages.get("embedding_engine", {})
-binseg = stages.get("embedding_binseg_known_count", {})
-pelt = stages.get("embedding_pelt_auto_count", {})
-dataset_b = stages.get("dataset_b", {})
-obsidian = stages.get("obsidian_mvp", {})
 
-print("SEMINARTEXT 4.x ROADMAP STATUS")
-print("=" * 48)
+def value(value):
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return str(value).lower()
+    if isinstance(value, (dict, list)):
+        return json.dumps(value, ensure_ascii=False, sort_keys=True)
+    return str(value)
+
+
+def sha256(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+print("SEMINARTEXT 4.x GOVERNED ROADMAP STATUS")
+print("=" * 52)
+print(f"CLI VERSION: {cli_version}")
+print(f"STATE SCHEMA: {data.get('schema_version', 'unknown')}")
+print(f"UPDATED: {data.get('updated', 'unknown')}")
+print(f"POLICY CHECKPOINT: {data.get('policy_checkpoint', 'unknown')}")
+print(f"STATE SOURCE CLASS: {source_kind}")
+print(f"STATE: {state_path}")
+print(f"ROADMAP: {roadmap_path}")
 print()
 
-print(f"SCHEMA VERSION: {data.get('schema_version', 'unknown')}")
-print(f"CURRENT STAGE: {data.get('current_stage', 'unknown')}")
-print(f"CURRENT PROJECT: {data.get('current_project', 'unknown')}")
+print("CURRENT")
+print(f"  Stage: {data.get('current_stage', 'unknown')}")
+print(f"  Milestone: {data.get('current_milestone', 'unknown')}")
+print(f"  Project: {data.get('current_project', 'unknown')}")
 print()
 
-print("DATASET A — GOLD BENCHMARK")
-print(f"  Project: {dataset_a.get('project', 'unknown')}")
+architecture = data.get("architecture", {})
+print("ARCHITECTURE")
+print(f"  Direction: {architecture.get('accepted_direction', 'unknown')}")
 print(
-    f"  Gold cases: "
-    f"{dataset_a.get('gold_cases_labeled', 0)}/"
-    f"{dataset_a.get('gold_cases_total', 0)}"
-)
-print(f"  Gold topics: {dataset_a.get('gold_topics_total', 0)}")
-print(f"  Integrity checked: {dataset_a.get('integrity_checked', False)}")
-print(f"  GOLD COMPLETE: {dataset_a.get('gold_complete', False)}")
-print()
-
-print("TOPIC ENGINE")
-print(f"  Status: {topic.get('status', 'unknown')}")
-print(f"  Stable: {topic.get('stable', False)}")
-print(
-    f"  Architecture: "
-    f"{topic.get('current_architecture', 'unknown')}"
-)
-print()
-
-print("EMBEDDING ENGINE")
-print(
-    f"  Model: {embedding.get('embedding_model', 'unknown')}"
-)
-print(
-    f"  Block size: {embedding.get('block_sec', 'unknown')} sec"
-)
-print(
-    f"  Change-point library: "
-    f"{embedding.get('change_point_library', 'unknown')} "
-    f"{embedding.get('ruptures_version', '')}"
+    "  Decision status: "
+    f"{architecture.get('architecture_decision_status', 'unknown')}"
 )
 print()
 
-print("BEST EXPERIMENTS")
-print(
-    f"  Binseg known count ±2 F1: "
-    f"{binseg.get('tolerance_2_id_f1', 'unknown')}"
-)
-print(
-    f"  Binseg known count ±5 F1: "
-    f"{binseg.get('tolerance_5_id_f1', 'unknown')}"
-)
-print(
-    f"  Pelt auto count ±2 F1: "
-    f"{pelt.get('tolerance_2_id_f1', 'unknown')}"
-)
-print(
-    f"  Pelt mean topic-count error: "
-    f"{pelt.get('mean_topic_count_error', 'unknown')}"
-)
-print()
-
-print("DATASET B — NEXT CRITICAL STEP")
-print(f"  Status: {dataset_b.get('status', 'unknown')}")
-print(
-    f"  Different seminar required: "
-    f"{dataset_b.get('must_use_different_seminar', False)}"
-)
-print(
-    f"  Target gold windows: "
-    f"{dataset_b.get('target_gold_windows', 'unknown')}"
-)
-print(
-    f"  Freeze parameters until test: "
-    f"{dataset_b.get('freeze_topic_engine_parameters_until_test', False)}"
-)
+print("PARALLEL TRACKS")
+tracks = architecture.get("tracks", {})
+for name in sorted(tracks):
+    track = tracks[name]
+    print(f"  {name}:")
+    print(f"    status: {track.get('status', 'unknown')}")
+    print(f"    purpose: {track.get('purpose', 'unknown')}")
+    if "primary_next_action" in track:
+        print(f"    primary_next_action: {value(track['primary_next_action'])}")
 print()
 
 print("NEXT ACTIONS")
-for i, action in enumerate(data.get("next_actions", []), 1):
-    print(f"  {i}. {action}")
-
-print()
-print("MANDATORY GATE")
-print("  After TOPIC SEGMENTATION STABLE:")
-print("  -> OBSIDIAN SCHEMA / OBSIDIAN MVP")
-print(f"  Required: {obsidian.get('required', False)}")
-print(f"  Do not skip: {obsidian.get('do_not_skip', False)}")
+for index, action in enumerate(data.get("next_actions", []), 1):
+    print(f"  {index}. {action}")
 print()
 
-if roadmap_path.is_file():
-    print(f"ROADMAP: {roadmap_path}")
-print(f"STATE:   {state_path}")
+print("HUMAN GATES")
+human_gates = []
+
+
+def collect_human_gates(node, prefix=""):
+    if isinstance(node, dict):
+        for key, item in node.items():
+            path = f"{prefix}.{key}" if prefix else key
+            if "human_gate" in key:
+                human_gates.append((path, item))
+            collect_human_gates(item, path)
+    elif isinstance(node, list):
+        for index, item in enumerate(node):
+            collect_human_gates(item, f"{prefix}[{index}]")
+
+
+collect_human_gates(data)
+for path, item in human_gates:
+    print(f"  {path}: {value(item)}")
+if not human_gates:
+    print("  none declared")
+print()
+
+print("MATURITY / INTEGRATION")
+maturity_fields = (
+    "technical_verdict",
+    "verdict",
+    "product_review_complete",
+    "production_integration_complete",
+    "production_population_complete",
+    "production_promotion",
+    "treeseg_production_status",
+)
+for stage_name in sorted(data.get("stages", {})):
+    stage = data["stages"][stage_name]
+    if not isinstance(stage, dict):
+        continue
+    details = [(key, stage[key]) for key in maturity_fields if key in stage]
+    if details:
+        print(f"  {stage_name}: status={stage.get('status', 'unknown')}")
+        for key, item in details:
+            print(f"    {key}: {value(item)}")
+print()
+
+semantics = data.get("status_semantics", {})
+print("STATUS SEMANTICS")
+for key in (
+    "technical_evidence",
+    "architecture_acceptance",
+    "product_integration",
+    "product_review",
+    "production_stability",
+    "complete_scope_rule",
+):
+    if key in semantics:
+        print(f"  {key}: {semantics[key]}")
+print()
+
+mvp = data.get("product_mvp", {})
+print("SEMINARTEXT 4.0 MVP")
+print(f"  Status: {mvp.get('status', 'unknown')}")
+print(f"  Definition: {mvp.get('definition', 'unknown')}")
+print()
+
+print("DEPLOYED SNAPSHOT")
+if source_kind == "deployed_snapshot":
+    print("  Repository freshness: UNVERIFIED")
+    print(
+        "  Action: set SEMINARTEXT_REPO to the governed checkout "
+        "or run scripts/seminartext-dev status there."
+    )
+else:
+    for label, source, deployed in (
+        ("State", state_path, deploy_state),
+        ("Roadmap", roadmap_path, deploy_roadmap),
+    ):
+        if not deployed.is_file():
+            status = "MISSING"
+        elif sha256(source) == sha256(deployed):
+            status = "SYNC"
+        else:
+            status = "STALE"
+        print(f"  {label}: {status}")
+        print(f"    snapshot: {deployed}")
 PYROADMAP
 }
-
 main() {
   case "${1:-}" in
     roadmap-status)

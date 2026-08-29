@@ -13,6 +13,7 @@ MODULES = ROOT / "seminartext_modules"
 TOPICS = MODULES / "seminartext_topics.py"
 TRANSLATE = MODULES / "seminartext_translate.py"
 DEV_CLI = ROOT / "scripts" / "seminartext-dev"
+VERSION_FILE = ROOT / "SEMINARTEXT_VERSION"
 
 ACCEPTED_HASHES = {
     TOPICS: "d8a14e83b877024c3e016a33e594af17d512741a77735ff3d8c7d1262628c8db",
@@ -109,7 +110,7 @@ def test_runtime_identity_resolves_bundled_modules_and_hashes():
     result = run_cli("runtime-identity")
     assert result.returncode == 0, result.stderr
     identity = parse_identity(result.stdout)
-    assert identity["version"] == "3.0"
+    assert identity["version"] == VERSION_FILE.read_text(encoding="utf-8").strip()
     assert Path(identity["topics.path"]) == TOPICS
     assert Path(identity["translate.path"]) == TRANSLATE
     assert identity["topics.sha256"] == ACCEPTED_HASHES[TOPICS]
@@ -120,6 +121,7 @@ def test_runtime_identity_resolves_bundled_modules_and_hashes():
 def test_runtime_identity_supports_installed_sibling_layout(tmp_path):
     installed_cli = tmp_path / "seminartext"
     shutil.copy2(CLI, installed_cli)
+    shutil.copy2(VERSION_FILE, tmp_path / VERSION_FILE.name)
     shutil.copy2(TOPICS, tmp_path / TOPICS.name)
     shutil.copy2(TRANSLATE, tmp_path / TRANSLATE.name)
 
@@ -226,4 +228,4 @@ def test_dev_status_compares_both_runtime_modules(tmp_path):
     assert result.returncode == 0, result.stderr
     assert "Topics:  SYNC" in result.stdout
     assert "Translate: SYNC" in result.stdout
-    assert "DEPLOY STATUS: DIFFERENT (3/5)" in result.stdout
+    assert "DEPLOY STATUS: DIFFERENT (4/6)" in result.stdout

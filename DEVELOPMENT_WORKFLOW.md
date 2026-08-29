@@ -63,13 +63,18 @@ Use GitHub and the repository as the technical source of truth:
 
 ## Standard Execution Loop
 
-Default issue loop:
+Default issue loop inside the Evidence-First Parallel Development policy:
 
 `ROADMAP -> PO ISSUE/DoD -> CODEX IMPLEMENT -> AUTOMATED TEST/QA -> PR -> PO REVIEW -> [DOMAIN GATE only if needed] -> MERGE -> STATE/ROADMAP UPDATE -> NEXT ISSUE`
 
 Experimental or ML loop:
 
 `BUILD -> TEST -> BENCHMARK -> HUMAN REVIEW when semantically required -> DECISION -> MERGE`
+
+Semantic Automation, Knowledge Product, and Data/Evaluation may advance in
+parallel when their inputs and human gates permit. Topic Engine stability is a
+scalability track, not a blocker for bounded knowledge prototypes that use
+verified manual, Gold, or explicitly marked semi-automatic topics.
 
 ## Human-Gate Classification
 
@@ -87,11 +92,27 @@ If the classification changes during work, the PR should explain why.
 
 ## Current Technical Direction
 
-The current technical direction remains Stage 2 Hybrid Topic Engine. Dataset A
-and Dataset B have been validated; the next independent validation step is
-Dataset C. Manual Gold is required only where semantic authoring is needed.
-Frozen A/B/C validation should precede the architecture decision checkpoint
-before Stage 3.
+The current policy checkpoint is `evidence_first_parallel_v1`. The two active
+next actions are the Obsidian Knowledge Prototype Product Review and the bounded
+TreeSeg hierarchy POC Product Review. Dataset C is closed/frozen evidence;
+Dataset D remains locked until its topic-agnostic preparation and the required
+candidate/configuration/criteria freeze. Gold Expansion v2 is supporting
+Data/Evaluation work and does not replace either active Product Review.
+
+The repository Roadmap and `SEMINARTEXT_4_STATE.json` govern this direction.
+Installed copies are deploy snapshots: status commands must label them as such
+and must report drift instead of silently treating them as current governance.
+
+## Maturity language
+
+Use separate claims for technical evidence, architecture acceptance, product
+integration, Product Review, and production stability. A stage marked
+`complete` is complete only in its named scope; it does not imply an integrated
+or production-stable SeminarText 4.0 product.
+
+The authoritative product journey and product-level Definition of Done are in
+`SEMINARTEXT_4_MVP_DEFINITION.md`. Its current status is
+`defined_not_yet_product_integrated`.
 
 No operating-model issue should change production Topic Engine algorithms,
 benchmark Gold data, experiment configurations, or CLI behavior unless a future
