@@ -33,6 +33,24 @@
       "required": true
     },
     {
+      "id": "evidence_foundation",
+      "repository_path": "seminartext_modules/evidence_foundation.py",
+      "deployed_name": "seminartext_modules/evidence_foundation.py",
+      "required": true
+    },
+    {
+      "id": "canonical_validator",
+      "repository_path": "schemas/validate_canonical_evidence_v1.py",
+      "deployed_name": "schemas/validate_canonical_evidence_v1.py",
+      "required": true
+    },
+    {
+      "id": "canonical_schema",
+      "repository_path": "schemas/canonical_evidence_v1.schema.json",
+      "deployed_name": "schemas/canonical_evidence_v1.schema.json",
+      "required": true
+    },
+    {
       "id": "version",
       "repository_path": "SEMINARTEXT_VERSION",
       "deployed_name": "SEMINARTEXT_VERSION",
@@ -69,7 +87,7 @@
       "name": "Runtime Truth",
       "implementation": "IMPLEMENTED",
       "blocking_policy": "blocking",
-      "invariant": "Any detected installed runtime is complete and byte-identical to repository-governed runtime source."
+      "invariant": "Any detected installed runtime is complete, byte-identical to repository-governed runtime source, and can dispatch the Evidence Foundation CLI path without missing-module/import errors."
     },
     {
       "id": "G3",
