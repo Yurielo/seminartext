@@ -1,6 +1,6 @@
 # SeminarText 4.x Roadmap
 
-Последнее обновление: 2026-08-28
+Последнее обновление: 2026-08-30
 
 ## Главная цель
 
@@ -234,15 +234,17 @@ source завершён verdict `WORD_TIMELINE_MVP_ACCEPTED`: 1434 canonical Wor
 валидируется и воспроизводится byte-identically. Evidence зафиксировано в
 `analysis/WORD_TIMELINE_MVP_ONE_CONTROLLED_SOURCE.md`.
 
-Немедленный следующий milestone — **parallel split** без возврата к линейной
-Topic-Engine-first зависимости. Два primary parallel направления сохраняются:
+Исторический parallel split завершён Product Review; текущий контрольный
+milestone — AUDIT-R1 reconciliation (Issue #96) без возврата к линейной
+Topic-Engine-first зависимости:
 
 - Golden Seminar Knowledge Slice — **DONE (Issue #44)** → bounded Obsidian
-  Knowledge Prototype **READY FOR PRODUCT REVIEW (Issue #51)**;
+  Knowledge Prototype **REVIEWED / ADAPT FURTHER (Issue #63)**; production
+  export остаётся заблокирован;
 - External Topic/Semantic Segmentation Survey + Baseline Challenge — **DONE
   (Issue #45)** → bounded TreeSeg adaptation / Global Seminar Structure POC
-  **READY FOR PRODUCT REVIEW (Issue #52)**. TreeSeg remains an isolated
-  challenger and hierarchy POC candidate;
+  **REVIEWED / KEEP AS CHALLENGER (Issue #62)**. TreeSeg remains an isolated
+  challenger and не production engine;
   Local Peak remains the primary experimental Boundary candidate and PELT the
   recall comparator.
 
@@ -750,7 +752,7 @@ excluded.
 
 # 3. Global Seminar Structure
 
-Статус: TREESEG HIERARCHY POC READY FOR PRODUCT REVIEW / PARALLEL
+Статус: TREESEG HIERARCHY POC REVIEWED — KEEP AS CHALLENGER
 
 Первый POC разрешён на Golden Seminar (`Стресс код`) с verified manual, Gold или
 semi-automatic topics до perfect automatic boundaries. POC проверяет отдельную
@@ -769,7 +771,8 @@ experimental Boundary candidate.
   подтвердить deterministic structure в двух запусках;
 - [x] подготовить full overview, beginning/middle/end evidence examples, flat
   baseline и Product Owner rubric;
-- [ ] получить отдельный Product Owner verdict по semantic usefulness;
+- [x] получить отдельный Product Owner verdict по semantic usefulness —
+  `KEEP_TREESEG_AS_CHALLENGER` (Issue #62 / PR #84);
 - [ ] убрать window-boundary artifacts;
 - [ ] merge дублирующихся тем;
 - [ ] убрать ложное дробление;
@@ -987,7 +990,7 @@ PDF/DOCX/PPTX и другие оригиналы могут храниться:
 
 # 6. Track B — Knowledge Product / Knowledge Engine
 
-Статус: GOLDEN KNOWLEDGE SLICE ACCEPTED / OBSIDIAN PROTOTYPE NEXT
+Статус: GOLDEN KNOWLEDGE SLICE ACCEPTED / OBSIDIAN REVIEWED — ADAPT FURTHER
 
 Цель:
 
@@ -1165,7 +1168,7 @@ Review queue:
 
 # 9. Golden Seminar Vertical Slice / Obsidian Knowledge Prototype
 
-Статус: OBSIDIAN KNOWLEDGE PROTOTYPE READY FOR PRODUCT REVIEW
+Статус: OBSIDIAN KNOWLEDGE PROTOTYPE REVIEWED — ADAPT FURTHER (Issue #63)
 
 Первый bounded slice выполняется на controlled target-corpus seminar — по
 умолчанию `Стресс код`. Разрешённый input topics: existing verified/Gold/manual
@@ -1196,9 +1199,13 @@ Accepted Golden Slice является frozen input для следующего 
 milestone. Bounded Obsidian prototype Issue #51 детерминированно отображает
 Seminar/Source/Topic/Concept/Evidence как 25 Markdown notes с frontmatter,
 wikilinks и exact Evidence → source/time/Word provenance. Все семь Concepts
-остаются `provisional_manual_curation` / `product_review_required`. Verdict:
-`OBSIDIAN_KNOWLEDGE_PROTOTYPE_READY_FOR_PRODUCT_REVIEW`; Product Review ещё не
-пройден. Full sync по-прежнему не требуется.
+остаются `provisional_manual_curation` и требуют дальнейшей адаптации/проверки.
+Product Owner verdict: `ADAPT_FURTHER` (направление принято, текущий prototype
+не production-ready); full sync и production export по-прежнему заблокированы.
+
+Canonical Knowledge Contract v1 принят в Issue #64 / PR #86 и находится в
+`schemas/canonical_knowledge_v1.schema.json`; он расширяет knowledge-контракт
+additively поверх Canonical Evidence, не меняя его источник истины.
 
 Artifact и review guide:
 
@@ -1210,7 +1217,7 @@ Artifact и review guide:
 
 # 10. Knowledge Base / Obsidian Integration
 
-Статус: BOUNDED PROTOTYPE READY FOR PRODUCT REVIEW
+Статус: BOUNDED PROTOTYPE REVIEWED — ADAPT FURTHER; PRODUCTION EXPORT BLOCKED
 
 Цель:
 
@@ -1615,7 +1622,11 @@ Knowledge Base должна обслуживать:
 
 # CURRENT NEXT ACTION
 
-Текущий этап: **EVIDENCE-FIRST PARALLEL SPLIT**.
+Текущий этап: **AUDIT-R1 GOVERNANCE RECONCILIATION** (`audit_r1_governance_reconciliation`, Issue #96).
+Машиночитаемый current milestone: `audit_r1_governance_truth_reconciliation`;
+next action: `audit_r1_product_owner_review`.
+The subsequent governed review (not started in AUDIT-R1) is
+`audit_r2_canonical_knowledge_validation_hardening_after_r1_acceptance`.
 
 Принята следующая обязательная последовательность без преждевременной реализации
 поздних stages:
@@ -1627,37 +1638,47 @@ Knowledge Base должна обслуживать:
 5. Parallel foundations — **DONE**: Golden Seminar Knowledge Slice (Issue #44)
    and External Topic/Semantic Segmentation Survey + Baseline Challenge
    (Issue #45).
-6. **Parallel split — ACTIVE (EXACTLY TWO NEXT ACTIONS):**
-   - Knowledge: **Obsidian Knowledge Prototype Product Review NEXT**; prototype
-     verdict ready, но Product Review ещё не пройден;
-   - Semantic: bounded TreeSeg adaptation / Global Seminar Structure POC —
-     **READY FOR PRODUCT REVIEW (Issue #52)**. Local Peak остаётся primary
-     experimental Boundary candidate, PELT — recall comparator, TreeSeg —
-     isolated external `ADAPT` challenger. Product Review ещё не пройден.
-
-Machine-readable human review actions:
-
-- `obsidian_knowledge_prototype_product_review`;
-- `treeseg_hierarchy_poc_product_review`.
+6. Freeze Topic Engine candidate — **COMPLETE (Issue #61)**: Local Peak frozen
+   for Dataset D candidacy only; Dataset D access remains BLOCKED.
+7. Parallel Product Reviews — **COMPLETE**: TreeSeg is retained as an isolated
+   `challenger` (`KEEP_TREESEG_AS_CHALLENGER`, Issue #62); Obsidian direction is
+   accepted with `ADAPT_FURTHER` (Issue #63), while production export remains
+   blocked.
+8. Canonical Knowledge Contract v1 — **COMPLETE / ACCEPTED (Issue #64)**.
+9. **AUDIT-R1 — ACTIVE PRODUCT OWNER REVIEW (Issue #96)**: reconcile State,
+   Roadmap, workflow, Integrity documentation, and issue lifecycle guidance.
 
 Supporting Data/Evaluation status (not a next action): Gold Expansion v2
 preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Owner
-role review and manual Gold annotation remain human gates and do not replace
-either next action above.
+role review and manual Gold annotation remain human gates.
 
-7. Freeze Topic Engine candidate — **COMPLETE (Issue #61): Local Peak frozen for
-   Dataset D candidacy only; Dataset D access remains BLOCKED**.
-8. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
-9. Dataset D blind evaluation after candidate/config/criteria freeze.
-10. Define and assess `TOPIC AUTOMATION USABLE`.
-11. Expand Knowledge Engine.
-12. Multi-seminar Knowledge MVP.
-13. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
+10. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
+11. Dataset D blind evaluation after candidate/config/criteria freeze.
+12. Define and assess `TOPIC AUTOMATION USABLE`.
+13. Expand Knowledge Engine.
+14. Multi-seminar Knowledge MVP.
+15. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
     Assistant.
 
 Dataset guardrails apply throughout: A/B are development/history evidence; C is
 closed/frozen; D is locked; E is excluded; F remains quarantined/potential
 development until source/ASR repair.
+
+## AUDIT-R1 issue lifecycle recommendations
+
+These are evidence-based recommendations for Product Owner review; Codex does
+not close issues automatically:
+
+- #62 — `SAFE_TO_CLOSE: YES`: TreeSeg Product Review is complete and the
+  challenger disposition is recorded; no production promotion follows.
+- #63 — `SAFE_TO_CLOSE: YES`: Obsidian Product Review is complete with
+  `ADAPT_FURTHER`; production export remains blocked.
+- #64 — `SAFE_TO_CLOSE: YES`: Canonical Knowledge Contract v1 is accepted in
+  merged PR #86; future hardening remains separately scoped.
+- #75 — `SAFE_TO_CLOSE: YES`: the authorized #58→#61 orchestration chain was
+  completed with its post-merge gates.
+- #69 — `SAFE_TO_CLOSE: NO`: the audit-remediation tracker still has open child
+  work (#87–#95), so its own Definition of Done is not satisfied.
 
 ## SeminarText 4.0 MVP product-level DoD
 
