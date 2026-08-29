@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "issue": 63,
+  "ISSUE_63_DECISION": "ADAPT_FURTHER",
+  "OBSIDIAN_DIRECTION": "ACCEPTED",
+  "CURRENT_PROTOTYPE_PRODUCTION_READY": false,
+  "PRODUCT_DISPOSITION": "ADAPT_FURTHER",
+  "PROJECT_OBSIDIAN_EXPORT": "BLOCKED",
+  "review_packet": "analysis/OBSIDIAN_PRODUCT_REVIEW_ISSUE_63.md",
+  "REVIEW_DECISION_CONTRACT": "READY",
+  "GENERATED_USER_OWNERSHIP_CONTRACT": "READY",
+  "SOURCE_RESOLVER_CONTRACT": "READY",
+  "EXPORT_CONTRACT": "READY",
+  "ownership_classes": ["MANAGED_GENERATED", "USER_OWNED"],
+  "review_decision_actions": ["ACCEPT", "RENAME", "SPLIT", "MERGE", "REJECT", "DEFER"],
+  "source_resolver_states": ["AVAILABLE", "MOVED", "PROJECT_MOVED", "MISSING", "RESOLVER_UNAVAILABLE"],
+  "missing_for_real_use": [
+    {"id": 1, "finding": "NO_CANONICAL_REVIEW_DECISIONS", "root_cause": "No immutable semantic decision record", "required_contract": "Canonical ReviewDecision", "target_issue": 64, "blocks_mvp": true},
+    {"id": 2, "finding": "NO_IDENTITY_TRANSITION_LEDGER", "root_cause": "Rename/duplicate/merge/split transitions undefined", "required_contract": "Concept identity alias and supersession ledger", "target_issue": 64, "blocks_mvp": true},
+    {"id": 3, "finding": "NO_OWNERSHIP_COLLISION_PROTECTION", "root_cause": "Generated files can be overwritten without managed markers", "required_contract": "MANAGED_GENERATED/USER_OWNED collision contract", "target_issue": 63, "blocks_mvp": true},
+    {"id": 4, "finding": "NO_PROJECT_DRY_RUN_EXPORT", "root_cause": "Exporter is bounded path writer without project/dry-run contract", "required_contract": "project-obsidian-export contract", "target_issue": 63, "blocks_mvp": true},
+    {"id": 5, "finding": "NO_PORTABLE_SOURCE_RESOLVER", "root_cause": "Source ID has no resolver or URI mapping", "required_contract": "Project/local Source resolver states", "target_issue": 63, "blocks_mvp": true},
+    {"id": 6, "finding": "NO_BREADCRUMB_CONTEXT", "root_cause": "Backlinks exist but Evidence lacks explicit Seminar/Topic context", "required_contract": "Presentation breadcrumb contract", "target_issue": 63, "blocks_mvp": false},
+    {"id": 7, "finding": "NO_USER_ANNOTATION_OWNERSHIP", "root_cause": "No protected user-owned note class", "required_contract": "USER_OWNED annotation notes", "target_issue": 63, "blocks_mvp": true},
+    {"id": 8, "finding": "BOUNDED_SINGLE_SOURCE_COVERAGE", "root_cause": "Export is limited to one Golden Slice/source", "required_contract": "Project scope and coverage manifest", "target_issue": 63, "blocks_mvp": true}
+  ],
+  "handoff_to_issue_64": {
+    "status": "READY",
+    "owns": ["Concept identity", "aliases", "ReviewDecision semantic record", "merge/split/rename semantics", "relations", "corrections/versioning", "provenance references"],
+    "issue_63_owns": ["Obsidian interaction", "generated/user ownership", "export behavior", "portable resolver behavior", "UX requirements"]
+  },
+  "constraints": {
+    "project_obsidian_export_implemented": false,
+    "bidirectional_sync_created": false,
+    "real_knowledge_mutated": false,
+    "new_tree_or_knowledge_experiments": false,
+    "dataset_c_d_e_work": false
+  }
+}

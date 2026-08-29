@@ -123,6 +123,52 @@ Recommended contract: keep `source_id` and immutable content hash in the vault; 
 
 Product Owner must choose one option. Codex selects none.
 
+## Product Owner disposition and adaptation contract
+
+`ISSUE_63_DECISION: ADAPT_FURTHER` is recorded as a Product Owner disposition. `OBSIDIAN_DIRECTION: ACCEPTED` means Obsidian remains the target derived UI / knowledge workspace; it does not make the current prototype production-ready.
+
+Machine-readable companion: `analysis/obsidian_knowledge_prototype/product_review_disposition.json`.
+
+### A. Canonical ReviewDecision (handoff to #64)
+
+The canonical semantic decision must be recorded outside the vault:
+
+`ReviewDecision = {target_stable_id, action, reviewer_role, decision_at, rationale, evidence_refs, source_revision, supersedes}` with `action ∈ {ACCEPT, RENAME, SPLIT, MERGE, REJECT, DEFER}`.
+
+The Obsidian note is never authoritative. The canonical record is the source for a rebuild. Concept identity, aliases, merge/split/rename semantics, relation versioning, and provenance references belong to #64. This contract is specified (`REVIEW_DECISION_CONTRACT: READY`) but not implemented here.
+
+### B. Generated/user ownership (owned by #63)
+
+Use exactly two ownership classes:
+
+- `MANAGED_GENERATED`: exporter-owned files, replaceable only when generated content is unchanged or an explicit safe rebuild is authorized.
+- `USER_OWNED`: notes/annotations never overwritten or deleted by export.
+
+Every export must be idempotent, preserve stable IDs, detect collisions, refuse changed managed files by default, retain rename aliases/redirects, and never delete unmanaged notes. User edits are kept in `USER_OWNED` notes keyed by stable ID. Bidirectional synchronization is out of scope. Contract is specified (`GENERATED_USER_OWNERSHIP_CONTRACT: READY`), implementation is not.
+
+### C. Portable Source resolver (owned by #63)
+
+`source_id → project/local resolver → actual local media/document URI` remains external to generated Markdown. Resolver states are explicit: `AVAILABLE`, `MOVED`, `PROJECT_MOVED`, `MISSING`, and `RESOLVER_UNAVAILABLE`. A moved project supplies a new local resolver root; a missing source reports ID/hash and never silently retargets. Personal absolute paths are not canonical vault identity. Contract is specified (`SOURCE_RESOLVER_CONTRACT: READY`), implementation is not.
+
+### D. Future `project-obsidian-export` contract (owned by #63)
+
+Required inputs/behavior: project input, destination, `--dry-run`, manifest, managed-file inventory, stable IDs, collision detection, idempotency, no deletion of unmanaged notes, Source resolver integration, and safe fail-closed behavior. The contract is specified (`EXPORT_CONTRACT: READY`), but `PROJECT_OBSIDIAN_EXPORT = BLOCKED` until Product Owner accepts the ownership/resolver/collision prerequisites. No command is created in Issue #63.
+
+## Eight missing-for-real-use findings mapped to contracts
+
+| # | Finding | Root cause | Required contract | Target issue | BLOCKS_MVP |
+|---:|---|---|---|---|---|
+| 1 | No canonical Concept review decisions | Vault statuses are presentation strings; no immutable decision record exists. | Canonical `ReviewDecision` with six actions, reviewer, rationale, evidence and source revision. | #64 | YES |
+| 2 | No stable rename/duplicate/merge/split ledger | Filename stability is documented, but semantic identity transitions are undefined. | Concept identity/alias/supersession ledger with redirect links and retained provenance. | #64 | YES |
+| 3 | No managed/unmanaged collision protection | Exporter overwrites generated Markdown and only refuses unmanaged deletion. | Two-class ownership markers, changed-managed-file refusal, collision report, no unmanaged deletion. | #63 | YES |
+| 4 | No project-level dry-run export contract | Current script accepts bounded slice paths and writes directly; it has no project input or dry-run. | `project-obsidian-export` input/destination/dry-run/manifest/idempotency/safe-failure contract. | #63 | YES |
+| 5 | No portable Source resolver | Source notes contain ID/hash/time but no resolver key or local media URI. | Project/local resolver with AVAILABLE/MOVED/PROJECT_MOVED/MISSING/RESOLVER_UNAVAILABLE states. | #63 | YES |
+| 6 | No breadcrumb/context component | Backlinks exist, but Evidence does not repeat Seminar → Topic context. | Presentation breadcrumb/context links that preserve stable IDs and return path. | #63 | NO |
+| 7 | No protected user annotation ownership | There is no user-owned note class or reserved non-generated area. | `USER_OWNED` annotation notes keyed by stable ID, never overwritten by rebuild. | #63 | YES |
+| 8 | Bounded one-source coverage only | Export is hard-coded to one Golden Slice and one source; no multi-source acceptance state exists. | Project scope/coverage manifest and explicit acceptance status before broader export. | #63 | YES |
+
+All eight findings now have a root cause, required contract, target issue, and MVP impact. None was fixed by editing real knowledge.
+
 ## Technical self-check boundary
 
 The accepted pre-review baseline was verified on `main` at `451fce016f0346511b3fc0eb88ad39392c534b4a`: G1–G4/G8 PASS, G5/G6 NOT_IMPLEMENTED, G7 known WARN with `141 passed, 2 skipped`, and PROJECT_INTEGRITY PARTIAL. Dataset D remains BLOCKED with blind run authorization NO. No implementation, export command, canonical contract change, semantic edit, or Dataset operation was performed.
