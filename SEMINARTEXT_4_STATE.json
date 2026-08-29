@@ -27,7 +27,7 @@
     "topic_engine_leader": "local_peak_primary_experimental_candidate",
     "topic_engine_comparator": "pelt_recall_oriented_comparator",
     "topic_engine_role": "critical_parallel_scalability_track",
-    "llm_boundary_engine_role": "baseline",
+    "llm_boundary_engine_role": "production_legacy_current_runtime_not_promoted_baseline",
     "llm_primary_future_roles": [
       "topic_titles",
       "topic_summaries",
@@ -272,12 +272,27 @@
       "superseded_issues": [29, 30, 33]
     },
     "topic_engine": {
-      "status": "in_progress_parallel",
+      "status": "freeze_governance_ready_domain_review_pending",
       "stable": false,
       "topic_automation_usable": false,
-      "current_architecture": "local_peak_primary_experimental_candidate",
+      "runtime_engine_id": "legacy_ollama_gemma_runtime",
+      "runtime_role_id": "production_legacy",
+      "runtime_production_promoted": false,
+      "experimental_primary_engine_id": "bge_m3_local_peak_v1",
+      "comparator_engine_id": "bge_m3_pelt_v1",
+      "challenger_engine_id": "treeseg_external_adapt_v1",
+      "frozen_candidate_engine_id": null,
+      "current_architecture": "local_peak_primary_experimental_candidate_not_runtime",
       "role": "critical_for_scale_not_a_knowledge_prototype_gate",
-      "next_algorithmic_gate": "treeseg_hierarchy_poc_product_review"
+      "lifecycle_registry": "governance/topic_engine_lifecycle.json",
+      "freeze_record": "governance/topic_engine_freeze.json",
+      "freeze_gate_status": "BLOCKED_PENDING_DOMAIN_REVIEW",
+      "dataset_d_open_allowed": false,
+      "new_custom_family_policy": "DENY_UNLESS_EXPLICIT_PRODUCT_OWNER_ISSUE",
+      "canonical_benchmark_segments_semantics": "TOPIC_NEUTRAL_TEST_REPRESENTATION_NOT_SEMANTIC_TOPICS",
+      "human_gate": "DOMAIN_REVIEW_PENDING",
+      "product_owner_packet": "analysis/TOPIC_ENGINE_FREEZE_PACKET_ISSUE_61.md",
+      "next_algorithmic_gate": "topic_engine_candidate_freeze_domain_review"
     },
     "external_semantic_segmentation_survey": {
       "status": "complete_accepted",

@@ -698,6 +698,30 @@ eligible evidence и acceptance criteria, включая:
 Dataset D остаётся untouched `LOCKED TEST` до единственного разрешённого blind
 evaluation.
 
+### 2.11.1 Topic Engine lifecycle и freeze gate — Issue #61
+
+Engineering governance готов к `DOMAIN_REVIEW`; кандидат не выбран и не
+заморожен. Авторитетные machine-readable записи:
+
+- `governance/topic_engine_lifecycle.json` — роли и provenance;
+- `governance/topic_engine_freeze.json` — fail-closed freeze record;
+- `seminartext_modules/topic_engine_governance.py` — проверка lifecycle и gate;
+- `analysis/TOPIC_ENGINE_FREEZE_PACKET_ISSUE_61.md` — ограниченный пакет решения.
+
+Текущий runtime: `legacy_ollama_gemma_runtime` / `production_legacy`, без
+production promotion. Local Peak — `experimental_primary`, PELT — `comparator`,
+TreeSeg — внешний `challenger`; исследовательское лидерство не меняет runtime.
+Новая custom Boundary family запрещена без отдельного Product Owner Issue.
+
+Canonical 50-word `BenchmarkSegments` — только
+`TOPIC_NEUTRAL_TEST_REPRESENTATION`: это механические интервалы для тестов и
+координат, а не semantic Topic output.
+
+Dataset D остаётся закрыт, пока Product Owner не утвердит candidate freeze и не
+будут hash-bound одновременно configuration, acceptance criteria и analysis
+plan. Независимо от freeze, нужны отдельные source acceptance и authorization
+ровно одного blind run.
+
 ## 2.12 External Topic / Semantic Segmentation Survey
 
 Статус: DONE / ACCEPTED (Issue #45)
@@ -1617,7 +1641,8 @@ preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Own
 role review and manual Gold annotation remain human gates and do not replace
 either next action above.
 
-7. Freeze Topic Engine candidate.
+7. Freeze Topic Engine candidate — **DOMAIN_REVIEW REQUIRED; engineering packet
+   READY (Issue #61), candidate remains unfrozen**.
 8. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
 9. Dataset D blind evaluation after candidate/config/criteria freeze.
 10. Define and assess `TOPIC AUTOMATION USABLE`.

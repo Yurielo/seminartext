@@ -114,6 +114,10 @@ runtime_identity() {
   echo "cli.sha256=$(sha256_file "$SEMINARTEXT_ENTRYPOINT")"
   echo "topics.path=$topics_module"
   echo "topics.sha256=$(sha256_file "$topics_module")"
+  echo "topics.engine_id=legacy_ollama_gemma_runtime"
+  echo "topics.role_id=production_legacy"
+  echo "topics.production_runtime=true"
+  echo "topics.production_promoted=false"
   echo "translate.path=$translate_module"
   echo "translate.sha256=$(sha256_file "$translate_module")"
   echo "dataset_governance.path=$dataset_governance_module"
@@ -2372,7 +2376,10 @@ HELP
     "$tolerance" \
     "$detail" \
     "$model" \
-    "$only_case" <<'PYRUN'
+    "$only_case" \
+    "$DATASET_GUARD_ID" \
+    "$DATASET_GUARD_ROLE" \
+    "$DATASET_GUARD_REGISTRY" <<'PYRUN'
 import hashlib
 import importlib.util
 import json
@@ -2387,6 +2394,9 @@ tolerance = int(sys.argv[4])
 detail = sys.argv[5]
 model = sys.argv[6]
 only_case = sys.argv[7].strip()
+dataset_id = sys.argv[8]
+dataset_role = sys.argv[9]
+dataset_registry = sys.argv[10]
 
 
 def load_json(path):
@@ -2764,6 +2774,18 @@ result = {
     "schema_version": 1,
     "type": "seminartext_topic_benchmark_run",
     "engine_version": engine_version,
+    "engine_identity": {
+        "engine_id": "legacy_ollama_gemma_runtime",
+        "role_id": "production_legacy",
+        "lifecycle_registry": "governance/topic_engine_lifecycle.json",
+        "production_runtime": True,
+        "production_promoted": False,
+    },
+    "dataset_identity": {
+        "dataset_id": dataset_id,
+        "dataset_role": dataset_role,
+        "registry_path": dataset_registry,
+    },
     "benchmark_version": {
         "schema_version": benchmark.get("schema_version"),
         "type": benchmark.get("type"),
@@ -5032,10 +5054,27 @@ dataset_guard_benchmark() {
   local project_dir="$1"
   local benchmark="$2"
   local operation="$3"
-  dataset_governance_command check-benchmark \
+  local decision rc
+  decision="$(dataset_governance_command check-benchmark \
     --project "$project_dir" \
     --benchmark "$benchmark" \
-    --operation "$operation"
+    --operation "$operation" \
+    --json)" || {
+      rc=$?
+      echo "DATASET GOVERNANCE: DENY operation=$operation: $(
+        "$SEMINARTEXT_PYTHON" -c \
+          'import json,sys; print(json.loads(sys.argv[1]).get("reason", "policy check failed"))' \
+          "$decision"
+      )" >&2
+      return "$rc"
+    }
+  read -r DATASET_GUARD_ID DATASET_GUARD_ROLE DATASET_GUARD_REGISTRY < <(
+    "$SEMINARTEXT_PYTHON" -c \
+      'import json,sys; d=json.loads(sys.argv[1]); print(d["dataset_id"], d["role"], d["registry_path"])' \
+      "$decision"
+  )
+  export DATASET_GUARD_ID DATASET_GUARD_ROLE DATASET_GUARD_REGISTRY
+  echo "DATASET GOVERNANCE: ALLOW dataset=$DATASET_GUARD_ID operation=$operation role=$DATASET_GUARD_ROLE"
 }
 
 dataset_policy_check() {

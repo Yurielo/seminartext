@@ -122,9 +122,12 @@ main "$@"
     for relative in (
         "seminartext_modules/evidence_foundation.py",
         "seminartext_modules/dataset_governance.py",
+        "seminartext_modules/topic_engine_governance.py",
         "schemas/validate_canonical_evidence_v1.py",
         "schemas/canonical_evidence_v1.schema.json",
         "governance/dataset_registry.json",
+        "governance/topic_engine_lifecycle.json",
+        "governance/topic_engine_freeze.json",
     ):
         source = ROOT / relative
         destination = root / relative

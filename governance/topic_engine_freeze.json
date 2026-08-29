@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "status": "PENDING_DOMAIN_REVIEW",
+  "product_owner_decision": null,
+  "decision_recorded_by": null,
+  "decision_recorded_at": null,
+  "candidate": {
+    "engine_id": null,
+    "role_before_freeze": null,
+    "frozen": false
+  },
+  "configuration": {
+    "value": null,
+    "sha256": null,
+    "frozen": false
+  },
+  "acceptance_criteria": {
+    "artifact": null,
+    "sha256": null,
+    "frozen": false
+  },
+  "analysis_plan": {
+    "artifact": null,
+    "sha256": null,
+    "frozen": false
+  },
+  "dataset_d": {
+    "registry_role_required": "LOCKED_TEST",
+    "source_acceptance_required": true,
+    "single_blind_run_authorization_required": true,
+    "open_allowed": false
+  },
+  "gate_rule": "Dataset D remains closed unless Product Owner approves the candidate freeze and candidate, configuration, acceptance criteria and analysis plan are all immutable and hash-bound."
+}

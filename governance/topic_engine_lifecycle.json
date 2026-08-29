@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-08-29.issue-61",
+  "allowed_role_ids": [
+    "production_legacy",
+    "experimental_primary",
+    "comparator",
+    "challenger",
+    "frozen_candidate"
+  ],
+  "new_custom_family_policy": "DENY_UNLESS_EXPLICIT_PRODUCT_OWNER_ISSUE",
+  "runtime_statement": "Research leadership does not imply production promotion. The current CLI continues to use the legacy Ollama/Gemma engine until an explicit future promotion decision and implementation.",
+  "benchmark_segment_semantics": {
+    "canonical_50_word_representation": "TOPIC_NEUTRAL_TEST_REPRESENTATION",
+    "semantic_topic_output": false,
+    "reference": "analysis/WORD_TIMELINE_MVP_ONE_CONTROLLED_SOURCE.md"
+  },
+  "engines": [
+    {
+      "engine_id": "legacy_ollama_gemma_runtime",
+      "role_id": "production_legacy",
+      "lifecycle_status": "CURRENT_RUNTIME_BEHAVIOR_NOT_PRODUCTION_BASELINE",
+      "implementation": "seminartext_modules/seminartext_topics.py",
+      "entrypoint": "analyze_window_boundaries",
+      "model": "gemma3:4b",
+      "configuration": {
+        "detail": "runtime_selectable_low_auto_high",
+        "temperature": 0,
+        "window_seconds": 720,
+        "refinement_max_depth": 2
+      },
+      "production_runtime": true,
+      "production_promoted": false,
+      "references": ["seminartext", "SEMINARTEXT_4_STATE.json#stages.topic_engine"]
+    },
+    {
+      "engine_id": "bge_m3_local_peak_v1",
+      "role_id": "experimental_primary",
+      "lifecycle_status": "PRIMARY_EXPERIMENTAL_BOUNDARY_CANDIDATE_NOT_FROZEN",
+      "implementation": "analysis/experiments/bge_m3_changepoint_topic_engine.py",
+      "entrypoint": "run_experiment",
+      "model": "bge-m3:latest",
+      "configuration": {
+        "block_seconds": 15,
+        "context_blocks": 2,
+        "signal": "1 - cosine(mean(left_context), mean(right_context))",
+        "smoothing": [0.25, 0.5, 0.25],
+        "median_multiplier_threshold": 1.15,
+        "min_gap_blocks": 3,
+        "max_boundaries_per_window": 11,
+        "min_gap_segment_ids": 3
+      },
+      "production_runtime": false,
+      "production_promoted": false,
+      "evidence": [
+        "analysis/BGE_M3_CHANGEPOINT_EXPERIMENT_DATASET_A.md",
+        "analysis/DATASET_B_FROZEN_VALIDATION.md",
+        "analysis/DATASET_C_BLIND_VALIDATION.md",
+        "analysis/dataset_c/results/dataset_c_bge_m3_local_peak_blind.json"
+      ]
+    },
+    {
+      "engine_id": "bge_m3_pelt_v1",
+      "role_id": "comparator",
+      "lifecycle_status": "RECALL_ORIENTED_COMPARATOR_NOT_FROZEN",
+      "implementation": "analysis/experiments/bge_m3_ruptures_topic_engine.py",
+      "entrypoint": "run_experiment",
+      "model": "bge-m3:latest",
+      "configuration": {
+        "block_seconds": 15,
+        "context_blocks": 2,
+        "change_point_library": "ruptures==1.1.9",
+        "ruptures_model": "rbf",
+        "penalty": 0.5,
+        "min_size_blocks": 3,
+        "jump": 1,
+        "min_gap_segment_ids": 3
+      },
+      "production_runtime": false,
+      "production_promoted": false,
+      "evidence": [
+        "analysis/BGE_M3_RUPTURES_EXPERIMENT_DATASET_A.md",
+        "analysis/DATASET_B_FROZEN_VALIDATION.md",
+        "analysis/DATASET_C_BLIND_VALIDATION.md",
+        "analysis/dataset_c/results/dataset_c_bge_m3_pelt_blind.json"
+      ]
+    },
+    {
+      "engine_id": "treeseg_external_adapt_v1",
+      "role_id": "challenger",
+      "lifecycle_status": "EXTERNAL_ADAPT_CHALLENGER_AND_HIERARCHY_CANDIDATE_NOT_PRODUCTION",
+      "implementation": "analysis/treeseg_global_structure_poc/run_hierarchy_poc.py",
+      "entrypoint": "bounded_poc_only",
+      "model": "topic_treeseg==0.1.0@f18929a23693bdcb669aef1ab1a18fd035e50e57",
+      "configuration": "analysis/treeseg_global_structure_poc/config.json",
+      "production_runtime": false,
+      "production_promoted": false,
+      "evidence": [
+        "analysis/EXTERNAL_TOPIC_BASELINE_SURVEY_ISSUE_45.md",
+        "analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md"
+      ]
+    },
+    {
+      "engine_id": null,
+      "role_id": "frozen_candidate",
+      "lifecycle_status": "PENDING_DOMAIN_REVIEW",
+      "implementation": null,
+      "entrypoint": null,
+      "model": null,
+      "configuration": null,
+      "production_runtime": false,
+      "production_promoted": false,
+      "evidence": ["analysis/TOPIC_ENGINE_FREEZE_PACKET_ISSUE_61.md"]
+    }
+  ],
+  "historical_implementations": [
+    {
+      "engine_id": "legacy_ollama_sliding_subwindow_experiment",
+      "role_id": "historical_experiment_not_candidate",
+      "lifecycle_status": "RETAINED_EVIDENCE_ONLY_NO_RERUN_OR_PROMOTION",
+      "implementation": "analysis/experiments/sliding_subwindow_topic_engine.py",
+      "production_runtime": false,
+      "production_promoted": false
+    },
+    {
+      "engine_id": "external_chonkie_baseline",
+      "role_id": "historical_external_baseline_rejected",
+      "lifecycle_status": "REJECTED_IN_ISSUE_45_RETAINED_EVIDENCE_ONLY",
+      "implementation": "analysis/external_topic_baselines/run_baseline_challenge.py",
+      "production_runtime": false,
+      "production_promoted": false
+    },
+    {
+      "engine_id": "external_texttiling_baseline",
+      "role_id": "historical_external_baseline_rejected",
+      "lifecycle_status": "REJECTED_IN_ISSUE_45_RETAINED_EVIDENCE_ONLY",
+      "implementation": "analysis/external_topic_baselines/run_baseline_challenge.py",
+      "production_runtime": false,
+      "production_promoted": false
+    }
+  ]
+}

@@ -148,6 +148,16 @@ def test_metrics_and_tolerance():
             "0",
         )
         data = latest_result(project)
+        assert data["engine_identity"] == {
+            "engine_id": "legacy_ollama_gemma_runtime",
+            "role_id": "production_legacy",
+            "lifecycle_registry": "governance/topic_engine_lifecycle.json",
+            "production_runtime": True,
+            "production_promoted": False,
+        }
+        assert data["dataset_identity"]["dataset_id"] == "A"
+        assert data["dataset_identity"]["dataset_role"] == "DEVELOPMENT_CALIBRATION"
+        assert Path(data["dataset_identity"]["registry_path"]) == (root / "dataset_registry.json").resolve()
         assert data["aggregate_metrics"]["true_positives"] == 3
         assert data["aggregate_metrics"]["false_positives"] == 2
         assert data["aggregate_metrics"]["false_negatives"] == 2
