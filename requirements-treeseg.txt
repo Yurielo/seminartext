@@ -1,0 +1,8 @@
+# Optional TreeSeg/topic external profile (Python 3.14.x, macOS arm64 smoke).
+# The upstream package is pinned by immutable commit and retains Apache-2.0 provenance.
+numpy==2.5.2
+scipy==1.18.1
+matplotlib==3.10.8
+chonkie==1.7.0
+nltk==3.10.3
+topic_treeseg @ git+https://github.com/geraldthewes/topic-treeseg.git@f18929a23693bdcb669aef1ab1a18fd035e50e57

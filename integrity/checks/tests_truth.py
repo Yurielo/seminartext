@@ -68,7 +68,7 @@ def run(context: CheckContext) -> GateResult:
             "G7",
             gate["name"],
             "WARN",
-            f"tests passed with {skipped} visible skip(s); G4 skip policy is not implemented",
+            f"tests passed with {skipped} visible skip(s); G4 profile is declared, rebuild the active runtime from requirements-dev.txt",
             evidence,
         )
     return GateResult(

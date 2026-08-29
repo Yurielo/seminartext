@@ -53,8 +53,8 @@
   ],
   "test_policy": {
     "command": ["{test_python}", "-m", "pytest", "-q", "-rs", "-p", "no:cacheprovider"],
-    "skip_policy": "WARN_UNTIL_G4_DEPENDENCY_TRUTH",
-    "known_current_limitation": "jsonschema-dependent Word Timeline tests may skip until Issue #58/G4 defines dependency truth. Every skip remains visible and makes G7 WARN."
+    "skip_policy": "WARN_WHEN_ACTIVE_RUNTIME_IS_NOT_REBUILT_FROM_DEV_PROFILE",
+    "known_current_limitation": "The shared runtime may retain visible jsonschema skips until it is rebuilt from requirements-dev.txt; the isolated dev profile resolves them without global mutation."
   },
   "gates": [
     {
@@ -81,9 +81,9 @@
     {
       "id": "G4",
       "name": "Dependency Truth",
-      "implementation": "NOT_IMPLEMENTED",
-      "blocking_policy": "future_blocking",
-      "reason": "Activated by Issue #58 or a dedicated governed dependency-contract follow-up."
+      "implementation": "IMPLEMENTED",
+      "blocking_policy": "blocking",
+      "invariant": "Each accepted profile has a pinned manifest/lock, documented Python runtime, and model drift metadata."
     },
     {
       "id": "G5",

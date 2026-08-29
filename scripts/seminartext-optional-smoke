@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+python_bin="${SEMINARTEXT_PYTHON:-python3}"
+
+echo "Optional integration smoke (read-only; no installation)"
+"$repo_root/scripts/seminartext-dependencies" doctor --profile alignment_whisperx || true
+"$repo_root/scripts/seminartext-dependencies" doctor --profile treeseg_topic_external || true
+"$repo_root/scripts/seminartext-dependencies" ollama || true
+
+if [[ "${SEMINARTEXT_RUN_OPTIONAL_INTEGRATION:-0}" != "1" ]]; then
+  echo "SKIP: set SEMINARTEXT_RUN_OPTIONAL_INTEGRATION=1 to run real integration imports"
+  exit 0
+fi
+
+"$python_bin" - <<'PY'
+import importlib.util
+
+for module in ("whisperx", "topic_treeseg"):
+    state = "available" if importlib.util.find_spec(module) else "missing"
+    print(f"{module}: {state}")
+PY
