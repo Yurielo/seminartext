@@ -1,0 +1,375 @@
+{
+  "artifact_id": "canonical_knowledge_stress_code_video_001_v1",
+  "artifact_type": "seminartext.canonical_knowledge",
+  "canonical_evidence": {
+    "artifact_id": "artifact_stress_code_video_001_fragment_600_1496_r1",
+    "path": "analysis/word_timeline_mvp/canonical_evidence_bundle.json",
+    "schema_version": "1.0.0",
+    "sha256": "8b1a5b1ffced298cd21a8ede3dbe61d82a00950f2de6da1ba186ffae4cd93d14"
+  },
+  "concepts": [
+    {
+      "aliases": [
+        "адаптивность"
+      ],
+      "created_from": [
+        "evidence_adaptive_task"
+      ],
+      "description": "Способность изменять реакцию в ответ на условия среды рассматривается как практическая задача работы со стрессом.",
+      "evidence_refs": [
+        "evidence_adaptive_task"
+      ],
+      "id": "concept_adaptation_to_environment",
+      "preferred_label": "Адаптация к среде",
+      "provenance": {
+        "notes": "Identity rationale preserved in the source Golden Slice; no acceptance decision recorded.",
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1"
+      },
+      "redirects": [],
+      "scope": "source-bound concept; broader meanings of adaptation are not inferred",
+      "status": "PROVISIONAL",
+      "supersedes": [],
+      "topic_refs": [
+        "topic_stress_adaptation_survival"
+      ],
+      "version": 1
+    },
+    {
+      "aliases": [],
+      "created_from": [
+        "evidence_survival_environment",
+        "evidence_modern_survival_and_practice"
+      ],
+      "description": "Выживаемость связывается с приспособлением к среде и позднее повторно используется как практический результат обучения и работы с коллегами.",
+      "evidence_refs": [
+        "evidence_survival_environment",
+        "evidence_modern_survival_and_practice"
+      ],
+      "id": "concept_survival_in_changing_environment",
+      "preferred_label": "Выживаемость в меняющейся среде",
+      "provenance": {
+        "notes": "Source identity rationale is retained without turning it into a human review decision.",
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1"
+      },
+      "redirects": [],
+      "scope": "source-bound concept",
+      "status": "PROVISIONAL",
+      "supersedes": [],
+      "topic_refs": [
+        "topic_stress_adaptation_survival",
+        "topic_personal_professional_kinesiology"
+      ],
+      "version": 1
+    },
+    {
+      "aliases": [],
+      "created_from": [
+        "evidence_personal_and_professional_use",
+        "evidence_modern_survival_and_practice"
+      ],
+      "description": "Кинезиология в выбранном фрагменте представлена как практика и для личных задач, и для профессиональной работы с людьми.",
+      "evidence_refs": [
+        "evidence_personal_and_professional_use",
+        "evidence_modern_survival_and_practice"
+      ],
+      "id": "concept_personal_and_professional_practice",
+      "preferred_label": "Личное и профессиональное применение кинезиологии",
+      "provenance": {
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1"
+      },
+      "redirects": [],
+      "scope": "source-bound concept",
+      "status": "PROVISIONAL",
+      "supersedes": [],
+      "topic_refs": [
+        "topic_personal_professional_kinesiology"
+      ],
+      "version": 1
+    },
+    {
+      "aliases": [],
+      "created_from": [
+        "evidence_peer_supported_corrections"
+      ],
+      "description": "Личные коррекции предлагается выполнять с коллегами и, по возможности, с более опытным участником, а не полагаться только на самокоррекцию.",
+      "evidence_refs": [
+        "evidence_peer_supported_corrections"
+      ],
+      "id": "concept_peer_supported_correction",
+      "preferred_label": "Коррекция с поддержкой коллег",
+      "provenance": {
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1"
+      },
+      "redirects": [],
+      "scope": "source-bound concept",
+      "status": "PROVISIONAL",
+      "supersedes": [],
+      "topic_refs": [
+        "topic_personal_professional_kinesiology"
+      ],
+      "version": 1
+    },
+    {
+      "aliases": [],
+      "created_from": [
+        "evidence_problem_domains",
+        "evidence_problem_resolution_with_unaligned_words"
+      ],
+      "description": "Практическая ценность техник связывается с работой над вопросами здоровья, отношений, финансов, карьеры и других жизненных областей.",
+      "evidence_refs": [
+        "evidence_problem_domains",
+        "evidence_problem_resolution_with_unaligned_words"
+      ],
+      "id": "concept_multiple_life_problem_domains",
+      "preferred_label": "Несколько областей жизненных запросов",
+      "provenance": {
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1"
+      },
+      "redirects": [],
+      "scope": "source-bound concept",
+      "status": "PROVISIONAL",
+      "supersedes": [],
+      "topic_refs": [
+        "topic_personal_professional_kinesiology"
+      ],
+      "version": 1
+    },
+    {
+      "aliases": [],
+      "created_from": [
+        "evidence_motivation_changes_action",
+        "evidence_motivation_overcomes_obstacles"
+      ],
+      "description": "Наличие внутренней мотивации описывается как условие, при котором находятся время, деньги и другие возможности для действия и обучения.",
+      "evidence_refs": [
+        "evidence_motivation_changes_action",
+        "evidence_motivation_overcomes_obstacles"
+      ],
+      "id": "concept_motivation_as_condition_for_action",
+      "preferred_label": "Мотивация как условие действия",
+      "provenance": {
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1"
+      },
+      "redirects": [],
+      "scope": "source-bound concept",
+      "status": "PROVISIONAL",
+      "supersedes": [],
+      "topic_refs": [
+        "topic_motivation_obstacles_sabotage"
+      ],
+      "version": 1
+    },
+    {
+      "aliases": [],
+      "created_from": [
+        "evidence_sabotage_internal_resistance"
+      ],
+      "description": "Саботаж описывается как ситуация, когда сознательное желание встречает противодействие подсознания и создаёт препятствия действию.",
+      "evidence_refs": [
+        "evidence_sabotage_internal_resistance"
+      ],
+      "id": "concept_sabotage_as_internal_resistance",
+      "preferred_label": "Саботаж как внутреннее сопротивление",
+      "provenance": {
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1"
+      },
+      "redirects": [],
+      "scope": "source-bound concept",
+      "status": "PROVISIONAL",
+      "supersedes": [],
+      "topic_refs": [
+        "topic_motivation_obstacles_sabotage"
+      ],
+      "version": 1
+    }
+  ],
+  "project": {
+    "id": "project_stress_code",
+    "provenance": {
+      "origin": "golden_slice",
+      "source_artifact_id": "golden_slice_stress_code_video_001_v1"
+    },
+    "status": "PROVISIONAL",
+    "title": "SeminarText stress code",
+    "version": 1
+  },
+  "relation_type_registry": [
+    {
+      "description": "The source concept provides support for the target claim.",
+      "id": "supports"
+    },
+    {
+      "description": "The source and target claims are explicitly competing or conflicting.",
+      "id": "contradicts"
+    },
+    {
+      "description": "The source concept narrows or elaborates the target concept.",
+      "id": "refines"
+    },
+    {
+      "description": "The target concept is a stated prerequisite of the source concept.",
+      "id": "depends_on"
+    },
+    {
+      "description": "The source and target concepts are associated without an inferred ontology.",
+      "id": "associated_with"
+    }
+  ],
+  "relations": [],
+  "review_decisions": [],
+  "schema_version": "1.0.0",
+  "seminars": [
+    {
+      "id": "seminar_stress_code_video_001",
+      "project_id": "project_stress_code",
+      "provenance": {
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1"
+      },
+      "status": "PROVISIONAL",
+      "title": "Stress Code — source seminar",
+      "topic_refs": [
+        "topic_stress_adaptation_survival",
+        "topic_personal_professional_kinesiology",
+        "topic_motivation_obstacles_sabotage"
+      ],
+      "version": 1
+    }
+  ],
+  "source_evidence": {
+    "artifact_id": "golden_slice_stress_code_video_001_v1",
+    "path": "analysis/golden_knowledge_slice/golden_knowledge_slice.json",
+    "schema_version": "1.0.0",
+    "sha256": "177d030a6ac3e3dc0a28d655db0f12321e09caba8eff494c078aeb828339d4d6"
+  },
+  "topics": [
+    {
+      "concept_refs": [
+        "concept_adaptation_to_environment",
+        "concept_survival_in_changing_environment"
+      ],
+      "evidence_refs": [
+        "evidence_adaptive_task",
+        "evidence_survival_environment"
+      ],
+      "id": "topic_stress_adaptation_survival",
+      "order_scope": {
+        "sequence": 0
+      },
+      "provenance": {
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1",
+        "source_status": "gold_complete"
+      },
+      "seminar_id": "seminar_stress_code_video_001",
+      "source_scope": {
+        "order_end": 1,
+        "order_start": 0,
+        "source_ids": [
+          "source_stress_code_video_001"
+        ],
+        "transcript_revision_ids": [
+          "transcript_stress_code_video_001_fragment_600_1496_r1"
+        ]
+      },
+      "status": "PROVISIONAL",
+      "summary": "Юрий рассматривает стресс как работу нервной системы, направленную на адаптацию и повышение выживаемости в меняющихся условиях среды.",
+      "temporal_scope": {
+        "end_seconds": 660.28,
+        "start_seconds": 600.14
+      },
+      "title": "Стресс как механизм адаптации и выживания",
+      "version": 1
+    },
+    {
+      "concept_refs": [
+        "concept_survival_in_changing_environment",
+        "concept_personal_and_professional_practice",
+        "concept_peer_supported_correction",
+        "concept_multiple_life_problem_domains"
+      ],
+      "evidence_refs": [
+        "evidence_personal_and_professional_use",
+        "evidence_peer_supported_corrections",
+        "evidence_modern_survival_and_practice",
+        "evidence_problem_domains",
+        "evidence_problem_resolution_with_unaligned_words"
+      ],
+      "id": "topic_personal_professional_kinesiology",
+      "order_scope": {
+        "sequence": 1
+      },
+      "provenance": {
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1",
+        "source_status": "product_review_required"
+      },
+      "seminar_id": "seminar_stress_code_video_001",
+      "source_scope": {
+        "order_end": 6,
+        "order_start": 2,
+        "source_ids": [
+          "source_stress_code_video_001"
+        ],
+        "transcript_revision_ids": [
+          "transcript_stress_code_video_001_fragment_600_1496_r1"
+        ]
+      },
+      "status": "PROVISIONAL",
+      "summary": "Обсуждаются личное и профессиональное применение кинезиологии, совместная практика коррекций и области жизненных запросов.",
+      "temporal_scope": {
+        "end_seconds": 1258.237,
+        "start_seconds": 983.557
+      },
+      "title": "Личное и профессиональное применение кинезиологии",
+      "version": 1
+    },
+    {
+      "concept_refs": [
+        "concept_motivation_as_condition_for_action",
+        "concept_sabotage_as_internal_resistance"
+      ],
+      "evidence_refs": [
+        "evidence_motivation_changes_action",
+        "evidence_motivation_overcomes_obstacles",
+        "evidence_sabotage_internal_resistance"
+      ],
+      "id": "topic_motivation_obstacles_sabotage",
+      "order_scope": {
+        "sequence": 2
+      },
+      "provenance": {
+        "origin": "golden_slice",
+        "source_artifact_id": "golden_slice_stress_code_video_001_v1",
+        "source_status": "product_review_required"
+      },
+      "seminar_id": "seminar_stress_code_video_001",
+      "source_scope": {
+        "order_end": 9,
+        "order_start": 7,
+        "source_ids": [
+          "source_stress_code_video_001"
+        ],
+        "transcript_revision_ids": [
+          "transcript_stress_code_video_001_fragment_600_1496_r1"
+        ]
+      },
+      "status": "PROVISIONAL",
+      "summary": "На примерах объясняется роль внутренней мотивации в действии и обучении, а саботаж описывается как внутреннее противодействие желанию.",
+      "temporal_scope": {
+        "end_seconds": 1466.71,
+        "start_seconds": 1329.381
+      },
+      "title": "Мотивация, препятствия и саботаж",
+      "version": 1
+    }
+  ],
+  "version": 1
+}
