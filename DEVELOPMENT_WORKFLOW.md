@@ -102,14 +102,15 @@ If the classification changes during work, the PR should explain why.
 
 ## Current Technical Direction
 
-The current policy checkpoint is `evidence_first_parallel_v1`. The two active
-next actions are the Obsidian Knowledge Prototype Product Review and the bounded
-TreeSeg hierarchy POC Product Review. Dataset C is closed/frozen evidence;
-Dataset D remains locked until its topic-agnostic preparation and the required
-candidate/configuration/criteria freeze. Gold Expansion v2 is supporting
-Data/Evaluation work and does not replace either active Product Review.
+The policy checkpoint remains `evidence_first_parallel_v1`. The current
+milestone and next actions are intentionally volatile and are owned by
+`SEMINARTEXT_4_STATE.json`; the Roadmap mirrors that state for human readers.
+At the AUDIT-R1 checkpoint, TreeSeg is an isolated challenger, the Obsidian
+direction is accepted for further adaptation, and Canonical Knowledge Contract
+v1 is accepted. Dataset C is closed/frozen evidence and Dataset D remains
+locked until topic-agnostic preparation and the required candidate/configuration/
+criteria freeze. No review-ready label is an invitation to start experiments.
 
-The repository Roadmap and `SEMINARTEXT_4_STATE.json` govern this direction.
 Installed copies are deploy snapshots: status commands must label them as such
 and must report drift instead of silently treating them as current governance.
 
