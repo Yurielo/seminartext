@@ -1,10 +1,24 @@
 {
   "schema_version": 3,
-  "updated": "2026-08-28",
+  "seminartext_version": "4.0.0",
+  "updated": "2026-08-29",
   "policy_checkpoint": "evidence_first_parallel_v1",
   "current_stage": "evidence_first_parallel_split",
   "current_milestone": "parallel_obsidian_product_review_and_treeseg_hierarchy_poc_product_review",
   "current_project": "Стресс код",
+  "status_semantics": {
+    "technical_evidence": "A scoped experiment, artifact, or validation can be complete without product integration.",
+    "architecture_acceptance": "An accepted contract or direction is authoritative for further work but is not production deployment.",
+    "product_integration": "The capability is connected to the supported end-to-end user journey and has integration evidence.",
+    "product_review": "The Product Owner has reviewed usefulness and product fit; review-ready is not review-complete.",
+    "production_stability": "The integrated capability has explicit operational reliability evidence; no earlier maturity label implies this state.",
+    "complete_scope_rule": "A bare complete status applies only to the named stage or evidence scope and must not be read as SeminarText 4.0 MVP completion."
+  },
+  "product_mvp": {
+    "version": "4.0",
+    "status": "defined_not_yet_product_integrated",
+    "definition": "SEMINARTEXT_4_MVP_DEFINITION.md"
+  },
   "architecture": {
     "accepted_direction": "evidence_first_parallel_development",
     "architecture_decision_status": "accepted_by_product_owner",

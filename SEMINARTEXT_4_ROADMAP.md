@@ -1617,6 +1617,16 @@ Dataset guardrails apply throughout: A/B are development/history evidence; C is
 closed/frozen; D is locked; E is excluded; F remains quarantined/potential
 development until source/ASR repair.
 
+## SeminarText 4.0 MVP product-level DoD
+
+The single authoritative end-to-end user journey and product Definition of Done
+are maintained in `SEMINARTEXT_4_MVP_DEFINITION.md`.
+
+Current maturity is **defined, not yet product-integrated**. Technical evidence
+marked complete, architecture acceptance, and prototypes ready for Product
+Review are separate maturity claims; none implies completed Product Review,
+product integration, or production stability.
+
 ## Roadmap ↔ State consistency requirement
 
 `SEMINARTEXT_4_ROADMAP.md` is human-readable strategy.

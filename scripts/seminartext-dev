@@ -10,12 +10,15 @@ ROADMAP="$REPO/SEMINARTEXT_4_ROADMAP.md"
 STATE="$REPO/SEMINARTEXT_4_STATE.json"
 TOPICS="$REPO/seminartext_modules/seminartext_topics.py"
 TRANSLATE="$REPO/seminartext_modules/seminartext_translate.py"
+VERSION_FILE="$REPO/SEMINARTEXT_VERSION"
+GOVERNANCE_CHECK="$REPO/scripts/check_governance.py"
 
 DEPLOY_CODE="$BIN/seminartext_4.0_work"
 DEPLOY_ROADMAP="$BIN/SEMINARTEXT_4_ROADMAP.md"
 DEPLOY_STATE="$BIN/SEMINARTEXT_4_STATE.json"
 DEPLOY_TOPICS="$BIN/seminartext_topics.py"
 DEPLOY_TRANSLATE="$BIN/seminartext_translate.py"
+DEPLOY_VERSION="$BIN/SEMINARTEXT_VERSION"
 
 die() {
   echo "FAIL: $*" >&2
@@ -48,14 +51,15 @@ validate_roadmap_file() {
 
   local required_markers=(
     "# 0. Operating Model / Human Gates"
-    "# 2. Hybrid Topic Engine / Topic Segmentation"
-    "Dataset B — independent frozen validation"
-    "## 2.6 Dataset C"
+    "# 2. Track A — Semantic Automation / Boundary Detection"
+    "## 2.5 Dataset B — historical frozen validation"
+    "## 2.6 Dataset C — blind validation milestone"
     "# 5. Document Pipeline"
     "## 5.x Source Registry / External Sources"
     "# 10. Knowledge Base / Obsidian Integration"
     "## 10.x Source Cards"
     "# CURRENT NEXT ACTION"
+    "SEMINARTEXT_4_MVP_DEFINITION.md"
   )
 
   local marker
@@ -92,15 +96,15 @@ cmd_status() {
 
   echo
   echo "MASTER FILES"
-  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" | sed 's/^/  /'
+  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "MASTER HASHES"
-  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" | sed 's/^/  /'
+  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "DEPLOYED HASHES"
-  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE"; do
+  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE" "$DEPLOY_VERSION"; do
     if [[ -f "$f" ]]; then
       shasum -a 256 "$f" | sed 's/^/  /'
     else
@@ -152,11 +156,19 @@ cmd_status() {
     mismatches=$((mismatches + 1))
   fi
 
+  if [[ -f "$DEPLOY_VERSION" ]] \
+     && [[ "$(hash_file "$VERSION_FILE")" == "$(hash_file "$DEPLOY_VERSION")" ]]; then
+    echo "  Version: SYNC"
+  else
+    echo "  Version: DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
   echo
   if (( mismatches == 0 )); then
     echo "DEPLOY STATUS: SYNC"
   else
-    echo "DEPLOY STATUS: DIFFERENT ($mismatches/5)"
+    echo "DEPLOY STATUS: DIFFERENT ($mismatches/6)"
   fi
 }
 
@@ -172,6 +184,8 @@ cmd_check() {
   [[ -f "$STATE" ]] || die "нет master State"
   [[ -f "$TOPICS" ]] || die "нет master Topic Engine module"
   [[ -f "$TRANSLATE" ]] || die "нет master Translate module"
+  [[ -f "$VERSION_FILE" ]] || die "нет authoritative version-файла"
+  [[ -f "$GOVERNANCE_CHECK" ]] || die "нет governance consistency checker"
 
   bash -n "$CODE" || die "ошибка Bash syntax"
   echo "[OK] Bash syntax"
@@ -194,6 +208,10 @@ PYMODULES
 
   validate_roadmap_file "$ROADMAP"
   echo "[OK] Roadmap structure"
+
+  python3 "$GOVERNANCE_CHECK" --root "$REPO" \
+    || die "governance consistency FAIL"
+  echo "[OK] Governance consistency"
 
   echo
   echo "CHECK: PASS"
@@ -280,6 +298,8 @@ cmd_deploy() {
     && cp -p "$DEPLOY_TOPICS" "$backup/seminartext_topics.py"
   [[ -f "$DEPLOY_TRANSLATE" ]] \
     && cp -p "$DEPLOY_TRANSLATE" "$backup/seminartext_translate.py"
+  [[ -f "$DEPLOY_VERSION" ]] \
+    && cp -p "$DEPLOY_VERSION" "$backup/SEMINARTEXT_VERSION"
 
   cat > "$backup/manifest.txt" <<MANIFEST
 created=$stamp
@@ -288,15 +308,16 @@ source_commit=$commit
 source_branch=$(git branch --show-current)
 MANIFEST
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate
+  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_version
   tmp_code="$DEPLOY_CODE.new.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.new.$$"
   tmp_state="$DEPLOY_STATE.new.$$"
   tmp_topics="$DEPLOY_TOPICS.new.$$"
   tmp_translate="$DEPLOY_TRANSLATE.new.$$"
+  tmp_version="$DEPLOY_VERSION.new.$$"
 
   cleanup_deploy_tmp() {
-    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate"
+    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_version"
   }
   trap cleanup_deploy_tmp RETURN INT TERM
 
@@ -305,6 +326,7 @@ MANIFEST
   cp -p "$STATE" "$tmp_state"
   cp -p "$TOPICS" "$tmp_topics"
   cp -p "$TRANSLATE" "$tmp_translate"
+  cp -p "$VERSION_FILE" "$tmp_version"
 
   # Проверяем именно будущие deployed-файлы ДО замены.
   bash -n "$tmp_code" \
@@ -334,6 +356,7 @@ PYMODULES
   mv "$tmp_state" "$DEPLOY_STATE"
   mv "$tmp_topics" "$DEPLOY_TOPICS"
   mv "$tmp_translate" "$DEPLOY_TRANSLATE"
+  mv "$tmp_version" "$DEPLOY_VERSION"
 
   # Финальная проверка hashes.
   [[ "$(hash_file "$CODE")" == "$(hash_file "$DEPLOY_CODE")" ]] \
@@ -351,11 +374,15 @@ PYMODULES
   [[ "$(hash_file "$TRANSLATE")" == "$(hash_file "$DEPLOY_TRANSLATE")" ]] \
     || die "deploy hash mismatch: Translate"
 
+  [[ "$(hash_file "$VERSION_FILE")" == "$(hash_file "$DEPLOY_VERSION")" ]] \
+    || die "deploy hash mismatch: Version"
+
   echo "[OK] Code deployed"
   echo "[OK] Roadmap deployed"
   echo "[OK] State deployed"
   echo "[OK] Topic Engine module deployed"
   echo "[OK] Translate module deployed"
+  echo "[OK] Version contract deployed"
   echo "[OK] SHA-256 verified"
   echo
   echo "DEPLOY: PASS"
@@ -399,12 +426,13 @@ cmd_rollback() {
   [[ -n "${backup:-}" && -d "$backup" ]] \
     || die "нет доступных deploy-backups"
 
-  local backup_code backup_roadmap backup_state backup_topics backup_translate
+  local backup_code backup_roadmap backup_state backup_topics backup_translate backup_version
   backup_code="$backup/seminartext_4.0_work"
   backup_roadmap="$backup/SEMINARTEXT_4_ROADMAP.md"
   backup_state="$backup/SEMINARTEXT_4_STATE.json"
   backup_topics="$backup/seminartext_topics.py"
   backup_translate="$backup/seminartext_translate.py"
+  backup_version="$backup/SEMINARTEXT_VERSION"
 
   [[ -f "$backup_code" ]] \
     || die "backup не содержит code: $backup"
@@ -437,8 +465,10 @@ cmd_rollback() {
     && cp -p "$DEPLOY_TOPICS" "$rollback_guard/seminartext_topics.py"
   [[ -f "$DEPLOY_TRANSLATE" ]] \
     && cp -p "$DEPLOY_TRANSLATE" "$rollback_guard/seminartext_translate.py"
+  [[ -f "$DEPLOY_VERSION" ]] \
+    && cp -p "$DEPLOY_VERSION" "$rollback_guard/SEMINARTEXT_VERSION"
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate=""
+  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate="" tmp_version=""
   tmp_code="$DEPLOY_CODE.rollback.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.rollback.$$"
   tmp_state="$DEPLOY_STATE.rollback.$$"
@@ -454,6 +484,10 @@ cmd_rollback() {
     tmp_translate="$DEPLOY_TRANSLATE.rollback.$$"
     cp -p "$backup_translate" "$tmp_translate"
   fi
+  if [[ -f "$backup_version" ]]; then
+    tmp_version="$DEPLOY_VERSION.rollback.$$"
+    cp -p "$backup_version" "$tmp_version"
+  fi
 
   chmod +x "$tmp_code"
   [[ -z "$tmp_topics" ]] || chmod +x "$tmp_topics"
@@ -464,11 +498,12 @@ cmd_rollback() {
   mv "$tmp_state" "$DEPLOY_STATE"
   [[ -z "$tmp_topics" ]] || mv "$tmp_topics" "$DEPLOY_TOPICS"
   [[ -z "$tmp_translate" ]] || mv "$tmp_translate" "$DEPLOY_TRANSLATE"
+  [[ -z "$tmp_version" ]] || mv "$tmp_version" "$DEPLOY_VERSION"
 
   echo "ROLLBACK: PASS"
   echo "Restored: $backup"
-  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" ]]; then
-    echo "Legacy backup: отсутствующие runtime-модули оставлены без изменения."
+  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_version" ]]; then
+    echo "Legacy backup: отсутствующие runtime/version-файлы оставлены без изменения."
   fi
   echo "Previous deployed state saved:"
   echo "$rollback_guard"
@@ -480,11 +515,13 @@ show_help() {
 
   scripts/seminartext-dev status
 
-      Показывает Git source of truth, master/deployed hashes и sync status.
+      Показывает Git source of truth, master/deployed hashes для Code,
+      Roadmap, State, runtime-модулей и Version, а также sync status.
 
   scripts/seminartext-dev check
 
-      Проверяет master code, State JSON и структуру Roadmap.
+      Read-only проверяет master code, runtime-модули, State schema/version,
+      структуру Roadmap и governance consistency.
 
   scripts/seminartext-dev checkpoint "MESSAGE" FILE [FILE ...]
 
