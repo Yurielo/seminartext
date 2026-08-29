@@ -1,0 +1,7 @@
+# Exact application lock (CPython 3.14.6, macOS arm64).
+# Refresh only by an explicit profile review; keep every version pinned.
+lxml==6.1.2
+Pillow==12.3.0
+PyMuPDF==1.28.2
+python-pptx==1.0.2
+typing_extensions==4.16.0

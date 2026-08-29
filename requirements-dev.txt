@@ -1,0 +1,8 @@
+# Fast development/test profile. Install in a fresh environment; do not install globally.
+-r requirements-core.txt
+numpy==2.5.2
+scipy==1.18.0
+ruptures==1.1.9
+scikit-learn==1.9.0
+pytest==9.1.1
+jsonschema==4.25.1

@@ -10,6 +10,7 @@ from typing import Callable
 
 from integrity import INTEGRITY_REPORT_SCHEMA_VERSION
 from integrity.checks import (
+    dependency_truth,
     git_truth,
     governance_truth,
     product_state,
@@ -23,6 +24,7 @@ CHECKS: dict[str, Callable[[CheckContext], GateResult]] = {
     "G1": git_truth.run,
     "G2": runtime_truth.run,
     "G3": governance_truth.run,
+    "G4": dependency_truth.run,
     "G7": tests_truth.run,
     "G8": product_state.run,
 }

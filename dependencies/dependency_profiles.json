@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "project": "SeminarText",
+  "policy": {
+    "purpose": "Reconstruct accepted profiles without modifying a global or production environment.",
+    "python_implementation": "CPython",
+    "platform_note": "The alignment and TreeSeg smoke profiles are validated on macOS arm64; wheel availability must be checked by pip/uv.",
+    "install_rule": "Create a fresh virtual environment per profile and install only that profile's requirements file.",
+    "no_global_install": true
+  },
+  "profiles": {
+    "core_product": {
+      "purpose": "CLI/product runtime for project and transcript artifacts",
+      "supported_python": ">=3.14,<3.15",
+      "lock_python": "3.14.6",
+      "requirements": "requirements-core.txt",
+      "lock": "dependencies/locks/core-py3.14.lock",
+      "external_tools": ["ffmpeg", "ffprobe", "whisper-cli"]
+    },
+    "dev_test": {
+      "purpose": "Fast unit and contract tests",
+      "supported_python": ">=3.14,<3.15",
+      "lock_python": "3.14.6",
+      "requirements": "requirements-dev.txt",
+      "lock": "dependencies/locks/dev-py3.14.lock",
+      "external_tools": []
+    },
+    "alignment_whisperx": {
+      "purpose": "Optional accepted WhisperX word-alignment reproduction",
+      "supported_python": ">=3.13,<3.14",
+      "lock_python": "3.13.15",
+      "requirements": "requirements-alignment.txt",
+      "lock": "dependencies/locks/alignment-py3.13.lock",
+      "external_tools": ["ffmpeg", "ffprobe"]
+    },
+    "treeseg_topic_external": {
+      "purpose": "Optional TreeSeg and external topic-baseline smoke runs",
+      "supported_python": ">=3.14,<3.15",
+      "lock_python": "3.14.6",
+      "requirements": "requirements-treeseg.txt",
+      "lock": "dependencies/locks/treeseg-py3.14.lock",
+      "external_tools": ["ollama"]
+    }
+  },
+  "models": {
+    "russian_alignment": {
+      "provider": "huggingface",
+      "model_id": "jonatasgrosman/wav2vec2-large-xlsr-53-russian",
+      "revision": "2329100508896c6d9b157019803ab5601e6f3406",
+      "sha256": "d1cdb1a7921de7d363f967a9b0101a713602e109dba62b6f3f9ae2e0b2df0c1c",
+      "cache_root_env": "HF_HOME",
+      "offline_env": "HF_HUB_OFFLINE",
+      "offline_value": "1",
+      "policy": "Use the pinned revision; never silently download or substitute another revision. If the cache is absent, report an actionable preflight error."
+    },
+    "ollama_bge_m3": {
+      "provider": "ollama",
+      "mutable_ref": "bge-m3:latest",
+      "expected_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+      "policy": "Evidence and benchmark records must store the resolved digest. A mutable tag is not accepted as evidence by itself."
+    }
+  }
+}

@@ -1,0 +1,7 @@
+# SeminarText core/product profile.
+# CPython 3.14.x on the accepted macOS arm64 runtime.
+lxml==6.1.2
+Pillow==12.3.0
+PyMuPDF==1.28.2
+python-pptx==1.0.2
+typing_extensions==4.16.0

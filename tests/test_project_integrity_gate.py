@@ -97,6 +97,22 @@ main "$@"
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8")
 
+    for relative in (
+        "dependencies/dependency_profiles.json",
+        "requirements-core.txt",
+        "requirements-dev.txt",
+        "requirements-alignment.txt",
+        "requirements-treeseg.txt",
+    ):
+        source = ROOT / relative
+        destination = root / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
+    for lock in (ROOT / "dependencies" / "locks").glob("*.lock"):
+        destination = root / "dependencies" / "locks" / lock.name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(lock, destination)
+
     for component in contract["runtime_components"]:
         shutil.copy2(
             root / component["repository_path"],
@@ -132,9 +148,8 @@ def test_all_implemented_gates_pass_on_controlled_healthy_fixture(tmp_path):
     assert report["bootstrap_implementation"] == "PASS"
     assert report["project_integrity"] == "PARTIAL"
     assert all(by_id[gate]["status"] == "PASS" for gate in ("G1", "G2", "G3", "G7", "G8"))
-    assert all(
-        by_id[gate]["status"] == "NOT_IMPLEMENTED" for gate in ("G4", "G5", "G6")
-    )
+    assert by_id["G4"]["status"] == "PASS"
+    assert all(by_id[gate]["status"] == "NOT_IMPLEMENTED" for gate in ("G5", "G6"))
 
 
 def test_git_dirty_state_is_detected_without_mutation(tmp_path):
