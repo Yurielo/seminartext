@@ -546,6 +546,11 @@ PYMODULES
   PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" dataset-policy-check A gold_read --json >/dev/null 2>&1 \
     || die "deployed functional smoke failed: dataset-policy-check"
 
+  python3 "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" validate --lifecycle "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" --deployed --json >/dev/null 2>&1 \
+    || die "deployed functional smoke failed: Topic Engine lifecycle provenance"
+  python3 "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" freeze-check --freeze "$DEPLOY_TOPIC_ENGINE_FREEZE" --dataset-registry "$DEPLOY_DATASET_REGISTRY" --lifecycle "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" --deployed --json >/dev/null 2>&1 \
+    || die "deployed functional smoke failed: Topic Engine freeze gate"
+
   [[ "$(hash_file "$VERSION_FILE")" == "$(hash_file "$DEPLOY_VERSION")" ]] \
     || die "deploy hash mismatch: Version"
 
