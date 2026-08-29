@@ -41,7 +41,9 @@ def _canonical_sha256(value: Any) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
-def _artifact_hash_matches(section: dict[str, Any], base: Path) -> bool:
+def _bound_hash_matches(section: dict[str, Any], base: Path) -> bool:
+    if section.get("value") is not None:
+        return section.get("sha256") == _canonical_sha256(section["value"])
     artifact = section.get("artifact")
     expected = section.get("sha256")
     if not artifact or not expected:
@@ -75,6 +77,12 @@ def validate_lifecycle(path: str | Path | None = None) -> list[str]:
     frozen = by_role.get("frozen_candidate", {})
     if frozen.get("lifecycle_status") == "PENDING_DOMAIN_REVIEW" and frozen.get("engine_id") is not None:
         errors.append("pending frozen_candidate must not select an engine")
+    if frozen.get("lifecycle_status") != "PENDING_DOMAIN_REVIEW":
+        primary = by_role.get("experimental_primary", {})
+        if frozen.get("engine_id") != primary.get("engine_id"):
+            errors.append("frozen candidate does not match approved experimental primary")
+        if frozen.get("production_runtime") or frozen.get("production_promoted"):
+            errors.append("frozen candidate must not imply production promotion")
     semantics = data.get("benchmark_segment_semantics", {})
     if semantics.get("semantic_topic_output") is not False:
         errors.append("canonical BenchmarkSegments must remain topic-neutral")
@@ -106,29 +114,53 @@ def freeze_gate(
     configuration = freeze.get("configuration", {})
     criteria = freeze.get("acceptance_criteria", {})
     plan = freeze.get("analysis_plan", {})
-    checks = {
+    implementation_path = configuration.get("value", {}).get("implementation_path")
+    implementation = ROOT / implementation_path if implementation_path else None
+    implementation_hash = configuration.get("value", {}).get("implementation_sha256")
+    freeze_checks = {
         "product_owner_decision": freeze.get("product_owner_decision") == "APPROVE_CANDIDATE_FREEZE",
+        "product_owner_disposition": freeze.get("product_owner_disposition")
+        == "FREEZE_LOCAL_PEAK_FOR_DATASET_D_CANDIDACY",
+        "product_owner_authority": freeze.get("decision_recorded_by") == "Product Owner"
+        and bool(freeze.get("decision_recorded_at")),
         "freeze_status": freeze.get("status") == "FROZEN_APPROVED",
         "candidate_frozen": freeze.get("candidate", {}).get("frozen") is True,
         "candidate_selected": selected_engine in known_candidates,
+        "candidate_not_promoted": freeze.get("candidate", {}).get("production_promoted") is False,
+        "candidate_code_hash_bound": bool(implementation and implementation.is_file())
+        and hashlib.sha256(implementation.read_bytes()).hexdigest() == implementation_hash,
         "configuration_frozen": configuration.get("frozen") is True,
-        "configuration_hash_bound": bool(configuration.get("value"))
-        and configuration.get("sha256") == _canonical_sha256(configuration.get("value")),
+        "configuration_hash_bound": _bound_hash_matches(configuration, ROOT),
         "acceptance_criteria_frozen": criteria.get("frozen") is True,
-        "acceptance_criteria_hash_bound": _artifact_hash_matches(criteria, ROOT),
+        "acceptance_criteria_hash_bound": _bound_hash_matches(criteria, ROOT),
         "analysis_plan_frozen": plan.get("frozen") is True,
-        "analysis_plan_hash_bound": _artifact_hash_matches(plan, ROOT),
+        "analysis_plan_hash_bound": _bound_hash_matches(plan, ROOT),
+    }
+    candidate_freeze_complete = all(freeze_checks.values())
+    dataset_checks = {
         "dataset_d_locked_test": bool(dataset_d and dataset_d.get("role") == "LOCKED_TEST"),
         "dataset_d_prediction_access_denied": bool(dataset_d and dataset_d.get("topic_engine_access_allowed") is False),
         "dataset_d_source_identity_recorded": bool(dataset_d and dataset_d.get("source_identity_recorded") is True),
         "dataset_d_source_quality_accepted": bool(dataset_d and dataset_d.get("source_quality") == "SUFFICIENT"),
         "single_blind_run_authorized": freeze.get("dataset_d", {}).get("single_blind_run_authorized") is True,
     }
-    ready = all(checks.values())
+    dataset_d_open = (
+        candidate_freeze_complete
+        and dataset_checks["dataset_d_locked_test"]
+        and dataset_checks["dataset_d_source_identity_recorded"]
+        and dataset_checks["dataset_d_source_quality_accepted"]
+        and dataset_checks["single_blind_run_authorized"]
+        and bool(dataset_d and dataset_d.get("topic_engine_access_allowed") is True)
+        and freeze.get("dataset_d", {}).get("open_allowed") is True
+    )
+    status = "PASS" if candidate_freeze_complete and dataset_checks["dataset_d_prediction_access_denied"] else "BLOCKED"
     return {
-        "status": "PASS" if ready else "BLOCKED",
-        "dataset_d_open_allowed": ready,
-        "checks": checks,
+        "status": status,
+        "topic_candidate_freeze": "COMPLETE" if candidate_freeze_complete else "INCOMPLETE",
+        "dataset_d_access": "OPEN_ALLOWED" if dataset_d_open else "BLOCKED",
+        "dataset_d_open_allowed": dataset_d_open,
+        "checks": freeze_checks,
+        "dataset_d_checks": dataset_checks,
         "freeze_path": str(resolved_freeze),
         "freeze_sha256": hashlib.sha256(resolved_freeze.read_bytes()).hexdigest(),
         "dataset_registry_path": str(resolved_datasets),

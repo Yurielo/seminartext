@@ -1,6 +1,6 @@
 # Topic Engine Freeze Decision Packet — Issue #61
 
-Status: `DOMAIN_REVIEW_REQUIRED`
+Status: `DOMAIN_REVIEW_COMPLETED`
 
 Evidence cutoff: 2026-08-29
 
@@ -8,11 +8,11 @@ New experiments performed for this packet: **none**
 
 ## Decision boundary
 
-This packet records existing accepted evidence only. It does not promote an
-engine, freeze a candidate, authorize Dataset D, retune Dataset C, or create a
-new algorithm family. Until the Product Owner records a decision,
-`governance/topic_engine_freeze.json` remains `PENDING_DOMAIN_REVIEW` and its
-machine gate must return `BLOCKED`.
+This packet records existing accepted evidence only. Product Owner disposition:
+`FREEZE_LOCAL_PEAK_FOR_DATASET_D_CANDIDACY`. It freezes Local Peak as a future
+Dataset D candidate, but does not promote an engine, authorize Dataset D,
+retune Dataset C, or create a new algorithm family. The machine gate reports
+candidate freeze `COMPLETE` while Dataset D access remains `BLOCKED`.
 
 ## Current role matrix
 
@@ -22,7 +22,7 @@ machine gate must return `BLOCKED`.
 | `experimental_primary` | `bge_m3_local_peak_v1` | Primary experimental Boundary candidate | Not runtime; not frozen |
 | `comparator` | `bge_m3_pelt_v1` | Recall-oriented comparator | Not runtime; not frozen |
 | `challenger` | `treeseg_external_adapt_v1` | External ADAPT challenger / hierarchy candidate | Isolated; not production |
-| `frozen_candidate` | `null` | Reserved only for an approved freeze | Pending Product Owner decision |
+| `frozen_candidate` | `bge_m3_local_peak_v1` | Frozen for future Dataset D candidacy | Not runtime; not production; Dataset D blocked |
 
 The exact configurations and provenance are recorded in
 `governance/topic_engine_lifecycle.json`.
@@ -46,23 +46,19 @@ Sources: `analysis/DATASET_B_FROZEN_VALIDATION.md`,
 `analysis/EXTERNAL_TOPIC_BASELINE_SURVEY_ISSUE_45.md`, and
 `analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md`.
 
-## Product Owner decision requested
+## Product Owner decision record
 
-Choose exactly one disposition:
+Recorded disposition:
+`FREEZE_LOCAL_PEAK_FOR_DATASET_D_CANDIDACY`.
 
-1. `FREEZE_LOCAL_PEAK_FOR_DATASET_D_CANDIDACY` — authorize preparation of an
-   immutable Local Peak candidate/configuration/criteria/analysis-plan record.
-   This does not promote it to production and does not open Dataset D.
-2. `KEEP_TOPIC_ENGINE_UNFROZEN_AND_DEFER_DATASET_D` — keep all current roles and
-   do not proceed toward a Dataset D run.
+The exact candidate, configuration, code digest, acceptance criteria and analysis
+plan are immutable and hash-bound in `governance/topic_engine_freeze.json`.
+Issue #61 does not authorize a Dataset D run, another tournament, a new family,
+Dataset C retuning, or Dataset E evidence.
 
-If neither disposition is acceptable, create a separate Product Owner Issue
-with bounded authority. Issue #61 itself does not authorize another tournament,
-new family, Dataset C retuning, or Dataset E evidence.
+## Frozen records
 
-## Required records after an approval to freeze
-
-Before Dataset D can become eligible, a follow-up governed change must bind:
+The approved freeze binds:
 
 - the selected existing engine ID and its role before freeze;
 - the exact configuration and canonical SHA-256;
@@ -74,12 +70,25 @@ The freeze gate also independently requires Dataset D source identity and source
 quality acceptance under Issue #66, plus explicit authorization for exactly one
 blind run. No freeze decision by itself satisfies those conditions.
 
-## Exact response syntax
+No further candidate choice is pending in Issue #61. Dataset D remains blocked
+pending Issue #66 source acceptance and a later explicit one-run authorization.
 
-Respond with one line:
+## Issue #61 requirement → evidence self-check
 
-`ISSUE_61_DECISION: FREEZE_LOCAL_PEAK_FOR_DATASET_D_CANDIDACY`
+| Requirement | Evidence | Result |
+|---|---|---|
+| Explicit lifecycle roles | `governance/topic_engine_lifecycle.json` | PASS |
+| Result engine/version/model/config/dataset provenance | governed result writers and `tests/test_topic_benchmark_run.py` | PASS |
+| Runtime does not imply research promotion | CLI `runtime-identity`, State and lifecycle | PASS |
+| Accepted Local Peak/PELT/TreeSeg/legacy roles preserved | lifecycle role matrix above | PASS |
+| Candidate/config/criteria/plan frozen before D | hash-bound `governance/topic_engine_freeze.json` | PASS |
+| New custom Boundary families denied | lifecycle policy and validator | PASS |
+| 50-word BenchmarkSegments are topic-neutral | lifecycle, State and Roadmap | PASS |
+| Product Owner packet uses existing evidence only | this packet; no experimental result changes | PASS |
+| Dataset C tuning denied | Dataset Registry guard test | PASS |
+| Dataset D prediction access denied | Dataset Registry and freeze-gate tests | PASS |
+| Dataset E Topic evidence denied | Dataset Registry guard test | PASS |
 
-or
-
-`ISSUE_61_DECISION: KEEP_TOPIC_ENGINE_UNFROZEN_AND_DEFER_DATASET_D`
+Self-check conclusion: the Topic candidate freeze is complete. Dataset D access
+is independently blocked; production runtime remains
+`legacy_ollama_gemma_runtime`.

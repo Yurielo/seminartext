@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import copy
-import hashlib
 import json
 from pathlib import Path
 
@@ -25,7 +24,8 @@ def test_lifecycle_is_complete_and_unambiguous():
     assert by_role["experimental_primary"]["engine_id"] == "bge_m3_local_peak_v1"
     assert by_role["comparator"]["engine_id"] == "bge_m3_pelt_v1"
     assert by_role["challenger"]["engine_id"] == "treeseg_external_adapt_v1"
-    assert by_role["frozen_candidate"]["engine_id"] is None
+    assert by_role["frozen_candidate"]["engine_id"] == "bge_m3_local_peak_v1"
+    assert by_role["frozen_candidate"]["production_promoted"] is False
     assert lifecycle["benchmark_segment_semantics"]["semantic_topic_output"] is False
 
 
@@ -39,41 +39,19 @@ def test_new_custom_family_is_rejected(tmp_path):
     assert governance.validate_lifecycle(path)
 
 
-def test_pending_freeze_blocks_dataset_d():
+def test_approved_candidate_freeze_does_not_open_dataset_d():
     gate = governance.freeze_gate()
-    assert gate["status"] == "BLOCKED"
+    assert gate["status"] == "PASS"
+    assert gate["topic_candidate_freeze"] == "COMPLETE"
+    assert gate["dataset_d_access"] == "BLOCKED"
     assert gate["dataset_d_open_allowed"] is False
-    assert not all(gate["checks"].values())
+    assert all(gate["checks"].values())
+    assert gate["dataset_d_checks"]["dataset_d_prediction_access_denied"] is True
+    assert gate["dataset_d_checks"]["single_blind_run_authorized"] is False
 
 
 def approved_fixture(tmp_path: Path) -> tuple[Path, Path]:
-    criteria = tmp_path / "criteria.md"
-    plan = tmp_path / "plan.md"
-    criteria.write_text("frozen criteria\n", encoding="utf-8")
-    plan.write_text("frozen plan\n", encoding="utf-8")
-    config = {"engine_id": "bge_m3_local_peak_v1", "threshold": 1.15}
-    freeze = {
-        "schema_version": 1,
-        "status": "FROZEN_APPROVED",
-        "product_owner_decision": "APPROVE_CANDIDATE_FREEZE",
-        "candidate": {"engine_id": "bge_m3_local_peak_v1", "frozen": True},
-        "configuration": {
-            "value": config,
-            "sha256": governance._canonical_sha256(config),
-            "frozen": True,
-        },
-        "acceptance_criteria": {
-            "artifact": str(criteria),
-            "sha256": hashlib.sha256(criteria.read_bytes()).hexdigest(),
-            "frozen": True,
-        },
-        "analysis_plan": {
-            "artifact": str(plan),
-            "sha256": hashlib.sha256(plan.read_bytes()).hexdigest(),
-            "frozen": True,
-        },
-        "dataset_d": {"single_blind_run_authorized": True},
-    }
+    freeze = json.loads(governance.DEFAULT_FREEZE.read_text(encoding="utf-8"))
     datasets = json.loads(governance.DEFAULT_DATASETS.read_text(encoding="utf-8"))
     dataset_d = next(item for item in datasets["datasets"] if item["id"] == "D")
     dataset_d["source_identity_recorded"] = True
@@ -85,7 +63,7 @@ def approved_fixture(tmp_path: Path) -> tuple[Path, Path]:
     return freeze_path, datasets_path
 
 
-def test_gate_requires_every_frozen_input_and_dataset_d_authority(tmp_path):
+def test_gate_requires_every_frozen_candidate_input(tmp_path):
     freeze_path, datasets_path = approved_fixture(tmp_path)
     passed = governance.freeze_gate(freeze_path, datasets_path)
     assert passed["status"] == "PASS"
@@ -93,12 +71,13 @@ def test_gate_requires_every_frozen_input_and_dataset_d_authority(tmp_path):
     base = json.loads(freeze_path.read_text(encoding="utf-8"))
     mutations = [
         lambda x: x.update(product_owner_decision=None),
+        lambda x: x.update(product_owner_disposition=None),
         lambda x: x["candidate"].update(frozen=False),
         lambda x: x["candidate"].update(engine_id="unknown_engine"),
+        lambda x: x["configuration"]["value"].update(implementation_sha256="0" * 64),
         lambda x: x["configuration"].update(sha256="0" * 64),
         lambda x: x["acceptance_criteria"].update(frozen=False),
         lambda x: x["analysis_plan"].update(sha256="0" * 64),
-        lambda x: x["dataset_d"].update(single_blind_run_authorized=False),
     ]
     for index, mutate in enumerate(mutations):
         candidate = copy.deepcopy(base)
@@ -106,6 +85,19 @@ def test_gate_requires_every_frozen_input_and_dataset_d_authority(tmp_path):
         path = tmp_path / f"freeze-{index}.json"
         write_json(path, candidate)
         assert governance.freeze_gate(path, datasets_path)["status"] == "BLOCKED"
+
+
+def test_other_dataset_d_prerequisites_do_not_bypass_registry_denial(tmp_path):
+    freeze_path, datasets_path = approved_fixture(tmp_path)
+    freeze = json.loads(freeze_path.read_text(encoding="utf-8"))
+    freeze["dataset_d"]["single_blind_run_authorized"] = True
+    freeze["dataset_d"]["open_allowed"] = True
+    write_json(freeze_path, freeze)
+    gate = governance.freeze_gate(freeze_path, datasets_path)
+    assert gate["topic_candidate_freeze"] == "COMPLETE"
+    assert gate["dataset_d_checks"]["dataset_d_source_identity_recorded"] is True
+    assert gate["dataset_d_checks"]["dataset_d_source_quality_accepted"] is True
+    assert gate["dataset_d_open_allowed"] is False
 
 
 def test_dataset_c_and_e_remain_fail_closed():

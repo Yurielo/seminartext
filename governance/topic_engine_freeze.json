@@ -1,34 +1,124 @@
 {
   "schema_version": 1,
-  "status": "PENDING_DOMAIN_REVIEW",
-  "product_owner_decision": null,
-  "decision_recorded_by": null,
-  "decision_recorded_at": null,
+  "freeze_version": "2026-08-29.issue-61.freeze-1",
+  "status": "FROZEN_APPROVED",
+  "product_owner_decision": "APPROVE_CANDIDATE_FREEZE",
+  "product_owner_disposition": "FREEZE_LOCAL_PEAK_FOR_DATASET_D_CANDIDACY",
+  "decision_recorded_by": "Product Owner",
+  "decision_recorded_at": "2026-08-29T20:03:34Z",
+  "authority": "Issue #61 DOMAIN_REVIEW continuation directive",
   "candidate": {
-    "engine_id": null,
-    "role_before_freeze": null,
-    "frozen": false
+    "engine_id": "bge_m3_local_peak_v1",
+    "candidate_version": "bge_m3_local_peak_v1",
+    "role_before_freeze": "experimental_primary",
+    "frozen_role": "frozen_candidate",
+    "frozen": true,
+    "production_promoted": false
   },
   "configuration": {
-    "value": null,
-    "sha256": null,
-    "frozen": false
+    "value": {
+      "engine_id": "bge_m3_local_peak_v1",
+      "candidate_version": "bge_m3_local_peak_v1",
+      "implementation_path": "analysis/experiments/bge_m3_changepoint_topic_engine.py",
+      "implementation_sha256": "e1e15a4a10c72be7f7625810bd634cf99b968e40458159bf51ae55f89ec0821c",
+      "embedding_model": "bge-m3:latest",
+      "embedding_endpoint": "http://127.0.0.1:11434/api/embed",
+      "embedding_batch_size": 32,
+      "embedding_timeout_seconds": 300,
+      "block_seconds": 15,
+      "context_blocks": 2,
+      "signal": "1 - cosine(mean(left_context), mean(right_context))",
+      "smoothing": "fixed three-point kernel [0.25, 0.5, 0.25]",
+      "median_multiplier_threshold": 1.15,
+      "min_gap_blocks": 3,
+      "max_boundaries_per_window": 11,
+      "min_gap_segment_ids": 3,
+      "broad_parameter_search": false
+    },
+    "sha256": "7d1c30866097e592ae0fb847d55720e6644d611042aba5ba75e1bd96c1e247b4",
+    "frozen": true
   },
   "acceptance_criteria": {
-    "artifact": null,
-    "sha256": null,
-    "frozen": false
+    "value": {
+      "purpose": "bounded_single_blind_dataset_d_evidence_not_production_promotion",
+      "mandatory_integrity": [
+        "exact_frozen_candidate_and_configuration_digest",
+        "accepted_dataset_d_source_identity_and_quality",
+        "separate_product_owner_authorization_for_exactly_one_blind_run",
+        "no_dataset_c_tuning_or_dataset_e_evidence",
+        "no_gold_or_prediction_access_before_authorized_run"
+      ],
+      "required_report_metrics": [
+        "boundary_precision_recall_f1_at_tolerance_0_1_2",
+        "over_segmentation_and_under_segmentation",
+        "topic_count_error",
+        "mean_boundary_distance",
+        "per_case_results",
+        "provenance_completeness"
+      ],
+      "evaluation_complete_when": [
+        "all_predeclared_dataset_d_cases_processed_once",
+        "result_binds_candidate_config_dataset_and_source_hashes",
+        "all_required_metrics_reported",
+        "no_configuration_or_algorithm_change",
+        "blind_separation_and_dataset_firewall_preserved"
+      ],
+      "automatic_production_threshold": null,
+      "post_run_disposition": "DOMAIN_REVIEW_REQUIRED_NO_AUTOMATIC_PROMOTION"
+    },
+    "sha256": "3bdc8d0f374ec43637cbf07d2fb2a8b8c550c45883f38671874f43714a253782",
+    "frozen": true
   },
   "analysis_plan": {
-    "artifact": null,
-    "sha256": null,
-    "frozen": false
+    "value": {
+      "run_budget": "exactly_one_blind_run_after_separate_product_owner_authorization",
+      "pre_run": [
+        "verify_candidate_and_configuration_hashes",
+        "verify_dataset_d_source_acceptance_and_immutable_identity",
+        "verify_gold_is_frozen_and_hidden_from_engine",
+        "record_environment_and_dependency_identity"
+      ],
+      "run": [
+        "execute_only_bge_m3_local_peak_v1_with_frozen_configuration",
+        "write_one governed prediction/result artifact",
+        "do_not_tune_retry_or_compare_new_candidates"
+      ],
+      "analysis": [
+        "compute_only_predeclared_metrics",
+        "analyze errors without changing candidate",
+        "compare descriptively with frozen A/B/C evidence without reopening C"
+      ],
+      "post_run": [
+        "seal result and provenance",
+        "keep dataset_d closed to further runs",
+        "request separate domain review",
+        "do_not_promote_automatically"
+      ],
+      "prohibited": [
+        "dataset_c_tuning",
+        "dataset_e_topic_evidence",
+        "new_algorithm_family",
+        "gold_creation_or_editing",
+        "unauthorized_rerun"
+      ]
+    },
+    "sha256": "1f14a1c9d41573269f22858231e3b78cef897a5aaca0d2d0f9f87188cd3fd77e",
+    "frozen": true
   },
   "dataset_d": {
     "registry_role_required": "LOCKED_TEST",
     "source_acceptance_required": true,
     "single_blind_run_authorization_required": true,
+    "single_blind_run_authorized": false,
     "open_allowed": false
   },
-  "gate_rule": "Dataset D remains closed unless Product Owner approves the candidate freeze and candidate, configuration, acceptance criteria and analysis plan are all immutable and hash-bound."
+  "evidence_provenance": [
+    "analysis/BGE_M3_CHANGEPOINT_EXPERIMENT_DATASET_A.md",
+    "analysis/DATASET_B_FROZEN_VALIDATION.md",
+    "analysis/DATASET_C_BLIND_VALIDATION.md",
+    "analysis/EXTERNAL_TOPIC_BASELINE_SURVEY_ISSUE_45.md",
+    "analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md",
+    "analysis/TOPIC_ENGINE_FREEZE_PACKET_ISSUE_61.md"
+  ],
+  "gate_rule": "Candidate freeze completion and Dataset D access are independent. Dataset D remains closed after candidate freeze until source acceptance and a separate Product Owner authorization for exactly one blind run are recorded through governed changes."
 }

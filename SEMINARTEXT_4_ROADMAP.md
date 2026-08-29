@@ -700,8 +700,10 @@ evaluation.
 
 ### 2.11.1 Topic Engine lifecycle и freeze gate — Issue #61
 
-Engineering governance готов к `DOMAIN_REVIEW`; кандидат не выбран и не
-заморожен. Авторитетные machine-readable записи:
+Product Owner `DOMAIN_REVIEW` завершён решением
+`FREEZE_LOCAL_PEAK_FOR_DATASET_D_CANDIDACY`. Local Peak заморожен только как
+кандидат будущего blind evaluation; это не production promotion и не разрешение
+Dataset D. Авторитетные machine-readable записи:
 
 - `governance/topic_engine_lifecycle.json` — роли и provenance;
 - `governance/topic_engine_freeze.json` — fail-closed freeze record;
@@ -710,7 +712,9 @@ Engineering governance готов к `DOMAIN_REVIEW`; кандидат не вы
 
 Текущий runtime: `legacy_ollama_gemma_runtime` / `production_legacy`, без
 production promotion. Local Peak — `experimental_primary`, PELT — `comparator`,
-TreeSeg — внешний `challenger`; исследовательское лидерство не меняет runtime.
+TreeSeg — внешний `challenger`; `bge_m3_local_peak_v1` одновременно занимает
+роль `frozen_candidate` только для Dataset D candidacy. Исследовательское
+лидерство и freeze не меняют runtime.
 Новая custom Boundary family запрещена без отдельного Product Owner Issue.
 
 Canonical 50-word `BenchmarkSegments` — только
@@ -1641,8 +1645,8 @@ preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Own
 role review and manual Gold annotation remain human gates and do not replace
 either next action above.
 
-7. Freeze Topic Engine candidate — **DOMAIN_REVIEW REQUIRED; engineering packet
-   READY (Issue #61), candidate remains unfrozen**.
+7. Freeze Topic Engine candidate — **COMPLETE (Issue #61): Local Peak frozen for
+   Dataset D candidacy only; Dataset D access remains BLOCKED**.
 8. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
 9. Dataset D blind evaluation after candidate/config/criteria freeze.
 10. Define and assess `TOPIC AUTOMATION USABLE`.

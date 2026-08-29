@@ -41,6 +41,9 @@
       "entrypoint": "run_experiment",
       "model": "bge-m3:latest",
       "configuration": {
+        "embedding_endpoint": "http://127.0.0.1:11434/api/embed",
+        "embedding_batch_size": 32,
+        "embedding_timeout_seconds": 300,
         "block_seconds": 15,
         "context_blocks": 2,
         "signal": "1 - cosine(mean(left_context), mean(right_context))",
@@ -101,13 +104,13 @@
       ]
     },
     {
-      "engine_id": null,
+      "engine_id": "bge_m3_local_peak_v1",
       "role_id": "frozen_candidate",
-      "lifecycle_status": "PENDING_DOMAIN_REVIEW",
-      "implementation": null,
-      "entrypoint": null,
-      "model": null,
-      "configuration": null,
+      "lifecycle_status": "FROZEN_FOR_FUTURE_DATASET_D_CANDIDACY_NOT_PRODUCTION",
+      "implementation": "analysis/experiments/bge_m3_changepoint_topic_engine.py",
+      "entrypoint": "run_experiment",
+      "model": "bge-m3:latest",
+      "configuration": "governance/topic_engine_freeze.json#configuration",
       "production_runtime": false,
       "production_promoted": false,
       "evidence": ["analysis/TOPIC_ENGINE_FREEZE_PACKET_ISSUE_61.md"]

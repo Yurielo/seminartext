@@ -161,10 +161,14 @@ def check(root: Path) -> list[str]:
         fail("Topic Engine comparator identity drift")
     if engines["challenger"].get("engine_id") != topic_state.get("challenger_engine_id"):
         fail("Topic Engine challenger identity drift")
-    if topic_state.get("frozen_candidate_engine_id") is not None:
-        fail("State must not imply an approved Topic Engine candidate")
-    if freeze.get("status") != "PENDING_DOMAIN_REVIEW":
-        fail("Topic Engine freeze must remain pending until DOMAIN_REVIEW")
+    if topic_state.get("frozen_candidate_engine_id") != "bge_m3_local_peak_v1":
+        fail("State frozen Topic Engine candidate drift")
+    if engines["frozen_candidate"].get("engine_id") != "bge_m3_local_peak_v1":
+        fail("Lifecycle frozen Topic Engine candidate drift")
+    if freeze.get("status") != "FROZEN_APPROVED":
+        fail("Topic Engine freeze decision is not recorded")
+    if freeze.get("product_owner_disposition") != "FREEZE_LOCAL_PEAK_FOR_DATASET_D_CANDIDACY":
+        fail("Topic Engine Product Owner freeze disposition drift")
     if freeze.get("dataset_d", {}).get("open_allowed") is not False:
         fail("Topic Engine freeze record must keep Dataset D closed")
     if lifecycle.get("benchmark_segment_semantics", {}).get("semantic_topic_output") is not False:
@@ -196,7 +200,7 @@ def check(root: Path) -> list[str]:
         "mvp_definition=linked",
         "obsolete_active_gates=absent",
         "dataset_registry=consistent_fail_closed",
-        "topic_engine_lifecycle=consistent_domain_review_pending",
+        "topic_engine_lifecycle=consistent_candidate_frozen_dataset_d_blocked",
     ]
 
 
