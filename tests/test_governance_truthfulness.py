@@ -17,6 +17,7 @@ WORKFLOW = ROOT / "DEVELOPMENT_WORKFLOW.md"
 MVP = ROOT / "SEMINARTEXT_4_MVP_DEFINITION.md"
 GOVERNANCE_CHECK = ROOT / "scripts" / "check_governance.py"
 DEV_CLI = ROOT / "scripts" / "seminartext-dev"
+DATASET_REGISTRY = ROOT / "governance" / "dataset_registry.json"
 
 
 def sha256(path: Path):
@@ -69,6 +70,15 @@ def write_benchmark(project: Path):
     )
 
 
+def write_test_dataset_registry(path: Path, project_name: str, benchmark: Path) -> Path:
+    registry = json.loads(DATASET_REGISTRY.read_text(encoding="utf-8"))
+    dataset_a = next(item for item in registry["datasets"] if item["id"] == "A")
+    dataset_a["project"] = project_name
+    dataset_a["benchmark_sha256"] = sha256(benchmark)
+    path.write_text(json.dumps(registry), encoding="utf-8")
+    return path
+
+
 def test_authoritative_version_is_used_by_cli_help_state_and_diagnostics():
     expected = VERSION.read_text(encoding="utf-8").strip()
     state = json.loads(STATE.read_text(encoding="utf-8"))
@@ -94,6 +104,7 @@ def test_every_dispatched_user_command_is_discoverable_in_main_help():
     assert commands == {
         "clean",
         "cut",
+        "dataset-policy-check",
         "doctor",
         "help",
         "init",
@@ -180,6 +191,11 @@ def test_benchmark_check_is_read_only_for_benchmark_and_governance(tmp_path):
     deployed_bin.mkdir(parents=True)
     shutil.copy2(STATE, deployed_bin / STATE.name)
     shutil.copy2(ROADMAP, deployed_bin / ROADMAP.name)
+    test_registry = write_test_dataset_registry(
+        tmp_path / "dataset_registry.json",
+        "Bench",
+        project / "analysis" / "benchmark" / "topic_benchmark.json",
+    )
 
     guarded = [
         STATE,
@@ -196,6 +212,7 @@ def test_benchmark_check_is_read_only_for_benchmark_and_governance(tmp_path):
             "HOME": fake_home,
             "SEMINARTEXT_PROJECTS": projects,
             "SEMINARTEXT_PYTHON": sys.executable,
+            "SEMINARTEXT_DATASET_REGISTRY": test_registry,
         },
     )
     after = {path: sha256(path) for path in guarded}

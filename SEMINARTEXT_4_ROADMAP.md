@@ -538,6 +538,14 @@ Topic Engine architecture selection.
 Authoritative Dataset E exclusion policy:
 `analysis/DATASET_E_TOPIC_ENGINE_EVIDENCE_POLICY_2026-08-26.md`.
 
+Authoritative machine-readable Dataset Registry and fail-closed guard:
+`governance/dataset_registry.json` and
+`seminartext_modules/dataset_governance.py`. Governed benchmark/experiment
+entry points must receive an explicit Registry `ALLOW` before reading Gold or
+predictions or running a Topic Engine candidate. Unregistered identities are
+denied. Historical Issue/artifact lifecycle is recorded in
+`analysis/HISTORICAL_ARTIFACT_LIFECYCLE_INDEX.json`.
+
 Policy:
 
 - Dataset D = **LOCKED TEST**;
@@ -589,6 +597,11 @@ human review; final Gold boundaries, titles и summaries не создавали
 Dataset D (`LOCKED_TEST`) и Dataset E не использовались и не изменялись.
 Полный evidence и remaining human gates:
 `analysis/GOLD_EXPANSION_V2_NEW_AUTHOR_DATASETS.md`.
+
+Formal G1/G2 sequence is fixed as: Product Owner role acceptance → human
+transcript verification → Domain Gold authoring → Product Owner acceptance →
+freeze → registry-enabled evaluation/use. Predictions must not be viewed before
+role and Gold freeze decisions.
 
 ## 2.8 Будущая структура benchmark datasets
 

@@ -13,11 +13,16 @@ import hashlib
 import importlib.util
 import json
 import math
+import sys
 from pathlib import Path
 from statistics import mean, median
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from seminartext_modules.dataset_governance import enforce_benchmark_artifact
+
 FROZEN_SCRIPT = ROOT / "analysis/experiments/bge_m3_changepoint_topic_engine.py"
 DEFAULT_A_BENCHMARK = (
     Path.home()
@@ -523,6 +528,13 @@ def main() -> int:
     ]
     if any("dataset_c" in str(path).lower() for path in paths):
         raise SystemExit("Dataset C is forbidden in this diagnostic observer")
+
+    enforce_benchmark_artifact(
+        "prediction_read", dataset_id="A", benchmark_path=args.dataset_a_benchmark
+    )
+    enforce_benchmark_artifact(
+        "prediction_read", dataset_id="B", benchmark_path=args.dataset_b_benchmark
+    )
 
     frozen = load_frozen_module()
     result_a = load_json(args.dataset_a_result)

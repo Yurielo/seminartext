@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "updated": "2026-08-29",
+  "policy": "Historical artifacts are retained for traceability and must not be treated as active task contracts, current Topic Engine evidence, or permission to reopen dataset roles.",
+  "entries": [
+    {
+      "issue": 29,
+      "lifecycle": "SUPERSEDED_NOT_PLANNED",
+      "historical_subject": "Transcript Segmentation Quality Gate for Dataset D/E/F",
+      "current_replacement": [
+        "governance/dataset_registry.json",
+        "SEMINARTEXT_4_STATE.json#stages.dataset_governance",
+        "https://github.com/Yurielo/seminartext/issues/66"
+      ],
+      "prohibited_interpretation": "Does not authorize opening Dataset D, treating Dataset E as development evidence, or repairing Dataset F without its current gates."
+    },
+    {
+      "issue": 30,
+      "lifecycle": "SUPERSEDED_NOT_PLANNED",
+      "historical_subject": "Dataset E topic-agnostic resegmentation prototype",
+      "current_replacement": [
+        "analysis/DATASET_E_TOPIC_ENGINE_EVIDENCE_POLICY_2026-08-26.md",
+        "governance/dataset_registry.json"
+      ],
+      "prohibited_interpretation": "Dataset E remains EXCLUDED_FROM_TOPIC_ENGINE_EVIDENCE; historical transcript engineering is not Gold, tuning, validation, or acceptance evidence."
+    },
+    {
+      "issue": 33,
+      "lifecycle": "SUPERSEDED_BY_ACCEPTED_DECISION",
+      "historical_subject": "Word Alignment Bake-off",
+      "retained_artifacts": [
+        "analysis/FINAL_CONTROLLED_WORD_ALIGNMENT_DECISION_2026-08-27.md",
+        "analysis/word_alignment_decision/"
+      ],
+      "current_replacement": [
+        "analysis/FINAL_CONTROLLED_WORD_ALIGNMENT_DECISION_2026-08-27.md",
+        "SEMINARTEXT_4_STATE.json#stages.word_alignment"
+      ],
+      "prohibited_interpretation": "Does not authorize a new alignment tournament or change the accepted WhisperX existing-text alignment decision."
+    }
+  ]
+}

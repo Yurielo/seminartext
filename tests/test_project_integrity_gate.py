@@ -57,6 +57,9 @@ main() {
     project-evidence-check)
       exit 0
       ;;
+    dataset-policy-check)
+      exit 0
+      ;;
   esac
 }
 main "$@"
@@ -118,8 +121,10 @@ main "$@"
 
     for relative in (
         "seminartext_modules/evidence_foundation.py",
+        "seminartext_modules/dataset_governance.py",
         "schemas/validate_canonical_evidence_v1.py",
         "schemas/canonical_evidence_v1.schema.json",
+        "governance/dataset_registry.json",
     ):
         source = ROOT / relative
         destination = root / relative

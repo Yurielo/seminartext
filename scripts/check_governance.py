@@ -45,6 +45,7 @@ def check(root: Path) -> list[str]:
     workflow_path = root / "DEVELOPMENT_WORKFLOW.md"
     mvp_path = root / "SEMINARTEXT_4_MVP_DEFINITION.md"
     cli_path = root / "seminartext"
+    dataset_registry_path = root / "governance" / "dataset_registry.json"
 
     required_files = (
         version_path,
@@ -53,6 +54,7 @@ def check(root: Path) -> list[str]:
         workflow_path,
         mvp_path,
         cli_path,
+        dataset_registry_path,
     )
     for path in required_files:
         if not path.is_file():
@@ -109,6 +111,31 @@ def check(root: Path) -> list[str]:
     if mvp.get("status") != "defined_not_yet_product_integrated":
         fail("State product_mvp.status must not imply completed product integration")
 
+    registry = json.loads(dataset_registry_path.read_text(encoding="utf-8"))
+    if registry.get("default_policy") != "DENY_UNREGISTERED":
+        fail("Dataset Registry must use DENY_UNREGISTERED")
+    datasets = {entry.get("id"): entry for entry in registry.get("datasets", [])}
+    if list(datasets) != ["A", "B", "C", "D", "E", "F", "G1", "G2"]:
+        fail("Dataset Registry must contain the governed A/B/C/D/E/F/G1/G2 matrix")
+    expected_roles = {
+        "A": state["stages"]["topic_benchmark_dataset_a"]["role"],
+        "B": state["stages"]["dataset_b"]["role"],
+        "C": state["stages"]["dataset_c"]["role"],
+        "D": state["stages"]["dataset_d"]["role"],
+        "E": state["stages"]["dataset_e"]["status"],
+        "F": state["stages"]["dataset_f"]["role"],
+    }
+    for dataset_id, expected_role in expected_roles.items():
+        if datasets[dataset_id].get("role") != expected_role:
+            fail(f"Dataset {dataset_id} role drift between Registry and State")
+    if datasets["D"].get("topic_engine_access_allowed") is not False:
+        fail("Dataset D LOCKED_TEST firewall must deny Topic Engine access")
+    if datasets["E"].get("role") != "EXCLUDED_FROM_TOPIC_ENGINE_EVIDENCE":
+        fail("Dataset E exclusion policy drift")
+    for dataset_id in ("G1", "G2"):
+        if datasets[dataset_id].get("role_status") != "PROPOSAL_PENDING_PRODUCT_OWNER_ACCEPTANCE":
+            fail(f"Dataset {dataset_id} role must remain a pending proposal")
+
     roadmap = roadmap_path.read_text(encoding="utf-8")
     workflow = workflow_path.read_text(encoding="utf-8")
     cli = cli_path.read_text(encoding="utf-8")
@@ -132,6 +159,7 @@ def check(root: Path) -> list[str]:
         "maturity_semantics=present",
         "mvp_definition=linked",
         "obsolete_active_gates=absent",
+        "dataset_registry=consistent_fail_closed",
     ]
 
 

@@ -12,6 +12,8 @@ CLI = ROOT / "seminartext"
 MODULES = ROOT / "seminartext_modules"
 TOPICS = MODULES / "seminartext_topics.py"
 TRANSLATE = MODULES / "seminartext_translate.py"
+DATASET_GOVERNANCE = MODULES / "dataset_governance.py"
+DATASET_REGISTRY = ROOT / "governance" / "dataset_registry.json"
 DEV_CLI = ROOT / "scripts" / "seminartext-dev"
 VERSION_FILE = ROOT / "SEMINARTEXT_VERSION"
 
@@ -115,6 +117,8 @@ def test_runtime_identity_resolves_bundled_modules_and_hashes():
     assert Path(identity["translate.path"]) == TRANSLATE
     assert identity["topics.sha256"] == ACCEPTED_HASHES[TOPICS]
     assert identity["translate.sha256"] == ACCEPTED_HASHES[TRANSLATE]
+    assert Path(identity["dataset_governance.path"]) == DATASET_GOVERNANCE
+    assert identity["dataset_governance.sha256"] == hashlib.sha256(DATASET_GOVERNANCE.read_bytes()).hexdigest()
     assert identity["cli.sha256"] == hashlib.sha256(CLI.read_bytes()).hexdigest()
 
 
@@ -124,6 +128,12 @@ def test_runtime_identity_supports_installed_sibling_layout(tmp_path):
     shutil.copy2(VERSION_FILE, tmp_path / VERSION_FILE.name)
     shutil.copy2(TOPICS, tmp_path / TOPICS.name)
     shutil.copy2(TRANSLATE, tmp_path / TRANSLATE.name)
+    modules = tmp_path / "seminartext_modules"
+    modules.mkdir()
+    shutil.copy2(DATASET_GOVERNANCE, modules / DATASET_GOVERNANCE.name)
+    governance = tmp_path / "governance"
+    governance.mkdir()
+    shutil.copy2(DATASET_REGISTRY, governance / DATASET_REGISTRY.name)
 
     result = run_cli("runtime-identity", cli=installed_cli)
     assert result.returncode == 0, result.stderr
@@ -228,4 +238,4 @@ def test_dev_status_compares_both_runtime_modules(tmp_path):
     assert result.returncode == 0, result.stderr
     assert "Topics:  SYNC" in result.stdout
     assert "Translate: SYNC" in result.stdout
-    assert "DEPLOY STATUS: DIFFERENT (7/9)" in result.stdout
+    assert "DEPLOY STATUS: DIFFERENT (9/11)" in result.stdout

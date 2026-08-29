@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import hashlib
 import os
 import subprocess
 import sys
@@ -8,6 +9,7 @@ from pathlib import Path
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "seminartext"
+REGISTRY = SCRIPT.parent / "governance" / "dataset_registry.json"
 
 
 def write_fake_engine(path):
@@ -87,6 +89,14 @@ def write_project(root, cases):
 
 
 def run_benchmark(root, engine, predictions, *args, expect_ok=True):
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    dataset_a = next(item for item in registry["datasets"] if item["id"] == "A")
+    dataset_a["project"] = "Bench"
+    benchmark_path = root / "Bench" / "analysis" / "benchmark" / "topic_benchmark.json"
+    if benchmark_path.is_file():
+        dataset_a["benchmark_sha256"] = hashlib.sha256(benchmark_path.read_bytes()).hexdigest()
+    test_registry = root / "dataset_registry.json"
+    test_registry.write_text(json.dumps(registry), encoding="utf-8")
     env = os.environ.copy()
     env.update(
         {
@@ -94,6 +104,7 @@ def run_benchmark(root, engine, predictions, *args, expect_ok=True):
             "SEMINARTEXT_TOPICS_MODULE": str(engine),
             "SEMINARTEXT_PYTHON": sys.executable,
             "PREDICTIONS": json.dumps(predictions),
+            "SEMINARTEXT_DATASET_REGISTRY": str(test_registry),
         }
     )
     proc = subprocess.run(
@@ -250,7 +261,7 @@ def test_missing_benchmark_file_error():
         (root / "Bench" / "analysis" / "benchmark").mkdir(parents=True)
 
         proc = run_benchmark(root, engine, {}, expect_ok=False)
-        assert "benchmark не найден" in proc.stderr
+        assert "governed benchmark missing" in proc.stderr
 
 
 if __name__ == "__main__":

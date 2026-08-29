@@ -5,7 +5,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from seminartext_modules.dataset_governance import enforce
 
 
 DEFAULT_PROJECT_NAME = "Заблокированные эмоции"
@@ -285,6 +291,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    enforce("benchmark_init", dataset_id="B")
     project_dir = resolve_project(args.project)
     if not project_dir.exists():
         raise SystemExit(f"project not found: {project_dir}")

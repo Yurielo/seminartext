@@ -13,6 +13,8 @@ TRANSLATE="$REPO/seminartext_modules/seminartext_translate.py"
 EVIDENCE_FOUNDATION="$REPO/seminartext_modules/evidence_foundation.py"
 CANONICAL_VALIDATOR="$REPO/schemas/validate_canonical_evidence_v1.py"
 CANONICAL_SCHEMA="$REPO/schemas/canonical_evidence_v1.schema.json"
+DATASET_GOVERNANCE="$REPO/seminartext_modules/dataset_governance.py"
+DATASET_REGISTRY="$REPO/governance/dataset_registry.json"
 VERSION_FILE="$REPO/SEMINARTEXT_VERSION"
 GOVERNANCE_CHECK="$REPO/scripts/check_governance.py"
 
@@ -24,6 +26,8 @@ DEPLOY_TRANSLATE="$BIN/seminartext_translate.py"
 DEPLOY_EVIDENCE_FOUNDATION="$BIN/seminartext_modules/evidence_foundation.py"
 DEPLOY_CANONICAL_VALIDATOR="$BIN/schemas/validate_canonical_evidence_v1.py"
 DEPLOY_CANONICAL_SCHEMA="$BIN/schemas/canonical_evidence_v1.schema.json"
+DEPLOY_DATASET_GOVERNANCE="$BIN/seminartext_modules/dataset_governance.py"
+DEPLOY_DATASET_REGISTRY="$BIN/governance/dataset_registry.json"
 DEPLOY_VERSION="$BIN/SEMINARTEXT_VERSION"
 
 die() {
@@ -102,15 +106,15 @@ cmd_status() {
 
   echo
   echo "MASTER FILES"
-  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$VERSION_FILE" | sed 's/^/  /'
+  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "MASTER HASHES"
-  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$VERSION_FILE" | sed 's/^/  /'
+  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "DEPLOYED HASHES"
-  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE" "$DEPLOY_EVIDENCE_FOUNDATION" "$DEPLOY_CANONICAL_VALIDATOR" "$DEPLOY_CANONICAL_SCHEMA" "$DEPLOY_VERSION"; do
+  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE" "$DEPLOY_EVIDENCE_FOUNDATION" "$DEPLOY_CANONICAL_VALIDATOR" "$DEPLOY_CANONICAL_SCHEMA" "$DEPLOY_DATASET_GOVERNANCE" "$DEPLOY_DATASET_REGISTRY" "$DEPLOY_VERSION"; do
     if [[ -f "$f" ]]; then
       shasum -a 256 "$f" | sed 's/^/  /'
     else
@@ -186,6 +190,22 @@ cmd_status() {
     mismatches=$((mismatches + 1))
   fi
 
+  if [[ -f "$DEPLOY_DATASET_GOVERNANCE" ]] \
+     && [[ "$(hash_file "$DATASET_GOVERNANCE")" == "$(hash_file "$DEPLOY_DATASET_GOVERNANCE")" ]]; then
+    echo "  Dataset governance: SYNC"
+  else
+    echo "  Dataset governance: DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
+  if [[ -f "$DEPLOY_DATASET_REGISTRY" ]] \
+     && [[ "$(hash_file "$DATASET_REGISTRY")" == "$(hash_file "$DEPLOY_DATASET_REGISTRY")" ]]; then
+    echo "  Dataset Registry: SYNC"
+  else
+    echo "  Dataset Registry: DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
   if [[ -f "$DEPLOY_VERSION" ]] \
      && [[ "$(hash_file "$VERSION_FILE")" == "$(hash_file "$DEPLOY_VERSION")" ]]; then
     echo "  Version: SYNC"
@@ -198,7 +218,7 @@ cmd_status() {
   if (( mismatches == 0 )); then
     echo "DEPLOY STATUS: SYNC"
   else
-    echo "DEPLOY STATUS: DIFFERENT ($mismatches/9)"
+    echo "DEPLOY STATUS: DIFFERENT ($mismatches/11)"
   fi
 }
 
@@ -217,6 +237,8 @@ cmd_check() {
   [[ -f "$EVIDENCE_FOUNDATION" ]] || die "нет master Evidence Foundation module"
   [[ -f "$CANONICAL_VALIDATOR" ]] || die "нет master Canonical validator"
   [[ -f "$CANONICAL_SCHEMA" ]] || die "нет master Canonical schema"
+  [[ -f "$DATASET_GOVERNANCE" ]] || die "нет master Dataset Governance module"
+  [[ -f "$DATASET_REGISTRY" ]] || die "нет master Dataset Registry"
   [[ -f "$VERSION_FILE" ]] || die "нет authoritative version-файла"
   [[ -f "$GOVERNANCE_CHECK" ]] || die "нет governance consistency checker"
 
@@ -227,7 +249,7 @@ cmd_check() {
     || die "SEMINARTEXT_4_STATE.json invalid"
   echo "[OK] State JSON"
 
-  python3 - "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" <<'PYMODULES' \
+  python3 - "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$DATASET_GOVERNANCE" <<'PYMODULES' \
     || die "ошибка Python syntax в runtime-модулях"
 import ast
 import sys
@@ -242,6 +264,12 @@ PYMODULES
   python3 -m json.tool "$CANONICAL_SCHEMA" >/dev/null \
     || die "Canonical Evidence schema invalid"
   echo "[OK] Canonical Evidence schema"
+
+  python3 -m json.tool "$DATASET_REGISTRY" >/dev/null \
+    || die "Dataset Registry invalid"
+  python3 "$DATASET_GOVERNANCE" validate --registry "$DATASET_REGISTRY" >/dev/null \
+    || die "Dataset Registry policy validation failed"
+  echo "[OK] Dataset Registry"
 
   validate_roadmap_file "$ROADMAP"
   echo "[OK] Roadmap structure"
@@ -341,6 +369,10 @@ cmd_deploy() {
     && { mkdir -p "$backup/schemas"; cp -p "$DEPLOY_CANONICAL_VALIDATOR" "$backup/schemas/validate_canonical_evidence_v1.py"; }
   [[ -f "$DEPLOY_CANONICAL_SCHEMA" ]] \
     && { mkdir -p "$backup/schemas"; cp -p "$DEPLOY_CANONICAL_SCHEMA" "$backup/schemas/canonical_evidence_v1.schema.json"; }
+  [[ -f "$DEPLOY_DATASET_GOVERNANCE" ]] \
+    && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_DATASET_GOVERNANCE" "$backup/seminartext_modules/dataset_governance.py"; }
+  [[ -f "$DEPLOY_DATASET_REGISTRY" ]] \
+    && { mkdir -p "$backup/governance"; cp -p "$DEPLOY_DATASET_REGISTRY" "$backup/governance/dataset_registry.json"; }
   [[ -f "$DEPLOY_VERSION" ]] \
     && cp -p "$DEPLOY_VERSION" "$backup/SEMINARTEXT_VERSION"
 
@@ -351,7 +383,7 @@ source_commit=$commit
 source_branch=$(git branch --show-current)
 MANIFEST
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_evidence_foundation tmp_canonical_validator tmp_canonical_schema tmp_version
+  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_evidence_foundation tmp_canonical_validator tmp_canonical_schema tmp_dataset_governance tmp_dataset_registry tmp_version
   tmp_code="$DEPLOY_CODE.new.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.new.$$"
   tmp_state="$DEPLOY_STATE.new.$$"
@@ -360,10 +392,12 @@ MANIFEST
   tmp_evidence_foundation="$DEPLOY_EVIDENCE_FOUNDATION.new.$$"
   tmp_canonical_validator="$DEPLOY_CANONICAL_VALIDATOR.new.$$"
   tmp_canonical_schema="$DEPLOY_CANONICAL_SCHEMA.new.$$"
+  tmp_dataset_governance="$DEPLOY_DATASET_GOVERNANCE.new.$$"
+  tmp_dataset_registry="$DEPLOY_DATASET_REGISTRY.new.$$"
   tmp_version="$DEPLOY_VERSION.new.$$"
 
   cleanup_deploy_tmp() {
-    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" "$tmp_canonical_schema" "$tmp_version"
+    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" "$tmp_canonical_schema" "$tmp_dataset_governance" "$tmp_dataset_registry" "$tmp_version"
   }
   trap cleanup_deploy_tmp RETURN INT TERM
 
@@ -372,10 +406,12 @@ MANIFEST
   cp -p "$STATE" "$tmp_state"
   cp -p "$TOPICS" "$tmp_topics"
   cp -p "$TRANSLATE" "$tmp_translate"
-  mkdir -p "$(dirname "$tmp_evidence_foundation")" "$(dirname "$tmp_canonical_validator")"
+  mkdir -p "$(dirname "$tmp_evidence_foundation")" "$(dirname "$tmp_canonical_validator")" "$(dirname "$tmp_dataset_registry")"
   cp -p "$EVIDENCE_FOUNDATION" "$tmp_evidence_foundation"
   cp -p "$CANONICAL_VALIDATOR" "$tmp_canonical_validator"
   cp -p "$CANONICAL_SCHEMA" "$tmp_canonical_schema"
+  cp -p "$DATASET_GOVERNANCE" "$tmp_dataset_governance"
+  cp -p "$DATASET_REGISTRY" "$tmp_dataset_registry"
   cp -p "$VERSION_FILE" "$tmp_version"
 
   # Проверяем именно будущие deployed-файлы ДО замены.
@@ -387,7 +423,7 @@ MANIFEST
 
   validate_roadmap_file "$tmp_roadmap"
 
-  python3 - "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" <<'PYMODULES' \
+  python3 - "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" "$tmp_dataset_governance" <<'PYMODULES' \
     || die "deploy temp runtime module syntax invalid"
 import ast
 import sys
@@ -398,6 +434,9 @@ for raw_path in sys.argv[1:]:
     ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
 PYMODULES
 
+  python3 -m json.tool "$tmp_dataset_registry" >/dev/null \
+    || die "deploy temp Dataset Registry invalid"
+
   chmod +x "$tmp_code" "$tmp_topics" "$tmp_translate"
 
   # Atomic replace на том же filesystem.
@@ -406,10 +445,12 @@ PYMODULES
   mv "$tmp_state" "$DEPLOY_STATE"
   mv "$tmp_topics" "$DEPLOY_TOPICS"
   mv "$tmp_translate" "$DEPLOY_TRANSLATE"
-  mkdir -p "$(dirname "$DEPLOY_EVIDENCE_FOUNDATION")" "$(dirname "$DEPLOY_CANONICAL_VALIDATOR")"
+  mkdir -p "$(dirname "$DEPLOY_EVIDENCE_FOUNDATION")" "$(dirname "$DEPLOY_CANONICAL_VALIDATOR")" "$(dirname "$DEPLOY_DATASET_REGISTRY")"
   mv "$tmp_evidence_foundation" "$DEPLOY_EVIDENCE_FOUNDATION"
   mv "$tmp_canonical_validator" "$DEPLOY_CANONICAL_VALIDATOR"
   mv "$tmp_canonical_schema" "$DEPLOY_CANONICAL_SCHEMA"
+  mv "$tmp_dataset_governance" "$DEPLOY_DATASET_GOVERNANCE"
+  mv "$tmp_dataset_registry" "$DEPLOY_DATASET_REGISTRY"
   mv "$tmp_version" "$DEPLOY_VERSION"
 
   # Финальная проверка hashes.
@@ -437,8 +478,17 @@ PYMODULES
   [[ "$(hash_file "$CANONICAL_SCHEMA")" == "$(hash_file "$DEPLOY_CANONICAL_SCHEMA")" ]] \
     || die "deploy hash mismatch: Canonical schema"
 
-  "$DEPLOY_CODE" project-evidence-check --help >/dev/null 2>&1 \
+  [[ "$(hash_file "$DATASET_GOVERNANCE")" == "$(hash_file "$DEPLOY_DATASET_GOVERNANCE")" ]] \
+    || die "deploy hash mismatch: Dataset Governance"
+
+  [[ "$(hash_file "$DATASET_REGISTRY")" == "$(hash_file "$DEPLOY_DATASET_REGISTRY")" ]] \
+    || die "deploy hash mismatch: Dataset Registry"
+
+  PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" project-evidence-check --help >/dev/null 2>&1 \
     || die "deployed functional smoke failed: project-evidence-check"
+
+  PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" dataset-policy-check A gold_read --json >/dev/null 2>&1 \
+    || die "deployed functional smoke failed: dataset-policy-check"
 
   [[ "$(hash_file "$VERSION_FILE")" == "$(hash_file "$DEPLOY_VERSION")" ]] \
     || die "deploy hash mismatch: Version"
@@ -450,6 +500,7 @@ PYMODULES
   echo "[OK] Translate module deployed"
   echo "[OK] Evidence Foundation module deployed"
   echo "[OK] Canonical validator/schema deployed"
+  echo "[OK] Dataset Governance module/Registry deployed"
   echo "[OK] Deployed functional smoke"
   echo "[OK] Version contract deployed"
   echo "[OK] SHA-256 verified"
@@ -495,7 +546,7 @@ cmd_rollback() {
   [[ -n "${backup:-}" && -d "$backup" ]] \
     || die "нет доступных deploy-backups"
 
-  local backup_code backup_roadmap backup_state backup_topics backup_translate backup_evidence_foundation backup_canonical_validator backup_canonical_schema backup_version
+  local backup_code backup_roadmap backup_state backup_topics backup_translate backup_evidence_foundation backup_canonical_validator backup_canonical_schema backup_dataset_governance backup_dataset_registry backup_version
   backup_code="$backup/seminartext_4.0_work"
   backup_roadmap="$backup/SEMINARTEXT_4_ROADMAP.md"
   backup_state="$backup/SEMINARTEXT_4_STATE.json"
@@ -504,6 +555,8 @@ cmd_rollback() {
   backup_evidence_foundation="$backup/seminartext_modules/evidence_foundation.py"
   backup_canonical_validator="$backup/schemas/validate_canonical_evidence_v1.py"
   backup_canonical_schema="$backup/schemas/canonical_evidence_v1.schema.json"
+  backup_dataset_governance="$backup/seminartext_modules/dataset_governance.py"
+  backup_dataset_registry="$backup/governance/dataset_registry.json"
   backup_version="$backup/SEMINARTEXT_VERSION"
 
   [[ -f "$backup_code" ]] \
@@ -543,10 +596,14 @@ cmd_rollback() {
     && { mkdir -p "$rollback_guard/schemas"; cp -p "$DEPLOY_CANONICAL_VALIDATOR" "$rollback_guard/schemas/validate_canonical_evidence_v1.py"; }
   [[ -f "$DEPLOY_CANONICAL_SCHEMA" ]] \
     && { mkdir -p "$rollback_guard/schemas"; cp -p "$DEPLOY_CANONICAL_SCHEMA" "$rollback_guard/schemas/canonical_evidence_v1.schema.json"; }
+  [[ -f "$DEPLOY_DATASET_GOVERNANCE" ]] \
+    && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_DATASET_GOVERNANCE" "$rollback_guard/seminartext_modules/dataset_governance.py"; }
+  [[ -f "$DEPLOY_DATASET_REGISTRY" ]] \
+    && { mkdir -p "$rollback_guard/governance"; cp -p "$DEPLOY_DATASET_REGISTRY" "$rollback_guard/governance/dataset_registry.json"; }
   [[ -f "$DEPLOY_VERSION" ]] \
     && cp -p "$DEPLOY_VERSION" "$rollback_guard/SEMINARTEXT_VERSION"
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate="" tmp_evidence_foundation="" tmp_canonical_validator="" tmp_canonical_schema="" tmp_version=""
+  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate="" tmp_evidence_foundation="" tmp_canonical_validator="" tmp_canonical_schema="" tmp_dataset_governance="" tmp_dataset_registry="" tmp_version=""
   tmp_code="$DEPLOY_CODE.rollback.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.rollback.$$"
   tmp_state="$DEPLOY_STATE.rollback.$$"
@@ -577,6 +634,16 @@ cmd_rollback() {
     mkdir -p "$(dirname "$tmp_canonical_schema")"
     cp -p "$backup_canonical_schema" "$tmp_canonical_schema"
   fi
+  if [[ -f "$backup_dataset_governance" ]]; then
+    tmp_dataset_governance="$DEPLOY_DATASET_GOVERNANCE.rollback.$$"
+    mkdir -p "$(dirname "$tmp_dataset_governance")"
+    cp -p "$backup_dataset_governance" "$tmp_dataset_governance"
+  fi
+  if [[ -f "$backup_dataset_registry" ]]; then
+    tmp_dataset_registry="$DEPLOY_DATASET_REGISTRY.rollback.$$"
+    mkdir -p "$(dirname "$tmp_dataset_registry")"
+    cp -p "$backup_dataset_registry" "$tmp_dataset_registry"
+  fi
   if [[ -f "$backup_version" ]]; then
     tmp_version="$DEPLOY_VERSION.rollback.$$"
     cp -p "$backup_version" "$tmp_version"
@@ -594,11 +661,13 @@ cmd_rollback() {
   [[ -z "$tmp_evidence_foundation" ]] || mv "$tmp_evidence_foundation" "$DEPLOY_EVIDENCE_FOUNDATION"
   [[ -z "$tmp_canonical_validator" ]] || mv "$tmp_canonical_validator" "$DEPLOY_CANONICAL_VALIDATOR"
   [[ -z "$tmp_canonical_schema" ]] || mv "$tmp_canonical_schema" "$DEPLOY_CANONICAL_SCHEMA"
+  [[ -z "$tmp_dataset_governance" ]] || mv "$tmp_dataset_governance" "$DEPLOY_DATASET_GOVERNANCE"
+  [[ -z "$tmp_dataset_registry" ]] || mv "$tmp_dataset_registry" "$DEPLOY_DATASET_REGISTRY"
   [[ -z "$tmp_version" ]] || mv "$tmp_version" "$DEPLOY_VERSION"
 
   echo "ROLLBACK: PASS"
   echo "Restored: $backup"
-  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_version" ]]; then
+  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_dataset_governance" || ! -f "$backup_dataset_registry" || ! -f "$backup_version" ]]; then
     echo "Legacy backup: отсутствующие runtime/version-файлы оставлены без изменения."
   fi
   echo "Previous deployed state saved:"
