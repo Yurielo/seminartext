@@ -1,0 +1,15 @@
+{
+  "aligner": "fixture-alignment-service",
+  "aligner_version": "1.0.0",
+  "config": {
+    "mode": "fixture",
+    "no_asr": true
+  },
+  "model": "fixture-model",
+  "model_revision": "fixture-revision",
+  "model_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "words": [
+    {"word": "Раз", "start": 0.10, "end": 0.30, "score": 1.0},
+    {"word": "проверка", "start": 0.35, "end": 0.75, "score": 1.0}
+  ]
+}

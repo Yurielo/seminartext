@@ -223,6 +223,9 @@ cat <<'HELP'
   seminartext project-add PROJECT [sources]
   seminartext project-link-youtube PROJECT SOURCE_ID URL
   seminartext project-check PROJECT
+  seminartext project-promote-transcript PROJECT --source-id ID --text-file FILE --state verified --reviewer NAME
+  seminartext project-align PROJECT --source-id ID --revision-id REVISION --alignment-json FILE [--media FILE]
+  seminartext project-evidence-check PROJECT [--json]
   seminartext project-transcribe PROJECT
   seminartext project-documents PROJECT
   seminartext project-corpus PROJECT
@@ -4979,6 +4982,19 @@ if bad:
 
 print("РЕЗУЛЬТАТ: структура проекта корректна")
 PYSCAN
+
+  if [[ -f "$project_dir/evidence/canonical_bundle.json" ]]; then
+    echo
+    echo "EVIDENCE FOUNDATION"
+    evidence_foundation_command evidence-check "$project_dir" --cross-record-only || return $?
+  else
+    echo
+    echo "[INFO] Evidence Foundation bundle пока не создан"
+  fi
+}
+
+evidence_foundation_command() {
+  "$SEMINARTEXT_PYTHON" "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/evidence_foundation.py" "$@"
 }
 
 
@@ -5224,6 +5240,21 @@ main() {
     project-check)
       shift
       project_check "$@"
+      exit $?
+      ;;
+    project-promote-transcript)
+      shift
+      evidence_foundation_command promote-transcript "$@"
+      exit $?
+      ;;
+    project-align)
+      shift
+      evidence_foundation_command align "$@"
+      exit $?
+      ;;
+    project-evidence-check)
+      shift
+      evidence_foundation_command evidence-check "$@"
       exit $?
       ;;
     init)

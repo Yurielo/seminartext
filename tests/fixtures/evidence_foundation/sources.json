@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "videos": [
+    {
+      "source_id": "video_001",
+      "order": 1,
+      "type": "local",
+      "file": "source/video/source.mp4",
+      "title": "Evidence fixture"
+    }
+  ],
+  "documents": []
+}
