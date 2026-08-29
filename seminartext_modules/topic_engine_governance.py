@@ -64,7 +64,18 @@ def _verify_record(record: dict[str, Any], root: Path, deployed: bool) -> tuple[
     return False, "IMPLEMENTATION_MISSING"
 
 
-def _verify_external(item: dict[str, Any]) -> list[str]:
+def _verify_optional_file(path_value: Any, expected: Any, root: Path, deployed: bool) -> tuple[bool, str]:
+    if not _relative_safe(path_value) or not isinstance(expected, str) or len(expected) != 64:
+        return False, "optional provenance path/hash is missing or unsafe"
+    target = root / path_value
+    if target.is_file():
+        return (_sha256(target) == expected, "OPTIONAL_FILE_HASH_MATCH" if _sha256(target) == expected else "OPTIONAL_FILE_HASH_MISMATCH")
+    if deployed and root.joinpath("governance", "topic_engine_lifecycle.json").is_file():
+        return True, "GOVERNED_HASH_ATTESTATION"
+    return False, "OPTIONAL_PROVENANCE_MISSING"
+
+
+def _verify_external(item: dict[str, Any], root: Path, deployed: bool) -> list[str]:
     errors: list[str] = []
     external = item.get("external")
     if item.get("provenance_state") == "EXTERNAL_PINNED_IMPLEMENTATION":
@@ -74,6 +85,12 @@ def _verify_external(item: dict[str, Any]) -> list[str]:
             errors.append("external commit pin missing")
         if not isinstance(external, dict) or not external.get("package") or not external.get("version"):
             errors.append("external package/version pin missing")
+    lock_path = (item.get("external") or {}).get("lock_path")
+    lock_sha = (item.get("external") or {}).get("lock_sha256")
+    if lock_path:
+        ok, reason = _verify_optional_file(lock_path, lock_sha, root, deployed)
+        if not ok:
+            errors.append(f"external lock provenance: {reason}")
     return errors
 
 
@@ -128,7 +145,17 @@ def validate_lifecycle(path: str | Path | None = None, *, deployed: bool = False
             ok, reason = _verify_record(item.get("implementation", {}), root, deployed)
             if not ok:
                 errors.append(f"active implementation provenance for {role}: {reason}")
-        errors.extend(_verify_external(item))
+            implementation = item.get("implementation", {})
+            if implementation.get("configuration_path"):
+                config_ok, config_reason = _verify_optional_file(
+                    implementation.get("configuration_path"),
+                    implementation.get("configuration_sha256"),
+                    root,
+                    deployed,
+                )
+                if not config_ok:
+                    errors.append(f"configuration provenance for {role}: {config_reason}")
+        errors.extend(_verify_external(item, root, deployed))
         errors.extend(_verify_model(item, role))
     frozen = by_role.get("frozen_candidate", {})
     primary = by_role.get("experimental_primary", {})
