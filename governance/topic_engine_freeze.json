@@ -13,7 +13,13 @@
     "role_before_freeze": "experimental_primary",
     "frozen_role": "frozen_candidate",
     "frozen": true,
-    "production_promoted": false
+    "production_promoted": false,
+    "implementation_binding": {
+      "provenance_state": "ACTIVE_IMPLEMENTATION",
+      "path": "analysis/experiments/bge_m3_changepoint_topic_engine.py",
+      "sha256": "e1e15a4a10c72be7f7625810bd634cf99b968e40458159bf51ae55f89ec0821c",
+      "model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab"
+    }
   },
   "configuration": {
     "value": {

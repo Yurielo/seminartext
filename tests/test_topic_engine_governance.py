@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import copy
 import json
+import shutil
 from pathlib import Path
 
 from seminartext_modules import dataset_governance
@@ -104,3 +105,71 @@ def test_dataset_c_and_e_remain_fail_closed():
     assert dataset_governance.evaluate("tuning", dataset_id="C").allowed is False
     assert dataset_governance.evaluate("experiment_run", dataset_id="E").allowed is False
     assert dataset_governance.evaluate("benchmark_run", dataset_id="D").allowed is False
+
+
+def test_active_missing_and_hash_mismatch_are_rejected(tmp_path):
+    lifecycle = json.loads(governance.DEFAULT_LIFECYCLE.read_text(encoding="utf-8"))
+    lifecycle["engines"][1]["implementation"]["path"] = "missing/authoritative.py"
+    missing = tmp_path / "missing.json"
+    write_json(missing, lifecycle)
+    assert governance.validate_lifecycle(missing)
+
+    lifecycle = json.loads(governance.DEFAULT_LIFECYCLE.read_text(encoding="utf-8"))
+    lifecycle["engines"][1]["implementation"]["sha256"] = "0" * 64
+    mismatch = tmp_path / "mismatch.json"
+    write_json(mismatch, lifecycle)
+    assert governance.validate_lifecycle(mismatch)
+
+
+def test_candidate_binding_and_hash_are_required(tmp_path):
+    freeze = json.loads(governance.DEFAULT_FREEZE.read_text(encoding="utf-8"))
+    freeze["candidate"]["implementation_binding"]["path"] = "other.py"
+    path = tmp_path / "candidate-path.json"
+    write_json(path, freeze)
+    assert governance.freeze_gate(path)["topic_candidate_freeze"] == "INCOMPLETE"
+
+    freeze = json.loads(governance.DEFAULT_FREEZE.read_text(encoding="utf-8"))
+    freeze["candidate"]["implementation_binding"]["sha256"] = None
+    path = tmp_path / "candidate-hash.json"
+    write_json(path, freeze)
+    assert governance.freeze_gate(path)["topic_candidate_freeze"] == "INCOMPLETE"
+
+
+def test_historical_and_external_pinned_provenance_are_valid(tmp_path):
+    lifecycle = json.loads(governance.DEFAULT_LIFECYCLE.read_text(encoding="utf-8"))
+    historical = {item["engine_id"]: item for item in lifecycle["historical_implementations"]}
+    assert historical["external_chonkie_baseline"]["provenance_state"] == "NON_EXECUTABLE_HISTORICAL_RECORD"
+    assert historical["external_texttiling_baseline"]["provenance_state"] == "NON_EXECUTABLE_HISTORICAL_RECORD"
+    assert historical["external_chonkie_baseline"]["external"]["commit"]
+    assert governance.validate_lifecycle() == []
+
+    broken = copy.deepcopy(lifecycle)
+    broken["historical_implementations"][1].pop("provenance_artifacts")
+    path = Path(tmp_path) / "temporary_topic_lifecycle.json"
+    write_json(path, broken)
+    assert governance.validate_lifecycle(path)
+
+
+def test_deployed_attestation_matches_repository_validation(tmp_path):
+    deploy = tmp_path / "bin"
+    (deploy / "governance").mkdir(parents=True)
+    (deploy / "seminartext_modules").mkdir()
+    lifecycle_path = deploy / "governance" / "topic_engine_lifecycle.json"
+    freeze_path = deploy / "governance" / "topic_engine_freeze.json"
+    shutil.copy2(governance.DEFAULT_LIFECYCLE, lifecycle_path)
+    shutil.copy2(governance.DEFAULT_FREEZE, freeze_path)
+    shutil.copy2(ROOT / "seminartext_modules" / "seminartext_topics.py", deploy / "seminartext_topics.py")
+    datasets_path = deploy / "governance" / "dataset_registry.json"
+    shutil.copy2(governance.DEFAULT_DATASETS, datasets_path)
+    assert governance.validate_lifecycle(lifecycle_path, deployed=True) == []
+    result = governance.freeze_gate(freeze_path, datasets_path, lifecycle_path, deployed=True)
+    assert result["topic_candidate_freeze"] == "COMPLETE"
+    assert result["dataset_d_access"] == "BLOCKED"
+
+
+def test_personal_absolute_paths_are_rejected(tmp_path):
+    lifecycle = json.loads(governance.DEFAULT_LIFECYCLE.read_text(encoding="utf-8"))
+    lifecycle["engines"][1]["implementation"]["path"] = "/Users/example/private.py"
+    path = tmp_path / "absolute.json"
+    write_json(path, lifecycle)
+    assert any("absolute personal path" in error for error in governance.validate_lifecycle(path))

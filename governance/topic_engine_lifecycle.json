@@ -1,13 +1,15 @@
 {
-  "schema_version": 1,
-  "policy_version": "2026-08-29.issue-61",
-  "allowed_role_ids": [
-    "production_legacy",
-    "experimental_primary",
-    "comparator",
-    "challenger",
-    "frozen_candidate"
-  ],
+  "schema_version": 2,
+  "policy_version": "2026-08-29.issue-82",
+  "allowed_role_ids": ["production_legacy", "experimental_primary", "comparator", "challenger", "frozen_candidate"],
+  "allowed_provenance_states": ["ACTIVE_IMPLEMENTATION", "HISTORICAL_IMPLEMENTATION", "EXTERNAL_PINNED_IMPLEMENTATION", "SUPERSEDED_REFERENCE", "NON_EXECUTABLE_HISTORICAL_RECORD"],
+  "deployment_verification": {
+    "mode": "GOVERNED_HASH_ATTESTATION",
+    "repository_predeploy_validation_required": true,
+    "deployed_manifest_byte_identity_required": true,
+    "integrity_gate": "G2",
+    "rule": "Repository validation hashes every authoritative implementation/provenance artifact before deploy. Deployed validation may use the byte-identical governed manifest for repository-only research files; it must never infer provenance from personal absolute paths."
+  },
   "new_custom_family_policy": "DENY_UNLESS_EXPLICIT_PRODUCT_OWNER_ISSUE",
   "runtime_statement": "Research leadership does not imply production promotion. The current CLI continues to use the legacy Ollama/Gemma engine until an explicit future promotion decision and implementation.",
   "benchmark_segment_semantics": {
@@ -19,16 +21,11 @@
     {
       "engine_id": "legacy_ollama_gemma_runtime",
       "role_id": "production_legacy",
+      "provenance_state": "ACTIVE_IMPLEMENTATION",
       "lifecycle_status": "CURRENT_RUNTIME_BEHAVIOR_NOT_PRODUCTION_BASELINE",
-      "implementation": "seminartext_modules/seminartext_topics.py",
-      "entrypoint": "analyze_window_boundaries",
-      "model": "gemma3:4b",
-      "configuration": {
-        "detail": "runtime_selectable_low_auto_high",
-        "temperature": 0,
-        "window_seconds": 720,
-        "refinement_max_depth": 2
-      },
+      "implementation": {"type": "repository_file", "path": "seminartext_modules/seminartext_topics.py", "deployed_path": "seminartext_topics.py", "sha256": "d8a14e83b877024c3e016a33e594af17d512741a77735ff3d8c7d1262628c8db", "entrypoint": "analyze_window_boundaries", "deployment_mode": "RUNTIME_FILE", "repository_verification_required_before_deploy": true},
+      "model": {"provider": "ollama", "identity": "gemma3:4b", "digest": null, "identity_policy": "LEGACY_RUNTIME_SELECTABLE_NOT_FROZEN_EVIDENCE_MODEL"},
+      "configuration": {"detail": "runtime_selectable_low_auto_high", "temperature": 0, "window_seconds": 720, "refinement_max_depth": 2},
       "production_runtime": true,
       "production_promoted": false,
       "references": ["seminartext", "SEMINARTEXT_4_STATE.json#stages.topic_engine"]
@@ -36,80 +33,47 @@
     {
       "engine_id": "bge_m3_local_peak_v1",
       "role_id": "experimental_primary",
-      "lifecycle_status": "PRIMARY_EXPERIMENTAL_BOUNDARY_CANDIDATE_NOT_FROZEN",
-      "implementation": "analysis/experiments/bge_m3_changepoint_topic_engine.py",
-      "entrypoint": "run_experiment",
-      "model": "bge-m3:latest",
-      "configuration": {
-        "embedding_endpoint": "http://127.0.0.1:11434/api/embed",
-        "embedding_batch_size": 32,
-        "embedding_timeout_seconds": 300,
-        "block_seconds": 15,
-        "context_blocks": 2,
-        "signal": "1 - cosine(mean(left_context), mean(right_context))",
-        "smoothing": [0.25, 0.5, 0.25],
-        "median_multiplier_threshold": 1.15,
-        "min_gap_blocks": 3,
-        "max_boundaries_per_window": 11,
-        "min_gap_segment_ids": 3
-      },
+      "provenance_state": "ACTIVE_IMPLEMENTATION",
+      "lifecycle_status": "PRIMARY_EXPERIMENTAL_BOUNDARY_CANDIDATE_FROZEN_FOR_DATASET_D_CANDIDACY",
+      "implementation": {"type": "repository_file", "path": "analysis/experiments/bge_m3_changepoint_topic_engine.py", "sha256": "e1e15a4a10c72be7f7625810bd634cf99b968e40458159bf51ae55f89ec0821c", "entrypoint": "run_experiment", "deployment_mode": "GOVERNED_HASH_ATTESTATION", "repository_verification_required_before_deploy": true},
+      "model": {"provider": "ollama", "identity": "bge-m3:latest", "digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab", "identity_policy": "MUTABLE_TAG_REQUIRES_PINNED_DIGEST"},
+      "configuration": {"embedding_endpoint": "http://127.0.0.1:11434/api/embed", "embedding_batch_size": 32, "embedding_timeout_seconds": 300, "block_seconds": 15, "context_blocks": 2, "signal": "1 - cosine(mean(left_context), mean(right_context))", "smoothing": [0.25, 0.5, 0.25], "median_multiplier_threshold": 1.15, "min_gap_blocks": 3, "max_boundaries_per_window": 11, "min_gap_segment_ids": 3},
       "production_runtime": false,
       "production_promoted": false,
-      "evidence": [
-        "analysis/BGE_M3_CHANGEPOINT_EXPERIMENT_DATASET_A.md",
-        "analysis/DATASET_B_FROZEN_VALIDATION.md",
-        "analysis/DATASET_C_BLIND_VALIDATION.md",
-        "analysis/dataset_c/results/dataset_c_bge_m3_local_peak_blind.json"
-      ]
+      "evidence": ["analysis/BGE_M3_CHANGEPOINT_EXPERIMENT_DATASET_A.md", "analysis/DATASET_B_FROZEN_VALIDATION.md", "analysis/DATASET_C_BLIND_VALIDATION.md", "analysis/dataset_c/results/dataset_c_bge_m3_local_peak_blind.json"]
     },
     {
       "engine_id": "bge_m3_pelt_v1",
       "role_id": "comparator",
+      "provenance_state": "ACTIVE_IMPLEMENTATION",
       "lifecycle_status": "RECALL_ORIENTED_COMPARATOR_NOT_FROZEN",
-      "implementation": "analysis/experiments/bge_m3_ruptures_topic_engine.py",
-      "entrypoint": "run_experiment",
-      "model": "bge-m3:latest",
-      "configuration": {
-        "block_seconds": 15,
-        "context_blocks": 2,
-        "change_point_library": "ruptures==1.1.9",
-        "ruptures_model": "rbf",
-        "penalty": 0.5,
-        "min_size_blocks": 3,
-        "jump": 1,
-        "min_gap_segment_ids": 3
-      },
+      "implementation": {"type": "repository_file", "path": "analysis/experiments/bge_m3_ruptures_topic_engine.py", "sha256": "e8f54eda7c3b6a3a6bbb547b22a0359f55d7a97ca859642b3d05c07777c244b5", "entrypoint": "run_experiment", "deployment_mode": "GOVERNED_HASH_ATTESTATION", "repository_verification_required_before_deploy": true},
+      "external": {"package": "ruptures", "version": "1.1.9", "lock_path": "dependencies/locks/treeseg-py3.14.lock", "lock_sha256": "219f80a2ec224bdb85be0da259bd23d0bc2bdfd2f1d64de3793c39da2f9e2831"},
+      "model": {"provider": "ollama", "identity": "bge-m3:latest", "digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab", "identity_policy": "MUTABLE_TAG_REQUIRES_PINNED_DIGEST"},
+      "configuration": {"block_seconds": 15, "context_blocks": 2, "change_point_library": "ruptures==1.1.9", "ruptures_model": "rbf", "penalty": 0.5, "min_size_blocks": 3, "jump": 1, "min_gap_segment_ids": 3},
       "production_runtime": false,
       "production_promoted": false,
-      "evidence": [
-        "analysis/BGE_M3_RUPTURES_EXPERIMENT_DATASET_A.md",
-        "analysis/DATASET_B_FROZEN_VALIDATION.md",
-        "analysis/DATASET_C_BLIND_VALIDATION.md",
-        "analysis/dataset_c/results/dataset_c_bge_m3_pelt_blind.json"
-      ]
+      "evidence": ["analysis/BGE_M3_RUPTURES_EXPERIMENT_DATASET_A.md", "analysis/DATASET_B_FROZEN_VALIDATION.md", "analysis/DATASET_C_BLIND_VALIDATION.md", "analysis/dataset_c/results/dataset_c_bge_m3_pelt_blind.json"]
     },
     {
       "engine_id": "treeseg_external_adapt_v1",
       "role_id": "challenger",
+      "provenance_state": "EXTERNAL_PINNED_IMPLEMENTATION",
       "lifecycle_status": "EXTERNAL_ADAPT_CHALLENGER_AND_HIERARCHY_CANDIDATE_NOT_PRODUCTION",
-      "implementation": "analysis/treeseg_global_structure_poc/run_hierarchy_poc.py",
-      "entrypoint": "bounded_poc_only",
-      "model": "topic_treeseg==0.1.0@f18929a23693bdcb669aef1ab1a18fd035e50e57",
-      "configuration": "analysis/treeseg_global_structure_poc/config.json",
+      "implementation": {"type": "repository_adapter_with_external_pin", "path": "analysis/treeseg_global_structure_poc/run_hierarchy_poc.py", "sha256": "7351739a9a3a7db29c68f6aa057f13bd23f1e2aac174cca4440ff7f003f3c739", "entrypoint": "bounded_poc_only", "configuration_path": "analysis/treeseg_global_structure_poc/config.json", "configuration_sha256": "7470536076fc5c59e80a065fac2bfa862d5e56bf2be0b6ddbd2a9ac87efa109d", "deployment_mode": "GOVERNED_HASH_ATTESTATION", "repository_verification_required_before_deploy": true},
+      "external": {"repository": "https://github.com/geraldthewes/topic-treeseg", "commit": "f18929a23693bdcb669aef1ab1a18fd035e50e57", "package": "topic_treeseg", "version": "0.1.0"},
+      "model": {"provider": "ollama", "identity": "bge-m3:latest", "digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab", "identity_policy": "MUTABLE_TAG_REQUIRES_PINNED_DIGEST"},
       "production_runtime": false,
       "production_promoted": false,
-      "evidence": [
-        "analysis/EXTERNAL_TOPIC_BASELINE_SURVEY_ISSUE_45.md",
-        "analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md"
-      ]
+      "evidence": ["analysis/EXTERNAL_TOPIC_BASELINE_SURVEY_ISSUE_45.md", "analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md"]
     },
     {
       "engine_id": "bge_m3_local_peak_v1",
       "role_id": "frozen_candidate",
+      "provenance_state": "ACTIVE_IMPLEMENTATION",
       "lifecycle_status": "FROZEN_FOR_FUTURE_DATASET_D_CANDIDACY_NOT_PRODUCTION",
-      "implementation": "analysis/experiments/bge_m3_changepoint_topic_engine.py",
-      "entrypoint": "run_experiment",
-      "model": "bge-m3:latest",
+      "implementation": {"type": "repository_file", "path": "analysis/experiments/bge_m3_changepoint_topic_engine.py", "sha256": "e1e15a4a10c72be7f7625810bd634cf99b968e40458159bf51ae55f89ec0821c", "entrypoint": "run_experiment", "deployment_mode": "GOVERNED_HASH_ATTESTATION", "repository_verification_required_before_deploy": true},
+      "model": {"provider": "ollama", "identity": "bge-m3:latest", "digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab", "identity_policy": "MUTABLE_TAG_REQUIRES_PINNED_DIGEST"},
       "configuration": "governance/topic_engine_freeze.json#configuration",
       "production_runtime": false,
       "production_promoted": false,
@@ -120,24 +84,30 @@
     {
       "engine_id": "legacy_ollama_sliding_subwindow_experiment",
       "role_id": "historical_experiment_not_candidate",
+      "provenance_state": "HISTORICAL_IMPLEMENTATION",
       "lifecycle_status": "RETAINED_EVIDENCE_ONLY_NO_RERUN_OR_PROMOTION",
-      "implementation": "analysis/experiments/sliding_subwindow_topic_engine.py",
+      "implementation": {"type": "repository_file", "path": "analysis/experiments/sliding_subwindow_topic_engine.py", "sha256": "8e5e7c92cc847b8bd1199563172b93890615f5214cbb9f35188231a1ff200287", "deployment_mode": "GOVERNED_HASH_ATTESTATION", "repository_verification_required_before_deploy": true},
+      "provenance_artifacts": [{"path": "analysis/SLIDING_SUBWINDOW_EXPERIMENT_DATASET_A.md", "sha256": "88eafa536f9f841299eecee77e4a0572b109be9840e4a2ee92371784bf34bb1c"}, {"path": "analysis/dataset_b/results/dataset_b_sliding_subwindow_frozen.json", "sha256": "f3083ec7a36ddabfda1b0b53aac47c884248a31c8ec486bd7f065b397310b163"}],
       "production_runtime": false,
       "production_promoted": false
     },
     {
       "engine_id": "external_chonkie_baseline",
       "role_id": "historical_external_baseline_rejected",
+      "provenance_state": "NON_EXECUTABLE_HISTORICAL_RECORD",
       "lifecycle_status": "REJECTED_IN_ISSUE_45_RETAINED_EVIDENCE_ONLY",
-      "implementation": "analysis/external_topic_baselines/run_baseline_challenge.py",
+      "external": {"repository": "https://github.com/feyninc/chonkie", "commit": "664454b689d68614bcfc0b1d57fc2a28b5862825", "package": "chonkie", "version": "1.7.0"},
+      "provenance_artifacts": [{"class": "historical_adapter", "path": "analysis/external_topic_baselines/run_baseline_challenge.py", "sha256": "d5518b3186d9f6c4576fc954b1a57ba8fb7b2eb3e16755c90a0c2a815ff2f51b"}, {"class": "frozen_result", "path": "analysis/external_topic_baselines/results/baseline_challenge.json", "sha256": "b9d199d37856ce2afb9eac1b9134276760da97f33cc8ed44ed6cf14abc760350"}, {"class": "source_snapshot", "path": "analysis/external_topic_baselines/source_snapshot.json", "sha256": "6b43ad4c182ffda7b0b4abf54bc3354a5c86084b69561ccf4e1e4771233ba3b1"}],
       "production_runtime": false,
       "production_promoted": false
     },
     {
       "engine_id": "external_texttiling_baseline",
       "role_id": "historical_external_baseline_rejected",
+      "provenance_state": "NON_EXECUTABLE_HISTORICAL_RECORD",
       "lifecycle_status": "REJECTED_IN_ISSUE_45_RETAINED_EVIDENCE_ONLY",
-      "implementation": "analysis/external_topic_baselines/run_baseline_challenge.py",
+      "external": {"repository": "https://github.com/nltk/nltk", "commit": "a79356490469d741dba11b5cb97acccd12be0d8e", "package": "nltk", "version": "3.10.3"},
+      "provenance_artifacts": [{"class": "historical_adapter", "path": "analysis/external_topic_baselines/run_baseline_challenge.py", "sha256": "d5518b3186d9f6c4576fc954b1a57ba8fb7b2eb3e16755c90a0c2a815ff2f51b"}, {"class": "frozen_result", "path": "analysis/external_topic_baselines/results/baseline_challenge.json", "sha256": "b9d199d37856ce2afb9eac1b9134276760da97f33cc8ed44ed6cf14abc760350"}, {"class": "source_snapshot", "path": "analysis/external_topic_baselines/source_snapshot.json", "sha256": "6b43ad4c182ffda7b0b4abf54bc3354a5c86084b69561ccf4e1e4771233ba3b1"}],
       "production_runtime": false,
       "production_promoted": false
     }

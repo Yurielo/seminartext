@@ -106,6 +106,28 @@ def run(context: CheckContext) -> GateResult:
     smoke_commands = [
         [str(cli_path), "project-evidence-check", "--help"],
         [str(cli_path), "dataset-policy-check", "A", "gold_read", "--json"],
+        [
+            context.test_command[0],
+            str(context.deploy_dir / "seminartext_modules" / "topic_engine_governance.py"),
+            "validate",
+            "--lifecycle",
+            str(context.deploy_dir / "governance" / "topic_engine_lifecycle.json"),
+            "--deployed",
+            "--json",
+        ],
+        [
+            context.test_command[0],
+            str(context.deploy_dir / "seminartext_modules" / "topic_engine_governance.py"),
+            "freeze-check",
+            "--freeze",
+            str(context.deploy_dir / "governance" / "topic_engine_freeze.json"),
+            "--dataset-registry",
+            str(context.deploy_dir / "governance" / "dataset_registry.json"),
+            "--lifecycle",
+            str(context.deploy_dir / "governance" / "topic_engine_lifecycle.json"),
+            "--deployed",
+            "--json",
+        ],
     ]
     smoke_checks = []
     for smoke_command in smoke_commands:

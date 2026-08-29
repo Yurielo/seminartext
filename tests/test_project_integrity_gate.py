@@ -114,6 +114,7 @@ main "$@"
         destination = root / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
+
     for lock in (ROOT / "dependencies" / "locks").glob("*.lock"):
         destination = root / "dependencies" / "locks" / lock.name
         destination.parent.mkdir(parents=True, exist_ok=True)
@@ -133,6 +134,14 @@ main "$@"
         destination = root / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
+
+    lifecycle_path = root / "governance" / "topic_engine_lifecycle.json"
+    lifecycle = json.loads(lifecycle_path.read_text(encoding="utf-8"))
+    fake_topics_hash = hashlib.sha256(
+        (root / "seminartext_modules/seminartext_topics.py").read_bytes()
+    ).hexdigest()
+    lifecycle["engines"][0]["implementation"]["sha256"] = fake_topics_hash
+    lifecycle_path.write_text(json.dumps(lifecycle, indent=2) + "\n", encoding="utf-8")
 
     for component in contract["runtime_components"]:
         destination = deploy / component["deployed_name"]
