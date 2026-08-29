@@ -244,17 +244,12 @@ def test_documented_deploy_command_can_create_verified_isolated_snapshot(tmp_pat
     assert deployed.returncode == 0, deployed.stdout + deployed.stderr
     assert "DEPLOY: PASS" in deployed.stdout
 
+    contract = json.loads(
+        (ROOT / "integrity" / "integrity_contract.json").read_text(encoding="utf-8")
+    )
     expected = {
-        ROOT / "seminartext": deploy_bin / "seminartext_4.0_work",
-        ROADMAP: deploy_bin / ROADMAP.name,
-        STATE: deploy_bin / STATE.name,
-        ROOT / "seminartext_modules" / "seminartext_topics.py": (
-            deploy_bin / "seminartext_topics.py"
-        ),
-        ROOT / "seminartext_modules" / "seminartext_translate.py": (
-            deploy_bin / "seminartext_translate.py"
-        ),
-        VERSION: deploy_bin / VERSION.name,
+        ROOT / item["repository_path"]: deploy_bin / item["deployed_name"]
+        for item in contract["runtime_components"]
     }
     for source, snapshot in expected.items():
         assert snapshot.is_file()

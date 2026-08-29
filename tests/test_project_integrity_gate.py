@@ -54,6 +54,9 @@ main() {
     project-topic-benchmark-run)
       exit 0
       ;;
+    project-evidence-check)
+      exit 0
+      ;;
   esac
 }
 main "$@"
@@ -113,11 +116,22 @@ main "$@"
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(lock, destination)
 
+    for relative in (
+        "seminartext_modules/evidence_foundation.py",
+        "schemas/validate_canonical_evidence_v1.py",
+        "schemas/canonical_evidence_v1.schema.json",
+    ):
+        source = ROOT / relative
+        destination = root / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
+
     for component in contract["runtime_components"]:
-        shutil.copy2(
-            root / component["repository_path"],
-            deploy / component["deployed_name"],
-        )
+        destination = deploy / component["deployed_name"]
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(root / component["repository_path"], destination)
+        if component["id"] == "cli":
+            destination.chmod(0o755)
 
     run(["git", "init", "-q", "-b", "main"], root)
     run(["git", "config", "user.email", "integrity@example.invalid"], root)
@@ -211,6 +225,33 @@ def test_runtime_sync_stale_missing_and_unverified_are_truthful(tmp_path):
     unverified = runtime_truth.run(replace(context, deploy_dir=empty_deploy))
     assert unverified.status == "WARN"
     assert "UNVERIFIED" in unverified.reason
+
+
+def test_runtime_truth_requires_evidence_foundation_closure(tmp_path):
+    _, deploy, context = make_fixture(tmp_path)
+    missing = deploy / "seminartext_modules" / "evidence_foundation.py"
+    missing.unlink()
+
+    result = runtime_truth.run(context)
+
+    assert result.status == "FAIL"
+    assert "evidence_foundation=MISSING" in result.reason
+    assert "functional_smoke" not in result.evidence
+
+
+def test_runtime_truth_fails_when_dispatch_smoke_fails_even_with_matching_hashes(tmp_path):
+    root, deploy, context = make_fixture(tmp_path)
+    cli = root / "seminartext"
+    cli.write_text("#!/bin/sh\nexit 9\n", encoding="utf-8")
+    cli.chmod(0o755)
+    shutil.copy2(cli, deploy / "seminartext_4.0_work")
+    (deploy / "seminartext_4.0_work").chmod(0o755)
+
+    result = runtime_truth.run(context)
+
+    assert result.status == "FAIL"
+    assert "functional smoke failed" in result.reason
+    assert result.evidence["functional_smoke"]["status"] == "FAIL"
 
 
 def test_governance_failure_propagates_into_g3(tmp_path):
