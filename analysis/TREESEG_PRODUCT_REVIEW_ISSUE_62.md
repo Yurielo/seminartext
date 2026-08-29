@@ -70,6 +70,25 @@ The evidence covers only `video_001` (`topic_0001–0031`, 00:00:06.17–04:32:3
 
 Product Owner must select one option. This packet does not select, promote, or reject TreeSeg.
 
+## Product Owner decision recorded
+
+`ISSUE_62_DECISION: KEEP_TREESEG_AS_CHALLENGER`.
+
+The selected lifecycle record remains `treeseg_external_adapt_v1` with `role_id: challenger`. TreeSeg is not production-ready, not a frozen candidate, and is not authorized for expansion or a new experiment. The Product Owner rationale is the evidence summary above: 3 good groupings, 3 questionable groupings, 4 misleading groupings, 11 parent rename candidates, depth 7 with unnecessary levels, Day-1-only coverage, and unresolved recurring-topic handling. The frozen `bge_m3_local_peak_v1` candidate is unchanged.
+
+## Requirement → evidence self-check matrix
+
+| Issue #62 requirement | Evidence / result |
+|---|---|
+| Related, questionable, and misleading groupings | 3 `GOOD_GROUPING`, 3 `QUESTIONABLE_GROUPING`, and 4 `BAD_OR_MISLEADING_GROUPING` rows with node IDs, topic IDs, intervals, and excerpt segment ranges above. |
+| Excessive or non-meaningful depth | Four explicit depth findings: `group_LRLLL`, `group_LRLLR`, `group_LRRRLL`, `group_LRRRLR`; structural metric depth is 7 and leaves are unevenly placed at depths 3–7. |
+| Parent naming and navigation | 11 high-priority rename candidates are listed with rationale; provenance path example `group_R → group_RL → leaf_topic_0028` resolves to `video_001` segments 1838–1850. |
+| TreeSeg vs Local Peak | Flat baseline has 31 leaves/no parents; TreeSeg adds 23 temporal parents but no accuracy Gold, deduplication, or cross-day coverage. |
+| Recurring-topic handling | Explicit negative finding: testing spans `topic_0015`, `0016`, `0025`, `0026–0031`; correction/anger recurs in `0013–0015` and `0019–0022`; no cross-reference is created. |
+| Day-1 limitation | `source_snapshot.json`/metrics: 31 topics, `video_001` only, 1/4 source files (25%); Days 2–4 not represented. |
+| Product options without Codex selection | ADOPT, ADAPT FURTHER, KEEP AS CHALLENGER, and REJECT table; the recorded decision is the Product Owner decision, not a Codex choice. |
+| Safety constraints | No new run, experiment, Gold, prediction, benchmark, Dataset D/C/E operation, model, dependency, or algorithm change. |
+
 ## Technical gate and restrictions
 
 Baseline verification on `main` at `df972b2a02ac6b581d290b515725e3ede208cdf7` passed as expected: G1–G4/G8 PASS, G5/G6 NOT_IMPLEMENTED, G7 known WARN (`141 passed, 2 skipped`), and PROJECT_INTEGRITY PARTIAL. Dataset D remains BLOCKED and blind run authorization is NO. No Dataset D/C/E operation, Gold, prediction, benchmark, model, dependency, or algorithm mutation was performed.

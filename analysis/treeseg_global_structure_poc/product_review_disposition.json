@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "issue": 62,
+  "decision": "KEEP_TREESEG_AS_CHALLENGER",
+  "review_packet": "analysis/TREESEG_PRODUCT_REVIEW_ISSUE_62.md",
+  "engine_id": "treeseg_external_adapt_v1",
+  "role_id": "challenger",
+  "TREESEG_PRODUCT_STATUS": "CHALLENGER",
+  "TREESEG_PRODUCTION_READY": false,
+  "TREESEG_FROZEN_CANDIDATE": false,
+  "TREESEG_EXPANSION_AUTHORIZED": false,
+  "treeSeg_product_status": "CHALLENGER",
+  "treeSeg_production_ready": false,
+  "treeSeg_frozen_candidate": false,
+  "treeSeg_expansion_authorized": false,
+  "frozen_local_peak_candidate_preserved": true,
+  "rationale": {
+    "good_groupings": 3,
+    "questionable_groupings": 3,
+    "misleading_groupings": 4,
+    "parents_requiring_rename": 11,
+    "depth": 7,
+    "day_1_only_limitation": true,
+    "recurring_topic_problem_solved": false,
+    "summary": "TreeSeg shows useful hierarchy signal, but semantic precision and UX are insufficient for production integration."
+  },
+  "known_limitations": [
+    "DAY_1_ONLY",
+    "SEMANTIC_MISGROUPINGS",
+    "EXCESSIVE_HIERARCHY_DEPTH",
+    "PARENT_NAMING_REQUIRES_HUMAN_REVIEW",
+    "RECURRING_TOPIC_PROBLEM_UNRESOLVED"
+  ],
+  "constraints": {
+    "new_treeseg_experiment": false,
+    "days_2_to_4_expansion": false,
+    "new_hierarchy_algorithm": false,
+    "production_promotion": false,
+    "dataset_d_run": false,
+    "dataset_c_tuning": false,
+    "dataset_e_experiment": false,
+    "new_gold": false,
+    "new_benchmark": false
+  }
+}
