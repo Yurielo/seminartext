@@ -181,3 +181,7 @@ Score each question 0 (harmful), 1 (mixed), or 2 (useful), and cite node IDs/tim
 7. Is there excessive fragmentation or over-merge?
 
 Required Product Owner disposition: `ACCEPT`, `REVISE`, or `REJECT`. Acceptance authorizes only the next evidence step; it does not promote TreeSeg to production or freeze a Topic Engine candidate.
+
+## Product Owner disposition (Issue #62)
+
+`KEEP_TREESEG_AS_CHALLENGER` — recorded after DOMAIN_REVIEW. The lifecycle role remains `challenger` for `treeseg_external_adapt_v1`; no production promotion, frozen-candidate change, new experiment, or Days 2–4 expansion is authorized. Rationale: the packet identified 3 good, 3 questionable, and 4 misleading groupings; 11 parent nodes requiring rename; depth 7 with unnecessary levels; Day-1-only coverage; and an unresolved recurring-topic problem. The frozen `bge_m3_local_peak_v1` candidate is preserved unchanged.

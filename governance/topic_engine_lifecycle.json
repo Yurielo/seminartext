@@ -11,6 +11,44 @@
     "rule": "Repository validation hashes every authoritative implementation/provenance artifact before deploy. Deployed validation may use the byte-identical governed manifest for repository-only research files; it must never infer provenance from personal absolute paths."
   },
   "new_custom_family_policy": "DENY_UNLESS_EXPLICIT_PRODUCT_OWNER_ISSUE",
+  "treeseg_product_review": {
+    "issue": 62,
+    "disposition": "KEEP_TREESEG_AS_CHALLENGER",
+    "review_packet": "analysis/TREESEG_PRODUCT_REVIEW_ISSUE_62.md",
+    "engine_id": "treeseg_external_adapt_v1",
+    "role_id": "challenger",
+    "TREESEG_PRODUCT_STATUS": "CHALLENGER",
+    "TREESEG_PRODUCTION_READY": false,
+    "TREESEG_FROZEN_CANDIDATE": false,
+    "TREESEG_EXPANSION_AUTHORIZED": false,
+    "product_status": "CHALLENGER",
+    "production_ready": false,
+    "frozen_candidate": false,
+    "expansion_authorized": false,
+    "rationale": {
+      "good_groupings": 3,
+      "questionable_groupings": 3,
+      "misleading_groupings": 4,
+      "parents_requiring_rename": 11,
+      "depth": 7,
+      "day_1_only_limitation": true,
+      "recurring_topic_problem_solved": false,
+      "summary": "Useful hierarchy signal, but semantic accuracy and navigation UX are insufficient for production adoption."
+    },
+    "known_limitations": [
+      "DAY_1_ONLY",
+      "SEMANTIC_MISGROUPINGS",
+      "EXCESSIVE_HIERARCHY_DEPTH",
+      "PARENT_NAMING_REQUIRES_HUMAN_REVIEW",
+      "RECURRING_TOPIC_PROBLEM_UNRESOLVED"
+    ],
+    "constraints": {
+      "new_experiment_authorized": false,
+      "days_2_to_4_expansion_authorized": false,
+      "new_hierarchy_algorithm_authorized": false,
+      "production_promotion_authorized": false
+    }
+  },
   "runtime_statement": "Research leadership does not imply production promotion. The current CLI continues to use the legacy Ollama/Gemma engine until an explicit future promotion decision and implementation.",
   "benchmark_segment_semantics": {
     "canonical_50_word_representation": "TOPIC_NEUTRAL_TEST_REPRESENTATION",
