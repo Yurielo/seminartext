@@ -2,6 +2,15 @@
 set -Eeuo pipefail
 
 VERSION="3.0"
+SEMINARTEXT_ENTRYPOINT="${BASH_SOURCE[0]}"
+while [[ -L "$SEMINARTEXT_ENTRYPOINT" ]]; do
+  SEMINARTEXT_ENTRYPOINT_DIR="$(cd -P "$(dirname "$SEMINARTEXT_ENTRYPOINT")" >/dev/null 2>&1 && pwd)"
+  SEMINARTEXT_ENTRYPOINT="$(readlink "$SEMINARTEXT_ENTRYPOINT")"
+  [[ "$SEMINARTEXT_ENTRYPOINT" == /* ]] \
+    || SEMINARTEXT_ENTRYPOINT="$SEMINARTEXT_ENTRYPOINT_DIR/$SEMINARTEXT_ENTRYPOINT"
+done
+SEMINARTEXT_ENTRYPOINT_DIR="$(cd -P "$(dirname "$SEMINARTEXT_ENTRYPOINT")" >/dev/null 2>&1 && pwd)"
+SEMINARTEXT_ENTRYPOINT="$SEMINARTEXT_ENTRYPOINT_DIR/$(basename "$SEMINARTEXT_ENTRYPOINT")"
 TRANSCRIPTS_ROOT="${SEMINARTEXT_OUTPUT:-$HOME/Documents/Расшифровки}"
 MODEL="${SEMINARTEXT_MODEL:-}"
 VAD_MODEL="${SEMINARTEXT_VAD_MODEL:-}"
@@ -17,6 +26,82 @@ PROJECT_OUTPUT_DIR=""
 PROJECT_SOURCE_ID=""
 
 PROMPT="Семинар на русском языке. Целостное Метоисцеление, кинезиология, прикладная кинезиология, Биологическое Центрирование, иглорефлексотерапия, акупунктура, меридиан, мышечное тестирование, психосоматика, метафизика, каббала, кли, масах, клипот, сфирот, Новолуние, Полнолуние."
+
+sha256_file() {
+  local file="$1"
+  if command -v shasum >/dev/null 2>&1; then
+    shasum -a 256 "$file" | awk '{print $1}'
+  elif command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$file" | awk '{print $1}'
+  else
+    echo "Ошибка: для runtime-диагностики требуется shasum или sha256sum." >&2
+    return 1
+  fi
+}
+
+resolve_runtime_module() {
+  local kind="$1" override_name filename label override candidate
+  case "$kind" in
+    topics)
+      override_name="SEMINARTEXT_TOPICS_MODULE"
+      filename="seminartext_topics.py"
+      label="Topic Engine"
+      ;;
+    translate)
+      override_name="SEMINARTEXT_TRANSLATE_MODULE"
+      filename="seminartext_translate.py"
+      label="Translate"
+      ;;
+    *)
+      echo "Ошибка: неизвестный runtime-модуль: $kind" >&2
+      return 2
+      ;;
+  esac
+
+  override="${!override_name:-}"
+  if [[ -n "$override" ]]; then
+    override="${override/#\~/$HOME}"
+    if [[ -f "$override" ]]; then
+      printf '%s\n' "$override"
+      return 0
+    fi
+    echo "Ошибка: $override_name указывает на отсутствующий $label-модуль:" >&2
+    echo "  $override" >&2
+    echo "Исправьте путь или удалите $override_name, чтобы использовать bundled-модуль." >&2
+    return 1
+  fi
+
+  for candidate in \
+    "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/$filename" \
+    "$SEMINARTEXT_ENTRYPOINT_DIR/$filename"; do
+    if [[ -f "$candidate" ]]; then
+      printf '%s\n' "$candidate"
+      return 0
+    fi
+  done
+
+  echo "Ошибка: не найден $label-модуль $filename." >&2
+  echo "Проверены пути:" >&2
+  echo "  $SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/$filename" >&2
+  echo "  $SEMINARTEXT_ENTRYPOINT_DIR/$filename" >&2
+  echo "Задайте $override_name=/полный/путь/$filename или установите bundled-модуль рядом с CLI." >&2
+  return 1
+}
+
+runtime_identity() {
+  local topics_module translate_module
+  topics_module="$(resolve_runtime_module topics)" || return 1
+  translate_module="$(resolve_runtime_module translate)" || return 1
+
+  echo "SeminarText runtime identity"
+  echo "version=$VERSION"
+  echo "cli.path=$SEMINARTEXT_ENTRYPOINT"
+  echo "cli.sha256=$(sha256_file "$SEMINARTEXT_ENTRYPOINT")"
+  echo "topics.path=$topics_module"
+  echo "topics.sha256=$(sha256_file "$topics_module")"
+  echo "translate.path=$translate_module"
+  echo "translate.sha256=$(sha256_file "$translate_module")"
+}
 
 find_model() {
   local name="$1" candidate
@@ -963,13 +1048,11 @@ TOPICSHELP
   done
 
   command -v ollama >/dev/null 2>&1 || { echo "Ошибка: ollama не найден." >&2; return 1; }
-  [[ -x "/Users/yurielokhin/bin/seminartext_topics.py" ]] || {
-    echo "Ошибка: не найден модуль seminartext_topics.py" >&2
-    return 1
-  }
+  local topics_module
+  topics_module="$(resolve_runtime_module topics)" || return 1
 
   local -a args=(
-    "/Users/yurielokhin/bin/seminartext_topics.py"
+    "$topics_module"
     "$input"
     --root "$TRANSCRIPTS_ROOT"
     --detail "$detail"
@@ -1003,8 +1086,9 @@ TRANSLATEHELP
     shift
   done
   command -v ollama >/dev/null 2>&1 || { echo "Ошибка: ollama не найден." >&2; return 1; }
-  [[ -x "/Users/yurielokhin/bin/seminartext_translate.py" ]] || { echo "Ошибка: не найден модуль перевода." >&2; return 1; }
-  local -a args=("/Users/yurielokhin/bin/seminartext_translate.py" "$input" --root "$TRANSCRIPTS_ROOT")
+  local translate_module
+  translate_module="$(resolve_runtime_module translate)" || return 1
+  local -a args=("$translate_module" "$input" --root "$TRANSCRIPTS_ROOT")
   [[ -n "$force_arg" ]] && args+=("$force_arg")
   python3 "${args[@]}"
 }
@@ -2154,7 +2238,8 @@ HELP
   }
 
   local benchmark="$project_dir/analysis/benchmark/topic_benchmark.json"
-  local topics_module="${SEMINARTEXT_TOPICS_MODULE:-/Users/yurielokhin/bin/seminartext_topics.py}"
+  local topics_module
+  topics_module="$(resolve_runtime_module topics)" || return 1
   local results_dir="$project_dir/analysis/benchmark/results"
 
   [[ -f "$benchmark" ]] || {
@@ -3155,7 +3240,8 @@ HELP
   }
 
   local srt="$project_dir/transcript/$only_source/transcript.srt"
-  local topics_module="/Users/yurielokhin/bin/seminartext_topics.py"
+  local topics_module
+  topics_module="$(resolve_runtime_module topics)" || return 1
   local out_dir="$project_dir/analysis/benchmark"
 
   [[ -f "$srt" ]] || {
@@ -3432,7 +3518,8 @@ HELP
 
   local registry="$project_dir/sources.json"
   local corpus="$project_dir/analysis/corpus.json"
-  local topics_module="/Users/yurielokhin/bin/seminartext_topics.py"
+  local topics_module
+  topics_module="$(resolve_runtime_module topics)" || return 1
 
   [[ -f "$registry" ]] || { echo "Ошибка: sources.json не найден." >&2; return 1; }
   [[ -f "$corpus" ]] || { echo "Ошибка: corpus.json не найден. Сначала выполните project-corpus." >&2; return 1; }
@@ -5037,6 +5124,10 @@ main() {
       ;;
     doctor)
       doctor
+      exit $?
+      ;;
+    runtime-identity)
+      runtime_identity
       exit $?
       ;;
     clean)
