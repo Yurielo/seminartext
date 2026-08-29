@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import os
 import subprocess
 
 from integrity.model import CheckContext, GateResult, gate_definition
@@ -94,50 +95,60 @@ def run(context: CheckContext) -> GateResult:
         )
 
     # A synchronized file set is not sufficient: verify that the deployed
-    # entrypoint can load and dispatch the Evidence Foundation path.  The
-    # bounded --help invocation is read-only and does not touch project data,
-    # models, or external dependencies.
+    # entrypoint can load and dispatch governed runtime paths.  These bounded
+    # commands are read-only and do not touch project data, models, or external
+    # dependencies.
     cli_path = context.deploy_dir / next(
         item["deployed_name"]
         for item in context.contract["runtime_components"]
         if item["id"] == "cli"
     )
-    smoke_command = [str(cli_path), "project-evidence-check", "--help"]
-    try:
-        smoke = subprocess.run(
-            smoke_command,
-            cwd=context.deploy_dir,
-            text=True,
-            capture_output=True,
-            check=False,
-            timeout=10,
-        )
-        smoke_evidence = {
-            "status": "PASS" if smoke.returncode == 0 else "FAIL",
-            "command": smoke_command,
-            "returncode": smoke.returncode,
-            "stdout": smoke.stdout[-4000:],
-            "stderr": smoke.stderr[-4000:],
-        }
-    except (OSError, subprocess.SubprocessError) as exc:
-        smoke_evidence = {
-            "status": "FAIL",
-            "command": smoke_command,
-            "error": str(exc),
-        }
+    smoke_commands = [
+        [str(cli_path), "project-evidence-check", "--help"],
+        [str(cli_path), "dataset-policy-check", "A", "gold_read", "--json"],
+    ]
+    smoke_checks = []
+    for smoke_command in smoke_commands:
+        try:
+            smoke = subprocess.run(
+                smoke_command,
+                cwd=context.deploy_dir,
+                text=True,
+                capture_output=True,
+                check=False,
+                timeout=10,
+                env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
+            )
+            smoke_checks.append(
+                {
+                    "status": "PASS" if smoke.returncode == 0 else "FAIL",
+                    "command": smoke_command,
+                    "returncode": smoke.returncode,
+                    "stdout": smoke.stdout[-4000:],
+                    "stderr": smoke.stderr[-4000:],
+                }
+            )
+        except (OSError, subprocess.SubprocessError) as exc:
+            smoke_checks.append(
+                {"status": "FAIL", "command": smoke_command, "error": str(exc)}
+            )
+    smoke_evidence = {
+        "status": "PASS" if all(item["status"] == "PASS" for item in smoke_checks) else "FAIL",
+        "checks": smoke_checks,
+    }
     evidence["functional_smoke"] = smoke_evidence
     if smoke_evidence["status"] != "PASS":
         return GateResult(
             "G2",
             gate["name"],
             "FAIL",
-            "deployed Evidence Foundation functional smoke failed",
+            "deployed governed runtime functional smoke failed",
             evidence,
         )
     return GateResult(
         "G2",
         gate["name"],
         "PASS",
-        "detected installed runtime is byte-identical and Evidence Foundation dispatch smoke passed",
+        "detected installed runtime is byte-identical and governed dispatch smokes passed",
         evidence,
     )

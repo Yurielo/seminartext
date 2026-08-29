@@ -14,11 +14,17 @@ import argparse
 import hashlib
 import json
 import math
+import sys
 import time
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from seminartext_modules.dataset_governance import enforce_benchmark_artifact
 
 
 DEFAULT_BENCHMARK = (
@@ -508,6 +514,10 @@ def main() -> int:
     parser.add_argument("--min-gap-ids", type=int, default=3)
     parser.add_argument("--output", type=Path, default=None)
     args = parser.parse_args()
+
+    enforce_benchmark_artifact(
+        "experiment_run", dataset_id="A", benchmark_path=args.benchmark
+    )
 
     benchmark = load_json(args.benchmark)
     cases = selected_cases(benchmark)

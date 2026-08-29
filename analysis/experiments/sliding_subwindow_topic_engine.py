@@ -13,9 +13,15 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from seminartext_modules.dataset_governance import enforce_benchmark_artifact
 
 
 DEFAULT_BENCHMARK = (
@@ -378,6 +384,10 @@ def main() -> int:
         help="Optional JSON output path. Defaults to benchmark results folder.",
     )
     args = parser.parse_args()
+
+    enforce_benchmark_artifact(
+        "experiment_run", dataset_id="A", benchmark_path=args.benchmark
+    )
 
     benchmark = load_json(args.benchmark)
     cases = selected_cases(benchmark)

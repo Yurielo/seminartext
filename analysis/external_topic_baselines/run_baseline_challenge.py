@@ -16,12 +16,18 @@ import importlib.metadata
 import json
 import os
 import platform
+import sys
 import tempfile
 import time
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from seminartext_modules.dataset_governance import enforce_benchmark_artifact
 
 
 CONFIG_PATH = Path(__file__).with_name("challenge_config.json")
@@ -408,6 +414,13 @@ def main() -> None:
         default=("chonkie", "treeseg", "texttiling"),
     )
     args = parser.parse_args()
+
+    enforce_benchmark_artifact(
+        "experiment_run", dataset_id="A", benchmark_path=args.dataset_a
+    )
+    enforce_benchmark_artifact(
+        "experiment_run", dataset_id="B", benchmark_path=args.dataset_b
+    )
 
     config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     benchmarks = {

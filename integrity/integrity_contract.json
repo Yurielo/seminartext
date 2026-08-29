@@ -51,6 +51,18 @@
       "required": true
     },
     {
+      "id": "dataset_governance",
+      "repository_path": "seminartext_modules/dataset_governance.py",
+      "deployed_name": "seminartext_modules/dataset_governance.py",
+      "required": true
+    },
+    {
+      "id": "dataset_registry",
+      "repository_path": "governance/dataset_registry.json",
+      "deployed_name": "governance/dataset_registry.json",
+      "required": true
+    },
+    {
       "id": "version",
       "repository_path": "SEMINARTEXT_VERSION",
       "deployed_name": "SEMINARTEXT_VERSION",
@@ -87,7 +99,7 @@
       "name": "Runtime Truth",
       "implementation": "IMPLEMENTED",
       "blocking_policy": "blocking",
-      "invariant": "Any detected installed runtime is complete, byte-identical to repository-governed runtime source, and can dispatch the Evidence Foundation CLI path without missing-module/import errors."
+      "invariant": "Any detected installed runtime is complete, byte-identical to repository-governed runtime source, and can dispatch both Evidence Foundation and Dataset Governance CLI paths without missing-module/import errors."
     },
     {
       "id": "G3",

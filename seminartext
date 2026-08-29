@@ -61,6 +61,11 @@ resolve_runtime_module() {
       filename="seminartext_translate.py"
       label="Translate"
       ;;
+    dataset_governance)
+      override_name="SEMINARTEXT_DATASET_GOVERNANCE_MODULE"
+      filename="dataset_governance.py"
+      label="Dataset Governance"
+      ;;
     *)
       echo "Ошибка: неизвестный runtime-модуль: $kind" >&2
       return 2
@@ -98,9 +103,10 @@ resolve_runtime_module() {
 }
 
 runtime_identity() {
-  local topics_module translate_module
+  local topics_module translate_module dataset_governance_module
   topics_module="$(resolve_runtime_module topics)" || return 1
   translate_module="$(resolve_runtime_module translate)" || return 1
+  dataset_governance_module="$(resolve_runtime_module dataset_governance)" || return 1
 
   echo "SeminarText runtime identity"
   echo "version=$VERSION"
@@ -110,6 +116,8 @@ runtime_identity() {
   echo "topics.sha256=$(sha256_file "$topics_module")"
   echo "translate.path=$translate_module"
   echo "translate.sha256=$(sha256_file "$translate_module")"
+  echo "dataset_governance.path=$dataset_governance_module"
+  echo "dataset_governance.sha256=$(sha256_file "$dataset_governance_module")"
 }
 
 resolve_governance_pair() {
@@ -234,6 +242,8 @@ cat <<'HELP'
       Создание, наполнение, проверка и обработка seminar-проекта.
 
 BENCHMARK И GOLD
+
+  seminartext dataset-policy-check DATASET_ID OPERATION [--json]
 
   seminartext project-topic-benchmark-init PROJECT
   seminartext project-topic-benchmark-label PROJECT CASE_ID [options]
@@ -2336,6 +2346,7 @@ HELP
   }
 
   local benchmark="$project_dir/analysis/benchmark/topic_benchmark.json"
+  dataset_guard_benchmark "$project_dir" "$benchmark" benchmark_run || return $?
   local topics_module
   topics_module="$(resolve_runtime_module topics)" || return 1
   local results_dir="$project_dir/analysis/benchmark/results"
@@ -2815,6 +2826,7 @@ project_topic_benchmark_show() {
   fi
 
   local benchmark="$project_dir/analysis/benchmark/topic_benchmark.json"
+  dataset_guard_benchmark "$project_dir" "$benchmark" gold_read || return $?
 
   [[ -f "$benchmark" ]] || {
     echo "Ошибка: benchmark не найден:" >&2
@@ -2898,6 +2910,7 @@ project_topic_benchmark_check() {
   fi
 
   local benchmark="$project_dir/analysis/benchmark/topic_benchmark.json"
+  dataset_guard_benchmark "$project_dir" "$benchmark" gold_read || return $?
 
   [[ -f "$benchmark" ]] || {
     echo "Ошибка: benchmark не найден:" >&2
@@ -3084,6 +3097,8 @@ HELP
   else
     project_dir="$projects_root/$(sanitize_name "$project_arg")"
   fi
+
+  dataset_guard_project "$project_dir" gold_author || return $?
 
   local benchmark="$project_dir/analysis/benchmark/topic_benchmark.json"
 
@@ -3300,6 +3315,8 @@ HELP
     echo "Ошибка: проект не найден: $project_dir" >&2
     return 1
   }
+
+  dataset_guard_project "$project_dir" benchmark_init || return $?
 
   local srt="$project_dir/transcript/$only_source/transcript.srt"
   local topics_module
@@ -4997,6 +5014,44 @@ evidence_foundation_command() {
   "$SEMINARTEXT_PYTHON" "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/evidence_foundation.py" "$@"
 }
 
+dataset_governance_command() {
+  local module
+  module="$(resolve_runtime_module dataset_governance)" || return 1
+  "$SEMINARTEXT_PYTHON" "$module" "$@"
+}
+
+dataset_guard_project() {
+  local project_dir="$1"
+  local operation="$2"
+  dataset_governance_command check \
+    --project "$project_dir" \
+    --operation "$operation"
+}
+
+dataset_guard_benchmark() {
+  local project_dir="$1"
+  local benchmark="$2"
+  local operation="$3"
+  dataset_governance_command check-benchmark \
+    --project "$project_dir" \
+    --benchmark "$benchmark" \
+    --operation "$operation"
+}
+
+dataset_policy_check() {
+  local dataset_id="${1:-}"
+  local operation="${2:-}"
+  if [[ -z "$dataset_id" || -z "$operation" ]]; then
+    echo "Использование: seminartext dataset-policy-check DATASET_ID OPERATION [--json]" >&2
+    return 2
+  fi
+  shift 2
+  dataset_governance_command check \
+    --dataset-id "$dataset_id" \
+    --operation "$operation" \
+    "$@"
+}
+
 
 
 roadmap_status() {
@@ -5177,6 +5232,11 @@ PYROADMAP
 }
 main() {
   case "${1:-}" in
+    dataset-policy-check)
+      shift
+      dataset_policy_check "$@"
+      exit $?
+      ;;
     roadmap-status)
       shift
       roadmap_status "$@"

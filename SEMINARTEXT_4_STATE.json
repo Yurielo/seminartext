@@ -225,6 +225,12 @@
     "dataset_d": {
       "status": "locked_test_blocked_by_source_quality",
       "role": "LOCKED_TEST",
+      "project": "Человек. Инструкция по применению",
+      "selected_source_date": "2026-08-22",
+      "source_id": null,
+      "media_sha256": null,
+      "identity_status": "INCOMPLETE_PENDING_TOPIC_AGNOSTIC_SOURCE_REPAIR_ISSUE_66",
+      "source_identity_recorded": false,
       "source_quality": "SOURCE_QUALITY_INSUFFICIENT",
       "repair_mode": "topic_agnostic_only",
       "topic_engine_access_allowed": false,
@@ -252,6 +258,18 @@
         "source_or_asr_quality_repair",
         "controlled_target_corpus_confirmation"
       ]
+    },
+    "dataset_governance": {
+      "status": "centrally_enforced",
+      "registry": "governance/dataset_registry.json",
+      "default_policy": "DENY_UNREGISTERED",
+      "guard_module": "seminartext_modules/dataset_governance.py",
+      "human_gates": {
+        "g1_g2_role_acceptance": "DOMAIN_REVIEW_PENDING",
+        "g1_g2_gold_authoring": "DOMAIN_AUTHORING_PENDING"
+      },
+      "historical_artifact_index": "analysis/HISTORICAL_ARTIFACT_LIFECYCLE_INDEX.json",
+      "superseded_issues": [29, 30, 33]
     },
     "topic_engine": {
       "status": "in_progress_parallel",
