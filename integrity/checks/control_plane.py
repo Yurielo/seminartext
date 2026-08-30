@@ -159,13 +159,7 @@ def evaluate(root: Path) -> ControlPlaneResult:
         _error(g3_errors, "CP_SCHEMA", "github_lifecycle_check is invalid")
 
     authorization_states = contract.get("authorization_states")
-    required_authorizations = {
-        "audit_r4",
-        "audit_r5",
-        "audit_r6",
-        "issue_65",
-        "issue_66",
-    }
+    required_authorizations = {"audit_r5", "audit_r6", "issue_65", "issue_66"}
     if not isinstance(authorization_states, dict):
         _error(g8_errors, "CP_AUTHORIZATION_STATE", "authorization_states must be an object")
     else:
@@ -176,6 +170,17 @@ def evaluate(root: Path) -> ControlPlaneResult:
                     "CP_AUTHORIZATION_STATE",
                     f"{action} must remain NOT_AUTHORIZED",
                 )
+        expected_r4_authorization = (
+            "AUTHORIZED_IMPLEMENTATION"
+            if current_id == "audit_r4_mandatory_ci_and_main_protection"
+            else "NOT_AUTHORIZED"
+        )
+        if authorization_states.get("audit_r4") != expected_r4_authorization:
+            _error(
+                g8_errors,
+                "CP_AUTHORIZATION_STATE",
+                f"audit_r4 must be {expected_r4_authorization}",
+            )
 
     raw_milestones = contract.get("milestones")
     milestones: dict[str, dict[str, Any]] = {}
@@ -224,6 +229,15 @@ def evaluate(root: Path) -> ControlPlaneResult:
     else:
         lifecycle_state = current["status"]
         human_gate = current["human_gate"]
+        if (
+            current_id == "audit_r4_mandatory_ci_and_main_protection"
+            and current.get("authorized") is not True
+        ):
+            _error(
+                g8_errors,
+                "CP_AUTHORIZATION_STATE",
+                "active audit_r4 milestone must carry authorized=true",
+            )
 
     for milestone_id, milestone in milestones.items():
         status = str(milestone["status"])
@@ -290,14 +304,22 @@ def evaluate(root: Path) -> ControlPlaneResult:
         )
 
     next_eligible_id = contract.get("next_eligible_milestone_id")
-    next_eligible = milestones.get(next_eligible_id)
-    if next_eligible is None:
+    next_eligible = (
+        milestones.get(next_eligible_id) if next_eligible_id is not None else None
+    )
+    if next_eligible_id is None and current is None:
         _error(
             g8_errors,
             "CP_NEXT_ELIGIBLE_UNKNOWN",
             "next eligible milestone is not declared",
         )
-    elif not (
+    elif next_eligible_id is not None and next_eligible is None:
+        _error(
+            g8_errors,
+            "CP_NEXT_ELIGIBLE_UNKNOWN",
+            f"next eligible milestone {next_eligible_id!r} is not declared",
+        )
+    elif next_eligible is not None and not (
         next_eligible["status"] == "NOT_STARTED"
         and next_eligible["decision"] == "NOT_AUTHORIZED"
         and next_eligible["disposition"] == "NOT_AUTHORIZED"

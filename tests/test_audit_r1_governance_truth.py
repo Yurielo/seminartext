@@ -44,17 +44,18 @@ def test_canonical_knowledge_v1_is_present_in_state():
     assert knowledge["pull_request"] == 86
 
 
-def test_no_active_milestone_and_next_authorization_are_explicit():
+def test_audit_r4_is_active_and_later_work_remains_blocked():
     state = _state()
     control = state["control_plane"]
-    assert state["current_milestone"] == "none_pending_product_owner_authorization"
-    assert state["current_stage"] == "awaiting_product_owner_authorization"
-    assert state["next_actions"] == ["product_owner_may_authorize_audit_r4"]
-    assert control["current_milestone_id"] is None
+    assert state["current_milestone"] == "audit_r4_mandatory_ci_and_main_protection"
+    assert state["current_stage"] == "audit_r4_ci_and_main_protection"
+    assert state["next_actions"] == ["audit_r4_product_owner_review"]
+    assert control["current_milestone_id"] == "audit_r4_mandatory_ci_and_main_protection"
     assert control["last_completed_milestone_id"] == "audit_r3_control_plane_integrity_gate"
-    assert control["next_eligible_milestone_id"] == "audit_r4_mandatory_ci_and_main_protection"
-    assert control["next_issue_allowed"] is True
-    assert control["authorization_states"]["audit_r4"] == "NOT_AUTHORIZED"
+    assert control["next_eligible_milestone_id"] is None
+    assert control["next_issue_allowed"] is False
+    assert control["authorization_states"]["audit_r4"] == "AUTHORIZED_IMPLEMENTATION"
+    assert control["authorization_states"]["audit_r5"] == "NOT_AUTHORIZED"
 
 
 def test_near_term_sequence_has_no_completed_gate_marked_pending():
@@ -68,17 +69,17 @@ def test_near_term_sequence_has_no_completed_gate_marked_pending():
     assert by_milestone["audit_r3_control_plane_integrity_gate"] == "complete_accepted"
     assert (
         by_milestone["audit_r4_mandatory_ci_and_main_protection"]
-        == "not_started_not_authorized"
+        == "implemented_pending_product_owner_review"
     )
 
 
 def test_roadmap_mirrors_state_current_status_and_not_stale_review_labels():
     state = _state()
     roadmap = ROADMAP_PATH.read_text(encoding="utf-8")
-    assert "AWAITING PRODUCT OWNER AUTHORIZATION" in roadmap
-    assert '"current_milestone_id": null' in roadmap
+    assert "AUDIT-R4 IMPLEMENTED — PRODUCT OWNER REVIEW PENDING" in roadmap
+    assert '"current_milestone_id": "audit_r4_mandatory_ci_and_main_protection"' in roadmap
     assert '"last_completed_milestone_id": "audit_r3_control_plane_integrity_gate"' in roadmap
-    assert '"next_eligible_milestone_id": "audit_r4_mandatory_ci_and_main_protection"' in roadmap
+    assert '"next_eligible_milestone_id": null' in roadmap
     assert "KEEP_TREESEG_AS_CHALLENGER" in roadmap
     assert "ADAPT_FURTHER" in roadmap
     assert "Canonical Knowledge Contract v1" in roadmap

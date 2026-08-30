@@ -88,10 +88,10 @@ def _has(result, gate, code):
 def test_current_real_seminartext_control_plane_is_truthful_and_offline():
     result = evaluate(ROOT)
     assert result.control_plane_reconciled is True
-    assert result.next_issue_allowed is True
+    assert result.next_issue_allowed is False
     assert result.github_lifecycle_check == "NOT_RUN"
-    assert result.human_gate == "SATISFIED"
-    assert result.current_milestone_id is None
+    assert result.human_gate == "PRODUCT_OWNER_REVIEW_PENDING"
+    assert result.current_milestone_id == "audit_r4_mandatory_ci_and_main_protection"
 
 
 def test_accepted_decision_with_stale_state_fails_closed(tmp_path):
@@ -149,7 +149,7 @@ def test_pending_human_gate_blocks_next_issue(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
-    contract["human_gate"] = "PRODUCT_OWNER_REVIEW_PENDING"
+    contract["next_issue_allowed"] = True
     _write_json(path, contract)
     result = evaluate(root)
     assert _has(result, "G8", "CP_HUMAN_GATE_BYPASS")
@@ -166,16 +166,37 @@ def test_blocked_dataset_cannot_be_exposed_as_next_action(tmp_path):
     assert _has(result, "G8", "CP_BLOCKED_ACTION_EXECUTABLE")
 
 
+def test_active_r4_requires_matching_authorization(tmp_path):
+    root = _fixture(tmp_path)
+    path = root / "integrity" / "milestone_reconciliation.json"
+    contract = _read_contract(root)
+    contract["authorization_states"]["audit_r4"] = "NOT_AUTHORIZED"
+    _write_json(path, contract)
+    result = evaluate(root)
+    assert _has(result, "G8", "CP_AUTHORIZATION_STATE")
+
+
+def test_later_audit_authorization_remains_blocked(tmp_path):
+    root = _fixture(tmp_path)
+    path = root / "integrity" / "milestone_reconciliation.json"
+    contract = _read_contract(root)
+    contract["authorization_states"]["audit_r5"] = "AUTHORIZED_IMPLEMENTATION"
+    _write_json(path, contract)
+    result = evaluate(root)
+    assert _has(result, "G8", "CP_AUTHORIZATION_STATE")
+
+
 def test_runtime_reconciliation_pending_blocks_next_issue(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
-    r3 = next(
+    r4 = next(
         item
         for item in contract["milestones"]
-        if item["milestone_id"] == "audit_r3_control_plane_integrity_gate"
+        if item["milestone_id"] == "audit_r4_mandatory_ci_and_main_protection"
     )
-    r3["runtime_reconciliation_complete"] = False
+    r4["runtime_reconciliation_complete"] = False
+    contract["next_issue_allowed"] = True
     _write_json(path, contract)
     result = evaluate(root)
     assert _has(result, "G8", "CP_RUNTIME_RECONCILIATION_BYPASS")
@@ -279,7 +300,7 @@ def test_g3_and_g8_use_same_reconciled_offline_verdict(tmp_path):
     assert g3.status == "PASS"
     assert g8.status == "PASS"
     assert g3.evidence["control_plane"]["control_plane_reconciled"] is True
-    assert g8.evidence["control_plane"]["next_issue_allowed"] is True
+    assert g8.evidence["control_plane"]["next_issue_allowed"] is False
 
 
 def test_json_and_human_reports_expose_progression_verdict(tmp_path):
@@ -295,13 +316,13 @@ def test_json_and_human_reports_expose_progression_verdict(tmp_path):
     report, _ = run_integrity(context)
     human = render_human(report)
     assert report["control_plane_reconciled"] is True
-    assert report["next_issue_allowed"] is True
+    assert report["next_issue_allowed"] is False
     assert "CONTROL_PLANE_RECONCILED: YES" in human
-    assert "NEXT_ISSUE_ALLOWED: YES" in human
-    assert "HUMAN_GATE: SATISFIED" in human
+    assert "NEXT_ISSUE_ALLOWED: NO" in human
+    assert "HUMAN_GATE: PRODUCT_OWNER_REVIEW_PENDING" in human
 
 
-def test_r3_accepted_and_r4_eligible_but_not_authorized_coexist():
+def test_r3_accepted_and_r4_implemented_pending_review_coexist():
     contract = _read_contract(ROOT)
     milestones = {item["milestone_id"]: item for item in contract["milestones"]}
     r3 = milestones["audit_r3_control_plane_integrity_gate"]
@@ -312,11 +333,19 @@ def test_r3_accepted_and_r4_eligible_but_not_authorized_coexist():
     assert r3["implementation_state"] == "COMPLETE"
     assert r3["human_gate"] == "SATISFIED"
     assert r3["runtime_reconciliation_complete"] is True
-    assert contract["next_issue_allowed"] is True
-    assert contract["next_eligible_milestone_id"] == r4["milestone_id"]
-    assert r4["status"] == "NOT_STARTED"
-    assert r4["decision"] == "NOT_AUTHORIZED"
-    assert r4["authorized"] is False
+    assert contract["current_milestone_id"] == r4["milestone_id"]
+    assert contract["next_issue_allowed"] is False
+    assert contract["next_eligible_milestone_id"] is None
+    assert contract["authorization_states"]["audit_r4"] == "AUTHORIZED_IMPLEMENTATION"
+    assert all(
+        contract["authorization_states"][key] == "NOT_AUTHORIZED"
+        for key in ("audit_r5", "audit_r6", "issue_65", "issue_66")
+    )
+    assert r4["status"] == "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW"
+    assert r4["decision"] == "PENDING_PRODUCT_OWNER_REVIEW"
+    assert r4["authorized"] is True
+    assert r4["accepted"] is False
+    assert r4["runtime_reconciliation_complete"] is False
 
 
 def test_dataset_d_remains_locked_after_r3_acceptance():

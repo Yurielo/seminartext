@@ -3,22 +3,21 @@
   "seminartext_version": "4.0.0",
   "updated": "2026-08-30",
   "policy_checkpoint": "evidence_first_parallel_v1",
-  "current_stage": "awaiting_product_owner_authorization",
-  "current_milestone": "none_pending_product_owner_authorization",
+  "current_stage": "audit_r4_ci_and_main_protection",
+  "current_milestone": "audit_r4_mandatory_ci_and_main_protection",
   "current_project": "Стресс код",
   "control_plane": {
-    "contract_version": "2026-08-30.audit-r3",
-    "current_milestone_id": null,
+    "contract_version": "2026-08-30.audit-r4",
+    "current_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
     "last_completed_milestone_id": "audit_r3_control_plane_integrity_gate",
-    "next_eligible_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
-    "lifecycle_state": "R3_COMPLETE_AWAITING_NEXT_AUTHORIZATION",
-    "human_gate": "SATISFIED",
-    "next_issue_allowed": true,
+    "next_eligible_milestone_id": null,
+    "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+    "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+    "next_issue_allowed": false,
     "active_actions": [
-      "product_owner_may_authorize_audit_r4"
+      "audit_r4_product_owner_review"
     ],
     "blocked_actions": [
-      "execute_audit_r4",
       "execute_audit_r5",
       "execute_audit_r6",
       "execute_issue_65",
@@ -26,7 +25,7 @@
       "dataset_d_blind_evaluation"
     ],
     "authorization_states": {
-      "audit_r4": "NOT_AUTHORIZED",
+      "audit_r4": "AUTHORIZED_IMPLEMENTATION",
       "audit_r5": "NOT_AUTHORIZED",
       "audit_r6": "NOT_AUTHORIZED",
       "issue_65": "NOT_AUTHORIZED",
@@ -58,12 +57,12 @@
         "runtime_reconciliation_complete": true
       },
       "audit_r4_mandatory_ci_and_main_protection": {
-        "status": "NOT_STARTED",
+        "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
         "accepted": false,
-        "implementation_state": "NOT_STARTED",
-        "human_gate": "PRODUCT_OWNER_AUTHORIZATION_REQUIRED",
-        "runtime_reconciliation_required": false,
-        "runtime_reconciliation_complete": true
+        "implementation_state": "IMPLEMENTED",
+        "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+        "runtime_reconciliation_required": true,
+        "runtime_reconciliation_complete": false
       }
     }
   },
@@ -627,7 +626,7 @@
     {"order": 9, "milestone": "audit_r1_governance_truth_reconciliation", "status": "complete_accepted"},
     {"order": 10, "milestone": "audit_r2_canonical_knowledge_validation", "status": "complete_accepted"},
     {"order": 11, "milestone": "audit_r3_control_plane_integrity_gate", "status": "complete_accepted"},
-    {"order": 12, "milestone": "audit_r4_mandatory_ci_and_main_protection", "status": "not_started_not_authorized"},
+    {"order": 12, "milestone": "audit_r4_mandatory_ci_and_main_protection", "status": "implemented_pending_product_owner_review"},
     {"order": 13, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "pending"},
     {"order": 14, "milestone": "dataset_d_blind_evaluation", "status": "pending"},
     {"order": 15, "milestone": "define_and_assess_topic_automation_usable", "status": "pending"},
@@ -636,7 +635,7 @@
     {"order": 18, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
   ],
   "next_actions": [
-    "product_owner_may_authorize_audit_r4"
+    "audit_r4_product_owner_review"
   ],
   "accepted_decision_refs": {
     "audit_r1": "ACCEPTED / COMPLETE (PR #97)",
