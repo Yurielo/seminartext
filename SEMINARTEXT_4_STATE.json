@@ -3,9 +3,53 @@
   "seminartext_version": "4.0.0",
   "updated": "2026-08-30",
   "policy_checkpoint": "evidence_first_parallel_v1",
-  "current_stage": "audit_r1_governance_reconciliation",
-  "current_milestone": "audit_r1_governance_truth_reconciliation",
+  "current_stage": "audit_r3_milestone_reconciliation",
+  "current_milestone": "audit_r3_control_plane_integrity_gate",
   "current_project": "Стресс код",
+  "control_plane": {
+    "contract_version": "2026-08-30.audit-r3",
+    "current_milestone_id": "audit_r3_control_plane_integrity_gate",
+    "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+    "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+    "next_issue_allowed": false,
+    "active_actions": [
+      "audit_r3_product_owner_review"
+    ],
+    "blocked_actions": [
+      "audit_r4",
+      "audit_r5",
+      "audit_r6",
+      "issue_65",
+      "issue_66",
+      "dataset_d_blind_evaluation"
+    ],
+    "milestones": {
+      "audit_r1_governance_truth_reconciliation": {
+        "status": "COMPLETE_ACCEPTED",
+        "accepted": true,
+        "implementation_state": "COMPLETE",
+        "human_gate": "SATISFIED",
+        "runtime_reconciliation_required": true,
+        "runtime_reconciliation_complete": true
+      },
+      "audit_r2_canonical_knowledge_validation": {
+        "status": "COMPLETE_ACCEPTED",
+        "accepted": true,
+        "implementation_state": "COMPLETE",
+        "human_gate": "SATISFIED",
+        "runtime_reconciliation_required": false,
+        "runtime_reconciliation_complete": true
+      },
+      "audit_r3_control_plane_integrity_gate": {
+        "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+        "accepted": false,
+        "implementation_state": "IMPLEMENTED",
+        "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+        "runtime_reconciliation_required": true,
+        "runtime_reconciliation_complete": false
+      }
+    }
+  },
   "status_semantics": {
     "technical_evidence": "A scoped experiment, artifact, or validation can be complete without product integration.",
     "architecture_acceptance": "An accepted contract or direction is authoritative for further work but is not production deployment.",
@@ -467,7 +511,10 @@
       "pull_request": 86,
       "schema_version": "1.0.0",
       "contract": "schemas/canonical_knowledge_v1.schema.json",
+      "lifecycle_contract": "schemas/canonical_knowledge_lifecycle_v1.json",
+      "lifecycle_mapping": "accepted",
       "validator": "schemas/validate_canonical_knowledge_v1.py",
+      "strict_schema_enforcement": true,
       "report": "analysis/CANONICAL_KNOWLEDGE_CONTRACT_V1.md",
       "decision_record": "PR #86 (merged 7bd89c9)",
       "production_integration_complete": false
@@ -560,19 +607,22 @@
     {"order": 6, "milestone": "freeze_topic_engine_candidate", "status": "complete"},
     {"order": 7, "milestone": "parallel_obsidian_product_review_and_treeseg_hierarchy_poc_product_review", "status": "complete_product_reviewed"},
     {"order": 8, "milestone": "canonical_knowledge_contract_v1", "status": "complete_accepted"},
-    {"order": 9, "milestone": "audit_r1_governance_truth_reconciliation", "status": "active_product_owner_review"},
-    {"order": 10, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "pending"},
-    {"order": 11, "milestone": "dataset_d_blind_evaluation", "status": "pending"},
-    {"order": 12, "milestone": "define_and_assess_topic_automation_usable", "status": "pending"},
-    {"order": 13, "milestone": "expand_knowledge_engine", "status": "pending"},
-    {"order": 14, "milestone": "multi_seminar_knowledge_mvp", "status": "pending"},
-    {"order": 15, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
+    {"order": 9, "milestone": "audit_r1_governance_truth_reconciliation", "status": "complete_accepted"},
+    {"order": 10, "milestone": "audit_r2_canonical_knowledge_validation", "status": "complete_accepted"},
+    {"order": 11, "milestone": "audit_r3_control_plane_integrity_gate", "status": "implemented_pending_product_owner_review"},
+    {"order": 12, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "pending"},
+    {"order": 13, "milestone": "dataset_d_blind_evaluation", "status": "pending"},
+    {"order": 14, "milestone": "define_and_assess_topic_automation_usable", "status": "pending"},
+    {"order": 15, "milestone": "expand_knowledge_engine", "status": "pending"},
+    {"order": 16, "milestone": "multi_seminar_knowledge_mvp", "status": "pending"},
+    {"order": 17, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
   ],
   "next_actions": [
-    "audit_r1_product_owner_review",
-    "audit_r2_canonical_knowledge_validation_hardening_after_r1_acceptance"
+    "audit_r3_product_owner_review"
   ],
   "accepted_decision_refs": {
+    "audit_r1": "ACCEPTED / COMPLETE (PR #97)",
+    "audit_r2": "ACCEPTED / COMPLETE (PR #98)",
     "issue_61_topic_engine_freeze": "analysis/TOPIC_ENGINE_FREEZE_PACKET_ISSUE_61.md",
     "issue_62_treeseg": "KEEP_TREESEG_AS_CHALLENGER (PR #84, merged 451fce0)",
     "issue_63_obsidian": "ADAPT_FURTHER / ACCEPTED (PR #85, merged 7677536)",
@@ -589,6 +639,7 @@
   },
   "roadmap_state_consistency": {
     "checkpoint": "evidence_first_parallel_v1",
+    "reconciliation_contract": "integrity/milestone_reconciliation.json",
     "roadmap": "SEMINARTEXT_4_ROADMAP.md",
     "state": "SEMINARTEXT_4_STATE.json",
     "adr": "decisions/0002-evidence-first-parallel-development.md",

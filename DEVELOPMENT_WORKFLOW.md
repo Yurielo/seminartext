@@ -114,6 +114,14 @@ criteria freeze. No review-ready label is an invitation to start experiments.
 Installed copies are deploy snapshots: status commands must label them as such
 and must report drift instead of silently treating them as current governance.
 
+Before beginning any subsequent Issue, run the repository-owned Integrity gate
+and require the control-plane verdict from
+`integrity/milestone_reconciliation.json`. `CONTROL_PLANE_RECONCILED: YES` is
+necessary but not sufficient: `NEXT_ISSUE_ALLOWED: YES` must also be explicit.
+A pending Product Owner/Domain gate or required incomplete runtime
+reconciliation keeps the next Issue blocked. The local decision is offline;
+GitHub lifecycle checks, when performed, are a separate operational extension.
+
 ## Maturity language
 
 Use separate claims for technical evidence, architecture acceptance, product

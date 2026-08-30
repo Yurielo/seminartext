@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "integrity_contract_version": "1.0.0",
+  "integrity_contract_version": "1.1.0",
   "allowed_statuses": [
     "PASS",
     "FAIL",
@@ -124,7 +124,7 @@
       "name": "Governance Truth",
       "implementation": "IMPLEMENTED",
       "blocking_policy": "blocking",
-      "invariant": "The existing repository governance checker passes and does not mutate governed files."
+      "invariant": "The repository governance checker is read-only and accepted decisions, dispositions, and human-gate lifecycle truth reconcile against the offline milestone contract."
     },
     {
       "id": "G4",
@@ -157,9 +157,9 @@
     {
       "id": "G8",
       "name": "Product State Truth",
-      "implementation": "IMPLEMENTED_FOUNDATION",
-      "blocking_policy": "blocking_implemented_invariants",
-      "invariant": "Version, declared CLI commands, and production-integration maturity claims do not contradict repository reality."
+      "implementation": "IMPLEMENTED",
+      "blocking_policy": "blocking",
+      "invariant": "Version, product maturity, current milestone, next actions, blocked work, and runtime-reconciliation readiness do not contradict the offline milestone contract."
     }
   ]
 }

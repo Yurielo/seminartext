@@ -1,4 +1,4 @@
-# SeminarText Project Integrity Gate v1
+# SeminarText Project Integrity Gate
 
 Run the repository-owned, read-only gate from the repository root:
 
@@ -11,14 +11,35 @@ Run it after each merge and before beginning the next Issue. A real existing
 deployment mismatch is expected to remain a reported failure until an explicit
 deployment operation reconciles it; the gate never auto-deploys.
 
-`integrity_contract.json` is the version-controlled invariant contract, and
-`integrity_report.schema.json` defines the JSON report shape. G1, G2, G3, G7,
-and the implemented G4 Dependency Truth and G8 foundation are active. G5 and
-G6 are explicitly `NOT_IMPLEMENTED`; they are never rendered as PASS.
+`integrity_contract.json` is the gate contract,
+`milestone_reconciliation.json` is the repository-owned active control-plane
+contract, and `integrity_report.schema.json` defines the JSON report shape. G3
+validates accepted decisions, dispositions, and lifecycle truth; G8 validates
+the current milestone, next actions, blocked work, and runtime reconciliation.
+The implemented G4 Dependency Truth remains active. G5 and G6 remain explicitly
+`NOT_IMPLEMENTED`; they are never rendered as PASS.
 
 The checker observes repository, deployment, governance, tests, and product
 state. It never fetches, pulls, checks out, cleans, deploys, installs packages,
 updates State, or changes project data.
+
+## Control-plane reconciliation
+
+The local gate is deterministic and offline. It reads committed JSON sources
+and one marker-bounded JSON snapshot in the Roadmap; it never calls GitHub.
+Historical evidence paths are presence-checked but their prose is deliberately
+not interpreted as active state. The human and JSON reports expose:
+
+- `CONTROL_PLANE_RECONCILED` / `control_plane_reconciled`;
+- `NEXT_ISSUE_ALLOWED` / `next_issue_allowed`;
+- the active `HUMAN_GATE` and separately reported `GITHUB_LIFECYCLE_CHECK`.
+
+An accepted decision represented as pending, a stale State/Roadmap projection,
+a completed-current milestone, a blocked next action, a human-gate bypass, an
+incomplete required runtime reconciliation that permits progression, or an
+accepted-disposition contradiction fails G3 or G8. A truthful pending human
+gate is not itself a contradiction: the gates pass while
+`NEXT_ISSUE_ALLOWED: NO` remains explicit.
 
 ## Result semantics
 

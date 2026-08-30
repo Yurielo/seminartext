@@ -1,7 +1,7 @@
-"""Bounded AUDIT-R1 checks for the project control-plane truth.
+"""Regression checks for the accepted AUDIT-R1 governance outcome.
 
 These checks intentionally validate only the accepted governance snapshot.  They
-are not the AUDIT-R3 milestone reconciliation engine.
+do not treat AUDIT-R1 as the active milestone after its acceptance.
 """
 
 import json
@@ -48,9 +48,9 @@ def test_current_milestone_is_a_valid_control_plane_milestone():
     state = _state()
     milestones = {item["milestone"] for item in state["near_term_execution_sequence"]}
     assert state["current_milestone"] in milestones
-    assert state["current_milestone"] == "audit_r1_governance_truth_reconciliation"
-    assert state["current_stage"] == "audit_r1_governance_reconciliation"
-    assert state["next_actions"][0] == "audit_r1_product_owner_review"
+    assert state["current_milestone"] == "audit_r3_control_plane_integrity_gate"
+    assert state["current_stage"] == "audit_r3_milestone_reconciliation"
+    assert state["next_actions"] == ["audit_r3_product_owner_review"]
 
 
 def test_near_term_sequence_has_no_completed_gate_marked_pending():
@@ -59,13 +59,19 @@ def test_near_term_sequence_has_no_completed_gate_marked_pending():
     assert by_milestone["freeze_topic_engine_candidate"] == "complete"
     assert by_milestone["parallel_obsidian_product_review_and_treeseg_hierarchy_poc_product_review"] == "complete_product_reviewed"
     assert by_milestone["canonical_knowledge_contract_v1"] == "complete_accepted"
-    assert by_milestone["audit_r1_governance_truth_reconciliation"] == "active_product_owner_review"
+    assert by_milestone["audit_r1_governance_truth_reconciliation"] == "complete_accepted"
+    assert by_milestone["audit_r2_canonical_knowledge_validation"] == "complete_accepted"
+    assert (
+        by_milestone["audit_r3_control_plane_integrity_gate"]
+        == "implemented_pending_product_owner_review"
+    )
 
 
 def test_roadmap_mirrors_state_current_status_and_not_stale_review_labels():
     state = _state()
     roadmap = ROADMAP_PATH.read_text(encoding="utf-8")
-    assert "AUDIT-R1 GOVERNANCE RECONCILIATION" in roadmap
+    assert "AUDIT-R3 MILESTONE RECONCILIATION" in roadmap
+    assert '"current_milestone_id": "audit_r3_control_plane_integrity_gate"' in roadmap
     assert "KEEP_TREESEG_AS_CHALLENGER" in roadmap
     assert "ADAPT_FURTHER" in roadmap
     assert "Canonical Knowledge Contract v1" in roadmap

@@ -86,13 +86,16 @@ main "$@"
             },
         },
     }
+    state = json.loads((ROOT / "SEMINARTEXT_4_STATE.json").read_text(encoding="utf-8"))
     source_content = {
         "seminartext": cli,
         "seminartext_modules/seminartext_topics.py": "# topics\n",
         "seminartext_modules/seminartext_translate.py": "# translate\n",
         "SEMINARTEXT_VERSION": "4.0.0\n",
         "SEMINARTEXT_4_STATE.json": json.dumps(state, indent=2) + "\n",
-        "SEMINARTEXT_4_ROADMAP.md": "# Roadmap\n",
+        "SEMINARTEXT_4_ROADMAP.md": (ROOT / "SEMINARTEXT_4_ROADMAP.md").read_text(
+            encoding="utf-8"
+        ),
         "DEVELOPMENT_WORKFLOW.md": "# Workflow\n",
         "SEMINARTEXT_4_MVP_DEFINITION.md": "# MVP\n",
         "scripts/check_governance.py": "print('GOVERNANCE CHECK: PASS')\n",
@@ -129,6 +132,14 @@ main "$@"
         "governance/dataset_registry.json",
         "governance/topic_engine_lifecycle.json",
         "governance/topic_engine_freeze.json",
+        "integrity/milestone_reconciliation.json",
+        "analysis/treeseg_global_structure_poc/product_review_disposition.json",
+        "analysis/obsidian_knowledge_prototype/product_review_disposition.json",
+        "schemas/canonical_knowledge_lifecycle_v1.json",
+        "analysis/ROADMAP_STATE_CONSISTENCY_REVIEW_2026-08-26.md",
+        "analysis/ROADMAP_STATE_POST_BASELINE_CONSISTENCY_REVIEW_2026-08-27.md",
+        "analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md",
+        "analysis/OBSIDIAN_KNOWLEDGE_PROTOTYPE_GOLDEN_SEMINAR.md",
     ):
         source = ROOT / relative
         destination = root / relative
@@ -361,8 +372,12 @@ def test_json_report_contract_and_exit_semantics(tmp_path):
     encoded = json.dumps(report, sort_keys=True)
     decoded = json.loads(encoded)
     assert exit_code == 0
-    assert decoded["report_schema_version"] == 1
-    assert decoded["integrity_contract_version"] == "1.0.0"
+    assert decoded["report_schema_version"] == 2
+    assert decoded["integrity_contract_version"] == "1.1.0"
+    assert decoded["control_plane_reconciled"] is True
+    assert decoded["next_issue_allowed"] is False
+    assert decoded["human_gate"] == "PRODUCT_OWNER_REVIEW_PENDING"
+    assert decoded["github_lifecycle_check"] == "NOT_RUN"
     assert len(decoded["gates"]) == 8
     assert decoded["exit_code"] == exit_code
     assert {gate["status"] for gate in decoded["gates"]} <= {
@@ -387,7 +402,7 @@ def test_json_report_contract_and_exit_semantics(tmp_path):
         )
     )
     assert set(schema["required"]) == set(decoded)
-    assert schema["properties"]["report_schema_version"]["const"] == 1
+    assert schema["properties"]["report_schema_version"]["const"] == 2
     assert set(schema["properties"]["gates"]["items"]["properties"]["status"]["enum"]) == {
         "PASS",
         "FAIL",
@@ -427,7 +442,7 @@ def test_canonical_entrypoint_emits_valid_json_without_fixture_mutation(tmp_path
     after = file_hashes(root)
 
     assert process.returncode == 1
-    assert report["report_schema_version"] == 1
+    assert report["report_schema_version"] == 2
     assert report["bootstrap_implementation"] == "PASS"
     assert report["project_integrity"] == "FAIL"
     assert next(g for g in report["gates"] if g["id"] == "G7")["status"] == "FAIL"

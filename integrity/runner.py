@@ -186,6 +186,32 @@ def run_integrity(context: CheckContext) -> tuple[dict, int]:
         "internal_errors": internal_errors,
         "exit_code": exit_code,
     }
+    control_plane = next(
+        (
+            result.evidence.get("control_plane")
+            for result in results
+            if result.gate_id == "G8" and result.evidence.get("control_plane")
+        ),
+        None,
+    )
+    report.update(
+        {
+            "control_plane_reconciled": bool(
+                control_plane and control_plane.get("control_plane_reconciled")
+            ),
+            "next_issue_allowed": bool(
+                control_plane and control_plane.get("next_issue_allowed")
+            ),
+            "human_gate": (
+                control_plane.get("human_gate") if control_plane else "UNRESOLVED"
+            ),
+            "github_lifecycle_check": (
+                control_plane.get("github_lifecycle_check")
+                if control_plane
+                else "NOT_RUN"
+            ),
+        }
+    )
     return report, exit_code
 
 
@@ -202,6 +228,12 @@ def render_human(report: dict) -> str:
         (
             "",
             f"BOOTSTRAP_IMPLEMENTATION: {report['bootstrap_implementation']}",
+            "CONTROL_PLANE_RECONCILED: "
+            + ("YES" if report["control_plane_reconciled"] else "NO"),
+            "NEXT_ISSUE_ALLOWED: "
+            + ("YES" if report["next_issue_allowed"] else "NO"),
+            f"HUMAN_GATE: {report['human_gate']}",
+            f"GITHUB_LIFECYCLE_CHECK: {report['github_lifecycle_check']}",
             f"PROJECT_INTEGRITY: {report['project_integrity']}",
         )
     )
@@ -238,6 +270,10 @@ def main(argv: list[str] | None = None) -> int:
             "implemented_blocking_failures": [],
             "internal_errors": [{"gate": None, "error": repr(exc)}],
             "exit_code": 2,
+            "control_plane_reconciled": False,
+            "next_issue_allowed": False,
+            "human_gate": "UNRESOLVED",
+            "github_lifecycle_check": "NOT_RUN",
         }
         exit_code = 2
 
