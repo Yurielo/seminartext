@@ -234,9 +234,9 @@ source завершён verdict `WORD_TIMELINE_MVP_ACCEPTED`: 1434 canonical Wor
 валидируется и воспроизводится byte-identically. Evidence зафиксировано в
 `analysis/WORD_TIMELINE_MVP_ONE_CONTROLLED_SOURCE.md`.
 
-Исторический parallel split завершён Product Review; текущий контрольный
-milestone — AUDIT-R1 reconciliation (Issue #96) без возврата к линейной
-Topic-Engine-first зависимости:
+Исторический parallel split завершён Product Review; AUDIT-R1 и AUDIT-R2
+приняты, а текущий контрольный milestone — AUDIT-R3 reconciliation (Issue #87)
+без возврата к линейной Topic-Engine-first зависимости:
 
 - Golden Seminar Knowledge Slice — **DONE (Issue #44)** → bounded Obsidian
   Knowledge Prototype **REVIEWED / ADAPT FURTHER (Issue #63)**; production
@@ -1622,11 +1622,66 @@ Knowledge Base должна обслуживать:
 
 # CURRENT NEXT ACTION
 
-Текущий этап: **AUDIT-R1 GOVERNANCE RECONCILIATION** (`audit_r1_governance_reconciliation`, Issue #96).
-Машиночитаемый current milestone: `audit_r1_governance_truth_reconciliation`;
-next action: `audit_r1_product_owner_review`.
-The subsequent governed review (not started in AUDIT-R1) is
-`audit_r2_canonical_knowledge_validation_hardening_after_r1_acceptance`.
+Текущий этап: **AUDIT-R3 MILESTONE RECONCILIATION**
+(`audit_r3_milestone_reconciliation`, Issue #87). Реализация подготовлена, но
+не принята: следующий разрешённый шаг — `audit_r3_product_owner_review`.
+Ни один следующий Issue не разрешён до завершения этого human gate и, поскольку
+State/Roadmap являются deployed snapshots, отдельного post-merge runtime
+reconciliation.
+
+Активная машиночитаемая проекция ниже сверяется с
+`integrity/milestone_reconciliation.json`. Только этот ограниченный JSON-блок,
+а не исторические формулировки Roadmap, участвует в локальном reconciliation
+gate.
+
+<!-- SEMINARTEXT_CONTROL_PLANE_START -->
+```json
+{
+  "contract_version": "2026-08-30.audit-r3",
+  "current_milestone_id": "audit_r3_control_plane_integrity_gate",
+  "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+  "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+  "next_issue_allowed": false,
+  "active_actions": [
+    "audit_r3_product_owner_review"
+  ],
+  "blocked_actions": [
+    "audit_r4",
+    "audit_r5",
+    "audit_r6",
+    "issue_65",
+    "issue_66",
+    "dataset_d_blind_evaluation"
+  ],
+  "milestones": {
+    "audit_r1_governance_truth_reconciliation": {
+      "status": "COMPLETE_ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": true
+    },
+    "audit_r2_canonical_knowledge_validation": {
+      "status": "COMPLETE_ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "runtime_reconciliation_required": false,
+      "runtime_reconciliation_complete": true
+    },
+    "audit_r3_control_plane_integrity_gate": {
+      "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+      "accepted": false,
+      "implementation_state": "IMPLEMENTED",
+      "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": false
+    }
+  }
+}
+```
+<!-- SEMINARTEXT_CONTROL_PLANE_END -->
 
 Принята следующая обязательная последовательность без преждевременной реализации
 поздних stages:
@@ -1645,19 +1700,21 @@ The subsequent governed review (not started in AUDIT-R1) is
    accepted with `ADAPT_FURTHER` (Issue #63), while production export remains
    blocked.
 8. Canonical Knowledge Contract v1 — **COMPLETE / ACCEPTED (Issue #64)**.
-9. **AUDIT-R1 — ACTIVE PRODUCT OWNER REVIEW (Issue #96)**: reconcile State,
-   Roadmap, workflow, Integrity documentation, and issue lifecycle guidance.
+9. AUDIT-R1 governance reconciliation — **COMPLETE / ACCEPTED (Issue #96)**.
+10. AUDIT-R2 Canonical Knowledge validation — **COMPLETE / ACCEPTED (Issue #88)**.
+11. **AUDIT-R3 — IMPLEMENTED, PRODUCT OWNER REVIEW PENDING (Issue #87)**:
+    machine-checkable control-plane reconciliation and next-Issue block.
 
 Supporting Data/Evaluation status (not a next action): Gold Expansion v2
 preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Owner
 role review and manual Gold annotation remain human gates.
 
-10. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
-11. Dataset D blind evaluation after candidate/config/criteria freeze.
-12. Define and assess `TOPIC AUTOMATION USABLE`.
-13. Expand Knowledge Engine.
-14. Multi-seminar Knowledge MVP.
-15. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
+12. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
+13. Dataset D blind evaluation after candidate/config/criteria freeze.
+14. Define and assess `TOPIC AUTOMATION USABLE`.
+15. Expand Knowledge Engine.
+16. Multi-seminar Knowledge MVP.
+17. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
     Assistant.
 
 Dataset guardrails apply throughout: A/B are development/history evidence; C is
@@ -1705,9 +1762,9 @@ Every architecture/state milestone PR must:
 4. preserve historical experiment artifacts rather than rewriting them;
 5. record accepted architectural changes in `decisions/`.
 
-State should eventually be schema-validated or generated from one policy source.
-A lightweight consistency check is preferred; a large governance subsystem is
-not part of the current milestone.
+Активные проекции State и Roadmap проверяются офлайн по
+`integrity/milestone_reconciliation.json`. Historical evidence не сканируется
+как active truth, а governance contradiction является blocking failure.
 
 Consistency review for this checkpoint:
 

@@ -1,3 +1,3 @@
-"""SeminarText Project Integrity Gate v1."""
+"""SeminarText Project Integrity Gate."""
 
-INTEGRITY_REPORT_SCHEMA_VERSION = 1
+INTEGRITY_REPORT_SCHEMA_VERSION = 2

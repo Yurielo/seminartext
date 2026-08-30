@@ -16,6 +16,7 @@ REQUIRED_STATE_KEYS = {
     "policy_checkpoint",
     "current_stage",
     "current_milestone",
+    "control_plane",
     "architecture",
     "stages",
     "next_actions",

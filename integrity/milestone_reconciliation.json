@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "contract_version": "2026-08-30.audit-r3",
+  "github_lifecycle_check": "NOT_RUN",
+  "authoritative_sources": {
+    "state": {
+      "path": "SEMINARTEXT_4_STATE.json"
+    },
+    "roadmap": {
+      "path": "SEMINARTEXT_4_ROADMAP.md",
+      "start_marker": "<!-- SEMINARTEXT_CONTROL_PLANE_START -->",
+      "end_marker": "<!-- SEMINARTEXT_CONTROL_PLANE_END -->"
+    },
+    "dataset_registry": {
+      "path": "governance/dataset_registry.json"
+    },
+    "topic_lifecycle": {
+      "path": "governance/topic_engine_lifecycle.json"
+    },
+    "topic_freeze": {
+      "path": "governance/topic_engine_freeze.json"
+    },
+    "treeseg_disposition": {
+      "path": "analysis/treeseg_global_structure_poc/product_review_disposition.json"
+    },
+    "obsidian_disposition": {
+      "path": "analysis/obsidian_knowledge_prototype/product_review_disposition.json"
+    },
+    "canonical_knowledge_lifecycle": {
+      "path": "schemas/canonical_knowledge_lifecycle_v1.json"
+    }
+  },
+  "current_milestone_id": "audit_r3_control_plane_integrity_gate",
+  "state_current_stage": "audit_r3_milestone_reconciliation",
+  "active_actions": [
+    "audit_r3_product_owner_review"
+  ],
+  "next_issue_allowed": false,
+  "blocked_actions": [
+    "audit_r4",
+    "audit_r5",
+    "audit_r6",
+    "issue_65",
+    "issue_66",
+    "dataset_d_blind_evaluation"
+  ],
+  "milestones": [
+    {
+      "milestone_id": "audit_r1_governance_truth_reconciliation",
+      "issue_id": 96,
+      "status": "COMPLETE_ACCEPTED",
+      "decision": "ACCEPT",
+      "disposition": "ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "next_allowed_actions": [
+        "audit_r2_canonical_knowledge_validation"
+      ],
+      "blocked_actions": [],
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": true,
+      "evidence_refs": [
+        "SEMINARTEXT_4_STATE.json#accepted_decision_refs.audit_r1",
+        "SEMINARTEXT_4_ROADMAP.md#current-next-action",
+        "https://github.com/Yurielo/seminartext/pull/97"
+      ],
+      "historical": false,
+      "prerequisite_milestones": [],
+      "state_sequence_status": "complete_accepted"
+    },
+    {
+      "milestone_id": "audit_r2_canonical_knowledge_validation",
+      "issue_id": 88,
+      "status": "COMPLETE_ACCEPTED",
+      "decision": "ACCEPT",
+      "disposition": "ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "next_allowed_actions": [
+        "audit_r3_control_plane_integrity_gate"
+      ],
+      "blocked_actions": [],
+      "runtime_reconciliation_required": false,
+      "runtime_reconciliation_complete": true,
+      "evidence_refs": [
+        "analysis/AUDIT_R2_CANONICAL_KNOWLEDGE_VALIDATION.md",
+        "schemas/canonical_knowledge_lifecycle_v1.json",
+        "https://github.com/Yurielo/seminartext/pull/98"
+      ],
+      "historical": false,
+      "prerequisite_milestones": [
+        "audit_r1_governance_truth_reconciliation"
+      ],
+      "state_sequence_status": "complete_accepted"
+    },
+    {
+      "milestone_id": "audit_r3_control_plane_integrity_gate",
+      "issue_id": 87,
+      "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+      "decision": "PENDING_PRODUCT_OWNER_REVIEW",
+      "disposition": "PENDING",
+      "accepted": false,
+      "implementation_state": "IMPLEMENTED",
+      "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+      "next_allowed_actions": [],
+      "blocked_actions": [
+        "audit_r4",
+        "audit_r5",
+        "audit_r6",
+        "issue_65",
+        "issue_66",
+        "dataset_d_blind_evaluation"
+      ],
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": false,
+      "evidence_refs": [
+        "integrity/milestone_reconciliation.json",
+        "analysis/AUDIT_R3_MILESTONE_RECONCILIATION.md"
+      ],
+      "historical": false,
+      "prerequisite_milestones": [
+        "audit_r1_governance_truth_reconciliation",
+        "audit_r2_canonical_knowledge_validation"
+      ],
+      "state_sequence_status": "implemented_pending_product_owner_review"
+    }
+  ],
+  "active_assertions": [
+    {
+      "id": "treeseg_state_decision",
+      "gate": "G3",
+      "source": "state",
+      "pointer": "/architecture/tracks/semantic_automation/decision",
+      "equals": "KEEP_TREESEG_AS_CHALLENGER"
+    },
+    {
+      "id": "treeseg_disposition_decision",
+      "gate": "G3",
+      "source": "treeseg_disposition",
+      "pointer": "/decision",
+      "equals": "KEEP_TREESEG_AS_CHALLENGER"
+    },
+    {
+      "id": "treeseg_role",
+      "gate": "G3",
+      "source": "topic_lifecycle",
+      "pointer": "/treeseg_product_review/role_id",
+      "equals": "challenger"
+    },
+    {
+      "id": "treeseg_production_ready",
+      "gate": "G3",
+      "source": "topic_lifecycle",
+      "pointer": "/treeseg_product_review/production_ready",
+      "equals": false
+    },
+    {
+      "id": "treeseg_frozen_candidate",
+      "gate": "G3",
+      "source": "topic_lifecycle",
+      "pointer": "/treeseg_product_review/frozen_candidate",
+      "equals": false
+    },
+    {
+      "id": "treeseg_expansion_authorized",
+      "gate": "G3",
+      "source": "topic_lifecycle",
+      "pointer": "/treeseg_product_review/expansion_authorized",
+      "equals": false
+    },
+    {
+      "id": "obsidian_decision",
+      "gate": "G3",
+      "source": "obsidian_disposition",
+      "pointer": "/ISSUE_63_DECISION",
+      "equals": "ADAPT_FURTHER"
+    },
+    {
+      "id": "obsidian_direction",
+      "gate": "G3",
+      "source": "obsidian_disposition",
+      "pointer": "/OBSIDIAN_DIRECTION",
+      "equals": "ACCEPTED"
+    },
+    {
+      "id": "obsidian_production_ready",
+      "gate": "G3",
+      "source": "obsidian_disposition",
+      "pointer": "/CURRENT_PROTOTYPE_PRODUCTION_READY",
+      "equals": false
+    },
+    {
+      "id": "obsidian_export_blocked",
+      "gate": "G3",
+      "source": "obsidian_disposition",
+      "pointer": "/PROJECT_OBSIDIAN_EXPORT",
+      "equals": "BLOCKED"
+    },
+    {
+      "id": "local_peak_freeze_complete",
+      "gate": "G3",
+      "source": "topic_freeze",
+      "pointer": "/status",
+      "equals": "FROZEN_APPROVED"
+    },
+    {
+      "id": "local_peak_candidate",
+      "gate": "G3",
+      "source": "topic_freeze",
+      "pointer": "/candidate/engine_id",
+      "equals": "bge_m3_local_peak_v1"
+    },
+    {
+      "id": "local_peak_not_promoted",
+      "gate": "G3",
+      "source": "topic_freeze",
+      "pointer": "/candidate/production_promoted",
+      "equals": false
+    },
+    {
+      "id": "canonical_knowledge_contract_accepted",
+      "gate": "G3",
+      "source": "state",
+      "pointer": "/stages/canonical_knowledge_v1/status",
+      "equals": "complete_accepted"
+    },
+    {
+      "id": "canonical_knowledge_version",
+      "gate": "G3",
+      "source": "state",
+      "pointer": "/stages/canonical_knowledge_v1/schema_version",
+      "equals": "1.0.0"
+    },
+    {
+      "id": "canonical_knowledge_strict_schema",
+      "gate": "G3",
+      "source": "state",
+      "pointer": "/stages/canonical_knowledge_v1/strict_schema_enforcement",
+      "equals": true
+    },
+    {
+      "id": "canonical_knowledge_lifecycle_mapping",
+      "gate": "G3",
+      "source": "state",
+      "pointer": "/stages/canonical_knowledge_v1/lifecycle_mapping",
+      "equals": "accepted"
+    },
+    {
+      "id": "dataset_c_closed",
+      "gate": "G8",
+      "source": "dataset_registry",
+      "pointer": "/datasets/2/lock_status",
+      "equals": "CLOSED_FROZEN"
+    },
+    {
+      "id": "dataset_c_access_denied",
+      "gate": "G8",
+      "source": "dataset_registry",
+      "pointer": "/datasets/2/topic_engine_access_allowed",
+      "equals": false
+    },
+    {
+      "id": "dataset_d_locked",
+      "gate": "G8",
+      "source": "dataset_registry",
+      "pointer": "/datasets/3/lock_status",
+      "equals": "LOCKED_TEST"
+    },
+    {
+      "id": "dataset_d_access_blocked",
+      "gate": "G8",
+      "source": "dataset_registry",
+      "pointer": "/datasets/3/topic_engine_access_allowed",
+      "equals": false
+    },
+    {
+      "id": "dataset_e_excluded",
+      "gate": "G8",
+      "source": "dataset_registry",
+      "pointer": "/datasets/4/lock_status",
+      "equals": "EXCLUDED"
+    },
+    {
+      "id": "dataset_e_access_denied",
+      "gate": "G8",
+      "source": "dataset_registry",
+      "pointer": "/datasets/4/topic_engine_access_allowed",
+      "equals": false
+    }
+  ],
+  "historical_evidence": [
+    "analysis/ROADMAP_STATE_CONSISTENCY_REVIEW_2026-08-26.md",
+    "analysis/ROADMAP_STATE_POST_BASELINE_CONSISTENCY_REVIEW_2026-08-27.md",
+    "analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md",
+    "analysis/OBSIDIAN_KNOWLEDGE_PROTOTYPE_GOLDEN_SEMINAR.md"
+  ]
+}

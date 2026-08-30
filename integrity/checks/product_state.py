@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 
+from integrity.checks.control_plane import evaluate as evaluate_control_plane
 from integrity.model import CheckContext, GateResult, gate_definition
 
 
@@ -15,6 +16,7 @@ def _dispatched_commands(cli_source: str) -> set[str]:
 
 def run(context: CheckContext) -> GateResult:
     gate = gate_definition(context, "G8")
+    control_plane = evaluate_control_plane(context.root)
     state_path = context.root / "SEMINARTEXT_4_STATE.json"
     version_path = context.root / "SEMINARTEXT_VERSION"
     cli_path = context.root / "seminartext"
@@ -110,7 +112,10 @@ def run(context: CheckContext) -> GateResult:
         "declared_commands": declared_commands,
         "maturity_fields": maturity_rows,
         "contradictions": contradictions,
+        "control_plane": control_plane.evidence(),
     }
+    contradictions.extend(control_plane.g8_errors)
+    evidence["contradictions"] = contradictions
     if contradictions:
         return GateResult(
             "G8",
@@ -123,6 +128,6 @@ def run(context: CheckContext) -> GateResult:
         "G8",
         gate["name"],
         "PASS",
-        "implemented version/CLI/product-maturity contradiction checks pass",
+        "product maturity and milestone progression reconciliation pass",
         evidence,
     )
