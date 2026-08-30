@@ -238,6 +238,9 @@ cat <<'HELP'
   seminartext project-promote-transcript PROJECT --source-id ID --text-file FILE --state verified --reviewer NAME
   seminartext project-align PROJECT --source-id ID --revision-id REVISION --alignment-json FILE [--media FILE]
   seminartext project-evidence-check PROJECT [--json]
+  seminartext project-review-prepare PROJECT --drafts FILE --output DIR
+  seminartext project-review-status PROJECT --package FILE [--decisions FILE]
+  seminartext project-review-apply PROJECT --package FILE --decisions FILE --output FILE
   seminartext project-obsidian-export PROJECT --knowledge-input FILE --destination DIR [--dry-run]
   seminartext project-transcribe PROJECT
   seminartext project-documents PROJECT
@@ -5041,6 +5044,10 @@ project_knowledge_bridge_command() {
   "$SEMINARTEXT_PYTHON" "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/project_knowledge_bridge.py" "$@"
 }
 
+human_review_workflow_command() {
+  "$SEMINARTEXT_PYTHON" "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/human_review_workflow.py" "$@"
+}
+
 dataset_governance_command() {
   local module
   module="$(resolve_runtime_module dataset_governance)" || return 1
@@ -5359,6 +5366,21 @@ main() {
     project-evidence-check)
       shift
       evidence_foundation_command evidence-check "$@"
+      exit $?
+      ;;
+    project-review-prepare)
+      shift
+      human_review_workflow_command prepare "$@"
+      exit $?
+      ;;
+    project-review-status)
+      shift
+      human_review_workflow_command status "$@"
+      exit $?
+      ;;
+    project-review-apply)
+      shift
+      human_review_workflow_command apply "$@"
       exit $?
       ;;
     project-obsidian-export)

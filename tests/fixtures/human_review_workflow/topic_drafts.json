@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "seminartext.topic_drafts",
+  "artifact_id": "topic_drafts_human_review_fixture_v1",
+  "project": {
+    "id": "project_project_knowledge_bridge",
+    "title": "Human Review Workflow Fixture"
+  },
+  "seminar": {
+    "id": "seminar_human_review_fixture",
+    "title": "Human Review Workflow Fixture Seminar"
+  },
+  "generator": {
+    "id": "generator_fixture_machine_assisted",
+    "version": "1.0.0",
+    "configuration_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "evidence": [
+    {
+      "id": "evidence_human_review_fixture",
+      "claim": "The bounded fixture words support the reviewable Topic Drafts.",
+      "source_id": "source_video_001",
+      "transcript_revision_id": "transcript_revision_video_001_r1",
+      "word_start_id": "transcript_revision_video_001_r1:word:000000",
+      "word_end_id": "transcript_revision_video_001_r1:word:000001"
+    }
+  ],
+  "topics": [
+    {
+      "id": "topic_review_accept",
+      "seminar_id": "seminar_human_review_fixture",
+      "source_id": "source_video_001",
+      "transcript_revision_id": "transcript_revision_video_001_r1",
+      "topic_set_id": "topic_set_human_review_fixture",
+      "sequence": 0,
+      "word_start_id": "transcript_revision_video_001_r1:word:000000",
+      "word_end_id": "transcript_revision_video_001_r1:word:000001",
+      "proposed_title": "Draft explicitly accepted by a human",
+      "proposed_summary": "A machine-assisted draft that requires explicit acceptance.",
+      "evidence_refs": ["evidence_human_review_fixture"],
+      "semantic_origin": "machine_assisted",
+      "lifecycle_status": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "topic_review_rename",
+      "seminar_id": "seminar_human_review_fixture",
+      "source_id": "source_video_001",
+      "transcript_revision_id": "transcript_revision_video_001_r1",
+      "topic_set_id": "topic_set_human_review_fixture",
+      "sequence": 1,
+      "word_start_id": "transcript_revision_video_001_r1:word:000000",
+      "word_end_id": "transcript_revision_video_001_r1:word:000001",
+      "proposed_title": "Draft title requiring correction",
+      "proposed_summary": "A rename preserves the stable Topic identity without implying acceptance.",
+      "evidence_refs": ["evidence_human_review_fixture"],
+      "semantic_origin": "machine_assisted",
+      "lifecycle_status": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "topic_review_reject",
+      "seminar_id": "seminar_human_review_fixture",
+      "source_id": "source_video_001",
+      "transcript_revision_id": "transcript_revision_video_001_r1",
+      "topic_set_id": "topic_set_human_review_fixture",
+      "sequence": 2,
+      "word_start_id": "transcript_revision_video_001_r1:word:000000",
+      "word_end_id": "transcript_revision_video_001_r1:word:000001",
+      "proposed_title": "Draft explicitly rejected by a human",
+      "proposed_summary": "A rejected draft remains auditable and is never promoted.",
+      "evidence_refs": ["evidence_human_review_fixture"],
+      "semantic_origin": "machine_assisted",
+      "lifecycle_status": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "topic_review_defer",
+      "seminar_id": "seminar_human_review_fixture",
+      "source_id": "source_video_001",
+      "transcript_revision_id": "transcript_revision_video_001_r1",
+      "topic_set_id": "topic_set_human_review_fixture",
+      "sequence": 3,
+      "word_start_id": "transcript_revision_video_001_r1:word:000000",
+      "word_end_id": "transcript_revision_video_001_r1:word:000001",
+      "proposed_title": "Draft deferred for later review",
+      "proposed_summary": "A deferred draft remains provisional and non-authoritative.",
+      "evidence_refs": ["evidence_human_review_fixture"],
+      "semantic_origin": "machine_assisted",
+      "lifecycle_status": "REVIEW_REQUIRED"
+    }
+  ]
+}

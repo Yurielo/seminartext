@@ -45,6 +45,12 @@
       "required": true
     },
     {
+      "id": "human_review_workflow",
+      "repository_path": "seminartext_modules/human_review_workflow.py",
+      "deployed_name": "seminartext_modules/human_review_workflow.py",
+      "required": true
+    },
+    {
       "id": "canonical_validator",
       "repository_path": "schemas/validate_canonical_evidence_v1.py",
       "deployed_name": "schemas/validate_canonical_evidence_v1.py",
@@ -78,6 +84,12 @@
       "id": "project_knowledge_input_schema",
       "repository_path": "schemas/project_knowledge_input_v1.schema.json",
       "deployed_name": "schemas/project_knowledge_input_v1.schema.json",
+      "required": true
+    },
+    {
+      "id": "topic_review_workflow_schema",
+      "repository_path": "schemas/topic_review_workflow_v1.schema.json",
+      "deployed_name": "schemas/topic_review_workflow_v1.schema.json",
       "required": true
     },
     {
