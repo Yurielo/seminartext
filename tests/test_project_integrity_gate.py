@@ -129,6 +129,7 @@ main "$@"
     for relative in (
         "seminartext_modules/evidence_foundation.py",
         "seminartext_modules/project_knowledge_bridge.py",
+        "seminartext_modules/human_review_workflow.py",
         "seminartext_modules/dataset_governance.py",
         "seminartext_modules/topic_engine_governance.py",
         "schemas/validate_canonical_evidence_v1.py",
@@ -137,6 +138,7 @@ main "$@"
         "schemas/canonical_knowledge_v1.schema.json",
         "schemas/canonical_knowledge_lifecycle_v1.json",
         "schemas/project_knowledge_input_v1.schema.json",
+        "schemas/topic_review_workflow_v1.schema.json",
         "analysis/word_timeline_mvp/canonical_evidence_bundle.json",
         "analysis/golden_knowledge_slice/golden_knowledge_slice.json",
         "analysis/golden_knowledge_slice/curation.json",

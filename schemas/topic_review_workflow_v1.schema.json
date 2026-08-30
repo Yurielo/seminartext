@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seminartext.local/schemas/topic_review_workflow_v1.schema.json",
+  "title": "SeminarText Topic Human Review Workflow v1",
+  "oneOf": [
+    {"$ref": "#/$defs/topic_drafts"},
+    {"$ref": "#/$defs/review_package"},
+    {"$ref": "#/$defs/review_decisions"}
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9._:-]{2,127}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "title": {"type": "string", "minLength": 1}
+      }
+    },
+    "seminar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "title": {"type": "string", "minLength": 1}
+      }
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "configuration_sha256"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "version": {"type": "string", "minLength": 1},
+        "configuration_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "evidence_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "claim", "source_id", "transcript_revision_id", "word_start_id", "word_end_id"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "claim": {"type": "string", "minLength": 1},
+        "source_id": {"$ref": "#/$defs/id"},
+        "transcript_revision_id": {"$ref": "#/$defs/id"},
+        "word_start_id": {"$ref": "#/$defs/id"},
+        "word_end_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "draft_topic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "seminar_id", "source_id", "transcript_revision_id", "topic_set_id", "sequence",
+        "word_start_id", "word_end_id", "proposed_title", "proposed_summary", "evidence_refs",
+        "semantic_origin", "lifecycle_status"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "seminar_id": {"$ref": "#/$defs/id"},
+        "source_id": {"$ref": "#/$defs/id"},
+        "transcript_revision_id": {"$ref": "#/$defs/id"},
+        "topic_set_id": {"$ref": "#/$defs/id"},
+        "sequence": {"type": "integer", "minimum": 0},
+        "word_start_id": {"$ref": "#/$defs/id"},
+        "word_end_id": {"$ref": "#/$defs/id"},
+        "proposed_title": {"type": "string", "minLength": 1},
+        "proposed_summary": {"type": "string"},
+        "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "semantic_origin": {"enum": ["machine_assisted", "semi_automatic", "verified_manual", "gold"]},
+        "lifecycle_status": {"const": "REVIEW_REQUIRED"}
+      }
+    },
+    "topic_drafts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "artifact_type", "artifact_id", "project", "seminar", "generator", "evidence", "topics"],
+      "properties": {
+        "schema_version": {"const": "1.0.0"},
+        "artifact_type": {"const": "seminartext.topic_drafts"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "project": {"$ref": "#/$defs/project"},
+        "seminar": {"$ref": "#/$defs/seminar"},
+        "generator": {"$ref": "#/$defs/generator"},
+        "evidence": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/evidence_input"}},
+        "topics": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/draft_topic"}}
+      }
+    },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "start_seconds", "end_seconds"],
+      "properties": {
+        "type": {"const": "time_interval"},
+        "start_seconds": {"type": "number", "minimum": 0},
+        "end_seconds": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "resolved_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "claim", "source_id", "transcript_revision_id", "word_start_id", "word_end_id",
+        "word_start_sequence", "word_end_sequence", "quote", "locator"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "claim": {"type": "string", "minLength": 1},
+        "source_id": {"$ref": "#/$defs/id"},
+        "transcript_revision_id": {"$ref": "#/$defs/id"},
+        "word_start_id": {"$ref": "#/$defs/id"},
+        "word_end_id": {"$ref": "#/$defs/id"},
+        "word_start_sequence": {"type": "integer", "minimum": 0},
+        "word_end_sequence": {"type": "integer", "minimum": 0},
+        "quote": {"type": "string", "minLength": 1},
+        "locator": {"$ref": "#/$defs/locator"}
+      }
+    },
+    "review_topic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "seminar_id", "source_id", "transcript_revision_id", "topic_set_id", "sequence",
+        "word_start_id", "word_end_id", "proposed_title", "proposed_summary", "evidence_refs",
+        "semantic_origin", "lifecycle_status", "word_start_sequence", "word_end_sequence", "quote",
+        "locator", "evidence_sha256", "generator", "review_history", "topic_sha256"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "seminar_id": {"$ref": "#/$defs/id"},
+        "source_id": {"$ref": "#/$defs/id"},
+        "transcript_revision_id": {"$ref": "#/$defs/id"},
+        "topic_set_id": {"$ref": "#/$defs/id"},
+        "sequence": {"type": "integer", "minimum": 0},
+        "word_start_id": {"$ref": "#/$defs/id"},
+        "word_end_id": {"$ref": "#/$defs/id"},
+        "proposed_title": {"type": "string", "minLength": 1},
+        "proposed_summary": {"type": "string"},
+        "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "semantic_origin": {"enum": ["machine_assisted", "semi_automatic", "verified_manual", "gold"]},
+        "lifecycle_status": {"const": "REVIEW_REQUIRED"},
+        "word_start_sequence": {"type": "integer", "minimum": 0},
+        "word_end_sequence": {"type": "integer", "minimum": 0},
+        "quote": {"type": "string", "minLength": 1},
+        "locator": {"$ref": "#/$defs/locator"},
+        "evidence_sha256": {"$ref": "#/$defs/sha256"},
+        "generator": {"$ref": "#/$defs/generator"},
+        "review_history": {"type": "array", "items": {"type": "object"}},
+        "topic_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "review_package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "artifact_type", "artifact_id", "project", "seminar", "canonical_evidence",
+        "draft_input", "review_policy", "evidence", "topics"
+      ],
+      "properties": {
+        "schema_version": {"const": "1.0.0"},
+        "artifact_type": {"const": "seminartext.topic_review_package"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "project": {"$ref": "#/$defs/project"},
+        "seminar": {"$ref": "#/$defs/seminar"},
+        "canonical_evidence": {
+          "type": "object", "additionalProperties": false, "required": ["artifact_id", "sha256"],
+          "properties": {"artifact_id": {"$ref": "#/$defs/id"}, "sha256": {"$ref": "#/$defs/sha256"}}
+        },
+        "draft_input": {
+          "type": "object", "additionalProperties": false, "required": ["artifact_id", "sha256"],
+          "properties": {"artifact_id": {"$ref": "#/$defs/id"}, "sha256": {"$ref": "#/$defs/sha256"}}
+        },
+        "review_policy": {
+          "type": "object", "additionalProperties": false,
+          "required": ["authoring_gate", "review_gate", "machine_assisted_default", "automatic_acceptance"],
+          "properties": {
+            "authoring_gate": {"const": "DOMAIN_AUTHORING"},
+            "review_gate": {"const": "DOMAIN_REVIEW"},
+            "machine_assisted_default": {"const": "REVIEW_REQUIRED"},
+            "automatic_acceptance": {"const": false}
+          }
+        },
+        "evidence": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/resolved_evidence"}},
+        "topics": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/review_topic"}}
+      }
+    },
+    "result_topic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "source_id", "transcript_revision_id", "topic_set_id", "sequence", "word_start_id",
+        "word_end_id", "proposed_title", "proposed_summary", "evidence_refs", "semantic_origin"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "source_id": {"$ref": "#/$defs/id"},
+        "transcript_revision_id": {"$ref": "#/$defs/id"},
+        "topic_set_id": {"$ref": "#/$defs/id"},
+        "sequence": {"type": "integer", "minimum": 0},
+        "word_start_id": {"$ref": "#/$defs/id"},
+        "word_end_id": {"$ref": "#/$defs/id"},
+        "proposed_title": {"type": "string", "minLength": 1},
+        "proposed_summary": {"type": "string"},
+        "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "semantic_origin": {"enum": ["machine_assisted", "semi_automatic", "verified_manual", "gold"]}
+      }
+    },
+    "expected_topic": {
+      "type": "object", "additionalProperties": false, "required": ["topic_id", "topic_sha256"],
+      "properties": {"topic_id": {"$ref": "#/$defs/id"}, "topic_sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "action", "target_ids", "result_topics", "reason", "timestamp", "expected_topics",
+        "new_title", "new_summary"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "action": {"enum": ["ACCEPT", "RENAME", "SPLIT", "MERGE", "REJECT", "DEFER"]},
+        "target_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "result_topics": {"type": "array", "items": {"$ref": "#/$defs/result_topic"}},
+        "reason": {"type": "string", "minLength": 1},
+        "timestamp": {"type": "string", "minLength": 1},
+        "expected_topics": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/expected_topic"}},
+        "new_title": {"type": ["string", "null"]},
+        "new_summary": {"type": ["string", "null"]}
+      }
+    },
+    "review_decisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "artifact_type", "artifact_id", "review_package_id", "review_package_sha256", "reviewer", "decisions"],
+      "properties": {
+        "schema_version": {"const": "1.0.0"},
+        "artifact_type": {"const": "seminartext.topic_review_decisions"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "review_package_id": {"$ref": "#/$defs/id"},
+        "review_package_sha256": {"$ref": "#/$defs/sha256"},
+        "reviewer": {
+          "type": "object", "additionalProperties": false, "required": ["actor_type", "actor_id"],
+          "properties": {
+            "actor_type": {"enum": ["human_domain_reviewer", "product_owner"]},
+            "actor_id": {"$ref": "#/$defs/id"}
+          }
+        },
+        "decisions": {"type": "array", "items": {"$ref": "#/$defs/decision"}}
+      }
+    }
+  }
+}
