@@ -105,6 +105,7 @@ def run(context: CheckContext) -> GateResult:
     )
     smoke_commands = [
         [str(cli_path), "project-evidence-check", "--help"],
+        [str(cli_path), "project-obsidian-export", "--help"],
         [str(cli_path), "dataset-policy-check", "A", "gold_read", "--json"],
         [
             context.test_command[0],

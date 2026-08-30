@@ -75,6 +75,10 @@ def atomic_write_json(path: Path, value: Any, *, overwrite: bool = False) -> Non
     temporary.replace(path)
 
 
+def canonical_payload(value: Any) -> bytes:
+    return (json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
+
+
 def source_record(project: Path, source_id: str) -> tuple[dict[str, Any], str]:
     registry_path = project / "sources.json"
     registry = load_json(registry_path, "sources.json")
@@ -279,6 +283,182 @@ def build_bundle(project: Path, revision: dict[str, Any], source: dict[str, Any]
     return bundle, run
 
 
+def _source_order(project: Path) -> dict[str, int]:
+    registry = load_json(project / "sources.json", "sources.json")
+    records = [*registry.get("videos", []), *registry.get("documents", [])]
+    ordered = sorted(
+        records,
+        key=lambda item: (int(item.get("order", 10**9)), str(item.get("source_id", ""))),
+    )
+    return {
+        stable_id(str(item["source_id"]), "source"): index
+        for index, item in enumerate(ordered)
+        if item.get("source_id")
+    }
+
+
+def compose_project_bundle(project: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Compose retained source bundles into one deterministic project artifact."""
+
+    evidence_root = project / "evidence"
+    paths = sorted((evidence_root / "sources").glob("*/canonical_bundle.json"))
+    if not paths:
+        raise ValueError("no retained source-scoped Canonical Evidence bundles found")
+
+    order = _source_order(project)
+    loaded: list[tuple[Path, dict[str, Any]]] = []
+    project_record: dict[str, Any] | None = None
+    source_ids: set[str] = set()
+    source_inventory: list[dict[str, Any]] = []
+    for path in paths:
+        bundle = load_json(path, f"source bundle {path.parent.name}")
+        source_errors = validate_bundle(bundle)
+        if source_errors:
+            raise ValueError(
+                f"source bundle is invalid: {path}\n" + "\n".join(source_errors)
+            )
+        if len(bundle["sources"]) != 1:
+            raise ValueError(f"source bundle must contain exactly one source: {path}")
+        source_id = bundle["sources"][0]["id"]
+        if source_id != path.parent.name:
+            raise ValueError(
+                f"source bundle directory identity mismatch: {path.parent.name} != {source_id}"
+            )
+        if source_id in source_ids:
+            raise ValueError(f"duplicate retained source identity: {source_id}")
+        source_ids.add(source_id)
+        if source_id not in order:
+            raise ValueError(f"retained source is not present in sources.json: {source_id}")
+        source_manifest_path = path.parent / "manifest.json"
+        if not source_manifest_path.is_file():
+            raise ValueError(f"retained source manifest is missing: {source_manifest_path}")
+        source_manifest = load_json(source_manifest_path, f"source manifest {source_id}")
+        if source_manifest.get("bundle_path") != path.relative_to(project).as_posix():
+            raise ValueError(f"source manifest bundle path mismatch: {source_id}")
+        if source_manifest.get("bundle_sha256") != sha256_file(path):
+            raise ValueError(f"source manifest bundle hash mismatch: {source_id}")
+        revision_ids = {item["id"] for item in bundle["transcript_revisions"]}
+        run_ids = {item["id"] for item in bundle["alignment_runs"]}
+        if source_manifest.get("transcript_revision_id") not in revision_ids:
+            raise ValueError(f"source manifest revision mismatch: {source_id}")
+        if source_manifest.get("alignment_run_id") not in run_ids:
+            raise ValueError(f"source manifest alignment run mismatch: {source_id}")
+        if source_manifest.get("source_content_sha256") != bundle["sources"][0]["content_sha256"]:
+            raise ValueError(f"source manifest content hash mismatch: {source_id}")
+        retained_revision_path = (
+            path.parent
+            / "revisions"
+            / source_manifest["transcript_revision_id"]
+            / "canonical_bundle.json"
+        )
+        if not retained_revision_path.is_file() or sha256_file(retained_revision_path) != sha256_file(path):
+            raise ValueError(f"current source bundle is not the retained immutable revision: {source_id}")
+        if project_record is None:
+            project_record = bundle["project"]
+        elif bundle["project"] != project_record:
+            raise ValueError(f"source bundle project identity mismatch: {path}")
+        source_inventory.append(
+            {
+                "bundle_path": path.relative_to(project).as_posix(),
+                "bundle_sha256": sha256_file(path),
+                "source_id": source_id,
+            }
+        )
+        loaded.append((path, bundle))
+
+    assert project_record is not None
+    loaded.sort(key=lambda item: (order[item[1]["sources"][0]["id"]], item[0].as_posix()))
+    collection_names = (
+        "transcript_revisions",
+        "cues",
+        "alignment_runs",
+        "words",
+        "benchmark_segments",
+        "topics",
+        "evidence_refs",
+    )
+    aggregate: dict[str, Any] = {
+        "schema_version": "1.0.0",
+        "artifact_type": "seminartext.canonical_evidence",
+        "artifact_id": stable_id(f"{project_record['id']}_multi_source_v1", "artifact"),
+        "project": project_record,
+        "sources": [],
+        **{name: [] for name in collection_names},
+    }
+    for sequence, (_, bundle) in enumerate(loaded):
+        aggregate["sources"].append(bundle["sources"][0] | {"sequence": sequence})
+        for name in collection_names:
+            aggregate[name].extend(bundle[name])
+
+    sort_keys = {
+        "transcript_revisions": lambda item: (item["source_id"], item["revision_number"], item["id"]),
+        "cues": lambda item: (item["transcript_revision_id"], item["sequence"], item["id"]),
+        "alignment_runs": lambda item: (item["transcript_revision_id"], item["id"]),
+        "words": lambda item: (item["transcript_revision_id"], item["sequence"], item["id"]),
+        "benchmark_segments": lambda item: (item["transcript_revision_id"], item["sequence"], item["id"]),
+        "topics": lambda item: (item["transcript_revision_id"], item["topic_set_id"], item["sequence"], item["id"]),
+        "evidence_refs": lambda item: item["id"],
+    }
+    for name, key in sort_keys.items():
+        aggregate[name] = sorted(aggregate[name], key=key)
+
+    errors = validate_bundle(aggregate)
+    if errors:
+        raise ValueError(
+            "multi-source Canonical Evidence composition failed:\n" + "\n".join(errors)
+        )
+    return aggregate, sorted(source_inventory, key=lambda item: order[item["source_id"]])
+
+
+def write_project_aggregate(project: Path) -> tuple[Path, dict[str, Any]]:
+    bundle, source_inventory = compose_project_bundle(project)
+    bundle_path = project / "evidence" / "canonical_bundle.json"
+    payload = canonical_payload(bundle)
+    atomic_write_json(bundle_path, bundle, overwrite=True)
+    timeline = {
+        "schema_version": "1.0.0",
+        "source": "canonical_bundle.json",
+        "source_count": len(bundle["sources"]),
+        "transcript_revision_ids": [item["id"] for item in bundle["transcript_revisions"]],
+        "alignment_run_ids": [item["id"] for item in bundle["alignment_runs"]],
+        "words": bundle["words"],
+    }
+    atomic_write_json(project / "evidence" / "word_timeline.json", timeline, overwrite=True)
+    registry = load_json(project / "sources.json", "sources.json")
+    registered = [*registry.get("videos", []), *registry.get("documents", [])]
+    composed_ids = {item["source_id"] for item in source_inventory}
+    registry_coverage = [
+        {
+            "source_registry_id": item["source_id"],
+            "canonical_source_id": stable_id(str(item["source_id"]), "source"),
+            "evidence_status": (
+                "COMPOSED"
+                if stable_id(str(item["source_id"]), "source") in composed_ids
+                else "EVIDENCE_UNAVAILABLE"
+            ),
+        }
+        for item in sorted(
+            registered,
+            key=lambda value: (int(value.get("order", 10**9)), str(value.get("source_id", ""))),
+        )
+    ]
+    manifest = {
+        "schema_version": 2,
+        "artifact_type": "seminartext.project_evidence_manifest",
+        "bundle_path": "evidence/canonical_bundle.json",
+        "bundle_sha256": sha256_bytes(payload),
+        "source_count": len(bundle["sources"]),
+        "registered_source_count": len(registry_coverage),
+        "all_registered_sources_composed": all(
+            item["evidence_status"] == "COMPOSED" for item in registry_coverage
+        ),
+        "registry_coverage": registry_coverage,
+        "sources": source_inventory,
+    }
+    atomic_write_json(project / "evidence" / "manifest.json", manifest, overwrite=True)
+    return bundle_path, manifest
+
+
 def align_project(args: argparse.Namespace) -> int:
     project = project_root(args.project)
     source, source_canonical_id = source_record(project, args.source_id)
@@ -300,20 +480,52 @@ def align_project(args: argparse.Namespace) -> int:
     evidence_hash = sha256_file(evidence_path)
     run_id = f"alignment_{source_canonical_id.removeprefix('source_')}_{revision['revision_id'].removeprefix('transcript_revision_')}_{evidence_hash[:12]}"
     run_path = project / "evidence" / "alignment_runs" / f"{run_id}.json"
-    bundle_path = project / "evidence" / "canonical_bundle.json"
-    if run_path.is_file() and bundle_path.is_file():
+    source_root = project / "evidence" / "sources" / source_canonical_id
+    revision_bundle_path = source_root / "revisions" / revision["revision_id"] / "canonical_bundle.json"
+    source_bundle_path = source_root / "canonical_bundle.json"
+    if run_path.is_file() and revision_bundle_path.is_file():
+        if not source_bundle_path.is_file():
+            atomic_write_json(
+                source_bundle_path,
+                load_json(revision_bundle_path, "retained revision bundle"),
+                overwrite=True,
+            )
+        bundle_path, _ = write_project_aggregate(project)
         print(json.dumps({"status": "RESUMED", "alignment_run_id": run_id, "bundle": str(bundle_path)}, ensure_ascii=False, sort_keys=True))
         return 0
+    if run_path.exists() != revision_bundle_path.exists():
+        raise ValueError("incomplete retained alignment state; refusing automatic repair")
     bundle, run = build_bundle(project, revision, source, args.source_id, media, evidence, run_id, config_sha, model, model_revision, model_sha, evidence.get("aligner", "whisperx"), evidence.get("aligner_version", "3.8.6"))
     atomic_write_json(run_path, run)
-    payload = json.dumps(bundle, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
-    bundle_path.parent.mkdir(parents=True, exist_ok=True)
-    bundle_path.write_text(payload, encoding="utf-8")
-    timeline = {"schema_version": "1.0.0", "source": "canonical_bundle.json", "transcript_revision_id": revision["revision_id"], "alignment_run_id": run_id, "words": bundle["words"]}
-    atomic_write_json(project / "evidence" / "word_timeline.json", timeline, overwrite=True)
-    manifest = {"schema_version": 1, "bundle_path": "evidence/canonical_bundle.json", "bundle_sha256": sha256_bytes(payload.encode("utf-8")), "transcript_revision_id": revision["revision_id"], "alignment_run_id": run_id, "source_content_sha256": run["source_content_sha256"], "review_status": run["review_status"]}
-    atomic_write_json(project / "evidence" / "manifest.json", manifest, overwrite=True)
-    output_bindings = []
+    atomic_write_json(revision_bundle_path, bundle)
+    atomic_write_json(source_bundle_path, bundle, overwrite=True)
+    source_timeline = {
+        "schema_version": "1.0.0",
+        "source": "canonical_bundle.json",
+        "transcript_revision_id": revision["revision_id"],
+        "alignment_run_id": run_id,
+        "words": bundle["words"],
+    }
+    atomic_write_json(source_root / "word_timeline.json", source_timeline, overwrite=True)
+    source_payload = canonical_payload(bundle)
+    source_manifest = {
+        "schema_version": 1,
+        "bundle_path": source_bundle_path.relative_to(project).as_posix(),
+        "bundle_sha256": sha256_bytes(source_payload),
+        "transcript_revision_id": revision["revision_id"],
+        "alignment_run_id": run_id,
+        "source_content_sha256": run["source_content_sha256"],
+        "review_status": run["review_status"],
+    }
+    atomic_write_json(source_root / "manifest.json", source_manifest, overwrite=True)
+    bundle_path, manifest = write_project_aggregate(project)
+    bindings_path = project / "evidence" / "output_bindings.json"
+    previous_bindings = (
+        load_json(bindings_path, "output bindings").get("bindings", [])
+        if bindings_path.is_file()
+        else []
+    )
+    by_path = {item["path"]: item for item in previous_bindings if isinstance(item, dict) and item.get("path")}
     for candidate in (
         project / "transcript" / args.source_id / "transcript.txt",
         project / "transcript" / args.source_id / "transcript.srt",
@@ -321,8 +533,20 @@ def align_project(args: argparse.Namespace) -> int:
         project / "transcript" / "combined.json",
     ):
         if candidate.is_file():
-            output_bindings.append({"path": str(candidate.relative_to(project)), "sha256": sha256_file(candidate), "transcript_revision_id": revision["revision_id"], "canonical_bundle_sha256": manifest["bundle_sha256"]})
-    atomic_write_json(project / "evidence" / "output_bindings.json", {"schema_version": 1, "bindings": output_bindings}, overwrite=True)
+            relative = candidate.relative_to(project).as_posix()
+            by_path[relative] = {
+                "path": relative,
+                "sha256": sha256_file(candidate),
+                "transcript_revision_id": revision["revision_id"],
+                "canonical_bundle_sha256": manifest["bundle_sha256"],
+            }
+    for binding in by_path.values():
+        binding["canonical_bundle_sha256"] = manifest["bundle_sha256"]
+    atomic_write_json(
+        bindings_path,
+        {"schema_version": 1, "bindings": sorted(by_path.values(), key=lambda item: item["path"])},
+        overwrite=True,
+    )
     print(json.dumps({"status": run["review_status"], "alignment_run_id": run_id, "bundle": str(bundle_path), "unaligned_words": run["unaligned_sequences"]}, ensure_ascii=False, sort_keys=True))
     return 0
 
@@ -343,7 +567,7 @@ def evidence_check(args: argparse.Namespace) -> int:
         actual_hash = sha256_file(bundle_path)
         if manifest.get("bundle_sha256") != actual_hash:
             errors.append("manifest bundle_sha256 does not match canonical bundle")
-        if manifest.get("transcript_revision_id") not in {item.get("id") for item in bundle.get("transcript_revisions", [])}:
+        if manifest.get("transcript_revision_id") is not None and manifest.get("transcript_revision_id") not in {item.get("id") for item in bundle.get("transcript_revisions", [])}:
             errors.append("manifest transcript_revision_id is not present in canonical bundle")
     bindings_path = project / "evidence" / "output_bindings.json"
     if bindings_path.is_file():

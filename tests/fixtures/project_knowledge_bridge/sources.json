@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "videos": [
+    {
+      "source_id": "video_001",
+      "order": 1,
+      "type": "local",
+      "file": "source/video/video_001.mp4",
+      "title": "First source"
+    },
+    {
+      "source_id": "video_002",
+      "order": 2,
+      "type": "local",
+      "file": "source/video/video_002.mp4",
+      "title": "Second source"
+    }
+  ],
+  "documents": []
+}

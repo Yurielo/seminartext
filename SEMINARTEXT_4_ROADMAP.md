@@ -1276,26 +1276,39 @@ Bounded prototype runner:
 
 `analysis/obsidian_knowledge_prototype/export_obsidian_vault.py`
 
-Статус: deterministic bounded exporter complete; production project command
-ещё не реализована и требует решения после Product Review.
+Статус: bounded project command реализована в Issue #104 и ожидает Product
+Owner acceptance, merge и отдельную post-merge runtime reconciliation. Это не
+production promotion и не real full-seminar validation Issue #68.
 
-Планируемая команда:
+Поддерживаемый интерфейс реализации:
 
-seminartext project-obsidian-export "<project>"
+```bash
+seminartext project-obsidian-export "<project>" \
+  --knowledge-input "<explicit-input.json>" \
+  --destination "<vault>" [--source-resolver "<resolver.json>"] [--dry-run]
+```
 
 SeminarText напрямую создаёт Markdown-файлы внутри выбранного Obsidian Vault.
 
-Автоматически разрешено экспортировать однозначные данные:
+Механически экспортируются только явно заданные и прошедшие validation данные:
 
-- [ ] Seminar card
-- [ ] Video / Source cards
-- [ ] Topics
+- [x] Seminar card
+- [x] Video / Source cards
+- [x] explicitly supplied Topics
 - [ ] topic hierarchy
-- [ ] timecodes
-- [ ] source references
-- [ ] provenance
-- [ ] существующие Wikilinks
+- [x] exact supported timecodes
+- [x] source references
+- [x] provenance
+- [x] generated Wikilinks with resolution checks
 - [ ] document/page/slide references
+
+Issue #104 сохраняет immutable source-scoped Evidence outputs, собирает
+детерминированный multi-source Canonical Evidence artifact, валидирует
+`schemas/project_knowledge_input_v1.schema.json`, затем Canonical Knowledge v1,
+и пишет только `MANAGED_GENERATED` files. `USER_OWNED` collisions, изменённые
+managed files, orphan/cross-source references и скрытая partial coverage
+отклоняются fail-closed. `SEMANTIC_INPUT_UNAVAILABLE` остаётся отдельным
+coverage state, а не pipeline success или full-seminar claim.
 
 Первый пилот:
 
@@ -1357,6 +1370,12 @@ seminartext project-obsidian-sync "<project>"
 - [ ] change log;
 - [ ] rollback strategy;
 - [ ] safe re-export.
+
+Issue #104 реализует только безопасный one-way deterministic re-export:
+idempotence, stable IDs, ownership inventory, collision detection и отказ при
+изменённом managed content. Bidirectional sync, change-log/rollback product
+workflow и принятие пользовательских правок обратно в canonical data остаются
+вне scope.
 
 ---
 

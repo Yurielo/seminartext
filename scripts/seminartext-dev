@@ -11,8 +11,13 @@ STATE="$REPO/SEMINARTEXT_4_STATE.json"
 TOPICS="$REPO/seminartext_modules/seminartext_topics.py"
 TRANSLATE="$REPO/seminartext_modules/seminartext_translate.py"
 EVIDENCE_FOUNDATION="$REPO/seminartext_modules/evidence_foundation.py"
+PROJECT_KNOWLEDGE_BRIDGE="$REPO/seminartext_modules/project_knowledge_bridge.py"
 CANONICAL_VALIDATOR="$REPO/schemas/validate_canonical_evidence_v1.py"
 CANONICAL_SCHEMA="$REPO/schemas/canonical_evidence_v1.schema.json"
+CANONICAL_KNOWLEDGE_VALIDATOR="$REPO/schemas/validate_canonical_knowledge_v1.py"
+CANONICAL_KNOWLEDGE_SCHEMA="$REPO/schemas/canonical_knowledge_v1.schema.json"
+CANONICAL_KNOWLEDGE_LIFECYCLE="$REPO/schemas/canonical_knowledge_lifecycle_v1.json"
+PROJECT_KNOWLEDGE_INPUT_SCHEMA="$REPO/schemas/project_knowledge_input_v1.schema.json"
 DATASET_GOVERNANCE="$REPO/seminartext_modules/dataset_governance.py"
 DATASET_REGISTRY="$REPO/governance/dataset_registry.json"
 TOPIC_ENGINE_GOVERNANCE="$REPO/seminartext_modules/topic_engine_governance.py"
@@ -27,8 +32,13 @@ DEPLOY_STATE="$BIN/SEMINARTEXT_4_STATE.json"
 DEPLOY_TOPICS="$BIN/seminartext_topics.py"
 DEPLOY_TRANSLATE="$BIN/seminartext_translate.py"
 DEPLOY_EVIDENCE_FOUNDATION="$BIN/seminartext_modules/evidence_foundation.py"
+DEPLOY_PROJECT_KNOWLEDGE_BRIDGE="$BIN/seminartext_modules/project_knowledge_bridge.py"
 DEPLOY_CANONICAL_VALIDATOR="$BIN/schemas/validate_canonical_evidence_v1.py"
 DEPLOY_CANONICAL_SCHEMA="$BIN/schemas/canonical_evidence_v1.schema.json"
+DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR="$BIN/schemas/validate_canonical_knowledge_v1.py"
+DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA="$BIN/schemas/canonical_knowledge_v1.schema.json"
+DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE="$BIN/schemas/canonical_knowledge_lifecycle_v1.json"
+DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA="$BIN/schemas/project_knowledge_input_v1.schema.json"
 DEPLOY_DATASET_GOVERNANCE="$BIN/seminartext_modules/dataset_governance.py"
 DEPLOY_DATASET_REGISTRY="$BIN/governance/dataset_registry.json"
 DEPLOY_TOPIC_ENGINE_GOVERNANCE="$BIN/seminartext_modules/topic_engine_governance.py"
@@ -112,15 +122,15 @@ cmd_status() {
 
   echo
   echo "MASTER FILES"
-  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
+  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$PROJECT_KNOWLEDGE_BRIDGE" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$CANONICAL_KNOWLEDGE_VALIDATOR" "$CANONICAL_KNOWLEDGE_SCHEMA" "$CANONICAL_KNOWLEDGE_LIFECYCLE" "$PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "MASTER HASHES"
-  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
+  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$PROJECT_KNOWLEDGE_BRIDGE" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$CANONICAL_KNOWLEDGE_VALIDATOR" "$CANONICAL_KNOWLEDGE_SCHEMA" "$CANONICAL_KNOWLEDGE_LIFECYCLE" "$PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "DEPLOYED HASHES"
-  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE" "$DEPLOY_EVIDENCE_FOUNDATION" "$DEPLOY_CANONICAL_VALIDATOR" "$DEPLOY_CANONICAL_SCHEMA" "$DEPLOY_DATASET_GOVERNANCE" "$DEPLOY_DATASET_REGISTRY" "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" "$DEPLOY_TOPIC_ENGINE_FREEZE" "$DEPLOY_VERSION"; do
+  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE" "$DEPLOY_EVIDENCE_FOUNDATION" "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" "$DEPLOY_CANONICAL_VALIDATOR" "$DEPLOY_CANONICAL_SCHEMA" "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR" "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA" "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE" "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$DEPLOY_DATASET_GOVERNANCE" "$DEPLOY_DATASET_REGISTRY" "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" "$DEPLOY_TOPIC_ENGINE_FREEZE" "$DEPLOY_VERSION"; do
     if [[ -f "$f" ]]; then
       shasum -a 256 "$f" | sed 's/^/  /'
     else
@@ -180,6 +190,14 @@ cmd_status() {
     mismatches=$((mismatches + 1))
   fi
 
+  if [[ -f "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" ]] \
+     && [[ "$(hash_file "$PROJECT_KNOWLEDGE_BRIDGE")" == "$(hash_file "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE")" ]]; then
+    echo "  Project Knowledge bridge: SYNC"
+  else
+    echo "  Project Knowledge bridge: DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
   if [[ -f "$DEPLOY_CANONICAL_VALIDATOR" ]] \
      && [[ "$(hash_file "$CANONICAL_VALIDATOR")" == "$(hash_file "$DEPLOY_CANONICAL_VALIDATOR")" ]]; then
     echo "  Canonical validator: SYNC"
@@ -195,6 +213,20 @@ cmd_status() {
     echo "  Canonical schema: DIFFERENT"
     mismatches=$((mismatches + 1))
   fi
+
+  for spec in \
+    "Canonical Knowledge validator|$CANONICAL_KNOWLEDGE_VALIDATOR|$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR" \
+    "Canonical Knowledge schema|$CANONICAL_KNOWLEDGE_SCHEMA|$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA" \
+    "Canonical Knowledge lifecycle|$CANONICAL_KNOWLEDGE_LIFECYCLE|$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE" \
+    "Project Knowledge input schema|$PROJECT_KNOWLEDGE_INPUT_SCHEMA|$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA"; do
+    IFS='|' read -r label source deployed <<< "$spec"
+    if [[ -f "$deployed" ]] && [[ "$(hash_file "$source")" == "$(hash_file "$deployed")" ]]; then
+      echo "  $label: SYNC"
+    else
+      echo "  $label: DIFFERENT"
+      mismatches=$((mismatches + 1))
+    fi
+  done
 
   if [[ -f "$DEPLOY_DATASET_GOVERNANCE" ]] \
      && [[ "$(hash_file "$DATASET_GOVERNANCE")" == "$(hash_file "$DEPLOY_DATASET_GOVERNANCE")" ]]; then
@@ -237,7 +269,7 @@ cmd_status() {
   if (( mismatches == 0 )); then
     echo "DEPLOY STATUS: SYNC"
   else
-    echo "DEPLOY STATUS: DIFFERENT ($mismatches/14)"
+    echo "DEPLOY STATUS: DIFFERENT ($mismatches/19)"
   fi
 }
 
@@ -254,8 +286,13 @@ cmd_check() {
   [[ -f "$TOPICS" ]] || die "нет master Topic Engine module"
   [[ -f "$TRANSLATE" ]] || die "нет master Translate module"
   [[ -f "$EVIDENCE_FOUNDATION" ]] || die "нет master Evidence Foundation module"
+  [[ -f "$PROJECT_KNOWLEDGE_BRIDGE" ]] || die "нет master Project Knowledge bridge module"
   [[ -f "$CANONICAL_VALIDATOR" ]] || die "нет master Canonical validator"
   [[ -f "$CANONICAL_SCHEMA" ]] || die "нет master Canonical schema"
+  [[ -f "$CANONICAL_KNOWLEDGE_VALIDATOR" ]] || die "нет master Canonical Knowledge validator"
+  [[ -f "$CANONICAL_KNOWLEDGE_SCHEMA" ]] || die "нет master Canonical Knowledge schema"
+  [[ -f "$CANONICAL_KNOWLEDGE_LIFECYCLE" ]] || die "нет master Canonical Knowledge lifecycle"
+  [[ -f "$PROJECT_KNOWLEDGE_INPUT_SCHEMA" ]] || die "нет master Project Knowledge input schema"
   [[ -f "$DATASET_GOVERNANCE" ]] || die "нет master Dataset Governance module"
   [[ -f "$DATASET_REGISTRY" ]] || die "нет master Dataset Registry"
   [[ -f "$TOPIC_ENGINE_GOVERNANCE" ]] || die "нет master Topic Engine Governance module"
@@ -271,7 +308,7 @@ cmd_check() {
     || die "SEMINARTEXT_4_STATE.json invalid"
   echo "[OK] State JSON"
 
-  python3 - "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$CANONICAL_VALIDATOR" "$DATASET_GOVERNANCE" "$TOPIC_ENGINE_GOVERNANCE" <<'PYMODULES' \
+  python3 - "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$PROJECT_KNOWLEDGE_BRIDGE" "$CANONICAL_VALIDATOR" "$CANONICAL_KNOWLEDGE_VALIDATOR" "$DATASET_GOVERNANCE" "$TOPIC_ENGINE_GOVERNANCE" <<'PYMODULES' \
     || die "ошибка Python syntax в runtime-модулях"
 import ast
 import sys
@@ -286,6 +323,14 @@ PYMODULES
   python3 -m json.tool "$CANONICAL_SCHEMA" >/dev/null \
     || die "Canonical Evidence schema invalid"
   echo "[OK] Canonical Evidence schema"
+
+  python3 -m json.tool "$CANONICAL_KNOWLEDGE_SCHEMA" >/dev/null \
+    || die "Canonical Knowledge schema invalid"
+  python3 -m json.tool "$CANONICAL_KNOWLEDGE_LIFECYCLE" >/dev/null \
+    || die "Canonical Knowledge lifecycle invalid"
+  python3 -m json.tool "$PROJECT_KNOWLEDGE_INPUT_SCHEMA" >/dev/null \
+    || die "Project Knowledge input schema invalid"
+  echo "[OK] Project Knowledge contracts"
 
   python3 -m json.tool "$DATASET_REGISTRY" >/dev/null \
     || die "Dataset Registry invalid"
@@ -395,10 +440,20 @@ cmd_deploy() {
     && cp -p "$DEPLOY_TRANSLATE" "$backup/seminartext_translate.py"
   [[ -f "$DEPLOY_EVIDENCE_FOUNDATION" ]] \
     && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_EVIDENCE_FOUNDATION" "$backup/seminartext_modules/evidence_foundation.py"; }
+  [[ -f "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" ]] \
+    && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" "$backup/seminartext_modules/project_knowledge_bridge.py"; }
   [[ -f "$DEPLOY_CANONICAL_VALIDATOR" ]] \
     && { mkdir -p "$backup/schemas"; cp -p "$DEPLOY_CANONICAL_VALIDATOR" "$backup/schemas/validate_canonical_evidence_v1.py"; }
   [[ -f "$DEPLOY_CANONICAL_SCHEMA" ]] \
     && { mkdir -p "$backup/schemas"; cp -p "$DEPLOY_CANONICAL_SCHEMA" "$backup/schemas/canonical_evidence_v1.schema.json"; }
+  [[ -f "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR" ]] \
+    && { mkdir -p "$backup/schemas"; cp -p "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR" "$backup/schemas/validate_canonical_knowledge_v1.py"; }
+  [[ -f "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA" ]] \
+    && { mkdir -p "$backup/schemas"; cp -p "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA" "$backup/schemas/canonical_knowledge_v1.schema.json"; }
+  [[ -f "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE" ]] \
+    && { mkdir -p "$backup/schemas"; cp -p "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE" "$backup/schemas/canonical_knowledge_lifecycle_v1.json"; }
+  [[ -f "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA" ]] \
+    && { mkdir -p "$backup/schemas"; cp -p "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$backup/schemas/project_knowledge_input_v1.schema.json"; }
   [[ -f "$DEPLOY_DATASET_GOVERNANCE" ]] \
     && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_DATASET_GOVERNANCE" "$backup/seminartext_modules/dataset_governance.py"; }
   [[ -f "$DEPLOY_DATASET_REGISTRY" ]] \
@@ -419,15 +474,20 @@ source_commit=$commit
 source_branch=$(git branch --show-current)
 MANIFEST
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_evidence_foundation tmp_canonical_validator tmp_canonical_schema tmp_dataset_governance tmp_dataset_registry tmp_topic_engine_governance tmp_topic_engine_lifecycle tmp_topic_engine_freeze tmp_version
+  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_evidence_foundation tmp_project_knowledge_bridge tmp_canonical_validator tmp_canonical_schema tmp_canonical_knowledge_validator tmp_canonical_knowledge_schema tmp_canonical_knowledge_lifecycle tmp_project_knowledge_input_schema tmp_dataset_governance tmp_dataset_registry tmp_topic_engine_governance tmp_topic_engine_lifecycle tmp_topic_engine_freeze tmp_version
   tmp_code="$DEPLOY_CODE.new.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.new.$$"
   tmp_state="$DEPLOY_STATE.new.$$"
   tmp_topics="$DEPLOY_TOPICS.new.$$"
   tmp_translate="$DEPLOY_TRANSLATE.new.$$"
   tmp_evidence_foundation="$DEPLOY_EVIDENCE_FOUNDATION.new.$$"
+  tmp_project_knowledge_bridge="$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE.new.$$"
   tmp_canonical_validator="$DEPLOY_CANONICAL_VALIDATOR.new.$$"
   tmp_canonical_schema="$DEPLOY_CANONICAL_SCHEMA.new.$$"
+  tmp_canonical_knowledge_validator="$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR.new.$$"
+  tmp_canonical_knowledge_schema="$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA.new.$$"
+  tmp_canonical_knowledge_lifecycle="$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE.new.$$"
+  tmp_project_knowledge_input_schema="$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA.new.$$"
   tmp_dataset_governance="$DEPLOY_DATASET_GOVERNANCE.new.$$"
   tmp_dataset_registry="$DEPLOY_DATASET_REGISTRY.new.$$"
   tmp_topic_engine_governance="$DEPLOY_TOPIC_ENGINE_GOVERNANCE.new.$$"
@@ -436,7 +496,7 @@ MANIFEST
   tmp_version="$DEPLOY_VERSION.new.$$"
 
   cleanup_deploy_tmp() {
-    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" "$tmp_canonical_schema" "$tmp_dataset_governance" "$tmp_dataset_registry" "$tmp_topic_engine_governance" "$tmp_topic_engine_lifecycle" "$tmp_topic_engine_freeze" "$tmp_version"
+    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_project_knowledge_bridge" "$tmp_canonical_validator" "$tmp_canonical_schema" "$tmp_canonical_knowledge_validator" "$tmp_canonical_knowledge_schema" "$tmp_canonical_knowledge_lifecycle" "$tmp_project_knowledge_input_schema" "$tmp_dataset_governance" "$tmp_dataset_registry" "$tmp_topic_engine_governance" "$tmp_topic_engine_lifecycle" "$tmp_topic_engine_freeze" "$tmp_version"
   }
   trap cleanup_deploy_tmp RETURN INT TERM
 
@@ -447,8 +507,13 @@ MANIFEST
   cp -p "$TRANSLATE" "$tmp_translate"
   mkdir -p "$(dirname "$tmp_evidence_foundation")" "$(dirname "$tmp_canonical_validator")" "$(dirname "$tmp_dataset_registry")"
   cp -p "$EVIDENCE_FOUNDATION" "$tmp_evidence_foundation"
+  cp -p "$PROJECT_KNOWLEDGE_BRIDGE" "$tmp_project_knowledge_bridge"
   cp -p "$CANONICAL_VALIDATOR" "$tmp_canonical_validator"
   cp -p "$CANONICAL_SCHEMA" "$tmp_canonical_schema"
+  cp -p "$CANONICAL_KNOWLEDGE_VALIDATOR" "$tmp_canonical_knowledge_validator"
+  cp -p "$CANONICAL_KNOWLEDGE_SCHEMA" "$tmp_canonical_knowledge_schema"
+  cp -p "$CANONICAL_KNOWLEDGE_LIFECYCLE" "$tmp_canonical_knowledge_lifecycle"
+  cp -p "$PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$tmp_project_knowledge_input_schema"
   cp -p "$DATASET_GOVERNANCE" "$tmp_dataset_governance"
   cp -p "$DATASET_REGISTRY" "$tmp_dataset_registry"
   cp -p "$TOPIC_ENGINE_GOVERNANCE" "$tmp_topic_engine_governance"
@@ -465,7 +530,7 @@ MANIFEST
 
   validate_roadmap_file "$tmp_roadmap"
 
-  python3 - "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_canonical_validator" "$tmp_dataset_governance" "$tmp_topic_engine_governance" <<'PYMODULES' \
+  python3 - "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_project_knowledge_bridge" "$tmp_canonical_validator" "$tmp_canonical_knowledge_validator" "$tmp_dataset_governance" "$tmp_topic_engine_governance" <<'PYMODULES' \
     || die "deploy temp runtime module syntax invalid"
 import ast
 import sys
@@ -478,6 +543,12 @@ PYMODULES
 
   python3 -m json.tool "$tmp_dataset_registry" >/dev/null \
     || die "deploy temp Dataset Registry invalid"
+  python3 -m json.tool "$tmp_canonical_knowledge_schema" >/dev/null \
+    || die "deploy temp Canonical Knowledge schema invalid"
+  python3 -m json.tool "$tmp_canonical_knowledge_lifecycle" >/dev/null \
+    || die "deploy temp Canonical Knowledge lifecycle invalid"
+  python3 -m json.tool "$tmp_project_knowledge_input_schema" >/dev/null \
+    || die "deploy temp Project Knowledge input schema invalid"
   python3 -m json.tool "$tmp_topic_engine_lifecycle" >/dev/null \
     || die "deploy temp Topic Engine Lifecycle invalid"
   python3 -m json.tool "$tmp_topic_engine_freeze" >/dev/null \
@@ -493,8 +564,13 @@ PYMODULES
   mv "$tmp_translate" "$DEPLOY_TRANSLATE"
   mkdir -p "$(dirname "$DEPLOY_EVIDENCE_FOUNDATION")" "$(dirname "$DEPLOY_CANONICAL_VALIDATOR")" "$(dirname "$DEPLOY_DATASET_REGISTRY")" "$(dirname "$DEPLOY_TOPIC_ENGINE_GOVERNANCE")"
   mv "$tmp_evidence_foundation" "$DEPLOY_EVIDENCE_FOUNDATION"
+  mv "$tmp_project_knowledge_bridge" "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE"
   mv "$tmp_canonical_validator" "$DEPLOY_CANONICAL_VALIDATOR"
   mv "$tmp_canonical_schema" "$DEPLOY_CANONICAL_SCHEMA"
+  mv "$tmp_canonical_knowledge_validator" "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR"
+  mv "$tmp_canonical_knowledge_schema" "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA"
+  mv "$tmp_canonical_knowledge_lifecycle" "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE"
+  mv "$tmp_project_knowledge_input_schema" "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA"
   mv "$tmp_dataset_governance" "$DEPLOY_DATASET_GOVERNANCE"
   mv "$tmp_dataset_registry" "$DEPLOY_DATASET_REGISTRY"
   mv "$tmp_topic_engine_governance" "$DEPLOY_TOPIC_ENGINE_GOVERNANCE"
@@ -521,11 +597,23 @@ PYMODULES
   [[ "$(hash_file "$EVIDENCE_FOUNDATION")" == "$(hash_file "$DEPLOY_EVIDENCE_FOUNDATION")" ]] \
     || die "deploy hash mismatch: Evidence Foundation"
 
+  [[ "$(hash_file "$PROJECT_KNOWLEDGE_BRIDGE")" == "$(hash_file "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE")" ]] \
+    || die "deploy hash mismatch: Project Knowledge bridge"
+
   [[ "$(hash_file "$CANONICAL_VALIDATOR")" == "$(hash_file "$DEPLOY_CANONICAL_VALIDATOR")" ]] \
     || die "deploy hash mismatch: Canonical validator"
 
   [[ "$(hash_file "$CANONICAL_SCHEMA")" == "$(hash_file "$DEPLOY_CANONICAL_SCHEMA")" ]] \
     || die "deploy hash mismatch: Canonical schema"
+
+  [[ "$(hash_file "$CANONICAL_KNOWLEDGE_VALIDATOR")" == "$(hash_file "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR")" ]] \
+    || die "deploy hash mismatch: Canonical Knowledge validator"
+  [[ "$(hash_file "$CANONICAL_KNOWLEDGE_SCHEMA")" == "$(hash_file "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA")" ]] \
+    || die "deploy hash mismatch: Canonical Knowledge schema"
+  [[ "$(hash_file "$CANONICAL_KNOWLEDGE_LIFECYCLE")" == "$(hash_file "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE")" ]] \
+    || die "deploy hash mismatch: Canonical Knowledge lifecycle"
+  [[ "$(hash_file "$PROJECT_KNOWLEDGE_INPUT_SCHEMA")" == "$(hash_file "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA")" ]] \
+    || die "deploy hash mismatch: Project Knowledge input schema"
 
   [[ "$(hash_file "$DATASET_GOVERNANCE")" == "$(hash_file "$DEPLOY_DATASET_GOVERNANCE")" ]] \
     || die "deploy hash mismatch: Dataset Governance"
@@ -542,6 +630,8 @@ PYMODULES
 
   PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" project-evidence-check --help >/dev/null 2>&1 \
     || die "deployed functional smoke failed: project-evidence-check"
+  PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" project-obsidian-export --help >/dev/null 2>&1 \
+    || die "deployed functional smoke failed: project-obsidian-export"
 
   PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" dataset-policy-check A gold_read --json >/dev/null 2>&1 \
     || die "deployed functional smoke failed: dataset-policy-check"
@@ -560,7 +650,9 @@ PYMODULES
   echo "[OK] Topic Engine module deployed"
   echo "[OK] Translate module deployed"
   echo "[OK] Evidence Foundation module deployed"
+  echo "[OK] Project Knowledge bridge deployed"
   echo "[OK] Canonical validator/schema deployed"
+  echo "[OK] Canonical Knowledge contracts deployed"
   echo "[OK] Dataset Governance module/Registry deployed"
   echo "[OK] Topic Engine Governance module/Lifecycle/Freeze deployed"
   echo "[OK] Deployed functional smoke"
@@ -608,15 +700,20 @@ cmd_rollback() {
   [[ -n "${backup:-}" && -d "$backup" ]] \
     || die "нет доступных deploy-backups"
 
-  local backup_code backup_roadmap backup_state backup_topics backup_translate backup_evidence_foundation backup_canonical_validator backup_canonical_schema backup_dataset_governance backup_dataset_registry backup_topic_engine_governance backup_topic_engine_lifecycle backup_topic_engine_freeze backup_version
+  local backup_code backup_roadmap backup_state backup_topics backup_translate backup_evidence_foundation backup_project_knowledge_bridge backup_canonical_validator backup_canonical_schema backup_canonical_knowledge_validator backup_canonical_knowledge_schema backup_canonical_knowledge_lifecycle backup_project_knowledge_input_schema backup_dataset_governance backup_dataset_registry backup_topic_engine_governance backup_topic_engine_lifecycle backup_topic_engine_freeze backup_version
   backup_code="$backup/seminartext_4.0_work"
   backup_roadmap="$backup/SEMINARTEXT_4_ROADMAP.md"
   backup_state="$backup/SEMINARTEXT_4_STATE.json"
   backup_topics="$backup/seminartext_topics.py"
   backup_translate="$backup/seminartext_translate.py"
   backup_evidence_foundation="$backup/seminartext_modules/evidence_foundation.py"
+  backup_project_knowledge_bridge="$backup/seminartext_modules/project_knowledge_bridge.py"
   backup_canonical_validator="$backup/schemas/validate_canonical_evidence_v1.py"
   backup_canonical_schema="$backup/schemas/canonical_evidence_v1.schema.json"
+  backup_canonical_knowledge_validator="$backup/schemas/validate_canonical_knowledge_v1.py"
+  backup_canonical_knowledge_schema="$backup/schemas/canonical_knowledge_v1.schema.json"
+  backup_canonical_knowledge_lifecycle="$backup/schemas/canonical_knowledge_lifecycle_v1.json"
+  backup_project_knowledge_input_schema="$backup/schemas/project_knowledge_input_v1.schema.json"
   backup_dataset_governance="$backup/seminartext_modules/dataset_governance.py"
   backup_dataset_registry="$backup/governance/dataset_registry.json"
   backup_topic_engine_governance="$backup/seminartext_modules/topic_engine_governance.py"
@@ -657,10 +754,20 @@ cmd_rollback() {
     && cp -p "$DEPLOY_TRANSLATE" "$rollback_guard/seminartext_translate.py"
   [[ -f "$DEPLOY_EVIDENCE_FOUNDATION" ]] \
     && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_EVIDENCE_FOUNDATION" "$rollback_guard/seminartext_modules/evidence_foundation.py"; }
+  [[ -f "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" ]] \
+    && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" "$rollback_guard/seminartext_modules/project_knowledge_bridge.py"; }
   [[ -f "$DEPLOY_CANONICAL_VALIDATOR" ]] \
     && { mkdir -p "$rollback_guard/schemas"; cp -p "$DEPLOY_CANONICAL_VALIDATOR" "$rollback_guard/schemas/validate_canonical_evidence_v1.py"; }
   [[ -f "$DEPLOY_CANONICAL_SCHEMA" ]] \
     && { mkdir -p "$rollback_guard/schemas"; cp -p "$DEPLOY_CANONICAL_SCHEMA" "$rollback_guard/schemas/canonical_evidence_v1.schema.json"; }
+  [[ -f "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR" ]] \
+    && { mkdir -p "$rollback_guard/schemas"; cp -p "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR" "$rollback_guard/schemas/validate_canonical_knowledge_v1.py"; }
+  [[ -f "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA" ]] \
+    && { mkdir -p "$rollback_guard/schemas"; cp -p "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA" "$rollback_guard/schemas/canonical_knowledge_v1.schema.json"; }
+  [[ -f "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE" ]] \
+    && { mkdir -p "$rollback_guard/schemas"; cp -p "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE" "$rollback_guard/schemas/canonical_knowledge_lifecycle_v1.json"; }
+  [[ -f "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA" ]] \
+    && { mkdir -p "$rollback_guard/schemas"; cp -p "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$rollback_guard/schemas/project_knowledge_input_v1.schema.json"; }
   [[ -f "$DEPLOY_DATASET_GOVERNANCE" ]] \
     && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_DATASET_GOVERNANCE" "$rollback_guard/seminartext_modules/dataset_governance.py"; }
   [[ -f "$DEPLOY_DATASET_REGISTRY" ]] \
@@ -674,7 +781,7 @@ cmd_rollback() {
   [[ -f "$DEPLOY_VERSION" ]] \
     && cp -p "$DEPLOY_VERSION" "$rollback_guard/SEMINARTEXT_VERSION"
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate="" tmp_evidence_foundation="" tmp_canonical_validator="" tmp_canonical_schema="" tmp_dataset_governance="" tmp_dataset_registry="" tmp_topic_engine_governance="" tmp_topic_engine_lifecycle="" tmp_topic_engine_freeze="" tmp_version=""
+  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate="" tmp_evidence_foundation="" tmp_project_knowledge_bridge="" tmp_canonical_validator="" tmp_canonical_schema="" tmp_canonical_knowledge_validator="" tmp_canonical_knowledge_schema="" tmp_canonical_knowledge_lifecycle="" tmp_project_knowledge_input_schema="" tmp_dataset_governance="" tmp_dataset_registry="" tmp_topic_engine_governance="" tmp_topic_engine_lifecycle="" tmp_topic_engine_freeze="" tmp_version=""
   tmp_code="$DEPLOY_CODE.rollback.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.rollback.$$"
   tmp_state="$DEPLOY_STATE.rollback.$$"
@@ -695,6 +802,11 @@ cmd_rollback() {
     mkdir -p "$(dirname "$tmp_evidence_foundation")"
     cp -p "$backup_evidence_foundation" "$tmp_evidence_foundation"
   fi
+  if [[ -f "$backup_project_knowledge_bridge" ]]; then
+    tmp_project_knowledge_bridge="$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE.rollback.$$"
+    mkdir -p "$(dirname "$tmp_project_knowledge_bridge")"
+    cp -p "$backup_project_knowledge_bridge" "$tmp_project_knowledge_bridge"
+  fi
   if [[ -f "$backup_canonical_validator" ]]; then
     tmp_canonical_validator="$DEPLOY_CANONICAL_VALIDATOR.rollback.$$"
     mkdir -p "$(dirname "$tmp_canonical_validator")"
@@ -704,6 +816,26 @@ cmd_rollback() {
     tmp_canonical_schema="$DEPLOY_CANONICAL_SCHEMA.rollback.$$"
     mkdir -p "$(dirname "$tmp_canonical_schema")"
     cp -p "$backup_canonical_schema" "$tmp_canonical_schema"
+  fi
+  if [[ -f "$backup_canonical_knowledge_validator" ]]; then
+    tmp_canonical_knowledge_validator="$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR.rollback.$$"
+    mkdir -p "$(dirname "$tmp_canonical_knowledge_validator")"
+    cp -p "$backup_canonical_knowledge_validator" "$tmp_canonical_knowledge_validator"
+  fi
+  if [[ -f "$backup_canonical_knowledge_schema" ]]; then
+    tmp_canonical_knowledge_schema="$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA.rollback.$$"
+    mkdir -p "$(dirname "$tmp_canonical_knowledge_schema")"
+    cp -p "$backup_canonical_knowledge_schema" "$tmp_canonical_knowledge_schema"
+  fi
+  if [[ -f "$backup_canonical_knowledge_lifecycle" ]]; then
+    tmp_canonical_knowledge_lifecycle="$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE.rollback.$$"
+    mkdir -p "$(dirname "$tmp_canonical_knowledge_lifecycle")"
+    cp -p "$backup_canonical_knowledge_lifecycle" "$tmp_canonical_knowledge_lifecycle"
+  fi
+  if [[ -f "$backup_project_knowledge_input_schema" ]]; then
+    tmp_project_knowledge_input_schema="$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA.rollback.$$"
+    mkdir -p "$(dirname "$tmp_project_knowledge_input_schema")"
+    cp -p "$backup_project_knowledge_input_schema" "$tmp_project_knowledge_input_schema"
   fi
   if [[ -f "$backup_dataset_governance" ]]; then
     tmp_dataset_governance="$DEPLOY_DATASET_GOVERNANCE.rollback.$$"
@@ -745,8 +877,13 @@ cmd_rollback() {
   [[ -z "$tmp_topics" ]] || mv "$tmp_topics" "$DEPLOY_TOPICS"
   [[ -z "$tmp_translate" ]] || mv "$tmp_translate" "$DEPLOY_TRANSLATE"
   [[ -z "$tmp_evidence_foundation" ]] || mv "$tmp_evidence_foundation" "$DEPLOY_EVIDENCE_FOUNDATION"
+  [[ -z "$tmp_project_knowledge_bridge" ]] || mv "$tmp_project_knowledge_bridge" "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE"
   [[ -z "$tmp_canonical_validator" ]] || mv "$tmp_canonical_validator" "$DEPLOY_CANONICAL_VALIDATOR"
   [[ -z "$tmp_canonical_schema" ]] || mv "$tmp_canonical_schema" "$DEPLOY_CANONICAL_SCHEMA"
+  [[ -z "$tmp_canonical_knowledge_validator" ]] || mv "$tmp_canonical_knowledge_validator" "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR"
+  [[ -z "$tmp_canonical_knowledge_schema" ]] || mv "$tmp_canonical_knowledge_schema" "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA"
+  [[ -z "$tmp_canonical_knowledge_lifecycle" ]] || mv "$tmp_canonical_knowledge_lifecycle" "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE"
+  [[ -z "$tmp_project_knowledge_input_schema" ]] || mv "$tmp_project_knowledge_input_schema" "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA"
   [[ -z "$tmp_dataset_governance" ]] || mv "$tmp_dataset_governance" "$DEPLOY_DATASET_GOVERNANCE"
   [[ -z "$tmp_dataset_registry" ]] || mv "$tmp_dataset_registry" "$DEPLOY_DATASET_REGISTRY"
   [[ -z "$tmp_topic_engine_governance" ]] || mv "$tmp_topic_engine_governance" "$DEPLOY_TOPIC_ENGINE_GOVERNANCE"
@@ -756,7 +893,7 @@ cmd_rollback() {
 
   echo "ROLLBACK: PASS"
   echo "Restored: $backup"
-  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_dataset_governance" || ! -f "$backup_dataset_registry" || ! -f "$backup_topic_engine_governance" || ! -f "$backup_topic_engine_lifecycle" || ! -f "$backup_topic_engine_freeze" || ! -f "$backup_version" ]]; then
+  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_project_knowledge_bridge" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_canonical_knowledge_validator" || ! -f "$backup_canonical_knowledge_schema" || ! -f "$backup_canonical_knowledge_lifecycle" || ! -f "$backup_project_knowledge_input_schema" || ! -f "$backup_dataset_governance" || ! -f "$backup_dataset_registry" || ! -f "$backup_topic_engine_governance" || ! -f "$backup_topic_engine_lifecycle" || ! -f "$backup_topic_engine_freeze" || ! -f "$backup_version" ]]; then
     echo "Legacy backup: отсутствующие runtime/version-файлы оставлены без изменения."
   fi
   echo "Previous deployed state saved:"
