@@ -83,7 +83,29 @@
         "canonical_text": {"type": "string"},
         "text_sha256": {"$ref": "#/$defs/sha256"},
         "authority": {"enum": ["candidate", "authoritative", "superseded"]},
-        "lifecycle_status": {"$ref": "#/$defs/lifecycle"}
+        "lifecycle_status": {"$ref": "#/$defs/lifecycle"},
+        "transcript_provenance": {"$ref": "#/$defs/transcriptProvenance"}
+      }
+    },
+    "verificationRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["char_start", "char_end"],
+      "properties": {
+        "char_start": {"type": "integer", "minimum": 0},
+        "char_end": {"type": "integer", "minimum": 1}
+      }
+    },
+    "transcriptProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin", "method", "verification_state", "verification_ranges", "reviewer"],
+      "properties": {
+        "origin": {"enum": ["machine_generated", "human_verified", "human_corrected"]},
+        "method": {"type": "string", "minLength": 1},
+        "verification_state": {"enum": ["machine_unverified", "selectively_verified", "fully_human_verified"]},
+        "verification_ranges": {"type": "array", "items": {"$ref": "#/$defs/verificationRange"}},
+        "reviewer": {"type": ["string", "null"], "minLength": 1}
       }
     },
     "timeLocator": {

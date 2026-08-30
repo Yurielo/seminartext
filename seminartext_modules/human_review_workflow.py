@@ -150,8 +150,12 @@ def resolve_word_range(
         raise ValueError(f"{path}: invalid Source ID {item['source_id']}")
     if revision is None or revision.get("source_id") != source["id"]:
         raise ValueError(f"{path}: invalid TranscriptRevision {item['transcript_revision_id']}")
-    if revision.get("authority") != "authoritative" or revision.get("lifecycle_status") != "verified":
-        raise ValueError(f"{path}: TranscriptRevision must be authoritative and verified")
+    provenance = revision.get("transcript_provenance")
+    legacy_verified = provenance is None and revision.get("authority") == "authoritative" and revision.get("lifecycle_status") == "verified"
+    explicit_verified = isinstance(provenance, dict) and provenance.get("verification_state") == "fully_human_verified" and revision.get("authority") == "authoritative" and revision.get("lifecycle_status") == "verified"
+    allowed_machine = isinstance(provenance, dict) and provenance.get("verification_state") in {"machine_unverified", "selectively_verified"} and revision.get("authority") == "candidate" and revision.get("lifecycle_status") == "active"
+    if not legacy_verified and not explicit_verified and not allowed_machine:
+        raise ValueError(f"{path}: TranscriptRevision must be explicitly assured and active/verified")
     if first is None or last is None:
         raise ValueError(f"{path}: missing canonical Word endpoint")
     if any(
@@ -177,7 +181,7 @@ def resolve_word_range(
     if not aligned or source["kind"] not in {"audio", "video"}:
         raise ValueError(f"{path}: exact time locator unavailable")
     quote = revision["canonical_text"][selected[0]["char_start"] : selected[-1]["char_end"]]
-    return {
+    result = {
         "word_start_id": selected[0]["id"],
         "word_end_id": selected[-1]["id"],
         "word_start_sequence": selected[0]["sequence"],
@@ -189,6 +193,9 @@ def resolve_word_range(
             "end_seconds": aligned[-1]["end_seconds"],
         },
     }
+    if provenance is not None:
+        result["transcript_provenance"] = provenance
+    return result
 
 
 def validate_drafts(project: Path, drafts: dict[str, Any]) -> tuple[dict[str, Any], str, list[dict[str, Any]], list[dict[str, Any]]]:
@@ -284,6 +291,13 @@ def render_review_markdown(package: dict[str, Any]) -> str:
                 "Evidence:",
             ]
         )
+        provenance = topic.get("transcript_provenance")
+        if provenance:
+            lines.extend([
+                f"- Transcript origin: `{provenance['origin']}`",
+                f"- Transcript method: `{provenance['method']}`",
+                f"- Transcript verification: `{provenance['verification_state']}`",
+            ])
         for evidence_id in topic["evidence_refs"]:
             evidence = next(item for item in package["evidence"] if item["id"] == evidence_id)
             lines.extend(["", f"- `{evidence_id}`: {evidence['claim']}", f"  > {evidence['quote']}"])

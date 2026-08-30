@@ -54,7 +54,7 @@ the current Registry; Codex must not resolve the semantic choice autonomously.
 
 ## Initial Product Rules
 
-The following eleven rules are the bounded Product Owner-approved initial
+The following twelve rules are the bounded Product Owner-approved initial
 inventory. Concept alias outcomes described below are future semantic identity
 review requirements and do not redefine the existing Topic ReviewDecision
 values `ACCEPT`, `RENAME`, `SPLIT`, `MERGE`, `REJECT`, and `DEFER`.
@@ -499,4 +499,52 @@ NONE
 
 ### Related Contracts / Issues
 Issue #108; `AGENTS.md`
+<!-- PRODUCT_RULE_END -->
+
+<!-- PRODUCT_RULE_START -->
+## PR-012 — Machine Transcript Evidence Has Explicit Assurance
+
+### ID
+PR-012
+
+### Title
+Machine Transcript Evidence Has Explicit Assurance
+
+### Status
+ACTIVE
+
+### Normative Rule
+Full-transcript human verification is optional for downstream automatic
+SeminarText processing. Machine-generated TranscriptRevisions MAY contribute
+to Canonical Evidence when their origin, generation method, verification state,
+and exact source provenance are explicit. Human verification SHOULD be
+selective when transcript quality materially affects a semantic decision or a
+potentially critical transcription error is found. Machine-origin evidence
+MUST NOT be represented as fully human-verified without an actual human
+verification record.
+
+### Rationale
+Machine transcripts can support traceable downstream processing without
+claiming human semantic authority, while selective verification provides a
+bounded way to improve important evidence and preserve correction lineage.
+
+### Scope
+Transcript ingestion, TranscriptRevision, Canonical Evidence, Word Timeline,
+and downstream Topic Draft preparation. This rule does not authorize semantic
+acceptance or bypass Human Review.
+
+### Authority
+Product Owner
+
+### Date Adopted
+2026-08-30
+
+### Supersedes
+NONE
+
+### Superseded By
+NONE
+
+### Related Contracts / Issues
+Issue #111; Issue #110; Issue #68; `schemas/canonical_evidence_v1.schema.json`
 <!-- PRODUCT_RULE_END -->

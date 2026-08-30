@@ -37,7 +37,7 @@ def _write(path: Path, text: str) -> None:
 
 
 def _future_rule(
-    rule_id: str = "PR-012",
+    rule_id: str = "PR-013",
     *,
     status: str = "ACTIVE",
     supersedes: str = "NONE",
@@ -88,12 +88,12 @@ def test_valid_registry_and_exact_authorized_initial_inventory_pass():
     result = validate_repository(ROOT)
     rules = parse_registry((ROOT / CANONICAL_REGISTRY).read_text(encoding="utf-8"))
 
-    assert result["rule_count"] == 11
-    assert result["active"] == 11
+    assert result["rule_count"] == 12
+    assert result["active"] == 12
     assert result["superseded"] == 0
     assert result["retired"] == 0
-    assert result["next_rule_id"] == "PR-012"
-    assert [rule.rule_id for rule in rules] == [f"PR-{index:03d}" for index in range(1, 12)]
+    assert result["next_rule_id"] == "PR-013"
+    assert [rule.rule_id for rule in rules] == [f"PR-{index:03d}" for index in range(1, 13)]
     assert {rule.status for rule in rules} == {"ACTIVE"}
 
 
@@ -157,16 +157,16 @@ def test_cyclic_supersession_chain_fails(tmp_path):
     path = _registry(root)
     text = path.read_text(encoding="utf-8")
     text += _future_rule(
-        "PR-012",
+        "PR-013",
+        status="SUPERSEDED",
+        supersedes="PR-014",
+        superseded_by="PR-014",
+    )
+    text += _future_rule(
+        "PR-014",
         status="SUPERSEDED",
         supersedes="PR-013",
         superseded_by="PR-013",
-    )
-    text += _future_rule(
-        "PR-013",
-        status="SUPERSEDED",
-        supersedes="PR-012",
-        superseded_by="PR-012",
     )
     _write(path, text)
 
@@ -242,8 +242,8 @@ def test_future_append_of_next_valid_rule_passes(tmp_path):
 
     result = validate_repository(root)
 
-    assert result["rule_count"] == 12
-    assert result["next_rule_id"] == "PR-013"
+    assert result["rule_count"] == 13
+    assert result["next_rule_id"] == "PR-014"
 
 
 def test_human_review_compatibility_is_explicit_without_alias_enum_conflation():

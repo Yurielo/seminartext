@@ -80,6 +80,10 @@ revision kind and authority.
 - `asr` is machine-produced candidate text.
 - `verified` is human-verified authoritative text.
 - `corrected` is a later semantic correction and creates a new revision.
+- New revisions record `transcript_provenance` with origin, generation method,
+  verification state, exact character ranges and reviewer. Machine-unverified
+  and selectively verified revisions remain candidate/active; only a
+  fully-human-verified revision may be authoritative/verified.
 - `authority = authoritative` identifies the semantic source of truth.
 - clean text, SRT, DOCX and Markdown are exports, not revisions.
 - alignment is an `alignment_run`, not a transcript revision.
@@ -284,7 +288,9 @@ migration implementation is part of v1.
 Legacy transcripts may later import as `asr` or `verified` revisions, with cue
 provenance retained. Their Words remain `unaligned` unless source-native exact
 timing or a valid forced-alignment run exists; legacy SRT interpolation does not
-upgrade timing guarantees. `speaker_id` is already nullable, so adding speaker
+upgrade timing guarantees. Active machine revisions may use a native alignment
+run, but their evidence lifecycle remains `active` and `review_required`.
+`speaker_id` is already nullable, so adding speaker
 records/metadata can be a backward-compatible minor extension while legacy
 values remain null.
 

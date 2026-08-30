@@ -229,6 +229,50 @@ def validate_bundle(bundle: Any) -> list[str]:
             errors.append(f"{path}.revision_kind: invalid revision kind")
         if transcript.get("authority") not in {"candidate", "authoritative", "superseded"}:
             errors.append(f"{path}.authority: invalid authority")
+        provenance = transcript.get("transcript_provenance")
+        if provenance is not None:
+            if not isinstance(provenance, dict):
+                errors.append(f"{path}.transcript_provenance: expected object")
+                continue
+            required_provenance = {"origin", "method", "verification_state", "verification_ranges", "reviewer"}
+            missing = sorted(required_provenance - provenance.keys())
+            if missing:
+                errors.append(f"{path}.transcript_provenance: missing fields {missing}")
+                continue
+            origin = provenance.get("origin")
+            state = provenance.get("verification_state")
+            if origin not in {"machine_generated", "human_verified", "human_corrected"}:
+                errors.append(f"{path}.transcript_provenance.origin: invalid origin")
+            if not isinstance(provenance.get("method"), str) or not provenance["method"]:
+                errors.append(f"{path}.transcript_provenance.method: expected non-empty string")
+            if state not in {"machine_unverified", "selectively_verified", "fully_human_verified"}:
+                errors.append(f"{path}.transcript_provenance.verification_state: invalid state")
+            ranges = provenance.get("verification_ranges")
+            if not isinstance(ranges, list):
+                errors.append(f"{path}.transcript_provenance.verification_ranges: expected array")
+                ranges = []
+            previous_end = -1
+            for number, item in enumerate(ranges):
+                if not isinstance(item, dict) or not isinstance(item.get("char_start"), int) or not isinstance(item.get("char_end"), int):
+                    errors.append(f"{path}.transcript_provenance.verification_ranges[{number}]: invalid range")
+                    continue
+                start, end = item["char_start"], item["char_end"]
+                if start < 0 or end <= start or end > len(text):
+                    errors.append(f"{path}.transcript_provenance.verification_ranges[{number}]: out of bounds")
+                if start < previous_end:
+                    errors.append(f"{path}.transcript_provenance.verification_ranges: must be sorted and non-overlapping")
+                previous_end = end
+            reviewer = provenance.get("reviewer")
+            if reviewer is not None and (not isinstance(reviewer, str) or not reviewer):
+                errors.append(f"{path}.transcript_provenance.reviewer: expected non-empty string or null")
+            if state == "machine_unverified" and (origin != "machine_generated" or ranges or reviewer is not None):
+                errors.append(f"{path}.transcript_provenance: machine_unverified requires machine origin, no ranges, and no reviewer")
+            if state == "selectively_verified" and (not ranges or reviewer is None or origin not in {"machine_generated", "human_corrected"}):
+                errors.append(f"{path}.transcript_provenance: selectively_verified requires ranges, reviewer, and machine/corrected origin")
+            if state == "fully_human_verified":
+                covered = len(ranges) == 1 and ranges[0].get("char_start") == 0 and ranges[0].get("char_end") == len(text)
+                if origin != "human_verified" or transcript.get("authority") != "authoritative" or transcript.get("lifecycle_status") != "verified" or reviewer is None or not covered:
+                    errors.append(f"{path}.transcript_provenance: fully_human_verified requires authoritative full-range human verification")
 
     for source_id, revisions in revisions_by_source.items():
         numbers = [item.get("revision_number") for item in revisions]
