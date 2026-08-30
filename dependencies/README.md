@@ -4,6 +4,10 @@ Each profile is intentionally isolated. The canonical mapping of profile names,
 supported Python versions, lock files, model identities, and offline policy is
 in [`dependency_profiles.json`](dependency_profiles.json).
 
+The core product profile includes `jsonschema` because project-level Canonical
+Knowledge compilation must validate both its explicit input contract and the
+accepted Canonical Knowledge v1 contract fail-closed.
+
 Reconstruct a profile without touching the system interpreter:
 
 ```bash

@@ -57,6 +57,9 @@ main() {
     project-evidence-check)
       exit 0
       ;;
+    project-obsidian-export)
+      exit 0
+      ;;
     dataset-policy-check)
       exit 0
       ;;
@@ -125,12 +128,15 @@ main "$@"
 
     for relative in (
         "seminartext_modules/evidence_foundation.py",
+        "seminartext_modules/project_knowledge_bridge.py",
         "seminartext_modules/dataset_governance.py",
         "seminartext_modules/topic_engine_governance.py",
         "schemas/validate_canonical_evidence_v1.py",
         "schemas/canonical_evidence_v1.schema.json",
         "schemas/validate_canonical_knowledge_v1.py",
         "schemas/canonical_knowledge_v1.schema.json",
+        "schemas/canonical_knowledge_lifecycle_v1.json",
+        "schemas/project_knowledge_input_v1.schema.json",
         "analysis/word_timeline_mvp/canonical_evidence_bundle.json",
         "analysis/golden_knowledge_slice/golden_knowledge_slice.json",
         "analysis/golden_knowledge_slice/curation.json",
@@ -142,7 +148,6 @@ main "$@"
         "integrity/milestone_reconciliation.json",
         "analysis/treeseg_global_structure_poc/product_review_disposition.json",
         "analysis/obsidian_knowledge_prototype/product_review_disposition.json",
-        "schemas/canonical_knowledge_lifecycle_v1.json",
         "analysis/ROADMAP_STATE_CONSISTENCY_REVIEW_2026-08-26.md",
         "analysis/ROADMAP_STATE_POST_BASELINE_CONSISTENCY_REVIEW_2026-08-27.md",
         "analysis/TREESEG_GLOBAL_STRUCTURE_POC_ISSUE_52.md",

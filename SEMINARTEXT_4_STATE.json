@@ -497,7 +497,7 @@
       "status": "pending_partial"
     },
     "knowledge_engine": {
-      "status": "bounded_obsidian_prototype_reviewed_adapt_further",
+      "status": "project_bridge_implemented_pending_product_owner_acceptance",
       "not_blocked_by": "topic_engine.stable"
     },
     "human_review": {
@@ -550,9 +550,28 @@
       "decision_record": "PR #86 (merged 7bd89c9)",
       "production_integration_complete": false
     },
+    "project_knowledge_bridge": {
+      "status": "implemented_pending_product_owner_acceptance",
+      "issue": 104,
+      "command": "project-obsidian-export",
+      "input_contract": "schemas/project_knowledge_input_v1.schema.json",
+      "fixture": "tests/fixtures/project_knowledge_bridge",
+      "minimum_fixture_source_count": 2,
+      "source_scoped_evidence_retained": true,
+      "multi_source_composition": true,
+      "canonical_knowledge_v1_validation": true,
+      "semantic_generation": false,
+      "partial_coverage_is_explicit": true,
+      "managed_generated_user_owned_boundary": true,
+      "real_full_seminar_validation_complete": false,
+      "production_ready": false,
+      "issue_68_authorized": false,
+      "g6_implemented_by_this_stage": false
+    },
     "obsidian_export": {
-      "status": "bounded_prototype_implemented_production_command_pending_product_review",
-      "planned_command": "project-obsidian-export"
+      "status": "project_command_implemented_pending_product_owner_acceptance_and_runtime_reconciliation",
+      "command": "project-obsidian-export",
+      "production_ready": false
     },
     "obsidian_sync": {
       "status": "deferred_not_required_for_prototype",

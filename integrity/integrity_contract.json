@@ -39,6 +39,12 @@
       "required": true
     },
     {
+      "id": "project_knowledge_bridge",
+      "repository_path": "seminartext_modules/project_knowledge_bridge.py",
+      "deployed_name": "seminartext_modules/project_knowledge_bridge.py",
+      "required": true
+    },
+    {
       "id": "canonical_validator",
       "repository_path": "schemas/validate_canonical_evidence_v1.py",
       "deployed_name": "schemas/validate_canonical_evidence_v1.py",
@@ -48,6 +54,30 @@
       "id": "canonical_schema",
       "repository_path": "schemas/canonical_evidence_v1.schema.json",
       "deployed_name": "schemas/canonical_evidence_v1.schema.json",
+      "required": true
+    },
+    {
+      "id": "canonical_knowledge_validator",
+      "repository_path": "schemas/validate_canonical_knowledge_v1.py",
+      "deployed_name": "schemas/validate_canonical_knowledge_v1.py",
+      "required": true
+    },
+    {
+      "id": "canonical_knowledge_schema",
+      "repository_path": "schemas/canonical_knowledge_v1.schema.json",
+      "deployed_name": "schemas/canonical_knowledge_v1.schema.json",
+      "required": true
+    },
+    {
+      "id": "canonical_knowledge_lifecycle",
+      "repository_path": "schemas/canonical_knowledge_lifecycle_v1.json",
+      "deployed_name": "schemas/canonical_knowledge_lifecycle_v1.json",
+      "required": true
+    },
+    {
+      "id": "project_knowledge_input_schema",
+      "repository_path": "schemas/project_knowledge_input_v1.schema.json",
+      "deployed_name": "schemas/project_knowledge_input_v1.schema.json",
       "required": true
     },
     {
@@ -117,7 +147,7 @@
       "name": "Runtime Truth",
       "implementation": "IMPLEMENTED",
       "blocking_policy": "blocking",
-      "invariant": "Any detected installed runtime is complete, byte-identical to repository-governed runtime source, and can dispatch both Evidence Foundation and Dataset Governance CLI paths without missing-module/import errors."
+      "invariant": "Any detected installed runtime is complete, byte-identical to repository-governed runtime source, and can dispatch Evidence Foundation, Project Knowledge bridge, and Dataset Governance CLI paths without missing-module/import errors."
     },
     {
       "id": "G3",

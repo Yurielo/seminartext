@@ -1,0 +1,168 @@
+{
+  "artifact_id": "project_knowledge_input_bridge_v1",
+  "artifact_type": "seminartext.project_knowledge_input",
+  "concepts": [
+    {
+      "aliases": [],
+      "created_from": [
+        "evidence_source_one",
+        "evidence_source_two"
+      ],
+      "description": "A supplied provisional concept explicitly shared across two source-scoped Topics.",
+      "evidence_refs": [
+        "evidence_source_one",
+        "evidence_source_two"
+      ],
+      "id": "concept_shared_sources",
+      "preferred_label": "Shared source concept",
+      "provenance": {
+        "origin": "human_review",
+        "source_artifact_id": "project_knowledge_input_bridge_v1"
+      },
+      "redirects": [],
+      "scope": "bounded two-source fixture only",
+      "status": "PROVISIONAL",
+      "supersedes": [],
+      "topic_refs": [
+        "topic_source_one",
+        "topic_source_two"
+      ],
+      "version": 1
+    }
+  ],
+  "coverage": [
+    {
+      "reason": "Explicit verified-manual Topic and Evidence are supplied.",
+      "source_id": "source_video_001",
+      "status": "COVERED"
+    },
+    {
+      "reason": "Explicit semi-automatic Topic and Evidence are supplied without promotion.",
+      "source_id": "source_video_002",
+      "status": "COVERED"
+    }
+  ],
+  "evidence": [
+    {
+      "claim": "The first fixture source is explicitly represented.",
+      "id": "evidence_source_one",
+      "source_id": "source_video_001",
+      "transcript_revision_id": "transcript_revision_video_001_r1",
+      "word_end_id": "transcript_revision_video_001_r1:word:000001",
+      "word_start_id": "transcript_revision_video_001_r1:word:000000"
+    },
+    {
+      "claim": "The second fixture source is explicitly represented.",
+      "id": "evidence_source_two",
+      "source_id": "source_video_002",
+      "transcript_revision_id": "transcript_revision_video_002_r1",
+      "word_end_id": "transcript_revision_video_002_r1:word:000001",
+      "word_start_id": "transcript_revision_video_002_r1:word:000000"
+    }
+  ],
+  "project": {
+    "id": "project_project_knowledge_bridge",
+    "provenance": {
+      "origin": "human_review",
+      "source_artifact_id": "project_knowledge_input_bridge_v1"
+    },
+    "status": "PROVISIONAL",
+    "title": "Project Knowledge Bridge",
+    "version": 1
+  },
+  "relation_type_registry": [
+    {"description": "The source concept provides support for the target claim.", "id": "supports"},
+    {"description": "The source and target claims are explicitly competing or conflicting.", "id": "contradicts"},
+    {"description": "The source concept narrows or elaborates the target concept.", "id": "refines"},
+    {"description": "The target concept is a stated prerequisite of the source concept.", "id": "depends_on"},
+    {"description": "The source and target concepts are associated without an inferred ontology.", "id": "associated_with"}
+  ],
+  "relations": [],
+  "review_decisions": [],
+  "schema_version": "1.0.0",
+  "seminars": [
+    {
+      "id": "seminar_project_knowledge_bridge",
+      "project_id": "project_project_knowledge_bridge",
+      "provenance": {
+        "origin": "human_review",
+        "source_artifact_id": "project_knowledge_input_bridge_v1"
+      },
+      "status": "PROVISIONAL",
+      "title": "Project Knowledge Bridge seminar",
+      "topic_refs": [
+        "topic_source_one",
+        "topic_source_two"
+      ],
+      "version": 1
+    }
+  ],
+  "topic_sources": [
+    {
+      "origin": "verified_manual",
+      "sequence": 0,
+      "topic_id": "topic_source_one",
+      "topic_set_id": "topic_set_bridge_one",
+      "transcript_revision_id": "transcript_revision_video_001_r1",
+      "word_end_id": "transcript_revision_video_001_r1:word:000001",
+      "word_start_id": "transcript_revision_video_001_r1:word:000000"
+    },
+    {
+      "origin": "semi_automatic",
+      "sequence": 0,
+      "topic_id": "topic_source_two",
+      "topic_set_id": "topic_set_bridge_two",
+      "transcript_revision_id": "transcript_revision_video_002_r1",
+      "word_end_id": "transcript_revision_video_002_r1:word:000001",
+      "word_start_id": "transcript_revision_video_002_r1:word:000000"
+    }
+  ],
+  "topics": [
+    {
+      "concept_refs": ["concept_shared_sources"],
+      "evidence_refs": ["evidence_source_one"],
+      "id": "topic_source_one",
+      "order_scope": {"sequence": 0},
+      "provenance": {
+        "origin": "human_review",
+        "source_artifact_id": "project_knowledge_input_bridge_v1",
+        "source_status": "product_review_required"
+      },
+      "seminar_id": "seminar_project_knowledge_bridge",
+      "source_scope": {
+        "order_end": 1,
+        "order_start": 0,
+        "source_ids": ["source_video_001"],
+        "transcript_revision_ids": ["transcript_revision_video_001_r1"]
+      },
+      "status": "PROVISIONAL",
+      "summary": "An explicitly supplied summary for the first fixture source.",
+      "temporal_scope": {"end_seconds": 0.9, "start_seconds": 0.1},
+      "title": "First source Topic",
+      "version": 1
+    },
+    {
+      "concept_refs": ["concept_shared_sources"],
+      "evidence_refs": ["evidence_source_two"],
+      "id": "topic_source_two",
+      "order_scope": {"sequence": 1},
+      "provenance": {
+        "origin": "human_review",
+        "source_artifact_id": "project_knowledge_input_bridge_v1",
+        "source_status": "product_review_required"
+      },
+      "seminar_id": "seminar_project_knowledge_bridge",
+      "source_scope": {
+        "order_end": 1,
+        "order_start": 0,
+        "source_ids": ["source_video_002"],
+        "transcript_revision_ids": ["transcript_revision_video_002_r1"]
+      },
+      "status": "PROVISIONAL",
+      "summary": "An explicitly supplied summary for the second fixture source.",
+      "temporal_scope": {"end_seconds": 1.9, "start_seconds": 1.1},
+      "title": "Second source Topic",
+      "version": 1
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "aligner": "fixture-alignment-service",
+  "aligner_version": "1.0.0",
+  "config": {"mode": "fixture", "no_asr": true},
+  "model": "fixture-model",
+  "model_revision": "fixture-revision",
+  "model_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "words": [
+    {"word": "Второй", "start": 1.1, "end": 1.4, "score": 1.0},
+    {"word": "источник", "start": 1.5, "end": 1.9, "score": 1.0}
+  ]
+}

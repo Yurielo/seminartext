@@ -115,6 +115,7 @@ def test_every_dispatched_user_command_is_discoverable_in_main_help():
             "project-documents",
             "project-evidence-check",
             "project-link-youtube",
+            "project-obsidian-export",
             "project-promote-transcript",
         "project-topic-benchmark-check",
         "project-topic-benchmark-init",

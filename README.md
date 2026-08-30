@@ -78,3 +78,29 @@ or merges it.
   requires it.
 - Do not expose credentials in logs, documentation, commits, PR descriptions, or
   comments.
+
+## Project Knowledge bridge
+
+The bounded project bridge composes retained source-scoped Canonical Evidence,
+validates explicitly authored semantic records, compiles Canonical Knowledge
+v1, and produces a deterministic Obsidian derived view:
+
+```bash
+seminartext project-obsidian-export PROJECT \
+  --knowledge-input PROJECT/knowledge_input.json \
+  --destination /path/to/vault \
+  --dry-run
+```
+
+The accepted Topic origins are `verified_manual`, `gold`, and explicitly marked
+`semi_automatic`. The command does not generate or semantically accept Topics,
+Concepts, Relations, or review decisions. Remove `--dry-run` only after reviewing the
+plan. Generated paths are managed by a hash manifest; user-owned collisions and
+changed managed files fail closed. Optional source resolution is supplied with
+`--source-resolver FILE`; canonical notes retain source identity and report the
+resolver state without embedding machine-local paths.
+
+The input schema is
+[`schemas/project_knowledge_input_v1.schema.json`](schemas/project_knowledge_input_v1.schema.json).
+Issue #104 fixture validation is not a real full-seminar Issue #68 run and does
+not make the bridge production-ready.
