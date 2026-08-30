@@ -15,6 +15,7 @@ def test_ci_exposes_one_deterministic_quality_gate():
     assert "pull_request:" in text
     assert "branches:" in text and "- main" in text
     assert "permissions:\n  contents: read" in text
+    assert "SEMINARTEXT_DEV_REPO: ${{ github.workspace }}" in text
     assert "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" in text
     assert "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in text
     assert 'python-version: "3.14.6"' in text
