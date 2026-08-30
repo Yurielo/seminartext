@@ -30,20 +30,32 @@
       "path": "schemas/canonical_knowledge_lifecycle_v1.json"
     }
   },
-  "current_milestone_id": "audit_r3_control_plane_integrity_gate",
-  "state_current_stage": "audit_r3_milestone_reconciliation",
+  "current_milestone_id": null,
+  "last_completed_milestone_id": "audit_r3_control_plane_integrity_gate",
+  "next_eligible_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
+  "state_current_milestone": "none_pending_product_owner_authorization",
+  "state_current_stage": "awaiting_product_owner_authorization",
+  "lifecycle_state": "R3_COMPLETE_AWAITING_NEXT_AUTHORIZATION",
+  "human_gate": "SATISFIED",
   "active_actions": [
-    "audit_r3_product_owner_review"
+    "product_owner_may_authorize_audit_r4"
   ],
-  "next_issue_allowed": false,
+  "next_issue_allowed": true,
   "blocked_actions": [
-    "audit_r4",
-    "audit_r5",
-    "audit_r6",
-    "issue_65",
-    "issue_66",
+    "execute_audit_r4",
+    "execute_audit_r5",
+    "execute_audit_r6",
+    "execute_issue_65",
+    "execute_issue_66",
     "dataset_d_blind_evaluation"
   ],
+  "authorization_states": {
+    "audit_r4": "NOT_AUTHORIZED",
+    "audit_r5": "NOT_AUTHORIZED",
+    "audit_r6": "NOT_AUTHORIZED",
+    "issue_65": "NOT_AUTHORIZED",
+    "issue_66": "NOT_AUTHORIZED"
+  },
   "milestones": [
     {
       "milestone_id": "audit_r1_governance_truth_reconciliation",
@@ -98,23 +110,25 @@
     {
       "milestone_id": "audit_r3_control_plane_integrity_gate",
       "issue_id": 87,
-      "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
-      "decision": "PENDING_PRODUCT_OWNER_REVIEW",
-      "disposition": "PENDING",
-      "accepted": false,
-      "implementation_state": "IMPLEMENTED",
-      "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
-      "next_allowed_actions": [],
+      "status": "COMPLETE_ACCEPTED",
+      "decision": "ACCEPT",
+      "disposition": "ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "next_allowed_actions": [
+        "product_owner_may_authorize_audit_r4"
+      ],
       "blocked_actions": [
-        "audit_r4",
-        "audit_r5",
-        "audit_r6",
-        "issue_65",
-        "issue_66",
+        "execute_audit_r4",
+        "execute_audit_r5",
+        "execute_audit_r6",
+        "execute_issue_65",
+        "execute_issue_66",
         "dataset_d_blind_evaluation"
       ],
       "runtime_reconciliation_required": true,
-      "runtime_reconciliation_complete": false,
+      "runtime_reconciliation_complete": true,
       "evidence_refs": [
         "integrity/milestone_reconciliation.json",
         "analysis/AUDIT_R3_MILESTONE_RECONCILIATION.md"
@@ -124,7 +138,32 @@
         "audit_r1_governance_truth_reconciliation",
         "audit_r2_canonical_knowledge_validation"
       ],
-      "state_sequence_status": "implemented_pending_product_owner_review"
+      "state_sequence_status": "complete_accepted"
+    },
+    {
+      "milestone_id": "audit_r4_mandatory_ci_and_main_protection",
+      "issue_id": 89,
+      "status": "NOT_STARTED",
+      "decision": "NOT_AUTHORIZED",
+      "disposition": "NOT_AUTHORIZED",
+      "accepted": false,
+      "authorized": false,
+      "implementation_state": "NOT_STARTED",
+      "human_gate": "PRODUCT_OWNER_AUTHORIZATION_REQUIRED",
+      "next_allowed_actions": [],
+      "blocked_actions": [
+        "execute_audit_r4"
+      ],
+      "runtime_reconciliation_required": false,
+      "runtime_reconciliation_complete": true,
+      "evidence_refs": [
+        "https://github.com/Yurielo/seminartext/issues/89"
+      ],
+      "historical": false,
+      "prerequisite_milestones": [
+        "audit_r3_control_plane_integrity_gate"
+      ],
+      "state_sequence_status": "not_started_not_authorized"
     }
   ],
   "active_assertions": [
