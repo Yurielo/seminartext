@@ -19,6 +19,43 @@ Justification:
 
 -
 
+## Requirement-to-evidence mapping
+
+| Requirement | Evidence (file, test, or command) |
+| --- | --- |
+| | |
+
+## Verification plan
+
+### Focused tests
+
+Commands and expected result:
+
+### Full tests
+
+Command and expected result:
+
+### Integrity
+
+Record both `./scripts/seminartext-integrity` and
+`./scripts/seminartext-integrity --json` results:
+
+## Changed-file scope
+
+List every file this Issue may change and confirm that no unrelated product,
+algorithm, dataset, semantic, or runtime files are included:
+
+## Post-merge acceptance
+
+- [ ] Post-merge verification owner and acceptance criteria are explicit.
+- [ ] The Issue is not considered complete from local tests alone.
+
+## Deploy or runtime reconciliation
+
+Required: `YES` / `NO`
+If `YES`, identify the governed deployment command, authorization owner, and
+post-deploy verification required:
+
 ## Definition of Done
 
 -
