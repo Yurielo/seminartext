@@ -375,8 +375,8 @@ def test_json_report_contract_and_exit_semantics(tmp_path):
     assert decoded["report_schema_version"] == 2
     assert decoded["integrity_contract_version"] == "1.1.0"
     assert decoded["control_plane_reconciled"] is True
-    assert decoded["next_issue_allowed"] is True
-    assert decoded["human_gate"] == "SATISFIED"
+    assert decoded["next_issue_allowed"] is False
+    assert decoded["human_gate"] == "PRODUCT_OWNER_REVIEW_PENDING"
     assert decoded["github_lifecycle_check"] == "NOT_RUN"
     assert len(decoded["gates"]) == 8
     assert decoded["exit_code"] == exit_code

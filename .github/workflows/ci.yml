@@ -1,0 +1,60 @@
+name: SeminarText CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  quality-gate:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.14.6
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14.6"
+
+      - name: Install supported development profile
+        run: python -m pip install --requirement requirements-dev.txt
+
+      - name: Verify development dependency profile
+        run: ./scripts/seminartext-dependencies doctor --profile dev_test --json
+
+      - name: Run repository syntax, schema, and governance checks
+        run: ./scripts/seminartext-dev check
+
+      - name: Run focused governance and integrity tests
+        run: >-
+          python -m pytest -q -rs -p no:cacheprovider
+          tests/test_dependency_profiles.py
+          tests/test_governance_truthfulness.py
+          tests/test_milestone_reconciliation.py
+          tests/test_project_integrity_gate.py
+          tests/test_canonical_evidence_schema_v1.py
+
+      - name: Run full test suite
+        run: python -m pytest -q -rs -p no:cacheprovider
+
+      - name: Run Integrity report
+        env:
+          SEMINARTEXT_INTEGRITY_PYTHON: python
+          SEMINARTEXT_INTEGRITY_TEST_PYTHON: python
+        run: ./scripts/seminartext-integrity
+
+      - name: Run machine-readable Integrity report
+        env:
+          SEMINARTEXT_INTEGRITY_PYTHON: python
+          SEMINARTEXT_INTEGRITY_TEST_PYTHON: python
+        run: ./scripts/seminartext-integrity --json

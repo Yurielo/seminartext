@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "contract_version": "2026-08-30.audit-r3",
+  "contract_version": "2026-08-30.audit-r4",
   "github_lifecycle_check": "NOT_RUN",
   "authoritative_sources": {
     "state": {
@@ -30,19 +30,18 @@
       "path": "schemas/canonical_knowledge_lifecycle_v1.json"
     }
   },
-  "current_milestone_id": null,
+  "current_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
   "last_completed_milestone_id": "audit_r3_control_plane_integrity_gate",
-  "next_eligible_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
-  "state_current_milestone": "none_pending_product_owner_authorization",
-  "state_current_stage": "awaiting_product_owner_authorization",
-  "lifecycle_state": "R3_COMPLETE_AWAITING_NEXT_AUTHORIZATION",
-  "human_gate": "SATISFIED",
+  "next_eligible_milestone_id": null,
+  "state_current_milestone": "audit_r4_mandatory_ci_and_main_protection",
+  "state_current_stage": "audit_r4_ci_and_main_protection",
+  "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+  "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
   "active_actions": [
-    "product_owner_may_authorize_audit_r4"
+    "audit_r4_product_owner_review"
   ],
-  "next_issue_allowed": true,
+  "next_issue_allowed": false,
   "blocked_actions": [
-    "execute_audit_r4",
     "execute_audit_r5",
     "execute_audit_r6",
     "execute_issue_65",
@@ -50,7 +49,7 @@
     "dataset_d_blind_evaluation"
   ],
   "authorization_states": {
-    "audit_r4": "NOT_AUTHORIZED",
+    "audit_r4": "AUTHORIZED_IMPLEMENTATION",
     "audit_r5": "NOT_AUTHORIZED",
     "audit_r6": "NOT_AUTHORIZED",
     "issue_65": "NOT_AUTHORIZED",
@@ -143,27 +142,33 @@
     {
       "milestone_id": "audit_r4_mandatory_ci_and_main_protection",
       "issue_id": 89,
-      "status": "NOT_STARTED",
-      "decision": "NOT_AUTHORIZED",
-      "disposition": "NOT_AUTHORIZED",
+      "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+      "decision": "PENDING_PRODUCT_OWNER_REVIEW",
+      "disposition": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
       "accepted": false,
-      "authorized": false,
-      "implementation_state": "NOT_STARTED",
-      "human_gate": "PRODUCT_OWNER_AUTHORIZATION_REQUIRED",
+      "authorized": true,
+      "implementation_state": "IMPLEMENTED",
+      "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
       "next_allowed_actions": [],
       "blocked_actions": [
-        "execute_audit_r4"
+        "execute_audit_r5",
+        "execute_audit_r6",
+        "execute_issue_65",
+        "execute_issue_66",
+        "dataset_d_blind_evaluation"
       ],
-      "runtime_reconciliation_required": false,
-      "runtime_reconciliation_complete": true,
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": false,
       "evidence_refs": [
+        ".github/workflows/ci.yml",
+        ".github/MAIN_PROTECTION.md",
         "https://github.com/Yurielo/seminartext/issues/89"
       ],
       "historical": false,
       "prerequisite_milestones": [
         "audit_r3_control_plane_integrity_gate"
       ],
-      "state_sequence_status": "not_started_not_authorized"
+      "state_sequence_status": "implemented_pending_product_owner_review"
     }
   ],
   "active_assertions": [

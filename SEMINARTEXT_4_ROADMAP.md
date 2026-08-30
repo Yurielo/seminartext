@@ -1623,13 +1623,14 @@ Knowledge Base должна обслуживать:
 
 # CURRENT NEXT ACTION
 
-Текущий этап: **AWAITING PRODUCT OWNER AUTHORIZATION**. AUDIT-R3 (Issue #87)
-завершён и принят; активного milestone нет. AUDIT-R4 (Issue #89) — следующий
-eligible remediation, но он имеет состояния `NOT_STARTED` и `NOT_AUTHORIZED`.
-`NEXT_ISSUE_ALLOWED=YES` разрешает Product Owner авторизовать следующий Issue,
-но не разрешает Codex начинать его самостоятельно. Поскольку State/Roadmap
-являются deployed snapshots, после merge потребуется отдельная авторизация
-post-merge runtime reconciliation.
+Текущий этап: **AUDIT-R4 IMPLEMENTED — PRODUCT OWNER REVIEW PENDING**. Для Issue
+#89 добавлен единый обязательный CI check `Quality Gate` и документирован
+контракт защиты `main`. Фактическая GitHub-защита ещё не включена: для текущего
+private repository GitHub требует Pro либо перевод в public, поэтому это
+отдельное действие Product Owner/administrator. AUDIT-R4 не принят; R5, R6,
+#65, #66 и Dataset D остаются заблокированы. Поскольку State/Roadmap являются
+deployed snapshots, после merge потребуется отдельная авторизация post-merge
+runtime reconciliation.
 
 Активная машиночитаемая проекция ниже сверяется с
 `integrity/milestone_reconciliation.json`. Только этот ограниченный JSON-блок,
@@ -1639,18 +1640,17 @@ gate.
 <!-- SEMINARTEXT_CONTROL_PLANE_START -->
 ```json
 {
-  "contract_version": "2026-08-30.audit-r3",
-  "current_milestone_id": null,
+  "contract_version": "2026-08-30.audit-r4",
+  "current_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
   "last_completed_milestone_id": "audit_r3_control_plane_integrity_gate",
-  "next_eligible_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
-  "lifecycle_state": "R3_COMPLETE_AWAITING_NEXT_AUTHORIZATION",
-  "human_gate": "SATISFIED",
-  "next_issue_allowed": true,
+  "next_eligible_milestone_id": null,
+  "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+  "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+  "next_issue_allowed": false,
   "active_actions": [
-    "product_owner_may_authorize_audit_r4"
+    "audit_r4_product_owner_review"
   ],
   "blocked_actions": [
-    "execute_audit_r4",
     "execute_audit_r5",
     "execute_audit_r6",
     "execute_issue_65",
@@ -1658,7 +1658,7 @@ gate.
     "dataset_d_blind_evaluation"
   ],
   "authorization_states": {
-    "audit_r4": "NOT_AUTHORIZED",
+    "audit_r4": "AUTHORIZED_IMPLEMENTATION",
     "audit_r5": "NOT_AUTHORIZED",
     "audit_r6": "NOT_AUTHORIZED",
     "issue_65": "NOT_AUTHORIZED",
@@ -1690,12 +1690,12 @@ gate.
       "runtime_reconciliation_complete": true
     },
     "audit_r4_mandatory_ci_and_main_protection": {
-      "status": "NOT_STARTED",
+      "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
       "accepted": false,
-      "implementation_state": "NOT_STARTED",
-      "human_gate": "PRODUCT_OWNER_AUTHORIZATION_REQUIRED",
-      "runtime_reconciliation_required": false,
-      "runtime_reconciliation_complete": true
+      "implementation_state": "IMPLEMENTED",
+      "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": false
     }
   }
 }
