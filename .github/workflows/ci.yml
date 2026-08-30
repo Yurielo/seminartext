@@ -46,6 +46,7 @@ jobs:
           tests/test_milestone_reconciliation.py
           tests/test_project_integrity_gate.py
           tests/test_canonical_evidence_schema_v1.py
+          tests/test_integrity_canonical_contract_truth.py
 
       - name: Run full test suite
         run: python -m pytest -q -rs -p no:cacheprovider

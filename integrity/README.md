@@ -25,14 +25,16 @@ inventory is:
 | G2 | Runtime Truth | IMPLEMENTED | blocking |
 | G3 | Governance Truth | IMPLEMENTED | blocking |
 | G4 | Dependency Truth | IMPLEMENTED | blocking |
-| G5 | Canonical Contract Truth | NOT_IMPLEMENTED | future_blocking |
+| G5 | Canonical Contract Truth | IMPLEMENTED | blocking |
 | G6 | End-to-End Truth | NOT_IMPLEMENTED | future_blocking |
 | G7 | Test Truth | IMPLEMENTED | blocking |
 | G8 | Product State Truth | IMPLEMENTED | blocking |
 
-G5 and G6 remain explicitly `NOT_IMPLEMENTED`; they are never rendered as
-PASS. This table is documentation only; the machine-readable contract remains
-the sole gate definition.
+G6 remains explicitly `NOT_IMPLEMENTED` and is never rendered as PASS. G5
+composes the accepted Canonical Evidence v1 and Canonical Knowledge v1
+validators, lifecycle mapping, and Golden Slice compatibility checks; malformed
+or incomplete evidence fails closed. This table is documentation only; the
+machine-readable contract remains the sole gate definition.
 
 The checker observes repository, deployment, governance, tests, and product
 state. It never fetches, pulls, checks out, cleans, deploys, installs packages,

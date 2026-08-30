@@ -136,9 +136,9 @@
     {
       "id": "G5",
       "name": "Canonical Contract Truth",
-      "implementation": "NOT_IMPLEMENTED",
-      "blocking_policy": "future_blocking",
-      "reason": "Future gate will compose all accepted canonical schemas and cross-record validators."
+      "implementation": "IMPLEMENTED",
+      "blocking_policy": "blocking",
+      "invariant": "Accepted Canonical Evidence v1 and Canonical Knowledge v1 schemas, stable IDs, references, provenance, lifecycle, lineage, source pointers, and Golden Slice compatibility are validated fail-closed."
     },
     {
       "id": "G6",

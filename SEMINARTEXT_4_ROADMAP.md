@@ -1638,15 +1638,15 @@ gate.
 <!-- SEMINARTEXT_CONTROL_PLANE_START -->
 ```json
 {
-  "contract_version": "2026-08-30.audit-r5",
-  "current_milestone_id": "audit_r5_integrity_documentation_and_issue_template_sync",
-  "last_completed_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
+  "contract_version": "2026-08-30.audit-r6",
+  "current_milestone_id": "audit_r6_canonical_contract_truth",
+  "last_completed_milestone_id": "audit_r5_integrity_documentation_and_issue_template_sync",
   "next_eligible_milestone_id": null,
   "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
   "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
   "next_issue_allowed": false,
   "active_actions": [
-    "audit_r5_product_owner_review"
+    "audit_r6_product_owner_review"
   ],
   "blocked_actions": [
     "execute_audit_r6",
@@ -1657,7 +1657,7 @@ gate.
   "authorization_states": {
     "audit_r4": "AUTHORIZED_IMPLEMENTATION",
     "audit_r5": "AUTHORIZED_IMPLEMENTATION",
-    "audit_r6": "NOT_AUTHORIZED",
+    "audit_r6": "AUTHORIZED_IMPLEMENTATION",
     "issue_65": "NOT_AUTHORIZED",
     "issue_66": "NOT_AUTHORIZED"
   },
@@ -1695,12 +1695,20 @@ gate.
       "runtime_reconciliation_complete": true
     },
     "audit_r5_integrity_documentation_and_issue_template_sync": {
+      "status": "COMPLETE_ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": true
+    },
+    "audit_r6_canonical_contract_truth": {
       "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
       "accepted": false,
       "implementation_state": "IMPLEMENTED",
       "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
-      "runtime_reconciliation_required": true,
-      "runtime_reconciliation_complete": false
+      "runtime_reconciliation_required": false,
+      "runtime_reconciliation_complete": true
     }
   }
 }
@@ -1731,10 +1739,12 @@ gate.
 12. **AUDIT-R4 — COMPLETE / ACCEPTED (Issue #89)**: mandatory CI Quality Gate
     and main-protection contract are implemented; actual repository settings
     remain a Product Owner/administrator action where GitHub plan limits apply.
-13. **AUDIT-R5 — IMPLEMENTED / PRODUCT OWNER REVIEW PENDING (Issue #90)**:
-    Integrity documentation and Issue-template synchronization is complete in
-    this branch; post-merge runtime reconciliation requires separate
-    authorization.
+13. **AUDIT-R5 — COMPLETE / ACCEPTED (Issue #90)**: Integrity documentation
+    and Issue-template synchronization is merged and its governed runtime
+    reconciliation is complete.
+14. **AUDIT-R6 — IMPLEMENTED / PRODUCT OWNER REVIEW PENDING (Issue #91)**:
+    Canonical Contract Truth G5 composes the accepted Evidence, Knowledge,
+    lifecycle, and Golden Slice validators with fail-closed evidence.
 
 Supporting Data/Evaluation status (not a next action): Gold Expansion v2
 preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Owner
