@@ -102,9 +102,12 @@ If the classification changes during work, the PR should explain why.
 
 ## Current Technical Direction
 
-The policy checkpoint remains `evidence_first_parallel_v1`. The current
-milestone and next actions are intentionally volatile and are owned by
-`SEMINARTEXT_4_STATE.json`; the Roadmap mirrors that state for human readers.
+The policy checkpoint remains `evidence_first_parallel_v1`. Current milestone,
+next actions, and transient project status are intentionally volatile and are
+owned by `SEMINARTEXT_4_STATE.json` plus its marker-bounded Roadmap projection.
+This static workflow document must not repeat a current milestone or next action
+and is never a control-plane source of truth; read the machine-readable State
+and run `./scripts/seminartext-integrity --json` when current status is needed.
 At the AUDIT-R1 checkpoint, TreeSeg is an isolated challenger, the Obsidian
 direction is accepted for further adaptation, and Canonical Knowledge Contract
 v1 is accepted. Dataset C is closed/frozen evidence and Dataset D remains

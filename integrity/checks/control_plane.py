@@ -159,7 +159,7 @@ def evaluate(root: Path) -> ControlPlaneResult:
         _error(g3_errors, "CP_SCHEMA", "github_lifecycle_check is invalid")
 
     authorization_states = contract.get("authorization_states")
-    required_authorizations = {"audit_r5", "audit_r6", "issue_65", "issue_66"}
+    required_authorizations = {"audit_r6", "issue_65", "issue_66"}
     if not isinstance(authorization_states, dict):
         _error(g8_errors, "CP_AUTHORIZATION_STATE", "authorization_states must be an object")
     else:
@@ -170,17 +170,23 @@ def evaluate(root: Path) -> ControlPlaneResult:
                     "CP_AUTHORIZATION_STATE",
                     f"{action} must remain NOT_AUTHORIZED",
                 )
-        expected_r4_authorization = (
-            "AUTHORIZED_IMPLEMENTATION"
-            if current_id == "audit_r4_mandatory_ci_and_main_protection"
-            else "NOT_AUTHORIZED"
-        )
-        if authorization_states.get("audit_r4") != expected_r4_authorization:
-            _error(
-                g8_errors,
-                "CP_AUTHORIZATION_STATE",
-                f"audit_r4 must be {expected_r4_authorization}",
+        active_authorizations = {
+            "audit_r4_mandatory_ci_and_main_protection": "audit_r4",
+            "audit_r5_integrity_documentation_and_issue_template_sync": "audit_r5",
+        }
+        active_action = active_authorizations.get(current_id)
+        for action in ("audit_r4", "audit_r5"):
+            expected = "AUTHORIZED_IMPLEMENTATION" if action == active_action else (
+                "AUTHORIZED_IMPLEMENTATION"
+                if action == "audit_r4" and current_id == "audit_r5_integrity_documentation_and_issue_template_sync"
+                else "NOT_AUTHORIZED"
             )
+            if authorization_states.get(action) != expected:
+                _error(
+                    g8_errors,
+                    "CP_AUTHORIZATION_STATE",
+                    f"{action} must be {expected}",
+                )
 
     raw_milestones = contract.get("milestones")
     milestones: dict[str, dict[str, Any]] = {}
@@ -229,14 +235,14 @@ def evaluate(root: Path) -> ControlPlaneResult:
     else:
         lifecycle_state = current["status"]
         human_gate = current["human_gate"]
-        if (
-            current_id == "audit_r4_mandatory_ci_and_main_protection"
-            and current.get("authorized") is not True
-        ):
+        if current_id in {
+            "audit_r4_mandatory_ci_and_main_protection",
+            "audit_r5_integrity_documentation_and_issue_template_sync",
+        } and current.get("authorized") is not True:
             _error(
                 g8_errors,
                 "CP_AUTHORIZATION_STATE",
-                "active audit_r4 milestone must carry authorized=true",
+                "active milestone must carry authorized=true",
             )
 
     for milestone_id, milestone in milestones.items():

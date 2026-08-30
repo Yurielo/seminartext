@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "contract_version": "2026-08-30.audit-r4",
+  "contract_version": "2026-08-30.audit-r5",
   "github_lifecycle_check": "NOT_RUN",
   "authoritative_sources": {
     "state": {
@@ -30,19 +30,18 @@
       "path": "schemas/canonical_knowledge_lifecycle_v1.json"
     }
   },
-  "current_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
-  "last_completed_milestone_id": "audit_r3_control_plane_integrity_gate",
+  "current_milestone_id": "audit_r5_integrity_documentation_and_issue_template_sync",
+  "last_completed_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
   "next_eligible_milestone_id": null,
-  "state_current_milestone": "audit_r4_mandatory_ci_and_main_protection",
-  "state_current_stage": "audit_r4_ci_and_main_protection",
+  "state_current_milestone": "audit_r5_integrity_documentation_and_issue_template_sync",
+  "state_current_stage": "audit_r5_integrity_docs_and_templates",
   "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
   "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
   "active_actions": [
-    "audit_r4_product_owner_review"
+    "audit_r5_product_owner_review"
   ],
   "next_issue_allowed": false,
   "blocked_actions": [
-    "execute_audit_r5",
     "execute_audit_r6",
     "execute_issue_65",
     "execute_issue_66",
@@ -50,7 +49,7 @@
   ],
   "authorization_states": {
     "audit_r4": "AUTHORIZED_IMPLEMENTATION",
-    "audit_r5": "NOT_AUTHORIZED",
+    "audit_r5": "AUTHORIZED_IMPLEMENTATION",
     "audit_r6": "NOT_AUTHORIZED",
     "issue_65": "NOT_AUTHORIZED",
     "issue_66": "NOT_AUTHORIZED"
@@ -142,6 +141,39 @@
     {
       "milestone_id": "audit_r4_mandatory_ci_and_main_protection",
       "issue_id": 89,
+      "status": "COMPLETE_ACCEPTED",
+      "decision": "ACCEPT",
+      "disposition": "ACCEPTED",
+      "accepted": true,
+      "authorized": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "next_allowed_actions": [
+        "audit_r5_integrity_documentation_and_issue_template_sync"
+      ],
+      "blocked_actions": [
+        "execute_audit_r5",
+        "execute_audit_r6",
+        "execute_issue_65",
+        "execute_issue_66",
+        "dataset_d_blind_evaluation"
+      ],
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": true,
+      "evidence_refs": [
+        ".github/workflows/ci.yml",
+        ".github/MAIN_PROTECTION.md",
+        "https://github.com/Yurielo/seminartext/issues/89"
+      ],
+      "historical": false,
+      "prerequisite_milestones": [
+        "audit_r3_control_plane_integrity_gate"
+      ],
+      "state_sequence_status": "complete_accepted"
+    },
+    {
+      "milestone_id": "audit_r5_integrity_documentation_and_issue_template_sync",
+      "issue_id": 90,
       "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
       "decision": "PENDING_PRODUCT_OWNER_REVIEW",
       "disposition": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
@@ -151,7 +183,6 @@
       "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
       "next_allowed_actions": [],
       "blocked_actions": [
-        "execute_audit_r5",
         "execute_audit_r6",
         "execute_issue_65",
         "execute_issue_66",
@@ -160,13 +191,15 @@
       "runtime_reconciliation_required": true,
       "runtime_reconciliation_complete": false,
       "evidence_refs": [
-        ".github/workflows/ci.yml",
-        ".github/MAIN_PROTECTION.md",
-        "https://github.com/Yurielo/seminartext/issues/89"
+        "integrity/README.md",
+        "DEVELOPMENT_WORKFLOW.md",
+        ".github/ISSUE_TEMPLATE.md",
+        "tests/test_integrity_documentation_consistency.py",
+        "https://github.com/Yurielo/seminartext/issues/90"
       ],
       "historical": false,
       "prerequisite_milestones": [
-        "audit_r3_control_plane_integrity_gate"
+        "audit_r4_mandatory_ci_and_main_protection"
       ],
       "state_sequence_status": "implemented_pending_product_owner_review"
     }

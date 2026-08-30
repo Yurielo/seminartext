@@ -1623,14 +1623,12 @@ Knowledge Base должна обслуживать:
 
 # CURRENT NEXT ACTION
 
-Текущий этап: **AUDIT-R4 IMPLEMENTED — PRODUCT OWNER REVIEW PENDING**. Для Issue
-#89 добавлен единый обязательный CI check `Quality Gate` и документирован
-контракт защиты `main`. Фактическая GitHub-защита ещё не включена: для текущего
-private repository GitHub требует Pro либо перевод в public, поэтому это
-отдельное действие Product Owner/administrator. AUDIT-R4 не принят; R5, R6,
-#65, #66 и Dataset D остаются заблокированы. Поскольку State/Roadmap являются
-deployed snapshots, после merge потребуется отдельная авторизация post-merge
-runtime reconciliation.
+Текущий этап: **AUDIT-R5 IMPLEMENTED — PRODUCT OWNER REVIEW PENDING**. Issue
+#90 синхронизирует Integrity-документацию, статический workflow и шаблон Issue
+с машинным контрактом. AUDIT-R4 принят; R5 ещё не принят Product Owner. R6,
+#65, #66 и Dataset D остаются заблокированы. State/Roadmap отражают только
+текущую контрольную плоскость; после merge потребуется отдельная авторизация
+post-merge runtime reconciliation.
 
 Активная машиночитаемая проекция ниже сверяется с
 `integrity/milestone_reconciliation.json`. Только этот ограниченный JSON-блок,
@@ -1640,18 +1638,17 @@ gate.
 <!-- SEMINARTEXT_CONTROL_PLANE_START -->
 ```json
 {
-  "contract_version": "2026-08-30.audit-r4",
-  "current_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
-  "last_completed_milestone_id": "audit_r3_control_plane_integrity_gate",
+  "contract_version": "2026-08-30.audit-r5",
+  "current_milestone_id": "audit_r5_integrity_documentation_and_issue_template_sync",
+  "last_completed_milestone_id": "audit_r4_mandatory_ci_and_main_protection",
   "next_eligible_milestone_id": null,
   "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
   "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
   "next_issue_allowed": false,
   "active_actions": [
-    "audit_r4_product_owner_review"
+    "audit_r5_product_owner_review"
   ],
   "blocked_actions": [
-    "execute_audit_r5",
     "execute_audit_r6",
     "execute_issue_65",
     "execute_issue_66",
@@ -1659,7 +1656,7 @@ gate.
   ],
   "authorization_states": {
     "audit_r4": "AUTHORIZED_IMPLEMENTATION",
-    "audit_r5": "NOT_AUTHORIZED",
+    "audit_r5": "AUTHORIZED_IMPLEMENTATION",
     "audit_r6": "NOT_AUTHORIZED",
     "issue_65": "NOT_AUTHORIZED",
     "issue_66": "NOT_AUTHORIZED"
@@ -1690,6 +1687,14 @@ gate.
       "runtime_reconciliation_complete": true
     },
     "audit_r4_mandatory_ci_and_main_protection": {
+      "status": "COMPLETE_ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": true
+    },
+    "audit_r5_integrity_documentation_and_issue_template_sync": {
       "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
       "accepted": false,
       "implementation_state": "IMPLEMENTED",
@@ -1723,19 +1728,24 @@ gate.
 10. AUDIT-R2 Canonical Knowledge validation — **COMPLETE / ACCEPTED (Issue #88)**.
 11. **AUDIT-R3 — COMPLETE / ACCEPTED (Issue #87)**: machine-checkable
     control-plane reconciliation and safe next-Issue eligibility semantics.
-12. **AUDIT-R4 — NOT STARTED / NOT AUTHORIZED (Issue #89)**: next eligible
-    remediation; Product Owner authorization is still required before work.
+12. **AUDIT-R4 — COMPLETE / ACCEPTED (Issue #89)**: mandatory CI Quality Gate
+    and main-protection contract are implemented; actual repository settings
+    remain a Product Owner/administrator action where GitHub plan limits apply.
+13. **AUDIT-R5 — IMPLEMENTED / PRODUCT OWNER REVIEW PENDING (Issue #90)**:
+    Integrity documentation and Issue-template synchronization is complete in
+    this branch; post-merge runtime reconciliation requires separate
+    authorization.
 
 Supporting Data/Evaluation status (not a next action): Gold Expansion v2
 preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Owner
 role review and manual Gold annotation remain human gates.
 
-13. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
-14. Dataset D blind evaluation after candidate/config/criteria freeze.
-15. Define and assess `TOPIC AUTOMATION USABLE`.
-16. Expand Knowledge Engine.
-17. Multi-seminar Knowledge MVP.
-18. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
+14. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
+15. Dataset D blind evaluation after candidate/config/criteria freeze.
+16. Define and assess `TOPIC AUTOMATION USABLE`.
+17. Expand Knowledge Engine.
+18. Multi-seminar Knowledge MVP.
+19. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
     Assistant.
 
 Dataset guardrails apply throughout: A/B are development/history evidence; C is

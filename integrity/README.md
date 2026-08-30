@@ -16,8 +16,23 @@ deployment operation reconciles it; the gate never auto-deploys.
 contract, and `integrity_report.schema.json` defines the JSON report shape. G3
 validates accepted decisions, dispositions, and lifecycle truth; G8 validates
 the current milestone, next actions, blocked work, and runtime reconciliation.
-The implemented G4 Dependency Truth remains active. G5 and G6 remain explicitly
-`NOT_IMPLEMENTED`; they are never rendered as PASS.
+The implemented G4 Dependency Truth remains active. The authoritative gate
+inventory is:
+
+| Gate | Name | Implementation | Blocking policy |
+| --- | --- | --- | --- |
+| G1 | Git Truth | IMPLEMENTED | blocking |
+| G2 | Runtime Truth | IMPLEMENTED | blocking |
+| G3 | Governance Truth | IMPLEMENTED | blocking |
+| G4 | Dependency Truth | IMPLEMENTED | blocking |
+| G5 | Canonical Contract Truth | NOT_IMPLEMENTED | future_blocking |
+| G6 | End-to-End Truth | NOT_IMPLEMENTED | future_blocking |
+| G7 | Test Truth | IMPLEMENTED | blocking |
+| G8 | Product State Truth | IMPLEMENTED | blocking |
+
+G5 and G6 remain explicitly `NOT_IMPLEMENTED`; they are never rendered as
+PASS. This table is documentation only; the machine-readable contract remains
+the sole gate definition.
 
 The checker observes repository, deployment, governance, tests, and product
 state. It never fetches, pulls, checks out, cleans, deploys, installs packages,
