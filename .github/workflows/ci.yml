@@ -16,6 +16,7 @@ jobs:
     timeout-minutes: 20
     env:
       SEMINARTEXT_DEV_REPO: ${{ github.workspace }}
+      SEMINARTEXT_PYTHON: python
 
     steps:
       - name: Check out repository
