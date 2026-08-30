@@ -117,7 +117,8 @@
         "word_start_sequence": {"type": "integer", "minimum": 0},
         "word_end_sequence": {"type": "integer", "minimum": 0},
         "quote": {"type": "string", "minLength": 1},
-        "locator": {"$ref": "#/$defs/locator"}
+        "locator": {"$ref": "#/$defs/locator"},
+        "transcript_provenance": {"type": ["object", "null"]}
       }
     },
     "review_topic": {
@@ -150,7 +151,8 @@
         "evidence_sha256": {"$ref": "#/$defs/sha256"},
         "generator": {"$ref": "#/$defs/generator"},
         "review_history": {"type": "array", "items": {"type": "object"}},
-        "topic_sha256": {"$ref": "#/$defs/sha256"}
+        "topic_sha256": {"$ref": "#/$defs/sha256"},
+        "transcript_provenance": {"type": ["object", "null"]}
       }
     },
     "review_package": {

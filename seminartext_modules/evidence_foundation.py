@@ -8,6 +8,7 @@ and native alignment evidence, never invokes ASR and never rewrites text.
 from __future__ import annotations
 
 import argparse
+import difflib
 import hashlib
 import json
 import re
@@ -113,6 +114,34 @@ def load_revision(project: Path, revision_id: str) -> dict[str, Any]:
     return revision
 
 
+def parse_ranges(values: list[str], text_length: int) -> list[dict[str, int]]:
+    parsed: list[dict[str, int]] = []
+    for value in values:
+        match = re.fullmatch(r"(\d+):(\d+)", value)
+        if not match:
+            raise ValueError(f"invalid --verified-range {value!r}; expected START:END")
+        start, end = (int(part) for part in match.groups())
+        if end <= start or end > text_length:
+            raise ValueError(f"invalid verification range {value!r}")
+        if parsed and start < parsed[-1]["char_end"]:
+            raise ValueError("verification ranges must be sorted and non-overlapping")
+        parsed.append({"char_start": start, "char_end": end})
+    return parsed
+
+
+def changed_outside_ranges(parent_text: str, text: str, ranges: list[dict[str, int]]) -> bool:
+    if parent_text == text:
+        return False
+    matcher = difflib.SequenceMatcher(a=parent_text, b=text, autojunk=False)
+    allowed = [(item["char_start"], item["char_end"]) for item in ranges]
+    for tag, a_start, a_end, _b_start, _b_end in matcher.get_opcodes():
+        if tag == "equal":
+            continue
+        if not any(a_start >= start and a_end <= end for start, end in allowed):
+            return True
+    return False
+
+
 def promote_transcript(args: argparse.Namespace) -> int:
     project = project_root(args.project)
     source, source_canonical_id = source_record(project, args.source_id)
@@ -130,21 +159,41 @@ def promote_transcript(args: argparse.Namespace) -> int:
         parent = next((item for item in existing if item.get("revision_id") == args.parent_revision_id), None)
         if parent is None:
             raise ValueError(f"parent revision not found for source: {args.parent_revision_id}")
-        revision_number = int(parent["revision_number"]) + 1
+        revision_number = max((int(item.get("revision_number", 0)) for item in existing), default=0) + 1
+    if parent and "canonical_text" not in parent:
+        parent = load_revision(project, parent["revision_id"])
     revision_id = f"transcript_revision_{source_canonical_id.removeprefix('source_')}_r{revision_number}"
     if any(item.get("revision_id") == revision_id for item in existing):
         raise ValueError(f"revision already exists: {revision_id}; use a new parent or inspect the existing immutable file")
-    if args.state != "verified" and args.reviewer:
-        raise ValueError("reviewer authority is only accepted for a verified promotion")
-    if args.state == "verified" and not args.reviewer:
+    verification_state = args.verification_state or ("fully_human_verified" if args.state == "verified" else "machine_unverified")
+    ranges = parse_ranges(args.verified_range, len(text))
+    if verification_state == "fully_human_verified" and not args.reviewer:
         raise ValueError("verified promotion requires --reviewer authority")
-    authority = "authoritative" if args.state == "verified" else "candidate"
-    lifecycle = "verified" if args.state == "verified" else ("active" if args.state == "review_required" else "draft")
+    if verification_state == "machine_unverified" and (args.reviewer or ranges):
+        raise ValueError("machine_unverified promotion cannot include reviewer or verification ranges")
+    if verification_state == "selectively_verified" and (not args.reviewer or not ranges or not parent):
+        raise ValueError("selectively_verified promotion requires --parent-revision-id, --reviewer, and --verified-range")
+    if verification_state == "selectively_verified" and parent and changed_outside_ranges(parent.get("canonical_text", ""), text, ranges):
+        raise ValueError("correction changes text outside the declared verification ranges")
+    if args.state == "verified" and verification_state != "fully_human_verified":
+        raise ValueError("verified state requires fully_human_verified provenance")
+    if verification_state == "fully_human_verified":
+        ranges = [{"char_start": 0, "char_end": len(text)}]
+    authority = "authoritative" if verification_state == "fully_human_verified" else "candidate"
+    lifecycle = "verified" if verification_state == "fully_human_verified" else ("active" if args.state == "review_required" else "draft")
+    revision_kind = "verified" if verification_state == "fully_human_verified" else ("corrected" if verification_state == "selectively_verified" else "asr")
+    provenance = {
+        "origin": "human_verified" if verification_state == "fully_human_verified" else ("human_corrected" if verification_state == "selectively_verified" and parent and text != parent.get("canonical_text") else "machine_generated"),
+        "method": args.generation_method,
+        "verification_state": verification_state,
+        "verification_ranges": ranges,
+        "reviewer": args.reviewer,
+    }
     revision = {
         "revision_id": revision_id,
         "source_id": source_canonical_id,
         "revision_number": revision_number,
-        "revision_kind": "verified" if args.state == "verified" else "asr",
+        "revision_kind": revision_kind,
         "parent_revision_id": parent.get("revision_id") if parent else None,
         "parent_text_sha256": parent.get("text_sha256") if parent else None,
         "canonical_text": text,
@@ -153,6 +202,7 @@ def promote_transcript(args: argparse.Namespace) -> int:
         "reviewer_authority": args.reviewer,
         "state": args.state,
         "lifecycle_status": lifecycle,
+        "transcript_provenance": provenance,
         "source_registry_id": args.source_id,
         "source_title": source.get("title", ""),
     }
@@ -160,7 +210,7 @@ def promote_transcript(args: argparse.Namespace) -> int:
     index.setdefault("revisions", []).append({key: revision[key] for key in ("revision_id", "source_id", "revision_number", "text_sha256", "state", "authority")})
     index["revisions"] = sorted(index["revisions"], key=lambda item: (item.get("source_id", ""), item.get("revision_number", 0)))
     atomic_write_json(index_path, index, overwrite=True)
-    print(json.dumps({"status": "verified" if args.state == "verified" else args.state, "revision_id": revision_id, "text_sha256": text_hash}, ensure_ascii=False, sort_keys=True))
+    print(json.dumps({"status": args.state, "revision_id": revision_id, "text_sha256": text_hash, "transcript_provenance": provenance}, ensure_ascii=False, sort_keys=True))
     return 0
 
 
@@ -216,9 +266,9 @@ def build_bundle(project: Path, revision: dict[str, Any], source: dict[str, Any]
         "model_sha256": model_sha,
         "config_sha256": config_sha,
         "status": "valid",
-        "review_status": "review_required" if any(item is None for item in mapped) else "verified",
+        "review_status": "verified" if revision.get("transcript_provenance", {}).get("verification_state") == "fully_human_verified" and not any(item is None for item in mapped) else "review_required",
         "unaligned_sequences": [i for i, item in enumerate(mapped) if item is None],
-        "input_policy": "verified_transcript_only_no_asr",
+        "input_policy": "transcript_only_no_asr",
     }
     canonical_run = {key: run[key] for key in (
         "id", "source_id", "source_content_sha256", "transcript_revision_id",
@@ -257,20 +307,20 @@ def build_bundle(project: Path, revision: dict[str, Any], source: dict[str, Any]
             "speaker_id": None,
             "timing_provenance": provenance,
             "qa_flags": flags,
-            "lifecycle_status": "verified",
+            "lifecycle_status": "verified" if revision.get("transcript_provenance", {}).get("verification_state") == "fully_human_verified" or (revision.get("authority") == "authoritative" and revision.get("lifecycle_status") == "verified") else "active",
         })
     segments = []
     for sequence, offset in enumerate(range(0, len(words), 50)):
         group = words[offset : offset + 50]
-        segments.append({"id": f"benchmark_segment_{revision_id.removeprefix('transcript_revision_')}_{sequence:06d}", "transcript_revision_id": revision_id, "sequence": sequence, "word_start_id": group[0]["id"], "word_end_id": group[-1]["id"], "word_count": len(group), "lifecycle_status": "verified"})
+        segments.append({"id": f"benchmark_segment_{revision_id.removeprefix('transcript_revision_')}_{sequence:06d}", "transcript_revision_id": revision_id, "sequence": sequence, "word_start_id": group[0]["id"], "word_end_id": group[-1]["id"], "word_count": len(group), "lifecycle_status": "verified" if revision.get("transcript_provenance", {}).get("verification_state") == "fully_human_verified" else "active"})
     bundle = {
         "schema_version": "1.0.0",
         "artifact_type": "seminartext.canonical_evidence",
         "artifact_id": stable_id(f"{project_id}_{revision_id}", "artifact"),
         "project": {"id": project_id, "title": project.name, "lifecycle_status": "active"},
         "sources": [{"id": source_canonical_id, "project_id": project_id, "sequence": 0, "kind": "video" if source.get("type") in {"youtube", "local"} or source.get("file", "").lower().endswith((".mp4", ".mov", ".mkv")) else "other", "title": source.get("title") or source_id, "content_sha256": run["source_content_sha256"], "duration_seconds": duration, "lifecycle_status": "active"}],
-        "transcript_revisions": [{"id": revision_id} | {key: revision[key] for key in ("source_id", "revision_number", "revision_kind", "parent_revision_id", "canonical_text", "text_sha256", "authority", "lifecycle_status")}],
-        "cues": [{"id": cue_id, "transcript_revision_id": revision_id, "sequence": 0, "char_start": 0, "char_end": len(text), "text": text, "source_locator": {"type": "time_interval", "start_seconds": 0, "end_seconds": duration}, "lifecycle_status": "verified"}],
+        "transcript_revisions": [{"id": revision_id} | {key: revision[key] for key in ("source_id", "revision_number", "revision_kind", "parent_revision_id", "canonical_text", "text_sha256", "authority", "lifecycle_status", "transcript_provenance")}],
+        "cues": [{"id": cue_id, "transcript_revision_id": revision_id, "sequence": 0, "char_start": 0, "char_end": len(text), "text": text, "source_locator": {"type": "time_interval", "start_seconds": 0, "end_seconds": duration}, "lifecycle_status": "verified" if revision.get("transcript_provenance", {}).get("verification_state") == "fully_human_verified" else "active"}],
         "alignment_runs": [canonical_run],
         "words": words,
         "benchmark_segments": segments,
@@ -463,8 +513,8 @@ def align_project(args: argparse.Namespace) -> int:
     project = project_root(args.project)
     source, source_canonical_id = source_record(project, args.source_id)
     revision = load_revision(project, args.revision_id)
-    if revision.get("state") != "verified" or revision.get("authority") != "authoritative":
-        raise ValueError("alignment requires an authoritative verified TranscriptRevision; no provisional text may be aligned")
+    if revision.get("lifecycle_status") not in {"active", "verified"} or revision.get("authority") not in {"candidate", "authoritative"}:
+        raise ValueError("alignment requires an authoritative verified or active assured TranscriptRevision; provisional text may not be aligned")
     media = media_path(project, source, args.media)
     evidence_path = Path(args.alignment_json).expanduser().resolve() if args.alignment_json else None
     if evidence_path is None or not evidence_path.is_file():
@@ -616,6 +666,9 @@ def main(argv: list[str] | None = None) -> int:
     promote.add_argument("--state", choices=["provisional", "review_required", "verified", "superseded"], default="provisional")
     promote.add_argument("--reviewer")
     promote.add_argument("--parent-revision-id")
+    promote.add_argument("--verification-state", choices=["machine_unverified", "selectively_verified", "fully_human_verified"])
+    promote.add_argument("--verified-range", action="append", default=[])
+    promote.add_argument("--generation-method", default="existing_machine_transcript_import")
     align = sub.add_parser("align")
     align.add_argument("project")
     align.add_argument("--source-id", required=True)
