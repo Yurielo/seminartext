@@ -8,11 +8,18 @@ from integrity.process import run_process
 
 
 GOVERNED_FILES = (
+    "AGENTS.md",
     "SEMINARTEXT_4_STATE.json",
     "SEMINARTEXT_4_ROADMAP.md",
     "DEVELOPMENT_WORKFLOW.md",
     "SEMINARTEXT_VERSION",
     "SEMINARTEXT_4_MVP_DEFINITION.md",
+    "docs/architecture/SEMINARTEXT_PRODUCT_RULES.md",
+    ".github/ISSUE_TEMPLATE.md",
+    ".github/PULL_REQUEST_TEMPLATE.md",
+    ".github/workflows/ci.yml",
+    "scripts/check_governance.py",
+    "scripts/validate_product_rules.py",
     "integrity/milestone_reconciliation.json",
 )
 
@@ -81,6 +88,6 @@ def run(context: CheckContext) -> GateResult:
         "G3",
         gate["name"],
         "PASS",
-        "repository governance and accepted-decision reconciliation passed read-only",
+        "repository governance, Product Rules control loop, and accepted-decision reconciliation passed read-only",
         evidence,
     )

@@ -2,6 +2,16 @@
 
 <!-- What should change, and why? -->
 
+## Product Rules
+
+Registry checked: `docs/architecture/SEMINARTEXT_PRODUCT_RULES.md`
+
+Applicable Product Rules: `PR-...` / `NONE`
+
+Product Rule conflicts: `NONE` / `<details; HARD STOP and Product Owner decision required>`
+
+Omission of these fields does not waive an `ACTIVE` Product Rule.
+
 ## Human gate
 
 Classification: `AUTO`

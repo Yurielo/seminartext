@@ -43,3 +43,12 @@ def test_issue_template_requires_all_r5_verification_fields():
         "## Deploy or runtime reconciliation",
     )
     assert all(section in template for section in required)
+
+
+def test_issue_and_pr_templates_require_product_rule_references():
+    for relative in (".github/ISSUE_TEMPLATE.md", ".github/PULL_REQUEST_TEMPLATE.md"):
+        template = (ROOT / relative).read_text(encoding="utf-8")
+        assert "docs/architecture/SEMINARTEXT_PRODUCT_RULES.md" in template
+        assert "Applicable Product Rules:" in template
+        assert "Product Rule conflicts:" in template
+        assert "does not waive an `ACTIVE` Product Rule" in template
