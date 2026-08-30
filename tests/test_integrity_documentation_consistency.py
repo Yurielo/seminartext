@@ -18,8 +18,8 @@ def test_integrity_readme_gate_inventory_matches_authoritative_contract():
         )
         assert row in readme
 
-    assert "G5 and G6 remain explicitly `NOT_IMPLEMENTED`" in readme
-    assert "machine-readable contract remains\nthe sole gate definition" in readme
+    assert "G6 remains explicitly `NOT_IMPLEMENTED`" in readme
+    assert "machine-readable contract remains the sole gate definition" in readme
 
 
 def test_static_workflow_document_does_not_claim_a_current_milestone():

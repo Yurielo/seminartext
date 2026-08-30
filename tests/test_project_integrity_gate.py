@@ -129,6 +129,13 @@ main "$@"
         "seminartext_modules/topic_engine_governance.py",
         "schemas/validate_canonical_evidence_v1.py",
         "schemas/canonical_evidence_v1.schema.json",
+        "schemas/validate_canonical_knowledge_v1.py",
+        "schemas/canonical_knowledge_v1.schema.json",
+        "analysis/word_timeline_mvp/canonical_evidence_bundle.json",
+        "analysis/golden_knowledge_slice/golden_knowledge_slice.json",
+        "analysis/golden_knowledge_slice/curation.json",
+        "analysis/golden_knowledge_slice/build_golden_slice.py",
+        "tests/fixtures/canonical_knowledge_v1/golden_slice_knowledge.json",
         "governance/dataset_registry.json",
         "governance/topic_engine_lifecycle.json",
         "governance/topic_engine_freeze.json",
@@ -191,7 +198,8 @@ def test_all_implemented_gates_pass_on_controlled_healthy_fixture(tmp_path):
     assert report["project_integrity"] == "PARTIAL"
     assert all(by_id[gate]["status"] == "PASS" for gate in ("G1", "G2", "G3", "G7", "G8"))
     assert by_id["G4"]["status"] == "PASS"
-    assert all(by_id[gate]["status"] == "NOT_IMPLEMENTED" for gate in ("G5", "G6"))
+    assert by_id["G5"]["status"] == "PASS"
+    assert by_id["G6"]["status"] == "NOT_IMPLEMENTED"
 
 
 def test_git_dirty_state_is_detected_without_mutation(tmp_path):

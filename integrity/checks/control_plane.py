@@ -163,22 +163,17 @@ def evaluate(root: Path) -> ControlPlaneResult:
     if not isinstance(authorization_states, dict):
         _error(g8_errors, "CP_AUTHORIZATION_STATE", "authorization_states must be an object")
     else:
-        for action in sorted(required_authorizations):
-            if authorization_states.get(action) != "NOT_AUTHORIZED":
-                _error(
-                    g8_errors,
-                    "CP_AUTHORIZATION_STATE",
-                    f"{action} must remain NOT_AUTHORIZED",
-                )
         active_authorizations = {
             "audit_r4_mandatory_ci_and_main_protection": "audit_r4",
             "audit_r5_integrity_documentation_and_issue_template_sync": "audit_r5",
+            "audit_r6_canonical_contract_truth": "audit_r6",
         }
         active_action = active_authorizations.get(current_id)
-        for action in ("audit_r4", "audit_r5"):
-            expected = "AUTHORIZED_IMPLEMENTATION" if action == active_action else (
+        active_order = {"audit_r4": 0, "audit_r5": 1, "audit_r6": 2}
+        for action in ("audit_r4", "audit_r5", "audit_r6"):
+            expected = (
                 "AUTHORIZED_IMPLEMENTATION"
-                if action == "audit_r4" and current_id == "audit_r5_integrity_documentation_and_issue_template_sync"
+                if active_action is not None and active_order[action] <= active_order[active_action]
                 else "NOT_AUTHORIZED"
             )
             if authorization_states.get(action) != expected:
@@ -186,6 +181,13 @@ def evaluate(root: Path) -> ControlPlaneResult:
                     g8_errors,
                     "CP_AUTHORIZATION_STATE",
                     f"{action} must be {expected}",
+                )
+        for action in ("issue_65", "issue_66"):
+            if authorization_states.get(action) != "NOT_AUTHORIZED":
+                _error(
+                    g8_errors,
+                    "CP_AUTHORIZATION_STATE",
+                    f"{action} must remain NOT_AUTHORIZED",
                 )
 
     raw_milestones = contract.get("milestones")
@@ -238,6 +240,7 @@ def evaluate(root: Path) -> ControlPlaneResult:
         if current_id in {
             "audit_r4_mandatory_ci_and_main_protection",
             "audit_r5_integrity_documentation_and_issue_template_sync",
+            "audit_r6_canonical_contract_truth",
         } and current.get("authorized") is not True:
             _error(
                 g8_errors,
