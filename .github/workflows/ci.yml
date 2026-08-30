@@ -35,6 +35,9 @@ jobs:
       - name: Verify development dependency profile
         run: ./scripts/seminartext-dependencies doctor --profile dev_test --json
 
+      - name: Validate Product Rules Registry and control loop
+        run: python scripts/validate_product_rules.py --root .
+
       - name: Run repository syntax, schema, and governance checks
         run: ./scripts/seminartext-dev check
 
@@ -44,6 +47,7 @@ jobs:
           tests/test_dependency_profiles.py
           tests/test_governance_truthfulness.py
           tests/test_milestone_reconciliation.py
+          tests/test_product_rules_registry.py
           tests/test_project_integrity_gate.py
           tests/test_canonical_evidence_schema_v1.py
           tests/test_integrity_canonical_contract_truth.py

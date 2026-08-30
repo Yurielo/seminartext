@@ -166,7 +166,7 @@
       "name": "Governance Truth",
       "implementation": "IMPLEMENTED",
       "blocking_policy": "blocking",
-      "invariant": "The repository governance checker is read-only and accepted decisions, dispositions, and human-gate lifecycle truth reconcile against the offline milestone contract."
+      "invariant": "The repository governance checker is read-only; the canonical Product Rules Registry, stable IDs, lifecycle, supersession structure, operating control loop, and accepted decisions, dispositions, and human-gate lifecycle truth reconcile against repository contracts."
     },
     {
       "id": "G4",

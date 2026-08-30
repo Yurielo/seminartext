@@ -14,8 +14,13 @@ deployment operation reconciles it; the gate never auto-deploys.
 `integrity_contract.json` is the gate contract,
 `milestone_reconciliation.json` is the repository-owned active control-plane
 contract, and `integrity_report.schema.json` defines the JSON report shape. G3
-validates accepted decisions, dispositions, and lifecycle truth; G8 validates
-the current milestone, next actions, blocked work, and runtime reconciliation.
+validates accepted decisions, dispositions, lifecycle truth, and the structural
+governance of the one canonical Product Rules Registry at
+`docs/architecture/SEMINARTEXT_PRODUCT_RULES.md`. This includes stable IDs,
+allowed lifecycle values, reciprocal supersession, uniqueness, and required
+operating/ChatGPT/GitHub/CI control-loop wiring; G3 does not claim semantic
+compliance proof. G8 validates the current milestone, next actions, blocked
+work, and runtime reconciliation.
 The implemented G4 Dependency Truth remains active. The authoritative gate
 inventory is:
 

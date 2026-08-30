@@ -8,6 +8,8 @@ import json
 import re
 from pathlib import Path
 
+from validate_product_rules import validate_repository as validate_product_rules
+
 
 EXPECTED_STATE_SCHEMA = 3
 REQUIRED_STATE_KEYS = {
@@ -192,6 +194,8 @@ def check(root: Path) -> list[str]:
             if pattern.search(surface):
                 fail(f"obsolete active surface ({label}) remains in {surface_name}")
 
+    product_rules = validate_product_rules(root)
+
     return [
         f"version={version}",
         f"state_schema={state['schema_version']}",
@@ -202,6 +206,8 @@ def check(root: Path) -> list[str]:
         "obsolete_active_gates=absent",
         "dataset_registry=consistent_fail_closed",
         "topic_engine_lifecycle=consistent_candidate_frozen_dataset_d_blocked",
+        f"product_rules_registry=valid_{product_rules['rule_count']}_rules",
+        "product_rules_control_loop=wired_structural_validation",
     ]
 
 

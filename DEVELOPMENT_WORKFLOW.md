@@ -61,6 +61,54 @@ Use GitHub and the repository as the technical source of truth:
 - Tests and benchmarks are executable evidence.
 - `decisions/` records lightweight architecture and operating decisions.
 
+## Mandatory Product Rules Control Loop
+
+The one canonical Product Rules Registry is
+`docs/architecture/SEMINARTEXT_PRODUCT_RULES.md`. It is durable repository
+truth. Product Rules must not depend on conversational memory, inferred intent,
+or undocumented implementation knowledge.
+
+The authority chain is:
+
+`Product Owner decision -> ChatGPT formalization -> authorized Codex persistence -> GitHub history -> mandatory ChatGPT/Codex read -> Issue/PR references -> CI and Integrity structural validation`
+
+The Product Owner alone adopts, changes, supersedes, or retires Product Rules.
+ChatGPT may formalize an explicit Product Owner decision. Codex may persist that
+decision only under an explicit bounded authorization; Codex recommendations,
+architecture choices, inferred preferences, silence, and absence of objection
+are not Product Rules. GitHub records decisions but does not make semantic
+product decisions.
+
+Before changing or evaluating product behavior, architecture, the knowledge
+model, semantic workflow, lifecycle, user-visible behavior, or governance
+contracts, Codex must read the Registry and report:
+
+```text
+PRODUCT_RULES_READ: YES
+APPLICABLE_PRODUCT_RULES: PR-xxx, ...
+PRODUCT_RULE_CONFLICTS: NONE
+```
+
+An `ACTIVE` Product Rule conflict is a `HARD STOP` and requires a Product Owner
+decision. Structural CI and G3 validation do not claim to prove semantic
+compliance.
+
+### ChatGPT / Prompt 11 control
+
+Before formulating a SeminarText Codex task that affects Product,
+Architecture, Knowledge, semantic behavior, lifecycle, user-visible behavior,
+or governance, ChatGPT must read/check the current Registry, identify the
+applicable `ACTIVE` IDs, include `Applicable Product Rules: PR-...` and
+`Product Rule conflicts: NONE` (or the explicit conflict) in the bounded task,
+and must not rely only on conversational memory.
+
+When the Product Owner explicitly adopts a durable new rule, ChatGPT determines
+whether it belongs in the Registry and, if so, prepares a governed Codex
+persistence task using the next collision-free ID. Codex validates and persists
+only the authorized rule. Product Owner review and separate merge authorization
+remain mandatory. Omission of Product Rule fields from an Issue or PR never
+waives an `ACTIVE` Product Rule.
+
 ## Standard Execution Loop
 
 Default issue loop inside the Evidence-First Parallel Development policy:
