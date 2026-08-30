@@ -91,15 +91,22 @@ def _pointer(document: Any, pointer: str) -> Any:
 
 def _projection(contract: dict[str, Any], milestones: dict[str, dict[str, Any]]) -> dict[str, Any]:
     current_id = contract["current_milestone_id"]
-    current = milestones[current_id]
+    current = milestones.get(current_id) if current_id is not None else None
     return {
         "contract_version": contract["contract_version"],
         "current_milestone_id": current_id,
-        "lifecycle_state": current["status"],
-        "human_gate": current["human_gate"],
+        "last_completed_milestone_id": contract.get("last_completed_milestone_id"),
+        "next_eligible_milestone_id": contract.get("next_eligible_milestone_id"),
+        "lifecycle_state": (
+            current["status"] if current is not None else contract["lifecycle_state"]
+        ),
+        "human_gate": (
+            current["human_gate"] if current is not None else contract["human_gate"]
+        ),
         "next_issue_allowed": contract["next_issue_allowed"],
         "active_actions": contract["active_actions"],
         "blocked_actions": contract["blocked_actions"],
+        "authorization_states": contract.get("authorization_states", {}),
         "milestones": {
             milestone_id: {
                 "status": milestone["status"],
@@ -151,6 +158,25 @@ def evaluate(root: Path) -> ControlPlaneResult:
     if github_check not in {"NOT_RUN", "PASS", "FAIL"}:
         _error(g3_errors, "CP_SCHEMA", "github_lifecycle_check is invalid")
 
+    authorization_states = contract.get("authorization_states")
+    required_authorizations = {
+        "audit_r4",
+        "audit_r5",
+        "audit_r6",
+        "issue_65",
+        "issue_66",
+    }
+    if not isinstance(authorization_states, dict):
+        _error(g8_errors, "CP_AUTHORIZATION_STATE", "authorization_states must be an object")
+    else:
+        for action in sorted(required_authorizations):
+            if authorization_states.get(action) != "NOT_AUTHORIZED":
+                _error(
+                    g8_errors,
+                    "CP_AUTHORIZATION_STATE",
+                    f"{action} must remain NOT_AUTHORIZED",
+                )
+
     raw_milestones = contract.get("milestones")
     milestones: dict[str, dict[str, Any]] = {}
     if not isinstance(raw_milestones, list) or not raw_milestones:
@@ -177,8 +203,23 @@ def evaluate(root: Path) -> ControlPlaneResult:
                 continue
             milestones[milestone_id] = milestone
 
-    current = milestones.get(current_id)
-    if current is None:
+    current = milestones.get(current_id) if current_id is not None else None
+    if current_id is None:
+        lifecycle_state = contract.get("lifecycle_state")
+        human_gate = contract.get("human_gate", "UNRESOLVED")
+        if not isinstance(lifecycle_state, str) or not lifecycle_state:
+            _error(
+                g8_errors,
+                "CP_LIFECYCLE_UNRESOLVED",
+                "inactive control plane lacks lifecycle_state",
+            )
+        if not isinstance(human_gate, str) or not human_gate:
+            _error(
+                g8_errors,
+                "CP_HUMAN_GATE_UNRESOLVED",
+                "inactive control plane lacks human_gate",
+            )
+    elif current is None:
         _error(g8_errors, "CP_CURRENT_UNKNOWN", f"current milestone {current_id!r} is not declared")
     else:
         lifecycle_state = current["status"]
@@ -214,7 +255,13 @@ def evaluate(root: Path) -> ControlPlaneResult:
                     "CP_PREREQUISITE_UNKNOWN",
                     f"{milestone_id} references unknown prerequisite {prerequisite}",
                 )
-            elif milestone_id == current_id and not (
+            elif (
+                milestone["accepted"]
+                or milestone_id in {
+                    current_id,
+                    contract.get("next_eligible_milestone_id"),
+                }
+            ) and not (
                 required["accepted"] and required["implementation_state"] == "COMPLETE"
             ):
                 _error(
@@ -222,6 +269,88 @@ def evaluate(root: Path) -> ControlPlaneResult:
                     "CP_SEQUENCE_VIOLATION",
                     f"current milestone {milestone_id} precedes incomplete prerequisite {prerequisite}",
                 )
+
+    last_completed_id = contract.get("last_completed_milestone_id")
+    last_completed = milestones.get(last_completed_id)
+    if last_completed is None:
+        _error(
+            g8_errors,
+            "CP_LAST_COMPLETED_UNKNOWN",
+            "last completed milestone is not declared",
+        )
+    elif not (
+        last_completed["accepted"]
+        and last_completed["implementation_state"] == "COMPLETE"
+        and str(last_completed["status"]).startswith("COMPLETE")
+    ):
+        _error(
+            g8_errors,
+            "CP_LAST_COMPLETED_INVALID",
+            f"{last_completed_id} is not complete and accepted",
+        )
+
+    next_eligible_id = contract.get("next_eligible_milestone_id")
+    next_eligible = milestones.get(next_eligible_id)
+    if next_eligible is None:
+        _error(
+            g8_errors,
+            "CP_NEXT_ELIGIBLE_UNKNOWN",
+            "next eligible milestone is not declared",
+        )
+    elif not (
+        next_eligible["status"] == "NOT_STARTED"
+        and next_eligible["decision"] == "NOT_AUTHORIZED"
+        and next_eligible["disposition"] == "NOT_AUTHORIZED"
+        and next_eligible["accepted"] is False
+        and next_eligible["implementation_state"] == "NOT_STARTED"
+        and next_eligible.get("authorized") is False
+    ):
+        _error(
+            g8_errors,
+            "CP_NEXT_ELIGIBLE_AUTHORIZATION",
+            f"{next_eligible_id} must remain not started and not authorized",
+        )
+
+    if contract.get("next_issue_allowed") is True:
+        if current is not None:
+            _error(
+                g8_errors,
+                "CP_NEXT_WHILE_ACTIVE",
+                "next Issue is allowed while a milestone remains active",
+            )
+        if next_eligible is None:
+            _error(
+                g8_errors,
+                "CP_NEXT_WITHOUT_ELIGIBLE",
+                "next Issue is allowed without an eligible milestone",
+            )
+        if "PENDING" in str(human_gate):
+            _error(
+                g8_errors,
+                "CP_HUMAN_GATE_BYPASS",
+                "pending human gate permits the next Issue",
+            )
+        if last_completed is not None and (
+            last_completed["runtime_reconciliation_required"]
+            and not last_completed["runtime_reconciliation_complete"]
+        ):
+            _error(
+                g8_errors,
+                "CP_RUNTIME_RECONCILIATION_BYPASS",
+                "incomplete required runtime reconciliation permits the next Issue",
+            )
+
+    active_blocked_overlap = sorted(
+        set(contract.get("active_actions", []))
+        & set(contract.get("blocked_actions", []))
+    )
+    if active_blocked_overlap:
+        _error(
+            g8_errors,
+            "CP_BLOCKED_ACTION_EXECUTABLE",
+            "blocked actions exposed as active actions: "
+            + ", ".join(active_blocked_overlap),
+        )
 
     if current is not None:
         if str(current["status"]).startswith("COMPLETE"):
@@ -280,54 +409,53 @@ def evaluate(root: Path) -> ControlPlaneResult:
             bucket = g8_errors if source_id == "roadmap" else g3_errors
             _error(bucket, "CP_SOURCE_UNREADABLE", f"{source_id}: {exc}")
 
-    if current is not None:
-        expected_projection = _projection(contract, milestones)
-        state = sources.get("state")
-        if isinstance(state, dict):
-            if state.get("control_plane") != expected_projection:
-                _error(
-                    g3_errors,
-                    "CP_STALE_STATE",
-                    "State control_plane projection differs from reconciliation contract",
-                )
-            if state.get("current_milestone") != current_id:
-                _error(
-                    g8_errors,
-                    "CP_STALE_STATE_CURRENT",
-                    "State current_milestone differs from reconciliation contract",
-                )
-            if state.get("current_stage") != contract.get("state_current_stage"):
-                _error(
-                    g8_errors,
-                    "CP_STALE_STATE_STAGE",
-                    "State current_stage differs from reconciliation contract",
-                )
-            if state.get("next_actions") != contract.get("active_actions"):
-                _error(
-                    g8_errors,
-                    "CP_STALE_STATE_ACTIONS",
-                    "State next_actions differ from reconciliation contract",
-                )
-            sequence = {
-                item.get("milestone"): item.get("status")
-                for item in state.get("near_term_execution_sequence", [])
-                if isinstance(item, dict)
-            }
-            for milestone_id, milestone in milestones.items():
-                if sequence.get(milestone_id) != milestone["state_sequence_status"]:
-                    _error(
-                        g8_errors,
-                        "CP_STALE_STATE_SEQUENCE",
-                        f"State sequence status for {milestone_id} is stale",
-                    )
-
-        roadmap = sources.get("roadmap")
-        if isinstance(roadmap, dict) and roadmap != expected_projection:
+    expected_projection = _projection(contract, milestones)
+    state = sources.get("state")
+    if isinstance(state, dict):
+        if state.get("control_plane") != expected_projection:
+            _error(
+                g3_errors,
+                "CP_STALE_STATE",
+                "State control_plane projection differs from reconciliation contract",
+            )
+        if state.get("current_milestone") != contract.get("state_current_milestone"):
             _error(
                 g8_errors,
-                "CP_STALE_ROADMAP",
-                "Roadmap active snapshot differs from reconciliation contract",
+                "CP_STALE_STATE_CURRENT",
+                "State current_milestone differs from reconciliation contract",
             )
+        if state.get("current_stage") != contract.get("state_current_stage"):
+            _error(
+                g8_errors,
+                "CP_STALE_STATE_STAGE",
+                "State current_stage differs from reconciliation contract",
+            )
+        if state.get("next_actions") != contract.get("active_actions"):
+            _error(
+                g8_errors,
+                "CP_STALE_STATE_ACTIONS",
+                "State next_actions differ from reconciliation contract",
+            )
+        sequence = {
+            item.get("milestone"): item.get("status")
+            for item in state.get("near_term_execution_sequence", [])
+            if isinstance(item, dict)
+        }
+        for milestone_id, milestone in milestones.items():
+            if sequence.get(milestone_id) != milestone["state_sequence_status"]:
+                _error(
+                    g8_errors,
+                    "CP_STALE_STATE_SEQUENCE",
+                    f"State sequence status for {milestone_id} is stale",
+                )
+
+    roadmap = sources.get("roadmap")
+    if isinstance(roadmap, dict) and roadmap != expected_projection:
+        _error(
+            g8_errors,
+            "CP_STALE_ROADMAP",
+            "Roadmap active snapshot differs from reconciliation contract",
+        )
 
     assertions = contract.get("active_assertions")
     if not isinstance(assertions, list):

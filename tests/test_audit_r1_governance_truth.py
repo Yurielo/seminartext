@@ -44,13 +44,17 @@ def test_canonical_knowledge_v1_is_present_in_state():
     assert knowledge["pull_request"] == 86
 
 
-def test_current_milestone_is_a_valid_control_plane_milestone():
+def test_no_active_milestone_and_next_authorization_are_explicit():
     state = _state()
-    milestones = {item["milestone"] for item in state["near_term_execution_sequence"]}
-    assert state["current_milestone"] in milestones
-    assert state["current_milestone"] == "audit_r3_control_plane_integrity_gate"
-    assert state["current_stage"] == "audit_r3_milestone_reconciliation"
-    assert state["next_actions"] == ["audit_r3_product_owner_review"]
+    control = state["control_plane"]
+    assert state["current_milestone"] == "none_pending_product_owner_authorization"
+    assert state["current_stage"] == "awaiting_product_owner_authorization"
+    assert state["next_actions"] == ["product_owner_may_authorize_audit_r4"]
+    assert control["current_milestone_id"] is None
+    assert control["last_completed_milestone_id"] == "audit_r3_control_plane_integrity_gate"
+    assert control["next_eligible_milestone_id"] == "audit_r4_mandatory_ci_and_main_protection"
+    assert control["next_issue_allowed"] is True
+    assert control["authorization_states"]["audit_r4"] == "NOT_AUTHORIZED"
 
 
 def test_near_term_sequence_has_no_completed_gate_marked_pending():
@@ -61,17 +65,20 @@ def test_near_term_sequence_has_no_completed_gate_marked_pending():
     assert by_milestone["canonical_knowledge_contract_v1"] == "complete_accepted"
     assert by_milestone["audit_r1_governance_truth_reconciliation"] == "complete_accepted"
     assert by_milestone["audit_r2_canonical_knowledge_validation"] == "complete_accepted"
+    assert by_milestone["audit_r3_control_plane_integrity_gate"] == "complete_accepted"
     assert (
-        by_milestone["audit_r3_control_plane_integrity_gate"]
-        == "implemented_pending_product_owner_review"
+        by_milestone["audit_r4_mandatory_ci_and_main_protection"]
+        == "not_started_not_authorized"
     )
 
 
 def test_roadmap_mirrors_state_current_status_and_not_stale_review_labels():
     state = _state()
     roadmap = ROADMAP_PATH.read_text(encoding="utf-8")
-    assert "AUDIT-R3 MILESTONE RECONCILIATION" in roadmap
-    assert '"current_milestone_id": "audit_r3_control_plane_integrity_gate"' in roadmap
+    assert "AWAITING PRODUCT OWNER AUTHORIZATION" in roadmap
+    assert '"current_milestone_id": null' in roadmap
+    assert '"last_completed_milestone_id": "audit_r3_control_plane_integrity_gate"' in roadmap
+    assert '"next_eligible_milestone_id": "audit_r4_mandatory_ci_and_main_protection"' in roadmap
     assert "KEEP_TREESEG_AS_CHALLENGER" in roadmap
     assert "ADAPT_FURTHER" in roadmap
     assert "Canonical Knowledge Contract v1" in roadmap

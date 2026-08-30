@@ -44,7 +44,7 @@ def _synchronize_projections(root: Path, contract):
     state_path = root / "SEMINARTEXT_4_STATE.json"
     state = json.loads(state_path.read_text(encoding="utf-8"))
     state["control_plane"] = copy.deepcopy(projection)
-    state["current_milestone"] = contract["current_milestone_id"]
+    state["current_milestone"] = contract["state_current_milestone"]
     state["current_stage"] = contract["state_current_stage"]
     state["next_actions"] = contract["active_actions"]
     sequence = {item["milestone"]: item for item in state["near_term_execution_sequence"]}
@@ -88,9 +88,10 @@ def _has(result, gate, code):
 def test_current_real_seminartext_control_plane_is_truthful_and_offline():
     result = evaluate(ROOT)
     assert result.control_plane_reconciled is True
-    assert result.next_issue_allowed is False
+    assert result.next_issue_allowed is True
     assert result.github_lifecycle_check == "NOT_RUN"
-    assert result.human_gate == "PRODUCT_OWNER_REVIEW_PENDING"
+    assert result.human_gate == "SATISFIED"
+    assert result.current_milestone_id is None
 
 
 def test_accepted_decision_with_stale_state_fails_closed(tmp_path):
@@ -148,7 +149,7 @@ def test_pending_human_gate_blocks_next_issue(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
-    contract["next_issue_allowed"] = True
+    contract["human_gate"] = "PRODUCT_OWNER_REVIEW_PENDING"
     _write_json(path, contract)
     result = evaluate(root)
     assert _has(result, "G8", "CP_HUMAN_GATE_BYPASS")
@@ -159,12 +160,7 @@ def test_blocked_dataset_cannot_be_exposed_as_next_action(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
-    current = next(
-        item
-        for item in contract["milestones"]
-        if item["milestone_id"] == contract["current_milestone_id"]
-    )
-    current["next_allowed_actions"] = ["dataset_d_blind_evaluation"]
+    contract["active_actions"] = ["dataset_d_blind_evaluation"]
     _write_json(path, contract)
     result = evaluate(root)
     assert _has(result, "G8", "CP_BLOCKED_ACTION_EXECUTABLE")
@@ -174,13 +170,12 @@ def test_runtime_reconciliation_pending_blocks_next_issue(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
-    current = next(
+    r3 = next(
         item
         for item in contract["milestones"]
-        if item["milestone_id"] == contract["current_milestone_id"]
+        if item["milestone_id"] == "audit_r3_control_plane_integrity_gate"
     )
-    current["human_gate"] = "SATISFIED"
-    contract["next_issue_allowed"] = True
+    r3["runtime_reconciliation_complete"] = False
     _write_json(path, contract)
     result = evaluate(root)
     assert _has(result, "G8", "CP_RUNTIME_RECONCILIATION_BYPASS")
@@ -190,13 +185,13 @@ def test_runtime_reconciliation_not_required_is_valid(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
-    current = next(
+    r3 = next(
         item
         for item in contract["milestones"]
-        if item["milestone_id"] == contract["current_milestone_id"]
+        if item["milestone_id"] == "audit_r3_control_plane_integrity_gate"
     )
-    current["runtime_reconciliation_required"] = False
-    current["runtime_reconciliation_complete"] = True
+    r3["runtime_reconciliation_required"] = False
+    r3["runtime_reconciliation_complete"] = True
     _write_json(path, contract)
     _synchronize_projections(root, contract)
     assert evaluate(root).control_plane_reconciled is True
@@ -206,12 +201,12 @@ def test_runtime_reconciliation_completed_is_valid(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
-    current = next(
+    r3 = next(
         item
         for item in contract["milestones"]
-        if item["milestone_id"] == contract["current_milestone_id"]
+        if item["milestone_id"] == "audit_r3_control_plane_integrity_gate"
     )
-    current["runtime_reconciliation_complete"] = True
+    r3["runtime_reconciliation_complete"] = True
     _write_json(path, contract)
     _synchronize_projections(root, contract)
     assert evaluate(root).control_plane_reconciled is True
@@ -284,7 +279,7 @@ def test_g3_and_g8_use_same_reconciled_offline_verdict(tmp_path):
     assert g3.status == "PASS"
     assert g8.status == "PASS"
     assert g3.evidence["control_plane"]["control_plane_reconciled"] is True
-    assert g8.evidence["control_plane"]["next_issue_allowed"] is False
+    assert g8.evidence["control_plane"]["next_issue_allowed"] is True
 
 
 def test_json_and_human_reports_expose_progression_verdict(tmp_path):
@@ -300,7 +295,33 @@ def test_json_and_human_reports_expose_progression_verdict(tmp_path):
     report, _ = run_integrity(context)
     human = render_human(report)
     assert report["control_plane_reconciled"] is True
-    assert report["next_issue_allowed"] is False
+    assert report["next_issue_allowed"] is True
     assert "CONTROL_PLANE_RECONCILED: YES" in human
-    assert "NEXT_ISSUE_ALLOWED: NO" in human
-    assert "HUMAN_GATE: PRODUCT_OWNER_REVIEW_PENDING" in human
+    assert "NEXT_ISSUE_ALLOWED: YES" in human
+    assert "HUMAN_GATE: SATISFIED" in human
+
+
+def test_r3_accepted_and_r4_eligible_but_not_authorized_coexist():
+    contract = _read_contract(ROOT)
+    milestones = {item["milestone_id"]: item for item in contract["milestones"]}
+    r3 = milestones["audit_r3_control_plane_integrity_gate"]
+    r4 = milestones["audit_r4_mandatory_ci_and_main_protection"]
+
+    assert r3["status"] == "COMPLETE_ACCEPTED"
+    assert r3["accepted"] is True
+    assert r3["implementation_state"] == "COMPLETE"
+    assert r3["human_gate"] == "SATISFIED"
+    assert r3["runtime_reconciliation_complete"] is True
+    assert contract["next_issue_allowed"] is True
+    assert contract["next_eligible_milestone_id"] == r4["milestone_id"]
+    assert r4["status"] == "NOT_STARTED"
+    assert r4["decision"] == "NOT_AUTHORIZED"
+    assert r4["authorized"] is False
+
+
+def test_dataset_d_remains_locked_after_r3_acceptance():
+    registry = json.loads((ROOT / "governance" / "dataset_registry.json").read_text())
+    dataset_d = registry["datasets"][3]
+    assert dataset_d["id"] == "D"
+    assert dataset_d["lock_status"] == "LOCKED_TEST"
+    assert dataset_d["topic_engine_access_allowed"] is False
