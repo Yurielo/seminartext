@@ -93,6 +93,12 @@
       "required": true
     },
     {
+      "id": "topic_review_workflow_schema_v2",
+      "repository_path": "schemas/topic_review_workflow_v2.schema.json",
+      "deployed_name": "schemas/topic_review_workflow_v2.schema.json",
+      "required": true
+    },
+    {
       "id": "dataset_governance",
       "repository_path": "seminartext_modules/dataset_governance.py",
       "deployed_name": "seminartext_modules/dataset_governance.py",

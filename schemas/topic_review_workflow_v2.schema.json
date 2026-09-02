@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seminartext.local/schemas/topic_review_workflow_v2.schema.json",
+  "title": "SeminarText Topic Human Review Contract v2",
+  "oneOf": [
+    {"$ref": "#/$defs/review_decisions_v2"},
+    {"$ref": "#/$defs/boundary_requests"},
+    {"$ref": "#/$defs/boundary_proposals"},
+    {"$ref": "#/$defs/review_result_v2"}
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9._:-]{2,127}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "word_ref": {
+      "type": "object", "additionalProperties": false,
+      "required": ["word_id", "timestamp", "evidence_before", "evidence_after", "mechanical_rationale"],
+      "properties": {
+        "word_id": {"$ref": "#/$defs/id"},
+        "timestamp": {"type": "number", "minimum": 0},
+        "evidence_before": {"type": "string"},
+        "evidence_after": {"type": "string"},
+        "mechanical_rationale": {"type": "string", "minLength": 1}
+      }
+    },
+    "expected_topic": {
+      "type": "object", "additionalProperties": false,
+      "required": ["topic_id", "topic_sha256"],
+      "properties": {"topic_id": {"$ref": "#/$defs/id"}, "topic_sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "source_fragment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source_topic_id", "source_id", "transcript_revision_id", "word_start_id", "word_end_id", "evidence_refs"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "source_topic_id": {"$ref": "#/$defs/id"},
+        "source_id": {"$ref": "#/$defs/id"},
+        "transcript_revision_id": {"$ref": "#/$defs/id"},
+        "word_start_id": {"$ref": "#/$defs/id"},
+        "word_end_id": {"$ref": "#/$defs/id"},
+        "evidence_refs": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}
+      }
+    },
+    "result_unit": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "disposition", "title", "summary", "sequence", "fragment_refs", "evidence_refs"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "disposition": {"enum": ["SEMANTIC_KNOWLEDGE", "SEMINAR_STRUCTURE", "NON_SEMANTIC_EXCLUDED"]},
+        "title": {"type": "string", "minLength": 1},
+        "summary": {"type": "string"},
+        "sequence": {"type": "integer", "minimum": 0},
+        "fragment_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "evidence_refs": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}
+      }
+    },
+    "decision_v2": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "operations", "target_ids", "expected_topics", "source_fragments", "results", "reason", "timestamp"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "operations": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"enum": ["ACCEPT", "RENAME", "SPLIT", "MERGE", "TRIM", "REALIGN", "EXCLUDE", "CLASSIFY"]}
+        },
+        "target_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "expected_topics": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/expected_topic"}},
+        "source_fragments": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source_fragment"}},
+        "results": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/result_unit"}},
+        "reason": {"type": "string", "minLength": 1},
+        "timestamp": {"type": "string", "minLength": 1}
+      }
+    },
+    "reviewer": {
+      "type": "object", "additionalProperties": false,
+      "required": ["actor_type", "actor_id"],
+      "properties": {
+        "actor_type": {"enum": ["human_domain_reviewer", "product_owner"]},
+        "actor_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "review_decisions_v2": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "artifact_type", "artifact_id", "review_package_id", "review_package_sha256", "reviewer", "boundary_authority", "decisions"],
+      "properties": {
+        "schema_version": {"const": "2.0.0"},
+        "artifact_type": {"const": "seminartext.topic_review_decisions"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "review_package_id": {"$ref": "#/$defs/id"},
+        "review_package_sha256": {"$ref": "#/$defs/sha256"},
+        "reviewer": {"$ref": "#/$defs/reviewer"},
+        "boundary_authority": {"enum": ["REVIEW_REQUIRED", "PRODUCT_OWNER_DOMAIN_REVIEW"]},
+        "decisions": {"type": "array", "items": {"$ref": "#/$defs/decision_v2"}}
+      }
+    },
+    "boundary_request": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "affected_original_drafts", "accepted_po_semantic_decision", "boundary_role", "candidate_word_ids", "mechanical_rationales", "confidence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "affected_original_drafts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "accepted_po_semantic_decision": {"type": "string", "minLength": 1},
+        "boundary_role": {"enum": ["LEFT", "RIGHT", "INTERNAL", "CROSS_DRAFT"]},
+        "candidate_word_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "mechanical_rationales": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "confidence": {"enum": ["HIGH", "MEDIUM", "LOW"]},
+        "blocker_reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "boundary_requests": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "artifact_type", "artifact_id", "review_package_id", "review_package_sha256", "requests"],
+      "properties": {
+        "schema_version": {"const": "2.0.0"},
+        "artifact_type": {"const": "seminartext.boundary_proposal_requests"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "review_package_id": {"$ref": "#/$defs/id"},
+        "review_package_sha256": {"$ref": "#/$defs/sha256"},
+        "requests": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/boundary_request"}}
+      }
+    },
+    "boundary_proposal": {
+      "type": "object", "additionalProperties": false,
+      "required": ["boundary_proposal_id", "affected_original_drafts", "accepted_po_semantic_decision", "boundary_role", "proposed_canonical_word_id", "proposed_timestamp", "candidates", "ambiguity", "confidence", "status"],
+      "properties": {
+        "boundary_proposal_id": {"$ref": "#/$defs/id"},
+        "affected_original_drafts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "accepted_po_semantic_decision": {"type": "string", "minLength": 1},
+        "boundary_role": {"enum": ["LEFT", "RIGHT", "INTERNAL", "CROSS_DRAFT"]},
+        "proposed_canonical_word_id": {"anyOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]},
+        "proposed_timestamp": {"type": ["number", "null"], "minimum": 0},
+        "candidates": {"type": "array", "items": {"$ref": "#/$defs/word_ref"}},
+        "ambiguity": {"enum": ["NONE", "MULTIPLE_CANDIDATES", "INSUFFICIENT_EVIDENCE"]},
+        "confidence": {"enum": ["HIGH", "MEDIUM", "LOW"]},
+        "status": {"const": "REVIEW_REQUIRED"},
+        "blocker_reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "boundary_proposals": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "artifact_type", "artifact_id", "authority", "review_package", "canonical_evidence", "word_timeline", "transcript_assurance", "proposals"],
+      "properties": {
+        "schema_version": {"const": "2.0.0"},
+        "artifact_type": {"const": "seminartext.boundary_proposals"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "authority": {"const": "REVIEW_REQUIRED"},
+        "review_package": {"type": "object"},
+        "canonical_evidence": {"type": "object"},
+        "word_timeline": {"type": "object"},
+        "transcript_assurance": {"type": "object"},
+        "proposals": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/boundary_proposal"}}
+      }
+    },
+    "review_result_v2": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "artifact_type", "artifact_id", "review_package", "decision_artifact", "canonical_evidence", "word_timeline", "source_topic_snapshots", "fragment_lineage", "semantic_knowledge", "seminar_structure", "non_semantic_excluded"],
+      "properties": {
+        "schema_version": {"const": "2.0.0"},
+        "artifact_type": {"const": "seminartext.human_review_result"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "review_package": {"type": "object"},
+        "decision_artifact": {"type": "object"},
+        "canonical_evidence": {"type": "object"},
+        "word_timeline": {"type": "object"},
+        "source_topic_snapshots": {"type": "array"},
+        "fragment_lineage": {"type": "array"},
+        "semantic_knowledge": {"type": "array"},
+        "seminar_structure": {"type": "array"},
+        "non_semantic_excluded": {"type": "array"}
+      }
+    }
+  }
+}
