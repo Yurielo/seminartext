@@ -24,6 +24,8 @@ VERSION_V2 = "2.0.0"
 DRAFT_TYPE = "seminartext.topic_drafts"
 PACKAGE_TYPE = "seminartext.topic_review_package"
 DECISIONS_TYPE = "seminartext.topic_review_decisions"
+BOUNDARY_LEDGER_TYPE = "seminartext.boundary_review_ledger"
+BOUNDARY_DECISIONS_TYPE = "seminartext.boundary_review_decisions"
 INPUT_TYPE = "seminartext.project_knowledge_input"
 SCHEMA = ROOT / "schemas" / "topic_review_workflow_v1.schema.json"
 SCHEMA_V2 = ROOT / "schemas" / "topic_review_workflow_v2.schema.json"
@@ -135,6 +137,8 @@ def validate_schema_v2(document: dict[str, Any]) -> None:
         DECISIONS_TYPE: "review_decisions_v2",
         "seminartext.boundary_proposal_requests": "boundary_requests",
         "seminartext.boundary_proposals": "boundary_proposals",
+        BOUNDARY_LEDGER_TYPE: "boundary_review_ledger",
+        BOUNDARY_DECISIONS_TYPE: "boundary_review_decisions",
         "seminartext.human_review_result": "review_result_v2",
     }
     definition = artifact_defs.get(document.get("artifact_type"))
@@ -1179,6 +1183,170 @@ def prepare_boundary_proposals(project: Path, package_path: Path, requests_path:
     }
 
 
+def _boundary_proposal_index(proposals: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    validate_schema_v2(proposals)
+    if proposals.get("artifact_type") != "seminartext.boundary_proposals":
+        raise ValueError("boundary proposal contract mismatch")
+    result: dict[str, dict[str, Any]] = {}
+    for number, proposal in enumerate(proposals["proposals"]):
+        proposal_id = require_id(proposal["boundary_proposal_id"], f"$.proposals[{number}].boundary_proposal_id")
+        if proposal_id in result:
+            raise ValueError(f"duplicate boundary proposal {proposal_id}")
+        result[proposal_id] = proposal
+    return result
+
+
+def _resolve_boundary_choices(
+    proposals_path: Path,
+    proposals: dict[str, Any],
+    ledger: dict[str, Any],
+) -> list[dict[str, Any]]:
+    validate_schema_v2(ledger)
+    if ledger.get("artifact_type") != BOUNDARY_LEDGER_TYPE:
+        raise ValueError("boundary review ledger contract mismatch")
+    expected_proposal_ref = {
+        "artifact_id": proposals["artifact_id"],
+        "sha256": sha256_file(proposals_path),
+    }
+    if ledger["boundary_proposals"] != expected_proposal_ref:
+        raise ValueError("boundary review ledger refers to stale or different proposals")
+    if ledger["reviewer"]["actor_type"] not in HUMAN_ACTORS:
+        raise ValueError("boundary DOMAIN_REVIEW requires a human reviewer")
+    require_id(ledger["reviewer"]["actor_id"], "$.reviewer.actor_id")
+
+    proposal_by_id = _boundary_proposal_index(proposals)
+    decision_ids: set[str] = set()
+    resolved: list[dict[str, Any]] = []
+    for number, choice in enumerate(ledger["decisions"]):
+        path = f"$.decisions[{number}]"
+        proposal_id = require_id(choice["boundary_proposal_id"], f"{path}.boundary_proposal_id")
+        if proposal_id in decision_ids:
+            raise ValueError(f"duplicate boundary DOMAIN_REVIEW decision {proposal_id}")
+        decision_ids.add(proposal_id)
+        proposal = proposal_by_id.get(proposal_id)
+        if proposal is None:
+            raise ValueError(f"{path}: unknown boundary proposal {proposal_id}")
+
+        candidate_number = choice["selected_candidate_number"]
+        if candidate_number > len(proposal["candidates"]):
+            raise ValueError(f"{path}: selected candidate does not exist")
+        candidate = proposal["candidates"][candidate_number - 1]
+        if choice["canonical_word_id"] != candidate["word_id"] or choice["timestamp"] != candidate["timestamp"]:
+            raise ValueError(f"{path}: selected canonical anchor does not match the stated candidate")
+        if choice["outcome"] == "ACCEPT_BOUNDARY_PROPOSAL":
+            if proposal["ambiguity"] != "NONE" or candidate_number != 1:
+                raise ValueError(f"{path}: ACCEPT_BOUNDARY_PROPOSAL requires the sole proposed candidate")
+        elif proposal["ambiguity"] != "MULTIPLE_CANDIDATES":
+            raise ValueError(f"{path}: SELECT_ALTERNATIVE requires multiple candidates")
+
+        resolved.append(
+            {
+                **choice,
+                "selected_candidate": candidate,
+                "affected_original_drafts": proposal["affected_original_drafts"],
+                "accepted_po_semantic_decision": proposal["accepted_po_semantic_decision"],
+                "boundary_role": proposal["boundary_role"],
+                "status": "DECIDED",
+            }
+        )
+
+    missing = sorted(set(proposal_by_id) - decision_ids)
+    unexpected = sorted(decision_ids - set(proposal_by_id))
+    if missing or unexpected:
+        raise ValueError(f"boundary DOMAIN_REVIEW ledger is incomplete: missing={missing} unexpected={unexpected}")
+    return resolved
+
+
+def resolve_boundary_decisions(
+    project: Path,
+    proposals_path: Path,
+    ledger_path: Path,
+    output: Path,
+) -> dict[str, Any]:
+    if output.exists():
+        raise ValueError(f"boundary decision artifact already exists: {output}")
+    proposals = load_json(proposals_path, "boundary proposals")
+    ledger = load_json(ledger_path, "boundary review ledger")
+    resolved = _resolve_boundary_choices(proposals_path, proposals, ledger)
+    artifact = {
+        "schema_version": VERSION_V2,
+        "artifact_type": BOUNDARY_DECISIONS_TYPE,
+        "artifact_id": stable_id(ledger["artifact_id"], "boundary_decisions"),
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "review_gate": "DOMAIN_REVIEW",
+        "reviewer": ledger["reviewer"],
+        "source_ledger": {"artifact_id": ledger["artifact_id"], "sha256": sha256_file(ledger_path)},
+        "boundary_proposals": {"artifact_id": proposals["artifact_id"], "sha256": sha256_file(proposals_path)},
+        "review_package": proposals["review_package"],
+        "canonical_evidence": proposals["canonical_evidence"],
+        "word_timeline": proposals["word_timeline"],
+        "transcript_assurance": proposals["transcript_assurance"],
+        "decisions": resolved,
+        "unresolved_review_required": [],
+    }
+    validate_schema_v2(artifact)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_bytes(canonical_bytes(artifact))
+    return {
+        "status": "PASS",
+        "authority": artifact["authority"],
+        "decisions_persisted": len(resolved),
+        "unresolved_review_required": 0,
+        "output": str(output),
+        "output_sha256": sha256_file(output),
+    }
+
+
+def status_boundary_decisions(project: Path, proposals_path: Path, decisions_path: Path) -> dict[str, Any]:
+    proposals = load_json(proposals_path, "boundary proposals")
+    decisions = load_json(decisions_path, "boundary review decisions")
+    validate_schema_v2(decisions)
+    if decisions.get("artifact_type") != BOUNDARY_DECISIONS_TYPE:
+        raise ValueError("boundary review decision contract mismatch")
+    expected_ref = {"artifact_id": proposals["artifact_id"], "sha256": sha256_file(proposals_path)}
+    if decisions["boundary_proposals"] != expected_ref:
+        raise ValueError("boundary review decisions refer to stale or different proposals")
+    proposal_by_id = _boundary_proposal_index(proposals)
+    resolved_by_id: dict[str, dict[str, Any]] = {}
+    for number, decision in enumerate(decisions["decisions"]):
+        proposal_id = decision["boundary_proposal_id"]
+        if proposal_id in resolved_by_id:
+            raise ValueError(f"duplicate resolved boundary decision {proposal_id}")
+        proposal = proposal_by_id.get(proposal_id)
+        if proposal is None:
+            raise ValueError(f"$.decisions[{number}]: unknown boundary proposal {proposal_id}")
+        candidate_number = decision["selected_candidate_number"]
+        if candidate_number > len(proposal["candidates"]):
+            raise ValueError(f"$.decisions[{number}]: selected candidate does not exist")
+        candidate = proposal["candidates"][candidate_number - 1]
+        if decision["outcome"] == "ACCEPT_BOUNDARY_PROPOSAL":
+            if proposal["ambiguity"] != "NONE" or candidate_number != 1:
+                raise ValueError(f"$.decisions[{number}]: invalid accepted proposal outcome")
+        elif proposal["ambiguity"] != "MULTIPLE_CANDIDATES":
+            raise ValueError(f"$.decisions[{number}]: invalid alternative-selection outcome")
+        if (
+            decision["canonical_word_id"] != candidate["word_id"]
+            or decision["timestamp"] != candidate["timestamp"]
+            or decision["selected_candidate"] != candidate
+            or decision["affected_original_drafts"] != proposal["affected_original_drafts"]
+            or decision["accepted_po_semantic_decision"] != proposal["accepted_po_semantic_decision"]
+            or decision["boundary_role"] != proposal["boundary_role"]
+        ):
+            raise ValueError(f"$.decisions[{number}]: resolved decision does not match source proposal")
+        resolved_by_id[proposal_id] = decision
+    unresolved = sorted(set(proposal_by_id) - set(resolved_by_id))
+    if unresolved or decisions["unresolved_review_required"]:
+        raise ValueError(f"unresolved boundary proposals remain: {unresolved}")
+    return {
+        "status": "PASS",
+        "authority": decisions["authority"],
+        "proposals": len(proposal_by_id),
+        "decisions_persisted": len(resolved_by_id),
+        "unresolved_review_required": 0,
+        "source_transcript_revision_mutated": False,
+    }
+
+
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     commands = result.add_subparsers(dest="command", required=True)
@@ -1209,6 +1377,15 @@ def parser() -> argparse.ArgumentParser:
     boundary_parser.add_argument("--package", required=True)
     boundary_parser.add_argument("--requests", required=True)
     boundary_parser.add_argument("--output", required=True)
+    boundary_resolve_parser = commands.add_parser("resolve-boundaries")
+    boundary_resolve_parser.add_argument("project")
+    boundary_resolve_parser.add_argument("--proposals", required=True)
+    boundary_resolve_parser.add_argument("--ledger", required=True)
+    boundary_resolve_parser.add_argument("--output", required=True)
+    boundary_status_parser = commands.add_parser("boundary-status")
+    boundary_status_parser.add_argument("project")
+    boundary_status_parser.add_argument("--proposals", required=True)
+    boundary_status_parser.add_argument("--decisions", required=True)
     return result
 
 
@@ -1243,12 +1420,25 @@ def main(argv: list[str] | None = None) -> int:
                 Path(args.decisions).expanduser().resolve(),
                 Path(args.output).expanduser().resolve(),
             )
-        else:
+        elif args.command == "prepare-boundaries":
             report = prepare_boundary_proposals(
                 project,
                 Path(args.package).expanduser().resolve(),
                 Path(args.requests).expanduser().resolve(),
                 Path(args.output).expanduser().resolve(),
+            )
+        elif args.command == "resolve-boundaries":
+            report = resolve_boundary_decisions(
+                project,
+                Path(args.proposals).expanduser().resolve(),
+                Path(args.ledger).expanduser().resolve(),
+                Path(args.output).expanduser().resolve(),
+            )
+        else:
+            report = status_boundary_decisions(
+                project,
+                Path(args.proposals).expanduser().resolve(),
+                Path(args.decisions).expanduser().resolve(),
             )
     except ValueError as exc:
         print(f"HUMAN REVIEW WORKFLOW: FAIL\n{exc}", file=sys.stderr)

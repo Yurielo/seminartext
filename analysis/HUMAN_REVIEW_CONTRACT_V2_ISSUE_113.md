@@ -8,7 +8,10 @@
 - Exact word anchors prepared by `project-review-boundary-prepare` are machine proposals with `REVIEW_REQUIRED` authority. They do not define **where** an accepted boundary is until Product Owner `DOMAIN_REVIEW`.
 - V2 application fails closed unless `boundary_authority` is `PRODUCT_OWNER_DOMAIN_REVIEW`.
 
-No Issue #113 decision is applied by this implementation task.
+The 25 exact-boundary decisions are persisted separately from the immutable
+machine proposals. This does not apply or reinterpret the 31 accepted semantic
+decisions; it only records the Product Owner-selected canonical anchors needed
+by a later governed application task.
 
 ## Minimum coherent extension
 
@@ -73,6 +76,16 @@ Existing V1 `ACCEPT`, `RENAME`, `SPLIT`, `MERGE`, `REJECT`, and `DEFER` document
 
 One candidate produces `AMBIGUITY: NONE`; multiple candidates remain `MULTIPLE_CANDIDATES`; no candidate requires an explicit blocker and produces `INSUFFICIENT_EVIDENCE`. None of these states grants semantic or boundary authority.
 
+`project-review-boundary-resolve` accepts the immutable proposal artifact and
+the authorized `analysis/issue_113_boundary_review_ledger.json`. It fails closed
+unless the proposal artifact ID/hash, the complete set of proposal IDs, selected
+candidate numbers, canonical Word IDs, timestamps, and outcome semantics match
+exactly. Its output is a separate `seminartext.boundary_review_decisions`
+artifact with `PRODUCT_OWNER_DOMAIN_REVIEW` authority and `DECIDED` status for
+all 25 anchors. `project-review-boundary-status` verifies the persisted artifact
+against the original proposals. The proposal artifact itself remains unchanged
+and retains its historical machine `REVIEW_REQUIRED` status.
+
 ## Determinism and provenance
 
 Canonical JSON serialization sorts keys and terminates with one newline. Tests rebuild both V2 application output and boundary proposals byte-for-byte. Fragment lineage preserves:
@@ -89,8 +102,22 @@ Canonical JSON serialization sorts keys and terminates with one newline. Tests r
 
 None for the Issue #113 patterns listed above. This statement is bounded to same-source, same-TranscriptRevision, contiguous semantic/structural units. Cross-source or cross-revision result composition remains deliberately unsupported and fail-closed because Issue #113 does not require it.
 
+The current V2 contract has no governed human transcript-correction record.
+Therefore the Product Owner terminology correction associated with the region
+beginning at `transcript_revision_video_001_r1:word:021687` is not written into
+the machine TranscriptRevision and is not encoded as a semantic boundary field:
+
+- machine recognition: `Мирьяны, передняя средина мирьян`;
+- human-reviewed terminology: `Меридианы, передне-срединный меридиан`.
+
+This limitation is recorded explicitly rather than expanding the schema beyond
+the authorized boundary-decision persistence scope. The source machine evidence
+and its `machine_unverified` assurance remain unchanged.
+
 ## Human gate
 
-The current boundary proposal set must be reviewed by the Product Owner. Only a later, separately authorized task may encode approved anchors in a complete V2 ledger and apply the 31 decisions.
+Product Owner exact-boundary `DOMAIN_REVIEW` is complete and persisted 25/25.
+Applying the 31 semantic decisions remains a separate step and is not authorized
+by this bounded persistence task.
 
-`HUMAN_GATE: PRODUCT_OWNER_DOMAIN_REVIEW`
+`HUMAN_GATE: PRODUCT_OWNER`

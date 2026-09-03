@@ -686,6 +686,10 @@ PYMODULES
     || die "deployed functional smoke failed: project-review-v2-status"
   PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" project-review-boundary-prepare --help >/dev/null 2>&1 \
     || die "deployed functional smoke failed: project-review-boundary-prepare"
+  PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" project-review-boundary-resolve --help >/dev/null 2>&1 \
+    || die "deployed functional smoke failed: project-review-boundary-resolve"
+  PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" project-review-boundary-status --help >/dev/null 2>&1 \
+    || die "deployed functional smoke failed: project-review-boundary-status"
 
   PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" dataset-policy-check A gold_read --json >/dev/null 2>&1 \
     || die "deployed functional smoke failed: dataset-policy-check"

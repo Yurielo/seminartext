@@ -119,6 +119,8 @@ def test_every_dispatched_user_command_is_discoverable_in_main_help():
                 "project-promote-transcript",
                 "project-review-apply",
                 "project-review-boundary-prepare",
+                "project-review-boundary-resolve",
+                "project-review-boundary-status",
                 "project-review-prepare",
                 "project-review-status",
                 "project-review-v2-apply",

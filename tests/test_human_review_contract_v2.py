@@ -7,6 +7,9 @@ from pathlib import Path
 from test_human_review_workflow import prepare, read_json, run_cli, write_json
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
 def canonical_bytes(value) -> bytes:
     return (json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
@@ -286,3 +289,207 @@ def test_boundary_proposals_are_deterministic_and_non_authoritative(tmp_path: Pa
     assert artifact["authority"] == "REVIEW_REQUIRED"
     assert {item["status"] for item in artifact["proposals"]} == {"REVIEW_REQUIRED"}
     assert artifact["word_timeline"]["sha256"]
+
+
+def test_product_owner_boundary_decisions_are_complete_traceable_and_deterministic(tmp_path: Path) -> None:
+    project, package_path, words = make_v2_package(tmp_path)
+    package = read_json(package_path)
+    requests = {
+        "schema_version": "2.0.0",
+        "artifact_type": "seminartext.boundary_proposal_requests",
+        "artifact_id": "boundary_resolution_requests_fixture",
+        "review_package_id": package["artifact_id"],
+        "review_package_sha256": hashlib.sha256(package_path.read_bytes()).hexdigest(),
+        "requests": [
+            {
+                "id": "boundary_resolution_single",
+                "affected_original_drafts": [package["topics"][0]["id"]],
+                "accepted_po_semantic_decision": "Split at the accepted transition.",
+                "boundary_role": "INTERNAL",
+                "candidate_word_ids": [words[1]["id"]],
+                "mechanical_rationales": ["First canonical word after the transition."],
+                "confidence": "HIGH",
+            },
+            {
+                "id": "boundary_resolution_multiple",
+                "affected_original_drafts": [package["topics"][3]["id"]],
+                "accepted_po_semantic_decision": "Realign the left boundary.",
+                "boundary_role": "LEFT",
+                "candidate_word_ids": [words[0]["id"], words[1]["id"]],
+                "mechanical_rationales": ["Sentence start.", "First content word."],
+                "confidence": "MEDIUM",
+            },
+        ],
+    }
+    requests_path = tmp_path / "resolution-requests.json"
+    write_json(requests_path, requests)
+    proposal_dir = tmp_path / "resolution-proposals"
+    prepared = run_cli(
+        "project-review-boundary-prepare",
+        str(project),
+        "--package",
+        str(package_path),
+        "--requests",
+        str(requests_path),
+        "--output",
+        str(proposal_dir),
+    )
+    assert prepared.returncode == 0, prepared.stderr
+    proposals_path = proposal_dir / "boundary_proposals.json"
+    proposals = read_json(proposals_path)
+    ledger = {
+        "schema_version": "2.0.0",
+        "artifact_type": "seminartext.boundary_review_ledger",
+        "artifact_id": "boundary_resolution_ledger_fixture",
+        "boundary_proposals": {
+            "artifact_id": proposals["artifact_id"],
+            "sha256": hashlib.sha256(proposals_path.read_bytes()).hexdigest(),
+        },
+        "reviewer": {"actor_type": "product_owner", "actor_id": "product_owner_fixture"},
+        "review_gate": "DOMAIN_REVIEW",
+        "decisions": [
+            {
+                "boundary_proposal_id": proposals["proposals"][0]["boundary_proposal_id"],
+                "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+                "selected_candidate_number": 1,
+                "canonical_word_id": proposals["proposals"][0]["candidates"][0]["word_id"],
+                "timestamp": proposals["proposals"][0]["candidates"][0]["timestamp"],
+            },
+            {
+                "boundary_proposal_id": proposals["proposals"][1]["boundary_proposal_id"],
+                "outcome": "SELECT_ALTERNATIVE",
+                "selected_candidate_number": 2,
+                "canonical_word_id": proposals["proposals"][1]["candidates"][1]["word_id"],
+                "timestamp": proposals["proposals"][1]["candidates"][1]["timestamp"],
+            },
+        ],
+    }
+    ledger_path = tmp_path / "boundary-ledger.json"
+    write_json(ledger_path, ledger)
+    outputs = [tmp_path / "resolved-first.json", tmp_path / "resolved-second.json"]
+    for output in outputs:
+        resolved = run_cli(
+            "project-review-boundary-resolve",
+            str(project),
+            "--proposals",
+            str(proposals_path),
+            "--ledger",
+            str(ledger_path),
+            "--output",
+            str(output),
+        )
+        assert resolved.returncode == 0, resolved.stderr
+        assert json.loads(resolved.stdout)["unresolved_review_required"] == 0
+    assert outputs[0].read_bytes() == outputs[1].read_bytes()
+
+    status = run_cli(
+        "project-review-boundary-status",
+        str(project),
+        "--proposals",
+        str(proposals_path),
+        "--decisions",
+        str(outputs[0]),
+    )
+    assert status.returncode == 0, status.stderr
+    report = json.loads(status.stdout)
+    assert report["decisions_persisted"] == report["proposals"] == 2
+    assert report["unresolved_review_required"] == 0
+    artifact = read_json(outputs[0])
+    assert artifact["authority"] == "PRODUCT_OWNER_DOMAIN_REVIEW"
+    assert {item["status"] for item in artifact["decisions"]} == {"DECIDED"}
+    assert artifact["transcript_assurance"] == proposals["transcript_assurance"]
+    assert read_json(proposals_path)["authority"] == "REVIEW_REQUIRED"
+
+
+def test_boundary_resolution_rejects_ledger_anchor_mismatch(tmp_path: Path) -> None:
+    project, package_path, words = make_v2_package(tmp_path)
+    package = read_json(package_path)
+    requests = {
+        "schema_version": "2.0.0",
+        "artifact_type": "seminartext.boundary_proposal_requests",
+        "artifact_id": "boundary_mismatch_requests_fixture",
+        "review_package_id": package["artifact_id"],
+        "review_package_sha256": hashlib.sha256(package_path.read_bytes()).hexdigest(),
+        "requests": [
+            {
+                "id": "boundary_mismatch_fixture",
+                "affected_original_drafts": [package["topics"][0]["id"]],
+                "accepted_po_semantic_decision": "Split at the accepted transition.",
+                "boundary_role": "INTERNAL",
+                "candidate_word_ids": [words[1]["id"]],
+                "mechanical_rationales": ["First canonical word after the transition."],
+                "confidence": "HIGH",
+            }
+        ],
+    }
+    requests_path = tmp_path / "mismatch-requests.json"
+    write_json(requests_path, requests)
+    proposal_dir = tmp_path / "mismatch-proposals"
+    prepared = run_cli(
+        "project-review-boundary-prepare",
+        str(project),
+        "--package",
+        str(package_path),
+        "--requests",
+        str(requests_path),
+        "--output",
+        str(proposal_dir),
+    )
+    assert prepared.returncode == 0, prepared.stderr
+    proposals_path = proposal_dir / "boundary_proposals.json"
+    proposals = read_json(proposals_path)
+    ledger = {
+        "schema_version": "2.0.0",
+        "artifact_type": "seminartext.boundary_review_ledger",
+        "artifact_id": "boundary_mismatch_ledger_fixture",
+        "boundary_proposals": {
+            "artifact_id": proposals["artifact_id"],
+            "sha256": hashlib.sha256(proposals_path.read_bytes()).hexdigest(),
+        },
+        "reviewer": {"actor_type": "product_owner", "actor_id": "product_owner_fixture"},
+        "review_gate": "DOMAIN_REVIEW",
+        "decisions": [
+            {
+                "boundary_proposal_id": "boundary_mismatch_fixture",
+                "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+                "selected_candidate_number": 1,
+                "canonical_word_id": words[0]["id"],
+                "timestamp": words[0]["start_seconds"],
+            }
+        ],
+    }
+    ledger_path = tmp_path / "mismatch-ledger.json"
+    write_json(ledger_path, ledger)
+    resolved = run_cli(
+        "project-review-boundary-resolve",
+        str(project),
+        "--proposals",
+        str(proposals_path),
+        "--ledger",
+        str(ledger_path),
+        "--output",
+        str(tmp_path / "mismatch-result.json"),
+    )
+    assert resolved.returncode == 2
+    assert "selected canonical anchor does not match" in resolved.stderr
+
+
+def test_issue_113_authoritative_boundary_ledger_is_complete() -> None:
+    ledger = read_json(ROOT / "analysis" / "issue_113_boundary_review_ledger.json")
+    decisions = ledger["decisions"]
+    assert len(decisions) == 25
+    assert len({item["boundary_proposal_id"] for item in decisions}) == 25
+    assert {item["outcome"] for item in decisions} == {
+        "ACCEPT_BOUNDARY_PROPOSAL",
+        "SELECT_ALTERNATIVE",
+    }
+    candidate_two = [item for item in decisions if item["selected_candidate_number"] == 2]
+    assert candidate_two == [
+        {
+            "boundary_proposal_id": "issue_113_boundary_09_left",
+            "canonical_word_id": "transcript_revision_video_001_r1:word:006290",
+            "outcome": "SELECT_ALTERNATIVE",
+            "selected_candidate_number": 2,
+            "timestamp": 4440.051,
+        }
+    ]

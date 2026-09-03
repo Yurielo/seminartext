@@ -6,6 +6,8 @@
     {"$ref": "#/$defs/review_decisions_v2"},
     {"$ref": "#/$defs/boundary_requests"},
     {"$ref": "#/$defs/boundary_proposals"},
+    {"$ref": "#/$defs/boundary_review_ledger"},
+    {"$ref": "#/$defs/boundary_review_decisions"},
     {"$ref": "#/$defs/review_result_v2"}
   ],
   "$defs": {
@@ -148,6 +150,74 @@
         "word_timeline": {"type": "object"},
         "transcript_assurance": {"type": "object"},
         "proposals": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/boundary_proposal"}}
+      }
+    },
+    "boundary_review_choice": {
+      "type": "object", "additionalProperties": false,
+      "required": ["boundary_proposal_id", "outcome", "selected_candidate_number", "canonical_word_id", "timestamp"],
+      "properties": {
+        "boundary_proposal_id": {"$ref": "#/$defs/id"},
+        "outcome": {"enum": ["ACCEPT_BOUNDARY_PROPOSAL", "SELECT_ALTERNATIVE"]},
+        "selected_candidate_number": {"type": "integer", "minimum": 1},
+        "canonical_word_id": {"$ref": "#/$defs/id"},
+        "timestamp": {"type": "number", "minimum": 0}
+      }
+    },
+    "artifact_ref": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact_id", "sha256"],
+      "properties": {
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "boundary_review_ledger": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "artifact_type", "artifact_id", "boundary_proposals", "reviewer", "review_gate", "decisions"],
+      "properties": {
+        "schema_version": {"const": "2.0.0"},
+        "artifact_type": {"const": "seminartext.boundary_review_ledger"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "boundary_proposals": {"$ref": "#/$defs/artifact_ref"},
+        "reviewer": {"$ref": "#/$defs/reviewer"},
+        "review_gate": {"const": "DOMAIN_REVIEW"},
+        "decisions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/boundary_review_choice"}}
+      }
+    },
+    "resolved_boundary_decision": {
+      "type": "object", "additionalProperties": false,
+      "required": ["boundary_proposal_id", "outcome", "selected_candidate_number", "canonical_word_id", "timestamp", "selected_candidate", "affected_original_drafts", "accepted_po_semantic_decision", "boundary_role", "status"],
+      "properties": {
+        "boundary_proposal_id": {"$ref": "#/$defs/id"},
+        "outcome": {"enum": ["ACCEPT_BOUNDARY_PROPOSAL", "SELECT_ALTERNATIVE"]},
+        "selected_candidate_number": {"type": "integer", "minimum": 1},
+        "canonical_word_id": {"$ref": "#/$defs/id"},
+        "timestamp": {"type": "number", "minimum": 0},
+        "selected_candidate": {"$ref": "#/$defs/word_ref"},
+        "affected_original_drafts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "accepted_po_semantic_decision": {"type": "string", "minLength": 1},
+        "boundary_role": {"enum": ["LEFT", "RIGHT", "INTERNAL", "CROSS_DRAFT"]},
+        "status": {"const": "DECIDED"}
+      }
+    },
+    "boundary_review_decisions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "artifact_type", "artifact_id", "authority", "review_gate", "reviewer", "source_ledger", "boundary_proposals", "review_package", "canonical_evidence", "word_timeline", "transcript_assurance", "decisions", "unresolved_review_required"],
+      "properties": {
+        "schema_version": {"const": "2.0.0"},
+        "artifact_type": {"const": "seminartext.boundary_review_decisions"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "authority": {"const": "PRODUCT_OWNER_DOMAIN_REVIEW"},
+        "review_gate": {"const": "DOMAIN_REVIEW"},
+        "reviewer": {"$ref": "#/$defs/reviewer"},
+        "source_ledger": {"$ref": "#/$defs/artifact_ref"},
+        "boundary_proposals": {"$ref": "#/$defs/artifact_ref"},
+        "review_package": {"type": "object"},
+        "canonical_evidence": {"type": "object"},
+        "word_timeline": {"type": "object"},
+        "transcript_assurance": {"type": "object"},
+        "decisions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/resolved_boundary_decision"}},
+        "unresolved_review_required": {"type": "array", "maxItems": 0}
       }
     },
     "review_result_v2": {
