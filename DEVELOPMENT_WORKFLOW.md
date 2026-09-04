@@ -12,10 +12,12 @@ courier between AI systems.
 
 ### Product Owner
 
-The Product Owner, currently ChatGPT, owns roadmap, priorities, issue sequencing
-and Definitions of Done. The Product Owner reviews experiment evidence and PRs,
-accepts or rejects work, makes merge and next-step decisions, and escalates to
-Yuri only when a domain, product, business, or human decision is actually needed.
+The Product Owner owns product direction, Roadmap priorities, Definitions of
+Done, reserved acceptance decisions, and genuine human gates. A Product Owner
+instruction may be given directly to Codex; ChatGPT may help formalize it but is
+not a mandatory intermediary. The Product Owner is not a routine GitHub
+operator, merge/deploy dispatcher, Issue lifecycle dispatcher, control-plane
+synchronizer, test-retry dispatcher, or command courier.
 
 ### Yuri, Domain Owner
 
@@ -40,8 +42,11 @@ Yuri should not normally be required for routine relay or operations:
 
 Codex is the engineering executor. Codex reads the GitHub Issue as the task
 contract, implements within scope, runs tests and QA, documents evidence,
-commits, pushes, and opens PRs. Codex does not redefine product requirements,
-bypass human gates, tune benchmarks without authorization, or merge its own PRs.
+commits, pushes, maintains PRs, and continues across approved Roadmap work.
+Codex may merge and reconcile the governed local runtime only under the
+fail-closed standing policies below. Codex does not redefine product
+requirements, bypass human gates, tune benchmarks without authorization, or
+let an unmerged governance rule authorize its own merge.
 
 ### Specialist Roles
 
@@ -70,11 +75,12 @@ or undocumented implementation knowledge.
 
 The authority chain is:
 
-`Product Owner decision -> ChatGPT formalization -> authorized Codex persistence -> GitHub history -> mandatory ChatGPT/Codex read -> Issue/PR references -> CI and Integrity structural validation`
+`Product Owner decision -> optional task formalization -> authorized Codex persistence -> GitHub history -> mandatory agent read -> Issue/PR references -> CI and Integrity structural validation`
 
 The Product Owner alone adopts, changes, supersedes, or retires Product Rules.
-ChatGPT may formalize an explicit Product Owner decision. Codex may persist that
-decision only under an explicit bounded authorization; Codex recommendations,
+ChatGPT may formalize an explicit Product Owner decision, but direct Product
+Owner authorization to Codex is equally valid for its exact scope. Codex may
+persist that decision only under explicit authorization; Codex recommendations,
 architecture choices, inferred preferences, silence, and absence of objection
 are not Product Rules. GitHub records decisions but does not make semantic
 product decisions.
@@ -102,12 +108,14 @@ applicable `ACTIVE` IDs, include `Applicable Product Rules: PR-...` and
 `Product Rule conflicts: NONE` (or the explicit conflict) in the bounded task,
 and must not rely only on conversational memory.
 
-When the Product Owner explicitly adopts a durable new rule, ChatGPT determines
-whether it belongs in the Registry and, if so, prepares a governed Codex
-persistence task using the next collision-free ID. Codex validates and persists
-only the authorized rule. Product Owner review and separate merge authorization
-remain mandatory. Omission of Product Rule fields from an Issue or PR never
-waives an `ACTIVE` Product Rule.
+When the Product Owner explicitly adopts a durable new rule, the acting
+task-formulation agent determines whether it belongs in the Registry and, if
+so, prepares a governed Codex persistence task using the next collision-free
+ID. Codex validates and persists only the authorized rule. A governance PR may
+merge only under authority already `ACTIVE` on main or an explicit Product
+Owner instruction applicable to that PR; it cannot self-authorize from its own
+unmerged text. Omission of Product Rule fields from an Issue or PR never waives
+an `ACTIVE` Product Rule.
 
 Prompt 11's requirement to identify exactly one next allowed step means exactly
 one next authorization boundary, not one technical substep or one already
@@ -136,15 +144,18 @@ in-scope deterministic repair and retest, commit, push, and updating an already
 authorized PR are technical substeps rather than human gates. They remain
 subject to the exact Issue scope and existing Git authorization.
 
-Codex stops at a genuine human gate: Product Owner decision, `DOMAIN_REVIEW`,
-`DOMAIN_AUTHORING`, `LOCAL_ACTION`, merge authorization, deploy authorization,
-separately gated runtime reconciliation, an unauthorized new Issue or scope
-expansion, Dataset-role or Gold authority change, new model/algorithm choice,
-new semantic interpretation, irreversible action, unresolved unexpected
-FAIL/WARN/drift, material ambiguity, Product Rule conflict, or unavailable
-required model. If scope remains materially ambiguous after checking Product
-Rules, task authorization, Dataset firewall, semantic authority, and
-merge/deploy restrictions, Codex fails closed.
+Codex stops at a genuine human gate: Product Owner product direction or Roadmap
+change, `DOMAIN_REVIEW`, `DOMAIN_AUTHORING`, `LOCAL_ACTION`, an unsafe or
+unclassifiable merge/runtime operation, scope expansion, Dataset-role or Gold
+authority change, new model/algorithm choice, new semantic interpretation,
+irreversible/high-risk action, security or credential decision, uncovered
+external production release, unresolved unexpected FAIL/WARN/drift, material
+architectural choice, unresolvable ambiguity, Product Rule conflict, or
+unavailable required authority/model. A merge or governed local-runtime
+reconciliation is not a human gate when every PR-014 standing-policy condition
+is mechanically proven. If scope remains materially ambiguous after checking
+Product Rules, task authorization, Dataset firewall, semantic authority, and
+merge/runtime restrictions, Codex fails closed.
 
 Internal technical substeps do not emit completion reports or audible signals.
 Codex keeps an execution ledger and returns one consolidated report, with the
@@ -152,39 +163,121 @@ PR-011 sound, when control actually returns to the user.
 
 ### Autonomous Along Approved Roadmap
 
-`ROADMAP_EXECUTION` is distinct from `ROADMAP_CHANGE`. Execution has
-`ROADMAP_EXECUTION_AUTHORITY = STANDING` only when all of the following are
-true: the Roadmap is Product Owner-approved; Roadmap and machine-readable State
-agree; the current item's objective DoD is satisfied; the next approved item is
-singular and explicit; and no unresolved Product Owner, `DOMAIN_REVIEW`,
-`DOMAIN_AUTHORING`, `LOCAL_ACTION`, merge, deploy, separately gated runtime,
-Dataset, Gold, semantic, destructive-action, ambiguity, or Product Rule
-conflict gate remains. In that state, routine continuation does not require a
-new Product Owner dispatch decision.
+`ROADMAP_EXECUTION` is distinct from `ROADMAP_CHANGE`.
+`ROADMAP_EXECUTION_AUTHORITY = STANDING` when the Product Owner-approved Roadmap
+and current verified repository, GitHub, runtime, and State truth establish one
+objective current milestone and one singular approved next item. The current
+item's objective DoD and every required gate must be satisfied. Silence, an
+open Issue, historical advice, or a merely plausible next step is not Roadmap
+authority.
 
-Standing Roadmap execution authority includes mechanically closing the
-completed Issue, creating the explicitly next Roadmap Issue and branch, and
-executing its authorized scope through deterministic implementation, repair,
-tests, commit, push, and PR. It does not include merge or deploy. An Issue whose
-completion itself encodes subjective product or semantic acceptance remains at
-the applicable human gate.
+`ROADMAP_CHANGE` remains Product Owner-gated. It includes reordering or skipping
+milestones, selecting among materially different next paths, adding a major
+initiative, changing architecture/product direction, changing Dataset or Gold
+authority, or changing product/semantic acceptance. Execution never invents or
+changes priority.
 
-`ROADMAP_CHANGE` is always Product Owner-gated. It includes reordering or
-skipping required milestones, selecting among materially different next paths,
-adding a major initiative, changing architectural direction, Dataset or Gold
-authority, or product acceptance semantics. If Roadmap and State disagree,
-`NEXT_ISSUE_ALLOWED` is not explicit, or more than one material next item is
-valid, Codex stops and reports the exact reconciliation or decision required.
+### Mechanical State Reconciliation
 
-The prohibited human-courier antipattern is: Codex finishes deterministic work,
+`MECHANICAL_STATE_RECONCILIATION = AUTO`. When authoritative evidence admits
+exactly one factual result, Codex updates stale Roadmap, State, and control-plane
+projections without asking the Product Owner to approve facts. Examples include
+verified open-to-closed Issue state, open-to-merged PR state, accepted milestone
+status, exact merge/runtime SHA, completed reconciliation, and the pointer to
+the objectively completed milestone. The update must preserve historical
+evidence and all approved ordering. Any change to priority, acceptance meaning,
+or a choice between valid paths is `ROADMAP_CHANGE`, not reconciliation.
+
+### Autonomous Issue Lifecycle
+
+`ISSUE_LIFECYCLE = AUTO` when the Issue is the singular approved Roadmap item or
+already belongs to the authorized scope. Codex may create it, create its branch,
+and maintain its lifecycle. Codex closes it when the objective DoD is proven,
+all required checks pass, its accepted changes are merged/reconciled where
+required, and no subjective product/domain acceptance remains. Issue creation
+or closure that would encode a new decision fails closed.
+
+### Safe Automatic Merge
+
+`SAFE_MERGE = AUTO` only when all conditions below are mechanically proven:
+
+- the PR maps to an already authorized Issue and exact bounded scope;
+- exact base, head SHA, changed-file inventory, and branch identity are known;
+- mergeability is clean and no material review or human decision is pending;
+- required focused/full tests, GitHub Quality Gate, diff/scope checks, and
+  applicable Integrity gates pass without an unexplained new FAIL/WARN;
+- no unexpected scope expansion, Product Rule conflict, semantic-authority
+  change, Dataset/Gold authority change, destructive migration, security change,
+  credential operation, or other high-risk/external effect exists;
+- merge does not itself enact a Product Owner, domain, or architectural choice.
+
+Classification uncertainty means `MERGE = HUMAN_GATE`. A governance/Product
+Rule PR cannot use its own unmerged rule as authority. It may merge only under
+authority already `ACTIVE` on main or an explicit Product Owner instruction
+applicable to the exact PR. After merge, Codex records the merge SHA,
+synchronizes local main by fast-forward-safe workflow, and verifies the actual
+push-to-main Quality Gate before relying on the merge.
+
+### Safe Automatic Runtime Reconciliation
+
+`SAFE_RUNTIME_RECONCILIATION = AUTO` only for the known SeminarText governed
+local runtime and only when all conditions below are mechanically proven:
+
+- source branch is exact verified `main`, equal to `origin/main`, and the
+  working tree is clean;
+- repository checks pass and runtime drift is fully explained by the accepted
+  merge being reconciled;
+- `./scripts/seminartext-dev deploy` is the known governed path;
+- the built-in backup succeeds, target scope is known, the operation is
+  reversible, and a governed rollback path exists;
+- no destructive/data migration, real project data, Dataset/Gold, semantic,
+  credential/security, dependency/model/environment, unknown target, or
+  externally consequential production-release mutation is involved.
+
+Use exactly one governed deploy attempt for a reconciliation. After it, verify
+the deployment inventory and hashes, functional smoke, required tests,
+Integrity, and exact source/runtime identity. On failure, attempt at most one
+governed rollback only when its target and safety are mechanically proven;
+otherwise hard stop. A destructive, irreversible, unknown-target, or external
+production deployment remains `HIGH_RISK_IRREVERSIBLE_OPERATION` or
+`EXTERNAL_PRODUCTION_RELEASE` and is always a human gate unless a later explicit
+policy covers that exact operation.
+
+### Autonomous Failure Recovery
+
+Deterministic unit-test, lint/type, CI, generated-artifact, branch-drift,
+runtime-hash, documentation-state, and mechanically unambiguous merge-conflict
+failures are investigated and repaired autonomously when the repair remains in
+scope and does not change product or semantic meaning. Rerun the complete
+required verification after repair. Escalate only when repair requires a
+product/semantic/Dataset/Gold choice, materially different architectures,
+scope expansion, unavailable evidence, or non-mechanical safety judgment.
+
+### Genuine Human Gates and Consolidated Reporting
+
+Allowed escalation classes are `PRODUCT_DIRECTION`, `ROADMAP_CHANGE`,
+`ARCHITECTURE_CHOICE`, `SEMANTIC_AUTHORITY`, `DOMAIN_REVIEW`,
+`DOMAIN_AUTHORING`, `DATASET_AUTHORITY`, `GOLD_AUTHORITY`,
+`HIGH_RISK_IRREVERSIBLE_OPERATION`, `SECURITY_OR_CREDENTIAL_DECISION`,
+`EXTERNAL_PRODUCTION_RELEASE`, `UNRESOLVABLE_AMBIGUITY`, and
+`PRODUCT_RULE_CHANGE` unless explicitly authorized.
+
+Issue/branch/commit/push/PR mechanics, objective lifecycle updates, routine
+review preparation, tests/CI retries, deterministic repair, mechanical state
+reconciliation, a proven `SAFE_MERGE`, a proven
+`SAFE_RUNTIME_RECONCILIATION`, backup/smoke/hash verification, and selection of
+the singular approved next Roadmap item are not human gates by themselves.
+
+The prohibited user-courier antipattern is: Codex finishes deterministic work,
 the user transports its report to another system, that system confirms the
-obvious next deterministic action, and the user transports the instruction
-back. When no genuine judgment or authorization is needed, Codex continues and
-returns one consolidated report at the actual human gate.
+mechanically implied next action, and the user transports the instruction back.
+Reports are not authorization boundaries. Codex keeps an execution ledger and
+returns one consolidated report only at a genuine gate, hard stop, explicit
+status request, or meaningful autonomous terminal milestone.
 
 Default issue loop inside the Evidence-First Parallel Development policy:
 
-`ROADMAP -> PO ISSUE/DoD -> CODEX IMPLEMENT -> AUTOMATED TEST/QA -> PR -> PO REVIEW -> [DOMAIN GATE only if needed] -> MERGE -> STATE/ROADMAP UPDATE -> NEXT ISSUE`
+`APPROVED ROADMAP -> OBSERVE/RECONCILE -> ISSUE/BRANCH -> IMPLEMENT -> TEST/REPAIR -> PR/QUALITY -> SAFE MERGE -> SAFE RUNTIME RECONCILIATION if required -> VERIFY/CLOSE -> STATE/ROADMAP -> NEXT APPROVED ITEM`
 
 Experimental or ML loop:
 
@@ -221,6 +314,21 @@ only when justified.
 | `LOCAL_ACTION` | Yuri must perform a local/UI/account action unavailable to tools. |
 
 If the classification changes during work, the PR should explain why.
+
+## Dataset, Gold, and Semantic Firewall
+
+Autonomy never weakens Dataset or Gold governance. Dataset roles are read from
+the current governed Registry; Dataset E remains
+`EXCLUDED_FROM_TOPIC_ENGINE_EVIDENCE`, Dataset D remains locked until its
+explicit gates are satisfied, and no open file, historical artifact, Issue, or
+Roadmap position grants access. Role reassignment, Gold authoring/promotion,
+evaluation contamination, and forbidden Topic Engine tuning remain reserved to
+their established authority.
+
+Codex may prepare machine proposals and review packets, but machine-generated
+semantics never become authoritative merely because an autonomous loop can
+continue. Human Review, `DOMAIN_REVIEW`, and `DOMAIN_AUTHORING` rules remain in
+force at every transition.
 
 ## Current Technical Direction
 

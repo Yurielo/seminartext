@@ -35,15 +35,18 @@ destructive-action, ambiguity, or conflict gates. Emit one consolidated report
 and PR-011 sound only when returning control to the user.
 
 Follow `AUTONOMOUS ALONG APPROVED ROADMAP`: when the approved Roadmap and
-machine-readable State agree, the current item's objective DoD is satisfied,
-the `NEXT_ROADMAP_ITEM` is singular and approved, and no genuine gate remains,
-`ROADMAP_EXECUTION_AUTHORITY = STANDING`. Codex may then close the completed
-Issue, create the explicitly next Issue and branch, and execute it through its
-first genuine authorization boundary without asking for routine dispatch. An
-authorized Roadmap transition is not an unauthorized new Issue. Roadmap change,
-merge, deploy, runtime reconciliation, Product Owner/domain/local-action,
-Dataset, Gold, semantic, destructive-action, ambiguity, and conflict gates
-remain fail-closed.
+current verified truth unambiguously establish a singular
+`NEXT_ROADMAP_ITEM`, `ROADMAP_EXECUTION_AUTHORITY = STANDING`. Perform
+`MECHANICAL_STATE_RECONCILIATION = AUTO`, `ISSUE_LIFECYCLE = AUTO`, and all
+deterministic work without routine dispatch. `SAFE_MERGE = AUTO` and
+`SAFE_RUNTIME_RECONCILIATION = AUTO` apply only after every fail-closed
+condition in PR-014 and `DEVELOPMENT_WORKFLOW.md` is mechanically proven. A
+governance PR never self-authorizes from its own unmerged rule. Roadmap changes,
+Product Owner/domain/local-action decisions, Dataset/Gold or semantic authority,
+high-risk or irreversible operations, security decisions, unknown runtime
+targets, ambiguity, and Product Rule conflicts remain genuine human gates.
+Routine completion reports are not gates, and the user must not be used as a
+command courier between deterministic stages.
 
 The broader role, verification, GitHub, and human-gate contract remains in
 `DEVELOPMENT_WORKFLOW.md`. When instructions conflict, stop and request a

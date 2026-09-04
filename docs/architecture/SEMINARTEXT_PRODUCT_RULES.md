@@ -11,11 +11,12 @@ knowledge.
 
 The authority chain is:
 
-`Product Owner decision -> ChatGPT formalization -> explicitly authorized Codex persistence -> GitHub history -> mandatory ChatGPT/Codex read -> Issue/PR references -> CI and Integrity structural validation`
+`Product Owner decision -> optional task formalization -> explicitly authorized Codex persistence -> GitHub history -> mandatory agent read -> Issue/PR references -> CI and Integrity structural validation`
 
 - The Product Owner alone adopts, changes, supersedes, or retires Product Rules.
-- ChatGPT may formalize an explicit Product Owner decision into precise wording
-  and prepare a bounded persistence task.
+- ChatGPT may help formalize an explicit Product Owner decision, but that
+  intermediary is optional. A direct Product Owner instruction to Codex is
+  authoritative for its exact scope.
 - Codex persists a Product Rule only when an explicit authorized task instructs
   it to do so. Codex recommendations, implementation choices, inferred
   preferences, silence, and absence of objection are not authorization.
@@ -37,17 +38,23 @@ records are never silently deleted. A supersession must be reciprocal:
 ## Adding or changing a Product Rule
 
 1. The Product Owner makes an explicit durable decision.
-2. ChatGPT checks this Registry, determines that the decision belongs here,
-   identifies the next safe ID, and prepares one bounded Codex task.
+2. The acting task-formulation agent checks this Registry, determines that the
+   decision belongs here, identifies the next safe ID, and prepares one bounded
+   Codex task. Direct Product Owner authorization does not require a ChatGPT
+   relay.
 3. Codex rereads the current Registry and fails closed on an ID collision or an
    `ACTIVE` rule conflict.
 4. Codex adds or modifies only the explicitly authorized rule. Existing IDs are
    not renumbered, reused, or destructively rewritten.
 5. Structural validation, focused tests, the full suite, Integrity, and exact
    diff/scope checks run.
-6. Codex commits, pushes, and opens a PR. The Product Owner reviews it.
-7. Merge requires separate authorization. Runtime reconciliation occurs only
-   when actually required and separately authorized.
+6. Codex commits, pushes, and opens a PR. A Product Owner or domain review is
+   required only when the change reaches a genuine human gate.
+7. A Product Rule PR may merge only under authority already `ACTIVE` on main or
+   an explicit Product Owner authorization applicable to that PR. An unmerged
+   rule never self-authorizes its own merge. Runtime reconciliation follows the
+   fail-closed standing policy in PR-014 when it is mechanically safe; otherwise
+   it remains a human gate.
 
 Concurrent proposals that select the same next ID must stop and rebase against
 the current Registry; Codex must not resolve the semantic choice autonomously.
@@ -612,27 +619,70 @@ Autonomous Along Approved Roadmap
 ACTIVE
 
 ### Normative Rule
-When a Product Owner-approved Roadmap and its current machine-readable State
-unambiguously identify the next work item, Codex has standing authorization to
-execute that transition after the current item's objective Definition of Done
-is satisfied. `ROADMAP_EXECUTION_AUTHORITY = STANDING` permits mechanical Issue
-closure, creation of the explicitly next Roadmap Issue and branch, and complete
-in-scope execution through commit, push, PR, tests, validation, and deterministic
-repair. This authority applies only while Roadmap and State agree, the next item
-is singular and approved, and no unresolved Product Owner, domain, local-action,
-merge, deploy, runtime, Dataset, Gold, semantic, destructive-action, ambiguity,
-or Product Rule conflict gate exists. Roadmap changes are never inferred from
-Roadmap execution, and this rule does not authorize merge or deploy.
+Codex MUST execute an approved, unambiguous SeminarText Roadmap autonomously
+until a genuine human gate. `ROADMAP_EXECUTION_AUTHORITY = STANDING` applies
+when current repository, GitHub, runtime, Roadmap, and machine-readable State
+truth mechanically establish the completed item and a singular approved next
+item. It includes deterministic state reconciliation, Issue and branch
+lifecycle, implementation or analysis inside the approved scope, tests,
+in-scope repair, commit, push, PR maintenance, constrained safe merge,
+constrained safe runtime reconciliation, verification, objective Issue closure,
+and transition to the next approved item.
+
+`MECHANICAL_STATE_RECONCILIATION = AUTO`: Codex MUST synchronize stale factual
+Roadmap, State, and control-plane projections when authoritative evidence
+determines exactly one truth. Factual synchronization MUST NOT add, remove,
+reorder, or reinterpret product priorities and is not a `ROADMAP_CHANGE`.
+
+`ISSUE_LIFECYCLE = AUTO`: Codex MAY create the singular Issue already authorized
+by the Roadmap and MUST close an Issue when its objective Definition of Done is
+mechanically satisfied and no subjective acceptance remains.
+
+`SAFE_MERGE = AUTO` only when the PR belongs to an already authorized scope;
+its exact head, base, changed-file scope, clean mergeability, required tests,
+GitHub Quality Gate, and Integrity result are verified; no unexplained
+FAIL/WARN, review requirement, scope expansion, Product Rule conflict, reserved
+product/domain/semantic decision, Dataset/Gold authority change, destructive
+migration, or security/high-risk effect exists. Classification uncertainty
+fails closed to a human gate. A governance or Product Rule PR MUST NOT use its
+own unmerged policy as merge authority; its authority must already be `ACTIVE`
+on main or come from an explicit Product Owner instruction applicable to that
+PR.
+
+`SAFE_RUNTIME_RECONCILIATION = AUTO` only for the known governed local runtime
+when the source is exact verified `main`, the working tree is clean, required
+tests and preflight gates pass, a verified backup and mechanically safe rollback
+exist, and the operation performs no destructive migration, Dataset/Gold or
+semantic mutation, credential/security change, unknown-target write, or
+externally consequential production release. Codex MUST use only the governed
+deployment mechanism, then verify hashes, functional smoke, tests, Integrity,
+and source/runtime identity. It may perform one mechanically safe governed
+rollback after failure; uncertainty or failed recovery is a hard stop.
+
+Ordinary deterministic technical failures are repaired and reverified
+autonomously when the repair remains in scope. Codex stops only for a genuine
+Product Owner or domain decision, Roadmap change, semantic authority,
+Dataset/Gold authority, high-risk irreversible operation, security/credential
+decision, uncovered external production release, material architectural choice,
+unresolvable ambiguity, unavailable required authority, or Product Rule
+conflict. Reports and completed technical stages do not themselves create a
+gate, and the user MUST NOT be used as a courier between deterministic steps.
 
 ### Rationale
 An approved and unambiguous Roadmap already supplies the dispatch decision for
-routine transitions. Requiring the Domain Owner to relay deterministic closure
-and startup instructions adds no governance and makes the human a courier.
+routine transitions. Objective reconciliation, administration, verification,
+merge, and reversible local-runtime synchronization add no product judgment
+when their fail-closed conditions are proven. Requiring the Domain Owner to
+relay those deterministic operations adds no governance and makes the human a
+courier.
 
 ### Scope
-Transitions between completed SeminarText work items and the next explicitly
-approved Roadmap item. It does not authorize Roadmap changes or bypass any
-human, semantic, Dataset, merge, deploy, runtime, ambiguity, or safety gate.
+The SeminarText execution loop from observed truth through the next explicitly
+approved Roadmap work and its first genuine human gate. It does not authorize a
+Roadmap or product-priority change, semantic acceptance or authoring,
+Dataset/Gold authority changes, destructive or irreversible operations,
+security decisions, unknown runtime targets, or external production releases
+outside the standing policy.
 
 ### Authority
 Product Owner
