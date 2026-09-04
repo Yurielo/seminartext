@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "contract_version": "2026-08-30.audit-r6",
+  "contract_version": "2026-09-04.issue-68",
   "github_lifecycle_check": "NOT_RUN",
   "authoritative_sources": {
     "state": {
@@ -30,27 +30,32 @@
       "path": "schemas/canonical_knowledge_lifecycle_v1.json"
     }
   },
-  "current_milestone_id": "audit_r6_canonical_contract_truth",
-  "last_completed_milestone_id": "audit_r5_integrity_documentation_and_issue_template_sync",
+  "current_milestone_id": "issue_68_real_multi_source_vertical_slice",
+  "last_completed_milestone_id": "autonomous_operating_model",
   "next_eligible_milestone_id": null,
-  "state_current_milestone": "audit_r6_canonical_contract_truth",
-  "state_current_stage": "audit_r6_canonical_contract_truth",
-  "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
-  "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+  "state_current_milestone": "issue_68_real_multi_source_vertical_slice",
+  "state_current_stage": "issue_68_real_multi_source_vertical_slice",
+  "lifecycle_state": "AUTHORIZED_READY_TO_EXECUTE",
+  "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
   "active_actions": [
-    "audit_r6_product_owner_review"
+    "execute_issue_68_real_multi_source_vertical_slice"
   ],
   "next_issue_allowed": false,
   "blocked_actions": [
-    "execute_audit_r6",
+    "complete_issue_68_without_domain_review",
+    "release_integration_readiness_audit",
     "execute_issue_65",
     "execute_issue_66",
-    "dataset_d_blind_evaluation"
+    "dataset_d_blind_evaluation",
+    "issue_113_cross_video_experiment"
   ],
   "authorization_states": {
-    "audit_r4": "AUTHORIZED_IMPLEMENTATION",
-    "audit_r5": "AUTHORIZED_IMPLEMENTATION",
-    "audit_r6": "AUTHORIZED_IMPLEMENTATION",
+    "audit_r4": "NOT_AUTHORIZED",
+    "audit_r5": "NOT_AUTHORIZED",
+    "audit_r6": "NOT_AUTHORIZED",
+    "issue_68": "AUTHORIZED_IMPLEMENTATION",
+    "release_integration_readiness_audit": "NOT_AUTHORIZED",
+    "issue_113_cross_video_experiment": "NOT_AUTHORIZED",
     "issue_65": "NOT_AUTHORIZED",
     "issue_66": "NOT_AUTHORIZED"
   },
@@ -208,22 +213,17 @@
     {
       "milestone_id": "audit_r6_canonical_contract_truth",
       "issue_id": 91,
-      "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
-      "decision": "PENDING_PRODUCT_OWNER_REVIEW",
-      "disposition": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
-      "accepted": false,
+      "status": "COMPLETE_ACCEPTED",
+      "decision": "ACCEPT",
+      "disposition": "ACCEPTED",
+      "accepted": true,
       "authorized": true,
-      "implementation_state": "IMPLEMENTED",
-      "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
-      "next_allowed_actions": [],
-      "blocked_actions": [
-        "execute_audit_r6",
-        "execute_issue_92",
-        "execute_issue_93",
-        "execute_issue_65",
-        "execute_issue_66",
-        "dataset_d_blind_evaluation"
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "next_allowed_actions": [
+        "issue_104_product_bridge"
       ],
+      "blocked_actions": [],
       "runtime_reconciliation_required": false,
       "runtime_reconciliation_complete": true,
       "evidence_refs": [
@@ -231,13 +231,127 @@
         "schemas/validate_canonical_evidence_v1.py",
         "schemas/validate_canonical_knowledge_v1.py",
         "tests/test_integrity_canonical_contract_truth.py",
-        "https://github.com/Yurielo/seminartext/issues/91"
+        "https://github.com/Yurielo/seminartext/issues/91",
+        "https://github.com/Yurielo/seminartext/pull/103"
       ],
       "historical": false,
       "prerequisite_milestones": [
         "audit_r5_integrity_documentation_and_issue_template_sync"
       ],
-      "state_sequence_status": "implemented_pending_product_owner_review"
+      "state_sequence_status": "complete_accepted"
+    },
+    {
+      "milestone_id": "issue_104_product_bridge",
+      "issue_id": 104,
+      "status": "COMPLETE_ACCEPTED",
+      "decision": "ACCEPT",
+      "disposition": "ACCEPTED",
+      "accepted": true,
+      "authorized": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "next_allowed_actions": [
+        "issue_113_human_review_and_root_cause"
+      ],
+      "blocked_actions": [],
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": true,
+      "evidence_refs": [
+        "schemas/project_knowledge_input_v1.schema.json",
+        "seminartext_modules/project_knowledge_bridge.py",
+        "https://github.com/Yurielo/seminartext/issues/104",
+        "https://github.com/Yurielo/seminartext/pull/105"
+      ],
+      "historical": false,
+      "prerequisite_milestones": [
+        "audit_r6_canonical_contract_truth"
+      ],
+      "state_sequence_status": "complete_accepted"
+    },
+    {
+      "milestone_id": "issue_113_human_review_and_root_cause",
+      "issue_id": 113,
+      "status": "COMPLETE_ACCEPTED",
+      "decision": "ACCEPT",
+      "disposition": "ACCEPTED",
+      "accepted": true,
+      "authorized": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "next_allowed_actions": [
+        "autonomous_operating_model"
+      ],
+      "blocked_actions": [
+        "issue_113_cross_video_experiment"
+      ],
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": true,
+      "evidence_refs": [
+        "analysis/stress_code_evidence_foundation/human_review_v2",
+        "https://github.com/Yurielo/seminartext/issues/113",
+        "https://github.com/Yurielo/seminartext/pull/114"
+      ],
+      "historical": false,
+      "prerequisite_milestones": [
+        "issue_104_product_bridge"
+      ],
+      "state_sequence_status": "complete_accepted"
+    },
+    {
+      "milestone_id": "autonomous_operating_model",
+      "issue_id": 117,
+      "status": "COMPLETE_ACCEPTED",
+      "decision": "ACCEPT",
+      "disposition": "ACCEPTED",
+      "accepted": true,
+      "authorized": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "next_allowed_actions": [
+        "issue_68_real_multi_source_vertical_slice"
+      ],
+      "blocked_actions": [],
+      "runtime_reconciliation_required": false,
+      "runtime_reconciliation_complete": true,
+      "evidence_refs": [
+        "docs/architecture/SEMINARTEXT_PRODUCT_RULES.md#pr-014--autonomous-along-approved-roadmap",
+        "https://github.com/Yurielo/seminartext/issues/117",
+        "https://github.com/Yurielo/seminartext/pull/118"
+      ],
+      "historical": false,
+      "prerequisite_milestones": [
+        "issue_113_human_review_and_root_cause"
+      ],
+      "state_sequence_status": "complete_accepted"
+    },
+    {
+      "milestone_id": "issue_68_real_multi_source_vertical_slice",
+      "issue_id": 68,
+      "status": "AUTHORIZED_READY_TO_EXECUTE",
+      "decision": "AUTHORIZED_IMPLEMENTATION",
+      "disposition": "IN_PROGRESS",
+      "accepted": false,
+      "authorized": true,
+      "implementation_state": "NOT_STARTED",
+      "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
+      "next_allowed_actions": [],
+      "blocked_actions": [
+        "complete_issue_68_without_domain_review",
+        "release_integration_readiness_audit"
+      ],
+      "runtime_reconciliation_required": false,
+      "runtime_reconciliation_complete": true,
+      "evidence_refs": [
+        "https://github.com/Yurielo/seminartext/issues/68",
+        "SEMINARTEXT_4_ROADMAP.md#current-next-action"
+      ],
+      "historical": false,
+      "prerequisite_milestones": [
+        "issue_104_product_bridge",
+        "issue_113_human_review_and_root_cause",
+        "autonomous_operating_model"
+      ],
+      "state_sequence_status": "authorized_ready_to_execute"
     }
   ],
   "active_assertions": [

@@ -159,7 +159,6 @@ def evaluate(root: Path) -> ControlPlaneResult:
         _error(g3_errors, "CP_SCHEMA", "github_lifecycle_check is invalid")
 
     authorization_states = contract.get("authorization_states")
-    required_authorizations = {"audit_r6", "issue_65", "issue_66"}
     if not isinstance(authorization_states, dict):
         _error(g8_errors, "CP_AUTHORIZATION_STATE", "authorization_states must be an object")
     else:
@@ -183,6 +182,27 @@ def evaluate(root: Path) -> ControlPlaneResult:
                     f"{action} must be {expected}",
                 )
         for action in ("issue_65", "issue_66"):
+            if authorization_states.get(action) != "NOT_AUTHORIZED":
+                _error(
+                    g8_errors,
+                    "CP_AUTHORIZATION_STATE",
+                    f"{action} must remain NOT_AUTHORIZED",
+                )
+        issue_68_expected = (
+            "AUTHORIZED_IMPLEMENTATION"
+            if current_id == "issue_68_real_multi_source_vertical_slice"
+            else "NOT_AUTHORIZED"
+        )
+        if authorization_states.get("issue_68") != issue_68_expected:
+            _error(
+                g8_errors,
+                "CP_AUTHORIZATION_STATE",
+                f"issue_68 must be {issue_68_expected}",
+            )
+        for action in (
+            "release_integration_readiness_audit",
+            "issue_113_cross_video_experiment",
+        ):
             if authorization_states.get(action) != "NOT_AUTHORIZED":
                 _error(
                     g8_errors,
@@ -241,6 +261,7 @@ def evaluate(root: Path) -> ControlPlaneResult:
             "audit_r4_mandatory_ci_and_main_protection",
             "audit_r5_integrity_documentation_and_issue_template_sync",
             "audit_r6_canonical_contract_truth",
+            "issue_68_real_multi_source_vertical_slice",
         } and current.get("authorized") is not True:
             _error(
                 g8_errors,

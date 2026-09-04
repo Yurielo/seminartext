@@ -1,32 +1,37 @@
 {
   "schema_version": 3,
   "seminartext_version": "4.0.0",
-  "updated": "2026-08-30",
+  "updated": "2026-09-04",
   "policy_checkpoint": "evidence_first_parallel_v1",
-  "current_stage": "audit_r6_canonical_contract_truth",
-  "current_milestone": "audit_r6_canonical_contract_truth",
+  "current_stage": "issue_68_real_multi_source_vertical_slice",
+  "current_milestone": "issue_68_real_multi_source_vertical_slice",
   "current_project": "Стресс код",
   "control_plane": {
-    "contract_version": "2026-08-30.audit-r6",
-    "current_milestone_id": "audit_r6_canonical_contract_truth",
-    "last_completed_milestone_id": "audit_r5_integrity_documentation_and_issue_template_sync",
+    "contract_version": "2026-09-04.issue-68",
+    "current_milestone_id": "issue_68_real_multi_source_vertical_slice",
+    "last_completed_milestone_id": "autonomous_operating_model",
     "next_eligible_milestone_id": null,
-    "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
-    "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+    "lifecycle_state": "AUTHORIZED_READY_TO_EXECUTE",
+    "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
     "next_issue_allowed": false,
     "active_actions": [
-      "audit_r6_product_owner_review"
+      "execute_issue_68_real_multi_source_vertical_slice"
     ],
     "blocked_actions": [
-      "execute_audit_r6",
+      "complete_issue_68_without_domain_review",
+      "release_integration_readiness_audit",
       "execute_issue_65",
       "execute_issue_66",
-      "dataset_d_blind_evaluation"
+      "dataset_d_blind_evaluation",
+      "issue_113_cross_video_experiment"
     ],
     "authorization_states": {
-      "audit_r4": "AUTHORIZED_IMPLEMENTATION",
-      "audit_r5": "AUTHORIZED_IMPLEMENTATION",
-      "audit_r6": "AUTHORIZED_IMPLEMENTATION",
+      "audit_r4": "NOT_AUTHORIZED",
+      "audit_r5": "NOT_AUTHORIZED",
+      "audit_r6": "NOT_AUTHORIZED",
+      "issue_68": "AUTHORIZED_IMPLEMENTATION",
+      "release_integration_readiness_audit": "NOT_AUTHORIZED",
+      "issue_113_cross_video_experiment": "NOT_AUTHORIZED",
       "issue_65": "NOT_AUTHORIZED",
       "issue_66": "NOT_AUTHORIZED"
     },
@@ -72,10 +77,42 @@
         "runtime_reconciliation_complete": true
       },
       "audit_r6_canonical_contract_truth": {
-        "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+        "status": "COMPLETE_ACCEPTED",
+        "accepted": true,
+        "implementation_state": "COMPLETE",
+        "human_gate": "SATISFIED",
+        "runtime_reconciliation_required": false,
+        "runtime_reconciliation_complete": true
+      },
+      "issue_104_product_bridge": {
+        "status": "COMPLETE_ACCEPTED",
+        "accepted": true,
+        "implementation_state": "COMPLETE",
+        "human_gate": "SATISFIED",
+        "runtime_reconciliation_required": true,
+        "runtime_reconciliation_complete": true
+      },
+      "issue_113_human_review_and_root_cause": {
+        "status": "COMPLETE_ACCEPTED",
+        "accepted": true,
+        "implementation_state": "COMPLETE",
+        "human_gate": "SATISFIED",
+        "runtime_reconciliation_required": true,
+        "runtime_reconciliation_complete": true
+      },
+      "autonomous_operating_model": {
+        "status": "COMPLETE_ACCEPTED",
+        "accepted": true,
+        "implementation_state": "COMPLETE",
+        "human_gate": "SATISFIED",
+        "runtime_reconciliation_required": false,
+        "runtime_reconciliation_complete": true
+      },
+      "issue_68_real_multi_source_vertical_slice": {
+        "status": "AUTHORIZED_READY_TO_EXECUTE",
         "accepted": false,
-        "implementation_state": "IMPLEMENTED",
-        "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+        "implementation_state": "NOT_STARTED",
+        "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
         "runtime_reconciliation_required": false,
         "runtime_reconciliation_complete": true
       }
@@ -497,11 +534,11 @@
       "status": "pending_partial"
     },
     "knowledge_engine": {
-      "status": "project_bridge_implemented_pending_product_owner_acceptance",
+      "status": "project_bridge_complete_accepted_real_vertical_slice_next",
       "not_blocked_by": "topic_engine.stable"
     },
     "human_review": {
-      "status": "required_for_verified_knowledge"
+      "status": "contract_v2_and_stress_code_review_complete_domain_review_remains_intrinsic"
     },
     "obsidian_schema": {
       "status": "bounded_prototype_implemented",
@@ -551,7 +588,7 @@
       "production_integration_complete": false
     },
     "project_knowledge_bridge": {
-      "status": "implemented_pending_product_owner_acceptance",
+      "status": "complete_accepted_runtime_reconciled",
       "issue": 104,
       "command": "project-obsidian-export",
       "input_contract": "schemas/project_knowledge_input_v1.schema.json",
@@ -565,11 +602,11 @@
       "managed_generated_user_owned_boundary": true,
       "real_full_seminar_validation_complete": false,
       "production_ready": false,
-      "issue_68_authorized": false,
+      "issue_68_authorized": true,
       "g6_implemented_by_this_stage": false
     },
     "obsidian_export": {
-      "status": "project_command_implemented_pending_product_owner_acceptance_and_runtime_reconciliation",
+      "status": "project_command_complete_accepted_runtime_reconciled_real_validation_pending",
       "command": "project-obsidian-export",
       "production_ready": false
     },
@@ -662,20 +699,29 @@
     {"order": 11, "milestone": "audit_r3_control_plane_integrity_gate", "status": "complete_accepted"},
     {"order": 12, "milestone": "audit_r4_mandatory_ci_and_main_protection", "status": "complete_accepted"},
     {"order": 13, "milestone": "audit_r5_integrity_documentation_and_issue_template_sync", "status": "complete_accepted"},
-    {"order": 14, "milestone": "audit_r6_canonical_contract_truth", "status": "implemented_pending_product_owner_review"},
-    {"order": 15, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "pending"},
-    {"order": 16, "milestone": "dataset_d_blind_evaluation", "status": "pending"},
-    {"order": 17, "milestone": "define_and_assess_topic_automation_usable", "status": "pending"},
-    {"order": 18, "milestone": "expand_knowledge_engine", "status": "pending"},
-    {"order": 19, "milestone": "multi_seminar_knowledge_mvp", "status": "pending"},
-    {"order": 20, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
+    {"order": 14, "milestone": "audit_r6_canonical_contract_truth", "status": "complete_accepted"},
+    {"order": 15, "milestone": "issue_104_product_bridge", "status": "complete_accepted"},
+    {"order": 16, "milestone": "issue_113_human_review_and_root_cause", "status": "complete_accepted"},
+    {"order": 17, "milestone": "autonomous_operating_model", "status": "complete_accepted"},
+    {"order": 18, "milestone": "issue_68_real_multi_source_vertical_slice", "status": "authorized_ready_to_execute"},
+    {"order": 19, "milestone": "release_integration_readiness_audit", "status": "pending_after_issue_68"},
+    {"order": 20, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "blocked_not_current"},
+    {"order": 21, "milestone": "dataset_d_blind_evaluation", "status": "blocked_not_current"},
+    {"order": 22, "milestone": "define_and_assess_topic_automation_usable", "status": "pending"},
+    {"order": 23, "milestone": "expand_knowledge_engine", "status": "pending"},
+    {"order": 24, "milestone": "multi_seminar_knowledge_mvp", "status": "pending"},
+    {"order": 25, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
   ],
   "next_actions": [
-    "audit_r6_product_owner_review"
+    "execute_issue_68_real_multi_source_vertical_slice"
   ],
   "accepted_decision_refs": {
     "audit_r1": "ACCEPTED / COMPLETE (PR #97)",
     "audit_r2": "ACCEPTED / COMPLETE (PR #98)",
+    "audit_r6": "ACCEPTED / COMPLETE (Issue #91, PR #103, merged 73e6a36)",
+    "issue_104_product_bridge": "ACCEPTED / COMPLETE / RUNTIME RECONCILED (PR #105, merged c1ca602)",
+    "issue_113_human_review": "ACCEPTED / COMPLETE / RUNTIME RECONCILED (PR #114, merged 7fbd3fa)",
+    "issue_117_autonomous_operating_model": "ACCEPTED / COMPLETE (PR #118, merged 01a7fa3)",
     "issue_61_topic_engine_freeze": "analysis/TOPIC_ENGINE_FREEZE_PACKET_ISSUE_61.md",
     "issue_62_treeseg": "KEEP_TREESEG_AS_CHALLENGER (PR #84, merged 451fce0)",
     "issue_63_obsidian": "ADAPT_FURTHER / ACCEPTED (PR #85, merged 7677536)",
@@ -727,7 +773,16 @@
       "tests_and_benchmarks": "executable evidence",
       "decisions": "decisions/"
     },
-    "standard_execution_loop": "ROADMAP -> PO ISSUE/DoD -> CODEX IMPLEMENT -> AUTOMATED TEST/QA -> PR -> PO REVIEW -> [DOMAIN GATE only if needed] -> MERGE -> STATE/ROADMAP UPDATE -> NEXT ISSUE",
+    "standard_execution_loop": "APPROVED ROADMAP -> OBSERVE/RECONCILE -> ISSUE/BRANCH -> IMPLEMENT -> TEST/REPAIR -> PR/QUALITY -> SAFE MERGE -> SAFE RUNTIME RECONCILIATION IF REQUIRED -> VERIFY/CLOSE -> STATE/ROADMAP -> NEXT APPROVED ITEM",
+    "autonomous_operating_model": {
+      "product_rule": "PR-014",
+      "roadmap_execution_authority": "STANDING",
+      "mechanical_state_reconciliation": "AUTO",
+      "issue_lifecycle": "AUTO",
+      "safe_merge": "AUTO_FAIL_CLOSED",
+      "safe_runtime_reconciliation": "AUTO_FAIL_CLOSED_REVERSIBLE",
+      "user_courier_antipattern": "PROHIBITED"
+    },
     "experimental_ml_loop": "BUILD -> TEST -> BENCHMARK -> HUMAN REVIEW when semantically required -> DECISION -> MERGE"
   },
   "human_gate_classifications": {
@@ -741,13 +796,12 @@
   },
   "roles": {
     "product_owner": {
-      "owner": "ChatGPT",
+      "owner": "Product Owner; direct instruction to Codex is authoritative, ChatGPT formalization is optional",
       "responsibilities": [
-        "roadmap and priorities",
-        "issue sequencing and Definition of Done",
-        "experiment evidence and PR review",
-        "accept/reject work and merge/next-step decisions",
-        "escalate to Yuri only when domain/product/human decision is required"
+        "product direction, roadmap priorities and Definition of Done",
+        "reserved product acceptance decisions",
+        "genuine human gates",
+        "not routine GitHub, merge, deploy or issue-lifecycle dispatch"
       ]
     },
     "domain_owner": {
@@ -774,8 +828,10 @@
         "implement within scope",
         "run tests and QA",
         "document evidence",
-        "commit, push, and open PR",
-        "do not redefine requirements or bypass human gates"
+        "commit, push, maintain and safely merge PRs under PR-014",
+        "perform reversible governed runtime reconciliation under PR-014",
+        "reconcile factual state and continue approved roadmap work",
+        "do not redefine requirements or bypass genuine human gates"
       ]
     }
   }

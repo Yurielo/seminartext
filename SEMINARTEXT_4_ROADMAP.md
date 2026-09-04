@@ -1,6 +1,6 @@
 # SeminarText 4.x Roadmap
 
-Последнее обновление: 2026-08-30
+Последнее обновление: 2026-09-04
 
 ## Главная цель
 
@@ -234,10 +234,10 @@ source завершён verdict `WORD_TIMELINE_MVP_ACCEPTED`: 1434 canonical Wor
 валидируется и воспроизводится byte-identically. Evidence зафиксировано в
 `analysis/WORD_TIMELINE_MVP_ONE_CONTROLLED_SOURCE.md`.
 
-Исторический parallel split завершён Product Review; AUDIT-R1, AUDIT-R2 и
-AUDIT-R3 приняты. Активного milestone сейчас нет: AUDIT-R4 (Issue #89) является
-только следующим допустимым к отдельной Product Owner authorization, без
-возврата к линейной Topic-Engine-first зависимости:
+Исторический parallel split завершён Product Review; AUDIT-R1–R6 приняты.
+Актуальный milestone и authorization определяются только активной
+control-plane проекцией в разделе `CURRENT NEXT ACTION`; этот исторический
+checkpoint не разрешает возврат к линейной Topic-Engine-first зависимости:
 
 - Golden Seminar Knowledge Slice — **DONE (Issue #44)** → bounded Obsidian
   Knowledge Prototype **REVIEWED / ADAPT FURTHER (Issue #63)**; production
@@ -1141,7 +1141,7 @@ knowledge
 
 # 8. Human Review
 
-Статус: PENDING
+Статус: ACTIVE / STRESS CODE REVIEW CONTRACT V2 AND FIRST DOMAIN REVIEW COMPLETE
 
 Принцип:
 
@@ -1276,9 +1276,9 @@ Bounded prototype runner:
 
 `analysis/obsidian_knowledge_prototype/export_obsidian_vault.py`
 
-Статус: bounded project command реализована в Issue #104 и ожидает Product
-Owner acceptance, merge и отдельную post-merge runtime reconciliation. Это не
-production promotion и не real full-seminar validation Issue #68.
+Статус: bounded project command принята в Issue #104, merged и runtime
+reconciled. Это не production promotion; следующий утверждённый product step —
+real full-seminar validation Issue #68.
 
 Поддерживаемый интерфейс реализации:
 
@@ -1642,12 +1642,13 @@ Knowledge Base должна обслуживать:
 
 # CURRENT NEXT ACTION
 
-Текущий этап: **AUDIT-R5 IMPLEMENTED — PRODUCT OWNER REVIEW PENDING**. Issue
-#90 синхронизирует Integrity-документацию, статический workflow и шаблон Issue
-с машинным контрактом. AUDIT-R4 принят; R5 ещё не принят Product Owner. R6,
-#65, #66 и Dataset D остаются заблокированы. State/Roadmap отражают только
-текущую контрольную плоскость; после merge потребуется отдельная авторизация
-post-merge runtime reconciliation.
+Текущий этап: **ISSUE #68 — AUTHORIZED / READY TO EXECUTE**. AUDIT-R6 (Issue
+#91), Product Bridge (Issue #104), Human Review/root-cause work (Issue #113) и
+Autonomous Operating Model (Issue #117) завершены и приняты. Утверждённая
+product sequence сохраняется: `#104 -> #68 -> Release/Integration Readiness
+Audit`. Cross-video recommendation из #113 остаётся отдельным неавторизованным
+Roadmap decision и не меняет эту последовательность. #65, #66, Dataset D и
+Dataset E остаются защищёнными действующими firewall-правилами.
 
 Активная машиночитаемая проекция ниже сверяется с
 `integrity/milestone_reconciliation.json`. Только этот ограниченный JSON-блок,
@@ -1657,26 +1658,31 @@ gate.
 <!-- SEMINARTEXT_CONTROL_PLANE_START -->
 ```json
 {
-  "contract_version": "2026-08-30.audit-r6",
-  "current_milestone_id": "audit_r6_canonical_contract_truth",
-  "last_completed_milestone_id": "audit_r5_integrity_documentation_and_issue_template_sync",
+  "contract_version": "2026-09-04.issue-68",
+  "current_milestone_id": "issue_68_real_multi_source_vertical_slice",
+  "last_completed_milestone_id": "autonomous_operating_model",
   "next_eligible_milestone_id": null,
-  "lifecycle_state": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
-  "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+  "lifecycle_state": "AUTHORIZED_READY_TO_EXECUTE",
+  "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
   "next_issue_allowed": false,
   "active_actions": [
-    "audit_r6_product_owner_review"
+    "execute_issue_68_real_multi_source_vertical_slice"
   ],
   "blocked_actions": [
-    "execute_audit_r6",
+    "complete_issue_68_without_domain_review",
+    "release_integration_readiness_audit",
     "execute_issue_65",
     "execute_issue_66",
-    "dataset_d_blind_evaluation"
+    "dataset_d_blind_evaluation",
+    "issue_113_cross_video_experiment"
   ],
   "authorization_states": {
-    "audit_r4": "AUTHORIZED_IMPLEMENTATION",
-    "audit_r5": "AUTHORIZED_IMPLEMENTATION",
-    "audit_r6": "AUTHORIZED_IMPLEMENTATION",
+    "audit_r4": "NOT_AUTHORIZED",
+    "audit_r5": "NOT_AUTHORIZED",
+    "audit_r6": "NOT_AUTHORIZED",
+    "issue_68": "AUTHORIZED_IMPLEMENTATION",
+    "release_integration_readiness_audit": "NOT_AUTHORIZED",
+    "issue_113_cross_video_experiment": "NOT_AUTHORIZED",
     "issue_65": "NOT_AUTHORIZED",
     "issue_66": "NOT_AUTHORIZED"
   },
@@ -1722,10 +1728,42 @@ gate.
       "runtime_reconciliation_complete": true
     },
     "audit_r6_canonical_contract_truth": {
-      "status": "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW",
+      "status": "COMPLETE_ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "runtime_reconciliation_required": false,
+      "runtime_reconciliation_complete": true
+    },
+    "issue_104_product_bridge": {
+      "status": "COMPLETE_ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": true
+    },
+    "issue_113_human_review_and_root_cause": {
+      "status": "COMPLETE_ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "runtime_reconciliation_required": true,
+      "runtime_reconciliation_complete": true
+    },
+    "autonomous_operating_model": {
+      "status": "COMPLETE_ACCEPTED",
+      "accepted": true,
+      "implementation_state": "COMPLETE",
+      "human_gate": "SATISFIED",
+      "runtime_reconciliation_required": false,
+      "runtime_reconciliation_complete": true
+    },
+    "issue_68_real_multi_source_vertical_slice": {
+      "status": "AUTHORIZED_READY_TO_EXECUTE",
       "accepted": false,
-      "implementation_state": "IMPLEMENTED",
-      "human_gate": "PRODUCT_OWNER_REVIEW_PENDING",
+      "implementation_state": "NOT_STARTED",
+      "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
       "runtime_reconciliation_required": false,
       "runtime_reconciliation_complete": true
     }
@@ -1761,20 +1799,40 @@ gate.
 13. **AUDIT-R5 — COMPLETE / ACCEPTED (Issue #90)**: Integrity documentation
     and Issue-template synchronization is merged and its governed runtime
     reconciliation is complete.
-14. **AUDIT-R6 — IMPLEMENTED / PRODUCT OWNER REVIEW PENDING (Issue #91)**:
-    Canonical Contract Truth G5 composes the accepted Evidence, Knowledge,
-    lifecycle, and Golden Slice validators with fail-closed evidence.
+14. **AUDIT-R6 — COMPLETE / ACCEPTED (Issue #91)**: Canonical Contract Truth
+    G5 composes the accepted Evidence, Knowledge, lifecycle, and Golden Slice
+    validators with fail-closed evidence.
+15. **Product Bridge — COMPLETE / ACCEPTED / RUNTIME RECONCILED (Issue #104)**:
+    the bounded multi-source Canonical Knowledge to safe Obsidian export command
+    is merged and accepted; it still requires real product validation.
+16. **Human Review foundation — COMPLETE in accepted bounded scope (Issues #106,
+    #111, #113)**: Contract V2 and the first Stress Code DOMAIN_REVIEW decisions
+    are persisted with provenance. This does not authorize automatic semantic
+    acceptance or the separate cross-video Topic Engine experiment.
+17. **Autonomous Operating Model — COMPLETE / ACCEPTED (Issue #117)**: PR-014 is
+    active; factual reconciliation, objective Issue lifecycle, safe merge, and
+    reversible governed local-runtime reconciliation follow its fail-closed
+    standing policy.
+18. **Issue #68 — AUTHORIZED / READY TO EXECUTE**: run one real full-seminar,
+    multi-source Evidence → Knowledge → Obsidian vertical slice without
+    inventing unavailable semantics. Engineering is `AUTO`; semantic usefulness
+    and any missing authoritative semantics retain `DOMAIN_REVIEW` /
+    `DOMAIN_AUTHORING` gates.
+19. **Release/Integration Readiness Audit — PENDING AFTER #68**. Its exact scope
+    is not authorized while #68 remains active.
 
 Supporting Data/Evaluation status (not a next action): Gold Expansion v2
 preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Owner
 role review and manual Gold annotation remain human gates.
 
-14. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST.
-15. Dataset D blind evaluation after candidate/config/criteria freeze.
-16. Define and assess `TOPIC AUTOMATION USABLE`.
-17. Expand Knowledge Engine.
-18. Multi-seminar Knowledge MVP.
-19. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
+20. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST;
+    this is not the current authorized action.
+21. Dataset D blind evaluation after candidate/config/criteria freeze and a
+    separate explicit run authority.
+22. Define and assess `TOPIC AUTOMATION USABLE`.
+23. Expand Knowledge Engine.
+24. Multi-seminar Knowledge MVP.
+25. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
     Assistant.
 
 Dataset guardrails apply throughout: A/B are development/history evidence; C is
