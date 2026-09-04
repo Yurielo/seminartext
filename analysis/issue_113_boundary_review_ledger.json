@@ -1,0 +1,191 @@
+{
+  "artifact_id": "issue_113_exact_boundary_domain_review_v1",
+  "artifact_type": "seminartext.boundary_review_ledger",
+  "boundary_proposals": {
+    "artifact_id": "boundary_proposals_issue_113_exact_boundary_requests_v1",
+    "sha256": "f9ea57341c9a78ac4ee6d96b362904a2a63030eb0e54ed5266c3c3570ab54466"
+  },
+  "decisions": [
+    {
+      "boundary_proposal_id": "issue_113_boundary_04a_04b",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:001517",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 978.908
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_04b_04c",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:002065",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 1296.348
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_04c_05b",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:002449",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 1571.663
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_05b_05c",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:002529",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 1630.455
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_05c_05d",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:002756",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 1747.782
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_05d_06a",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:003072",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 2101.242
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_06a_06b",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:003443",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 2508.221
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_06b_06c",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:003895",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 2791.247
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_07_08",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:005125",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 3623.679
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_08_nonsemantic",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:006096",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 4323.592
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_09_left",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:006290",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 2,
+      "timestamp": 4440.051
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_10_left",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:007263",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 5153.442
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_10_11a",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:008317",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 5830.401
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_11a_11b",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:008603",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 6022.206
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_11b_12a",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:009468",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 6535.759
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_14a_14b",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:012386",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 8403.609
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_19_left",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:016347",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 10689.883
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_21_left",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:018872",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 12301.511
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_21_22_nonsemantic",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:019578",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 12799.469
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_23_left",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:019671",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 12848.445
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_25_left",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:020014",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 13032.049
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_26_27",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:020482",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 13356.183
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_28_left",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:020490",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 13365.98
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_30_left",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:021687",
+      "outcome": "SELECT_ALTERNATIVE",
+      "selected_candidate_number": 1,
+      "timestamp": 14936.701
+    },
+    {
+      "boundary_proposal_id": "issue_113_boundary_31_left",
+      "canonical_word_id": "transcript_revision_video_001_r1:word:022680",
+      "outcome": "ACCEPT_BOUNDARY_PROPOSAL",
+      "selected_candidate_number": 1,
+      "timestamp": 15563.051
+    }
+  ],
+  "review_gate": "DOMAIN_REVIEW",
+  "reviewer": {
+    "actor_id": "seminartext_product_owner",
+    "actor_type": "product_owner"
+  },
+  "schema_version": "2.0.0"
+}

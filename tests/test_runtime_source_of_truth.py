@@ -238,4 +238,4 @@ def test_dev_status_compares_both_runtime_modules(tmp_path):
     assert result.returncode == 0, result.stderr
     assert "Topics:  SYNC" in result.stdout
     assert "Translate: SYNC" in result.stdout
-    assert "DEPLOY STATUS: DIFFERENT (19/21)" in result.stdout
+    assert "DEPLOY STATUS: DIFFERENT (20/22)" in result.stdout

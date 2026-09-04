@@ -139,6 +139,7 @@ main "$@"
         "schemas/canonical_knowledge_lifecycle_v1.json",
         "schemas/project_knowledge_input_v1.schema.json",
         "schemas/topic_review_workflow_v1.schema.json",
+        "schemas/topic_review_workflow_v2.schema.json",
         "analysis/word_timeline_mvp/canonical_evidence_bundle.json",
         "analysis/golden_knowledge_slice/golden_knowledge_slice.json",
         "analysis/golden_knowledge_slice/curation.json",

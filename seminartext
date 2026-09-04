@@ -241,6 +241,11 @@ cat <<'HELP'
   seminartext project-review-prepare PROJECT --drafts FILE --output DIR
   seminartext project-review-status PROJECT --package FILE [--decisions FILE]
   seminartext project-review-apply PROJECT --package FILE --decisions FILE --output FILE
+  seminartext project-review-v2-status PROJECT --package FILE --decisions FILE
+  seminartext project-review-v2-apply PROJECT --package FILE --decisions FILE --output FILE
+  seminartext project-review-boundary-prepare PROJECT --package FILE --requests FILE --output DIR
+  seminartext project-review-boundary-resolve PROJECT --proposals FILE --ledger FILE --output FILE
+  seminartext project-review-boundary-status PROJECT --proposals FILE --decisions FILE
   seminartext project-obsidian-export PROJECT --knowledge-input FILE --destination DIR [--dry-run]
   seminartext project-transcribe PROJECT
   seminartext project-documents PROJECT
@@ -5381,6 +5386,31 @@ main() {
     project-review-apply)
       shift
       human_review_workflow_command apply "$@"
+      exit $?
+      ;;
+    project-review-v2-status)
+      shift
+      human_review_workflow_command status-v2 "$@"
+      exit $?
+      ;;
+    project-review-v2-apply)
+      shift
+      human_review_workflow_command apply-v2 "$@"
+      exit $?
+      ;;
+    project-review-boundary-prepare)
+      shift
+      human_review_workflow_command prepare-boundaries "$@"
+      exit $?
+      ;;
+    project-review-boundary-resolve)
+      shift
+      human_review_workflow_command resolve-boundaries "$@"
+      exit $?
+      ;;
+    project-review-boundary-status)
+      shift
+      human_review_workflow_command boundary-status "$@"
       exit $?
       ;;
     project-obsidian-export)

@@ -1,0 +1,234 @@
+{
+  "artifact_id": "issue_113_exact_boundary_requests_v1",
+  "artifact_type": "seminartext.boundary_proposal_requests",
+  "requests": [
+    {
+      "accepted_po_semantic_decision": "Topic 4 splits: participant introductions end before the instructor's synthesis of personal and professional practice.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0004"],
+      "boundary_role": "INTERNAL",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:001517"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_04a_04b",
+      "mechanical_rationales": ["First word of the instructor's explicit synthesis after the last participant introduction."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 4C begins with motivation/internal sabotage after the practice discussion.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0004"],
+      "boundary_role": "INTERNAL",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:002065", "transcript_revision_video_001_r1:word:002067"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_04b_04c",
+      "mechanical_rationales": ["Start of the transition phrase introducing the motivation question.", "Start of the explicit sentence 'У нас всегда вопрос мотивации'."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 5's initial fragment remains in 4C; school description begins the next result.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0004", "topic_stress_code_video_001_0005"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:002449"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_04c_05b",
+      "mechanical_rationales": ["First canonical word of the explicit self-introduction as co-founder of the school."]
+    },
+    {
+      "accepted_po_semantic_decision": "Separate school directions from organization of learning and brain-gym instructions.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0005"],
+      "boundary_role": "INTERNAL",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:002529", "transcript_revision_video_001_r1:word:002691"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_05b_05c",
+      "mechanical_rationales": ["First sentence comparing lesson organization with school periods.", "First explicit statement about the break/training rhythm."]
+    },
+    {
+      "accepted_po_semantic_decision": "Separate organization of learning from Yuri Elokhin's professional path and methods.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0005"],
+      "boundary_role": "INTERNAL",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:002756"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_05c_05d",
+      "mechanical_rationales": ["Start of the explicit transition 'Возвращаясь к рассказу о себе'."]
+    },
+    {
+      "accepted_po_semantic_decision": "The microstroke story begins in Topic 5 and composes with its continuation in Topic 6A.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0005", "topic_stress_code_video_001_0006"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:003072", "transcript_revision_video_001_r1:word:003076"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_05d_06a",
+      "mechanical_rationales": ["Start of the transition to the need for remote work.", "First word of the microstroke story itself."]
+    },
+    {
+      "accepted_po_semantic_decision": "After the remote-work story, Topic 6B concerns how to receive new information during training.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0006"],
+      "boundary_role": "INTERNAL",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:003443", "transcript_revision_video_001_r1:word:003664"],
+      "confidence": "LOW",
+      "id": "issue_113_boundary_06a_06b",
+      "mechanical_rationales": ["First explicit transition from biography/story to the next training task.", "First sentence explicitly describing the large volume of new information."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 6C begins the proposition that well-being, health and happiness are the natural state.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0006"],
+      "boundary_role": "INTERNAL",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:003895"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_06b_06c",
+      "mechanical_rationales": ["First word of the explicit proposition naming well-being, health and happiness."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 8 begins with David Hawkins; its initial tail returns to Topic 7.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0007", "topic_stress_code_video_001_0008"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:005125"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_07_08",
+      "mechanical_rationales": ["Start of the complete sentence introducing Hawkins as an example."]
+    },
+    {
+      "accepted_po_semantic_decision": "Technical audio/break material after Topic 8 is excluded from semantic knowledge.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0008"],
+      "boundary_role": "RIGHT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:006096", "transcript_revision_video_001_r1:word:006107"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_08_nonsemantic",
+      "mechanical_rationales": ["Start of the explicit break transition.", "Start of the technical audio-check question immediately after the semantic close."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 9 starts at the actual cross-coordination exercise after the break.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0009"],
+      "boundary_role": "LEFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:006278", "transcript_revision_video_001_r1:word:006290"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_09_left",
+      "mechanical_rationales": ["First resumption-of-training sentence after the break.", "First sentence that explicitly begins the exercise explanation."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 10 starts at the explicit third-exercise transition to meridians.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0010"],
+      "boundary_role": "LEFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:007263"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_10_left",
+      "mechanical_rationales": ["First word of the explicit 'Третье упражнение' transition."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 11A begins the school's integrated approach and mission after an initial list tail.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0010", "topic_stress_code_video_001_0011"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:008317", "transcript_revision_video_001_r1:word:008323"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_10_11a",
+      "mechanical_rationales": ["Start of the sentence naming the comprehensive approach.", "Start of the immediately following explicit school-mission statement."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 11B begins the structure of training and school programs.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0011"],
+      "boundary_role": "INTERNAL",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:008603"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_11a_11b",
+      "mechanical_rationales": ["First sentence explicitly introducing the four-day training structure."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 12A begins sequential mastery after the beginning of Topic 12 is returned to 11B.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0011", "topic_stress_code_video_001_0012"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:009468", "transcript_revision_video_001_r1:word:009640"],
+      "confidence": "LOW",
+      "id": "issue_113_boundary_11b_12a",
+      "mechanical_rationales": ["First post-tail terminology block that begins the ordered instructional foundation.", "First explicit transition from terminology to the session/protocol sequence."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 14A includes the preceding related fragment and Topic 14B begins doubts/questions about diagnosis and remote work.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0013", "topic_stress_code_video_001_0014"],
+      "boundary_role": "INTERNAL",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:012386", "transcript_revision_video_001_r1:word:012425"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_14a_14b",
+      "mechanical_rationales": ["First explicit sentence naming doubts that must be removed.", "Start of the planned demonstration used to answer those doubts."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 19 begins DPDG correction after the initial emotional-state fragment returns to the previous procedural block.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0018", "topic_stress_code_video_001_0019"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:016347", "transcript_revision_video_001_r1:word:016365"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_19_left",
+      "mechanical_rationales": ["Start of the complete sentence introducing DPDG correction.", "Start of the complete sentence asking whether DPDG is needed."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 21 begins at actual protocol point 21 and continues into Topic 22.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0020", "topic_stress_code_video_001_0021"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:018872"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_21_left",
+      "mechanical_rationales": ["Exact canonical start of the explicit 'Пункт 21' sentence."]
+    },
+    {
+      "accepted_po_semantic_decision": "Post-correction insights end before gratitude/end-of-demo transition, which is non-semantic.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0021", "topic_stress_code_video_001_0022"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:019578"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_21_22_nonsemantic",
+      "mechanical_rationales": ["Start of the explicit gratitude/end-of-demo transition after the semantic learning wrap-up."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 23 begins the demonstration conclusions after thanks/break transition is excluded.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0022", "topic_stress_code_video_001_0023"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:019671"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_23_left",
+      "mechanical_rationales": ["First sentence after the break that explicitly summarizes the completed demonstration."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 25 begins at the complete transition sentence introducing muscle testing.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0024", "topic_stress_code_video_001_0025"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:020014", "transcript_revision_video_001_r1:word:020030"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_25_left",
+      "mechanical_rationales": ["Start of the complete transition sentence into muscle testing.", "Start of the first sentence enumerating muscle-testing categories."]
+    },
+    {
+      "accepted_po_semantic_decision": "The accuracy/research fragment remains in Topic 26; Topic 27 begins at the actual theory-to-practice transition.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0026", "topic_stress_code_video_001_0027", "topic_stress_code_video_001_0028"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:020482", "transcript_revision_video_001_r1:word:020490"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_26_27",
+      "mechanical_rationales": ["Start of the transition phrase 'И первое, с чего мы с вами начнем'.", "Start of the concrete video-based practice instruction."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 28 retains only the instructional section preparing the muscle-test demonstration.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0028"],
+      "boundary_role": "LEFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:020490", "transcript_revision_video_001_r1:word:020517"],
+      "confidence": "MEDIUM",
+      "id": "issue_113_boundary_28_left",
+      "mechanical_rationales": ["Start of the instruction to obtain and watch the demonstration video.", "First direct instruction to watch it now."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 30 begins practical execution of pretests after the prior explanatory tail.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0029", "topic_stress_code_video_001_0030"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:021687", "transcript_revision_video_001_r1:word:021773"],
+      "confidence": "LOW",
+      "id": "issue_113_boundary_30_left",
+      "mechanical_rationales": ["Start of the next hands-on meridian pretest after the left-boundary breathing tail.", "Start of the explicit wrap-up that all pretests have been learned, after hands-on execution."]
+    },
+    {
+      "accepted_po_semantic_decision": "Topic 31 moves left to include the participant's job/position question with the instructor answer.",
+      "affected_original_drafts": ["topic_stress_code_video_001_0030", "topic_stress_code_video_001_0031"],
+      "boundary_role": "CROSS_DRAFT",
+      "candidate_word_ids": ["transcript_revision_video_001_r1:word:022680"],
+      "confidence": "HIGH",
+      "id": "issue_113_boundary_31_left",
+      "mechanical_rationales": ["Exact start of the participant utterance 'А можно еще вопрос задать?' that introduces the job/position Q&A."]
+    }
+  ],
+  "review_package_id": "review_package_topic_drafts_stress_code_video_001_legacy_v1",
+  "review_package_sha256": "044f4bbc74af874addc5597f677d227bac9aec642d424744b10c877f78714de1",
+  "schema_version": "2.0.0"
+}
