@@ -282,7 +282,8 @@
         "fragment_lineage": {"type": "array"},
         "semantic_knowledge": {"type": "array"},
         "seminar_structure": {"type": "array"},
-        "non_semantic_excluded": {"type": "array"}
+        "non_semantic_excluded": {"type": "array"},
+        "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}
       }
     }
   }

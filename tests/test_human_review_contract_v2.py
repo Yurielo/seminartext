@@ -147,6 +147,7 @@ def test_v2_fragment_composition_dispositions_and_assurance(tmp_path: Path) -> N
     project, package_path, words = make_v2_package(tmp_path)
     decisions_path = tmp_path / "decisions-v2.json"
     document = make_v2_decisions(package_path, words)
+    document["limitations"] = ["Known source limitation remains traceable."]
     write_json(decisions_path, document)
 
     status = run_cli(
@@ -193,6 +194,7 @@ def test_v2_fragment_composition_dispositions_and_assurance(tmp_path: Path) -> N
     assert len(output["semantic_knowledge"]) == 3
     assert len(output["seminar_structure"]) == 1
     assert len(output["non_semantic_excluded"]) == 1
+    assert output["limitations"] == document["limitations"]
     assert len(output["fragment_lineage"]) == 6
     assert output["source_topic_snapshots"] == read_json(package_path)["topics"]
     assert all(item["transcript_provenance"]["verification_state"] == "fully_human_verified" for item in output["fragment_lineage"])
