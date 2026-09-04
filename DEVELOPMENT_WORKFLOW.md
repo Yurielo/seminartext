@@ -109,7 +109,42 @@ only the authorized rule. Product Owner review and separate merge authorization
 remain mandatory. Omission of Product Rule fields from an Issue or PR never
 waives an `ACTIVE` Product Rule.
 
+Prompt 11's requirement to identify exactly one next allowed step means exactly
+one next authorization boundary, not one technical substep. A
+`NEXT_TECHNICAL_SUBSTEP` is a safe, deterministic continuation already covered
+by the bounded authorization and is traversed autonomously. A
+`NEXT_AUTHORIZATION_BOUNDARY` requires new human authority and stops execution.
+Silence, an open Issue, or a logical next product step is never authorization.
+
 ## Standard Execution Loop
+
+### Autonomous Until Human Gate
+
+Inside an explicitly authorized bounded task, the default is `CONTINUE`, not
+`ASK USER TO CONTINUE`:
+
+`authorize bounded scope -> verify preconditions -> execute -> self-check ->`
+`deterministic in-scope continuation -> continue -> genuine human gate -> stop`
+
+Reading authorized inputs, deterministic transformation, schema/provenance
+validation, rebuilds, self-checks, tests, Integrity, diff/scope inspection,
+in-scope deterministic repair and retest, commit, push, and updating an already
+authorized PR are technical substeps rather than human gates. They remain
+subject to the exact Issue scope and existing Git authorization.
+
+Codex stops at a genuine human gate: Product Owner decision, `DOMAIN_REVIEW`,
+`DOMAIN_AUTHORING`, `LOCAL_ACTION`, merge authorization, deploy authorization,
+separately gated runtime reconciliation, an unauthorized new Issue or scope
+expansion, Dataset-role or Gold authority change, new model/algorithm choice,
+new semantic interpretation, irreversible action, unresolved unexpected
+FAIL/WARN/drift, material ambiguity, Product Rule conflict, or unavailable
+required model. If scope remains materially ambiguous after checking Product
+Rules, task authorization, Dataset firewall, semantic authority, and
+merge/deploy restrictions, Codex fails closed.
+
+Internal technical substeps do not emit completion reports or audible signals.
+Codex keeps an execution ledger and returns one consolidated report, with the
+PR-011 sound, when control actually returns to the user.
 
 Default issue loop inside the Evidence-First Parallel Development policy:
 

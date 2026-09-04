@@ -37,6 +37,8 @@ CONTROL_LOOP_FILES = {
         "PRODUCT_RULES_READ",
         "APPLICABLE_PRODUCT_RULES",
         "PRODUCT_RULE_CONFLICTS",
+        "AUTONOMOUS UNTIL HUMAN GATE",
+        "NEXT_AUTHORIZATION_BOUNDARY",
         "HARD STOP",
     ),
     "DEVELOPMENT_WORKFLOW.md": (
@@ -44,6 +46,9 @@ CONTROL_LOOP_FILES = {
         "ChatGPT / Prompt 11 control",
         "Applicable Product Rules",
         "Product Rule conflicts",
+        "Autonomous Until Human Gate",
+        "NEXT_TECHNICAL_SUBSTEP",
+        "NEXT_AUTHORIZATION_BOUNDARY",
         "HARD STOP",
     ),
     ".github/ISSUE_TEMPLATE.md": (

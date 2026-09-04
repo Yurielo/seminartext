@@ -26,6 +26,14 @@ recommendation, implementation choice, inferred preference, silence, or absence
 of objection is not Product Rule authorization. IDs are never reused and
 historical rules are never silently deleted.
 
+Follow `AUTONOMOUS UNTIL HUMAN GATE`: after a bounded task is explicitly
+authorized, continue through every safe, deterministic in-scope
+`NEXT_TECHNICAL_SUBSTEP`; stop only at a genuine
+`NEXT_AUTHORIZATION_BOUNDARY`. This never expands scope or weakens Product
+Owner, domain, local-action, merge, deploy, runtime, Dataset, Gold, semantic,
+destructive-action, ambiguity, or conflict gates. Emit one consolidated report
+and PR-011 sound only when returning control to the user.
+
 The broader role, verification, GitHub, and human-gate contract remains in
 `DEVELOPMENT_WORKFLOW.md`. When instructions conflict, stop and request a
 Product Owner decision; neither file authorizes Codex to invent product policy.
