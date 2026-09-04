@@ -34,6 +34,20 @@ Owner, domain, local-action, merge, deploy, runtime, Dataset, Gold, semantic,
 destructive-action, ambiguity, or conflict gates. Emit one consolidated report
 and PR-011 sound only when returning control to the user.
 
+Follow `AUTONOMOUS ALONG APPROVED ROADMAP`: when the approved Roadmap and
+current verified truth unambiguously establish a singular
+`NEXT_ROADMAP_ITEM`, `ROADMAP_EXECUTION_AUTHORITY = STANDING`. Perform
+`MECHANICAL_STATE_RECONCILIATION = AUTO`, `ISSUE_LIFECYCLE = AUTO`, and all
+deterministic work without routine dispatch. `SAFE_MERGE = AUTO` and
+`SAFE_RUNTIME_RECONCILIATION = AUTO` apply only after every fail-closed
+condition in PR-014 and `DEVELOPMENT_WORKFLOW.md` is mechanically proven. A
+governance PR never self-authorizes from its own unmerged rule. Roadmap changes,
+Product Owner/domain/local-action decisions, Dataset/Gold or semantic authority,
+high-risk or irreversible operations, security decisions, unknown runtime
+targets, ambiguity, and Product Rule conflicts remain genuine human gates.
+Routine completion reports are not gates, and the user must not be used as a
+command courier between deterministic stages.
+
 The broader role, verification, GitHub, and human-gate contract remains in
 `DEVELOPMENT_WORKFLOW.md`. When instructions conflict, stop and request a
 Product Owner decision; neither file authorizes Codex to invent product policy.

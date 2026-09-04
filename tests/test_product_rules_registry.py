@@ -37,7 +37,7 @@ def _write(path: Path, text: str) -> None:
 
 
 def _future_rule(
-    rule_id: str = "PR-014",
+    rule_id: str = "PR-015",
     *,
     status: str = "ACTIVE",
     supersedes: str = "NONE",
@@ -88,12 +88,12 @@ def test_valid_registry_and_exact_authorized_initial_inventory_pass():
     result = validate_repository(ROOT)
     rules = parse_registry((ROOT / CANONICAL_REGISTRY).read_text(encoding="utf-8"))
 
-    assert result["rule_count"] == 13
-    assert result["active"] == 13
+    assert result["rule_count"] == 14
+    assert result["active"] == 14
     assert result["superseded"] == 0
     assert result["retired"] == 0
-    assert result["next_rule_id"] == "PR-014"
-    assert [rule.rule_id for rule in rules] == [f"PR-{index:03d}" for index in range(1, 14)]
+    assert result["next_rule_id"] == "PR-015"
+    assert [rule.rule_id for rule in rules] == [f"PR-{index:03d}" for index in range(1, 15)]
     assert {rule.status for rule in rules} == {"ACTIVE"}
 
 
@@ -157,16 +157,16 @@ def test_cyclic_supersession_chain_fails(tmp_path):
     path = _registry(root)
     text = path.read_text(encoding="utf-8")
     text += _future_rule(
-        "PR-014",
+        "PR-015",
+        status="SUPERSEDED",
+        supersedes="PR-016",
+        superseded_by="PR-016",
+    )
+    text += _future_rule(
+        "PR-016",
         status="SUPERSEDED",
         supersedes="PR-015",
         superseded_by="PR-015",
-    )
-    text += _future_rule(
-        "PR-015",
-        status="SUPERSEDED",
-        supersedes="PR-014",
-        superseded_by="PR-014",
     )
     _write(path, text)
 
@@ -242,8 +242,8 @@ def test_future_append_of_next_valid_rule_passes(tmp_path):
 
     result = validate_repository(root)
 
-    assert result["rule_count"] == 14
-    assert result["next_rule_id"] == "PR-015"
+    assert result["rule_count"] == 15
+    assert result["next_rule_id"] == "PR-016"
 
 
 def test_autonomous_until_human_gate_is_wired_without_weakening_gates():
@@ -255,13 +255,88 @@ def test_autonomous_until_human_gate_is_wired_without_weakening_gates():
     assert "Autonomy never expands authorization and remains" in registry
     assert "NEXT_TECHNICAL_SUBSTEP" in workflow
     assert "NEXT_AUTHORIZATION_BOUNDARY" in workflow
-    assert "merge authorization" in workflow
-    assert "deploy authorization" in workflow
+    assert "SAFE_MERGE = AUTO" in workflow
+    assert "SAFE_RUNTIME_RECONCILIATION = AUTO" in workflow
+    assert "unsafe or" in workflow
+    assert "unclassifiable merge/runtime operation" in workflow
     assert "DOMAIN_REVIEW" in workflow
     assert "DOMAIN_AUTHORING" in workflow
     assert "LOCAL_ACTION" in workflow
-    assert "Dataset-role or Gold authority change" in workflow
+    assert "Dataset/Gold authority change" in workflow
     assert "AUTONOMOUS UNTIL HUMAN GATE" in agents
+
+
+def test_autonomous_along_approved_roadmap_is_wired_and_fail_closed():
+    registry = (ROOT / CANONICAL_REGISTRY).read_text(encoding="utf-8")
+    workflow = (ROOT / "DEVELOPMENT_WORKFLOW.md").read_text(encoding="utf-8")
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+
+    assert "## PR-013 — Autonomous Until Human Gate" in registry
+    assert "## PR-014 — Autonomous Along Approved Roadmap" in registry
+    assert "### Status\nACTIVE" in registry.split(
+        "## PR-014 — Autonomous Along Approved Roadmap", 1
+    )[1]
+    assert "ROADMAP_EXECUTION_AUTHORITY = STANDING" in registry
+    assert "MECHANICAL_STATE_RECONCILIATION = AUTO" in registry
+    assert "ISSUE_LIFECYCLE = AUTO" in registry
+    assert "SAFE_MERGE = AUTO" in registry
+    assert "SAFE_RUNTIME_RECONCILIATION = AUTO" in registry
+    assert "A governance or Product Rule PR MUST NOT use its" in registry
+    assert "own unmerged policy as merge authority" in registry
+    assert "verified backup and mechanically safe rollback" in registry
+    assert "Dataset/Gold or" in registry
+    assert "semantic mutation" in registry
+    assert "user MUST NOT be used as a courier" in registry
+    assert "NEXT_ROADMAP_ITEM" in workflow
+    assert "ROADMAP_EXECUTION" in workflow
+    assert "ROADMAP_CHANGE" in workflow
+    assert "MECHANICAL_STATE_RECONCILIATION = AUTO" in workflow
+    assert "ISSUE_LIFECYCLE = AUTO" in workflow
+    assert "SAFE_MERGE = AUTO" in workflow
+    assert "SAFE_RUNTIME_RECONCILIATION = AUTO" in workflow
+    assert "Classification uncertainty means `MERGE = HUMAN_GATE`" in workflow
+    assert "cannot use its own unmerged rule as authority" in workflow
+    assert "Use exactly one governed deploy attempt" in workflow
+    assert "governed rollback" in workflow
+    assert "HIGH_RISK_IRREVERSIBLE_OPERATION" in workflow
+    assert "SECURITY_OR_CREDENTIAL_DECISION" in workflow
+    assert "EXTERNAL_PRODUCTION_RELEASE" in workflow
+    assert "prohibited user-courier antipattern" in workflow
+    assert "NEXT_ISSUE_ALLOWED: NO" in workflow
+    assert "DOMAIN_REVIEW" in workflow
+    assert "DOMAIN_AUTHORING" in workflow
+    assert "LOCAL_ACTION" in workflow
+    assert "Dataset, Gold" in workflow
+    assert "Product Rule conflict" in workflow
+    assert "AUTONOMOUS ALONG APPROVED ROADMAP" in agents
+
+
+def test_autonomous_model_preserves_all_reserved_human_authorities():
+    registry = (ROOT / CANONICAL_REGISTRY).read_text(encoding="utf-8")
+    workflow = (ROOT / "DEVELOPMENT_WORKFLOW.md").read_text(encoding="utf-8")
+    combined = registry + "\n" + workflow
+
+    for gate in (
+        "PRODUCT_DIRECTION",
+        "ROADMAP_CHANGE",
+        "ARCHITECTURE_CHOICE",
+        "SEMANTIC_AUTHORITY",
+        "DOMAIN_REVIEW",
+        "DOMAIN_AUTHORING",
+        "DATASET_AUTHORITY",
+        "GOLD_AUTHORITY",
+        "HIGH_RISK_IRREVERSIBLE_OPERATION",
+        "SECURITY_OR_CREDENTIAL_DECISION",
+        "EXTERNAL_PRODUCTION_RELEASE",
+        "UNRESOLVABLE_AMBIGUITY",
+        "PRODUCT_RULE_CHANGE",
+    ):
+        assert gate in combined
+
+    assert "Dataset E remains" in workflow
+    assert "EXCLUDED_FROM_TOPIC_ENGINE_EVIDENCE" in workflow
+    assert "Machine-generated or machine-assisted semantic content MUST NOT become" in registry
+    assert "authoritative or `ACCEPTED` without an explicit human `ReviewDecision`" in registry
 
 
 def test_human_review_compatibility_is_explicit_without_alias_enum_conflation():
