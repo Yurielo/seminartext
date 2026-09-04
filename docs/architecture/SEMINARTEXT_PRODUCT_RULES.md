@@ -54,10 +54,10 @@ the current Registry; Codex must not resolve the semantic choice autonomously.
 
 ## Initial Product Rules
 
-The following twelve rules are the bounded Product Owner-approved initial
-inventory. Concept alias outcomes described below are future semantic identity
-review requirements and do not redefine the existing Topic ReviewDecision
-values `ACCEPT`, `RENAME`, `SPLIT`, `MERGE`, `REJECT`, and `DEFER`.
+The following rules are the bounded Product Owner-approved inventory. Concept
+alias outcomes described below are future semantic identity review requirements
+and do not redefine the existing Topic ReviewDecision values `ACCEPT`, `RENAME`,
+`SPLIT`, `MERGE`, `REJECT`, and `DEFER`.
 
 <!-- PRODUCT_RULE_START -->
 ## PR-001 — Human Review Is Intrinsic
@@ -547,4 +547,54 @@ NONE
 
 ### Related Contracts / Issues
 Issue #111; Issue #110; Issue #68; `schemas/canonical_evidence_v1.schema.json`
+<!-- PRODUCT_RULE_END -->
+
+<!-- PRODUCT_RULE_START -->
+## PR-013 — Autonomous Until Human Gate
+
+### ID
+PR-013
+
+### Title
+Autonomous Until Human Gate
+
+### Status
+ACTIVE
+
+### Normative Rule
+After the Product Owner authorizes a bounded task or Issue scope, Codex MUST
+autonomously perform all safe, deterministic, mechanically implied technical
+substeps that remain inside the same authorized task, product intent, Git
+workflow, Dataset permissions, semantic authority, and merge/deploy/runtime
+restrictions. Codex MUST NOT stop merely because one technical substep is
+complete. It MUST stop at the next authorization boundary: a Product Owner,
+`DOMAIN_REVIEW`, `DOMAIN_AUTHORING`, `LOCAL_ACTION`, merge, deploy, separately
+gated runtime-reconciliation, new-Issue, scope-expansion, Dataset/Gold,
+model-selection, semantic-interpretation, destructive-action, unresolved
+unexpected-state, material-ambiguity, Product-Rule-conflict, or unavailable-
+required-model gate. Autonomy never expands authorization and remains
+fail-closed.
+
+### Rationale
+Human control belongs at genuine decision and authorization boundaries, not at
+routine deterministic transitions that unnecessarily turn the Domain Owner
+into a courier between systems.
+
+### Scope
+All Codex execution inside an explicitly authorized SeminarText task or Issue.
+
+### Authority
+Product Owner
+
+### Date Adopted
+2026-09-04
+
+### Supersedes
+NONE
+
+### Superseded By
+NONE
+
+### Related Contracts / Issues
+Issue #115; `AGENTS.md`; `DEVELOPMENT_WORKFLOW.md`
 <!-- PRODUCT_RULE_END -->

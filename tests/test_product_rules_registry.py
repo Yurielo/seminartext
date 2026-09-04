@@ -37,7 +37,7 @@ def _write(path: Path, text: str) -> None:
 
 
 def _future_rule(
-    rule_id: str = "PR-013",
+    rule_id: str = "PR-014",
     *,
     status: str = "ACTIVE",
     supersedes: str = "NONE",
@@ -88,12 +88,12 @@ def test_valid_registry_and_exact_authorized_initial_inventory_pass():
     result = validate_repository(ROOT)
     rules = parse_registry((ROOT / CANONICAL_REGISTRY).read_text(encoding="utf-8"))
 
-    assert result["rule_count"] == 12
-    assert result["active"] == 12
+    assert result["rule_count"] == 13
+    assert result["active"] == 13
     assert result["superseded"] == 0
     assert result["retired"] == 0
-    assert result["next_rule_id"] == "PR-013"
-    assert [rule.rule_id for rule in rules] == [f"PR-{index:03d}" for index in range(1, 13)]
+    assert result["next_rule_id"] == "PR-014"
+    assert [rule.rule_id for rule in rules] == [f"PR-{index:03d}" for index in range(1, 14)]
     assert {rule.status for rule in rules} == {"ACTIVE"}
 
 
@@ -157,16 +157,16 @@ def test_cyclic_supersession_chain_fails(tmp_path):
     path = _registry(root)
     text = path.read_text(encoding="utf-8")
     text += _future_rule(
-        "PR-013",
+        "PR-014",
+        status="SUPERSEDED",
+        supersedes="PR-015",
+        superseded_by="PR-015",
+    )
+    text += _future_rule(
+        "PR-015",
         status="SUPERSEDED",
         supersedes="PR-014",
         superseded_by="PR-014",
-    )
-    text += _future_rule(
-        "PR-014",
-        status="SUPERSEDED",
-        supersedes="PR-013",
-        superseded_by="PR-013",
     )
     _write(path, text)
 
@@ -242,8 +242,26 @@ def test_future_append_of_next_valid_rule_passes(tmp_path):
 
     result = validate_repository(root)
 
-    assert result["rule_count"] == 13
-    assert result["next_rule_id"] == "PR-014"
+    assert result["rule_count"] == 14
+    assert result["next_rule_id"] == "PR-015"
+
+
+def test_autonomous_until_human_gate_is_wired_without_weakening_gates():
+    registry = (ROOT / CANONICAL_REGISTRY).read_text(encoding="utf-8")
+    workflow = (ROOT / "DEVELOPMENT_WORKFLOW.md").read_text(encoding="utf-8")
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+
+    assert "## PR-013 — Autonomous Until Human Gate" in registry
+    assert "Autonomy never expands authorization and remains" in registry
+    assert "NEXT_TECHNICAL_SUBSTEP" in workflow
+    assert "NEXT_AUTHORIZATION_BOUNDARY" in workflow
+    assert "merge authorization" in workflow
+    assert "deploy authorization" in workflow
+    assert "DOMAIN_REVIEW" in workflow
+    assert "DOMAIN_AUTHORING" in workflow
+    assert "LOCAL_ACTION" in workflow
+    assert "Dataset-role or Gold authority change" in workflow
+    assert "AUTONOMOUS UNTIL HUMAN GATE" in agents
 
 
 def test_human_review_compatibility_is_explicit_without_alias_enum_conflation():
