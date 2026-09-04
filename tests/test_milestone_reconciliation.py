@@ -90,8 +90,8 @@ def test_current_real_seminartext_control_plane_is_truthful_and_offline():
     assert result.control_plane_reconciled is True
     assert result.next_issue_allowed is False
     assert result.github_lifecycle_check == "NOT_RUN"
-    assert result.human_gate == "PRODUCT_OWNER_REVIEW_PENDING"
-    assert result.current_milestone_id == "audit_r6_canonical_contract_truth"
+    assert result.human_gate == "AUTO_UNTIL_DOMAIN_REVIEW"
+    assert result.current_milestone_id == "issue_68_real_multi_source_vertical_slice"
 
 
 def test_accepted_decision_with_stale_state_fails_closed(tmp_path):
@@ -149,6 +149,12 @@ def test_pending_human_gate_blocks_next_issue(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
+    current = next(
+        item
+        for item in contract["milestones"]
+        if item["milestone_id"] == contract["current_milestone_id"]
+    )
+    current["human_gate"] = "DOMAIN_REVIEW_PENDING"
     contract["next_issue_allowed"] = True
     _write_json(path, contract)
     result = evaluate(root)
@@ -170,7 +176,7 @@ def test_active_r4_requires_matching_authorization(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
-    contract["authorization_states"]["audit_r4"] = "NOT_AUTHORIZED"
+    contract["authorization_states"]["audit_r4"] = "AUTHORIZED_IMPLEMENTATION"
     _write_json(path, contract)
     result = evaluate(root)
     assert _has(result, "G8", "CP_AUTHORIZATION_STATE")
@@ -190,14 +196,37 @@ def test_runtime_reconciliation_pending_blocks_next_issue(tmp_path):
     root = _fixture(tmp_path)
     path = root / "integrity" / "milestone_reconciliation.json"
     contract = _read_contract(root)
-    r5 = next(
+    completed = next(
         item
         for item in contract["milestones"]
-        if item["milestone_id"] == "audit_r5_integrity_documentation_and_issue_template_sync"
+        if item["milestone_id"] == "autonomous_operating_model"
     )
-    r5["runtime_reconciliation_complete"] = False
+    next_item = next(
+        item
+        for item in contract["milestones"]
+        if item["milestone_id"] == "issue_68_real_multi_source_vertical_slice"
+    )
+    completed["runtime_reconciliation_required"] = True
+    completed["runtime_reconciliation_complete"] = False
+    next_item.update(
+        status="NOT_STARTED",
+        decision="NOT_AUTHORIZED",
+        disposition="NOT_AUTHORIZED",
+        accepted=False,
+        authorized=False,
+        implementation_state="NOT_STARTED",
+        human_gate="NONE",
+    )
+    contract["current_milestone_id"] = None
+    contract["state_current_milestone"] = None
+    contract["state_current_stage"] = None
+    contract["next_eligible_milestone_id"] = next_item["milestone_id"]
+    contract["human_gate"] = "NONE"
+    contract["active_actions"] = []
+    contract["authorization_states"]["issue_68"] = "NOT_AUTHORIZED"
     contract["next_issue_allowed"] = True
     _write_json(path, contract)
+    _synchronize_projections(root, contract)
     result = evaluate(root)
     assert _has(result, "G8", "CP_RUNTIME_RECONCILIATION_BYPASS")
 
@@ -319,10 +348,10 @@ def test_json_and_human_reports_expose_progression_verdict(tmp_path):
     assert report["next_issue_allowed"] is False
     assert "CONTROL_PLANE_RECONCILED: YES" in human
     assert "NEXT_ISSUE_ALLOWED: NO" in human
-    assert "HUMAN_GATE: PRODUCT_OWNER_REVIEW_PENDING" in human
+    assert "HUMAN_GATE: AUTO_UNTIL_DOMAIN_REVIEW" in human
 
 
-def test_r4_and_r5_accepted_with_r6_implemented_pending_review():
+def test_completed_milestones_and_issue_68_active():
     contract = _read_contract(ROOT)
     milestones = {item["milestone_id"]: item for item in contract["milestones"]}
     r3 = milestones["audit_r3_control_plane_integrity_gate"]
@@ -335,11 +364,19 @@ def test_r4_and_r5_accepted_with_r6_implemented_pending_review():
     assert r3["human_gate"] == "SATISFIED"
     assert r3["runtime_reconciliation_complete"] is True
     r6 = milestones["audit_r6_canonical_contract_truth"]
-    assert contract["current_milestone_id"] == r6["milestone_id"]
+    issue_104 = milestones["issue_104_product_bridge"]
+    issue_113 = milestones["issue_113_human_review_and_root_cause"]
+    operating_model = milestones["autonomous_operating_model"]
+    issue_68 = milestones["issue_68_real_multi_source_vertical_slice"]
+    assert contract["current_milestone_id"] == issue_68["milestone_id"]
     assert contract["next_issue_allowed"] is False
     assert contract["next_eligible_milestone_id"] is None
-    assert contract["authorization_states"]["audit_r4"] == "AUTHORIZED_IMPLEMENTATION"
-    assert contract["authorization_states"]["audit_r6"] == "AUTHORIZED_IMPLEMENTATION"
+    assert contract["last_completed_milestone_id"] == operating_model["milestone_id"]
+    assert contract["authorization_states"]["audit_r4"] == "NOT_AUTHORIZED"
+    assert contract["authorization_states"]["audit_r6"] == "NOT_AUTHORIZED"
+    assert contract["authorization_states"]["issue_68"] == "AUTHORIZED_IMPLEMENTATION"
+    assert contract["authorization_states"]["release_integration_readiness_audit"] == "NOT_AUTHORIZED"
+    assert contract["authorization_states"]["issue_113_cross_video_experiment"] == "NOT_AUTHORIZED"
     assert all(contract["authorization_states"][key] == "NOT_AUTHORIZED" for key in ("issue_65", "issue_66"))
     assert r4["status"] == "COMPLETE_ACCEPTED"
     assert r4["decision"] == "ACCEPT"
@@ -351,10 +388,21 @@ def test_r4_and_r5_accepted_with_r6_implemented_pending_review():
     assert r5["authorized"] is True
     assert r5["accepted"] is True
     assert r5["runtime_reconciliation_complete"] is True
-    assert r6["status"] == "IMPLEMENTED_PENDING_PRODUCT_OWNER_REVIEW"
-    assert r6["decision"] == "PENDING_PRODUCT_OWNER_REVIEW"
+    assert r6["status"] == "COMPLETE_ACCEPTED"
+    assert r6["decision"] == "ACCEPT"
     assert r6["authorized"] is True
-    assert r6["accepted"] is False
+    assert r6["accepted"] is True
+    for completed in (issue_104, issue_113, operating_model):
+        assert completed["status"] == "COMPLETE_ACCEPTED"
+        assert completed["accepted"] is True
+        assert completed["implementation_state"] == "COMPLETE"
+        assert completed["human_gate"] == "SATISFIED"
+        assert completed["runtime_reconciliation_complete"] is True
+    assert issue_68["status"] == "AUTHORIZED_READY_TO_EXECUTE"
+    assert issue_68["decision"] == "AUTHORIZED_IMPLEMENTATION"
+    assert issue_68["authorized"] is True
+    assert issue_68["accepted"] is False
+    assert issue_68["human_gate"] == "AUTO_UNTIL_DOMAIN_REVIEW"
 
 
 def test_dataset_d_remains_locked_after_r3_acceptance():
