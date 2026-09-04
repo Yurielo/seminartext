@@ -110,11 +110,15 @@ remain mandatory. Omission of Product Rule fields from an Issue or PR never
 waives an `ACTIVE` Product Rule.
 
 Prompt 11's requirement to identify exactly one next allowed step means exactly
-one next authorization boundary, not one technical substep. A
+one next authorization boundary, not one technical substep or one already
+authorized Roadmap transition. A
 `NEXT_TECHNICAL_SUBSTEP` is a safe, deterministic continuation already covered
 by the bounded authorization and is traversed autonomously. A
+`NEXT_ROADMAP_ITEM` is traversed autonomously only under the standing authority
+and fail-closed conditions below. A
 `NEXT_AUTHORIZATION_BOUNDARY` requires new human authority and stops execution.
-Silence, an open Issue, or a logical next product step is never authorization.
+Silence, an open Issue, or a merely logical but not approved Roadmap step is
+never authorization.
 
 ## Standard Execution Loop
 
@@ -146,6 +150,38 @@ Internal technical substeps do not emit completion reports or audible signals.
 Codex keeps an execution ledger and returns one consolidated report, with the
 PR-011 sound, when control actually returns to the user.
 
+### Autonomous Along Approved Roadmap
+
+`ROADMAP_EXECUTION` is distinct from `ROADMAP_CHANGE`. Execution has
+`ROADMAP_EXECUTION_AUTHORITY = STANDING` only when all of the following are
+true: the Roadmap is Product Owner-approved; Roadmap and machine-readable State
+agree; the current item's objective DoD is satisfied; the next approved item is
+singular and explicit; and no unresolved Product Owner, `DOMAIN_REVIEW`,
+`DOMAIN_AUTHORING`, `LOCAL_ACTION`, merge, deploy, separately gated runtime,
+Dataset, Gold, semantic, destructive-action, ambiguity, or Product Rule
+conflict gate remains. In that state, routine continuation does not require a
+new Product Owner dispatch decision.
+
+Standing Roadmap execution authority includes mechanically closing the
+completed Issue, creating the explicitly next Roadmap Issue and branch, and
+executing its authorized scope through deterministic implementation, repair,
+tests, commit, push, and PR. It does not include merge or deploy. An Issue whose
+completion itself encodes subjective product or semantic acceptance remains at
+the applicable human gate.
+
+`ROADMAP_CHANGE` is always Product Owner-gated. It includes reordering or
+skipping required milestones, selecting among materially different next paths,
+adding a major initiative, changing architectural direction, Dataset or Gold
+authority, or product acceptance semantics. If Roadmap and State disagree,
+`NEXT_ISSUE_ALLOWED` is not explicit, or more than one material next item is
+valid, Codex stops and reports the exact reconciliation or decision required.
+
+The prohibited human-courier antipattern is: Codex finishes deterministic work,
+the user transports its report to another system, that system confirms the
+obvious next deterministic action, and the user transports the instruction
+back. When no genuine judgment or authorization is needed, Codex continues and
+returns one consolidated report at the actual human gate.
+
 Default issue loop inside the Evidence-First Parallel Development policy:
 
 `ROADMAP -> PO ISSUE/DoD -> CODEX IMPLEMENT -> AUTOMATED TEST/QA -> PR -> PO REVIEW -> [DOMAIN GATE only if needed] -> MERGE -> STATE/ROADMAP UPDATE -> NEXT ISSUE`
@@ -162,7 +198,10 @@ Project Integrity Gate:
 The gate is read-only. `BOOTSTRAP_IMPLEMENTATION: PASS` means the observer ran;
 `PROJECT_INTEGRITY: FAIL` remains a blocking finding and must be reported or
 repaired under a separate governed Issue. Future gates shown as
-`NOT_IMPLEMENTED` are never treated as PASS.
+`NOT_IMPLEMENTED` are never treated as PASS. `NEXT_ISSUE_ALLOWED: YES` plus an
+approved singular next Roadmap item permits standing Roadmap execution;
+`NEXT_ISSUE_ALLOWED: NO`, a pending human gate, or Roadmap/State disagreement
+blocks automatic continuation.
 
 Semantic Automation, Knowledge Product, and Data/Evaluation may advance in
 parallel when their inputs and human gates permit. Topic Engine stability is a

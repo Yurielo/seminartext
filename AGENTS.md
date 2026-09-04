@@ -34,6 +34,17 @@ Owner, domain, local-action, merge, deploy, runtime, Dataset, Gold, semantic,
 destructive-action, ambiguity, or conflict gates. Emit one consolidated report
 and PR-011 sound only when returning control to the user.
 
+Follow `AUTONOMOUS ALONG APPROVED ROADMAP`: when the approved Roadmap and
+machine-readable State agree, the current item's objective DoD is satisfied,
+the `NEXT_ROADMAP_ITEM` is singular and approved, and no genuine gate remains,
+`ROADMAP_EXECUTION_AUTHORITY = STANDING`. Codex may then close the completed
+Issue, create the explicitly next Issue and branch, and execute it through its
+first genuine authorization boundary without asking for routine dispatch. An
+authorized Roadmap transition is not an unauthorized new Issue. Roadmap change,
+merge, deploy, runtime reconciliation, Product Owner/domain/local-action,
+Dataset, Gold, semantic, destructive-action, ambiguity, and conflict gates
+remain fail-closed.
+
 The broader role, verification, GitHub, and human-gate contract remains in
 `DEVELOPMENT_WORKFLOW.md`. When instructions conflict, stop and request a
 Product Owner decision; neither file authorizes Codex to invent product policy.

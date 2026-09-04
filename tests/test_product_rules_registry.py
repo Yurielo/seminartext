@@ -37,7 +37,7 @@ def _write(path: Path, text: str) -> None:
 
 
 def _future_rule(
-    rule_id: str = "PR-014",
+    rule_id: str = "PR-015",
     *,
     status: str = "ACTIVE",
     supersedes: str = "NONE",
@@ -88,12 +88,12 @@ def test_valid_registry_and_exact_authorized_initial_inventory_pass():
     result = validate_repository(ROOT)
     rules = parse_registry((ROOT / CANONICAL_REGISTRY).read_text(encoding="utf-8"))
 
-    assert result["rule_count"] == 13
-    assert result["active"] == 13
+    assert result["rule_count"] == 14
+    assert result["active"] == 14
     assert result["superseded"] == 0
     assert result["retired"] == 0
-    assert result["next_rule_id"] == "PR-014"
-    assert [rule.rule_id for rule in rules] == [f"PR-{index:03d}" for index in range(1, 14)]
+    assert result["next_rule_id"] == "PR-015"
+    assert [rule.rule_id for rule in rules] == [f"PR-{index:03d}" for index in range(1, 15)]
     assert {rule.status for rule in rules} == {"ACTIVE"}
 
 
@@ -157,16 +157,16 @@ def test_cyclic_supersession_chain_fails(tmp_path):
     path = _registry(root)
     text = path.read_text(encoding="utf-8")
     text += _future_rule(
-        "PR-014",
+        "PR-015",
+        status="SUPERSEDED",
+        supersedes="PR-016",
+        superseded_by="PR-016",
+    )
+    text += _future_rule(
+        "PR-016",
         status="SUPERSEDED",
         supersedes="PR-015",
         superseded_by="PR-015",
-    )
-    text += _future_rule(
-        "PR-015",
-        status="SUPERSEDED",
-        supersedes="PR-014",
-        superseded_by="PR-014",
     )
     _write(path, text)
 
@@ -242,8 +242,8 @@ def test_future_append_of_next_valid_rule_passes(tmp_path):
 
     result = validate_repository(root)
 
-    assert result["rule_count"] == 14
-    assert result["next_rule_id"] == "PR-015"
+    assert result["rule_count"] == 15
+    assert result["next_rule_id"] == "PR-016"
 
 
 def test_autonomous_until_human_gate_is_wired_without_weakening_gates():
@@ -262,6 +262,32 @@ def test_autonomous_until_human_gate_is_wired_without_weakening_gates():
     assert "LOCAL_ACTION" in workflow
     assert "Dataset-role or Gold authority change" in workflow
     assert "AUTONOMOUS UNTIL HUMAN GATE" in agents
+
+
+def test_autonomous_along_approved_roadmap_is_wired_and_fail_closed():
+    registry = (ROOT / CANONICAL_REGISTRY).read_text(encoding="utf-8")
+    workflow = (ROOT / "DEVELOPMENT_WORKFLOW.md").read_text(encoding="utf-8")
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+
+    assert "## PR-013 — Autonomous Until Human Gate" in registry
+    assert "## PR-014 — Autonomous Along Approved Roadmap" in registry
+    assert "### Status\nACTIVE" in registry.split(
+        "## PR-014 — Autonomous Along Approved Roadmap", 1
+    )[1]
+    assert "ROADMAP_EXECUTION_AUTHORITY = STANDING" in registry
+    assert "this rule does not authorize merge or deploy" in registry
+    assert "NEXT_ROADMAP_ITEM" in workflow
+    assert "ROADMAP_EXECUTION" in workflow
+    assert "ROADMAP_CHANGE" in workflow
+    assert "routine continuation does not require a" in workflow
+    assert "new Product Owner dispatch decision" in workflow
+    assert "NEXT_ISSUE_ALLOWED: NO" in workflow
+    assert "DOMAIN_REVIEW" in workflow
+    assert "DOMAIN_AUTHORING" in workflow
+    assert "LOCAL_ACTION" in workflow
+    assert "Dataset, Gold" in workflow
+    assert "Product Rule conflict" in workflow
+    assert "AUTONOMOUS ALONG APPROVED ROADMAP" in agents
 
 
 def test_human_review_compatibility_is_explicit_without_alias_enum_conflation():

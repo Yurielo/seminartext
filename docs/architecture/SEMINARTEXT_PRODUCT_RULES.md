@@ -598,3 +598,54 @@ NONE
 ### Related Contracts / Issues
 Issue #115; `AGENTS.md`; `DEVELOPMENT_WORKFLOW.md`
 <!-- PRODUCT_RULE_END -->
+
+<!-- PRODUCT_RULE_START -->
+## PR-014 — Autonomous Along Approved Roadmap
+
+### ID
+PR-014
+
+### Title
+Autonomous Along Approved Roadmap
+
+### Status
+ACTIVE
+
+### Normative Rule
+When a Product Owner-approved Roadmap and its current machine-readable State
+unambiguously identify the next work item, Codex has standing authorization to
+execute that transition after the current item's objective Definition of Done
+is satisfied. `ROADMAP_EXECUTION_AUTHORITY = STANDING` permits mechanical Issue
+closure, creation of the explicitly next Roadmap Issue and branch, and complete
+in-scope execution through commit, push, PR, tests, validation, and deterministic
+repair. This authority applies only while Roadmap and State agree, the next item
+is singular and approved, and no unresolved Product Owner, domain, local-action,
+merge, deploy, runtime, Dataset, Gold, semantic, destructive-action, ambiguity,
+or Product Rule conflict gate exists. Roadmap changes are never inferred from
+Roadmap execution, and this rule does not authorize merge or deploy.
+
+### Rationale
+An approved and unambiguous Roadmap already supplies the dispatch decision for
+routine transitions. Requiring the Domain Owner to relay deterministic closure
+and startup instructions adds no governance and makes the human a courier.
+
+### Scope
+Transitions between completed SeminarText work items and the next explicitly
+approved Roadmap item. It does not authorize Roadmap changes or bypass any
+human, semantic, Dataset, merge, deploy, runtime, ambiguity, or safety gate.
+
+### Authority
+Product Owner
+
+### Date Adopted
+2026-09-04
+
+### Supersedes
+NONE
+
+### Superseded By
+NONE
+
+### Related Contracts / Issues
+Issue #117; `AGENTS.md`; `DEVELOPMENT_WORKFLOW.md`
+<!-- PRODUCT_RULE_END -->
