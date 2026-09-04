@@ -1,0 +1,307 @@
+{
+  "artifact_id": "issue_68_stress_code_readiness_v1",
+  "artifact_type": "seminartext.issue_68_readiness_manifest",
+  "blockers": [
+    {
+      "gate": "DOMAIN_AUTHORING",
+      "id": "MISSING_SOURCE_TOPIC_SEMANTICS",
+      "reason": "No eligible human-authored/reviewed Topic input exists for these sources.",
+      "sources": [
+        "source_video_002",
+        "source_video_003",
+        "source_video_004"
+      ]
+    },
+    {
+      "gate": "DOMAIN_AUTHORING",
+      "id": "MISSING_CANONICAL_CONCEPT_SEMANTICS",
+      "reason": "The applied Topic review contains no authoritative Canonical Concepts; the required Topic -> Concept -> Evidence path cannot be asserted.",
+      "sources": [
+        "source_video_001",
+        "source_video_002",
+        "source_video_003",
+        "source_video_004"
+      ]
+    },
+    {
+      "gate": "FUTURE_ENGINEERING_SCOPE",
+      "id": "DOCUMENT_EVIDENCE_CONTRACT_UNAVAILABLE",
+      "reason": "Registered presentation/handouts have no Canonical Evidence or page/slide locator contract in the current bridge.",
+      "sources": [
+        "source_doc_001",
+        "source_doc_002",
+        "source_doc_003"
+      ]
+    }
+  ],
+  "claims": {
+    "cross_seminar_ready_next": false,
+    "full_registered_source_evidence_coverage": false,
+    "full_seminar_knowledge_coverage": false,
+    "full_video_evidence_coverage": true,
+    "full_video_semantic_coverage": false,
+    "multi_source_vertical_slice": "PARTIAL"
+  },
+  "coverage": [
+    {
+      "aligned_word_count": 23909,
+      "alignment_run_count": 1,
+      "canonical_source_id": "source_video_001",
+      "canonical_source_present": true,
+      "evidence_status": "COMPOSED",
+      "kind": "video",
+      "registry_id": "video_001",
+      "reviewed_topic_unit_count": 37,
+      "semantic_coverage": "DOMAIN_REVIEW_APPLIED",
+      "title": "Стресс Код декабрь 2022 День 1",
+      "trace_samples": {
+        "beginning": {
+          "alignment_status": "aligned",
+          "end_seconds": 6.871,
+          "id": "transcript_revision_video_001_r1:word:000000",
+          "sequence": 0,
+          "start_seconds": 6.35
+        },
+        "end": {
+          "alignment_status": "aligned",
+          "end_seconds": 16353.42,
+          "id": "transcript_revision_video_001_r1:word:024139",
+          "sequence": 24139,
+          "start_seconds": 16352.45
+        },
+        "middle": {
+          "alignment_status": "aligned",
+          "end_seconds": 8230.544,
+          "id": "transcript_revision_video_001_r1:word:012070",
+          "sequence": 12070,
+          "start_seconds": 8230.424
+        }
+      },
+      "transcript_revision_count": 1,
+      "unaligned_word_count": 231,
+      "word_count": 24140
+    },
+    {
+      "aligned_word_count": 26555,
+      "alignment_run_count": 1,
+      "canonical_source_id": "source_video_002",
+      "canonical_source_present": true,
+      "evidence_status": "COMPOSED",
+      "kind": "video",
+      "registry_id": "video_002",
+      "reviewed_topic_unit_count": 0,
+      "semantic_coverage": "SEMANTIC_INPUT_UNAVAILABLE",
+      "title": "Стресс Код декабрь 2022 День 2",
+      "trace_samples": {
+        "beginning": {
+          "alignment_status": "aligned",
+          "end_seconds": 6.792,
+          "id": "transcript_revision_video_002_r1:word:000000",
+          "sequence": 0,
+          "start_seconds": 4.95
+        },
+        "end": {
+          "alignment_status": "unaligned",
+          "end_seconds": null,
+          "id": "transcript_revision_video_002_r1:word:026822",
+          "sequence": 26822,
+          "start_seconds": null
+        },
+        "middle": {
+          "alignment_status": "aligned",
+          "end_seconds": 8500.034,
+          "id": "transcript_revision_video_002_r1:word:013411",
+          "sequence": 13411,
+          "start_seconds": 8499.753
+        }
+      },
+      "transcript_revision_count": 1,
+      "unaligned_word_count": 268,
+      "word_count": 26823
+    },
+    {
+      "aligned_word_count": 25361,
+      "alignment_run_count": 1,
+      "canonical_source_id": "source_video_003",
+      "canonical_source_present": true,
+      "evidence_status": "COMPOSED",
+      "kind": "video",
+      "registry_id": "video_003",
+      "reviewed_topic_unit_count": 0,
+      "semantic_coverage": "SEMANTIC_INPUT_UNAVAILABLE",
+      "title": "Стресс Код декабрь 2022 День 3",
+      "trace_samples": {
+        "beginning": {
+          "alignment_status": "aligned",
+          "end_seconds": 7.062,
+          "id": "transcript_revision_video_003_r1:word:000000",
+          "sequence": 0,
+          "start_seconds": 5.699
+        },
+        "end": {
+          "alignment_status": "unaligned",
+          "end_seconds": null,
+          "id": "transcript_revision_video_003_r1:word:025600",
+          "sequence": 25600,
+          "start_seconds": null
+        },
+        "middle": {
+          "alignment_status": "aligned",
+          "end_seconds": 8676.065,
+          "id": "transcript_revision_video_003_r1:word:012800",
+          "sequence": 12800,
+          "start_seconds": 8675.905
+        }
+      },
+      "transcript_revision_count": 1,
+      "unaligned_word_count": 240,
+      "word_count": 25601
+    },
+    {
+      "aligned_word_count": 24682,
+      "alignment_run_count": 1,
+      "canonical_source_id": "source_video_004",
+      "canonical_source_present": true,
+      "evidence_status": "COMPOSED",
+      "kind": "video",
+      "registry_id": "video_004",
+      "reviewed_topic_unit_count": 0,
+      "semantic_coverage": "SEMANTIC_INPUT_UNAVAILABLE",
+      "title": "Стресс Код декабрь 2022 День 4",
+      "trace_samples": {
+        "beginning": {
+          "alignment_status": "aligned",
+          "end_seconds": 3.24,
+          "id": "transcript_revision_video_004_r1:word:000000",
+          "sequence": 0,
+          "start_seconds": 2.92
+        },
+        "end": {
+          "alignment_status": "unaligned",
+          "end_seconds": null,
+          "id": "transcript_revision_video_004_r1:word:024934",
+          "sequence": 24934,
+          "start_seconds": null
+        },
+        "middle": {
+          "alignment_status": "aligned",
+          "end_seconds": 8506.194,
+          "id": "transcript_revision_video_004_r1:word:012467",
+          "sequence": 12467,
+          "start_seconds": 8505.973
+        }
+      },
+      "transcript_revision_count": 1,
+      "unaligned_word_count": 253,
+      "word_count": 24935
+    },
+    {
+      "aligned_word_count": 0,
+      "alignment_run_count": 0,
+      "canonical_source_id": "source_doc_001",
+      "canonical_source_present": false,
+      "evidence_status": "EVIDENCE_UNAVAILABLE",
+      "kind": "presentation",
+      "registry_id": "doc_001",
+      "reviewed_topic_unit_count": 0,
+      "semantic_coverage": "SEMANTIC_INPUT_UNAVAILABLE",
+      "title": "Стресс код",
+      "trace_samples": {},
+      "transcript_revision_count": 0,
+      "unaligned_word_count": 0,
+      "word_count": 0
+    },
+    {
+      "aligned_word_count": 0,
+      "alignment_run_count": 0,
+      "canonical_source_id": "source_doc_002",
+      "canonical_source_present": false,
+      "evidence_status": "EVIDENCE_UNAVAILABLE",
+      "kind": "handout",
+      "registry_id": "doc_002",
+      "reviewed_topic_unit_count": 0,
+      "semantic_coverage": "SEMANTIC_INPUT_UNAVAILABLE",
+      "title": "Стресс код Материалы полн",
+      "trace_samples": {},
+      "transcript_revision_count": 0,
+      "unaligned_word_count": 0,
+      "word_count": 0
+    },
+    {
+      "aligned_word_count": 0,
+      "alignment_run_count": 0,
+      "canonical_source_id": "source_doc_003",
+      "canonical_source_present": false,
+      "evidence_status": "EVIDENCE_UNAVAILABLE",
+      "kind": "handout",
+      "registry_id": "doc_003",
+      "reviewed_topic_unit_count": 0,
+      "semantic_coverage": "SEMANTIC_INPUT_UNAVAILABLE",
+      "title": "Карта Эмоций",
+      "trace_samples": {},
+      "transcript_revision_count": 0,
+      "unaligned_word_count": 0,
+      "word_count": 0
+    }
+  ],
+  "errors": [],
+  "gates": {
+    "all_video_sources_traced": "PASS",
+    "all_video_topic_semantics": "BLOCKED_DOMAIN_AUTHORING",
+    "canonical_concept_path": "BLOCKED_DOMAIN_AUTHORING",
+    "canonical_evidence": "PASS",
+    "day_1_topic_domain_review": "PASS",
+    "obsidian_export": "NOT_RUN_BLOCKED_SEMANTIC_INPUT"
+  },
+  "human_gate": {
+    "classification": "DOMAIN_AUTHORING",
+    "domain_review_after_authoring": "REQUIRED",
+    "required_inputs": [
+      "Authoritative eligible Topic inputs for source_video_002, source_video_003, and source_video_004.",
+      "Authoritative minimal Canonical Concept identities/content and explicit Topic-to-Concept links needed to exercise Seminar -> Source/Topic -> Concept -> Evidence."
+    ]
+  },
+  "inventory": {
+    "canonical_concept_count": 0,
+    "composed_source_count": 4,
+    "locator_types": [
+      "time_interval"
+    ],
+    "registered_document_count": 3,
+    "registered_source_count": 7,
+    "registered_video_count": 4,
+    "reviewed_semantic_topic_unit_count": 36,
+    "reviewed_source_topic_snapshot_count": 31,
+    "reviewed_structure_unit_count": 1,
+    "transcript_assurance": {
+      "machine_unverified": 4
+    },
+    "transcript_revision_count": 4,
+    "word_count": 101499
+  },
+  "project": {
+    "canonical_evidence_artifact_id": "artifact_project_item_multi_source_v1",
+    "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
+    "evidence_manifest_sha256": "e2b1efbb43682893873e2db7607c8e73acc619e8bde22540a1f36dc2853afefb",
+    "id": "project_item",
+    "source_registry_sha256": "7099cb7918af1f2365389ede578fd00ff16190d42d67f82689099cc5aee69ebc",
+    "title": "Стресс код",
+    "topic_decision_artifact": {
+      "artifact_id": "issue_113_complete_topic_review_decisions_v2",
+      "sha256": "32a18a6dc9d3edbd53753153f533221e9c0fe6d54856355af9d52a3db41e772e"
+    },
+    "topic_review_result_artifact_id": "review_result_issue_113_complete_topic_review_decisions_v2",
+    "topic_review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69"
+  },
+  "safety": {
+    "dataset_d_or_e_accessed": false,
+    "gold_modified": false,
+    "machine_transcript_assurance_preserved": true,
+    "obsidian_export_attempted": false,
+    "project_files_modified": false,
+    "semantic_acceptance_inferred": false,
+    "topics_or_concepts_authored": false
+  },
+  "schema_version": "1.0.0",
+  "status": "BLOCKED_AT_DOMAIN_AUTHORING"
+}
