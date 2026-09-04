@@ -69,7 +69,9 @@
         "source_fragments": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source_fragment"}},
         "results": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/result_unit"}},
         "reason": {"type": "string", "minLength": 1},
-        "timestamp": {"type": "string", "minLength": 1}
+        "timestamp": {"type": "string", "minLength": 1},
+        "semantic_decision_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "boundary_decision_refs": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}
       }
     },
     "reviewer": {
@@ -78,6 +80,48 @@
       "properties": {
         "actor_type": {"enum": ["human_domain_reviewer", "product_owner"]},
         "actor_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "authoritative_semantic_decision": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "review_item_number", "source_topic_id", "authoritative_outcome"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "review_item_number": {"type": "integer", "minimum": 1},
+        "source_topic_id": {"$ref": "#/$defs/id"},
+        "authoritative_outcome": {"type": "string", "minLength": 1}
+      }
+    },
+    "boundary_decision_source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact_id", "sha256", "authority", "decision_count"],
+      "properties": {
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "authority": {"const": "PRODUCT_OWNER_DOMAIN_REVIEW"},
+        "decision_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "resolved_boundary_provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["boundary_proposal_id", "canonical_word_id", "timestamp", "source_artifact_id", "source_artifact_sha256", "authority", "status"],
+      "properties": {
+        "boundary_proposal_id": {"$ref": "#/$defs/id"},
+        "canonical_word_id": {"$ref": "#/$defs/id"},
+        "timestamp": {"type": "number", "minimum": 0},
+        "source_artifact_id": {"$ref": "#/$defs/id"},
+        "source_artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "authority": {"const": "PRODUCT_OWNER_DOMAIN_REVIEW"},
+        "status": {"const": "DECIDED"}
+      }
+    },
+    "exact_boundary_provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["authority", "sources", "resolved_boundaries"],
+      "properties": {
+        "authority": {"const": "PRODUCT_OWNER_DOMAIN_REVIEW"},
+        "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/boundary_decision_source"}},
+        "resolved_boundaries": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/resolved_boundary_provenance"}}
       }
     },
     "review_decisions_v2": {
@@ -91,7 +135,10 @@
         "review_package_sha256": {"$ref": "#/$defs/sha256"},
         "reviewer": {"$ref": "#/$defs/reviewer"},
         "boundary_authority": {"enum": ["REVIEW_REQUIRED", "PRODUCT_OWNER_DOMAIN_REVIEW"]},
-        "decisions": {"type": "array", "items": {"$ref": "#/$defs/decision_v2"}}
+        "decisions": {"type": "array", "items": {"$ref": "#/$defs/decision_v2"}},
+        "authoritative_semantic_decisions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/authoritative_semantic_decision"}},
+        "exact_boundary_provenance": {"$ref": "#/$defs/exact_boundary_provenance"},
+        "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}
       }
     },
     "boundary_request": {

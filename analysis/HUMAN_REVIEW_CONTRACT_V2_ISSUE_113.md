@@ -8,10 +8,12 @@
 - Exact word anchors prepared by `project-review-boundary-prepare` are machine proposals with `REVIEW_REQUIRED` authority. They do not define **where** an accepted boundary is until Product Owner `DOMAIN_REVIEW`.
 - V2 application fails closed unless `boundary_authority` is `PRODUCT_OWNER_DOMAIN_REVIEW`.
 
-The 25 exact-boundary decisions are persisted separately from the immutable
-machine proposals. This does not apply or reinterpret the 31 accepted semantic
-decisions; it only records the Product Owner-selected canonical anchors needed
-by a later governed application task.
+The 26 exact-boundary decisions are persisted separately from the immutable
+machine proposals: the original 25-decision artifact plus the separately
+authorized 12A→12B decision at canonical word `010501`. The complete governed
+V2 decision artifact records all 31 accepted semantic decisions and maps them
+to these exact anchors. Authoring the artifact does not apply the decisions or
+rewrite the immutable Topic Drafts.
 
 ## Minimum coherent extension
 
@@ -20,10 +22,19 @@ V1 remains readable and executable without migration. V2 adds a separate schema 
 ```text
 original Topic Draft snapshots
   → complete source-fragment partition
-  → one ReviewDecision with one or more operations
+  → 31 authoritative semantic ReviewDecision records
+  → atomic transformation transactions with one or more operations
   → each fragment consumed exactly once
   → typed result units
 ```
+
+The 31 semantic decisions remain individually addressable and authoritative.
+Where an accepted result crosses original Draft boundaries, one atomic
+transformation transaction references every contributing semantic decision.
+This is required to preserve cross-Draft lineage without consuming the same
+source fragment more than once. The deterministic audit mapping exposes the
+one-to-one relation from each original review item to its transaction and
+result units.
 
 Each V2 decision carries immutable expected Topic hashes. Each source fragment identifies its original Topic Draft, Source, TranscriptRevision, exact canonical word range, and inherited evidence references. Validation resolves exact timestamps and copies Canonical Evidence and transcript-assurance provenance. The output retains every original Topic snapshot instead of rewriting machine history.
 
@@ -82,9 +93,16 @@ unless the proposal artifact ID/hash, the complete set of proposal IDs, selected
 candidate numbers, canonical Word IDs, timestamps, and outcome semantics match
 exactly. Its output is a separate `seminartext.boundary_review_decisions`
 artifact with `PRODUCT_OWNER_DOMAIN_REVIEW` authority and `DECIDED` status for
-all 25 anchors. `project-review-boundary-status` verifies the persisted artifact
+all 25 original anchors. The additional 12A→12B decision is persisted as a
+second artifact under the same authority and validation contract.
+`project-review-boundary-status` verifies each persisted artifact
 against the original proposals. The proposal artifact itself remains unchanged
 and retains its historical machine `REVIEW_REQUIRED` status.
+
+The complete V2 artifact binds both boundary-decision artifacts by SHA-256 and
+contains a resolved 26/26 provenance inventory. Validation fails closed unless
+all 31 semantic records and all 26 exact boundaries are referenced exactly
+once by the atomic transformations.
 
 ## Determinism and provenance
 
@@ -116,8 +134,9 @@ and its `machine_unverified` assurance remain unchanged.
 
 ## Human gate
 
-Product Owner exact-boundary `DOMAIN_REVIEW` is complete and persisted 25/25.
-Applying the 31 semantic decisions remains a separate step and is not authorized
-by this bounded persistence task.
+Product Owner exact-boundary `DOMAIN_REVIEW` is complete and persisted 26/26.
+The complete governed V2 artifact is authored and validated for 31/31 semantic
+decisions. Applying those decisions remains a separate step and is not
+authorized by this bounded authoring task.
 
 `HUMAN_GATE: PRODUCT_OWNER`

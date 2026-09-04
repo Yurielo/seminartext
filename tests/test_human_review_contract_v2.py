@@ -200,6 +200,86 @@ def test_v2_fragment_composition_dispositions_and_assurance(tmp_path: Path) -> N
     assert all(item["provenance"]["canonical_evidence_sha256"] == output["canonical_evidence"]["sha256"] for item in output["semantic_knowledge"])
 
 
+def test_v2_complete_authority_provenance_is_total_and_fail_closed(tmp_path: Path) -> None:
+    project, package_path, words = make_v2_package(tmp_path)
+    package = read_json(package_path)
+    document = make_v2_decisions(package_path, words)
+    document["boundary_authority"] = "PRODUCT_OWNER_DOMAIN_REVIEW"
+    document["authoritative_semantic_decisions"] = [
+        {
+            "id": f"semantic_decision_{number}",
+            "review_item_number": number,
+            "source_topic_id": topic["id"],
+            "authoritative_outcome": f"Product Owner outcome {number}.",
+        }
+        for number, topic in enumerate(package["topics"], 1)
+    ]
+    source_sha = "a" * 64
+    document["exact_boundary_provenance"] = {
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "sources": [
+            {
+                "artifact_id": "boundary_decisions_fixture",
+                "sha256": source_sha,
+                "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+                "decision_count": 1,
+            }
+        ],
+        "resolved_boundaries": [
+            {
+                "boundary_proposal_id": "boundary_fixture",
+                "canonical_word_id": words[1]["id"],
+                "timestamp": words[1]["start_seconds"],
+                "source_artifact_id": "boundary_decisions_fixture",
+                "source_artifact_sha256": source_sha,
+                "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+                "status": "DECIDED",
+            }
+        ],
+    }
+    document["decisions"][0].update(
+        semantic_decision_refs=["semantic_decision_1"],
+        boundary_decision_refs=["boundary_fixture"],
+    )
+    document["decisions"][1].update(
+        semantic_decision_refs=["semantic_decision_2", "semantic_decision_3"],
+        boundary_decision_refs=[],
+    )
+    document["decisions"][2].update(
+        semantic_decision_refs=["semantic_decision_4"],
+        boundary_decision_refs=[],
+    )
+    decisions_path = tmp_path / "complete-authority.json"
+    write_json(decisions_path, document)
+
+    status = run_cli(
+        "project-review-v2-status",
+        str(project),
+        "--package",
+        str(package_path),
+        "--decisions",
+        str(decisions_path),
+    )
+    assert status.returncode == 0, status.stderr
+    report = json.loads(status.stdout)
+    assert report["authoritative_semantic_decisions"] == 4
+    assert report["resolved_boundary_decisions"] == 1
+
+    broken = json.loads(json.dumps(document))
+    broken["decisions"][0]["boundary_decision_refs"] = []
+    write_json(decisions_path, broken)
+    status = run_cli(
+        "project-review-v2-status",
+        str(project),
+        "--package",
+        str(package_path),
+        "--decisions",
+        str(decisions_path),
+    )
+    assert status.returncode == 2
+    assert "exact-boundary decision provenance is incomplete" in status.stderr
+
+
 def test_v2_fails_closed_on_gap_overlap_and_double_consumption(tmp_path: Path) -> None:
     project, package_path, words = make_v2_package(tmp_path)
     base = make_v2_decisions(package_path, words)

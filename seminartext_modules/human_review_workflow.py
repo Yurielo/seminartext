@@ -826,9 +826,71 @@ def validate_decisions_v2(
     package_topics = {item["id"]: item for item in package["topics"]}
     package_evidence = {item["id"] for item in package["evidence"]}
     sources, revisions, words = _canonical_indexes(bundle)
+    semantic_records = decisions.get("authoritative_semantic_decisions")
+    boundary_provenance = decisions.get("exact_boundary_provenance")
+    if (semantic_records is None) != (boundary_provenance is None):
+        raise ValueError(
+            "complete semantic authority and exact-boundary provenance must be supplied together"
+        )
+
+    semantic_by_id: dict[str, dict[str, Any]] = {}
+    boundary_by_id: dict[str, dict[str, Any]] = {}
+    if semantic_records is not None:
+        semantic_numbers: set[int] = set()
+        semantic_topics: set[str] = set()
+        for number, record in enumerate(semantic_records):
+            path = f"$.authoritative_semantic_decisions[{number}]"
+            record_id = require_id(record["id"], f"{path}.id")
+            if record_id in semantic_by_id:
+                raise ValueError(f"duplicate authoritative semantic decision {record_id}")
+            review_item_number = record["review_item_number"]
+            if review_item_number in semantic_numbers:
+                raise ValueError(f"duplicate authoritative review item {review_item_number}")
+            semantic_numbers.add(review_item_number)
+            source_topic_id = record["source_topic_id"]
+            if source_topic_id not in package_topics:
+                raise ValueError(f"{path}: semantic decision refers to an unknown source Topic")
+            if source_topic_id in semantic_topics:
+                raise ValueError(f"duplicate authoritative semantic decision for {source_topic_id}")
+            semantic_topics.add(source_topic_id)
+            semantic_by_id[record_id] = record
+        if semantic_topics != set(package_topics):
+            raise ValueError("authoritative semantic decisions must account for every source Topic exactly once")
+
+        if decisions["boundary_authority"] != "PRODUCT_OWNER_DOMAIN_REVIEW":
+            raise ValueError("exact-boundary provenance requires PRODUCT_OWNER_DOMAIN_REVIEW authority")
+        boundary_sources: dict[str, dict[str, Any]] = {}
+        for number, source in enumerate(boundary_provenance["sources"]):
+            path = f"$.exact_boundary_provenance.sources[{number}]"
+            artifact_id = require_id(source["artifact_id"], f"{path}.artifact_id")
+            if artifact_id in boundary_sources:
+                raise ValueError(f"duplicate exact-boundary source {artifact_id}")
+            boundary_sources[artifact_id] = source
+        for number, boundary in enumerate(boundary_provenance["resolved_boundaries"]):
+            path = f"$.exact_boundary_provenance.resolved_boundaries[{number}]"
+            boundary_id = require_id(boundary["boundary_proposal_id"], f"{path}.boundary_proposal_id")
+            if boundary_id in boundary_by_id:
+                raise ValueError(f"duplicate resolved exact boundary {boundary_id}")
+            source = boundary_sources.get(boundary["source_artifact_id"])
+            if source is None or source["sha256"] != boundary["source_artifact_sha256"]:
+                raise ValueError(f"{path}: exact boundary source artifact is missing or mismatched")
+            word = words.get(boundary["canonical_word_id"])
+            if word is None:
+                raise ValueError(f"{path}: exact boundary canonical Word does not exist")
+            timestamp = word.get("start_seconds")
+            if not isinstance(timestamp, (int, float)):
+                timestamp = word.get("end_seconds")
+            if timestamp != boundary["timestamp"]:
+                raise ValueError(f"{path}: exact boundary timestamp does not match Canonical Evidence")
+            boundary_by_id[boundary_id] = boundary
+        if sum(source["decision_count"] for source in boundary_sources.values()) != len(boundary_by_id):
+            raise ValueError("exact-boundary source counts do not match resolved boundary inventory")
+
     covered: dict[str, dict[str, Any]] = {}
     decision_ids: set[str] = set()
     result_ids: set[str] = set()
+    consumed_semantic_refs: set[str] = set()
+    consumed_boundary_refs: set[str] = set()
     normalized: list[dict[str, Any]] = []
     for number, decision in enumerate(decisions["decisions"]):
         path = f"$.decisions[{number}]"
@@ -839,6 +901,25 @@ def validate_decisions_v2(
         if not set(decision["operations"]).issubset(V2_OPERATIONS):
             raise ValueError(f"{path}: unsupported V2 operation")
         targets = decision["target_ids"]
+        semantic_refs = decision.get("semantic_decision_refs", [])
+        boundary_refs = decision.get("boundary_decision_refs", [])
+        if semantic_records is not None:
+            if not semantic_refs:
+                raise ValueError(f"{path}: governed transformation has no semantic decision provenance")
+            if consumed_semantic_refs.intersection(semantic_refs):
+                raise ValueError(f"{path}: authoritative semantic decision is consumed more than once")
+            for semantic_ref in semantic_refs:
+                record = semantic_by_id.get(semantic_ref)
+                if record is None:
+                    raise ValueError(f"{path}: unknown authoritative semantic decision reference")
+                if record["source_topic_id"] not in targets:
+                    raise ValueError(f"{path}: semantic decision source Topic is not a transformation target")
+            consumed_semantic_refs.update(semantic_refs)
+            if consumed_boundary_refs.intersection(boundary_refs):
+                raise ValueError(f"{path}: exact boundary decision is consumed more than once")
+            if any(boundary_ref not in boundary_by_id for boundary_ref in boundary_refs):
+                raise ValueError(f"{path}: unknown exact boundary decision reference")
+            consumed_boundary_refs.update(boundary_refs)
         for target_id in targets:
             if target_id not in package_topics:
                 raise ValueError(f"{path}: orphan target {target_id}")
@@ -877,6 +958,12 @@ def validate_decisions_v2(
                 expected = fragment["word_end_sequence"] + 1
             if expected != package_topics[target_id]["word_end_sequence"] + 1:
                 raise ValueError(f"{path}: fragment partition does not cover all of {target_id}")
+
+        if semantic_records is not None:
+            fragment_starts = {fragment["word_start_id"] for fragment in fragments.values()}
+            for boundary_ref in boundary_refs:
+                if boundary_by_id[boundary_ref]["canonical_word_id"] not in fragment_starts:
+                    raise ValueError(f"{path}: exact boundary is not represented by a source-fragment start")
 
         consumed: set[str] = set()
         normalized_results: list[dict[str, Any]] = []
@@ -926,6 +1013,11 @@ def validate_decisions_v2(
 
     if require_complete and set(covered) != set(package_topics):
         raise ValueError(f"unreviewed Topic Drafts remain: {sorted(set(package_topics) - set(covered))}")
+    if semantic_records is not None:
+        if consumed_semantic_refs != set(semantic_by_id):
+            raise ValueError("authoritative semantic decision provenance is incomplete")
+        if consumed_boundary_refs != set(boundary_by_id):
+            raise ValueError("exact-boundary decision provenance is incomplete")
     return covered, normalized
 
 
@@ -943,6 +1035,10 @@ def status_v2(project: Path, package_path: Path, decisions_path: Path) -> dict[s
         "results": sum(len(item["results"]) for item in normalized),
         "boundary_authority": decisions["boundary_authority"],
         "application_authorized": decisions["boundary_authority"] == "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "authoritative_semantic_decisions": len(decisions.get("authoritative_semantic_decisions", [])),
+        "resolved_boundary_decisions": len(
+            decisions.get("exact_boundary_provenance", {}).get("resolved_boundaries", [])
+        ),
     }
 
 
@@ -978,6 +1074,8 @@ def apply_v2(project: Path, package_path: Path, decisions_path: Path, output: Pa
                         "decision_artifact_sha256": decision_hash,
                         "actor_type": decisions["reviewer"]["actor_type"],
                         "actor_id": decisions["reviewer"]["actor_id"],
+                        "semantic_decision_refs": decision.get("semantic_decision_refs", []),
+                        "boundary_decision_refs": decision.get("boundary_decision_refs", []),
                     },
                 }
             )
@@ -992,6 +1090,8 @@ def apply_v2(project: Path, package_path: Path, decisions_path: Path, output: Pa
                         "canonical_evidence_sha256": canonical_hash,
                         "word_timeline_sha256": timeline_hash,
                         "boundary_authority": decisions["boundary_authority"],
+                        "semantic_decision_refs": decision.get("semantic_decision_refs", []),
+                        "boundary_decision_refs": decision.get("boundary_decision_refs", []),
                     },
                 }
             )
