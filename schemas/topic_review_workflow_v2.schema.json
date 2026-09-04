@@ -283,7 +283,8 @@
         "semantic_knowledge": {"type": "array"},
         "seminar_structure": {"type": "array"},
         "non_semantic_excluded": {"type": "array"},
-        "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        "application_status": {"const": "APPLIED"},
+        "decision_artifact_limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}
       }
     }
   }

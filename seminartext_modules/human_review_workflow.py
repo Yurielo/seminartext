@@ -1108,7 +1108,8 @@ def apply_v2(project: Path, package_path: Path, decisions_path: Path, output: Pa
         "semantic_knowledge": sorted(units["SEMANTIC_KNOWLEDGE"], key=lambda item: (item["sequence"], item["id"])),
         "seminar_structure": sorted(units["SEMINAR_STRUCTURE"], key=lambda item: (item["sequence"], item["id"])),
         "non_semantic_excluded": sorted(units["NON_SEMANTIC_EXCLUDED"], key=lambda item: (item["sequence"], item["id"])),
-        "limitations": decisions.get("limitations", []),
+        "application_status": "APPLIED",
+        "decision_artifact_limitations": decisions.get("limitations", []),
     }
     validate_schema_v2(result)
     output.parent.mkdir(parents=True, exist_ok=True)

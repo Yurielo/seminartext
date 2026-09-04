@@ -194,7 +194,8 @@ def test_v2_fragment_composition_dispositions_and_assurance(tmp_path: Path) -> N
     assert len(output["semantic_knowledge"]) == 3
     assert len(output["seminar_structure"]) == 1
     assert len(output["non_semantic_excluded"]) == 1
-    assert output["limitations"] == document["limitations"]
+    assert output["application_status"] == "APPLIED"
+    assert output["decision_artifact_limitations"] == document["limitations"]
     assert len(output["fragment_lineage"]) == 6
     assert output["source_topic_snapshots"] == read_json(package_path)["topics"]
     assert all(item["transcript_provenance"]["verification_state"] == "fully_human_verified" for item in output["fragment_lineage"])
