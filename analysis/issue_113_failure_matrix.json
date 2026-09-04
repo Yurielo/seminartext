@@ -1,0 +1,1600 @@
+{
+  "schema_version": 1,
+  "artifact_id": "issue_113_topic_engine_failure_matrix_v1",
+  "generated_from": "authoritative existing artifacts; no prediction regeneration",
+  "scope": {
+    "issue": 113,
+    "source_id": "source_video_001",
+    "transcript_revision_id": "transcript_revision_video_001_r1",
+    "transcript_assurance": {
+      "origin": "machine_generated",
+      "method": "existing_machine_transcript_import",
+      "verification_state": "machine_unverified"
+    },
+    "topic_draft_count": 31,
+    "decisions_accounted_for": 31
+  },
+  "input_artifacts": {
+    "review_package": {
+      "artifact_id": "review_package_topic_drafts_stress_code_video_001_legacy_v1",
+      "sha256": "044f4bbc74af874addc5597f677d227bac9aec642d424744b10c877f78714de1"
+    },
+    "governed_decisions": {
+      "artifact_id": "issue_113_complete_topic_review_decisions_v2",
+      "sha256": "32a18a6dc9d3edbd53753153f533221e9c0fe6d54856355af9d52a3db41e772e"
+    },
+    "applied_result": {
+      "artifact_id": "issue_113_topic_review_result_v2",
+      "sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69"
+    },
+    "canonical_evidence": {
+      "artifact_id": "artifact_project_item_multi_source_v1",
+      "sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273"
+    },
+    "word_timeline": {
+      "path": "evidence/word_timeline.json",
+      "sha256": "9929686e693e653e6cd98048f401b422bb654404050281c7a2a2df714f714b6f"
+    },
+    "machine_topic_drafts": {
+      "artifact_id": "topic_drafts_stress_code_video_001_legacy_v1",
+      "sha256": "b45f49b185fe1c96e7962226868cfb776a2478dfa1be846d0be0fd55538a6ecb"
+    }
+  },
+  "provenance_finding": {
+    "generator_id": "generator_legacy_gemma3_4b_conversion_v1",
+    "model": "gemma3:4b",
+    "detail": "auto",
+    "topic_set_id": "topic_set_stress_code_video_001_legacy_gemma3_4b_v1",
+    "frozen_bge_local_peak_produced_these_drafts": false,
+    "boundary_score_artifact_available_for_these_drafts": false
+  },
+  "classification_method": {
+    "authority": "Product Owner decisions define semantic outcomes; this analysis maps those outcomes to the Issue #113 accepted taxonomy",
+    "counts_are_nonexclusive": true,
+    "hypothesis_policy": "Failure labels record reviewed symptoms. Causal claims remain separately confidence-rated and are not semantic authority."
+  },
+  "taxonomy": {
+    "failure_classes": [
+      {
+        "id": "OVER-MERGE",
+        "count": 6,
+        "topic_ids": [
+          "topic_stress_code_video_001_0004",
+          "topic_stress_code_video_001_0005",
+          "topic_stress_code_video_001_0006",
+          "topic_stress_code_video_001_0011",
+          "topic_stress_code_video_001_0012",
+          "topic_stress_code_video_001_0014"
+        ]
+      },
+      {
+        "id": "FALSE SPLIT",
+        "count": 5,
+        "topic_ids": [
+          "topic_stress_code_video_001_0018",
+          "topic_stress_code_video_001_0020",
+          "topic_stress_code_video_001_0022",
+          "topic_stress_code_video_001_0026",
+          "topic_stress_code_video_001_0027"
+        ]
+      },
+      {
+        "id": "BOUNDARY_OFFSET",
+        "count": 16,
+        "topic_ids": [
+          "topic_stress_code_video_001_0005",
+          "topic_stress_code_video_001_0006",
+          "topic_stress_code_video_001_0008",
+          "topic_stress_code_video_001_0009",
+          "topic_stress_code_video_001_0010",
+          "topic_stress_code_video_001_0011",
+          "topic_stress_code_video_001_0012",
+          "topic_stress_code_video_001_0019",
+          "topic_stress_code_video_001_0021",
+          "topic_stress_code_video_001_0023",
+          "topic_stress_code_video_001_0024",
+          "topic_stress_code_video_001_0025",
+          "topic_stress_code_video_001_0027",
+          "topic_stress_code_video_001_0028",
+          "topic_stress_code_video_001_0030",
+          "topic_stress_code_video_001_0031"
+        ]
+      },
+      {
+        "id": "BOUNDARY_OFFSET / TRANSITION_SPLIT",
+        "count": 6,
+        "topic_ids": [
+          "topic_stress_code_video_001_0009",
+          "topic_stress_code_video_001_0010",
+          "topic_stress_code_video_001_0023",
+          "topic_stress_code_video_001_0027",
+          "topic_stress_code_video_001_0028",
+          "topic_stress_code_video_001_0030"
+        ]
+      },
+      {
+        "id": "BOUNDARY_OFFSET_BOTH_SIDES",
+        "count": 5,
+        "topic_ids": [
+          "topic_stress_code_video_001_0005",
+          "topic_stress_code_video_001_0006",
+          "topic_stress_code_video_001_0008",
+          "topic_stress_code_video_001_0011",
+          "topic_stress_code_video_001_0021"
+        ]
+      },
+      {
+        "id": "BOUNDARY_OFFSET / SENTENCE_SPLIT",
+        "count": 3,
+        "topic_ids": [
+          "topic_stress_code_video_001_0012",
+          "topic_stress_code_video_001_0019",
+          "topic_stress_code_video_001_0025"
+        ]
+      },
+      {
+        "id": "BOUNDARY_OFFSET / Q&A_SPLIT",
+        "count": 2,
+        "topic_ids": [
+          "topic_stress_code_video_001_0024",
+          "topic_stress_code_video_001_0031"
+        ]
+      },
+      {
+        "id": "FALSE SPLIT / SENTENCE_OR_ARGUMENT_SPLIT",
+        "count": 2,
+        "topic_ids": [
+          "topic_stress_code_video_001_0026",
+          "topic_stress_code_video_001_0027"
+        ]
+      },
+      {
+        "id": "DISCOURSE_FUNCTION_BOUNDARY_MISSED",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0014"
+        ]
+      },
+      {
+        "id": "NON_SEMANTIC_CONTENT_CONTAMINATION",
+        "count": 3,
+        "topic_ids": [
+          "topic_stress_code_video_001_0008",
+          "topic_stress_code_video_001_0009",
+          "topic_stress_code_video_001_0023"
+        ]
+      },
+      {
+        "id": "NON_SEMANTIC_TRANSITION_AS_TOPIC",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0022"
+        ]
+      },
+      {
+        "id": "PROTOCOL_STEP_AS_FALSE_TOPIC",
+        "count": 2,
+        "topic_ids": [
+          "topic_stress_code_video_001_0018",
+          "topic_stress_code_video_001_0020"
+        ]
+      },
+      {
+        "id": "FALSE SPLIT / PROCEDURAL_FRAGMENTATION",
+        "count": 2,
+        "topic_ids": [
+          "topic_stress_code_video_001_0018",
+          "topic_stress_code_video_001_0020"
+        ]
+      },
+      {
+        "id": "FALSE SPLIT / CONTINUOUS_TOPIC_FRAGMENTATION",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0022"
+        ]
+      },
+      {
+        "id": "TITLE_LOCAL_FRAGMENT_BIAS",
+        "count": 24,
+        "topic_ids": [
+          "topic_stress_code_video_001_0002",
+          "topic_stress_code_video_001_0003",
+          "topic_stress_code_video_001_0005",
+          "topic_stress_code_video_001_0006",
+          "topic_stress_code_video_001_0007",
+          "topic_stress_code_video_001_0009",
+          "topic_stress_code_video_001_0010",
+          "topic_stress_code_video_001_0011",
+          "topic_stress_code_video_001_0014",
+          "topic_stress_code_video_001_0016",
+          "topic_stress_code_video_001_0017",
+          "topic_stress_code_video_001_0018",
+          "topic_stress_code_video_001_0019",
+          "topic_stress_code_video_001_0020",
+          "topic_stress_code_video_001_0021",
+          "topic_stress_code_video_001_0022",
+          "topic_stress_code_video_001_0023",
+          "topic_stress_code_video_001_0024",
+          "topic_stress_code_video_001_0025",
+          "topic_stress_code_video_001_0026",
+          "topic_stress_code_video_001_0027",
+          "topic_stress_code_video_001_0028",
+          "topic_stress_code_video_001_0029",
+          "topic_stress_code_video_001_0030"
+        ]
+      },
+      {
+        "id": "TITLE_EARLY_FRAGMENT_BIAS",
+        "count": 8,
+        "topic_ids": [
+          "topic_stress_code_video_001_0004",
+          "topic_stress_code_video_001_0008",
+          "topic_stress_code_video_001_0012",
+          "topic_stress_code_video_001_0015",
+          "topic_stress_code_video_001_0021",
+          "topic_stress_code_video_001_0022",
+          "topic_stress_code_video_001_0029",
+          "topic_stress_code_video_001_0031"
+        ]
+      },
+      {
+        "id": "MALFORMED_TITLE / VERBATIM_FRAGMENT_AS_TITLE",
+        "count": 6,
+        "topic_ids": [
+          "topic_stress_code_video_001_0001",
+          "topic_stress_code_video_001_0004",
+          "topic_stress_code_video_001_0008",
+          "topic_stress_code_video_001_0012",
+          "topic_stress_code_video_001_0015",
+          "topic_stress_code_video_001_0031"
+        ]
+      },
+      {
+        "id": "TRANSCRIPT_DUPLICATION_SIGNAL",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0022"
+        ]
+      },
+      {
+        "id": "SEMINAR_STRUCTURE_VS_KNOWLEDGE_TOPIC / INSTRUCTIONAL_TRANSITION",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0028"
+        ]
+      },
+      {
+        "id": "PROCEDURAL_HIERARCHY / DO_NOT_SPLIT_STEPS_INTO_TOPICS",
+        "count": 4,
+        "topic_ids": [
+          "topic_stress_code_video_001_0026",
+          "topic_stress_code_video_001_0027",
+          "topic_stress_code_video_001_0029",
+          "topic_stress_code_video_001_0030"
+        ]
+      }
+    ],
+    "control_classes": [
+      {
+        "id": "VALID_LONG_TOPIC",
+        "count": 2,
+        "topic_ids": [
+          "topic_stress_code_video_001_0007",
+          "topic_stress_code_video_001_0013"
+        ]
+      },
+      {
+        "id": "VALID_SHORT_TOPIC / DISCOURSE_FUNCTION_CHANGE",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0023"
+        ]
+      },
+      {
+        "id": "VALID_SHORT_TOPIC / Q&A_SEMANTIC_UNIT",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0024"
+        ]
+      },
+      {
+        "id": "VALID_SHORT_TOPIC / SECTION_OVERVIEW",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0025"
+        ]
+      },
+      {
+        "id": "PROCEDURAL_CONTINUITY / DO_NOT_OVERSPLIT",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0016"
+        ]
+      },
+      {
+        "id": "NARRATIVE_CONTINUITY / DO_NOT_OVERSPLIT",
+        "count": 1,
+        "topic_ids": [
+          "topic_stress_code_video_001_0017"
+        ]
+      },
+      {
+        "id": "DO_NOT_FIX_OVERMERGE_BY_BLIND_OVERSPLITTING",
+        "count": 4,
+        "topic_ids": [
+          "topic_stress_code_video_001_0016",
+          "topic_stress_code_video_001_0017",
+          "topic_stress_code_video_001_0029",
+          "topic_stress_code_video_001_0030"
+        ]
+      },
+      {
+        "id": "Q&A_SEMANTIC_UNIT",
+        "count": 2,
+        "topic_ids": [
+          "topic_stress_code_video_001_0024",
+          "topic_stress_code_video_001_0031"
+        ]
+      }
+    ]
+  },
+  "topics": [
+    {
+      "topic_number": 1,
+      "topic_id": "topic_stress_code_video_001_0001",
+      "machine_range": {
+        "word_start_sequence": 0,
+        "word_end_sequence": 580,
+        "start_seconds": 6.35,
+        "end_seconds": 410.868
+      },
+      "machine_title": "введение и рамок",
+      "accepted_decision": "RENAME → «Введение в семинар „Стресс-код“ и формат обучения». Boundaries unchanged.",
+      "failure_classes": [
+        "MALFORMED_TITLE / VERBATIM_FRAGMENT_AS_TITLE"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": false,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 2,
+      "topic_id": "topic_stress_code_video_001_0002",
+      "machine_range": {
+        "word_start_sequence": 581,
+        "word_end_sequence": 828,
+        "start_seconds": 410.888,
+        "end_seconds": 540.51
+      },
+      "machine_title": "введение (лариса долинская)",
+      "accepted_decision": "RENAME → «Знакомство с Ларисой Долинской: профессиональный опыт и путь к кинезиологии». Boundaries unchanged.",
+      "failure_classes": [
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": false,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 3,
+      "topic_id": "topic_stress_code_video_001_0003",
+      "machine_range": {
+        "word_start_sequence": 829,
+        "word_end_sequence": 1134,
+        "start_seconds": 540.51,
+        "end_seconds": 730.346
+      },
+      "machine_title": "обзор спикера",
+      "accepted_decision": "RENAME → «Стресс, адаптация нервной системы и выживание». Boundaries unchanged.",
+      "failure_classes": [
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": false,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 4,
+      "topic_id": "topic_stress_code_video_001_0004",
+      "machine_range": {
+        "word_start_sequence": 1135,
+        "word_end_sequence": 2327,
+        "start_seconds": 731.31,
+        "end_seconds": 1449.592
+      },
+      "machine_title": "образованию и психолог Но я не работала никогда",
+      "accepted_decision": "SPLIT → 4A «Знакомство с участниками и их цели обучения»; 4B «Личная и профессиональная практика кинезиологии»; 4C «Мотивация и внутренний саботаж». 4C continues into the original Topic 5 range.",
+      "failure_classes": [
+        "OVER-MERGE",
+        "TITLE_EARLY_FRAGMENT_BIAS",
+        "MALFORMED_TITLE / VERBATIM_FRAGMENT_AS_TITLE"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": true
+      }
+    },
+    {
+      "topic_number": 5,
+      "topic_id": "topic_stress_code_video_001_0005",
+      "machine_range": {
+        "word_start_sequence": 2328,
+        "word_end_sequence": 3167,
+        "start_seconds": 1451.34,
+        "end_seconds": 2171.629
+      },
+      "machine_title": "Вопросы об осознании",
+      "accepted_decision": "SPLIT + MERGE → initial fragment merges into 4C; 5B «Школа оздоровительных технологий и направления работы»; 5C «Организация обучения и гимнастика для мозга»; 5D «Профессиональный путь и авторские методики Юрия Елохина»; beginning of the microstroke story merges with its continuation in Topic 6.",
+      "failure_classes": [
+        "OVER-MERGE",
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET_BOTH_SIDES",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 6,
+      "topic_id": "topic_stress_code_video_001_0006",
+      "machine_range": {
+        "word_start_sequence": 3168,
+        "word_end_sequence": 4060,
+        "start_seconds": 2172.411,
+        "end_seconds": 2898.819
+      },
+      "machine_title": "Восстановление после болезни",
+      "accepted_decision": "SPLIT + MERGE → 6A «Дистанционная работа: первый опыт и переход к онлайн-практике» including the story beginning from Topic 5; 6B «Как воспринимать новую информацию в процессе обучения»; 6C «Благополучие, здоровье и счастье как естественное состояние». Boundary 6→7 preserved.",
+      "failure_classes": [
+        "OVER-MERGE",
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET_BOTH_SIDES",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 7,
+      "topic_id": "topic_stress_code_video_001_0007",
+      "machine_range": {
+        "word_start_sequence": 4061,
+        "word_end_sequence": 5125,
+        "start_seconds": 2900.801,
+        "end_seconds": 3624.079
+      },
+      "machine_title": "происхождение кинетологии (1964)",
+      "accepted_decision": "RENAME → «Что такое кинезиология и история её возникновения». Boundaries unchanged. Control: VALID_LONG_TOPIC.",
+      "failure_classes": [
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [
+        "VALID_LONG_TOPIC"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": false,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 8,
+      "topic_id": "topic_stress_code_video_001_0008",
+      "machine_range": {
+        "word_start_sequence": 5126,
+        "word_end_sequence": 6127,
+        "start_seconds": 3624.099,
+        "end_seconds": 4347.55
+      },
+      "machine_title": "частности и вот эту идею дальше развил Дэвид",
+      "accepted_decision": "MERGE boundary fragment + RENAME → «Дэвид Хокинс и уровни сознания»; initial tail returns to Topic 7; technical audio/break fragment is not a standalone semantic Topic.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET_BOTH_SIDES",
+        "NON_SEMANTIC_CONTENT_CONTAMINATION",
+        "TITLE_EARLY_FRAGMENT_BIAS",
+        "MALFORMED_TITLE / VERBATIM_FRAGMENT_AS_TITLE"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": true
+      }
+    },
+    {
+      "topic_number": 9,
+      "topic_id": "topic_stress_code_video_001_0009",
+      "machine_range": {
+        "word_start_sequence": 6128,
+        "word_end_sequence": 7179,
+        "start_seconds": 4347.57,
+        "end_seconds": 5070.128
+      },
+      "machine_title": "перекрестная координация",
+      "accepted_decision": "TRIM + RENAME → «Перекрёстная координация: синхронизация работы полушарий мозга»; start at actual exercise after break; technical transition excluded from semantic Topic.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / TRANSITION_SPLIT",
+        "NON_SEMANTIC_CONTENT_CONTAMINATION",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 10,
+      "topic_id": "topic_stress_code_video_001_0010",
+      "machine_range": {
+        "word_start_sequence": 7180,
+        "word_end_sequence": 8267,
+        "start_seconds": 5072.17,
+        "end_seconds": 5796.558
+      },
+      "machine_title": "мерридианы",
+      "accepted_decision": "TRIM + RENAME → «Работа с меридианами: практическое упражнение»; start at explicit third-exercise transition; preceding completion returns to prior practical block.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / TRANSITION_SPLIT",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 11,
+      "topic_id": "topic_stress_code_video_001_0011",
+      "machine_range": {
+        "word_start_sequence": 8268,
+        "word_end_sequence": 9444,
+        "start_seconds": 5798.621,
+        "end_seconds": 6520.23
+      },
+      "machine_title": "резонансные техники",
+      "accepted_decision": "SPLIT + MERGE boundary fragment → initial list tail returns to prior block; 11A «Комплексный подход и миссия школы»; 11B «Структура обучения и программы школы».",
+      "failure_classes": [
+        "OVER-MERGE",
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET_BOTH_SIDES",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 12,
+      "topic_id": "topic_stress_code_video_001_0012",
+      "machine_range": {
+        "word_start_sequence": 9445,
+        "word_end_sequence": 10563,
+        "start_seconds": 6520.23,
+        "end_seconds": 7245.078
+      },
+      "machine_title": "нам Потому что эта история обязательно вернется И",
+      "accepted_decision": "MERGE + SPLIT → beginning merges into 11B; 12A «Принцип последовательного освоения кинезиологии»; 12B «Практика и закрепление полученных навыков».",
+      "failure_classes": [
+        "OVER-MERGE",
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / SENTENCE_SPLIT",
+        "TITLE_EARLY_FRAGMENT_BIAS",
+        "MALFORMED_TITLE / VERBATIM_FRAGMENT_AS_TITLE"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": true
+      }
+    },
+    {
+      "topic_number": 13,
+      "topic_id": "topic_stress_code_video_001_0013",
+      "machine_range": {
+        "word_start_sequence": 10564,
+        "word_end_sequence": 11664,
+        "start_seconds": 7246.66,
+        "end_seconds": 7969.707
+      },
+      "machine_title": "эмоциональное балансирование и центрирование",
+      "accepted_decision": "RENAME → «Функциональность эмоций и состояние центрирования». Boundaries unchanged. Control: VALID_LONG_TOPIC.",
+      "failure_classes": [],
+      "control_classes": [
+        "VALID_LONG_TOPIC"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": false,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 14,
+      "topic_id": "topic_stress_code_video_001_0014",
+      "machine_range": {
+        "word_start_sequence": 11665,
+        "word_end_sequence": 12816,
+        "start_seconds": 7969.747,
+        "end_seconds": 8692.409
+      },
+      "machine_title": "обращение к сомнениям и опасениям",
+      "accepted_decision": "MERGE + SPLIT → 14A «Протокол коррекции как пошаговая структура работы» including related preceding fragment; 14B «Сомнения и вопросы о диагностике и дистанционной работе».",
+      "failure_classes": [
+        "OVER-MERGE",
+        "DISCOURSE_FUNCTION_BOUNDARY_MISSED",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 15,
+      "topic_id": "topic_stress_code_video_001_0015",
+      "machine_range": {
+        "word_start_sequence": 12817,
+        "word_end_sequence": 14094,
+        "start_seconds": 8692.429,
+        "end_seconds": 9444.64
+      },
+      "machine_title": "будем подробно изучать Сейчас мы поймем",
+      "accepted_decision": "RENAME → «Начало работы по протоколу: настройка теста». No split.",
+      "failure_classes": [
+        "TITLE_EARLY_FRAGMENT_BIAS",
+        "MALFORMED_TITLE / VERBATIM_FRAGMENT_AS_TITLE"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": false,
+        "exact_legacy_fallback_title_match": true
+      }
+    },
+    {
+      "topic_number": 16,
+      "topic_id": "topic_stress_code_video_001_0016",
+      "machine_range": {
+        "word_start_sequence": 14095,
+        "word_end_sequence": 15410,
+        "start_seconds": 9444.66,
+        "end_seconds": 10166.659
+      },
+      "machine_title": "основная тема и подход",
+      "accepted_decision": "RENAME → «Формулировка запроса и интерпретация результатов тестирования». Preserve procedural continuity; no split.",
+      "failure_classes": [
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [
+        "PROCEDURAL_CONTINUITY / DO_NOT_OVERSPLIT",
+        "DO_NOT_FIX_OVERMERGE_BY_BLIND_OVERSPLITTING"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": false,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 17,
+      "topic_id": "topic_stress_code_video_001_0017",
+      "machine_range": {
+        "word_start_sequence": 15411,
+        "word_end_sequence": 16176,
+        "start_seconds": 10167.22,
+        "end_seconds": 10595.535
+      },
+      "machine_title": "отвага и хранитель ангел",
+      "accepted_decision": "RENAME → «Профессиональный выбор, смелость и внутренняя опора». No split.",
+      "failure_classes": [
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [
+        "NARRATIVE_CONTINUITY / DO_NOT_OVERSPLIT",
+        "DO_NOT_FIX_OVERMERGE_BY_BLIND_OVERSPLITTING"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": false,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 18,
+      "topic_id": "topic_stress_code_video_001_0018",
+      "machine_range": {
+        "word_start_sequence": 16177,
+        "word_end_sequence": 16355,
+        "start_seconds": 10595.575,
+        "end_seconds": 10693.007
+      },
+      "machine_title": "уровень тела – единство и спокойствие",
+      "accepted_decision": "MERGE → remove standalone Topic 18 and merge it into the preceding practical block; it is one step of the three-level procedure.",
+      "failure_classes": [
+        "FALSE SPLIT",
+        "PROTOCOL_STEP_AS_FALSE_TOPIC",
+        "FALSE SPLIT / PROCEDURAL_FRAGMENTATION",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 19,
+      "topic_id": "topic_stress_code_video_001_0019",
+      "machine_range": {
+        "word_start_sequence": 16356,
+        "word_end_sequence": 16518,
+        "start_seconds": 10694.75,
+        "end_seconds": 10829.122
+      },
+      "machine_title": "антистрессовая коррекция и гнев",
+      "accepted_decision": "TRIM + RENAME → «Коррекция ДПДГ: десенсибилизация с помощью движений глаз»; initial already-identified emotional-state fragment returns to previous practical block.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / SENTENCE_SPLIT",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 20,
+      "topic_id": "topic_stress_code_video_001_0020",
+      "machine_range": {
+        "word_start_sequence": 16519,
+        "word_end_sequence": 17767,
+        "start_seconds": 10832.71,
+        "end_seconds": 11611.155
+      },
+      "machine_title": "сила дптг",
+      "accepted_decision": "MERGE → merge concluding protocol checks into preceding practical block; real new semantic boundary begins before protocol point 21 / post-correction insights.",
+      "failure_classes": [
+        "FALSE SPLIT",
+        "PROTOCOL_STEP_AS_FALSE_TOPIC",
+        "FALSE SPLIT / PROCEDURAL_FRAGMENTATION",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 21,
+      "topic_id": "topic_stress_code_video_001_0021",
+      "machine_range": {
+        "word_start_sequence": 17768,
+        "word_end_sequence": 18924,
+        "start_seconds": 11614.501,
+        "end_seconds": 12338.515
+      },
+      "machine_title": "начальная настройка и «100% позитив»",
+      "accepted_decision": "TRIM + REALIGN → «Осознания после проведённой коррекции»; start at actual point 21; right boundary continues into original Topic 22.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET_BOTH_SIDES",
+        "TITLE_EARLY_FRAGMENT_BIAS",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 22,
+      "topic_id": "topic_stress_code_video_001_0022",
+      "machine_range": {
+        "word_start_sequence": 18925,
+        "word_end_sequence": 19591,
+        "start_seconds": 12341.181,
+        "end_seconds": 12806.2
+      },
+      "machine_title": "начальное признание и благодарность",
+      "accepted_decision": "MERGE + DROP NON-SEMANTIC TRANSITION → continuation of insights merges into Topic 21; gratitude/end-of-demo transition is not a standalone Knowledge Topic. Flag transcript duplication for selective verification rather than silently correcting evidence.",
+      "failure_classes": [
+        "FALSE SPLIT",
+        "FALSE SPLIT / CONTINUOUS_TOPIC_FRAGMENTATION",
+        "NON_SEMANTIC_TRANSITION_AS_TOPIC",
+        "TRANSCRIPT_DUPLICATION_SIGNAL",
+        "TITLE_EARLY_FRAGMENT_BIAS",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 23,
+      "topic_id": "topic_stress_code_video_001_0023",
+      "machine_range": {
+        "word_start_sequence": 19592,
+        "word_end_sequence": 19867,
+        "start_seconds": 12806.4,
+        "end_seconds": 12939.14
+      },
+      "machine_title": "переход и повторение",
+      "accepted_decision": "TRIM + RENAME → «Итоги демонстрационной коррекции и цель практического обучения»; initial thanks excluded as non-semantic transition. Control: valid short Topic due discourse-function change.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / TRANSITION_SPLIT",
+        "NON_SEMANTIC_CONTENT_CONTAMINATION",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [
+        "VALID_SHORT_TOPIC / DISCOURSE_FUNCTION_CHANGE"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 24,
+      "topic_id": "topic_stress_code_video_001_0024",
+      "machine_range": {
+        "word_start_sequence": 19868,
+        "word_end_sequence": 20025,
+        "start_seconds": 12939.14,
+        "end_seconds": 13038.486
+      },
+      "machine_title": "подробное обсуждение сессии",
+      "accepted_decision": "RENAME → «Вопросы по демонстрационной коррекции: работа с негативом и позитивом». No split/merge; content-bearing Q&A is a valid short semantic unit.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / Q&A_SPLIT",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [
+        "VALID_SHORT_TOPIC / Q&A_SEMANTIC_UNIT",
+        "Q&A_SEMANTIC_UNIT"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 25,
+      "topic_id": "topic_stress_code_video_001_0025",
+      "machine_range": {
+        "word_start_sequence": 20026,
+        "word_end_sequence": 20174,
+        "start_seconds": 13039.75,
+        "end_seconds": 13127.041
+      },
+      "machine_title": "переход к тестированию",
+      "accepted_decision": "REALIGN + RENAME → «Мышечное тестирование: основные виды и этапы обучения»; left boundary moves to beginning of complete transition sentence; right boundary 25→26 preserved.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / SENTENCE_SPLIT",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [
+        "VALID_SHORT_TOPIC / SECTION_OVERVIEW"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 26,
+      "topic_id": "topic_stress_code_video_001_0026",
+      "machine_range": {
+        "word_start_sequence": 20175,
+        "word_end_sequence": 20279,
+        "start_seconds": 13130.531,
+        "end_seconds": 13226.232
+      },
+      "machine_title": "Тестирование на нормотоничность",
+      "accepted_decision": "RENAME + MERGE RIGHT BOUNDARY → «Основы мышечного тестирования: нормотоничность и получение информации от тела»; remove original 26→27 boundary.",
+      "failure_classes": [
+        "FALSE SPLIT",
+        "FALSE SPLIT / SENTENCE_OR_ARGUMENT_SPLIT",
+        "PROCEDURAL_HIERARCHY / DO_NOT_SPLIT_STEPS_INTO_TOPICS",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 27,
+      "topic_id": "topic_stress_code_video_001_0027",
+      "machine_range": {
+        "word_start_sequence": 20280,
+        "word_end_sequence": 20442,
+        "start_seconds": 13230.421,
+        "end_seconds": 13333.338
+      },
+      "machine_title": "Клиническая точность",
+      "accepted_decision": "MERGE LEFT + REALIGN → beginning about accuracy/research merges into Topic 26; new Topic begins at actual theory→practice transition: «Практическая техника мышечного тестирования».",
+      "failure_classes": [
+        "FALSE SPLIT",
+        "FALSE SPLIT / SENTENCE_OR_ARGUMENT_SPLIT",
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / TRANSITION_SPLIT",
+        "PROCEDURAL_HIERARCHY / DO_NOT_SPLIT_STEPS_INTO_TOPICS",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 28,
+      "topic_id": "topic_stress_code_video_001_0028",
+      "machine_range": {
+        "word_start_sequence": 20443,
+        "word_end_sequence": 20586,
+        "start_seconds": 13333.9,
+        "end_seconds": 13435.238
+      },
+      "machine_title": "Включение видео для просмотра",
+      "accepted_decision": "TRIM + KEEP AS INSTRUCTIONAL SECTION → «Подготовка к демонстрации мышечного тестирования»; pure timing/watch-video instructions are Seminar Structure, not standalone Canonical Knowledge; preserve 28→29 boundary.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / TRANSITION_SPLIT",
+        "SEMINAR_STRUCTURE_VS_KNOWLEDGE_TOPIC / INSTRUCTIONAL_TRANSITION",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 29,
+      "topic_id": "topic_stress_code_video_001_0029",
+      "machine_range": {
+        "word_start_sequence": 20587,
+        "word_end_sequence": 21641,
+        "start_seconds": 14193.291,
+        "end_seconds": 14914.949
+      },
+      "machine_title": "начальная оценка и цель",
+      "accepted_decision": "RENAME → «Претесты перед мышечным тестированием: пошаговый разбор». Do not split every pretest into equal Topics; preserve procedural hierarchy.",
+      "failure_classes": [
+        "PROCEDURAL_HIERARCHY / DO_NOT_SPLIT_STEPS_INTO_TOPICS",
+        "TITLE_EARLY_FRAGMENT_BIAS",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [
+        "DO_NOT_FIX_OVERMERGE_BY_BLIND_OVERSPLITTING"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 30,
+      "topic_id": "topic_stress_code_video_001_0030",
+      "machine_range": {
+        "word_start_sequence": 21642,
+        "word_end_sequence": 22820,
+        "start_seconds": 14914.969,
+        "end_seconds": 15637.699
+      },
+      "machine_title": "основной принцип: кинестезия и тестирование",
+      "accepted_decision": "TRIM + RENAME → «Практическое выполнение претестов перед мышечным тестированием»; remove left-boundary tail from prior exercise; do not blindly split individual pretest steps.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / TRANSITION_SPLIT",
+        "PROCEDURAL_HIERARCHY / DO_NOT_SPLIT_STEPS_INTO_TOPICS",
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "control_classes": [
+        "DO_NOT_FIX_OVERMERGE_BY_BLIND_OVERSPLITTING"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": false
+      }
+    },
+    {
+      "topic_number": 31,
+      "topic_id": "topic_stress_code_video_001_0031",
+      "machine_range": {
+        "word_start_sequence": 22821,
+        "word_end_sequence": 24139,
+        "start_seconds": 15638.12,
+        "end_seconds": 16353.42
+      },
+      "machine_title": "Вы можете по-другому зайти да задать вопрос таким",
+      "accepted_decision": "REALIGN + RENAME → «Формулировка вопросов при мышечном тестировании: практический разбор»; left boundary moves back to the participant's question about testing a job/position so question and answer remain one semantic unit; right edge is end of available video_001 evidence.",
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET / Q&A_SPLIT",
+        "TITLE_EARLY_FRAGMENT_BIAS",
+        "MALFORMED_TITLE / VERBATIM_FRAGMENT_AS_TITLE"
+      ],
+      "control_classes": [
+        "Q&A_SEMANTIC_UNIT"
+      ],
+      "title_assessment": {
+        "authoritative_title_changed_or_eliminated": true,
+        "segmentation_changed": true,
+        "exact_legacy_fallback_title_match": true
+      }
+    }
+  ],
+  "boundary_error_definition": {
+    "total_boundary_error_count": 29,
+    "explanation": "26 authoritative changed Product Owner boundaries plus 3 unmatched machine-only extra boundaries. Of the 26 changed boundaries, 15 have a semantically corresponding machine boundary and 11 were entirely missing.",
+    "authoritative_changed_boundary_count": 26,
+    "paired_localization_error_count": 15,
+    "missing_boundary_count": 11,
+    "extra_boundary_count": 3,
+    "early_boundary_count": 10,
+    "late_boundary_count": 5,
+    "displacement_sign": "machine minus human; negative means machine was early"
+  },
+  "boundary_errors": [
+    {
+      "boundary_id": "issue_113_boundary_04a_04b",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "participant-to-instructor discourse transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:001517",
+        "word_sequence": 1517,
+        "timestamp_seconds": 978.908
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_04b_04c",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "personal-practice-to-motivation semantic transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:002065",
+        "word_sequence": 2065,
+        "timestamp_seconds": 1296.348
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_04c_05b",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "motivation-to-school-organization transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:002449",
+        "word_sequence": 2449,
+        "timestamp_seconds": 1571.663
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0005",
+        "word_sequence": 2328,
+        "timestamp_seconds": 1451.34
+      },
+      "displacement": {
+        "machine_minus_human_words": -121,
+        "machine_minus_human_seconds": -120.323
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_05b_05c",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "organization subtopic transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:002529",
+        "word_sequence": 2529,
+        "timestamp_seconds": 1630.455
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_05c_05d",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "school-organization-to-professional-narrative transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:002756",
+        "word_sequence": 2756,
+        "timestamp_seconds": 1747.782
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_05d_06a",
+      "classification": "LATE_BOUNDARY",
+      "transition_type": "long-form narrative continuation across machine window",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:003072",
+        "word_sequence": 3072,
+        "timestamp_seconds": 2101.242
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0006",
+        "word_sequence": 3168,
+        "timestamp_seconds": 2172.411
+      },
+      "displacement": {
+        "machine_minus_human_words": 96,
+        "machine_minus_human_seconds": 71.169
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_06a_06b",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "narrative-to-instruction discourse transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:003443",
+        "word_sequence": 3443,
+        "timestamp_seconds": 2508.221
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_06b_06c",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "instruction-to-wellbeing concept transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:003895",
+        "word_sequence": 3895,
+        "timestamp_seconds": 2791.247
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_07_08",
+      "classification": "LATE_BOUNDARY",
+      "transition_type": "complete-sentence example transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:005125",
+        "word_sequence": 5125,
+        "timestamp_seconds": 3623.679
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0008",
+        "word_sequence": 5126,
+        "timestamp_seconds": 3624.099
+      },
+      "displacement": {
+        "machine_minus_human_words": 1,
+        "machine_minus_human_seconds": 0.42
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_08_nonsemantic",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "semantic-to-technical-break transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:006096",
+        "word_sequence": 6096,
+        "timestamp_seconds": 4323.592
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_09_left",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "technical-break-to-exercise transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:006290",
+        "word_sequence": 6290,
+        "timestamp_seconds": 4440.051
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0009",
+        "word_sequence": 6128,
+        "timestamp_seconds": 4347.57
+      },
+      "displacement": {
+        "machine_minus_human_words": -162,
+        "machine_minus_human_seconds": -92.481
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_10_left",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "exercise-to-next-exercise transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:007263",
+        "word_sequence": 7263,
+        "timestamp_seconds": 5153.442
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0010",
+        "word_sequence": 7180,
+        "timestamp_seconds": 5072.17
+      },
+      "displacement": {
+        "machine_minus_human_words": -83,
+        "machine_minus_human_seconds": -81.272
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_10_11a",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "practical-block-to-school-mission transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:008317",
+        "word_sequence": 8317,
+        "timestamp_seconds": 5830.401
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0011",
+        "word_sequence": 8268,
+        "timestamp_seconds": 5798.621
+      },
+      "displacement": {
+        "machine_minus_human_words": -49,
+        "machine_minus_human_seconds": -31.78
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_11a_11b",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "mission-to-program-structure transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:008603",
+        "word_sequence": 8603,
+        "timestamp_seconds": 6022.206
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_11b_12a",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "program-structure-to-learning-principle transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:009468",
+        "word_sequence": 9468,
+        "timestamp_seconds": 6535.759
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0012",
+        "word_sequence": 9445,
+        "timestamp_seconds": 6520.23
+      },
+      "displacement": {
+        "machine_minus_human_words": -23,
+        "machine_minus_human_seconds": -15.529
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_12a_12b",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "learning-principle-to-practice transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:010501",
+        "word_sequence": 10501,
+        "timestamp_seconds": 7178.1
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_14a_14b",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "procedure-to-question/concern discourse-function transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:012386",
+        "word_sequence": 12386,
+        "timestamp_seconds": 8403.609
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_19_left",
+      "classification": "LATE_BOUNDARY",
+      "transition_type": "complete-sentence transition into DPDG correction",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:016347",
+        "word_sequence": 16347,
+        "timestamp_seconds": 10689.883
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0019",
+        "word_sequence": 16356,
+        "timestamp_seconds": 10694.75
+      },
+      "displacement": {
+        "machine_minus_human_words": 9,
+        "machine_minus_human_seconds": 4.867
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_21_left",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "protocol-step-to-post-correction-insight transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:018872",
+        "word_sequence": 18872,
+        "timestamp_seconds": 12301.511
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0021",
+        "word_sequence": 17768,
+        "timestamp_seconds": 11614.501
+      },
+      "displacement": {
+        "machine_minus_human_words": -1104,
+        "machine_minus_human_seconds": -687.01
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_21_22_nonsemantic",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "semantic-insight-to-gratitude transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:019578",
+        "word_sequence": 19578,
+        "timestamp_seconds": 12799.469
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0022",
+        "word_sequence": 18925,
+        "timestamp_seconds": 12341.181
+      },
+      "displacement": {
+        "machine_minus_human_words": -653,
+        "machine_minus_human_seconds": -458.288
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_23_left",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "thanks-to-demonstration-summary transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:019671",
+        "word_sequence": 19671,
+        "timestamp_seconds": 12848.445
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0023",
+        "word_sequence": 19592,
+        "timestamp_seconds": 12806.4
+      },
+      "displacement": {
+        "machine_minus_human_words": -79,
+        "machine_minus_human_seconds": -42.045
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_25_left",
+      "classification": "LATE_BOUNDARY",
+      "transition_type": "complete transition sentence into testing overview",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:020014",
+        "word_sequence": 20014,
+        "timestamp_seconds": 13032.049
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0025",
+        "word_sequence": 20026,
+        "timestamp_seconds": 13039.75
+      },
+      "displacement": {
+        "machine_minus_human_words": 12,
+        "machine_minus_human_seconds": 7.701
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_26_27",
+      "classification": "MISSING_BOUNDARY",
+      "transition_type": "theory-to-practice transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:020482",
+        "word_sequence": 20482,
+        "timestamp_seconds": 13356.183
+      },
+      "machine_boundary": null,
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_28_left",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "practice-to-instructional-organization transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:020490",
+        "word_sequence": 20490,
+        "timestamp_seconds": 13365.98
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0028",
+        "word_sequence": 20443,
+        "timestamp_seconds": 13333.9
+      },
+      "displacement": {
+        "machine_minus_human_words": -47,
+        "machine_minus_human_seconds": -32.08
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_30_left",
+      "classification": "EARLY_BOUNDARY",
+      "transition_type": "procedural subtopic transition",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:021687",
+        "word_sequence": 21687,
+        "timestamp_seconds": 14936.701
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0030",
+        "word_sequence": 21642,
+        "timestamp_seconds": 14914.969
+      },
+      "displacement": {
+        "machine_minus_human_words": -45,
+        "machine_minus_human_seconds": -21.732
+      }
+    },
+    {
+      "boundary_id": "issue_113_boundary_31_left",
+      "classification": "LATE_BOUNDARY",
+      "transition_type": "participant-question-to-answer Q&A unit",
+      "human_boundary": {
+        "canonical_word_id": "transcript_revision_video_001_r1:word:022680",
+        "word_sequence": 22680,
+        "timestamp_seconds": 15563.051
+      },
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0031",
+        "word_sequence": 22821,
+        "timestamp_seconds": 15638.12
+      },
+      "displacement": {
+        "machine_minus_human_words": 141,
+        "machine_minus_human_seconds": 75.069
+      }
+    },
+    {
+      "boundary_id": "machine_only_topic_18_start",
+      "classification": "EXTRA_BOUNDARY",
+      "transition_type": "protocol step promoted to top-level topic",
+      "human_boundary": null,
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0018",
+        "word_sequence": 16177,
+        "timestamp_seconds": 10595.575
+      },
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "machine_only_topic_20_start",
+      "classification": "EXTRA_BOUNDARY",
+      "transition_type": "protocol step promoted to top-level topic",
+      "human_boundary": null,
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0020",
+        "word_sequence": 16519,
+        "timestamp_seconds": 10832.71
+      },
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    },
+    {
+      "boundary_id": "machine_only_topic_27_start",
+      "classification": "EXTRA_BOUNDARY",
+      "transition_type": "sentence/argument split inside one theory block",
+      "human_boundary": null,
+      "machine_boundary": {
+        "source_topic_id": "topic_stress_code_video_001_0027",
+        "word_sequence": 20280,
+        "timestamp_seconds": 13230.421
+      },
+      "displacement": {
+        "machine_minus_human_words": null,
+        "machine_minus_human_seconds": null
+      }
+    }
+  ],
+  "safeguards": {
+    "dataset_d_used": false,
+    "dataset_e_used_as_topic_evidence": false,
+    "gold_created_or_modified": false,
+    "predictions_created_or_modified": false,
+    "transcript_revision_mutated": false
+  }
+}

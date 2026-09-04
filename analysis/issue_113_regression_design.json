@@ -1,0 +1,507 @@
+{
+  "schema_version": 1,
+  "artifact_id": "issue_113_topic_engine_regression_design_v1",
+  "authority": "ANALYSIS_DESIGN_ONLY_NOT_GOLD",
+  "input_review_decisions_sha256": "32a18a6dc9d3edbd53753153f533221e9c0fe6d54856355af9d52a3db41e772e",
+  "source": {
+    "source_id": "source_video_001",
+    "transcript_revision_id": "transcript_revision_video_001_r1",
+    "verification_state": "machine_unverified"
+  },
+  "tolerance_policy": "Exact reviewed anchors are fixture truth for this source. Any future relaxed tolerance must be declared by an authorized experiment before scoring.",
+  "counts": {
+    "total": 24,
+    "positive_behavior_cases": 13,
+    "negative_control_cases": 8,
+    "title_generation_cases": 3
+  },
+  "positive_behavior_cases": [
+    {
+      "id": "R001",
+      "sources": [
+        "topic_stress_code_video_001_0004"
+      ],
+      "source_range": {
+        "word_start": 1135,
+        "word_end": 2327
+      },
+      "expected_behavior": "SHOULD_SPLIT",
+      "expected_boundaries": [
+        1517,
+        2065
+      ],
+      "failure_classes": [
+        "OVER-MERGE"
+      ],
+      "assertion": "predicted top-level boundary set contains 1517 and 2065 within the declared word tolerance; one 12-minute window is not accepted as one topic"
+    },
+    {
+      "id": "R002",
+      "sources": [
+        "topic_stress_code_video_001_0004",
+        "topic_stress_code_video_001_0005"
+      ],
+      "source_range": {
+        "word_start": 2065,
+        "word_end": 2528
+      },
+      "expected_behavior": "SHOULD_MOVE_BOUNDARY",
+      "expected_boundaries": [
+        2449
+      ],
+      "forbidden_boundaries": [
+        2328
+      ],
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET_BOTH_SIDES"
+      ],
+      "assertion": "boundary localizes the motivation-to-school transition at 2449, not the machine-window start 2328"
+    },
+    {
+      "id": "R003",
+      "sources": [
+        "topic_stress_code_video_001_0005"
+      ],
+      "source_range": {
+        "word_start": 2449,
+        "word_end": 3071
+      },
+      "expected_behavior": "SHOULD_SPLIT",
+      "expected_boundaries": [
+        2529,
+        2756
+      ],
+      "failure_classes": [
+        "OVER-MERGE"
+      ],
+      "assertion": "both school-organization and professional-narrative transitions are represented"
+    },
+    {
+      "id": "R004",
+      "sources": [
+        "topic_stress_code_video_001_0005",
+        "topic_stress_code_video_001_0006"
+      ],
+      "source_range": {
+        "word_start": 2756,
+        "word_end": 3442
+      },
+      "expected_behavior": "SHOULD_MOVE_BOUNDARY",
+      "expected_boundaries": [
+        3072
+      ],
+      "forbidden_boundaries": [
+        3168
+      ],
+      "failure_classes": [
+        "BOUNDARY_OFFSET",
+        "BOUNDARY_OFFSET_BOTH_SIDES"
+      ],
+      "assertion": "the microstroke narrative remains continuous across the fixed-window edge and the next boundary is 3072"
+    },
+    {
+      "id": "R005",
+      "sources": [
+        "topic_stress_code_video_001_0006"
+      ],
+      "source_range": {
+        "word_start": 3072,
+        "word_end": 4060
+      },
+      "expected_behavior": "SHOULD_SPLIT",
+      "expected_boundaries": [
+        3443,
+        3895
+      ],
+      "failure_classes": [
+        "OVER-MERGE"
+      ],
+      "assertion": "narrative-to-instruction and instruction-to-wellbeing transitions are represented"
+    },
+    {
+      "id": "R006",
+      "sources": [
+        "topic_stress_code_video_001_0008",
+        "topic_stress_code_video_001_0009"
+      ],
+      "source_range": {
+        "word_start": 6096,
+        "word_end": 6289
+      },
+      "expected_behavior": "SHOULD_EXCLUDE_NON_SEMANTIC",
+      "expected_boundaries": [
+        6096,
+        6290
+      ],
+      "failure_classes": [
+        "NON_SEMANTIC_CONTENT_CONTAMINATION",
+        "BOUNDARY_OFFSET / TRANSITION_SPLIT"
+      ],
+      "assertion": "6096-6289 is classified NON_SEMANTIC_CONTENT and semantic Topic 9 begins at 6290"
+    },
+    {
+      "id": "R007",
+      "sources": [
+        "topic_stress_code_video_001_0014"
+      ],
+      "source_range": {
+        "word_start": 11665,
+        "word_end": 12816
+      },
+      "expected_behavior": "SHOULD_SPLIT",
+      "expected_boundaries": [
+        12386
+      ],
+      "failure_classes": [
+        "OVER-MERGE",
+        "DISCOURSE_FUNCTION_BOUNDARY_MISSED"
+      ],
+      "assertion": "procedure and question/concern discourse functions are separate top-level units"
+    },
+    {
+      "id": "R008",
+      "sources": [
+        "topic_stress_code_video_001_0017",
+        "topic_stress_code_video_001_0018",
+        "topic_stress_code_video_001_0019",
+        "topic_stress_code_video_001_0020"
+      ],
+      "source_range": {
+        "word_start": 15411,
+        "word_end": 18871
+      },
+      "expected_behavior": "SHOULD_REMOVE_FALSE_BOUNDARIES",
+      "expected_boundaries": [
+        16347
+      ],
+      "forbidden_boundaries": [
+        16177,
+        16519
+      ],
+      "failure_classes": [
+        "FALSE SPLIT",
+        "PROTOCOL_STEP_AS_FALSE_TOPIC",
+        "FALSE SPLIT / PROCEDURAL_FRAGMENTATION"
+      ],
+      "assertion": "machine step boundaries 16177 and 16519 are absent while the reviewed narrative-to-DPDG boundary 16347 remains"
+    },
+    {
+      "id": "R009",
+      "sources": [
+        "topic_stress_code_video_001_0021",
+        "topic_stress_code_video_001_0022",
+        "topic_stress_code_video_001_0023"
+      ],
+      "source_range": {
+        "word_start": 17768,
+        "word_end": 19867
+      },
+      "expected_behavior": "SHOULD_MOVE_AND_EXCLUDE",
+      "expected_boundaries": [
+        18872,
+        19578,
+        19671
+      ],
+      "failure_classes": [
+        "BOUNDARY_OFFSET_BOTH_SIDES",
+        "NON_SEMANTIC_TRANSITION_AS_TOPIC",
+        "TRANSCRIPT_DUPLICATION_SIGNAL"
+      ],
+      "assertion": "post-correction insights start at 18872; gratitude/thanks 19578-19670 is non-semantic; summary Topic 23 starts at 19671"
+    },
+    {
+      "id": "R010",
+      "sources": [
+        "topic_stress_code_video_001_0024",
+        "topic_stress_code_video_001_0025"
+      ],
+      "source_range": {
+        "word_start": 19868,
+        "word_end": 20174
+      },
+      "expected_behavior": "SHOULD_MOVE_BOUNDARY",
+      "expected_boundaries": [
+        20014
+      ],
+      "forbidden_boundaries": [
+        20026
+      ],
+      "failure_classes": [
+        "BOUNDARY_OFFSET / SENTENCE_SPLIT"
+      ],
+      "assertion": "complete transition sentence begins Topic 25 at 20014"
+    },
+    {
+      "id": "R011",
+      "sources": [
+        "topic_stress_code_video_001_0026",
+        "topic_stress_code_video_001_0027",
+        "topic_stress_code_video_001_0028"
+      ],
+      "source_range": {
+        "word_start": 20175,
+        "word_end": 20489
+      },
+      "expected_behavior": "SHOULD_REMOVE_AND_RELOCALIZE",
+      "expected_boundaries": [
+        20482
+      ],
+      "forbidden_boundaries": [
+        20280
+      ],
+      "failure_classes": [
+        "FALSE SPLIT / SENTENCE_OR_ARGUMENT_SPLIT",
+        "PROCEDURAL_HIERARCHY / DO_NOT_SPLIT_STEPS_INTO_TOPICS"
+      ],
+      "assertion": "accuracy/research remains in Topic 26; no boundary at 20280; theory-to-practice boundary is 20482"
+    },
+    {
+      "id": "R012",
+      "sources": [
+        "topic_stress_code_video_001_0028"
+      ],
+      "source_range": {
+        "word_start": 20490,
+        "word_end": 20586
+      },
+      "expected_behavior": "SHOULD_CLASSIFY_SEMINAR_STRUCTURE",
+      "expected_disposition": "SEMINAR_STRUCTURE",
+      "failure_classes": [
+        "SEMINAR_STRUCTURE_VS_KNOWLEDGE_TOPIC / INSTRUCTIONAL_TRANSITION"
+      ],
+      "assertion": "instructional preparation is retained as SEMINAR_STRUCTURE and is not emitted as SEMANTIC_KNOWLEDGE"
+    },
+    {
+      "id": "R013",
+      "sources": [
+        "topic_stress_code_video_001_0030",
+        "topic_stress_code_video_001_0031"
+      ],
+      "source_range": {
+        "word_start": 21687,
+        "word_end": 24139
+      },
+      "expected_behavior": "SHOULD_MOVE_BOUNDARY",
+      "expected_boundaries": [
+        22680
+      ],
+      "forbidden_boundaries": [
+        22821
+      ],
+      "failure_classes": [
+        "BOUNDARY_OFFSET / Q&A_SPLIT"
+      ],
+      "assertion": "participant question and answer remain one Q&A semantic unit beginning at 22680"
+    }
+  ],
+  "negative_control_cases": [
+    {
+      "id": "N001",
+      "sources": [
+        "topic_stress_code_video_001_0007"
+      ],
+      "source_range": {
+        "word_start": 4061,
+        "word_end": 5124
+      },
+      "expected_behavior": "SHOULD_NOT_SPLIT",
+      "control_classes": [
+        "VALID_LONG_TOPIC"
+      ],
+      "assertion": "duration or word count alone creates no internal top-level boundary"
+    },
+    {
+      "id": "N002",
+      "sources": [
+        "topic_stress_code_video_001_0013"
+      ],
+      "source_range": {
+        "word_start": 10564,
+        "word_end": 11664
+      },
+      "expected_behavior": "SHOULD_NOT_SPLIT",
+      "control_classes": [
+        "VALID_LONG_TOPIC"
+      ],
+      "assertion": "duration or word count alone creates no internal top-level boundary"
+    },
+    {
+      "id": "N003",
+      "sources": [
+        "topic_stress_code_video_001_0016"
+      ],
+      "source_range": {
+        "word_start": 14095,
+        "word_end": 15410
+      },
+      "expected_behavior": "SHOULD_NOT_SPLIT",
+      "control_classes": [
+        "PROCEDURAL_CONTINUITY / DO_NOT_OVERSPLIT",
+        "DO_NOT_FIX_OVERMERGE_BY_BLIND_OVERSPLITTING"
+      ],
+      "assertion": "local protocol steps do not become peer top-level Topics"
+    },
+    {
+      "id": "N004",
+      "sources": [
+        "topic_stress_code_video_001_0017"
+      ],
+      "source_range": {
+        "word_start": 15411,
+        "word_end": 16346
+      },
+      "expected_behavior": "SHOULD_NOT_SPLIT",
+      "control_classes": [
+        "NARRATIVE_CONTINUITY / DO_NOT_OVERSPLIT",
+        "DO_NOT_FIX_OVERMERGE_BY_BLIND_OVERSPLITTING"
+      ],
+      "assertion": "speaker or vivid-phrase changes do not break one narrative semantic unit"
+    },
+    {
+      "id": "N005",
+      "sources": [
+        "topic_stress_code_video_001_0023"
+      ],
+      "source_range": {
+        "word_start": 19671,
+        "word_end": 19867
+      },
+      "expected_behavior": "VALID_EXISTING_TOPIC",
+      "control_classes": [
+        "VALID_SHORT_TOPIC / DISCOURSE_FUNCTION_CHANGE"
+      ],
+      "assertion": "a short wrap-up is retained because discourse function changes, independent of minimum duration"
+    },
+    {
+      "id": "N006",
+      "sources": [
+        "topic_stress_code_video_001_0024"
+      ],
+      "source_range": {
+        "word_start": 19868,
+        "word_end": 20013
+      },
+      "expected_behavior": "VALID_EXISTING_TOPIC",
+      "control_classes": [
+        "VALID_SHORT_TOPIC / Q&A_SEMANTIC_UNIT",
+        "Q&A_SEMANTIC_UNIT"
+      ],
+      "assertion": "content-bearing Q&A remains a short semantic Topic"
+    },
+    {
+      "id": "N007",
+      "sources": [
+        "topic_stress_code_video_001_0025"
+      ],
+      "source_range": {
+        "word_start": 20014,
+        "word_end": 20174
+      },
+      "expected_behavior": "VALID_EXISTING_TOPIC",
+      "control_classes": [
+        "VALID_SHORT_TOPIC / SECTION_OVERVIEW"
+      ],
+      "assertion": "short section overview remains a semantic Topic"
+    },
+    {
+      "id": "N008",
+      "sources": [
+        "topic_stress_code_video_001_0029",
+        "topic_stress_code_video_001_0030"
+      ],
+      "source_range": {
+        "word_start": 20587,
+        "word_end": 22679
+      },
+      "expected_behavior": "SHOULD_NOT_SPLIT_EVERY_STEP",
+      "expected_boundaries": [
+        21687
+      ],
+      "control_classes": [
+        "DO_NOT_FIX_OVERMERGE_BY_BLIND_OVERSPLITTING"
+      ],
+      "assertion": "preserve the one reviewed subtopic transition at 21687; do not promote each pretest/procedure step"
+    }
+  ],
+  "title_generation_cases": [
+    {
+      "id": "T001",
+      "sources": [
+        "topic_stress_code_video_001_0004",
+        "topic_stress_code_video_001_0008",
+        "topic_stress_code_video_001_0012",
+        "topic_stress_code_video_001_0015",
+        "topic_stress_code_video_001_0031"
+      ],
+      "source_range": null,
+      "expected_behavior": "TITLE_NOT_TRANSCRIPT_PREFIX_FALLBACK",
+      "failure_classes": [
+        "TITLE_EARLY_FRAGMENT_BIAS",
+        "MALFORMED_TITLE / VERBATIM_FRAGMENT_AS_TITLE"
+      ],
+      "assertion": "title is not the deterministic first-eight-word fallback and passes syntax/non-verbatim checks"
+    },
+    {
+      "id": "T002",
+      "sources": [
+        "topic_stress_code_video_001_0002",
+        "topic_stress_code_video_001_0003",
+        "topic_stress_code_video_001_0007",
+        "topic_stress_code_video_001_0013",
+        "topic_stress_code_video_001_0016",
+        "topic_stress_code_video_001_0017"
+      ],
+      "source_range": null,
+      "expected_behavior": "TITLE_REPRESENTS_WHOLE_ACCEPTABLE_SPAN",
+      "failure_classes": [
+        "TITLE_LOCAL_FRAGMENT_BIAS"
+      ],
+      "assertion": "whole-span semantic coverage is evaluated on unchanged reviewed boundaries; passing segmentation cannot substitute for title coverage"
+    },
+    {
+      "id": "T003",
+      "sources": [
+        "topic_stress_code_video_001_0001"
+      ],
+      "source_range": {
+        "word_start": 0,
+        "word_end": 580
+      },
+      "expected_behavior": "TITLE_QA_INDEPENDENT_OF_SEGMENTATION",
+      "failure_classes": [
+        "MALFORMED_TITLE / VERBATIM_FRAGMENT_AS_TITLE"
+      ],
+      "assertion": "malformed title fails title QA even though the reviewed boundary range is unchanged"
+    }
+  ],
+  "anti_overfitting_rules": [
+    "Do not optimize duration, word count, numbered steps, speaker change, question form, or transition phrase as a sufficient boundary signal.",
+    "Over-merge and false-split cases must pass together; a single global threshold change is not accepted as proof of improvement.",
+    "Title/summary assertions run independently from segmentation assertions.",
+    "This fixture is review-derived development evidence and does not change Dataset roles or become benchmark Gold automatically."
+  ],
+  "future_cross_video_requirements": {
+    "experiment_required": true,
+    "minimum_sources": [
+      "at least one additional video from the same seminar to test within-seminar continuity",
+      "at least one video from a different seminar to test domain/style transfer"
+    ],
+    "required_content_diversity": [
+      "lecture",
+      "Q&A",
+      "demonstration",
+      "procedural block",
+      "technical/non-semantic transition",
+      "long coherent topic",
+      "short discourse-function topic"
+    ],
+    "split_policy": "Predeclare development/calibration sources separately from untouched validation; Dataset D remains inaccessible and Dataset E remains excluded from Topic Engine evidence.",
+    "human_review_requirement": "Review only predeclared candidate boundary neighborhoods and representative should-not-split spans through DOMAIN_REVIEW; do not auto-create Gold."
+  },
+  "safeguards": {
+    "gold_created_or_modified": false,
+    "dataset_roles_changed": false,
+    "predictions_regenerated": false
+  }
+}
