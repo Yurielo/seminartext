@@ -2615,13 +2615,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 15,
-    "sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8"
+    "decision_count": 16,
+    "sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f"
   },
   "domain_authoring_progress": {
-    "completed": 15,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_016",
-    "pending": 247,
+    "completed": 16,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_017",
+    "pending": 246,
     "total": 262
   },
   "errors": [],
@@ -4734,7 +4734,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4835,7 +4835,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5072,7 +5072,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5183,7 +5183,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5290,7 +5290,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5398,7 +5398,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5502,7 +5502,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5609,7 +5609,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5713,7 +5713,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5819,7 +5819,7 @@
         "decision_id": "issue_68_domain_authoring_topic_010",
         "end_word_anchor_time": "00:37:42.314",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:37:46.077",
         "split_part_ids": []
       },
@@ -5920,7 +5920,7 @@
         "decision_id": "issue_68_domain_authoring_topic_011",
         "end_word_anchor_time": "00:42:20.661",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:42:40.195",
         "split_part_ids": []
       },
@@ -6024,7 +6024,7 @@
         "decision_id": "issue_68_domain_authoring_topic_012",
         "end_word_anchor_time": "00:47:36.651",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:47:36.931",
         "split_part_ids": []
       },
@@ -6197,7 +6197,7 @@
         "decision_id": "issue_68_domain_authoring_topic_013",
         "end_word_anchor_time": "00:51:33.531",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:51:42.478",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_013a",
@@ -6411,7 +6411,7 @@
         "decision_id": "issue_68_domain_authoring_topic_014",
         "end_word_anchor_time": "00:59:59.669",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "00:59:59.769",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_014a",
@@ -6625,7 +6625,7 @@
         "decision_id": "issue_68_domain_authoring_topic_015",
         "end_word_anchor_time": "01:06:51.767",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
         "next_start_word_anchor_time": "01:06:52.228",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_015a",
@@ -6728,7 +6728,91 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_topics": [
+        {
+          "authored_title": "Сила мысли: совпадения и ощущение чужого взгляда",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "01:08:00.712",
+          "end_word_anchor_time": "01:08:00.512",
+          "end_word_id": "transcript_revision_video_002_r1:word:006328",
+          "end_word_sequence": 6328,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006206",
+              "start_word_id": "transcript_revision_video_002_r1:word:006198",
+              "text": "Ну вот смотрите. Мы, если вот, если продолжить тему"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006328",
+              "start_word_id": "transcript_revision_video_002_r1:word:006320",
+              "text": "То есть вот тоже, как бы, проявление силы мысли."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006271",
+              "start_word_id": "transcript_revision_video_002_r1:word:006255",
+              "text": "улице, там, чувствуете, там, чужой взгляд. Или там в транспорт едет, там, метро, да, поворачиваешься, на вас"
+            }
+          },
+          "part_label": "16A",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "01:06:52.228",
+          "start_word_anchor_time": "01:06:52.228",
+          "start_word_id": "transcript_revision_video_002_r1:word:006198",
+          "start_word_sequence": 6198,
+          "topic_id": "issue_68_video_002_topic_proposal_016a"
+        },
+        {
+          "authored_title": "Представления об энергии в разных культурах и невидимые формы энергии",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "01:10:32.521",
+          "end_word_anchor_time": "01:10:32.279",
+          "end_word_id": "transcript_revision_video_002_r1:word:006596",
+          "end_word_sequence": 6596,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006337",
+              "start_word_id": "transcript_revision_video_002_r1:word:006329",
+              "text": "И вот по поводу мира энергии, да, в индийской"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006596",
+              "start_word_id": "transcript_revision_video_002_r1:word:006588",
+              "text": "волны тоже. Давайте поговорим, из чего же мы состоим."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006471",
+              "start_word_id": "transcript_revision_video_002_r1:word:006455",
+              "text": "первоосновой, возникло и независимо существовало там в порядка ста культурах, да, в разное время, в разных местах,"
+            }
+          },
+          "part_label": "16B",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "01:08:00.732",
+          "start_word_anchor_time": "01:08:00.732",
+          "start_word_id": "transcript_revision_video_002_r1:word:006329",
+          "start_word_sequence": 6329,
+          "topic_id": "issue_68_video_002_topic_proposal_016b"
+        }
+      ],
+      "authoring_decision": {
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_016",
+        "end_word_anchor_time": "01:10:32.279",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "80121fa5a380213e13a64128b0bb024054362e9a8ec70e33508eb8eb09d9596f",
+        "next_start_word_anchor_time": "01:10:34.131",
+        "split_part_ids": [
+          "issue_68_video_002_topic_proposal_016a",
+          "issue_68_video_002_topic_proposal_016b"
+        ]
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -6751,10 +6835,10 @@
         "level": "MEDIUM"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 4303.507,
-      "end_time": "01:11:43.507",
-      "end_word_id": "transcript_revision_video_002_r1:word:006701",
-      "end_word_sequence": 6701,
+      "end_seconds": 4232.521,
+      "end_time": "01:10:32.521",
+      "end_word_id": "transcript_revision_video_002_r1:word:006596",
+      "end_word_sequence": 6596,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:006206",
@@ -6762,14 +6846,14 @@
           "text": "Ну вот смотрите. Мы, если вот, если продолжить тему"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:006701",
-          "start_word_id": "transcript_revision_video_002_r1:word:006693",
-          "text": "в школе планетарную модель атома Резерфорда. Есть ядро атома,"
+          "end_word_id": "transcript_revision_video_002_r1:word:006596",
+          "start_word_id": "transcript_revision_video_002_r1:word:006588",
+          "text": "волны тоже. Давайте поговорим, из чего же мы состоим."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:006458",
-          "start_word_id": "transcript_revision_video_002_r1:word:006442",
-          "text": "энергия, что вот эта энергия там все связывает, на все влияет и является первоосновой, возникло и независимо"
+          "end_word_id": "transcript_revision_video_002_r1:word:006405",
+          "start_word_id": "transcript_revision_video_002_r1:word:006389",
+          "text": "самое, да. Есть такая энергия прана, то есть чьи, как бы, да, и тоже все состоит из"
         }
       },
       "generator_interval": {
@@ -6802,7 +6886,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Разговор о феномене внезапного осознания, что кто-то на тебя смотрит, и о распространенном в различных культурах представлении о мире как о пронизанном энергии, от физических частиц до духовных сущностей.",
-        "Фрагмент проходит от «Ну вот смотрите. Мы, если вот, если…» к «планетарную модель атома Резерфорда. Есть ядро атома,»."
+        "Фрагмент проходит от «Ну вот смотрите. Мы, если вот, если…» к «Давайте поговорим, из чего же мы состоим.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -6849,9 +6933,9 @@
       "end_word_sequence": 6797,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:006710",
-          "start_word_id": "transcript_revision_video_002_r1:word:006702",
-          "text": "и вокруг этого ядра атома летают электроны. Количество этих"
+          "end_word_id": "transcript_revision_video_002_r1:word:006605",
+          "start_word_id": "transcript_revision_video_002_r1:word:006597",
+          "text": "Каждый из нас состоит из тканей, органов. Органы состоят"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:006797",
@@ -6859,15 +6943,21 @@
           "text": "субатомные частицы. И названия какие-то дали этим частицам. Кварки,"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:006758",
-          "start_word_id": "transcript_revision_video_002_r1:word:006742",
-          "text": "Потому что планеты вокруг Солнца летают. И вы видите, что большая часть, даже на такой рисунке, большая"
+          "end_word_id": "transcript_revision_video_002_r1:word:006705",
+          "start_word_id": "transcript_revision_video_002_r1:word:006689",
+          "text": "энергии. В физике изучали в школе планетарную модель атома Резерфорда. Есть ядро атома, и вокруг этого ядра"
         }
       },
       "generator_interval": {
         "end_seconds": 4377.05,
         "start_seconds": 4304.59,
         "start_segment_id": 589
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_016",
+        "from_word_id": "transcript_revision_video_002_r1:word:006702",
+        "to_word_id": "transcript_revision_video_002_r1:word:006597"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_017",
       "proposal_number": 17,
@@ -6888,14 +6978,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Атом состоит из ядра с электронами, вращающимися вокруг него, и количество электронов определяет свойства атома.",
-        "Фрагмент проходит от «и вокруг этого ядра атома летают электроны.…» к «И названия какие-то дали этим частицам. Кварки,»."
+        "Фрагмент проходит от «Каждый из нас состоит из тканей, органов.…» к «И названия какие-то дали этим частицам. Кварки,»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 4304.61,
-      "start_time": "01:11:44.610",
-      "start_word_id": "transcript_revision_video_002_r1:word:006702",
-      "start_word_sequence": 6702,
+      "start_seconds": 4234.131,
+      "start_time": "01:10:34.131",
+      "start_word_id": "transcript_revision_video_002_r1:word:006597",
+      "start_word_sequence": 6597,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",

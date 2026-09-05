@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 15,
-        "pending": 247,
+        "completed": 16,
+        "pending": 246,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_016",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_017",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -526,6 +526,26 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert sixteenth["start_word_id"].endswith("word:006198")
     assert sixteenth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_015"
+    )
+    assert sixteenth["end_word_id"].endswith("word:006596")
+    assert sixteenth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in sixteenth["authored_topics"]] == [
+        "16A",
+        "16B",
+    ]
+    assert [item["authored_title"] for item in sixteenth["authored_topics"]] == [
+        "Сила мысли: совпадения и ощущение чужого взгляда",
+        "Представления об энергии в разных культурах и невидимые формы энергии",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in sixteenth["authored_topics"]
+    )
+    seventeenth = package["topic_proposals"][16]
+    assert seventeenth["start_word_id"].endswith("word:006597")
+    assert seventeenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_016"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
