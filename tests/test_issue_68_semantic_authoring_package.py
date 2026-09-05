@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 19,
-        "pending": 243,
+        "completed": 20,
+        "pending": 242,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_020",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_021",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -590,6 +590,26 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert twentieth["start_word_id"].endswith("word:007504")
     assert twentieth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_019"
+    )
+    assert twentieth["end_word_id"].endswith("word:007865")
+    assert twentieth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twentieth["authored_topics"]] == [
+        "20A",
+        "20B",
+    ]
+    assert [item["authored_title"] for item in twentieth["authored_topics"]] == [
+        "Перерыв и задание: классификация входящей, внутренней и производимой энергии",
+        "Входящая энергия и её источники во взаимодействии человека с окружающей средой",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in twentieth["authored_topics"]
+    )
+    twenty_first = package["topic_proposals"][20]
+    assert twenty_first["start_word_id"].endswith("word:007866")
+    assert twenty_first["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_020"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]

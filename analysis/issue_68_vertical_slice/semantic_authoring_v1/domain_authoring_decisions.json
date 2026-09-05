@@ -518,6 +518,45 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 19, Day 2: принять REALIGN + RENAME. Новое название: «Получение, обработка и передача информации как потоки энергии». Диапазон word:007330–word:007503; следующая тема начинается с word:007504. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:007330"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-06",
+      "decision_id": "issue_68_domain_authoring_topic_020",
+      "end_word_id": "transcript_revision_video_002_r1:word:007865",
+      "end_word_anchor_time": "01:24:22.134",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_021",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:007866",
+      "next_start_word_anchor_time": "01:24:23.677",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:007873",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:007874",
+      "proposal_id": "issue_68_video_002_topic_proposal_020",
+      "reason": "Исходная тема объединяла постановку задания перед перерывом с последующим обсуждением источников входящей энергии. Переход к внутренней энергии открывает следующую смысловую единицу; прежняя граница разрывала её вводное предложение.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 20, Day 2: принять SPLIT + REALIGN. 20A word:007504–word:007588 «Перерыв и задание: классификация входящей, внутренней и производимой энергии»; 20B word:007589–word:007865 «Входящая энергия и её источники во взаимодействии человека с окружающей средой». Следующая тема начинается с word:007866. Статус обеих частей PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "01:21:08.383",
+          "end_word_id": "transcript_revision_video_002_r1:word:007588",
+          "part_id": "issue_68_video_002_topic_proposal_020a",
+          "part_label": "20A",
+          "start_word_anchor_time": "01:20:18.736",
+          "start_word_id": "transcript_revision_video_002_r1:word:007504",
+          "title": "Перерыв и задание: классификация входящей, внутренней и производимой энергии"
+        },
+        {
+          "end_word_anchor_time": "01:24:22.134",
+          "end_word_id": "transcript_revision_video_002_r1:word:007865",
+          "part_id": "issue_68_video_002_topic_proposal_020b",
+          "part_label": "20B",
+          "start_word_anchor_time": "01:21:12.030",
+          "start_word_id": "transcript_revision_video_002_r1:word:007589",
+          "title": "Входящая энергия и её источники во взаимодействии человека с окружающей средой"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_002_r1:word:007504"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",
