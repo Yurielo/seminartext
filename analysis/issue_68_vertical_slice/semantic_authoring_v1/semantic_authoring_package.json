@@ -2591,13 +2591,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 2,
-    "sha256": "538c7fc27cbde8bb0ea047cdaf50bff2c47a8cc00d7dca9221630afbeed47a64"
+    "decision_count": 3,
+    "sha256": "ab5042aa1a80807442950a4a994eba45bba3a2fa60bebcc96d063484089485ab"
   },
   "domain_authoring_progress": {
-    "completed": 2,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_003",
-    "pending": 260,
+    "completed": 3,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_004",
+    "pending": 259,
     "total": 262
   },
   "errors": [],
@@ -4678,8 +4678,9 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "538c7fc27cbde8bb0ea047cdaf50bff2c47a8cc00d7dca9221630afbeed47a64",
-        "next_start_word_anchor_time": null
+        "ledger_sha256": "ab5042aa1a80807442950a4a994eba45bba3a2fa60bebcc96d063484089485ab",
+        "next_start_word_anchor_time": null,
+        "split_part_ids": []
       },
       "authoring_status": "COMPLETED",
       "available_decisions": [
@@ -4778,8 +4779,9 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "538c7fc27cbde8bb0ea047cdaf50bff2c47a8cc00d7dca9221630afbeed47a64",
-        "next_start_word_anchor_time": "00:02:21.618"
+        "ledger_sha256": "ab5042aa1a80807442950a4a994eba45bba3a2fa60bebcc96d063484089485ab",
+        "next_start_word_anchor_time": "00:02:21.618",
+        "split_part_ids": []
       },
       "authoring_status": "COMPLETED",
       "available_decisions": [
@@ -4869,7 +4871,161 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_topics": [
+        {
+          "authored_title": "Претесты и выбор передней порции дельтовидной мышцы",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "00:04:48.490",
+          "end_word_anchor_time": "00:04:47.823",
+          "end_word_id": "transcript_revision_video_002_r1:word:000402",
+          "end_word_sequence": 402,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000178",
+              "start_word_id": "transcript_revision_video_002_r1:word:000170",
+              "text": "И изучили с вами такой комплекс мероприятий, который называется"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000402",
+              "start_word_id": "transcript_revision_video_002_r1:word:000394",
+              "text": "получать не тот ответ, который действительно соответствует истине. Итого."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000294",
+              "start_word_id": "transcript_revision_video_002_r1:word:000278",
+              "text": "чем. О том, что у нас есть мышцы, которые мы можем тестировать. И вот из множества, множества"
+            }
+          },
+          "part_label": "3A",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:02:21.618",
+          "start_word_anchor_time": "00:02:21.618",
+          "start_word_id": "transcript_revision_video_002_r1:word:000170",
+          "start_word_sequence": 170,
+          "topic_id": "issue_68_video_002_topic_proposal_003a"
+        },
+        {
+          "authored_title": "Очное и дистанционное тестирование: получение индивидуальной информации",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "00:08:07.950",
+          "end_word_anchor_time": "00:08:07.487",
+          "end_word_id": "transcript_revision_video_002_r1:word:000724",
+          "end_word_sequence": 724,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000411",
+              "start_word_id": "transcript_revision_video_002_r1:word:000403",
+              "text": "Переходим, ну как бы снова, да, вот повторяем то,"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000724",
+              "start_word_id": "transcript_revision_video_002_r1:word:000716",
+              "text": "что нормальные ответы можем получать только от нормотоничной мышцы."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000572",
+              "start_word_id": "transcript_revision_video_002_r1:word:000556",
+              "text": "нас будет две группы такого тестирования. Очное и то, что у нас пойдет на работу онлайн. Но"
+            }
+          },
+          "part_label": "3B",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:04:48.490",
+          "start_word_anchor_time": "00:04:48.490",
+          "start_word_id": "transcript_revision_video_002_r1:word:000403",
+          "start_word_sequence": 403,
+          "topic_id": "issue_68_video_002_topic_proposal_003b"
+        },
+        {
+          "authored_title": "Передняя порция дельтовидной мышцы: анатомия и техника тестирования",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "00:09:59.970",
+          "end_word_anchor_time": "00:09:59.083",
+          "end_word_id": "transcript_revision_video_002_r1:word:000896",
+          "end_word_sequence": 896,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000733",
+              "start_word_id": "transcript_revision_video_002_r1:word:000725",
+              "text": "И вот в состоянии нормотонуса человека мы приводим с"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000896",
+              "start_word_id": "transcript_revision_video_002_r1:word:000888",
+              "text": "градусов и надавливаем на нее весом примерно 1 килограмм."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000819",
+              "start_word_id": "transcript_revision_video_002_r1:word:000803",
+              "text": "порцией дельтовидной мышцы. То есть вот она, вы тоже можете ее потрогать здесь. И какое движение она"
+            }
+          },
+          "part_label": "3C",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:08:11.425",
+          "start_word_anchor_time": "00:08:11.425",
+          "start_word_id": "transcript_revision_video_002_r1:word:000725",
+          "start_word_sequence": 725,
+          "topic_id": "issue_68_video_002_topic_proposal_003c"
+        },
+        {
+          "authored_title": "Дыхание, вода и передача сигналов нервной системой",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "00:13:39.670",
+          "end_word_anchor_time": "00:13:35.183",
+          "end_word_id": "transcript_revision_video_002_r1:word:001218",
+          "end_word_sequence": 1218,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:000905",
+              "start_word_id": "transcript_revision_video_002_r1:word:000897",
+              "text": "Когда мы говорим тому человеку, которого мы тестируем, мы"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:001218",
+              "start_word_id": "transcript_revision_video_002_r1:word:001210",
+              "text": "Поэтому просто пьем водичку, чистую, обычную, питьевую, при тестировании."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:001066",
+              "start_word_id": "transcript_revision_video_002_r1:word:001050",
+              "text": "передают сигналы с помощью зарядов своих. И вот эта электрохимическая передача в этих местах соединения, в нервах,"
+            }
+          },
+          "part_label": "3D",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:10:02.023",
+          "start_word_anchor_time": "00:10:02.023",
+          "start_word_id": "transcript_revision_video_002_r1:word:000897",
+          "start_word_sequence": 897,
+          "topic_id": "issue_68_video_002_topic_proposal_003d"
+        }
+      ],
+      "authoring_decision": {
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_003",
+        "end_word_anchor_time": "00:13:35.183",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "ab5042aa1a80807442950a4a994eba45bba3a2fa60bebcc96d063484089485ab",
+        "next_start_word_anchor_time": "00:13:40.091",
+        "split_part_ids": [
+          "issue_68_video_002_topic_proposal_003a",
+          "issue_68_video_002_topic_proposal_003b",
+          "issue_68_video_002_topic_proposal_003c",
+          "issue_68_video_002_topic_proposal_003d"
+        ]
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -4894,10 +5050,10 @@
         "level": "MEDIUM"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 728.12,
-      "end_time": "00:12:08.120",
-      "end_word_id": "transcript_revision_video_002_r1:word:001066",
-      "end_word_sequence": 1066,
+      "end_seconds": 819.67,
+      "end_time": "00:13:39.670",
+      "end_word_id": "transcript_revision_video_002_r1:word:001218",
+      "end_word_sequence": 1218,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:000178",
@@ -4905,14 +5061,14 @@
           "text": "И изучили с вами такой комплекс мероприятий, который называется"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001066",
-          "start_word_id": "transcript_revision_video_002_r1:word:001058",
-          "text": "эта электрохимическая передача в этих местах соединения, в нервах,"
+          "end_word_id": "transcript_revision_video_002_r1:word:001218",
+          "start_word_id": "transcript_revision_video_002_r1:word:001210",
+          "text": "Поэтому просто пьем водичку, чистую, обычную, питьевую, при тестировании."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:000626",
-          "start_word_id": "transcript_revision_video_002_r1:word:000610",
-          "text": "это тоже важная информация. Но вообще все, о чем я говорю, каждая мысль, важна. Но здесь принципиально"
+          "end_word_id": "transcript_revision_video_002_r1:word:000702",
+          "start_word_id": "transcript_revision_video_002_r1:word:000686",
+          "text": "можно решить. И мы говорим о том, что у нас есть мышца-индикатор или индикаторная мышца. В частности,"
         }
       },
       "generator_interval": {
@@ -4945,7 +5101,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Сессия направлена на быстрое восстановление клиента, устранение усталости и подготовку к проведению тестирования мышц, особенно передней порции дельтовидной, для получения точной информации о его состоянии.",
-        "Фрагмент проходит от «И изучили с вами такой комплекс мероприятий,…» к «передача в этих местах соединения, в нервах,»."
+        "Фрагмент проходит от «И изучили с вами такой комплекс мероприятий,…» к «пьем водичку, чистую, обычную, питьевую, при тестировании.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -4995,9 +5151,9 @@
       "end_word_sequence": 1645,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001075",
-          "start_word_id": "transcript_revision_video_002_r1:word:001067",
-          "text": "может происходить только при наличии, в растворенном, когда ионы,"
+          "end_word_id": "transcript_revision_video_002_r1:word:001227",
+          "start_word_id": "transcript_revision_video_002_r1:word:001219",
+          "text": "И вот на видео, которое вы вчера смотрели, я"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:001645",
@@ -5005,15 +5161,21 @@
           "text": "неделе будет возможность? Хорошо. Тогда обязательно вот это потренируйте."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001364",
-          "start_word_id": "transcript_revision_video_002_r1:word:001348",
-          "text": "соблюдать все пункты, про которые мы проговорили. Да, вот, когда если Стоя тестируем, 30-40 градусов удерживаем. Давление,"
+          "end_word_id": "transcript_revision_video_002_r1:word:001440",
+          "start_word_id": "transcript_revision_video_002_r1:word:001424",
+          "text": "ну, чуть побольше, да, и мы должны уловить, вот, есть такое понимание, да, точка запирания, когда, если"
         }
       },
       "generator_interval": {
         "end_seconds": 1064.09,
         "start_seconds": 728.12,
         "start_segment_id": 96
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_003",
+        "from_word_id": "transcript_revision_video_002_r1:word:001067",
+        "to_word_id": "transcript_revision_video_002_r1:word:001219"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_004",
       "proposal_number": 4,
@@ -5034,14 +5196,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Процесс может возникать при растворении ионов, таких как калий, кальций и натрий, в воде.",
-        "Фрагмент проходит от «может происходить только при наличии, в растворенном,…» к «возможность? Хорошо. Тогда обязательно вот это потренируйте.»."
+        "Фрагмент проходит от «И вот на видео, которое вы вчера…» к «возможность? Хорошо. Тогда обязательно вот это потренируйте.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 728.421,
-      "start_time": "00:12:08.421",
-      "start_word_id": "transcript_revision_video_002_r1:word:001067",
-      "start_word_sequence": 1067,
+      "start_seconds": 820.091,
+      "start_time": "00:13:40.091",
+      "start_word_id": "transcript_revision_video_002_r1:word:001219",
+      "start_word_sequence": 1219,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",

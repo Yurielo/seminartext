@@ -320,12 +320,16 @@ def build_package(
             decision_record = decisions_by_proposal.get(proposal_id)
             if decision_record is not None:
                 action = decision_record.get("action")
-                if action not in {"RENAME", "REALIGN_RENAME"}:
+                if action not in {"RENAME", "REALIGN_RENAME", "SPLIT_REALIGN"}:
                     errors.append(f"unsupported authoring action for {proposal_id}")
-                if not decision_record.get("new_title"):
+                if action in {"RENAME", "REALIGN_RENAME"} and not decision_record.get(
+                    "new_title"
+                ):
                     errors.append(f"RENAME has no new_title for {proposal_id}")
                 expected_boundary_action = (
-                    "REALIGN_RIGHT" if action == "REALIGN_RENAME" else "PRESERVE"
+                    "REALIGN_RIGHT"
+                    if action in {"REALIGN_RENAME", "SPLIT_REALIGN"}
+                    else "PRESERVE"
                 )
                 if decision_record.get("boundary_action") != expected_boundary_action:
                     errors.append(f"unexpected boundary mutation for {proposal_id}")
@@ -336,7 +340,83 @@ def build_package(
                     or decision_record.get("end_word_id") != proposal["end_word_id"]
                 ):
                     errors.append(f"decision Word range mismatch for {proposal_id}")
-                proposal["authored_title"] = decision_record.get("new_title")
+                if action == "SPLIT_REALIGN":
+                    split_parts = decision_record.get("split_parts", [])
+                    authored_topics: list[dict[str, Any]] = []
+                    expected_part_sequence = start_sequence
+                    part_ids: set[str] = set()
+                    if len(split_parts) < 2:
+                        errors.append(f"SPLIT_REALIGN requires at least two parts for {proposal_id}")
+                    for part in split_parts:
+                        part_id = part.get("part_id")
+                        start_word = word_by_id.get(part.get("start_word_id"))
+                        end_word = word_by_id.get(part.get("end_word_id"))
+                        if not part_id or part_id in part_ids:
+                            errors.append(f"invalid or duplicate split part id for {proposal_id}")
+                            continue
+                        part_ids.add(part_id)
+                        if not part.get("title"):
+                            errors.append(f"split part has no title for {part_id}")
+                        if start_word is None or end_word is None:
+                            errors.append(f"unresolved split Word range for {part_id}")
+                            continue
+                        if (
+                            start_word["source_id"] != source_id
+                            or end_word["source_id"] != source_id
+                        ):
+                            errors.append(f"split part crosses source for {part_id}")
+                        if start_word["sequence"] != expected_part_sequence:
+                            errors.append(f"split parts are not Canonical Word-contiguous for {proposal_id}")
+                        if end_word["sequence"] < start_word["sequence"]:
+                            errors.append(f"invalid split Word range for {part_id}")
+                            continue
+                        if part.get("start_word_anchor_time") != format_time(
+                            start_word.get("start_seconds")
+                        ):
+                            errors.append(f"split start anchor timestamp mismatch for {part_id}")
+                        if part.get("end_word_anchor_time") != format_time(
+                            end_word.get("start_seconds")
+                        ):
+                            errors.append(f"split end anchor timestamp mismatch for {part_id}")
+                        part_words = words[start_word["sequence"] : end_word["sequence"] + 1]
+                        part_timed = [
+                            word for word in part_words if word.get("start_seconds") is not None
+                        ]
+                        part_previews = {
+                            "beginning": excerpt(part_words, 0),
+                            "middle": excerpt(part_words, len(part_words) // 2),
+                            "end": excerpt(part_words, len(part_words) - 1),
+                        }
+                        authored_topics.append(
+                            {
+                                "topic_id": part_id,
+                                "part_label": part.get("part_label"),
+                                "authored_title": part.get("title"),
+                                "source_id": source_id,
+                                "start_word_id": start_word["id"],
+                                "end_word_id": end_word["id"],
+                                "start_word_sequence": start_word["sequence"],
+                                "end_word_sequence": end_word["sequence"],
+                                "start_time": format_time(
+                                    part_timed[0]["start_seconds"] if part_timed else None
+                                ),
+                                "end_time": format_time(
+                                    part_timed[-1]["end_seconds"] if part_timed else None
+                                ),
+                                "start_word_anchor_time": part.get("start_word_anchor_time"),
+                                "end_word_anchor_time": part.get("end_word_anchor_time"),
+                                "evidence_preview": part_previews,
+                                "semantic_status": "PROVISIONAL",
+                                "domain_review_status": "REVIEW_REQUIRED",
+                                "review_status": "UNREVIEWED",
+                            }
+                        )
+                        expected_part_sequence = end_word["sequence"] + 1
+                    if expected_part_sequence != end_sequence + 1:
+                        errors.append(f"split parts do not cover the full authored range for {proposal_id}")
+                    proposal["authored_topics"] = authored_topics
+                else:
+                    proposal["authored_title"] = decision_record.get("new_title")
                 proposal["authoring_status"] = "COMPLETED"
                 proposal["authoring_decision"] = {
                     "decision_id": decision_record.get("decision_id"),
@@ -347,6 +427,9 @@ def build_package(
                         "next_start_word_anchor_time"
                     ),
                     "authority": decision_record.get("authority"),
+                    "split_part_ids": [
+                        part.get("part_id") for part in decision_record.get("split_parts", [])
+                    ],
                     "ledger_artifact_id": decision_document.get("artifact_id") if decision_document else None,
                     "ledger_sha256": sha256(decisions_path) if decisions_path else None,
                 }
@@ -396,6 +479,24 @@ def build_package(
     concept_topics: list[dict[str, Any]] = []
     concept_topics.extend(accepted_day1)
     for item in proposals:
+        if item.get("authored_topics"):
+            for authored in item["authored_topics"]:
+                previews = authored["evidence_preview"]
+                concept_topics.append(
+                    {
+                        "topic_id": authored["topic_id"],
+                        "source_id": authored["source_id"],
+                        "title": authored["authored_title"],
+                        "summary": "",
+                        "start_word_id": authored["start_word_id"],
+                        "end_word_id": authored["end_word_id"],
+                        "evidence_text": " ".join(
+                            previews[key]["text"] for key in ("beginning", "middle", "end")
+                        ),
+                        "semantic_status": "PROVISIONAL_UNREVIEWED",
+                    }
+                )
+            continue
         previews = item["evidence_preview"]
         concept_topics.append(
             {

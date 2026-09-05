@@ -229,6 +229,72 @@ def test_realign_rename_moves_shared_boundary_without_gap_or_acceptance(tmp_path
     assert package["coverage"]["source_video_002"]["overlaps"] == []
 
 
+def test_split_realign_creates_contiguous_provisional_authored_topics(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "decision_split_realign",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "next_proposal_id": "issue_68_video_002_topic_proposal_002",
+                    "source_id": "source_video_002",
+                    "action": "SPLIT_REALIGN",
+                    "boundary_action": "REALIGN_RIGHT",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000008",
+                    "end_word_anchor_time": "00:00:08.000",
+                    "next_start_word_id": "transcript_revision_video_002_r1:word:000009",
+                    "next_start_word_anchor_time": "00:00:09.000",
+                    "previous_next_start_word_id": "transcript_revision_video_002_r1:word:000006",
+                    "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+                    "split_parts": [
+                        {
+                            "part_id": "issue_68_video_002_topic_proposal_001a",
+                            "part_label": "1A",
+                            "title": "Первая часть",
+                            "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                            "end_word_id": "transcript_revision_video_002_r1:word:000002",
+                            "start_word_anchor_time": "00:00:00.000",
+                            "end_word_anchor_time": "00:00:02.000",
+                        },
+                        {
+                            "part_id": "issue_68_video_002_topic_proposal_001b",
+                            "part_label": "1B",
+                            "title": "Вторая часть",
+                            "start_word_id": "transcript_revision_video_002_r1:word:000003",
+                            "end_word_id": "transcript_revision_video_002_r1:word:000008",
+                            "start_word_anchor_time": "00:00:03.000",
+                            "end_word_anchor_time": "00:00:08.000",
+                        },
+                    ],
+                }
+            ],
+        },
+    )
+
+    package, _ = MODULE.build_package(project, review, decision_path)
+    first, second = package["topic_proposals"][:2]
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert first["end_word_sequence"] == 8
+    assert second["start_word_sequence"] == 9
+    assert [item["part_label"] for item in first["authored_topics"]] == ["1A", "1B"]
+    assert [item["start_word_sequence"] for item in first["authored_topics"]] == [0, 3]
+    assert [item["end_word_sequence"] for item in first["authored_topics"]] == [2, 8]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in first["authored_topics"]
+    )
+    assert package["coverage"]["source_video_002"]["gaps"] == []
+    assert package["coverage"]["source_video_002"]["overlaps"] == []
+
+
 def test_committed_real_package_is_complete_and_fail_closed() -> None:
     package_path = (
         ROOT
@@ -255,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 2,
-        "pending": 260,
+        "completed": 3,
+        "pending": 259,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_003",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_004",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -300,6 +366,28 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert second["end_word_id"].endswith("word:000169")
     assert third["start_word_id"].endswith("word:000170")
     assert third["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_002"
+    assert third["end_word_id"].endswith("word:001218")
+    assert third["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in third["authored_topics"]] == [
+        "3A",
+        "3B",
+        "3C",
+        "3D",
+    ]
+    assert [item["authored_title"] for item in third["authored_topics"]] == [
+        "Претесты и выбор передней порции дельтовидной мышцы",
+        "Очное и дистанционное тестирование: получение индивидуальной информации",
+        "Передняя порция дельтовидной мышцы: анатомия и техника тестирования",
+        "Дыхание, вода и передача сигналов нервной системой",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in third["authored_topics"]
+    )
+    fourth = package["topic_proposals"][3]
+    assert fourth["start_word_id"].endswith("word:001219")
+    assert fourth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_003"
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
         assert coverage["gaps"] == []
