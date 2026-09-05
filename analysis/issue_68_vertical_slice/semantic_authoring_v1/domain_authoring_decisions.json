@@ -498,6 +498,26 @@
         }
       ],
       "start_word_id": "transcript_revision_video_002_r1:word:006828"
+    },
+    {
+      "action": "REALIGN_RENAME",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-05",
+      "decision_id": "issue_68_domain_authoring_topic_019",
+      "end_word_id": "transcript_revision_video_002_r1:word:007503",
+      "end_word_anchor_time": "01:20:18.455",
+      "new_title": "Получение, обработка и передача информации как потоки энергии",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_020",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:007504",
+      "next_start_word_anchor_time": "01:20:18.736",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:007512",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:007513",
+      "proposal_id": "issue_68_video_002_topic_proposal_019",
+      "reason": "Фрагмент последовательно описывает получение внешней информации, её распознавание, запоминание и передачу наружу. Объявление перерыва начинает отдельный организационный блок; прежняя граница разрывала его фразу на числе «10».",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 19, Day 2: принять REALIGN + RENAME. Новое название: «Получение, обработка и передача информации как потоки энергии». Диапазон word:007330–word:007503; следующая тема начинается с word:007504. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:007330"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",
