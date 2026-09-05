@@ -1,0 +1,2111 @@
+{
+  "artifact_type": "seminartext.issue_68_domain_authoring_batches",
+  "concept_review_deferred_until_topic_review": true,
+  "link_review_deferred_until_concept_review": true,
+  "review_order": [
+    "source_video_002",
+    "source_video_003",
+    "source_video_004",
+    "concepts",
+    "links"
+  ],
+  "schema_version": "1.0.0",
+  "topic_batches": [
+    {
+      "batch_id": "issue_68_topic_batch_001",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_001"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_002",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_002"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_003",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_003"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_004",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_004"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_005",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_005"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_006",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_006"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_007",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_007"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_008",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_008"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_009",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_009"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_010",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_010"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_011",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_011"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_012",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_012"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_013",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_013"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_014",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_014"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_015",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_015"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_016",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_016"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_017",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_017"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_018",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_018"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_019",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_019"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_020",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_020"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_021",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_021"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_022",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_022"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_023",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_023"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_024",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_024"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_025",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_025"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_026",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_026"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_027",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_027"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_028",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_028"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_029",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_029"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_030",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_030"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_031",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_031"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_032",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_032"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_033",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_033"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_034",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_034"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_035",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_035"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_036",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_036"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_037",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_037"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_038",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_038"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_039",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_039"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_040",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_040"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_041",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_041"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_042",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_042"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_043",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_043"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_044",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_044"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_045",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_045"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_046",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_046"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_047",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_047"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_048",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_048"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_049",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_049"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_050",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_050"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_051",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_051"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_052",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_052"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_053",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_053"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_054",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_054"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_055",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_055"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_056",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_056"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_057",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_057"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_058",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_058"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_059",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_059"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_060",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_060"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_061",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_061"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_062",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_062"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_063",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_063"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_064",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_064"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_065",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_065"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_066",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_066"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_067",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_067"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_068",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_068"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_069",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_069"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_070",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_070"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_071",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_071"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_072",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_072"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_073",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_073"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_074",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_074"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_075",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_075"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_076",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_076"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_077",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_077"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_078",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_078"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_079",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_079"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_080",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_080"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_081",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_081"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_082",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_082"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_083",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_083"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_084",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_084"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_085",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_085"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_086",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_086"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_087",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_087"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_088",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_088"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_089",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_089"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_090",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_090"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_091",
+      "proposal_references": [
+        "issue_68_video_002_topic_proposal_091"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_092",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_001"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_093",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_002"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_094",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_003"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_095",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_004"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_096",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_005"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_097",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_006"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_098",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_007"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_099",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_008"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_100",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_009"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_101",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_010"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_102",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_011"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_103",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_012"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_104",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_013"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_105",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_014"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_106",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_015"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_107",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_016"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_108",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_017"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_109",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_018"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_110",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_019"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_111",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_020"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_112",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_021"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_113",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_022"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_114",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_023"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_115",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_024"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_116",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_025"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_117",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_026"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_118",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_027"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_119",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_028"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_120",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_029"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_121",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_030"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_122",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_031"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_123",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_032"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_124",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_033"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_125",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_034"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_126",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_035"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_127",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_036"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_128",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_037"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_129",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_038"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_130",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_039"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_131",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_040"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_132",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_041"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_133",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_042"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_134",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_043"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_135",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_044"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_136",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_045"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_137",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_046"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_138",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_047"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_139",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_048"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_140",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_049"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_141",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_050"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_142",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_051"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_143",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_052"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_144",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_053"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_145",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_054"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_146",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_055"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_147",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_056"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_148",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_057"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_149",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_058"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_150",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_059"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_151",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_060"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_152",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_061"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_153",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_062"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_154",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_063"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_155",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_064"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_156",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_065"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_157",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_066"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_158",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_067"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_159",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_068"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_160",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_069"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_161",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_070"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_162",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_071"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_163",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_072"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_164",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_073"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_165",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_074"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_166",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_075"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_167",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_076"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_168",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_077"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_169",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_078"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_170",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_079"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_171",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_080"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_172",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_081"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_173",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_082"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_174",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_083"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_175",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_084"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_176",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_085"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_177",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_086"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_178",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_087"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_179",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_088"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_180",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_089"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_181",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_090"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_182",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_091"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_183",
+      "proposal_references": [
+        "issue_68_video_003_topic_proposal_092"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_003"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_184",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_001"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_185",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_002"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_186",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_003"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_187",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_004"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_188",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_005"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_189",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_006"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_190",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_007"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_191",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_008"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_192",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_009"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_193",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_010"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_194",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_011"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_195",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_012"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_196",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_013"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_197",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_014"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_198",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_015"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_199",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_016"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_200",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_017"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_201",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_018"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_202",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_019"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_203",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_020"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_204",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_021"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_205",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_022"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_206",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_023"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_207",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_024"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_208",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_025"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_209",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_026"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_210",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_027"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_211",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_028"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_212",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_029"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_213",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_030"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_214",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_031"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_215",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_032"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_216",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_033"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_217",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_034"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_218",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_035"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_219",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_036"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_220",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_037"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_221",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_038"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_222",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_039"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_223",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_040"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_224",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_041"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_225",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_042"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_226",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_043"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_227",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_044"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_228",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_045"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_229",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_046"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_230",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_047"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_231",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_048"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_232",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_049"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_233",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_050"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_234",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_051"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_235",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_052"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_236",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_053"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_237",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_054"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_238",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_055"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_239",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_056"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_240",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_057"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_241",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_058"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_242",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_059"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_243",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_060"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_244",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_061"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_245",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_062"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_246",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_063"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_247",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_064"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_248",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_065"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_249",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_066"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_250",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_067"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_251",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_068"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_252",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_069"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_253",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_070"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_254",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_071"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_255",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_072"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_256",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_073"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_257",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_074"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_258",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_075"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_259",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_076"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_260",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_077"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_261",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_078"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    },
+    {
+      "batch_id": "issue_68_topic_batch_262",
+      "proposal_references": [
+        "issue_68_video_004_topic_proposal_079"
+      ],
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_004"
+    }
+  ]
+}

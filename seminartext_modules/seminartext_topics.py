@@ -1604,6 +1604,7 @@ def main():
     qa_windows=[]
 
     for i, window in enumerate(windows, 1):
+        first_id = window[0]["id"]
         print(
             f"Окно {i}/{len(windows)}: "
             f"{fmt_clock(window[0]['start'])}–"

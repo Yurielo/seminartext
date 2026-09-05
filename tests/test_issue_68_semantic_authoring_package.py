@@ -1,0 +1,220 @@
+from __future__ import annotations
+
+import importlib.util
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+BUILDER = ROOT / "analysis/issue_68_vertical_slice/build_semantic_authoring_package.py"
+SPEC = importlib.util.spec_from_file_location("issue_68_semantic_package", BUILDER)
+assert SPEC and SPEC.loader
+MODULE = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(MODULE)
+
+
+def write_json(path: Path, value: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def make_fixture(tmp_path: Path) -> tuple[Path, Path]:
+    project = tmp_path / "project"
+    words = []
+    revisions = []
+    for number in range(1, 5):
+        source = f"source_video_{number:03d}"
+        revision = f"transcript_revision_video_{number:03d}_r1"
+        revisions.append(
+            {
+                "id": revision,
+                "source_id": source,
+                "transcript_provenance": {
+                    "kind": "machine_generated",
+                    "verification_state": "machine_unverified",
+                },
+            }
+        )
+        for sequence in range(12):
+            words.append(
+                {
+                    "id": f"{revision}:word:{sequence:06d}",
+                    "source_id": source,
+                    "transcript_revision_id": revision,
+                    "sequence": sequence,
+                    "text": "Стресс" if sequence == 2 else f"слово{sequence}",
+                    "start_seconds": float(sequence),
+                    "end_seconds": float(sequence) + 0.8,
+                    "alignment_status": "aligned",
+                }
+            )
+    bundle = {
+        "artifact_id": "canonical_fixture",
+        "transcript_revisions": revisions,
+        "words": words,
+    }
+    bundle_path = project / "evidence/canonical_bundle.json"
+    write_json(bundle_path, bundle)
+    bundle_hash = MODULE.sha256(bundle_path)
+    review = {
+        "artifact_id": "review_day1",
+        "application_status": "APPLIED",
+        "canonical_evidence": {"sha256": bundle_hash},
+        "semantic_knowledge": [
+            {
+                "id": "day1_topic",
+                "source_id": "source_video_001",
+                "title": "Стресс и адаптация",
+                "summary": "",
+                "word_start_id": "transcript_revision_video_001_r1:word:000000",
+                "word_end_id": "transcript_revision_video_001_r1:word:000011",
+            }
+        ],
+    }
+    review_path = project / "review.json"
+    write_json(review_path, review)
+    for number in MODULE.SOURCE_NUMBERS:
+        registry = f"video_{number:03d}"
+        topic = {
+            "engine": "ollama",
+            "model": "gemma3:4b",
+            "detail": "auto",
+            "topics": [
+                {
+                    "start_seconds": 0.0,
+                    "end_seconds": 6.0,
+                    "title": "Стресс",
+                    "summary": "Обсуждение стресса.",
+                    "start_segment_id": 1,
+                    "qa_status": "ok",
+                    "qa_attempt": "2stage",
+                },
+                {
+                    "start_seconds": 6.0,
+                    "end_seconds": 12.0,
+                    "title": "Тема требует ручной проверки",
+                    "summary": "",
+                    "start_segment_id": 7,
+                    "qa_status": "fallback",
+                    "qa_attempt": "safe_fallback",
+                },
+            ],
+        }
+        qa = {
+            "engine": "ollama",
+            "model": "gemma3:4b",
+            "detail": "auto",
+            "windows": [{"start_segment_id": 1}],
+        }
+        write_json(project / f"transcript/{registry}/topics.json", topic)
+        write_json(project / f"transcript/{registry}/topics_qa.json", qa)
+    return project, review_path
+
+
+def test_package_is_complete_provisional_and_word_contiguous(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    package, batches = MODULE.build_package(project, review)
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert len(package["topic_proposals"]) == 6
+    assert all(item["review_status"] == "UNREVIEWED" for item in package["topic_proposals"])
+    assert all(item["semantic_status"] == "PROVISIONAL" for item in package["concept_candidates"])
+    assert all(item["status"] == "PROVISIONAL" for item in package["topic_concept_link_proposals"])
+    assert package["generator"]["not_generated_by"] == "bge_m3_local_peak_v1"
+    assert package["safety"]["day_1_reauthored"] is False
+    assert len(batches["topic_batches"]) == 6
+    for coverage in package["coverage"].values():
+        assert coverage["covered_word_count"] == coverage["canonical_word_count"]
+        assert coverage["gaps"] == []
+        assert coverage["overlaps"] == []
+
+
+def test_unexpected_generator_fails_closed(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    path = project / "transcript/video_003/topics.json"
+    document = json.loads(path.read_text(encoding="utf-8"))
+    document["model"] = "unauthorized-model"
+    write_json(path, document)
+
+    package, _ = MODULE.build_package(project, review)
+
+    assert package["status"] == "INVALID"
+    assert any("unexpected generator identity" in item for item in package["errors"])
+
+
+def test_committed_real_package_is_complete_and_fail_closed() -> None:
+    package_path = (
+        ROOT
+        / "analysis/issue_68_vertical_slice/semantic_authoring_v1"
+        / "semantic_authoring_package.json"
+    )
+    batches_path = package_path.with_name("review_batches.json")
+    package = json.loads(package_path.read_text(encoding="utf-8"))
+    batches = json.loads(batches_path.read_text(encoding="utf-8"))
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert package["semantic_authority"] == "PROVISIONAL_UNREVIEWED"
+    assert package["day_1"]["status"] == "PRESERVED_ACCEPTED_HUMAN_REVIEWED"
+    assert package["day_1"]["topic_count"] == 36
+    assert package["errors"] == []
+    expected_counts = {
+        "source_video_002": 91,
+        "source_video_003": 92,
+        "source_video_004": 79,
+    }
+    assert {
+        source_id: item["proposal_count"]
+        for source_id, item in package["coverage"].items()
+    } == expected_counts
+    assert len(package["topic_proposals"]) == sum(expected_counts.values())
+    assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
+        expected_counts.values()
+    )
+    required = {
+        "proposal_id",
+        "source_id",
+        "start_word_id",
+        "end_word_id",
+        "start_time",
+        "end_time",
+        "proposed_title",
+        "proposed_summary",
+        "review_summary",
+        "evidence_preview",
+        "boundary_reason",
+        "confidence",
+        "transcript_assurance",
+        "provenance",
+        "review_status",
+    }
+    for proposal in package["topic_proposals"]:
+        assert required <= proposal.keys()
+        assert proposal["review_status"] == "UNREVIEWED"
+        assert len(proposal["review_summary"]) == 2
+        assert proposal["transcript_assurance"]["verification_state"] == "machine_unverified"
+    for coverage in package["coverage"].values():
+        assert coverage["covered_word_count"] == coverage["canonical_word_count"]
+        assert coverage["gaps"] == []
+        assert coverage["overlaps"] == []
+    assert package["concept_candidates"]
+    assert package["topic_concept_link_proposals"]
+    assert all(
+        concept["semantic_status"] == "PROVISIONAL"
+        and concept["review_status"] == "UNREVIEWED"
+        for concept in package["concept_candidates"]
+    )
+    assert all(
+        link["status"] == "PROVISIONAL" and link["review_status"] == "UNREVIEWED"
+        for link in package["topic_concept_link_proposals"]
+    )
+    assert max(len(batch["proposal_references"]) for batch in batches["topic_batches"]) <= 3
+    assert package["safety"] == {
+        "accepted_obsidian_export_created": False,
+        "all_concepts_provisional": True,
+        "all_links_provisional": True,
+        "all_new_topics_unreviewed": True,
+        "dataset_d_or_e_accessed": False,
+        "day_1_reauthored": False,
+        "gold_created_or_modified": False,
+        "transcript_revision_mutated": False,
+    }

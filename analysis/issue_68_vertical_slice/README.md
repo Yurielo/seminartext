@@ -1,15 +1,16 @@
 # Issue #68 — real multi-source vertical-slice readiness
 
-This bounded checkpoint inspects the existing real `Стресс код` project without
-authoring semantics or modifying project files. It proves that all four video
-sources have valid, hash-bound Canonical Evidence and Word Timelines, then
-compares that evidence with the applied Issue #113 Product Owner Topic review.
+This directory contains the Issue #68 readiness checkpoint and the subsequent
+authorized machine-assisted `DOMAIN_AUTHORING` package for the real `Стресс
+код` seminar. All four video sources have valid, hash-bound Canonical Evidence
+and Word Timelines. Day 1 remains the applied Issue #113 Product Owner review;
+Days 2–4 are represented only by provisional, `UNREVIEWED` proposals.
 
-The result is deliberately fail-closed: the technical evidence path is ready,
-but only Day 1 has reviewed Topic semantics, and the accepted review artifact
-contains no Canonical Concepts. Consequently the mandatory
-`Seminar -> Source/Topic -> Concept -> Evidence` product path cannot be built or
-exported without inventing semantic authority.
+The package is deliberately fail-closed. It prepares Topics, Concept candidates,
+and Topic→Concept links for review without promoting any of them to Canonical
+Knowledge. The mandatory accepted `Seminar -> Source/Topic -> Concept ->
+Evidence` path therefore remains blocked until human authoring/review decisions
+are recorded.
 
 Run the deterministic inventory with explicit local inputs:
 
@@ -23,14 +24,24 @@ python analysis/issue_68_vertical_slice/build_readiness_manifest.py \
 The committed manifest contains hashes and counts, not media or full transcript
 content. Absolute local paths are intentionally excluded.
 
+Build the deterministic semantic package from the same governed inputs:
+
+```bash
+python analysis/issue_68_vertical_slice/build_semantic_authoring_package.py \
+  --project "/path/to/Стресс код" \
+  --review-result "/path/to/topic_review_result_v2.json" \
+  --output-dir analysis/issue_68_vertical_slice/semantic_authoring_v1
+```
+
 ## Current gate
 
 - Engineering evidence validation: `PASS`
-- Full multi-source semantic coverage: `BLOCKED_DOMAIN_AUTHORING`
-- Canonical Concept path: `BLOCKED_DOMAIN_AUTHORING`
+- Full Canonical Word coverage by provisional Topic proposals: `PASS`
+- Days 2–4 Topic authority: `UNREVIEWED`
+- Concept candidates and Topic→Concept links: `PROVISIONAL_UNREVIEWED`
 - Obsidian export: `NOT_RUN_BLOCKED_SEMANTIC_INPUT`
 - Issue #68 result: `PARTIAL`
 
-The next authorized progress requires the Domain Owner to provide eligible Topic
-semantics for Days 2–4 and minimal Canonical Concept semantics/links. Any
-subsequent semantic acceptance remains a separate `DOMAIN_REVIEW`.
+The next gate is the first bounded `DOMAIN_AUTHORING` decision in
+`semantic_authoring_v1/DOMAIN_AUTHORING_REVIEW.md`. Authoring does not imply
+acceptance; subsequent semantic acceptance remains `DOMAIN_REVIEW`.

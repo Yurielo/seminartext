@@ -1,0 +1,11 @@
+{
+  "artifact_type": "seminartext.issue_68_semantic_package_manifest",
+  "files": {
+    "DOMAIN_AUTHORING_REVIEW.md": "bf1ca404cfe25c79cadd9997550001617d724335e54a7f467cca88a31f2577b5",
+    "review_batches.json": "e0edfbca6871c42607146a6c2b88da33764bafe1218a5fc202c603cd3f110680",
+    "semantic_authoring_package.json": "912ea5317aa87f8f37bb73a6445a1cdaf6a751c5239c540bccc74dd3eb8d1af7"
+  },
+  "package_status": "READY_FOR_DOMAIN_AUTHORING",
+  "schema_version": "1.0.0",
+  "semantic_authority": "PROVISIONAL_UNREVIEWED"
+}

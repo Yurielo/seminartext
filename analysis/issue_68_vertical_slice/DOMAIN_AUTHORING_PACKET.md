@@ -1,4 +1,8 @@
-# Issue #68 — DOMAIN_AUTHORING packet
+# Issue #68 — initial DOMAIN_AUTHORING readiness checkpoint
+
+> Historical checkpoint: this file records the evidence state before the
+> Product Owner authorized machine-assisted Days 2–4 proposals. The current
+> review entry point is `semantic_authoring_v1/DOMAIN_AUTHORING_REVIEW.md`.
 
 ## Verified factual state
 
