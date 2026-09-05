@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 3,
-        "pending": 259,
+        "completed": 4,
+        "pending": 258,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_004",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_005",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -388,6 +388,14 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     fourth = package["topic_proposals"][3]
     assert fourth["start_word_id"].endswith("word:001219")
     assert fourth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_003"
+    assert fourth["end_word_id"].endswith("word:001712")
+    assert fourth["authored_title"] == (
+        "Разбор домашнего мышечного тестирования: различение сильного и слабого ответа"
+    )
+    assert fourth["authoring_status"] == "COMPLETED"
+    fifth = package["topic_proposals"][4]
+    assert fifth["start_word_id"].endswith("word:001713")
+    assert fifth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_004"
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
         assert coverage["gaps"] == []

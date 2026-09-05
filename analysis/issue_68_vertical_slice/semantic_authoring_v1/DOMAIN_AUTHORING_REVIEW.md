@@ -14,21 +14,21 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **253**.
+Topic→Concept links: **255**.
 
 ## First review item
 
-### 4. Ионное растворение
+### 5. Тема требует ручной проверки
 
 - Source: `source_video_002`
-- Time: `00:13:40.091` — `00:17:44.090`
-- Words: `transcript_revision_video_002_r1:word:001219` — `transcript_revision_video_002_r1:word:001645`
-- Summary: Процесс может возникать при растворении ионов, таких как калий, кальций и натрий, в воде. Фрагмент проходит от «И вот на видео, которое вы вчера…» к «возможность? Хорошо. Тогда обязательно вот это потренируйте.».
-- Beginning: И вот на видео, которое вы вчера смотрели, я
-- Middle: ну, чуть побольше, да, и мы должны уловить, вот, есть такое понимание, да, точка запирания, когда, если
-- End: неделе будет возможность? Хорошо. Тогда обязательно вот это потренируйте.
-- Machine recommendation: `ACCEPT`
+- Time: `00:18:19.464` — `00:19:13.789`
+- Words: `transcript_revision_video_002_r1:word:001713` — `transcript_revision_video_002_r1:word:001789`
+- Summary: Машинное резюме отсутствует; содержание требует ручной проверки. Фрагмент проходит от «Вот это видео у вас остается, как…» к «говорил, да, на что мы мышца и».
+- Beginning: Вот это видео у вас остается, как и видео
+- Middle: важно относительно кинезиологии. У нас может быть только два варианта ответа мышцы. Мышца либо сильная, либо слабая.
+- End: как я говорил, да, на что мы мышца и
+- Machine recommendation: `RENAME`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 4 — принять`,
+Natural Russian responses are supported, for example: `Тема 5 — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.

@@ -400,6 +400,11 @@
           "start_word_id": "transcript_revision_video_002_r1:word:000067"
         },
         {
+          "end_word_id": "transcript_revision_video_002_r1:word:001789",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:001713"
+        },
+        {
           "end_word_id": "transcript_revision_video_002_r1:word:015058",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:014945"
@@ -441,6 +446,7 @@
         "issue_113_reviewed_topic_12a",
         "issue_68_video_002_topic_proposal_001",
         "issue_68_video_002_topic_proposal_002",
+        "issue_68_video_002_topic_proposal_005",
         "issue_68_video_002_topic_proposal_047",
         "issue_68_video_002_topic_proposal_064"
       ]
@@ -474,6 +480,11 @@
           "end_word_id": "transcript_revision_video_002_r1:word:000169",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:000067"
+        },
+        {
+          "end_word_id": "transcript_revision_video_002_r1:word:001712",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:001219"
         }
       ],
       "identity_ambiguities": {
@@ -504,7 +515,8 @@
         "issue_113_reviewed_topic_25",
         "issue_113_reviewed_topic_26",
         "issue_113_reviewed_topic_27",
-        "issue_68_video_002_topic_proposal_002"
+        "issue_68_video_002_topic_proposal_002",
+        "issue_68_video_002_topic_proposal_004"
       ]
     },
     {
@@ -2591,13 +2603,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 3,
-    "sha256": "ab5042aa1a80807442950a4a994eba45bba3a2fa60bebcc96d063484089485ab"
+    "decision_count": 4,
+    "sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1"
   },
   "domain_authoring_progress": {
-    "completed": 3,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_004",
-    "pending": 259,
+    "completed": 4,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_005",
+    "pending": 258,
     "total": 262
   },
   "errors": [],
@@ -3109,6 +3121,14 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_005_kinesiology",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_005"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
       "link_id": "issue_68_link_issue_68_video_002_topic_proposal_047_kinesiology",
       "review_status": "UNREVIEWED",
       "source_id": "source_video_002",
@@ -3154,6 +3174,14 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_002"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_muscle_testing",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_004_muscle_testing",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_004"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
@@ -4678,7 +4706,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "ab5042aa1a80807442950a4a994eba45bba3a2fa60bebcc96d063484089485ab",
+        "ledger_sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4779,7 +4807,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "ab5042aa1a80807442950a4a994eba45bba3a2fa60bebcc96d063484089485ab",
+        "ledger_sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5016,7 +5044,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "ab5042aa1a80807442950a4a994eba45bba3a2fa60bebcc96d063484089485ab",
+        "ledger_sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5119,7 +5147,19 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_title": "Разбор домашнего мышечного тестирования: различение сильного и слабого ответа",
+      "authoring_decision": {
+        "action": "REALIGN_RENAME",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_004",
+        "end_word_anchor_time": "00:18:18.863",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1",
+        "next_start_word_anchor_time": "00:18:19.464",
+        "split_part_ids": []
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -5145,10 +5185,10 @@
         "level": "LOW"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 1064.09,
-      "end_time": "00:17:44.090",
-      "end_word_id": "transcript_revision_video_002_r1:word:001645",
-      "end_word_sequence": 1645,
+      "end_seconds": 1099.443,
+      "end_time": "00:18:19.443",
+      "end_word_id": "transcript_revision_video_002_r1:word:001712",
+      "end_word_sequence": 1712,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:001227",
@@ -5156,14 +5196,14 @@
           "text": "И вот на видео, которое вы вчера смотрели, я"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001645",
-          "start_word_id": "transcript_revision_video_002_r1:word:001637",
-          "text": "неделе будет возможность? Хорошо. Тогда обязательно вот это потренируйте."
+          "end_word_id": "transcript_revision_video_002_r1:word:001712",
+          "start_word_id": "transcript_revision_video_002_r1:word:001704",
+          "text": "подойдет. Ну, надеюсь, по крайней мере. Надеюсь. Спасибо. Окей."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001440",
-          "start_word_id": "transcript_revision_video_002_r1:word:001424",
-          "text": "ну, чуть побольше, да, и мы должны уловить, вот, есть такое понимание, да, точка запирания, когда, если"
+          "end_word_id": "transcript_revision_video_002_r1:word:001474",
+          "start_word_id": "transcript_revision_video_002_r1:word:001458",
+          "text": "слабая, она становится, вот, как резинка, да, или вообще не держится, или как начинает, вот, как резинка"
         }
       },
       "generator_interval": {
@@ -5196,7 +5236,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Процесс может возникать при растворении ионов, таких как калий, кальций и натрий, в воде.",
-        "Фрагмент проходит от «И вот на видео, которое вы вчера…» к «возможность? Хорошо. Тогда обязательно вот это потренируйте.»."
+        "Фрагмент проходит от «И вот на видео, которое вы вчера…» к «надеюсь, по крайней мере. Надеюсь. Спасибо. Окей.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -5247,9 +5287,9 @@
       "end_word_sequence": 1789,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001654",
-          "start_word_id": "transcript_revision_video_002_r1:word:001646",
-          "text": "Хорошо. Ну, вообще, тестирование, как вы поняли, да, это"
+          "end_word_id": "transcript_revision_video_002_r1:word:001721",
+          "start_word_id": "transcript_revision_video_002_r1:word:001713",
+          "text": "Вот это видео у вас остается, как и видео"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:001789",
@@ -5257,15 +5297,21 @@
           "text": "как я говорил, да, на что мы мышца и"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001726",
-          "start_word_id": "transcript_revision_video_002_r1:word:001710",
-          "text": "Надеюсь. Спасибо. Окей. Вот это видео у вас остается, как и видео при тестах. Мы сейчас с"
+          "end_word_id": "transcript_revision_video_002_r1:word:001759",
+          "start_word_id": "transcript_revision_video_002_r1:word:001743",
+          "text": "важно относительно кинезиологии. У нас может быть только два варианта ответа мышцы. Мышца либо сильная, либо слабая."
         }
       },
       "generator_interval": {
         "end_seconds": 1154.25,
         "start_seconds": 1064.09,
         "start_segment_id": 146
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_004",
+        "from_word_id": "transcript_revision_video_002_r1:word:001646",
+        "to_word_id": "transcript_revision_video_002_r1:word:001713"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_005",
       "proposal_number": 5,
@@ -5286,14 +5332,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Машинное резюме отсутствует; содержание требует ручной проверки.",
-        "Фрагмент проходит от «Хорошо. Ну, вообще, тестирование, как вы поняли,…» к «говорил, да, на что мы мышца и»."
+        "Фрагмент проходит от «Вот это видео у вас остается, как…» к «говорил, да, на что мы мышца и»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 1065.434,
-      "start_time": "00:17:45.434",
-      "start_word_id": "transcript_revision_video_002_r1:word:001646",
-      "start_word_sequence": 1646,
+      "start_seconds": 1099.464,
+      "start_time": "00:18:19.464",
+      "start_word_id": "transcript_revision_video_002_r1:word:001713",
+      "start_word_sequence": 1713,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",
