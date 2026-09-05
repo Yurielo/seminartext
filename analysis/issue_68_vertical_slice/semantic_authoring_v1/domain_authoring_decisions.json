@@ -131,6 +131,26 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 5, Day 2: REALIGN + RENAME. Новое название: «Сильный и слабый мышечный ответ как индикатор стресса». Диапазон word:001713–word:001920; следующая тема начинается с word:001921. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:001713"
+    },
+    {
+      "action": "REALIGN_RENAME",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-05",
+      "decision_id": "issue_68_domain_authoring_topic_006",
+      "end_word_id": "transcript_revision_video_002_r1:word:002201",
+      "end_word_anchor_time": "00:23:37.431",
+      "new_title": "Пример коррекции стресса и принцип мышечного ответа в кинезиологии",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_007",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:002202",
+      "next_start_word_anchor_time": "00:23:42.407",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:002238",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:002239",
+      "proposal_id": "issue_68_video_002_topic_proposal_006",
+      "reason": "Пример с Ларисой и последующее обобщение принципа мышечного ответа образуют одну смысловую единицу; разговор о порядке работы, протоколе и претестах начинается отдельным блоком.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 6, Day 2: REALIGN + RENAME. Новое название: «Пример коррекции стресса и принцип мышечного ответа в кинезиологии». Диапазон word:001921–word:002201; следующая тема начинается с word:002202. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:001921"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",
