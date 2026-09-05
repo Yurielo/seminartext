@@ -254,6 +254,7 @@ def test_split_realign_creates_contiguous_provisional_authored_topics(tmp_path: 
                     "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
                     "split_parts": [
                         {
+                            "authoring_disposition": "NON_SEMANTIC_EXCLUDED",
                             "part_id": "issue_68_video_002_topic_proposal_001a",
                             "part_label": "1A",
                             "title": "Первая часть",
@@ -286,6 +287,9 @@ def test_split_realign_creates_contiguous_provisional_authored_topics(tmp_path: 
     assert [item["part_label"] for item in first["authored_topics"]] == ["1A", "1B"]
     assert [item["start_word_sequence"] for item in first["authored_topics"]] == [0, 3]
     assert [item["end_word_sequence"] for item in first["authored_topics"]] == [2, 8]
+    assert [
+        item["authoring_disposition"] for item in first["authored_topics"]
+    ] == ["NON_SEMANTIC_EXCLUDED", "SEMANTIC_TOPIC"]
     assert all(
         item["semantic_status"] == "PROVISIONAL"
         and item["domain_review_status"] == "REVIEW_REQUIRED"
@@ -293,6 +297,10 @@ def test_split_realign_creates_contiguous_provisional_authored_topics(tmp_path: 
     )
     assert package["coverage"]["source_video_002"]["gaps"] == []
     assert package["coverage"]["source_video_002"]["overlaps"] == []
+    assert all(
+        link["topic_reference"] != "issue_68_video_002_topic_proposal_001a"
+        for link in package["topic_concept_link_proposals"]
+    )
 
 
 def test_committed_real_package_is_complete_and_fail_closed() -> None:
@@ -321,10 +329,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 22,
-        "pending": 240,
+        "completed": 23,
+        "pending": 239,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_023",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_024",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -639,6 +647,35 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert twenty_third["start_word_id"].endswith("word:008141")
     assert twenty_third["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_022"
+    )
+    assert twenty_third["end_word_id"].endswith("word:008353")
+    assert twenty_third["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twenty_third["authored_topics"]] == [
+        "23A",
+        "23B",
+    ]
+    assert [
+        item["authoring_disposition"] for item in twenty_third["authored_topics"]
+    ] == ["NON_SEMANTIC_EXCLUDED", "SEMANTIC_TOPIC"]
+    assert twenty_third["authored_topics"][0]["semantic_status"] == "PROVISIONAL"
+    assert twenty_third["authored_topics"][0]["domain_review_status"] == (
+        "REVIEW_REQUIRED"
+    )
+    assert twenty_third["authored_topics"][1]["authored_title"] == (
+        "Энергетический обмен человека и формирование реальности"
+    )
+    assert twenty_third["authored_topics"][1]["semantic_status"] == "PROVISIONAL"
+    assert twenty_third["authored_topics"][1]["domain_review_status"] == (
+        "REVIEW_REQUIRED"
+    )
+    assert all(
+        link["topic_reference"] != "issue_68_video_002_topic_proposal_023a"
+        for link in package["topic_concept_link_proposals"]
+    )
+    twenty_fourth = package["topic_proposals"][23]
+    assert twenty_fourth["start_word_id"].endswith("word:008354")
+    assert twenty_fourth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_023"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]

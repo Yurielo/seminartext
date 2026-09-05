@@ -28,6 +28,7 @@ DECISIONS = [
     "EXCLUDE_NON_SEMANTIC",
     "OTHER",
 ]
+AUTHORING_DISPOSITIONS = {"SEMANTIC_TOPIC", "NON_SEMANTIC_EXCLUDED"}
 
 # These are proposal seeds, not Canonical Concept identities.  Matching is
 # deliberately transparent and conservative; identity remains a human gate.
@@ -349,6 +350,9 @@ def build_package(
                         errors.append(f"SPLIT_REALIGN requires at least two parts for {proposal_id}")
                     for part in split_parts:
                         part_id = part.get("part_id")
+                        authoring_disposition = part.get(
+                            "authoring_disposition", "SEMANTIC_TOPIC"
+                        )
                         start_word = word_by_id.get(part.get("start_word_id"))
                         end_word = word_by_id.get(part.get("end_word_id"))
                         if not part_id or part_id in part_ids:
@@ -357,6 +361,10 @@ def build_package(
                         part_ids.add(part_id)
                         if not part.get("title"):
                             errors.append(f"split part has no title for {part_id}")
+                        if authoring_disposition not in AUTHORING_DISPOSITIONS:
+                            errors.append(
+                                f"unsupported authoring disposition for {part_id}"
+                            )
                         if start_word is None or end_word is None:
                             errors.append(f"unresolved split Word range for {part_id}")
                             continue
@@ -392,6 +400,7 @@ def build_package(
                                 "topic_id": part_id,
                                 "part_label": part.get("part_label"),
                                 "authored_title": part.get("title"),
+                                "authoring_disposition": authoring_disposition,
                                 "source_id": source_id,
                                 "start_word_id": start_word["id"],
                                 "end_word_id": end_word["id"],
@@ -481,6 +490,8 @@ def build_package(
     for item in proposals:
         if item.get("authored_topics"):
             for authored in item["authored_topics"]:
+                if authored["authoring_disposition"] == "NON_SEMANTIC_EXCLUDED":
+                    continue
                 previews = authored["evidence_preview"]
                 concept_topics.append(
                     {

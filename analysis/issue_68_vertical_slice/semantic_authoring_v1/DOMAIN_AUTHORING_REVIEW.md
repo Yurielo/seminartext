@@ -14,21 +14,21 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **257**.
+Topic→Concept links: **256**.
 
 ## First review item
 
-### 23. Энергия и Эмоции
+### 24. Квантовая связанность
 
 - Source: `source_video_002`
-- Time: `01:27:35.634` — `01:28:59.040`
-- Words: `transcript_revision_video_002_r1:word:008141` — `transcript_revision_video_002_r1:word:008319`
-- Summary: Обсуждается взаимосвязь между эмоциями, тепловой энергией и звуком, а также возникли технические сложности во время записи. Фрагмент проходит от «У кого-то там что-то с микрофоном не…» к «настраиваем вот эти потоки, когда мы внятную,».
-- Beginning: У кого-то там что-то с микрофоном не воды. Ага,
-- Middle: перерабатываем, и какая-то энергия из нас и выходит, исходит, да. То есть, мы вот все время в
-- End: мы вот настраиваем вот эти потоки, когда мы внятную,
-- Machine recommendation: `EXCLUDE_NON_SEMANTIC`
+- Time: `01:29:17.600` — `01:31:33.660`
+- Words: `transcript_revision_video_002_r1:word:008354` — `transcript_revision_video_002_r1:word:008586`
+- Summary: Обсуждается концепция квантовой связанности, основанная на эксперименте с разделенными частицами, демонстрирующем мгновенную корреляцию между ними, несмотря на расстояние. Фрагмент проходит от «Так, ну, давайте вот на это. Это…» к «там все у нас состоит из энергии,».
+- Beginning: Так, ну, давайте вот на это. Это очень интересная,
+- Middle: частица, а атом из чего-то там состоит, условно, на две части эту частицу разделили, они в разные
+- End: сами говорили, там все у нас состоит из энергии,
+- Machine recommendation: `ACCEPT`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 23 — принять`,
+Natural Russian responses are supported, for example: `Тема 24 — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.
