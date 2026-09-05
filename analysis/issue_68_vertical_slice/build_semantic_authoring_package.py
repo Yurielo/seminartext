@@ -125,7 +125,11 @@ def confidence(topic: dict[str, Any], flags: list[str]) -> dict[str, Any]:
     return {"level": level, "basis": basis}
 
 
-def build_package(project: Path, review_result_path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+def build_package(
+    project: Path,
+    review_result_path: Path,
+    decisions_path: Path | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
     bundle_path = project / "evidence/canonical_bundle.json"
     bundle = read_json(bundle_path)
     review_result = read_json(review_result_path)
@@ -143,6 +147,19 @@ def build_package(project: Path, review_result_path: Path) -> tuple[dict[str, An
         words_by_source[word["source_id"]].append(word)
     for words in words_by_source.values():
         words.sort(key=lambda item: item["sequence"])
+
+    decision_document: dict[str, Any] | None = None
+    decisions_by_proposal: dict[str, dict[str, Any]] = {}
+    if decisions_path is not None:
+        decision_document = read_json(decisions_path)
+        if decision_document.get("semantic_gate") != "DOMAIN_AUTHORING":
+            errors.append("decision ledger is not a DOMAIN_AUTHORING artifact")
+        for decision in decision_document.get("decisions", []):
+            proposal_id = decision.get("proposal_id")
+            if not proposal_id or proposal_id in decisions_by_proposal:
+                errors.append(f"invalid or duplicate DOMAIN_AUTHORING decision for {proposal_id}")
+                continue
+            decisions_by_proposal[proposal_id] = decision
 
     proposals: list[dict[str, Any]] = []
     topic_input_hashes: dict[str, Any] = {}
@@ -213,8 +230,8 @@ def build_package(project: Path, review_result_path: Path) -> tuple[dict[str, An
                     + "»."
                 ),
             ]
-            proposals.append(
-                {
+            proposal = {
+                    "proposal_number": len(proposals) + 1,
                     "proposal_id": proposal_id,
                     "source_id": source_id,
                     "transcript_revision_id": revisions[source_id]["id"],
@@ -255,9 +272,37 @@ def build_package(project: Path, review_result_path: Path) -> tuple[dict[str, An
                     },
                     "recommended_decision": decision,
                     "available_decisions": DECISIONS,
+                    "authoring_status": "PENDING",
+                    "semantic_status": "PROVISIONAL",
+                    "domain_review_status": "REVIEW_REQUIRED",
                     "review_status": "UNREVIEWED",
                 }
-            )
+            decision_record = decisions_by_proposal.get(proposal_id)
+            if decision_record is not None:
+                if decision_record.get("action") != "RENAME":
+                    errors.append(f"unsupported authoring action for {proposal_id}")
+                if not decision_record.get("new_title"):
+                    errors.append(f"RENAME has no new_title for {proposal_id}")
+                if decision_record.get("boundary_action") != "PRESERVE":
+                    errors.append(f"unexpected boundary mutation for {proposal_id}")
+                if decision_record.get("source_id") != source_id:
+                    errors.append(f"decision source mismatch for {proposal_id}")
+                if (
+                    decision_record.get("start_word_id") != proposal["start_word_id"]
+                    or decision_record.get("end_word_id") != proposal["end_word_id"]
+                ):
+                    errors.append(f"decision Word range mismatch for {proposal_id}")
+                proposal["authored_title"] = decision_record.get("new_title")
+                proposal["authoring_status"] = "COMPLETED"
+                proposal["authoring_decision"] = {
+                    "decision_id": decision_record.get("decision_id"),
+                    "action": decision_record.get("action"),
+                    "boundary_action": decision_record.get("boundary_action"),
+                    "authority": decision_record.get("authority"),
+                    "ledger_artifact_id": decision_document.get("artifact_id") if decision_document else None,
+                    "ledger_sha256": sha256(decisions_path) if decisions_path else None,
+                }
+            proposals.append(proposal)
 
         source_proposals = [item for item in proposals if item["source_id"] == source_id]
         gaps: list[dict[str, int]] = []
@@ -308,7 +353,7 @@ def build_package(project: Path, review_result_path: Path) -> tuple[dict[str, An
             {
                 "topic_id": item["proposal_id"],
                 "source_id": item["source_id"],
-                "title": item["proposed_title"],
+                "title": item.get("authored_title", item["proposed_title"]),
                 "summary": item["proposed_summary"],
                 "start_word_id": item["start_word_id"],
                 "end_word_id": item["end_word_id"],
@@ -378,6 +423,9 @@ def build_package(project: Path, review_result_path: Path) -> tuple[dict[str, An
     # One item per batch is intentionally conservative for first-pass boundary
     # review.  The UI contract still permits a later presenter to group up to
     # three straightforward adjacent units.
+    completed_authoring = {
+        item["proposal_id"] for item in proposals if item["authoring_status"] == "COMPLETED"
+    }
     batches = {
         "schema_version": "1.0.0",
         "artifact_type": "seminartext.issue_68_domain_authoring_batches",
@@ -387,7 +435,9 @@ def build_package(project: Path, review_result_path: Path) -> tuple[dict[str, An
                 "batch_id": f"issue_68_topic_batch_{index + 1:03d}",
                 "source_id": item["source_id"],
                 "proposal_references": [item["proposal_id"]],
-                "review_status": "UNREVIEWED",
+                "authoring_status": (
+                    "COMPLETED" if item["proposal_id"] in completed_authoring else "PENDING"
+                ),
             }
             for index, item in enumerate(proposals)
         ],
@@ -426,6 +476,24 @@ def build_package(project: Path, review_result_path: Path) -> tuple[dict[str, An
         "topic_concept_link_proposals": links,
         "coverage": per_source,
         "input_artifacts": topic_input_hashes,
+        "domain_authoring_decision_ledger": (
+            {
+                "artifact_id": decision_document["artifact_id"],
+                "sha256": sha256(decisions_path),
+                "decision_count": len(decisions_by_proposal),
+            }
+            if decision_document is not None and decisions_path is not None
+            else None
+        ),
+        "domain_authoring_progress": {
+            "completed": len(completed_authoring),
+            "pending": len(proposals) - len(completed_authoring),
+            "total": len(proposals),
+            "next_proposal_id": next(
+                (item["proposal_id"] for item in proposals if item["authoring_status"] == "PENDING"),
+                None,
+            ),
+        },
         "safety": {
             "all_new_topics_unreviewed": all(item["review_status"] == "UNREVIEWED" for item in proposals),
             "all_concepts_provisional": all(item["semantic_status"] == "PROVISIONAL" for item in concepts),
@@ -443,7 +511,9 @@ def build_package(project: Path, review_result_path: Path) -> tuple[dict[str, An
 
 def write_review_markdown(path: Path, package: dict[str, Any]) -> None:
     counts = package["coverage"]
-    first = package["topic_proposals"][0]
+    first = next(
+        item for item in package["topic_proposals"] if item["authoring_status"] == "PENDING"
+    )
     preview = first["evidence_preview"]
     text = f"""# Issue #68 — Semantic DOMAIN_AUTHORING review
 
@@ -466,7 +536,7 @@ Topic→Concept links: **{len(package['topic_concept_link_proposals'])}**.
 
 ## First review item
 
-### 1. {first['proposed_title']}
+### {first['proposal_number']}. {first['proposed_title']}
 
 - Source: `{first['source_id']}`
 - Time: `{first['start_time']}` — `{first['end_time']}`
@@ -478,7 +548,7 @@ Topic→Concept links: **{len(package['topic_concept_link_proposals'])}**.
 - Machine recommendation: `{first['recommended_decision']}`
 - Available decisions: {', '.join(first['available_decisions'])}
 
-Natural Russian responses are supported, for example: `Тема 1 — принять`,
+Natural Russian responses are supported, for example: `Тема {first['proposal_number']} — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.
 """
     path.write_text(text, encoding="utf-8")
@@ -489,10 +559,17 @@ def main() -> int:
     parser.add_argument("--project", required=True, type=Path)
     parser.add_argument("--review-result", required=True, type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
+    parser.add_argument("--decisions", type=Path)
     args = parser.parse_args()
 
-    package, batches = build_package(args.project.resolve(), args.review_result.resolve())
     output = args.output_dir.resolve()
+    decisions_path = args.decisions.resolve() if args.decisions else None
+    if decisions_path is None:
+        default_decisions = output / "domain_authoring_decisions.json"
+        decisions_path = default_decisions if default_decisions.exists() else None
+    package, batches = build_package(
+        args.project.resolve(), args.review_result.resolve(), decisions_path
+    )
     output.mkdir(parents=True, exist_ok=True)
     write_json(output / "semantic_authoring_package.json", package)
     write_json(output / "review_batches.json", batches)
@@ -502,6 +579,7 @@ def main() -> int:
         "artifact_type": "seminartext.issue_68_semantic_package_manifest",
         "package_status": package["status"],
         "semantic_authority": package["semantic_authority"],
+        "domain_authoring_decision_ledger": package["domain_authoring_decision_ledger"],
         "files": {
             name: sha256(output / name)
             for name in ("semantic_authoring_package.json", "review_batches.json", "DOMAIN_AUTHORING_REVIEW.md")

@@ -142,6 +142,50 @@ def test_unexpected_generator_fails_closed(tmp_path: Path) -> None:
     assert any("unexpected generator identity" in item for item in package["errors"])
 
 
+def test_rename_authoring_decision_preserves_word_range_and_stays_provisional(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "decision_1",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "source_id": "source_video_002",
+                    "action": "RENAME",
+                    "new_title": "Новое название",
+                    "boundary_action": "PRESERVE",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000005",
+                    "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+                }
+            ],
+        },
+    )
+
+    package, batches = MODULE.build_package(project, review, decision_path)
+    proposal = package["topic_proposals"][0]
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert proposal["proposed_title"] == "Стресс"
+    assert proposal["authored_title"] == "Новое название"
+    assert proposal["authoring_status"] == "COMPLETED"
+    assert proposal["semantic_status"] == "PROVISIONAL"
+    assert proposal["domain_review_status"] == "REVIEW_REQUIRED"
+    assert proposal["start_word_sequence"] == 0
+    assert proposal["end_word_sequence"] == 5
+    assert batches["topic_batches"][0]["authoring_status"] == "COMPLETED"
+    assert package["domain_authoring_progress"] == {
+        "completed": 1,
+        "pending": 5,
+        "total": 6,
+        "next_proposal_id": "issue_68_video_002_topic_proposal_002",
+    }
+
+
 def test_committed_real_package_is_complete_and_fail_closed() -> None:
     package_path = (
         ROOT
@@ -167,6 +211,12 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
         for source_id, item in package["coverage"].items()
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
+    assert package["domain_authoring_progress"] == {
+        "completed": 1,
+        "pending": 261,
+        "total": 262,
+        "next_proposal_id": "issue_68_video_002_topic_proposal_002",
+    }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
     )
@@ -192,6 +242,13 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
         assert proposal["review_status"] == "UNREVIEWED"
         assert len(proposal["review_summary"]) == 2
         assert proposal["transcript_assurance"]["verification_state"] == "machine_unverified"
+        assert proposal["semantic_status"] == "PROVISIONAL"
+        assert proposal["domain_review_status"] == "REVIEW_REQUIRED"
+    first = package["topic_proposals"][0]
+    assert first["authored_title"] == "Начало второго дня: переход от теории кинезиологии к практике"
+    assert first["authoring_status"] == "COMPLETED"
+    assert first["start_word_id"].endswith("word:000000")
+    assert first["end_word_id"].endswith("word:000066")
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
         assert coverage["gaps"] == []
