@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 21,
-        "pending": 241,
+        "completed": 22,
+        "pending": 240,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_022",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_023",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -620,6 +620,26 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert twenty_first["domain_review_status"] == "REVIEW_REQUIRED"
     twenty_second = package["topic_proposals"][21]
     assert twenty_second["start_word_id"].endswith("word:008035")
+    assert twenty_second["end_word_id"].endswith("word:008140")
+    assert twenty_second["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twenty_second["authored_topics"]] == [
+        "22A",
+        "22B",
+    ]
+    assert [item["authored_title"] for item in twenty_second["authored_topics"]] == [
+        "Энергетические структуры человека: меридианы, чакры и аура",
+        "Исходящая энергия человека: мысли, эмоции, тепло и звук",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in twenty_second["authored_topics"]
+    )
+    twenty_third = package["topic_proposals"][22]
+    assert twenty_third["start_word_id"].endswith("word:008141")
+    assert twenty_third["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_022"
+    )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
         assert coverage["gaps"] == []

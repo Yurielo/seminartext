@@ -571,6 +571,45 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 21, Day 2: принять RENAME. Новое название: «Внутренняя энергия человека: химическая, электрическая и магнитная». Диапазон word:007866–word:008034; границы оставить без изменений. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:007866"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-06",
+      "decision_id": "issue_68_domain_authoring_topic_022",
+      "end_word_id": "transcript_revision_video_002_r1:word:008140",
+      "end_word_anchor_time": "01:27:35.094",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_023",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:008141",
+      "next_start_word_anchor_time": "01:27:35.634",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:008111",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:008112",
+      "proposal_id": "issue_68_video_002_topic_proposal_022",
+      "reason": "Исходная тема объединяла энергетические структуры человека с отдельным перечислением форм исходящей энергии и завершалась внутри словосочетания «психоэмоциональной энергии». Разделение сохраняет две самостоятельные смысловые единицы, а новая правая граница завершает перечисление после звука.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 22, Day 2: принять SPLIT + REALIGN. 22A word:008035–word:008095 «Энергетические структуры человека: меридианы, чакры и аура»; 22B word:008096–word:008140 «Исходящая энергия человека: мысли, эмоции, тепло и звук». Следующая тема начинается с word:008141. Статус обеих частей PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "01:26:59.195",
+          "end_word_id": "transcript_revision_video_002_r1:word:008095",
+          "part_id": "issue_68_video_002_topic_proposal_022a",
+          "part_label": "22A",
+          "start_word_anchor_time": "01:26:12.581",
+          "start_word_id": "transcript_revision_video_002_r1:word:008035",
+          "title": "Энергетические структуры человека: меридианы, чакры и аура"
+        },
+        {
+          "end_word_anchor_time": "01:27:35.094",
+          "end_word_id": "transcript_revision_video_002_r1:word:008140",
+          "part_id": "issue_68_video_002_topic_proposal_022b",
+          "part_label": "22B",
+          "start_word_anchor_time": "01:26:59.957",
+          "start_word_id": "transcript_revision_video_002_r1:word:008096",
+          "title": "Исходящая энергия человека: мысли, эмоции, тепло и звук"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_002_r1:word:008035"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",
