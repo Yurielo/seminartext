@@ -597,6 +597,11 @@
           "start_word_id": "transcript_revision_video_002_r1:word:003929"
         },
         {
+          "end_word_id": "transcript_revision_video_002_r1:word:005508",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:005353"
+        },
+        {
           "end_word_id": "transcript_revision_video_002_r1:word:015927",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:015550"
@@ -809,6 +814,7 @@
         "issue_68_video_002_topic_proposal_010",
         "issue_68_video_002_topic_proposal_011",
         "issue_68_video_002_topic_proposal_012",
+        "issue_68_video_002_topic_proposal_014c",
         "issue_68_video_002_topic_proposal_052",
         "issue_68_video_002_topic_proposal_054",
         "issue_68_video_002_topic_proposal_069",
@@ -952,11 +958,6 @@
           "end_word_id": "transcript_revision_video_002_r1:word:002201",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:001921"
-        },
-        {
-          "end_word_id": "transcript_revision_video_002_r1:word:005523",
-          "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:004854"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:008111",
@@ -1167,7 +1168,6 @@
       "topic_references": [
         "issue_113_reviewed_topic_13",
         "issue_68_video_002_topic_proposal_006",
-        "issue_68_video_002_topic_proposal_014",
         "issue_68_video_002_topic_proposal_022",
         "issue_68_video_002_topic_proposal_023",
         "issue_68_video_002_topic_proposal_025",
@@ -1383,9 +1383,9 @@
           "start_word_id": "transcript_revision_video_001_r1:word:006290"
         },
         {
-          "end_word_id": "transcript_revision_video_002_r1:word:005523",
+          "end_word_id": "transcript_revision_video_002_r1:word:005352",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:004854"
+          "start_word_id": "transcript_revision_video_002_r1:word:005116"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:020867",
@@ -1463,7 +1463,7 @@
       "topic_references": [
         "issue_113_reviewed_topic_05c",
         "issue_113_reviewed_topic_09",
-        "issue_68_video_002_topic_proposal_014",
+        "issue_68_video_002_topic_proposal_014b",
         "issue_68_video_002_topic_proposal_070",
         "issue_68_video_003_topic_proposal_026",
         "issue_68_video_003_topic_proposal_041",
@@ -1810,11 +1810,6 @@
       },
       "evidence_references": [
         {
-          "end_word_id": "transcript_revision_video_002_r1:word:005523",
-          "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:004854"
-        },
-        {
           "end_word_id": "transcript_revision_video_002_r1:word:017828",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:017414"
@@ -1896,7 +1891,6 @@
         "подсознанием"
       ],
       "topic_references": [
-        "issue_68_video_002_topic_proposal_014",
         "issue_68_video_002_topic_proposal_059",
         "issue_68_video_003_topic_proposal_015",
         "issue_68_video_003_topic_proposal_016",
@@ -2615,13 +2609,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 13,
-    "sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee"
+    "decision_count": 14,
+    "sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e"
   },
   "domain_authoring_progress": {
-    "completed": 13,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_014",
-    "pending": 249,
+    "completed": 14,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_015",
+    "pending": 248,
     "total": 262
   },
   "errors": [],
@@ -3301,6 +3295,14 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_014c_correction",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_014c"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_correction",
       "link_id": "issue_68_link_issue_68_video_002_topic_proposal_052_correction",
       "review_status": "UNREVIEWED",
       "source_id": "source_video_002",
@@ -3658,14 +3660,6 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_006"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_emotion",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_014_emotion",
-      "review_status": "UNREVIEWED",
-      "source_id": "source_video_002",
-      "status": "PROVISIONAL",
-      "topic_reference": "issue_68_video_002_topic_proposal_014"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
@@ -4069,11 +4063,11 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_014_brain",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_014b_brain",
       "review_status": "UNREVIEWED",
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
-      "topic_reference": "issue_68_video_002_topic_proposal_014"
+      "topic_reference": "issue_68_video_002_topic_proposal_014b"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
@@ -4421,14 +4415,6 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_014_subconscious",
-      "review_status": "UNREVIEWED",
-      "source_id": "source_video_002",
-      "status": "PROVISIONAL",
-      "topic_reference": "issue_68_video_002_topic_proposal_014"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
       "link_id": "issue_68_link_issue_68_video_002_topic_proposal_059_subconscious",
       "review_status": "UNREVIEWED",
       "source_id": "source_video_002",
@@ -4734,7 +4720,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4835,7 +4821,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5072,7 +5058,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5183,7 +5169,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5290,7 +5276,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5398,7 +5384,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5502,7 +5488,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5609,7 +5595,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5713,7 +5699,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5819,7 +5805,7 @@
         "decision_id": "issue_68_domain_authoring_topic_010",
         "end_word_anchor_time": "00:37:42.314",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:37:46.077",
         "split_part_ids": []
       },
@@ -5920,7 +5906,7 @@
         "decision_id": "issue_68_domain_authoring_topic_011",
         "end_word_anchor_time": "00:42:20.661",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:42:40.195",
         "split_part_ids": []
       },
@@ -6024,7 +6010,7 @@
         "decision_id": "issue_68_domain_authoring_topic_012",
         "end_word_anchor_time": "00:47:36.651",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:47:36.931",
         "split_part_ids": []
       },
@@ -6197,7 +6183,7 @@
         "decision_id": "issue_68_domain_authoring_topic_013",
         "end_word_anchor_time": "00:51:33.531",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
         "next_start_word_anchor_time": "00:51:42.478",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_013a",
@@ -6300,7 +6286,126 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_topics": [
+        {
+          "authored_title": "Вопросы по мышечному тестированию и отработка претестов",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "00:54:26.660",
+          "end_word_anchor_time": "00:54:23.171",
+          "end_word_id": "transcript_revision_video_002_r1:word:005115",
+          "end_word_sequence": 5115,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:004862",
+              "start_word_id": "transcript_revision_video_002_r1:word:004854",
+              "text": "По, коллеги, по тестированию передней порции вот по дельтовидной"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005115",
+              "start_word_id": "transcript_revision_video_002_r1:word:005107",
+              "text": "надеюсь, вы поняли, да. Я подробно про это рассказал."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:004993",
+              "start_word_id": "transcript_revision_video_002_r1:word:004977",
+              "text": "Подышали вместе с человеком. И вам хорошо, и ему хорошо. Да, уже вот это вот одно там"
+            }
+          },
+          "part_label": "14A",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:51:42.478",
+          "start_word_anchor_time": "00:51:42.478",
+          "start_word_id": "transcript_revision_video_002_r1:word:004854",
+          "start_word_sequence": 4854,
+          "topic_id": "issue_68_video_002_topic_proposal_014a"
+        },
+        {
+          "authored_title": "Перерыв на гимнастику: перекрёстный шаг и баланс полушарий",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "00:57:48.646",
+          "end_word_anchor_time": "00:57:45.682",
+          "end_word_id": "transcript_revision_video_002_r1:word:005352",
+          "end_word_sequence": 5352,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005124",
+              "start_word_id": "transcript_revision_video_002_r1:word:005116",
+              "text": "Сейчас, один момент. Когда я вам объяснял претесты, вы"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005352",
+              "start_word_id": "transcript_revision_video_002_r1:word:005344",
+              "text": "что у нас мозг заработал. Снова. И продолжаем обучение."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005242",
+              "start_word_id": "transcript_revision_video_002_r1:word:005226",
+              "text": "правого полушария. Потому что когда мы в современной жизни живем, у нас большую часть времени, если мы"
+            }
+          },
+          "part_label": "14B",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:54:26.660",
+          "start_word_anchor_time": "00:54:26.660",
+          "start_word_id": "transcript_revision_video_002_r1:word:005116",
+          "start_word_sequence": 5116,
+          "topic_id": "issue_68_video_002_topic_proposal_014b"
+        },
+        {
+          "authored_title": "Дистанционная работа: эффективность и поиск научного объяснения",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "00:59:59.749",
+          "end_word_anchor_time": "00:59:59.669",
+          "end_word_id": "transcript_revision_video_002_r1:word:005508",
+          "end_word_sequence": 5508,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005361",
+              "start_word_id": "transcript_revision_video_002_r1:word:005353",
+              "text": "Итого, вот мы с вами разобрали очное тестирование, когда"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005508",
+              "start_word_id": "transcript_revision_video_002_r1:word:005500",
+              "text": "что наш мир, по факту, это мир энергий. Так."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005439",
+              "start_word_id": "transcript_revision_video_002_r1:word:005423",
+              "text": "с этой килограммой работать. Что-то сделать, и ее обратно человеку уже с коррекциями отправить. Что же за"
+            }
+          },
+          "part_label": "14C",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:57:51.350",
+          "start_word_anchor_time": "00:57:51.350",
+          "start_word_id": "transcript_revision_video_002_r1:word:005353",
+          "start_word_sequence": 5353,
+          "topic_id": "issue_68_video_002_topic_proposal_014c"
+        }
+      ],
+      "authoring_decision": {
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_014",
+        "end_word_anchor_time": "00:59:59.669",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "next_start_word_anchor_time": "00:59:59.769",
+        "split_part_ids": [
+          "issue_68_video_002_topic_proposal_014a",
+          "issue_68_video_002_topic_proposal_014b",
+          "issue_68_video_002_topic_proposal_014c"
+        ]
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -6326,10 +6431,10 @@
         "level": "MEDIUM"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 3613.388,
-      "end_time": "01:00:13.388",
-      "end_word_id": "transcript_revision_video_002_r1:word:005523",
-      "end_word_sequence": 5523,
+      "end_seconds": 3599.749,
+      "end_time": "00:59:59.749",
+      "end_word_id": "transcript_revision_video_002_r1:word:005508",
+      "end_word_sequence": 5508,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:004862",
@@ -6337,14 +6442,14 @@
           "text": "По, коллеги, по тестированию передней порции вот по дельтовидной"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:005523",
-          "start_word_id": "transcript_revision_video_002_r1:word:005515",
-          "text": "момент есть кто-то в паре, который может потестировать? Видимо,"
+          "end_word_id": "transcript_revision_video_002_r1:word:005508",
+          "start_word_id": "transcript_revision_video_002_r1:word:005500",
+          "text": "что наш мир, по факту, это мир энергий. Так."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:005197",
-          "start_word_id": "transcript_revision_video_002_r1:word:005181",
-          "text": "задача взять вот этот листочек с крестиком, который у вас в раздаточных материалах, и сейчас с вами"
+          "end_word_id": "transcript_revision_video_002_r1:word:005189",
+          "start_word_id": "transcript_revision_video_002_r1:word:005173",
+          "text": "с вами упражнения, кроме перекрестного шага. И вот задача взять вот этот листочек с крестиком, который у"
         }
       },
       "generator_interval": {
@@ -6377,7 +6482,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Семинар посвящен методам работы с клиентами на расстоянии, включая тестирование мышц и использование гексограмм для взаимодействия с подсознанием, а также важность осознания эмоций и регулярных гимнастических упражнений для поддержания функциональности мозга.",
-        "Фрагмент проходит от «По, коллеги, по тестированию передней порции вот…» к «кто-то в паре, который может потестировать? Видимо,»."
+        "Фрагмент проходит от «По, коллеги, по тестированию передней порции вот…» к «мир, по факту, это мир энергий. Так.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -6427,9 +6532,9 @@
       "end_word_sequence": 6213,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:005532",
-          "start_word_id": "transcript_revision_video_002_r1:word:005524",
-          "text": "нет. Когда у нас в паре есть человек, у"
+          "end_word_id": "transcript_revision_video_002_r1:word:005517",
+          "start_word_id": "transcript_revision_video_002_r1:word:005509",
+          "text": "У нас У нас в данный момент есть кто-то"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:006213",
@@ -6437,15 +6542,21 @@
           "text": "продолжить тему о силе мысли, да, у всех было"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:005877",
-          "start_word_id": "transcript_revision_video_002_r1:word:005861",
-          "text": "энергию, исходящую от одного человека на другого человека, оказывает такое влияние, то какое влияние наши мысли оказывают"
+          "end_word_id": "transcript_revision_video_002_r1:word:005869",
+          "start_word_id": "transcript_revision_video_002_r1:word:005853",
+          "text": "вот оказывает такое влияние на другого человека, на энергию, исходящую от одного человека на другого человека, оказывает"
         }
       },
       "generator_interval": {
         "end_seconds": 4026.98,
         "start_seconds": 3616.11,
         "start_segment_id": 491
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_014",
+        "from_word_id": "transcript_revision_video_002_r1:word:005524",
+        "to_word_id": "transcript_revision_video_002_r1:word:005509"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_015",
       "proposal_number": 15,
@@ -6466,14 +6577,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Преподаватель описывает проведение экспериментов в парах во время очных семинаров, где участники могут быть добровольцами или из зала.",
-        "Фрагмент проходит от «нет. Когда у нас в паре есть…» к «о силе мысли, да, у всех было»."
+        "Фрагмент проходит от «У нас У нас в данный момент…» к «о силе мысли, да, у всех было»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 3616.39,
-      "start_time": "01:00:16.390",
-      "start_word_id": "transcript_revision_video_002_r1:word:005524",
-      "start_word_sequence": 5524,
+      "start_seconds": 3599.769,
+      "start_time": "00:59:59.769",
+      "start_word_id": "transcript_revision_video_002_r1:word:005509",
+      "start_word_sequence": 5509,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",

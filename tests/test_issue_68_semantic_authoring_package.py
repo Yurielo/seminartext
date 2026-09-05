@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 13,
-        "pending": 249,
+        "completed": 14,
+        "pending": 248,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_014",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_015",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -482,6 +482,28 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert fourteenth["start_word_id"].endswith("word:004854")
     assert fourteenth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_013"
+    )
+    assert fourteenth["end_word_id"].endswith("word:005508")
+    assert fourteenth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in fourteenth["authored_topics"]] == [
+        "14A",
+        "14B",
+        "14C",
+    ]
+    assert [item["authored_title"] for item in fourteenth["authored_topics"]] == [
+        "Вопросы по мышечному тестированию и отработка претестов",
+        "Перерыв на гимнастику: перекрёстный шаг и баланс полушарий",
+        "Дистанционная работа: эффективность и поиск научного объяснения",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in fourteenth["authored_topics"]
+    )
+    fifteenth = package["topic_proposals"][14]
+    assert fifteenth["start_word_id"].endswith("word:005509")
+    assert fifteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_014"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
