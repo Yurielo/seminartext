@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 20,
-        "pending": 242,
+        "completed": 21,
+        "pending": 241,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_021",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_022",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -611,6 +611,15 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert twenty_first["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_020"
     )
+    assert twenty_first["end_word_id"].endswith("word:008034")
+    assert twenty_first["authored_title"] == (
+        "Внутренняя энергия человека: химическая, электрическая и магнитная"
+    )
+    assert twenty_first["authoring_status"] == "COMPLETED"
+    assert twenty_first["semantic_status"] == "PROVISIONAL"
+    assert twenty_first["domain_review_status"] == "REVIEW_REQUIRED"
+    twenty_second = package["topic_proposals"][21]
+    assert twenty_second["start_word_id"].endswith("word:008035")
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
         assert coverage["gaps"] == []

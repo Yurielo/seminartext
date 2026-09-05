@@ -557,6 +557,20 @@
         }
       ],
       "start_word_id": "transcript_revision_video_002_r1:word:007504"
+    },
+    {
+      "action": "RENAME",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "PRESERVE",
+      "decision_date": "2026-09-06",
+      "decision_id": "issue_68_domain_authoring_topic_021",
+      "end_word_id": "transcript_revision_video_002_r1:word:008034",
+      "new_title": "Внутренняя энергия человека: химическая, электрическая и магнитная",
+      "proposal_id": "issue_68_video_002_topic_proposal_021",
+      "reason": "Исходное название охватывало только химическую энергию, тогда как фрагмент также рассматривает электрическую энергию нервной системы, мозга и сердца, электрохимическое управление и возможную магнитную энергию. Границы сохраняют цельный блок о внутренней энергии перед переходом к меридианам, чакрам и ауре.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 21, Day 2: принять RENAME. Новое название: «Внутренняя энергия человека: химическая, электрическая и магнитная». Диапазон word:007866–word:008034; границы оставить без изменений. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:007866"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",
