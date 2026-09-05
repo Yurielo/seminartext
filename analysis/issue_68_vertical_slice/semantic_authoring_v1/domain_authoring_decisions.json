@@ -205,6 +205,26 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 9, Day 2: RENAME. Новое название: «Претест „блокировка“: состояние угрозы». Границы word:003419–word:003446 сохранить. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:003419"
+    },
+    {
+      "action": "REALIGN_RENAME",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-05",
+      "decision_id": "issue_68_domain_authoring_topic_010",
+      "end_word_id": "transcript_revision_video_002_r1:word:003556",
+      "end_word_anchor_time": "00:37:42.314",
+      "new_title": "Претест «блокировка»: диагностика и коррекция перенапряжения",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_011",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:003557",
+      "next_start_word_anchor_time": "00:37:46.077",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:003549",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:003550",
+      "proposal_id": "issue_68_video_002_topic_proposal_010",
+      "reason": "Блок целиком раскрывает диагностику и коррекцию перенапряжения при претесте блокировка; прежняя граница разрывала объяснение признака, при котором мышца на все вопросы дает сильный ответ. Введение следующего пункта открывает новую смысловую единицу.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 10, Day 2: REALIGN + RENAME. Новое название: «Претест „блокировка“: диагностика и коррекция перенапряжения». Диапазон word:003447–word:003556; следующая тема начинается с word:003557. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:003447"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",

@@ -14,21 +14,21 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **254**.
+Topic→Concept links: **255**.
 
 ## First review item
 
-### 10. Перенапряжение нервной системы
+### 11. Баланс и Поляризация
 
 - Source: `source_video_002`
-- Time: `00:36:13.994` — `00:37:38.230`
-- Words: `transcript_revision_video_002_r1:word:003447` — `transcript_revision_video_002_r1:word:003549`
-- Summary: Обсуждается состояние перенапряжения нервной системы, требующее расслабления и, возможно, употребления жидкости. Фрагмент проходит от «То есть о чем это говорит? Если…» к «всегда сильный. Он не переключается на слабый».
-- Beginning: То есть о чем это говорит? Если в предыдущем
-- Middle: эту блокировку, мы просим человека на столах, просто расслабьтесь. И хорошее исправление этой ситуации с усилием подавить
-- End: ответ мышцы всегда сильный. Он не переключается на слабый
+- Time: `00:37:46.077` — `00:39:03.997`
+- Words: `transcript_revision_video_002_r1:word:003557` — `transcript_revision_video_002_r1:word:003671`
+- Summary: Рассматривается взаимосвязь между различными частями тела человека и их потенциальной поляризацией. Фрагмент проходит от «Следующий у нас пункт – это баланс…» к «бы с электрической точки зрения. Вот у».
+- Beginning: Следующий у нас пункт – это баланс поляризации. Есть
+- Middle: оно должно быть. Но у нас так устроена планета, и вообще наша жизнь, положительных ионов, плюсов больше
+- End: только как бы с электрической точки зрения. Вот у
 - Machine recommendation: `ACCEPT`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 10 — принять`,
+Natural Russian responses are supported, for example: `Тема 11 — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.

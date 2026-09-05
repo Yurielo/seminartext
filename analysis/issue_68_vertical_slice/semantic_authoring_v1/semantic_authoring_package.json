@@ -576,6 +576,11 @@
           "start_word_id": "transcript_revision_video_002_r1:word:003419"
         },
         {
+          "end_word_id": "transcript_revision_video_002_r1:word:003556",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:003447"
+        },
+        {
           "end_word_id": "transcript_revision_video_002_r1:word:004490",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:003672"
@@ -790,6 +795,7 @@
         "issue_68_video_002_topic_proposal_006",
         "issue_68_video_002_topic_proposal_008",
         "issue_68_video_002_topic_proposal_009",
+        "issue_68_video_002_topic_proposal_010",
         "issue_68_video_002_topic_proposal_012",
         "issue_68_video_002_topic_proposal_052",
         "issue_68_video_002_topic_proposal_054",
@@ -1203,7 +1209,7 @@
           "start_word_id": "transcript_revision_video_001_r1:word:000829"
         },
         {
-          "end_word_id": "transcript_revision_video_002_r1:word:003549",
+          "end_word_id": "transcript_revision_video_002_r1:word:003556",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:003447"
         },
@@ -2597,13 +2603,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 9,
-    "sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8"
+    "decision_count": 10,
+    "sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6"
   },
   "domain_authoring_progress": {
-    "completed": 9,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_010",
-    "pending": 253,
+    "completed": 10,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_011",
+    "pending": 252,
     "total": 262
   },
   "errors": [],
@@ -3248,6 +3254,14 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_009"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_correction",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_010_correction",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_010"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
@@ -4692,7 +4706,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4793,7 +4807,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5030,7 +5044,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5141,7 +5155,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5248,7 +5262,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5356,7 +5370,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5460,7 +5474,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5567,7 +5581,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5671,7 +5685,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "756125365314423513846e76176eb2dc789e682df76b95f27eed0fa57e33c9f8",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5769,7 +5783,19 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_title": "Претест «блокировка»: диагностика и коррекция перенапряжения",
+      "authoring_decision": {
+        "action": "REALIGN_RENAME",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_010",
+        "end_word_anchor_time": "00:37:42.314",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "next_start_word_anchor_time": "00:37:46.077",
+        "split_part_ids": []
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -5795,10 +5821,10 @@
         "level": "LOW"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 2258.23,
-      "end_time": "00:37:38.230",
-      "end_word_id": "transcript_revision_video_002_r1:word:003549",
-      "end_word_sequence": 3549,
+      "end_seconds": 2266.037,
+      "end_time": "00:37:46.037",
+      "end_word_id": "transcript_revision_video_002_r1:word:003556",
+      "end_word_sequence": 3556,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:003455",
@@ -5806,14 +5832,14 @@
           "text": "То есть о чем это говорит? Если в предыдущем"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003549",
-          "start_word_id": "transcript_revision_video_002_r1:word:003541",
-          "text": "ответ мышцы всегда сильный. Он не переключается на слабый"
+          "end_word_id": "transcript_revision_video_002_r1:word:003556",
+          "start_word_id": "transcript_revision_video_002_r1:word:003548",
+          "text": "на слабый ответ. На все вопросы дает сильный ответ."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003506",
-          "start_word_id": "transcript_revision_video_002_r1:word:003490",
-          "text": "эту блокировку, мы просим человека на столах, просто расслабьтесь. И хорошее исправление этой ситуации с усилием подавить"
+          "end_word_id": "transcript_revision_video_002_r1:word:003510",
+          "start_word_id": "transcript_revision_video_002_r1:word:003494",
+          "text": "человека на столах, просто расслабьтесь. И хорошее исправление этой ситуации с усилием подавить эти мышцы. Дать на"
         }
       },
       "generator_interval": {
@@ -5840,7 +5866,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Обсуждается состояние перенапряжения нервной системы, требующее расслабления и, возможно, употребления жидкости.",
-        "Фрагмент проходит от «То есть о чем это говорит? Если…» к «всегда сильный. Он не переключается на слабый»."
+        "Фрагмент проходит от «То есть о чем это говорит? Если…» к «ответ. На все вопросы дает сильный ответ.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -5887,9 +5913,9 @@
       "end_word_sequence": 3671,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003558",
-          "start_word_id": "transcript_revision_video_002_r1:word:003550",
-          "text": "ответ. На все вопросы дает сильный ответ. Следующий у"
+          "end_word_id": "transcript_revision_video_002_r1:word:003565",
+          "start_word_id": "transcript_revision_video_002_r1:word:003557",
+          "text": "Следующий у нас пункт – это баланс поляризации. Есть"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:003671",
@@ -5897,15 +5923,21 @@
           "text": "только как бы с электрической точки зрения. Вот у"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003619",
-          "start_word_id": "transcript_revision_video_002_r1:word:003603",
-          "text": "это норма. Так оно должно быть. Но у нас так устроена планета, и вообще наша жизнь, положительных"
+          "end_word_id": "transcript_revision_video_002_r1:word:003622",
+          "start_word_id": "transcript_revision_video_002_r1:word:003606",
+          "text": "оно должно быть. Но у нас так устроена планета, и вообще наша жизнь, положительных ионов, плюсов больше"
         }
       },
       "generator_interval": {
         "end_seconds": 2346.18,
         "start_seconds": 2258.25,
         "start_segment_id": 318
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_010",
+        "from_word_id": "transcript_revision_video_002_r1:word:003550",
+        "to_word_id": "transcript_revision_video_002_r1:word:003557"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_011",
       "proposal_number": 11,
@@ -5926,14 +5958,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Рассматривается взаимосвязь между различными частями тела человека и их потенциальной поляризацией.",
-        "Фрагмент проходит от «ответ. На все вопросы дает сильный ответ.…» к «бы с электрической точки зрения. Вот у»."
+        "Фрагмент проходит от «Следующий у нас пункт – это баланс…» к «бы с электрической точки зрения. Вот у»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 2259.111,
-      "start_time": "00:37:39.111",
-      "start_word_id": "transcript_revision_video_002_r1:word:003550",
-      "start_word_sequence": 3550,
+      "start_seconds": 2266.077,
+      "start_time": "00:37:46.077",
+      "start_word_id": "transcript_revision_video_002_r1:word:003557",
+      "start_word_sequence": 3557,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",
