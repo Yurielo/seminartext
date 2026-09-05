@@ -566,9 +566,14 @@
           "start_word_id": "transcript_revision_video_002_r1:word:001921"
         },
         {
+          "end_word_id": "transcript_revision_video_002_r1:word:003418",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:002587"
+        },
+        {
           "end_word_id": "transcript_revision_video_002_r1:word:003446",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:003359"
+          "start_word_id": "transcript_revision_video_002_r1:word:003419"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:004490",
@@ -783,6 +788,7 @@
         "issue_113_reviewed_topic_23",
         "issue_113_reviewed_topic_24",
         "issue_68_video_002_topic_proposal_006",
+        "issue_68_video_002_topic_proposal_008",
         "issue_68_video_002_topic_proposal_009",
         "issue_68_video_002_topic_proposal_012",
         "issue_68_video_002_topic_proposal_052",
@@ -2591,13 +2597,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 7,
-    "sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d"
+    "decision_count": 8,
+    "sha256": "dfad20e04ebd47ffff9cb1c508d65d5b03c1af5dfaee633c1c0d7b9b5962998e"
   },
   "domain_authoring_progress": {
-    "completed": 7,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_008",
-    "pending": 255,
+    "completed": 8,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_009",
+    "pending": 254,
     "total": 262
   },
   "errors": [],
@@ -3226,6 +3232,14 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_006"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_correction",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_008_correction",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_008"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
@@ -4678,7 +4692,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
+        "ledger_sha256": "dfad20e04ebd47ffff9cb1c508d65d5b03c1af5dfaee633c1c0d7b9b5962998e",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4779,7 +4793,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
+        "ledger_sha256": "dfad20e04ebd47ffff9cb1c508d65d5b03c1af5dfaee633c1c0d7b9b5962998e",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5016,7 +5030,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
+        "ledger_sha256": "dfad20e04ebd47ffff9cb1c508d65d5b03c1af5dfaee633c1c0d7b9b5962998e",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5127,7 +5141,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
+        "ledger_sha256": "dfad20e04ebd47ffff9cb1c508d65d5b03c1af5dfaee633c1c0d7b9b5962998e",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5234,7 +5248,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
+        "ledger_sha256": "dfad20e04ebd47ffff9cb1c508d65d5b03c1af5dfaee633c1c0d7b9b5962998e",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5342,7 +5356,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
+        "ledger_sha256": "dfad20e04ebd47ffff9cb1c508d65d5b03c1af5dfaee633c1c0d7b9b5962998e",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5446,7 +5460,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
+        "ledger_sha256": "dfad20e04ebd47ffff9cb1c508d65d5b03c1af5dfaee633c1c0d7b9b5962998e",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5545,7 +5559,19 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_title": "Претест «перегрузка» и коррекция «переключение»",
+      "authoring_decision": {
+        "action": "REALIGN_RENAME",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_008",
+        "end_word_anchor_time": "00:35:42.471",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "dfad20e04ebd47ffff9cb1c508d65d5b03c1af5dfaee633c1c0d7b9b5962998e",
+        "next_start_word_anchor_time": "00:35:46.194",
+        "split_part_ids": []
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -5568,10 +5594,10 @@
         "level": "MEDIUM"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 2104.975,
-      "end_time": "00:35:04.975",
-      "end_word_id": "transcript_revision_video_002_r1:word:003358",
-      "end_word_sequence": 3358,
+      "end_seconds": 2146.134,
+      "end_time": "00:35:46.134",
+      "end_word_id": "transcript_revision_video_002_r1:word:003418",
+      "end_word_sequence": 3418,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:002595",
@@ -5579,14 +5605,14 @@
           "text": "Следующий у нас претест называется перегрузка. Ну, в том"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003358",
-          "start_word_id": "transcript_revision_video_002_r1:word:003350",
-          "text": "состояние, ощущение, что все уже настолько устал, что ни"
+          "end_word_id": "transcript_revision_video_002_r1:word:003418",
+          "start_word_id": "transcript_revision_video_002_r1:word:003410",
+          "text": "что он даже решился прийти на коррекцию, на сессию."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:002981",
-          "start_word_id": "transcript_revision_video_002_r1:word:002965",
-          "text": "говоря, вот наша середина, и вот эта середина, условно, в одной стороне больше материнского, в другой стороне"
+          "end_word_id": "transcript_revision_video_002_r1:word:003011",
+          "start_word_id": "transcript_revision_video_002_r1:word:002995",
+          "text": "вы это знаете, да, в зеркало. Посмотрите, вот так вот, если сделать как бы симметрично свое лицо,"
         }
       },
       "generator_interval": {
@@ -5619,7 +5645,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Обсуждается влияние коррекций, связанных с определенными движениями, на физиологические процессы в теле, в частности, на соединение левой и правой половины тела.",
-        "Фрагмент проходит от «Следующий у нас претест называется перегрузка. Ну,…» к «что все уже настолько устал, что ни»."
+        "Фрагмент проходит от «Следующий у нас претест называется перегрузка. Ну,…» к «даже решился прийти на коррекцию, на сессию.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -5668,9 +5694,9 @@
       "end_word_sequence": 3446,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003367",
-          "start_word_id": "transcript_revision_video_002_r1:word:003359",
-          "text": "руки, ни ноги не держатся. Если такие моменты у"
+          "end_word_id": "transcript_revision_video_002_r1:word:003427",
+          "start_word_id": "transcript_revision_video_002_r1:word:003419",
+          "text": "Следующий, третий у нас, третий претест, он называется у"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:003446",
@@ -5678,15 +5704,21 @@
           "text": "сторон. Реально на уровне сознания, либо на уровне подсознания."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003411",
-          "start_word_id": "transcript_revision_video_002_r1:word:003395",
-          "text": "переживаниями и так далее. Раз он уже настолько, как бы у него все не супер, что он"
+          "end_word_id": "transcript_revision_video_002_r1:word:003441",
+          "start_word_id": "transcript_revision_video_002_r1:word:003425",
+          "text": "он называется у нас блокировка. Это состояние, когда человек чувствует угрозу со всех сторон. Реально на уровне"
         }
       },
       "generator_interval": {
         "end_seconds": 2172.23,
         "start_seconds": 2106.82,
         "start_segment_id": 300
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_008",
+        "from_word_id": "transcript_revision_video_002_r1:word:003359",
+        "to_word_id": "transcript_revision_video_002_r1:word:003419"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_009",
       "proposal_number": 9,
@@ -5707,14 +5739,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Если возникают проблемы с осанкой, можно провести коррекцию, но часто люди приходят на коррекцию с уже существующими проблемами и переживаниями.",
-        "Фрагмент проходит от «руки, ни ноги не держатся. Если такие…» к «на уровне сознания, либо на уровне подсознания.»."
+        "Фрагмент проходит от «Следующий, третий у нас, третий претест, он…» к «на уровне сознания, либо на уровне подсознания.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 2107.803,
-      "start_time": "00:35:07.803",
-      "start_word_id": "transcript_revision_video_002_r1:word:003359",
-      "start_word_sequence": 3359,
+      "start_seconds": 2146.194,
+      "start_time": "00:35:46.194",
+      "start_word_id": "transcript_revision_video_002_r1:word:003419",
+      "start_word_sequence": 3419,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",

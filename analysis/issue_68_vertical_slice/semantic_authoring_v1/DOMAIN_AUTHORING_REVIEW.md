@@ -14,21 +14,21 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **253**.
+Topic→Concept links: **254**.
 
 ## First review item
 
-### 8. Работа с телом
+### 9. Коррекция осанки
 
 - Source: `source_video_002`
-- Time: `00:27:49.810` — `00:35:04.975`
-- Words: `transcript_revision_video_002_r1:word:002587` — `transcript_revision_video_002_r1:word:003358`
-- Summary: Обсуждается влияние коррекций, связанных с определенными движениями, на физиологические процессы в теле, в частности, на соединение левой и правой половины тела. Фрагмент проходит от «Следующий у нас претест называется перегрузка. Ну,…» к «что все уже настолько устал, что ни».
-- Beginning: Следующий у нас претест называется перегрузка. Ну, в том
-- Middle: говоря, вот наша середина, и вот эта середина, условно, в одной стороне больше материнского, в другой стороне
-- End: состояние, ощущение, что все уже настолько устал, что ни
+- Time: `00:35:46.194` — `00:36:10.142`
+- Words: `transcript_revision_video_002_r1:word:003419` — `transcript_revision_video_002_r1:word:003446`
+- Summary: Если возникают проблемы с осанкой, можно провести коррекцию, но часто люди приходят на коррекцию с уже существующими проблемами и переживаниями. Фрагмент проходит от «Следующий, третий у нас, третий претест, он…» к «на уровне сознания, либо на уровне подсознания.».
+- Beginning: Следующий, третий у нас, третий претест, он называется у
+- Middle: он называется у нас блокировка. Это состояние, когда человек чувствует угрозу со всех сторон. Реально на уровне
+- End: сторон. Реально на уровне сознания, либо на уровне подсознания.
 - Machine recommendation: `ACCEPT`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 8 — принять`,
+Natural Russian responses are supported, for example: `Тема 9 — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.
