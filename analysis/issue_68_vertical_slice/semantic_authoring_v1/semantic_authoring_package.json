@@ -2615,13 +2615,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 17,
-    "sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6"
+    "decision_count": 18,
+    "sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e"
   },
   "domain_authoring_progress": {
-    "completed": 17,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_018",
-    "pending": 245,
+    "completed": 18,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_019",
+    "pending": 244,
     "total": 262
   },
   "errors": [],
@@ -4734,7 +4734,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4835,7 +4835,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5072,7 +5072,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5183,7 +5183,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5290,7 +5290,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5398,7 +5398,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5502,7 +5502,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5609,7 +5609,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5713,7 +5713,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5819,7 +5819,7 @@
         "decision_id": "issue_68_domain_authoring_topic_010",
         "end_word_anchor_time": "00:37:42.314",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:37:46.077",
         "split_part_ids": []
       },
@@ -5920,7 +5920,7 @@
         "decision_id": "issue_68_domain_authoring_topic_011",
         "end_word_anchor_time": "00:42:20.661",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:42:40.195",
         "split_part_ids": []
       },
@@ -6024,7 +6024,7 @@
         "decision_id": "issue_68_domain_authoring_topic_012",
         "end_word_anchor_time": "00:47:36.651",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:47:36.931",
         "split_part_ids": []
       },
@@ -6197,7 +6197,7 @@
         "decision_id": "issue_68_domain_authoring_topic_013",
         "end_word_anchor_time": "00:51:33.531",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:51:42.478",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_013a",
@@ -6411,7 +6411,7 @@
         "decision_id": "issue_68_domain_authoring_topic_014",
         "end_word_anchor_time": "00:59:59.669",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "00:59:59.769",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_014a",
@@ -6625,7 +6625,7 @@
         "decision_id": "issue_68_domain_authoring_topic_015",
         "end_word_anchor_time": "01:06:51.767",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "01:06:52.228",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_015a",
@@ -6805,7 +6805,7 @@
         "decision_id": "issue_68_domain_authoring_topic_016",
         "end_word_anchor_time": "01:10:32.279",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "01:10:34.131",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_016a",
@@ -6912,7 +6912,7 @@
         "decision_id": "issue_68_domain_authoring_topic_017",
         "end_word_anchor_time": "01:13:14.416",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "59ff96d69120680bdb2f776599da9a1bdff0f07eaa830c7d6ac9f20ae46c01b6",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
         "next_start_word_anchor_time": "01:13:15.598",
         "split_part_ids": []
       },
@@ -7008,7 +7008,91 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_topics": [
+        {
+          "authored_title": "Материя и человек как энергетические системы",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "01:16:33.763",
+          "end_word_anchor_time": "01:16:32.681",
+          "end_word_id": "transcript_revision_video_002_r1:word:007061",
+          "end_word_sequence": 7061,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006836",
+              "start_word_id": "transcript_revision_video_002_r1:word:006828",
+              "text": "Какие мы можем сделать выводы из этого? Из того,"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:007061",
+              "start_word_id": "transcript_revision_video_002_r1:word:007053",
+              "text": "из энергии, и мы как-то взаимодействуем с этой энергией."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006953",
+              "start_word_id": "transcript_revision_video_002_r1:word:006937",
+              "text": "вот каждый атом железа это человек, вот в этой кристаллической решетке, то если соразмерно, как бы, да,"
+            }
+          },
+          "part_label": "18A",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "01:13:15.598",
+          "start_word_anchor_time": "01:13:15.598",
+          "start_word_id": "transcript_revision_video_002_r1:word:006828",
+          "start_word_sequence": 6828,
+          "topic_id": "issue_68_video_002_topic_proposal_018a"
+        },
+        {
+          "authored_title": "Восприятие энергии органами чувств",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "01:18:54.026",
+          "end_word_anchor_time": "01:18:53.304",
+          "end_word_id": "transcript_revision_video_002_r1:word:007329",
+          "end_word_sequence": 7329,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:007070",
+              "start_word_id": "transcript_revision_video_002_r1:word:007062",
+              "text": "Мы эту энергию слышим. Что такое вообще слух? У"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:007329",
+              "start_word_id": "transcript_revision_video_002_r1:word:007321",
+              "text": "чему-то прикасаемся, там, и током, там, выбирает, например, да."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:007204",
+              "start_word_id": "transcript_revision_video_002_r1:word:007188",
+              "text": "помните, тоже там из урока физики, он очень короткий, как бы, этот видимый спектр. Он начинается там"
+            }
+          },
+          "part_label": "18B",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "01:16:33.824",
+          "start_word_anchor_time": "01:16:33.824",
+          "start_word_id": "transcript_revision_video_002_r1:word:007062",
+          "start_word_sequence": 7062,
+          "topic_id": "issue_68_video_002_topic_proposal_018b"
+        }
+      ],
+      "authoring_decision": {
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_018",
+        "end_word_anchor_time": "01:18:53.304",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "15756c575ec0dcdd49d4747d6d4855404c509f1c8e798f750c1e21fcbfbf079e",
+        "next_start_word_anchor_time": "01:18:54.046",
+        "split_part_ids": [
+          "issue_68_video_002_topic_proposal_018a",
+          "issue_68_video_002_topic_proposal_018b"
+        ]
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -7031,10 +7115,10 @@
         "level": "MEDIUM"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 4740.67,
-      "end_time": "01:19:00.670",
-      "end_word_id": "transcript_revision_video_002_r1:word:007344",
-      "end_word_sequence": 7344,
+      "end_seconds": 4734.026,
+      "end_time": "01:18:54.026",
+      "end_word_id": "transcript_revision_video_002_r1:word:007329",
+      "end_word_sequence": 7329,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:006836",
@@ -7042,14 +7126,14 @@
           "text": "Какие мы можем сделать выводы из этого? Из того,"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:007344",
-          "start_word_id": "transcript_revision_video_002_r1:word:007336",
-          "text": "да, вот, снаружи получили информацию, мы её можем как-то"
+          "end_word_id": "transcript_revision_video_002_r1:word:007329",
+          "start_word_id": "transcript_revision_video_002_r1:word:007321",
+          "text": "чему-то прикасаемся, там, и током, там, выбирает, например, да."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:007094",
-          "start_word_id": "transcript_revision_video_002_r1:word:007078",
-          "text": "которая, этот орган слуха переводит вот эту акустическую, волны акустические, когда там воздух колеблется. Вы знаете, что"
+          "end_word_id": "transcript_revision_video_002_r1:word:007087",
+          "start_word_id": "transcript_revision_video_002_r1:word:007071",
+          "text": "нас есть специальные органы слуха, уха, собственно, которая, этот орган слуха переводит вот эту акустическую, волны акустические,"
         }
       },
       "generator_interval": {
@@ -7082,7 +7166,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Участники обсуждают изучение частиц и рассматривают твердые вещества, делая предварительные выводы.",
-        "Фрагмент проходит от «Какие мы можем сделать выводы из этого?…» к «снаружи получили информацию, мы её можем как-то»."
+        "Фрагмент проходит от «Какие мы можем сделать выводы из этого?…» к «там, и током, там, выбирает, например, да.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -7129,9 +7213,9 @@
       "end_word_sequence": 7512,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:007353",
-          "start_word_id": "transcript_revision_video_002_r1:word:007345",
-          "text": "распознать, проанализировать, да. Мы проанализируете, потом ещё запомним. И"
+          "end_word_id": "transcript_revision_video_002_r1:word:007338",
+          "start_word_id": "transcript_revision_video_002_r1:word:007330",
+          "text": "Вот мы, мы эту энергию какую-то, да, вот, снаружи"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:007512",
@@ -7139,15 +7223,21 @@
           "text": "И давайте сделаем с вами небольшой перерыв на 10"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:007437",
-          "start_word_id": "transcript_revision_video_002_r1:word:007421",
-          "text": "из разных источников мы какую-то свою, там, свою идею какую-то мы видели, и это мы можем тоже"
+          "end_word_id": "transcript_revision_video_002_r1:word:007429",
+          "start_word_id": "transcript_revision_video_002_r1:word:007413",
+          "text": "жизни, как бы, услышали, увидели и так далее, из разных источников мы какую-то свою, там, свою идею"
         }
       },
       "generator_interval": {
         "end_seconds": 4823.15,
         "start_seconds": 4740.71,
         "start_segment_id": 646
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_018",
+        "from_word_id": "transcript_revision_video_002_r1:word:007345",
+        "to_word_id": "transcript_revision_video_002_r1:word:007330"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_019",
       "proposal_number": 19,
@@ -7168,14 +7258,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "В разговоре обсуждается процесс восприятия, запоминания и последующей передачи информации, как в формальном (уроки), так и в неформальном (личный опыт) контекстах.",
-        "Фрагмент проходит от «распознать, проанализировать, да. Мы проанализируете, потом ещё…» к «сделаем с вами небольшой перерыв на 10»."
+        "Фрагмент проходит от «Вот мы, мы эту энергию какую-то, да,…» к «сделаем с вами небольшой перерыв на 10»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 4740.891,
-      "start_time": "01:19:00.891",
-      "start_word_id": "transcript_revision_video_002_r1:word:007345",
-      "start_word_sequence": 7345,
+      "start_seconds": 4734.046,
+      "start_time": "01:18:54.046",
+      "start_word_id": "transcript_revision_video_002_r1:word:007330",
+      "start_word_sequence": 7330,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",
