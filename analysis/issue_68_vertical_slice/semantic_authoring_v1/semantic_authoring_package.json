@@ -33,7 +33,7 @@
           "start_word_id": "transcript_revision_video_002_r1:word:000000"
         },
         {
-          "end_word_id": "transcript_revision_video_002_r1:word:000193",
+          "end_word_id": "transcript_revision_video_002_r1:word:000169",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:000067"
         },
@@ -395,7 +395,7 @@
           "start_word_id": "transcript_revision_video_002_r1:word:000000"
         },
         {
-          "end_word_id": "transcript_revision_video_002_r1:word:000193",
+          "end_word_id": "transcript_revision_video_002_r1:word:000169",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:000067"
         },
@@ -471,7 +471,7 @@
           "start_word_id": "transcript_revision_video_001_r1:word:020482"
         },
         {
-          "end_word_id": "transcript_revision_video_002_r1:word:000193",
+          "end_word_id": "transcript_revision_video_002_r1:word:000169",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:000067"
         }
@@ -925,11 +925,6 @@
           "start_word_id": "transcript_revision_video_001_r1:word:010564"
         },
         {
-          "end_word_id": "transcript_revision_video_002_r1:word:000193",
-          "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:000067"
-        },
-        {
           "end_word_id": "transcript_revision_video_002_r1:word:002238",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:001790"
@@ -1147,7 +1142,6 @@
       ],
       "topic_references": [
         "issue_113_reviewed_topic_13",
-        "issue_68_video_002_topic_proposal_002",
         "issue_68_video_002_topic_proposal_006",
         "issue_68_video_002_topic_proposal_014",
         "issue_68_video_002_topic_proposal_022",
@@ -2597,13 +2591,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 1,
-    "sha256": "be2f83c76d4de8bded6e56debbf8a198f8fb717e1c3324dc2c35ba88283cc033"
+    "decision_count": 2,
+    "sha256": "538c7fc27cbde8bb0ea047cdaf50bff2c47a8cc00d7dca9221630afbeed47a64"
   },
   "domain_authoring_progress": {
-    "completed": 1,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_002",
-    "pending": 261,
+    "completed": 2,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_003",
+    "pending": 260,
     "total": 262
   },
   "errors": [],
@@ -3600,14 +3594,6 @@
       "source_id": "source_video_001",
       "status": "PROVISIONAL",
       "topic_reference": "issue_113_reviewed_topic_13"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_emotion",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_emotion",
-      "review_status": "UNREVIEWED",
-      "source_id": "source_video_002",
-      "status": "PROVISIONAL",
-      "topic_reference": "issue_68_video_002_topic_proposal_002"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
@@ -4690,8 +4676,10 @@
         "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
         "boundary_action": "PRESERVE",
         "decision_id": "issue_68_domain_authoring_topic_001",
+        "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "be2f83c76d4de8bded6e56debbf8a198f8fb717e1c3324dc2c35ba88283cc033"
+        "ledger_sha256": "538c7fc27cbde8bb0ea047cdaf50bff2c47a8cc00d7dca9221630afbeed47a64",
+        "next_start_word_anchor_time": null
       },
       "authoring_status": "COMPLETED",
       "available_decisions": [
@@ -4782,7 +4770,18 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_title": "Мануальное мышечное тестирование и реакция мышц на стресс",
+      "authoring_decision": {
+        "action": "REALIGN_RENAME",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_002",
+        "end_word_anchor_time": "00:02:21.137",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "538c7fc27cbde8bb0ea047cdaf50bff2c47a8cc00d7dca9221630afbeed47a64",
+        "next_start_word_anchor_time": "00:02:21.618"
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -4807,10 +4806,10 @@
         "level": "MEDIUM"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 159.568,
-      "end_time": "00:02:39.568",
-      "end_word_id": "transcript_revision_video_002_r1:word:000193",
-      "end_word_sequence": 193,
+      "end_seconds": 141.598,
+      "end_time": "00:02:21.598",
+      "end_word_id": "transcript_revision_video_002_r1:word:000169",
+      "end_word_sequence": 169,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:000075",
@@ -4818,14 +4817,14 @@
           "text": "Мы про это говорили. Собственно, кинезиологический тест. Мануальное мышечное"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:000193",
-          "start_word_id": "transcript_revision_video_002_r1:word:000185",
-          "text": "еще раз подробно про это поговорим. Это комплекс мероприятий,"
+          "end_word_id": "transcript_revision_video_002_r1:word:000169",
+          "start_word_id": "transcript_revision_video_002_r1:word:000161",
+          "text": "с того, что изучили тестирование передней порции дельтовидной мышцы."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:000138",
-          "start_word_id": "transcript_revision_video_002_r1:word:000122",
-          "text": "Мы говорим, что это стресс, реакция на стресс. Стресс бывает разный. Бывает эмоциональный, бывает химический. Ну и"
+          "end_word_id": "transcript_revision_video_002_r1:word:000126",
+          "start_word_id": "transcript_revision_video_002_r1:word:000110",
+          "text": "слабая, это что-то организму не то, не так. Ему это не нравится. Мы говорим, что это стресс,"
         }
       },
       "generator_interval": {
@@ -4852,7 +4851,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Кинезиологическое тестирование позволяет получать информацию о состоянии мышц в виде двоичного ответа: либо мышца сильная, либо слабая.",
-        "Фрагмент проходит от «Мы про это говорили. Собственно, кинезиологический тест.…» к «подробно про это поговорим. Это комплекс мероприятий,»."
+        "Фрагмент проходит от «Мы про это говорили. Собственно, кинезиологический тест.…» к «что изучили тестирование передней порции дельтовидной мышцы.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -4901,9 +4900,9 @@
       "end_word_sequence": 1066,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:000202",
-          "start_word_id": "transcript_revision_video_002_r1:word:000194",
-          "text": "направленный на то, чтобы привести человека в более здоровое"
+          "end_word_id": "transcript_revision_video_002_r1:word:000178",
+          "start_word_id": "transcript_revision_video_002_r1:word:000170",
+          "text": "И изучили с вами такой комплекс мероприятий, который называется"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:001066",
@@ -4911,15 +4910,21 @@
           "text": "эта электрохимическая передача в этих местах соединения, в нервах,"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:000638",
-          "start_word_id": "transcript_revision_video_002_r1:word:000622",
-          "text": "мысль, важна. Но здесь принципиально важная история, что получить истинную информацию о человеке, о здоровье, о его"
+          "end_word_id": "transcript_revision_video_002_r1:word:000626",
+          "start_word_id": "transcript_revision_video_002_r1:word:000610",
+          "text": "это тоже важная информация. Но вообще все, о чем я говорю, каждая мысль, важна. Но здесь принципиально"
         }
       },
       "generator_interval": {
         "end_seconds": 728.12,
         "start_seconds": 160.31,
         "start_segment_id": 19
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_002",
+        "from_word_id": "transcript_revision_video_002_r1:word:000194",
+        "to_word_id": "transcript_revision_video_002_r1:word:000170"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_003",
       "proposal_number": 3,
@@ -4940,14 +4945,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Сессия направлена на быстрое восстановление клиента, устранение усталости и подготовку к проведению тестирования мышц, особенно передней порции дельтовидной, для получения точной информации о его состоянии.",
-        "Фрагмент проходит от «направленный на то, чтобы привести человека в…» к «передача в этих местах соединения, в нервах,»."
+        "Фрагмент проходит от «И изучили с вами такой комплекс мероприятий,…» к «передача в этих местах соединения, в нервах,»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 160.31,
-      "start_time": "00:02:40.310",
-      "start_word_id": "transcript_revision_video_002_r1:word:000194",
-      "start_word_sequence": 194,
+      "start_seconds": 141.618,
+      "start_time": "00:02:21.618",
+      "start_word_id": "transcript_revision_video_002_r1:word:000170",
+      "start_word_sequence": 170,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",

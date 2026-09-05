@@ -191,9 +191,41 @@ def build_package(
             else:
                 at = bisect.bisect_left(timed_starts, topic["start_seconds"])
                 sequence = timed[min(at, len(timed) - 1)][1]
-            if start_sequences and sequence <= start_sequences[-1]:
-                errors.append(f"non-increasing Canonical Word boundary in {source_id} topic {index + 1}")
             start_sequences.append(sequence)
+
+        word_by_id = {word["id"]: word for word in words}
+        left_boundary_decisions: dict[str, dict[str, Any]] = {}
+        for index in range(len(topics) - 1):
+            proposal_id = f"issue_68_{registry_id}_topic_proposal_{index + 1:03d}"
+            next_proposal_id = f"issue_68_{registry_id}_topic_proposal_{index + 2:03d}"
+            boundary_decision = decisions_by_proposal.get(proposal_id)
+            if not boundary_decision or boundary_decision.get("boundary_action") != "REALIGN_RIGHT":
+                continue
+            next_word = word_by_id.get(boundary_decision.get("next_start_word_id"))
+            end_word = word_by_id.get(boundary_decision.get("end_word_id"))
+            if next_word is None or end_word is None:
+                errors.append(f"unresolved realigned Word boundary for {proposal_id}")
+                continue
+            if boundary_decision.get("next_proposal_id") != next_proposal_id:
+                errors.append(f"realigned boundary has wrong adjacent proposal for {proposal_id}")
+            if next_word["source_id"] != source_id or end_word["source_id"] != source_id:
+                errors.append(f"realigned boundary crosses source for {proposal_id}")
+            if end_word["sequence"] + 1 != next_word["sequence"]:
+                errors.append(f"realigned boundary is not Canonical Word-contiguous for {proposal_id}")
+            if boundary_decision.get("end_word_anchor_time") != format_time(
+                end_word.get("start_seconds")
+            ):
+                errors.append(f"realigned end anchor timestamp mismatch for {proposal_id}")
+            if boundary_decision.get("next_start_word_anchor_time") != format_time(
+                next_word.get("start_seconds")
+            ):
+                errors.append(f"realigned next-start timestamp mismatch for {proposal_id}")
+            start_sequences[index + 1] = next_word["sequence"]
+            left_boundary_decisions[next_proposal_id] = boundary_decision
+
+        for index in range(1, len(start_sequences)):
+            if start_sequences[index] <= start_sequences[index - 1]:
+                errors.append(f"non-increasing Canonical Word boundary in {source_id} topic {index + 1}")
 
         for index, topic in enumerate(topics):
             start_sequence = start_sequences[index]
@@ -277,13 +309,25 @@ def build_package(
                     "domain_review_status": "REVIEW_REQUIRED",
                     "review_status": "UNREVIEWED",
                 }
+            left_boundary_decision = left_boundary_decisions.get(proposal_id)
+            if left_boundary_decision is not None:
+                proposal["left_boundary_authoring_decision"] = {
+                    "decision_id": left_boundary_decision.get("decision_id"),
+                    "from_word_id": left_boundary_decision.get("previous_next_start_word_id"),
+                    "to_word_id": left_boundary_decision.get("next_start_word_id"),
+                    "authority": left_boundary_decision.get("authority"),
+                }
             decision_record = decisions_by_proposal.get(proposal_id)
             if decision_record is not None:
-                if decision_record.get("action") != "RENAME":
+                action = decision_record.get("action")
+                if action not in {"RENAME", "REALIGN_RENAME"}:
                     errors.append(f"unsupported authoring action for {proposal_id}")
                 if not decision_record.get("new_title"):
                     errors.append(f"RENAME has no new_title for {proposal_id}")
-                if decision_record.get("boundary_action") != "PRESERVE":
+                expected_boundary_action = (
+                    "REALIGN_RIGHT" if action == "REALIGN_RENAME" else "PRESERVE"
+                )
+                if decision_record.get("boundary_action") != expected_boundary_action:
                     errors.append(f"unexpected boundary mutation for {proposal_id}")
                 if decision_record.get("source_id") != source_id:
                     errors.append(f"decision source mismatch for {proposal_id}")
@@ -298,6 +342,10 @@ def build_package(
                     "decision_id": decision_record.get("decision_id"),
                     "action": decision_record.get("action"),
                     "boundary_action": decision_record.get("boundary_action"),
+                    "end_word_anchor_time": decision_record.get("end_word_anchor_time"),
+                    "next_start_word_anchor_time": decision_record.get(
+                        "next_start_word_anchor_time"
+                    ),
                     "authority": decision_record.get("authority"),
                     "ledger_artifact_id": decision_document.get("artifact_id") if decision_document else None,
                     "ledger_sha256": sha256(decisions_path) if decisions_path else None,

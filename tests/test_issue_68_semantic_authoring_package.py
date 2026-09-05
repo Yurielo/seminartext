@@ -186,6 +186,49 @@ def test_rename_authoring_decision_preserves_word_range_and_stays_provisional(tm
     }
 
 
+def test_realign_rename_moves_shared_boundary_without_gap_or_acceptance(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "decision_realign",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "next_proposal_id": "issue_68_video_002_topic_proposal_002",
+                    "source_id": "source_video_002",
+                    "action": "REALIGN_RENAME",
+                    "new_title": "Новое название",
+                    "boundary_action": "REALIGN_RIGHT",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000003",
+                    "end_word_anchor_time": "00:00:03.000",
+                    "next_start_word_id": "transcript_revision_video_002_r1:word:000004",
+                    "next_start_word_anchor_time": "00:00:04.000",
+                    "previous_next_start_word_id": "transcript_revision_video_002_r1:word:000006",
+                    "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+                }
+            ],
+        },
+    )
+
+    package, _ = MODULE.build_package(project, review, decision_path)
+    first, second = package["topic_proposals"][:2]
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert first["end_word_sequence"] == 3
+    assert second["start_word_sequence"] == 4
+    assert first["authored_title"] == "Новое название"
+    assert first["semantic_status"] == "PROVISIONAL"
+    assert first["domain_review_status"] == "REVIEW_REQUIRED"
+    assert second["left_boundary_authoring_decision"]["decision_id"] == "decision_realign"
+    assert package["coverage"]["source_video_002"]["gaps"] == []
+    assert package["coverage"]["source_video_002"]["overlaps"] == []
+
+
 def test_committed_real_package_is_complete_and_fail_closed() -> None:
     package_path = (
         ROOT
@@ -212,10 +255,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 1,
-        "pending": 261,
+        "completed": 2,
+        "pending": 260,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_002",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_003",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -249,6 +292,14 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert first["authoring_status"] == "COMPLETED"
     assert first["start_word_id"].endswith("word:000000")
     assert first["end_word_id"].endswith("word:000066")
+    second = package["topic_proposals"][1]
+    third = package["topic_proposals"][2]
+    assert second["authored_title"] == "Мануальное мышечное тестирование и реакция мышц на стресс"
+    assert second["authoring_status"] == "COMPLETED"
+    assert second["start_word_id"].endswith("word:000067")
+    assert second["end_word_id"].endswith("word:000169")
+    assert third["start_word_id"].endswith("word:000170")
+    assert third["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_002"
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
         assert coverage["gaps"] == []
