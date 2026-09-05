@@ -111,6 +111,26 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 4, Day 2: REALIGN + RENAME. Новое название: «Разбор домашнего мышечного тестирования: различение сильного и слабого ответа». Диапазон word:001219–word:001712; следующая тема начинается с word:001713. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:001219"
+    },
+    {
+      "action": "REALIGN_RENAME",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-05",
+      "decision_id": "issue_68_domain_authoring_topic_005",
+      "end_word_id": "transcript_revision_video_002_r1:word:001920",
+      "end_word_anchor_time": "00:20:45.677",
+      "new_title": "Сильный и слабый мышечный ответ как индикатор стресса",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_006",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:001921",
+      "next_start_word_anchor_time": "00:20:46.418",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:001789",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:001790",
+      "proposal_id": "issue_68_video_002_topic_proposal_005",
+      "reason": "Объяснение сильного и слабого мышечного ответа и его связи со стрессовыми эмоциями образует единый блок; пример вчерашней сессии открывает следующую смысловую единицу.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 5, Day 2: REALIGN + RENAME. Новое название: «Сильный и слабый мышечный ответ как индикатор стресса». Диапазон word:001713–word:001920; следующая тема начинается с word:001921. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:001713"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",

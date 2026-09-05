@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 4,
-        "pending": 258,
+        "completed": 5,
+        "pending": 257,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_005",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_006",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -396,6 +396,14 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     fifth = package["topic_proposals"][4]
     assert fifth["start_word_id"].endswith("word:001713")
     assert fifth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_004"
+    assert fifth["end_word_id"].endswith("word:001920")
+    assert fifth["authored_title"] == (
+        "Сильный и слабый мышечный ответ как индикатор стресса"
+    )
+    assert fifth["authoring_status"] == "COMPLETED"
+    sixth = package["topic_proposals"][5]
+    assert sixth["start_word_id"].endswith("word:001921")
+    assert sixth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_005"
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
         assert coverage["gaps"] == []

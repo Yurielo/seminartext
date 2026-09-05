@@ -38,9 +38,14 @@
           "start_word_id": "transcript_revision_video_002_r1:word:000067"
         },
         {
+          "end_word_id": "transcript_revision_video_002_r1:word:001920",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:001713"
+        },
+        {
           "end_word_id": "transcript_revision_video_002_r1:word:002238",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:001790"
+          "start_word_id": "transcript_revision_video_002_r1:word:001921"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:017098",
@@ -309,6 +314,7 @@
         "issue_113_reviewed_topic_03",
         "issue_68_video_002_topic_proposal_001",
         "issue_68_video_002_topic_proposal_002",
+        "issue_68_video_002_topic_proposal_005",
         "issue_68_video_002_topic_proposal_006",
         "issue_68_video_002_topic_proposal_056",
         "issue_68_video_002_topic_proposal_057",
@@ -400,11 +406,6 @@
           "start_word_id": "transcript_revision_video_002_r1:word:000067"
         },
         {
-          "end_word_id": "transcript_revision_video_002_r1:word:001789",
-          "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:001713"
-        },
-        {
           "end_word_id": "transcript_revision_video_002_r1:word:015058",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:014945"
@@ -446,7 +447,6 @@
         "issue_113_reviewed_topic_12a",
         "issue_68_video_002_topic_proposal_001",
         "issue_68_video_002_topic_proposal_002",
-        "issue_68_video_002_topic_proposal_005",
         "issue_68_video_002_topic_proposal_047",
         "issue_68_video_002_topic_proposal_064"
       ]
@@ -557,7 +557,7 @@
         {
           "end_word_id": "transcript_revision_video_002_r1:word:002238",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:001790"
+          "start_word_id": "transcript_revision_video_002_r1:word:001921"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:002753",
@@ -939,7 +939,7 @@
         {
           "end_word_id": "transcript_revision_video_002_r1:word:002238",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:001790"
+          "start_word_id": "transcript_revision_video_002_r1:word:001921"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:005523",
@@ -2603,13 +2603,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 4,
-    "sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1"
+    "decision_count": 5,
+    "sha256": "89bdc102357408971889d953eae8a6b0410b7e63e81267d5eb3c92a1a89e21e7"
   },
   "domain_authoring_progress": {
-    "completed": 4,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_005",
-    "pending": 258,
+    "completed": 5,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_006",
+    "pending": 257,
     "total": 262
   },
   "errors": [],
@@ -2686,6 +2686,14 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_002"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_stress",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_005_stress",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_005"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_stress",
@@ -3118,14 +3126,6 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_002"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_005_kinesiology",
-      "review_status": "UNREVIEWED",
-      "source_id": "source_video_002",
-      "status": "PROVISIONAL",
-      "topic_reference": "issue_68_video_002_topic_proposal_005"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
@@ -4706,7 +4706,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1",
+        "ledger_sha256": "89bdc102357408971889d953eae8a6b0410b7e63e81267d5eb3c92a1a89e21e7",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4807,7 +4807,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1",
+        "ledger_sha256": "89bdc102357408971889d953eae8a6b0410b7e63e81267d5eb3c92a1a89e21e7",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5044,7 +5044,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1",
+        "ledger_sha256": "89bdc102357408971889d953eae8a6b0410b7e63e81267d5eb3c92a1a89e21e7",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5155,7 +5155,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "cb2e4c91695751932017dbe2b15f3a89cb4d0d5b59f4df1fd91447b46c7449d1",
+        "ledger_sha256": "89bdc102357408971889d953eae8a6b0410b7e63e81267d5eb3c92a1a89e21e7",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5254,7 +5254,19 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_title": "Сильный и слабый мышечный ответ как индикатор стресса",
+      "authoring_decision": {
+        "action": "REALIGN_RENAME",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_005",
+        "end_word_anchor_time": "00:20:45.677",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "89bdc102357408971889d953eae8a6b0410b7e63e81267d5eb3c92a1a89e21e7",
+        "next_start_word_anchor_time": "00:20:46.418",
+        "split_part_ids": []
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -5281,10 +5293,10 @@
         "level": "LOW"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 1153.789,
-      "end_time": "00:19:13.789",
-      "end_word_id": "transcript_revision_video_002_r1:word:001789",
-      "end_word_sequence": 1789,
+      "end_seconds": 1246.358,
+      "end_time": "00:20:46.358",
+      "end_word_id": "transcript_revision_video_002_r1:word:001920",
+      "end_word_sequence": 1920,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:001721",
@@ -5292,14 +5304,14 @@
           "text": "Вот это видео у вас остается, как и видео"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001789",
-          "start_word_id": "transcript_revision_video_002_r1:word:001781",
-          "text": "как я говорил, да, на что мы мышца и"
+          "end_word_id": "transcript_revision_video_002_r1:word:001920",
+          "start_word_id": "transcript_revision_video_002_r1:word:001912",
+          "text": "являются стрессовыми по той проблеме, с которой мы разбираемся."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001759",
-          "start_word_id": "transcript_revision_video_002_r1:word:001743",
-          "text": "важно относительно кинезиологии. У нас может быть только два варианта ответа мышцы. Мышца либо сильная, либо слабая."
+          "end_word_id": "transcript_revision_video_002_r1:word:001825",
+          "start_word_id": "transcript_revision_video_002_r1:word:001809",
+          "text": "да, вот об этом подумать. И организм реагирует стрессом. Это нормальная для него реакция. И мышца усиливается,"
         }
       },
       "generator_interval": {
@@ -5332,7 +5344,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Машинное резюме отсутствует; содержание требует ручной проверки.",
-        "Фрагмент проходит от «Вот это видео у вас остается, как…» к «говорил, да, на что мы мышца и»."
+        "Фрагмент проходит от «Вот это видео у вас остается, как…» к «по той проблеме, с которой мы разбираемся.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -5379,9 +5391,9 @@
       "end_word_sequence": 2238,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:001798",
-          "start_word_id": "transcript_revision_video_002_r1:word:001790",
-          "text": "организм, соответственно, да, может реагировать стрессом. Если подумать о"
+          "end_word_id": "transcript_revision_video_002_r1:word:001929",
+          "start_word_id": "transcript_revision_video_002_r1:word:001921",
+          "text": "На примере вчерашней сессии, которая у нас с Ларисой"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:002238",
@@ -5389,15 +5401,21 @@
           "text": "слабость. Да, сильный ответ. Нет, слабый ответ. Стандартная и"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:002022",
-          "start_word_id": "transcript_revision_video_002_r1:word:002006",
-          "text": "мысли об этом новом, у нее вызывали стресс. Это хорошо? Ну нет, конечно, это не хорошо. Это"
+          "end_word_id": "transcript_revision_video_002_r1:word:002088",
+          "start_word_id": "transcript_revision_video_002_r1:word:002072",
+          "text": "позитивную. И сняли стресс на эту проблему. И когда мы закончили коррекцию, у нас вот эта, которая"
         }
       },
       "generator_interval": {
         "end_seconds": 1449.24,
         "start_seconds": 1154.25,
         "start_segment_id": 158
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_005",
+        "from_word_id": "transcript_revision_video_002_r1:word:001790",
+        "to_word_id": "transcript_revision_video_002_r1:word:001921"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_006",
       "proposal_number": 6,
@@ -5418,14 +5436,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "В ходе сессии рассматривается, как организм реагирует на неприятные мысли и эмоции, такие как стресс, и как это можно изменить с помощью коррекции.",
-        "Фрагмент проходит от «организм, соответственно, да, может реагировать стрессом. Если…» к «сильный ответ. Нет, слабый ответ. Стандартная и»."
+        "Фрагмент проходит от «На примере вчерашней сессии, которая у нас…» к «сильный ответ. Нет, слабый ответ. Стандартная и»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 1155.936,
-      "start_time": "00:19:15.936",
-      "start_word_id": "transcript_revision_video_002_r1:word:001790",
-      "start_word_sequence": 1790,
+      "start_seconds": 1246.418,
+      "start_time": "00:20:46.418",
+      "start_word_id": "transcript_revision_video_002_r1:word:001921",
+      "start_word_sequence": 1921,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",
