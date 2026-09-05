@@ -14,21 +14,21 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **255**.
+Topic→Concept links: **256**.
 
 ## First review item
 
-### 11. Баланс и Поляризация
+### 12. Баланс Ионов и Меридианы
 
 - Source: `source_video_002`
-- Time: `00:37:46.077` — `00:39:03.997`
-- Words: `transcript_revision_video_002_r1:word:003557` — `transcript_revision_video_002_r1:word:003671`
-- Summary: Рассматривается взаимосвязь между различными частями тела человека и их потенциальной поляризацией. Фрагмент проходит от «Следующий у нас пункт – это баланс…» к «бы с электрической точки зрения. Вот у».
-- Beginning: Следующий у нас пункт – это баланс поляризации. Есть
-- Middle: оно должно быть. Но у нас так устроена планета, и вообще наша жизнь, положительных ионов, плюсов больше
-- End: только как бы с электрической точки зрения. Вот у
+- Time: `00:42:40.195` — `00:48:12.688`
+- Words: `transcript_revision_video_002_r1:word:003929` — `transcript_revision_video_002_r1:word:004490`
+- Summary: В ходе занятия рассматриваются методы балансировки ионов в организме посредством дыхательных упражнений, а также роль меридианов (энергетических систем) в коррекции энергетического потока. Фрагмент проходит от «Дальше. У нас остаётся простая коррекция. Это…» к «деток там, ну, обычно там лет 6-7».
+- Beginning: Дальше. У нас остаётся простая коррекция. Это промахиваем меридианами.
+- Middle: вот вы, когда вы так промахиваете, вы чувствуете, что что-то внутри по-другому становится, что-то меняется. Можно вздохнуть
+- End: осознанность. У деток там, ну, обычно там лет 6-7
 - Machine recommendation: `ACCEPT`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 11 — принять`,
+Natural Russian responses are supported, for example: `Тема 12 — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.

@@ -581,9 +581,14 @@
           "start_word_id": "transcript_revision_video_002_r1:word:003447"
         },
         {
+          "end_word_id": "transcript_revision_video_002_r1:word:003928",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:003557"
+        },
+        {
           "end_word_id": "transcript_revision_video_002_r1:word:004490",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:003672"
+          "start_word_id": "transcript_revision_video_002_r1:word:003929"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:015927",
@@ -796,6 +801,7 @@
         "issue_68_video_002_topic_proposal_008",
         "issue_68_video_002_topic_proposal_009",
         "issue_68_video_002_topic_proposal_010",
+        "issue_68_video_002_topic_proposal_011",
         "issue_68_video_002_topic_proposal_012",
         "issue_68_video_002_topic_proposal_052",
         "issue_68_video_002_topic_proposal_054",
@@ -1481,7 +1487,7 @@
         {
           "end_word_id": "transcript_revision_video_002_r1:word:004490",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:003672"
+          "start_word_id": "transcript_revision_video_002_r1:word:003929"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:008111",
@@ -2603,13 +2609,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 10,
-    "sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6"
+    "decision_count": 11,
+    "sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60"
   },
   "domain_authoring_progress": {
-    "completed": 10,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_011",
-    "pending": 252,
+    "completed": 11,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_012",
+    "pending": 251,
     "total": 262
   },
   "errors": [],
@@ -3262,6 +3268,14 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_010"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_correction",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_011_correction",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_011"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
@@ -4706,7 +4720,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4807,7 +4821,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5044,7 +5058,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5155,7 +5169,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5262,7 +5276,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5370,7 +5384,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5474,7 +5488,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5581,7 +5595,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5685,7 +5699,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5791,7 +5805,7 @@
         "decision_id": "issue_68_domain_authoring_topic_010",
         "end_word_anchor_time": "00:37:42.314",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "b9498994ea4ddeb8bac0559bca19d34b3d5b57ff458bf952c93db4fdeced87d6",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
         "next_start_word_anchor_time": "00:37:46.077",
         "split_part_ids": []
       },
@@ -5884,7 +5898,19 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_title": "Баланс поляризации: коррекция дыханием через ноздри",
+      "authoring_decision": {
+        "action": "REALIGN_RENAME",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_011",
+        "end_word_anchor_time": "00:42:20.661",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "f73f28ec7335e44f9dc1f0f0c040bb61886d2b2635fb2cb566fac0198a203d60",
+        "next_start_word_anchor_time": "00:42:40.195",
+        "split_part_ids": []
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -5907,10 +5933,10 @@
         "level": "MEDIUM"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 2343.997,
-      "end_time": "00:39:03.997",
-      "end_word_id": "transcript_revision_video_002_r1:word:003671",
-      "end_word_sequence": 3671,
+      "end_seconds": 2560.175,
+      "end_time": "00:42:40.175",
+      "end_word_id": "transcript_revision_video_002_r1:word:003928",
+      "end_word_sequence": 3928,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:003565",
@@ -5918,14 +5944,14 @@
           "text": "Следующий у нас пункт – это баланс поляризации. Есть"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003671",
-          "start_word_id": "transcript_revision_video_002_r1:word:003663",
-          "text": "только как бы с электрической точки зрения. Вот у"
+          "end_word_id": "transcript_revision_video_002_r1:word:003928",
+          "start_word_id": "transcript_revision_video_002_r1:word:003920",
+          "text": "получите. И с одним способом, и с другим способом."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003622",
-          "start_word_id": "transcript_revision_video_002_r1:word:003606",
-          "text": "оно должно быть. Но у нас так устроена планета, и вообще наша жизнь, положительных ионов, плюсов больше"
+          "end_word_id": "transcript_revision_video_002_r1:word:003751",
+          "start_word_id": "transcript_revision_video_002_r1:word:003735",
+          "text": "И такое же количество отрицательных ионов мы вдыхаем другого ноздря. И вот у нас оно уравновешивается. Эта"
         }
       },
       "generator_interval": {
@@ -5958,7 +5984,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Рассматривается взаимосвязь между различными частями тела человека и их потенциальной поляризацией.",
-        "Фрагмент проходит от «Следующий у нас пункт – это баланс…» к «бы с электрической точки зрения. Вот у»."
+        "Фрагмент проходит от «Следующий у нас пункт – это баланс…» к «с одним способом, и с другим способом.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -6005,9 +6031,9 @@
       "end_word_sequence": 4490,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003680",
-          "start_word_id": "transcript_revision_video_002_r1:word:003672",
-          "text": "нас в округе есть по-разному заряженные частицы в воздухе."
+          "end_word_id": "transcript_revision_video_002_r1:word:003937",
+          "start_word_id": "transcript_revision_video_002_r1:word:003929",
+          "text": "Дальше. У нас остаётся простая коррекция. Это промахиваем меридианами."
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:004490",
@@ -6015,15 +6041,21 @@
           "text": "осознанность. У деток там, ну, обычно там лет 6-7"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:004089",
-          "start_word_id": "transcript_revision_video_002_r1:word:004073",
-          "text": "серединный меридиан. Это энергия. С энергией Инь с женской энергией. И он, этот меридиан, условно, скажем так,"
+          "end_word_id": "transcript_revision_video_002_r1:word:004218",
+          "start_word_id": "transcript_revision_video_002_r1:word:004202",
+          "text": "вот вы, когда вы так промахиваете, вы чувствуете, что что-то внутри по-другому становится, что-то меняется. Можно вздохнуть"
         }
       },
       "generator_interval": {
         "end_seconds": 2893.31,
         "start_seconds": 2346.18,
         "start_segment_id": 329
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_011",
+        "from_word_id": "transcript_revision_video_002_r1:word:003672",
+        "to_word_id": "transcript_revision_video_002_r1:word:003929"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_012",
       "proposal_number": 12,
@@ -6044,14 +6076,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "В ходе занятия рассматриваются методы балансировки ионов в организме посредством дыхательных упражнений, а также роль меридианов (энергетических систем) в коррекции энергетического потока.",
-        "Фрагмент проходит от «нас в округе есть по-разному заряженные частицы…» к «деток там, ну, обычно там лет 6-7»."
+        "Фрагмент проходит от «Дальше. У нас остаётся простая коррекция. Это…» к «деток там, ну, обычно там лет 6-7»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 2346.24,
-      "start_time": "00:39:06.240",
-      "start_word_id": "transcript_revision_video_002_r1:word:003672",
-      "start_word_sequence": 3672,
+      "start_seconds": 2560.195,
+      "start_time": "00:42:40.195",
+      "start_word_id": "transcript_revision_video_002_r1:word:003929",
+      "start_word_sequence": 3929,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",

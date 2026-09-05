@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 10,
-        "pending": 252,
+        "completed": 11,
+        "pending": 251,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_011",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_012",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -442,6 +442,16 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert eleventh["start_word_id"].endswith("word:003557")
     assert eleventh["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_010"
+    )
+    assert eleventh["end_word_id"].endswith("word:003928")
+    assert eleventh["authored_title"] == (
+        "Баланс поляризации: коррекция дыханием через ноздри"
+    )
+    assert eleventh["authoring_status"] == "COMPLETED"
+    twelfth = package["topic_proposals"][11]
+    assert twelfth["start_word_id"].endswith("word:003929")
+    assert twelfth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_011"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
