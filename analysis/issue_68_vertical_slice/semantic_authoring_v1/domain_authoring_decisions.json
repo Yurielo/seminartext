@@ -265,6 +265,45 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 12, Day 2: REALIGN + RENAME. Новое название: «Коррекция поляризации через меридианы и завершение претестов». Диапазон word:003929–word:004430; следующая тема начинается с word:004431. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:003929"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-05",
+      "decision_id": "issue_68_domain_authoring_topic_013",
+      "end_word_id": "transcript_revision_video_002_r1:word:004853",
+      "end_word_anchor_time": "00:51:33.531",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_014",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:004854",
+      "next_start_word_anchor_time": "00:51:42.478",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:004643",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:004644",
+      "proposal_id": "issue_68_video_002_topic_proposal_013",
+      "reason": "Исходная тема объединяла два самостоятельных аспекта ответа: возраст и способность ребенка выполнять прямые инструкции, а затем ограничения работы при отсутствии осознанного ответа и альтернативные методы. Прежняя правая граница разрывала пример с Ларисой; возврат к вопросам о технике тестирования открывает следующую смысловую единицу.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 13, Day 2: принять SPLIT + REALIGN. 13A word:004431–word:004535 «Возраст начала прямого мышечного тестирования у детей»; 13B word:004536–word:004853 «Работа без осознанного ответа: ограничения текущего метода и альтернативы». Следующая тема начинается с word:004854. Статус обеих частей PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "00:48:35.940",
+          "end_word_id": "transcript_revision_video_002_r1:word:004535",
+          "part_id": "issue_68_video_002_topic_proposal_013a",
+          "part_label": "13A",
+          "start_word_anchor_time": "00:47:36.931",
+          "start_word_id": "transcript_revision_video_002_r1:word:004431",
+          "title": "Возраст начала прямого мышечного тестирования у детей"
+        },
+        {
+          "end_word_anchor_time": "00:51:33.531",
+          "end_word_id": "transcript_revision_video_002_r1:word:004853",
+          "part_id": "issue_68_video_002_topic_proposal_013b",
+          "part_label": "13B",
+          "start_word_anchor_time": "00:48:40.450",
+          "start_word_id": "transcript_revision_video_002_r1:word:004536",
+          "title": "Работа без осознанного ответа: ограничения текущего метода и альтернативы"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_002_r1:word:004431"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",

@@ -491,6 +491,11 @@
           "end_word_id": "transcript_revision_video_002_r1:word:001712",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:001219"
+        },
+        {
+          "end_word_id": "transcript_revision_video_002_r1:word:004535",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:004431"
         }
       ],
       "identity_ambiguities": {
@@ -522,7 +527,8 @@
         "issue_113_reviewed_topic_26",
         "issue_113_reviewed_topic_27",
         "issue_68_video_002_topic_proposal_002",
-        "issue_68_video_002_topic_proposal_004"
+        "issue_68_video_002_topic_proposal_004",
+        "issue_68_video_002_topic_proposal_013a"
       ]
     },
     {
@@ -950,7 +956,7 @@
         {
           "end_word_id": "transcript_revision_video_002_r1:word:005523",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:004644"
+          "start_word_id": "transcript_revision_video_002_r1:word:004854"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:008111",
@@ -1379,7 +1385,7 @@
         {
           "end_word_id": "transcript_revision_video_002_r1:word:005523",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:004644"
+          "start_word_id": "transcript_revision_video_002_r1:word:004854"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:020867",
@@ -1806,7 +1812,7 @@
         {
           "end_word_id": "transcript_revision_video_002_r1:word:005523",
           "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:004644"
+          "start_word_id": "transcript_revision_video_002_r1:word:004854"
         },
         {
           "end_word_id": "transcript_revision_video_002_r1:word:017828",
@@ -2609,13 +2615,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 12,
-    "sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab"
+    "decision_count": 13,
+    "sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee"
   },
   "domain_authoring_progress": {
-    "completed": 12,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_013",
-    "pending": 250,
+    "completed": 13,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_014",
+    "pending": 249,
     "total": 262
   },
   "errors": [],
@@ -3196,6 +3202,14 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_004"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_muscle_testing",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_013a_muscle_testing",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_013a"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
@@ -4720,7 +4734,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4821,7 +4835,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5058,7 +5072,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5169,7 +5183,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5276,7 +5290,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5384,7 +5398,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5488,7 +5502,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5595,7 +5609,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5699,7 +5713,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5805,7 +5819,7 @@
         "decision_id": "issue_68_domain_authoring_topic_010",
         "end_word_anchor_time": "00:37:42.314",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:37:46.077",
         "split_part_ids": []
       },
@@ -5906,7 +5920,7 @@
         "decision_id": "issue_68_domain_authoring_topic_011",
         "end_word_anchor_time": "00:42:20.661",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:42:40.195",
         "split_part_ids": []
       },
@@ -6010,7 +6024,7 @@
         "decision_id": "issue_68_domain_authoring_topic_012",
         "end_word_anchor_time": "00:47:36.651",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fd3c36ac8359eef714ffa333cf5bb032b2688d34f01a256fe01f5841f9c239ab",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
         "next_start_word_anchor_time": "00:47:36.931",
         "split_part_ids": []
       },
@@ -6106,7 +6120,91 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_topics": [
+        {
+          "authored_title": "Возраст начала прямого мышечного тестирования у детей",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "00:48:37.564",
+          "end_word_anchor_time": "00:48:35.940",
+          "end_word_id": "transcript_revision_video_002_r1:word:004535",
+          "end_word_sequence": 4535,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:004439",
+              "start_word_id": "transcript_revision_video_002_r1:word:004431",
+              "text": "Юрий, ну у меня вопрос такой, не совсем. А"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:004535",
+              "start_word_id": "transcript_revision_video_002_r1:word:004527",
+              "text": "то есть на ребенке делать. А это про тестирование."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:004491",
+              "start_word_id": "transcript_revision_video_002_r1:word:004475",
+              "text": "не развитие, вот. Сознание там, уровень сознания, осознанность. У деток там, ну, обычно там лет 6-7 уже"
+            }
+          },
+          "part_label": "13A",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:47:36.931",
+          "start_word_anchor_time": "00:47:36.931",
+          "start_word_id": "transcript_revision_video_002_r1:word:004431",
+          "start_word_sequence": 4431,
+          "topic_id": "issue_68_video_002_topic_proposal_013a"
+        },
+        {
+          "authored_title": "Работа без осознанного ответа: ограничения текущего метода и альтернативы",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "00:51:34.472",
+          "end_word_anchor_time": "00:51:33.531",
+          "end_word_id": "transcript_revision_video_002_r1:word:004853",
+          "end_word_sequence": 4853,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:004544",
+              "start_word_id": "transcript_revision_video_002_r1:word:004536",
+              "text": "Вот, обратите внимание, о чем я говорил, да? Мы"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:004853",
+              "start_word_id": "transcript_revision_video_002_r1:word:004845",
+              "text": "далее. Что мы чувствовали. Какой-то период. И так далее."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:004703",
+              "start_word_id": "transcript_revision_video_002_r1:word:004687",
+              "text": "так ощущала. Его, ну, скорее всего, там, человек со старшей деменцией, либо, ну, Он не поймет, о"
+            }
+          },
+          "part_label": "13B",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:48:40.450",
+          "start_word_anchor_time": "00:48:40.450",
+          "start_word_id": "transcript_revision_video_002_r1:word:004536",
+          "start_word_sequence": 4536,
+          "topic_id": "issue_68_video_002_topic_proposal_013b"
+        }
+      ],
+      "authoring_decision": {
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_013",
+        "end_word_anchor_time": "00:51:33.531",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "4c4e9120700015e702cf60328af7e1407cc0066e713b4bc6b0665aadf6a65cee",
+        "next_start_word_anchor_time": "00:51:42.478",
+        "split_part_ids": [
+          "issue_68_video_002_topic_proposal_013a",
+          "issue_68_video_002_topic_proposal_013b"
+        ]
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -6133,10 +6231,10 @@
         "level": "LOW"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 2978.26,
-      "end_time": "00:49:38.260",
-      "end_word_id": "transcript_revision_video_002_r1:word:004643",
-      "end_word_sequence": 4643,
+      "end_seconds": 3094.472,
+      "end_time": "00:51:34.472",
+      "end_word_id": "transcript_revision_video_002_r1:word:004853",
+      "end_word_sequence": 4853,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:004439",
@@ -6144,14 +6242,14 @@
           "text": "Юрий, ну у меня вопрос такой, не совсем. А"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:004643",
-          "start_word_id": "transcript_revision_video_002_r1:word:004635",
-          "text": "подсознавать. Как вот вчера с Ларисой, да, у нас"
+          "end_word_id": "transcript_revision_video_002_r1:word:004853",
+          "start_word_id": "transcript_revision_video_002_r1:word:004845",
+          "text": "далее. Что мы чувствовали. Какой-то период. И так далее."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:004545",
-          "start_word_id": "transcript_revision_video_002_r1:word:004529",
-          "text": "на ребенке делать. А это про тестирование. Вот, обратите внимание, о чем я говорил, да? Мы тестировать,"
+          "end_word_id": "transcript_revision_video_002_r1:word:004650",
+          "start_word_id": "transcript_revision_video_002_r1:word:004634",
+          "text": "надо подсознавать. Как вот вчера с Ларисой, да, у нас была сессия, мы нашли какие-то конкретные эмоции."
         }
       },
       "generator_interval": {
@@ -6184,7 +6282,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Разговор о том, как ребенок должен реагировать на указания взрослого во время тестирования.",
-        "Фрагмент проходит от «Юрий, ну у меня вопрос такой, не…» к «вот вчера с Ларисой, да, у нас»."
+        "Фрагмент проходит от «Юрий, ну у меня вопрос такой, не…» к «мы чувствовали. Какой-то период. И так далее.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -6234,9 +6332,9 @@
       "end_word_sequence": 5523,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:004652",
-          "start_word_id": "transcript_revision_video_002_r1:word:004644",
-          "text": "была сессия, мы нашли какие-то конкретные эмоции. Лариса взяла"
+          "end_word_id": "transcript_revision_video_002_r1:word:004862",
+          "start_word_id": "transcript_revision_video_002_r1:word:004854",
+          "text": "По, коллеги, по тестированию передней порции вот по дельтовидной"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:005523",
@@ -6244,15 +6342,21 @@
           "text": "момент есть кто-то в паре, который может потестировать? Видимо,"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:005092",
-          "start_word_id": "transcript_revision_video_002_r1:word:005076",
-          "text": "да. Лучше как бы. Ну, вот хорошее там. Удерживайте. Вот в такой позиции. Вам нужно вот наработать"
+          "end_word_id": "transcript_revision_video_002_r1:word:005197",
+          "start_word_id": "transcript_revision_video_002_r1:word:005181",
+          "text": "задача взять вот этот листочек с крестиком, который у вас в раздаточных материалах, и сейчас с вами"
         }
       },
       "generator_interval": {
         "end_seconds": 3616.11,
         "start_seconds": 2978.44,
         "start_segment_id": 413
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_013",
+        "from_word_id": "transcript_revision_video_002_r1:word:004644",
+        "to_word_id": "transcript_revision_video_002_r1:word:004854"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_014",
       "proposal_number": 14,
@@ -6273,14 +6377,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Семинар посвящен методам работы с клиентами на расстоянии, включая тестирование мышц и использование гексограмм для взаимодействия с подсознанием, а также важность осознания эмоций и регулярных гимнастических упражнений для поддержания функциональности мозга.",
-        "Фрагмент проходит от «была сессия, мы нашли какие-то конкретные эмоции.…» к «кто-то в паре, который может потестировать? Видимо,»."
+        "Фрагмент проходит от «По, коллеги, по тестированию передней порции вот…» к «кто-то в паре, который может потестировать? Видимо,»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 2978.66,
-      "start_time": "00:49:38.660",
-      "start_word_id": "transcript_revision_video_002_r1:word:004644",
-      "start_word_sequence": 4644,
+      "start_seconds": 3102.478,
+      "start_time": "00:51:42.478",
+      "start_word_id": "transcript_revision_video_002_r1:word:004854",
+      "start_word_sequence": 4854,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",
