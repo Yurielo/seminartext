@@ -14,21 +14,21 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **256**.
+Topic→Concept links: **257**.
 
 ## First review item
 
-### 15. Очные эксперименты
+### 16. Взаимосвязь энергий и восприятие мира
 
 - Source: `source_video_002`
-- Time: `00:59:59.769` — `01:07:05.959`
-- Words: `transcript_revision_video_002_r1:word:005509` — `transcript_revision_video_002_r1:word:006213`
-- Summary: Преподаватель описывает проведение экспериментов в парах во время очных семинаров, где участники могут быть добровольцами или из зала. Фрагмент проходит от «У нас У нас в данный момент…» к «о силе мысли, да, у всех было».
-- Beginning: У нас У нас в данный момент есть кто-то
-- Middle: вот оказывает такое влияние на другого человека, на энергию, исходящую от одного человека на другого человека, оказывает
-- End: продолжить тему о силе мысли, да, у всех было
+- Time: `01:06:52.228` — `01:11:43.507`
+- Words: `transcript_revision_video_002_r1:word:006198` — `transcript_revision_video_002_r1:word:006701`
+- Summary: Разговор о феномене внезапного осознания, что кто-то на тебя смотрит, и о распространенном в различных культурах представлении о мире как о пронизанном энергии, от физических частиц до духовных сущностей. Фрагмент проходит от «Ну вот смотрите. Мы, если вот, если…» к «планетарную модель атома Резерфорда. Есть ядро атома,».
+- Beginning: Ну вот смотрите. Мы, если вот, если продолжить тему
+- Middle: энергия, что вот эта энергия там все связывает, на все влияет и является первоосновой, возникло и независимо
+- End: в школе планетарную модель атома Резерфорда. Есть ядро атома,
 - Machine recommendation: `ACCEPT`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 15 — принять`,
+Natural Russian responses are supported, for example: `Тема 16 — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.

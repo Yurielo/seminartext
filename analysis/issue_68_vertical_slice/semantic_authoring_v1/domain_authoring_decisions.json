@@ -352,6 +352,54 @@
         }
       ],
       "start_word_id": "transcript_revision_video_002_r1:word:004854"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-05",
+      "decision_id": "issue_68_domain_authoring_topic_015",
+      "end_word_id": "transcript_revision_video_002_r1:word:006197",
+      "end_word_anchor_time": "01:06:51.767",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_016",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:006198",
+      "next_start_word_anchor_time": "01:06:52.228",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:006213",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:006214",
+      "proposal_id": "issue_68_video_002_topic_proposal_015",
+      "reason": "Исходная тема объединяла постановку очного мышечного эксперимента, вывод о влиянии мыслей и отдельное обсуждение проявлений аутоагрессии. Новый ряд примеров о мысленной связи начинается самостоятельным блоком; прежняя граница разрывала его первое предложение.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 15, Day 2: принять SPLIT + REALIGN. 15A word:005509–word:005839 «Очный мышечный эксперимент с мысленной похвалой и критикой»; 15B word:005840–word:005969 «Влияние мыслей на состояние человека и понятие аутоагрессии»; 15C word:005970–word:006197 «Проявления аутоагрессии и саморазрушающего поведения». Следующая тема начинается с word:006198. Статус всех частей PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "01:02:59.090",
+          "end_word_id": "transcript_revision_video_002_r1:word:005839",
+          "part_id": "issue_68_video_002_topic_proposal_015a",
+          "part_label": "15A",
+          "start_word_anchor_time": "00:59:59.769",
+          "start_word_id": "transcript_revision_video_002_r1:word:005509",
+          "title": "Очный мышечный эксперимент с мысленной похвалой и критикой"
+        },
+        {
+          "end_word_anchor_time": "01:04:17.553",
+          "end_word_id": "transcript_revision_video_002_r1:word:005969",
+          "part_id": "issue_68_video_002_topic_proposal_015b",
+          "part_label": "15B",
+          "start_word_anchor_time": "01:03:01.538",
+          "start_word_id": "transcript_revision_video_002_r1:word:005840",
+          "title": "Влияние мыслей на состояние человека и понятие аутоагрессии"
+        },
+        {
+          "end_word_anchor_time": "01:06:51.767",
+          "end_word_id": "transcript_revision_video_002_r1:word:006197",
+          "part_id": "issue_68_video_002_topic_proposal_015c",
+          "part_label": "15C",
+          "start_word_anchor_time": "01:04:19.055",
+          "start_word_id": "transcript_revision_video_002_r1:word:005970",
+          "title": "Проявления аутоагрессии и саморазрушающего поведения"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_002_r1:word:005509"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",

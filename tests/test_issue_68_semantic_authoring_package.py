@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 14,
-        "pending": 248,
+        "completed": 15,
+        "pending": 247,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_015",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_016",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -504,6 +504,28 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert fifteenth["start_word_id"].endswith("word:005509")
     assert fifteenth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_014"
+    )
+    assert fifteenth["end_word_id"].endswith("word:006197")
+    assert fifteenth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in fifteenth["authored_topics"]] == [
+        "15A",
+        "15B",
+        "15C",
+    ]
+    assert [item["authored_title"] for item in fifteenth["authored_topics"]] == [
+        "Очный мышечный эксперимент с мысленной похвалой и критикой",
+        "Влияние мыслей на состояние человека и понятие аутоагрессии",
+        "Проявления аутоагрессии и саморазрушающего поведения",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in fifteenth["authored_topics"]
+    )
+    sixteenth = package["topic_proposals"][15]
+    assert sixteenth["start_word_id"].endswith("word:006198")
+    assert sixteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_015"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]

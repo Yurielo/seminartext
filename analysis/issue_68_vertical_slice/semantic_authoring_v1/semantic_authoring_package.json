@@ -960,6 +960,11 @@
           "start_word_id": "transcript_revision_video_002_r1:word:001921"
         },
         {
+          "end_word_id": "transcript_revision_video_002_r1:word:005969",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:005840"
+        },
+        {
           "end_word_id": "transcript_revision_video_002_r1:word:008111",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:008035"
@@ -1168,6 +1173,7 @@
       "topic_references": [
         "issue_113_reviewed_topic_13",
         "issue_68_video_002_topic_proposal_006",
+        "issue_68_video_002_topic_proposal_015b",
         "issue_68_video_002_topic_proposal_022",
         "issue_68_video_002_topic_proposal_023",
         "issue_68_video_002_topic_proposal_025",
@@ -2609,13 +2615,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 14,
-    "sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e"
+    "decision_count": 15,
+    "sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8"
   },
   "domain_authoring_progress": {
-    "completed": 14,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_015",
-    "pending": 248,
+    "completed": 15,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_016",
+    "pending": 247,
     "total": 262
   },
   "errors": [],
@@ -3660,6 +3666,14 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_006"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_015b_emotion",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_015b"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
@@ -4720,7 +4734,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4821,7 +4835,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5058,7 +5072,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5169,7 +5183,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5276,7 +5290,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5384,7 +5398,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5488,7 +5502,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5595,7 +5609,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5699,7 +5713,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5805,7 +5819,7 @@
         "decision_id": "issue_68_domain_authoring_topic_010",
         "end_word_anchor_time": "00:37:42.314",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:37:46.077",
         "split_part_ids": []
       },
@@ -5906,7 +5920,7 @@
         "decision_id": "issue_68_domain_authoring_topic_011",
         "end_word_anchor_time": "00:42:20.661",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:42:40.195",
         "split_part_ids": []
       },
@@ -6010,7 +6024,7 @@
         "decision_id": "issue_68_domain_authoring_topic_012",
         "end_word_anchor_time": "00:47:36.651",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:47:36.931",
         "split_part_ids": []
       },
@@ -6183,7 +6197,7 @@
         "decision_id": "issue_68_domain_authoring_topic_013",
         "end_word_anchor_time": "00:51:33.531",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:51:42.478",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_013a",
@@ -6397,7 +6411,7 @@
         "decision_id": "issue_68_domain_authoring_topic_014",
         "end_word_anchor_time": "00:59:59.669",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "6866c6b2e274bc82021f42ede72fe38df3272eebf69ce8053e7d8978a9ef2a2e",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
         "next_start_word_anchor_time": "00:59:59.769",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_014a",
@@ -6500,7 +6514,126 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_topics": [
+        {
+          "authored_title": "Очный мышечный эксперимент с мысленной похвалой и критикой",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "01:03:01.457",
+          "end_word_anchor_time": "01:02:59.090",
+          "end_word_id": "transcript_revision_video_002_r1:word:005839",
+          "end_word_sequence": 5839,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005517",
+              "start_word_id": "transcript_revision_video_002_r1:word:005509",
+              "text": "У нас У нас в данный момент есть кто-то"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005839",
+              "start_word_id": "transcript_revision_video_002_r1:word:005831",
+              "text": "группе, мы бы вот это могли, в общем-то, проверить."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005682",
+              "start_word_id": "transcript_revision_video_002_r1:word:005666",
+              "text": "то, что там люди делают. Ну, и там не видит же, там мысли же, да, это мысленно"
+            }
+          },
+          "part_label": "15A",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "00:59:59.769",
+          "start_word_anchor_time": "00:59:59.769",
+          "start_word_id": "transcript_revision_video_002_r1:word:005509",
+          "start_word_sequence": 5509,
+          "topic_id": "issue_68_video_002_topic_proposal_015a"
+        },
+        {
+          "authored_title": "Влияние мыслей на состояние человека и понятие аутоагрессии",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "01:04:19.015",
+          "end_word_anchor_time": "01:04:17.553",
+          "end_word_id": "transcript_revision_video_002_r1:word:005969",
+          "end_word_sequence": 5969,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005848",
+              "start_word_id": "transcript_revision_video_002_r1:word:005840",
+              "text": "И вот теперь представьте, что как, вот если вот"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005969",
+              "start_word_id": "transcript_revision_video_002_r1:word:005961",
+              "text": "мы начинаем разрушать себя. Это у нас называется аутоагрессией."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005913",
+              "start_word_id": "transcript_revision_video_002_r1:word:005897",
+              "text": "понимать, то, что вот эти саморазрушающие эмоции, да, состояния, они оказывают очень большое влияние и, ну, и,"
+            }
+          },
+          "part_label": "15B",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "01:03:01.538",
+          "start_word_anchor_time": "01:03:01.538",
+          "start_word_id": "transcript_revision_video_002_r1:word:005840",
+          "start_word_sequence": 5840,
+          "topic_id": "issue_68_video_002_topic_proposal_015b"
+        },
+        {
+          "authored_title": "Проявления аутоагрессии и саморазрушающего поведения",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "01:06:52.208",
+          "end_word_anchor_time": "01:06:51.767",
+          "end_word_id": "transcript_revision_video_002_r1:word:006197",
+          "end_word_sequence": 6197,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:005978",
+              "start_word_id": "transcript_revision_video_002_r1:word:005970",
+              "text": "И вот давайте, вот просто, опять же, да, для"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006197",
+              "start_word_id": "transcript_revision_video_002_r1:word:006189",
+              "text": "связано с риском для жизни, да. Угу. Угу. Окей."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:006092",
+              "start_word_id": "transcript_revision_video_002_r1:word:006076",
+              "text": "переедание или сахарный диабет тоже же. И, допустим, если человек знает, что ему нельзя, а он берет"
+            }
+          },
+          "part_label": "15C",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "01:04:19.055",
+          "start_word_anchor_time": "01:04:19.055",
+          "start_word_id": "transcript_revision_video_002_r1:word:005970",
+          "start_word_sequence": 5970,
+          "topic_id": "issue_68_video_002_topic_proposal_015c"
+        }
+      ],
+      "authoring_decision": {
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_015",
+        "end_word_anchor_time": "01:06:51.767",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "2ac0be088270550ec24340abf2b66b85ce2bbde711b85e1994d9ab78be0309a8",
+        "next_start_word_anchor_time": "01:06:52.228",
+        "split_part_ids": [
+          "issue_68_video_002_topic_proposal_015a",
+          "issue_68_video_002_topic_proposal_015b",
+          "issue_68_video_002_topic_proposal_015c"
+        ]
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -6526,10 +6659,10 @@
         "level": "LOW"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 4025.959,
-      "end_time": "01:07:05.959",
-      "end_word_id": "transcript_revision_video_002_r1:word:006213",
-      "end_word_sequence": 6213,
+      "end_seconds": 4012.208,
+      "end_time": "01:06:52.208",
+      "end_word_id": "transcript_revision_video_002_r1:word:006197",
+      "end_word_sequence": 6197,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:005517",
@@ -6537,14 +6670,14 @@
           "text": "У нас У нас в данный момент есть кто-то"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:006213",
-          "start_word_id": "transcript_revision_video_002_r1:word:006205",
-          "text": "продолжить тему о силе мысли, да, у всех было"
+          "end_word_id": "transcript_revision_video_002_r1:word:006197",
+          "start_word_id": "transcript_revision_video_002_r1:word:006189",
+          "text": "связано с риском для жизни, да. Угу. Угу. Окей."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:005869",
-          "start_word_id": "transcript_revision_video_002_r1:word:005853",
-          "text": "вот оказывает такое влияние на другого человека, на энергию, исходящую от одного человека на другого человека, оказывает"
+          "end_word_id": "transcript_revision_video_002_r1:word:005861",
+          "start_word_id": "transcript_revision_video_002_r1:word:005845",
+          "text": "как, вот если вот такая энергия, энергия мысли, вот оказывает такое влияние на другого человека, на энергию,"
         }
       },
       "generator_interval": {
@@ -6577,7 +6710,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Преподаватель описывает проведение экспериментов в парах во время очных семинаров, где участники могут быть добровольцами или из зала.",
-        "Фрагмент проходит от «У нас У нас в данный момент…» к «о силе мысли, да, у всех было»."
+        "Фрагмент проходит от «У нас У нас в данный момент…» к «риском для жизни, да. Угу. Угу. Окей.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -6624,9 +6757,9 @@
       "end_word_sequence": 6701,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:006222",
-          "start_word_id": "transcript_revision_video_002_r1:word:006214",
-          "text": "такое, что вы о ком-то подумали, и вам человек"
+          "end_word_id": "transcript_revision_video_002_r1:word:006206",
+          "start_word_id": "transcript_revision_video_002_r1:word:006198",
+          "text": "Ну вот смотрите. Мы, если вот, если продолжить тему"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:006701",
@@ -6634,15 +6767,21 @@
           "text": "в школе планетарную модель атома Резерфорда. Есть ядро атома,"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:006466",
-          "start_word_id": "transcript_revision_video_002_r1:word:006450",
-          "text": "на все влияет и является первоосновой, возникло и независимо существовало там в порядка ста культурах, да, в"
+          "end_word_id": "transcript_revision_video_002_r1:word:006458",
+          "start_word_id": "transcript_revision_video_002_r1:word:006442",
+          "text": "энергия, что вот эта энергия там все связывает, на все влияет и является первоосновой, возникло и независимо"
         }
       },
       "generator_interval": {
         "end_seconds": 4304.59,
         "start_seconds": 4026.98,
         "start_segment_id": 549
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_015",
+        "from_word_id": "transcript_revision_video_002_r1:word:006214",
+        "to_word_id": "transcript_revision_video_002_r1:word:006198"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_016",
       "proposal_number": 16,
@@ -6663,14 +6802,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Разговор о феномене внезапного осознания, что кто-то на тебя смотрит, и о распространенном в различных культурах представлении о мире как о пронизанном энергии, от физических частиц до духовных сущностей.",
-        "Фрагмент проходит от «такое, что вы о ком-то подумали, и…» к «планетарную модель атома Резерфорда. Есть ядро атома,»."
+        "Фрагмент проходит от «Ну вот смотрите. Мы, если вот, если…» к «планетарную модель атома Резерфорда. Есть ядро атома,»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 4027.12,
-      "start_time": "01:07:07.120",
-      "start_word_id": "transcript_revision_video_002_r1:word:006214",
-      "start_word_sequence": 6214,
+      "start_seconds": 4012.228,
+      "start_time": "01:06:52.228",
+      "start_word_id": "transcript_revision_video_002_r1:word:006198",
+      "start_word_sequence": 6198,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",
