@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 16,
-        "pending": 246,
+        "completed": 17,
+        "pending": 245,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_017",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_018",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -546,6 +546,18 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert seventeenth["start_word_id"].endswith("word:006597")
     assert seventeenth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_016"
+    )
+    assert seventeenth["end_word_id"].endswith("word:006827")
+    assert seventeenth["authored_title"] == (
+        "Строение материи: от органов и клеток к атомам и субатомным частицам"
+    )
+    assert seventeenth["authoring_status"] == "COMPLETED"
+    assert seventeenth["semantic_status"] == "PROVISIONAL"
+    assert seventeenth["domain_review_status"] == "REVIEW_REQUIRED"
+    eighteenth = package["topic_proposals"][17]
+    assert eighteenth["start_word_id"].endswith("word:006828")
+    assert eighteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_017"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]

@@ -439,6 +439,26 @@
         }
       ],
       "start_word_id": "transcript_revision_video_002_r1:word:006198"
+    },
+    {
+      "action": "REALIGN_RENAME",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-05",
+      "decision_id": "issue_68_domain_authoring_topic_017",
+      "end_word_id": "transcript_revision_video_002_r1:word:006827",
+      "end_word_anchor_time": "01:13:14.416",
+      "new_title": "Строение материи: от органов и клеток к атомам и субатомным частицам",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_018",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:006828",
+      "next_start_word_anchor_time": "01:13:15.598",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:006797",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:006798",
+      "proposal_id": "issue_68_video_002_topic_proposal_017",
+      "reason": "Фрагмент последовательно раскрывает строение человека через ткани, клетки, молекулы, атомы и субатомные частицы. Прежняя граница разрывала перечисление частиц на слове «Кварки»; вопрос о выводах из рассмотренного материала открывает следующую смысловую единицу.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 17, Day 2: принять REALIGN + RENAME. Новое название: «Строение материи: от органов и клеток к атомам и субатомным частицам». Диапазон word:006597–word:006827; следующая тема начинается с word:006828. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:006597"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",
