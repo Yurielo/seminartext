@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 6,
-        "pending": 256,
+        "completed": 7,
+        "pending": 255,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_007",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_008",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -412,6 +412,14 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     seventh = package["topic_proposals"][6]
     assert seventh["start_word_id"].endswith("word:002202")
     assert seventh["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_006"
+    assert seventh["end_word_id"].endswith("word:002586")
+    assert seventh["authored_title"] == (
+        "Претест «очищение»: восстановление нормотонуса мышцы"
+    )
+    assert seventh["authoring_status"] == "COMPLETED"
+    eighth = package["topic_proposals"][7]
+    assert eighth["start_word_id"].endswith("word:002587")
+    assert eighth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_007"
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
         assert coverage["gaps"] == []

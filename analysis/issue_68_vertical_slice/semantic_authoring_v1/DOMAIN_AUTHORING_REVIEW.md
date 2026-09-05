@@ -14,21 +14,21 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **255**.
+Topic→Concept links: **253**.
 
 ## First review item
 
-### 7. Претесты для нормотонизации мышц
+### 8. Работа с телом
 
 - Source: `source_video_002`
-- Time: `00:23:42.407` — `00:29:34.120`
-- Words: `transcript_revision_video_002_r1:word:002202` — `transcript_revision_video_002_r1:word:002753`
-- Summary: Сегмент посвящен проведению претестов – процедур очищения и перегрузки мышц – для восстановления их нормотонического состояния, особенно в начале работы с клиентом. Фрагмент проходит от «Когда мы с человеком начинаем работать, только…» к «будет вот это переключение. У нас, помните,».
-- Beginning: Когда мы с человеком начинаем работать, только у нас
-- Middle: как бы, да, условно, мышцу пополоскали, очищение сделали. Это первый у нас претест. Давайте мы хотя бы
-- End: эта коррекция будет вот это переключение. У нас, помните,
+- Time: `00:27:49.810` — `00:35:04.975`
+- Words: `transcript_revision_video_002_r1:word:002587` — `transcript_revision_video_002_r1:word:003358`
+- Summary: Обсуждается влияние коррекций, связанных с определенными движениями, на физиологические процессы в теле, в частности, на соединение левой и правой половины тела. Фрагмент проходит от «Следующий у нас претест называется перегрузка. Ну,…» к «что все уже настолько устал, что ни».
+- Beginning: Следующий у нас претест называется перегрузка. Ну, в том
+- Middle: говоря, вот наша середина, и вот эта середина, условно, в одной стороне больше материнского, в другой стороне
+- End: состояние, ощущение, что все уже настолько устал, что ни
 - Machine recommendation: `ACCEPT`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 7 — принять`,
+Natural Russian responses are supported, for example: `Тема 8 — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.

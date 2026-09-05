@@ -566,16 +566,6 @@
           "start_word_id": "transcript_revision_video_002_r1:word:001921"
         },
         {
-          "end_word_id": "transcript_revision_video_002_r1:word:002753",
-          "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:002202"
-        },
-        {
-          "end_word_id": "transcript_revision_video_002_r1:word:003358",
-          "source_id": "source_video_002",
-          "start_word_id": "transcript_revision_video_002_r1:word:002754"
-        },
-        {
           "end_word_id": "transcript_revision_video_002_r1:word:003446",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:003359"
@@ -793,8 +783,6 @@
         "issue_113_reviewed_topic_23",
         "issue_113_reviewed_topic_24",
         "issue_68_video_002_topic_proposal_006",
-        "issue_68_video_002_topic_proposal_007",
-        "issue_68_video_002_topic_proposal_008",
         "issue_68_video_002_topic_proposal_009",
         "issue_68_video_002_topic_proposal_012",
         "issue_68_video_002_topic_proposal_052",
@@ -2603,13 +2591,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 6,
-    "sha256": "aa1eb2c259b39608d2d9fc945b6ed8b02b51d3f656be715e611059344fc3660f"
+    "decision_count": 7,
+    "sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d"
   },
   "domain_authoring_progress": {
-    "completed": 6,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_007",
-    "pending": 256,
+    "completed": 7,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_008",
+    "pending": 255,
     "total": 262
   },
   "errors": [],
@@ -3238,22 +3226,6 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_006"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_007_correction",
-      "review_status": "UNREVIEWED",
-      "source_id": "source_video_002",
-      "status": "PROVISIONAL",
-      "topic_reference": "issue_68_video_002_topic_proposal_007"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_008_correction",
-      "review_status": "UNREVIEWED",
-      "source_id": "source_video_002",
-      "status": "PROVISIONAL",
-      "topic_reference": "issue_68_video_002_topic_proposal_008"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
@@ -4706,7 +4678,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "aa1eb2c259b39608d2d9fc945b6ed8b02b51d3f656be715e611059344fc3660f",
+        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4807,7 +4779,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "aa1eb2c259b39608d2d9fc945b6ed8b02b51d3f656be715e611059344fc3660f",
+        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5044,7 +5016,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "aa1eb2c259b39608d2d9fc945b6ed8b02b51d3f656be715e611059344fc3660f",
+        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5155,7 +5127,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "aa1eb2c259b39608d2d9fc945b6ed8b02b51d3f656be715e611059344fc3660f",
+        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5262,7 +5234,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "aa1eb2c259b39608d2d9fc945b6ed8b02b51d3f656be715e611059344fc3660f",
+        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5370,7 +5342,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "aa1eb2c259b39608d2d9fc945b6ed8b02b51d3f656be715e611059344fc3660f",
+        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5466,7 +5438,19 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_title": "Претест «очищение»: восстановление нормотонуса мышцы",
+      "authoring_decision": {
+        "action": "REALIGN_RENAME",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_007",
+        "end_word_anchor_time": "00:27:44.921",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "d879d51383eca90ec34ef2a05d96cee002d8b43e283654ecb1ba57bbc87fbc1d",
+        "next_start_word_anchor_time": "00:27:49.810",
+        "split_part_ids": []
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -5492,10 +5476,10 @@
         "level": "LOW"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 1774.12,
-      "end_time": "00:29:34.120",
-      "end_word_id": "transcript_revision_video_002_r1:word:002753",
-      "end_word_sequence": 2753,
+      "end_seconds": 1669.75,
+      "end_time": "00:27:49.750",
+      "end_word_id": "transcript_revision_video_002_r1:word:002586",
+      "end_word_sequence": 2586,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:002210",
@@ -5503,14 +5487,14 @@
           "text": "Когда мы с человеком начинаем работать, только у нас"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:002753",
-          "start_word_id": "transcript_revision_video_002_r1:word:002745",
-          "text": "эта коррекция будет вот это переключение. У нас, помните,"
+          "end_word_id": "transcript_revision_video_002_r1:word:002586",
+          "start_word_id": "transcript_revision_video_002_r1:word:002578",
+          "text": "претест называется очищение. Или очистка, там, не столь важно."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:002486",
-          "start_word_id": "transcript_revision_video_002_r1:word:002470",
-          "text": "как бы, да, условно, мышцу пополоскали, очищение сделали. Это первый у нас претест. Давайте мы хотя бы"
+          "end_word_id": "transcript_revision_video_002_r1:word:002402",
+          "start_word_id": "transcript_revision_video_002_r1:word:002386",
+          "text": "мы приводим с помощью претестов. У нас их небольшое количество, и они все простые, насколько вы помните."
         }
       },
       "generator_interval": {
@@ -5543,7 +5527,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Сегмент посвящен проведению претестов – процедур очищения и перегрузки мышц – для восстановления их нормотонического состояния, особенно в начале работы с клиентом.",
-        "Фрагмент проходит от «Когда мы с человеком начинаем работать, только…» к «будет вот это переключение. У нас, помните,»."
+        "Фрагмент проходит от «Когда мы с человеком начинаем работать, только…» к «очищение. Или очистка, там, не столь важно.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -5590,9 +5574,9 @@
       "end_word_sequence": 3358,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:002762",
-          "start_word_id": "transcript_revision_video_002_r1:word:002754",
-          "text": "одна рука на пуп, потом точки К27 мы разминаем."
+          "end_word_id": "transcript_revision_video_002_r1:word:002595",
+          "start_word_id": "transcript_revision_video_002_r1:word:002587",
+          "text": "Следующий у нас претест называется перегрузка. Ну, в том"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:003358",
@@ -5600,15 +5584,21 @@
           "text": "состояние, ощущение, что все уже настолько устал, что ни"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:003064",
-          "start_word_id": "transcript_revision_video_002_r1:word:003048",
-          "text": "как бы вот это, проводя вот эту коррекцию, и вот так вот массируют эти точки, мы как"
+          "end_word_id": "transcript_revision_video_002_r1:word:002981",
+          "start_word_id": "transcript_revision_video_002_r1:word:002965",
+          "text": "говоря, вот наша середина, и вот эта середина, условно, в одной стороне больше материнского, в другой стороне"
         }
       },
       "generator_interval": {
         "end_seconds": 2106.82,
         "start_seconds": 1774.12,
         "start_segment_id": 247
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_007",
+        "from_word_id": "transcript_revision_video_002_r1:word:002754",
+        "to_word_id": "transcript_revision_video_002_r1:word:002587"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_008",
       "proposal_number": 8,
@@ -5629,14 +5619,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Обсуждается влияние коррекций, связанных с определенными движениями, на физиологические процессы в теле, в частности, на соединение левой и правой половины тела.",
-        "Фрагмент проходит от «одна рука на пуп, потом точки К27…» к «что все уже настолько устал, что ни»."
+        "Фрагмент проходит от «Следующий у нас претест называется перегрузка. Ну,…» к «что все уже настолько устал, что ни»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 1775.342,
-      "start_time": "00:29:35.342",
-      "start_word_id": "transcript_revision_video_002_r1:word:002754",
-      "start_word_sequence": 2754,
+      "start_seconds": 1669.81,
+      "start_time": "00:27:49.810",
+      "start_word_id": "transcript_revision_video_002_r1:word:002587",
+      "start_word_sequence": 2587,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",
