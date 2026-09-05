@@ -321,10 +321,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 11,
-        "pending": 251,
+        "completed": 12,
+        "pending": 250,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_012",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_013",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -452,6 +452,16 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert twelfth["start_word_id"].endswith("word:003929")
     assert twelfth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_011"
+    )
+    assert twelfth["end_word_id"].endswith("word:004430")
+    assert twelfth["authored_title"] == (
+        "Коррекция поляризации через меридианы и завершение претестов"
+    )
+    assert twelfth["authoring_status"] == "COMPLETED"
+    thirteenth = package["topic_proposals"][12]
+    assert thirteenth["start_word_id"].endswith("word:004431")
+    assert thirteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_012"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
