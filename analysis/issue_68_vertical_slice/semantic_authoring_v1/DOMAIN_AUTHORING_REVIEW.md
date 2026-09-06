@@ -14,21 +14,21 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **256**.
+Topic→Concept links: **257**.
 
 ## First review item
 
-### 29. Дистанционные методы работы
+### 30. Тема требует ручной проверки
 
 - Source: `source_video_002`
-- Time: `01:39:02.496` — `01:43:17.930`
-- Words: `transcript_revision_video_002_r1:word:009346` — `transcript_revision_video_002_r1:word:009762`
-- Summary: Семинар посвящен использованию различных техник, включая кинезиологию и резонансные методы, для решения проблем в здоровье и отношениях, а также практической работе с дистанционной магией и тестированием. Фрагмент проходит от «Пример из практики. Преднасультное состояние. Я про…» к «ответ. Вот кольцо разрывается. Попробуйте, потестируйте, получается».
-- Beginning: Пример из практики. Преднасультное состояние. Я про тещу рассказывал.
-- Middle: я чуть дальше покажу, один из методов, которым я пользуюсь. Тестирование на расстоянии. И вот первый метод,
-- End: Нет. Слабый ответ. Вот кольцо разрывается. Попробуйте, потестируйте, получается
-- Machine recommendation: `ACCEPT`
+- Time: `01:44:23.173` — `01:48:26.090`
+- Words: `transcript_revision_video_002_r1:word:009833` — `transcript_revision_video_002_r1:word:010277`
+- Summary: Машинное резюме отсутствует; содержание требует ручной проверки. Фрагмент проходит от «Ваша задача, повторюсь, да, вам выбрать один…» к «Елена, вы не этот, у вас прямо,».
+- Beginning: Ваша задача, повторюсь, да, вам выбрать один из методов
+- Middle: Да, нет. Всего два пальца участвуют. То есть мы другие, они просто... Никуда не денешь. Да, нет.
+- End: да, отлично. Елена, вы не этот, у вас прямо,
+- Machine recommendation: `RENAME`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 29 — принять`,
+Natural Russian responses are supported, for example: `Тема 30 — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.

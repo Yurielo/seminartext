@@ -329,10 +329,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 28,
-        "pending": 234,
+        "completed": 29,
+        "pending": 233,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_029",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_030",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -748,6 +748,30 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert twenty_ninth["start_word_id"].endswith("word:009346")
     assert twenty_ninth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_028"
+    )
+    assert twenty_ninth["end_word_id"].endswith("word:009832")
+    assert twenty_ninth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twenty_ninth["authored_topics"]] == [
+        "29A",
+        "29B",
+        "29C",
+    ]
+    assert [
+        item["authored_title"] for item in twenty_ninth["authored_topics"]
+    ] == [
+        "Примеры применения кинезиологии и резонансных техник на расстоянии",
+        "Введение в дистанционное тестирование и выбор метода самотеста",
+        "Метод сцепленных звеньев: техника различения сильного и слабого ответа",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in twenty_ninth["authored_topics"]
+    )
+    thirtieth = package["topic_proposals"][29]
+    assert thirtieth["start_word_id"].endswith("word:009833")
+    assert thirtieth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_029"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]

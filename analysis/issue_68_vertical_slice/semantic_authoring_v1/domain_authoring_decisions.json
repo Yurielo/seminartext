@@ -779,6 +779,54 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 28, Day 2: принять REALIGN + RENAME. Новое название: «Квантовая связанность, энергия и намерение в работе на расстоянии». Диапазон word:009214–word:009345; следующая тема начинается с word:009346. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:009214"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-06",
+      "decision_id": "issue_68_domain_authoring_topic_029",
+      "end_word_id": "transcript_revision_video_002_r1:word:009832",
+      "end_word_anchor_time": "01:44:20.728",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_030",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:009833",
+      "next_start_word_anchor_time": "01:44:23.173",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:009762",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:009763",
+      "proposal_id": "issue_68_video_002_topic_proposal_029",
+      "reason": "Исходная машинная тема объединяла примеры применения дистанционной работы, обзор методов самотестирования и отдельную практику метода сцепленных звеньев, а её правая граница разрывала инструкцию. Разделение сохраняет три самостоятельные смысловые единицы; новая правая граница завершает практику фразой «Тогда идём дальше» перед переходом к методу одной руки.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 29, Day 2: принять SPLIT + REALIGN. 29A word:009346–word:009473 «Примеры применения кинезиологии и резонансных техник на расстоянии»; 29B word:009474–word:009558 «Введение в дистанционное тестирование и выбор метода самотеста»; 29C word:009559–word:009832 «Метод сцепленных звеньев: техника различения сильного и слабого ответа». Следующая тема начинается с word:009833. Статус всех трёх частей PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "01:40:23.678",
+          "end_word_id": "transcript_revision_video_002_r1:word:009473",
+          "part_id": "issue_68_video_002_topic_proposal_029a",
+          "part_label": "29A",
+          "start_word_anchor_time": "01:39:02.496",
+          "start_word_id": "transcript_revision_video_002_r1:word:009346",
+          "title": "Примеры применения кинезиологии и резонансных техник на расстоянии"
+        },
+        {
+          "end_word_anchor_time": "01:41:20.676",
+          "end_word_id": "transcript_revision_video_002_r1:word:009558",
+          "part_id": "issue_68_video_002_topic_proposal_029b",
+          "part_label": "29B",
+          "start_word_anchor_time": "01:40:26.080",
+          "start_word_id": "transcript_revision_video_002_r1:word:009474",
+          "title": "Введение в дистанционное тестирование и выбор метода самотеста"
+        },
+        {
+          "end_word_anchor_time": "01:44:20.728",
+          "end_word_id": "transcript_revision_video_002_r1:word:009832",
+          "part_id": "issue_68_video_002_topic_proposal_029c",
+          "part_label": "29C",
+          "start_word_anchor_time": "01:41:21.538",
+          "start_word_id": "transcript_revision_video_002_r1:word:009559",
+          "title": "Метод сцепленных звеньев: техника различения сильного и слабого ответа"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_002_r1:word:009346"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",

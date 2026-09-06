@@ -2,13 +2,13 @@
   "artifact_type": "seminartext.issue_68_semantic_package_manifest",
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 28,
-    "sha256": "407dc1de263c42ef6c4e4ba51611fe733406ef9fefb2e8b00361dfbeb382890d"
+    "decision_count": 29,
+    "sha256": "86be837c29a85fe0afb46c9d5d15842ac9d7da8fe1a688ca57bb9af08fd841fd"
   },
   "files": {
-    "DOMAIN_AUTHORING_REVIEW.md": "2c5817c8ec8e6f619b1952056df5e0aea20dcd375a20c5c3a45335dd9fb151aa",
-    "review_batches.json": "2335a161524b163b056b83099c6c70c05b6e7d110fea1069005be52d381c7743",
-    "semantic_authoring_package.json": "bf8141214ff36ccb648cbb0a699ef3f18895fd23a74a932909f430d1cb9c190c"
+    "DOMAIN_AUTHORING_REVIEW.md": "6f494ffe2dd3482760a297053136bd49f5e7e7013648dd87972676d1bf7c810a",
+    "review_batches.json": "1b128f8f9131fe1a8a3f042ec644b4cd20dc46d4d16792e54d5e3e824f9f7338",
+    "semantic_authoring_package.json": "4758eeba5f11ca0f8e917a31c8e660ad6077d41537f5033980abd5f5e281d742"
   },
   "package_status": "READY_FOR_DOMAIN_AUTHORING",
   "schema_version": "1.0.0",
