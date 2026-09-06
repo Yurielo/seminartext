@@ -2610,13 +2610,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 26,
-    "sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8"
+    "decision_count": 27,
+    "sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50"
   },
   "domain_authoring_progress": {
-    "completed": 26,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_027",
-    "pending": 236,
+    "completed": 27,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_028",
+    "pending": 235,
     "total": 262
   },
   "errors": [],
@@ -4721,7 +4721,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4822,7 +4822,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5063,7 +5063,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5174,7 +5174,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5281,7 +5281,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5389,7 +5389,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5493,7 +5493,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5600,7 +5600,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5704,7 +5704,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5810,7 +5810,7 @@
         "decision_id": "issue_68_domain_authoring_topic_010",
         "end_word_anchor_time": "00:37:42.314",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:37:46.077",
         "split_part_ids": []
       },
@@ -5911,7 +5911,7 @@
         "decision_id": "issue_68_domain_authoring_topic_011",
         "end_word_anchor_time": "00:42:20.661",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:42:40.195",
         "split_part_ids": []
       },
@@ -6015,7 +6015,7 @@
         "decision_id": "issue_68_domain_authoring_topic_012",
         "end_word_anchor_time": "00:47:36.651",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:47:36.931",
         "split_part_ids": []
       },
@@ -6190,7 +6190,7 @@
         "decision_id": "issue_68_domain_authoring_topic_013",
         "end_word_anchor_time": "00:51:33.531",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:51:42.478",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_013a",
@@ -6407,7 +6407,7 @@
         "decision_id": "issue_68_domain_authoring_topic_014",
         "end_word_anchor_time": "00:59:59.669",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "00:59:59.769",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_014a",
@@ -6624,7 +6624,7 @@
         "decision_id": "issue_68_domain_authoring_topic_015",
         "end_word_anchor_time": "01:06:51.767",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:06:52.228",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_015a",
@@ -6806,7 +6806,7 @@
         "decision_id": "issue_68_domain_authoring_topic_016",
         "end_word_anchor_time": "01:10:32.279",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:10:34.131",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_016a",
@@ -6913,7 +6913,7 @@
         "decision_id": "issue_68_domain_authoring_topic_017",
         "end_word_anchor_time": "01:13:14.416",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:13:15.598",
         "split_part_ids": []
       },
@@ -7088,7 +7088,7 @@
         "decision_id": "issue_68_domain_authoring_topic_018",
         "end_word_anchor_time": "01:18:53.304",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:18:54.046",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_018a",
@@ -7195,7 +7195,7 @@
         "decision_id": "issue_68_domain_authoring_topic_019",
         "end_word_anchor_time": "01:20:18.455",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:20:18.736",
         "split_part_ids": []
       },
@@ -7370,7 +7370,7 @@
         "decision_id": "issue_68_domain_authoring_topic_020",
         "end_word_anchor_time": "01:24:22.134",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:24:23.677",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_020a",
@@ -7477,7 +7477,7 @@
         "decision_id": "issue_68_domain_authoring_topic_021",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -7655,7 +7655,7 @@
         "decision_id": "issue_68_domain_authoring_topic_022",
         "end_word_anchor_time": "01:27:35.094",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:27:35.634",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_022a",
@@ -7827,7 +7827,7 @@
         "decision_id": "issue_68_domain_authoring_topic_023",
         "end_word_anchor_time": "01:29:16.038",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:29:17.600",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_023a",
@@ -7936,7 +7936,7 @@
         "decision_id": "issue_68_domain_authoring_topic_024",
         "end_word_anchor_time": "01:33:08.925",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:33:09.106",
         "split_part_ids": []
       },
@@ -8146,7 +8146,7 @@
         "decision_id": "issue_68_domain_authoring_topic_025",
         "end_word_anchor_time": "01:35:28.101",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:35:31.049",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_025a",
@@ -8254,7 +8254,7 @@
         "decision_id": "issue_68_domain_authoring_topic_026",
         "end_word_anchor_time": "01:36:33.829",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "fe9e085538913797da2289cb69f0eb47c5b1970e5353ed43ce776b1643f47ee8",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
         "next_start_word_anchor_time": "01:36:37.660",
         "split_part_ids": []
       },
@@ -8350,7 +8350,19 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_title": "Выводы о материи, энергии и разумном начале",
+      "authoring_decision": {
+        "action": "REALIGN_RENAME",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_027",
+        "end_word_anchor_time": "01:37:33.031",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "2352c6fe77bb835d1a5de393d4a7170079f280c4eecfbbd25f08094c95894a50",
+        "next_start_word_anchor_time": "01:37:34.034",
+        "split_part_ids": []
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -8376,10 +8388,10 @@
         "level": "LOW"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 5852.75,
-      "end_time": "01:37:32.750",
-      "end_word_id": "transcript_revision_video_002_r1:word:009212",
-      "end_word_sequence": 9212,
+      "end_seconds": 5853.913,
+      "end_time": "01:37:33.913",
+      "end_word_id": "transcript_revision_video_002_r1:word:009213",
+      "end_word_sequence": 9213,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:009142",
@@ -8387,14 +8399,14 @@
           "text": "То есть первое, какие мы можем сделать выводы. Первое,"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:009212",
-          "start_word_id": "transcript_revision_video_002_r1:word:009204",
-          "text": "мире связано, в материальном мире. Все связано друг с"
+          "end_word_id": "transcript_revision_video_002_r1:word:009213",
+          "start_word_id": "transcript_revision_video_002_r1:word:009205",
+          "text": "связано, в материальном мире. Все связано друг с другом."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:009181",
-          "start_word_id": "transcript_revision_video_002_r1:word:009165",
-          "text": "стоят какие-то высшие силы. Когда человек говорит, что это разное. Бог, Творец и так далее. Вот о"
+          "end_word_id": "transcript_revision_video_002_r1:word:009182",
+          "start_word_id": "transcript_revision_video_002_r1:word:009166",
+          "text": "какие-то высшие силы. Когда человек говорит, что это разное. Бог, Творец и так далее. Вот о чем"
         }
       },
       "generator_interval": {
@@ -8427,7 +8439,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Участник предполагает, что материя – это проявление энергии, а за ее существованием стоят высшие силы, являющиеся связующим звеном во всем мире.",
-        "Фрагмент проходит от «То есть первое, какие мы можем сделать…» к «в материальном мире. Все связано друг с»."
+        "Фрагмент проходит от «То есть первое, какие мы можем сделать…» к «материальном мире. Все связано друг с другом.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -8474,9 +8486,9 @@
       "end_word_sequence": 9343,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:009221",
-          "start_word_id": "transcript_revision_video_002_r1:word:009213",
-          "text": "другом. И мы вот этими свойствами, что материя не"
+          "end_word_id": "transcript_revision_video_002_r1:word:009222",
+          "start_word_id": "transcript_revision_video_002_r1:word:009214",
+          "text": "И мы вот этими свойствами, что материя не существует,"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:009343",
@@ -8484,15 +8496,21 @@
           "text": "воздействие на расстояние, она имеет место быть. Мы с"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:009286",
-          "start_word_id": "transcript_revision_video_002_r1:word:009270",
-          "text": "этих посылов мы, в общем-то, с чистой совестью можем работать на расстоянии. Ну еще плюс добавляем туда"
+          "end_word_id": "transcript_revision_video_002_r1:word:009287",
+          "start_word_id": "transcript_revision_video_002_r1:word:009271",
+          "text": "посылов мы, в общем-то, с чистой совестью можем работать на расстоянии. Ну еще плюс добавляем туда теорию"
         }
       },
       "generator_interval": {
         "end_seconds": 5937.59,
         "start_seconds": 5852.79,
         "start_segment_id": 807
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_027",
+        "from_word_id": "transcript_revision_video_002_r1:word:009213",
+        "to_word_id": "transcript_revision_video_002_r1:word:009214"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_028",
       "proposal_number": 28,
@@ -8513,14 +8531,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Обсуждается возможность работы на расстоянии, основываясь на понимании квантовой связанности и связи между объектами во Вселенной.",
-        "Фрагмент проходит от «другом. И мы вот этими свойствами, что…» к «расстояние, она имеет место быть. Мы с»."
+        "Фрагмент проходит от «И мы вот этими свойствами, что материя…» к «расстояние, она имеет место быть. Мы с»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 5853.031,
-      "start_time": "01:37:33.031",
-      "start_word_id": "transcript_revision_video_002_r1:word:009213",
-      "start_word_sequence": 9213,
+      "start_seconds": 5854.034,
+      "start_time": "01:37:34.034",
+      "start_word_id": "transcript_revision_video_002_r1:word:009214",
+      "start_word_sequence": 9214,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",

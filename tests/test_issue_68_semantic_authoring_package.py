@@ -329,10 +329,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 26,
-        "pending": 236,
+        "completed": 27,
+        "pending": 235,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_027",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_028",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -724,6 +724,18 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert twenty_seventh["start_word_id"].endswith("word:009134")
     assert twenty_seventh["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_026"
+    )
+    assert twenty_seventh["end_word_id"].endswith("word:009213")
+    assert twenty_seventh["authored_title"] == (
+        "Выводы о материи, энергии и разумном начале"
+    )
+    assert twenty_seventh["authoring_status"] == "COMPLETED"
+    assert twenty_seventh["semantic_status"] == "PROVISIONAL"
+    assert twenty_seventh["domain_review_status"] == "REVIEW_REQUIRED"
+    twenty_eighth = package["topic_proposals"][27]
+    assert twenty_eighth["start_word_id"].endswith("word:009214")
+    assert twenty_eighth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_027"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
