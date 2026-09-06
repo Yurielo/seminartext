@@ -621,6 +621,11 @@
           "start_word_id": "transcript_revision_video_002_r1:word:005353"
         },
         {
+          "end_word_id": "transcript_revision_video_002_r1:word:012516",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:012187"
+        },
+        {
           "end_word_id": "transcript_revision_video_002_r1:word:015927",
           "source_id": "source_video_002",
           "start_word_id": "transcript_revision_video_002_r1:word:015550"
@@ -834,6 +839,7 @@
         "issue_68_video_002_topic_proposal_011",
         "issue_68_video_002_topic_proposal_012",
         "issue_68_video_002_topic_proposal_014c",
+        "issue_68_video_002_topic_proposal_038a",
         "issue_68_video_002_topic_proposal_052",
         "issue_68_video_002_topic_proposal_054",
         "issue_68_video_002_topic_proposal_069",
@@ -2622,13 +2628,13 @@
   },
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-    "decision_count": 35,
-    "sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b"
+    "decision_count": 36,
+    "sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b"
   },
   "domain_authoring_progress": {
-    "completed": 37,
-    "next_proposal_id": "issue_68_video_002_topic_proposal_038",
-    "pending": 225,
+    "completed": 38,
+    "next_proposal_id": "issue_68_video_002_topic_proposal_039",
+    "pending": 224,
     "total": 262
   },
   "errors": [],
@@ -3337,6 +3343,14 @@
       "source_id": "source_video_002",
       "status": "PROVISIONAL",
       "topic_reference": "issue_68_video_002_topic_proposal_014c"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_correction",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_038a_correction",
+      "review_status": "UNREVIEWED",
+      "source_id": "source_video_002",
+      "status": "PROVISIONAL",
+      "topic_reference": "issue_68_video_002_topic_proposal_038a"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
@@ -4750,7 +4764,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4852,7 +4866,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5094,7 +5108,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5206,7 +5220,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5314,7 +5328,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5423,7 +5437,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5528,7 +5542,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5636,7 +5650,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5741,7 +5755,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5848,7 +5862,7 @@
         "decision_id": "issue_68_domain_authoring_topic_010",
         "end_word_anchor_time": "00:37:42.314",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:37:46.077",
         "split_part_ids": []
       },
@@ -5950,7 +5964,7 @@
         "decision_id": "issue_68_domain_authoring_topic_011",
         "end_word_anchor_time": "00:42:20.661",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:42:40.195",
         "split_part_ids": []
       },
@@ -6055,7 +6069,7 @@
         "decision_id": "issue_68_domain_authoring_topic_012",
         "end_word_anchor_time": "00:47:36.651",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:47:36.931",
         "split_part_ids": []
       },
@@ -6231,7 +6245,7 @@
         "decision_id": "issue_68_domain_authoring_topic_013",
         "end_word_anchor_time": "00:51:33.531",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:51:42.478",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_013a",
@@ -6449,7 +6463,7 @@
         "decision_id": "issue_68_domain_authoring_topic_014",
         "end_word_anchor_time": "00:59:59.669",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "00:59:59.769",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_014a",
@@ -6667,7 +6681,7 @@
         "decision_id": "issue_68_domain_authoring_topic_015",
         "end_word_anchor_time": "01:06:51.767",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:06:52.228",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_015a",
@@ -6850,7 +6864,7 @@
         "decision_id": "issue_68_domain_authoring_topic_016",
         "end_word_anchor_time": "01:10:32.279",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:10:34.131",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_016a",
@@ -6958,7 +6972,7 @@
         "decision_id": "issue_68_domain_authoring_topic_017",
         "end_word_anchor_time": "01:13:14.416",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:13:15.598",
         "split_part_ids": []
       },
@@ -7134,7 +7148,7 @@
         "decision_id": "issue_68_domain_authoring_topic_018",
         "end_word_anchor_time": "01:18:53.304",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:18:54.046",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_018a",
@@ -7242,7 +7256,7 @@
         "decision_id": "issue_68_domain_authoring_topic_019",
         "end_word_anchor_time": "01:20:18.455",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:20:18.736",
         "split_part_ids": []
       },
@@ -7418,7 +7432,7 @@
         "decision_id": "issue_68_domain_authoring_topic_020",
         "end_word_anchor_time": "01:24:22.134",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:24:23.677",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_020a",
@@ -7526,7 +7540,7 @@
         "decision_id": "issue_68_domain_authoring_topic_021",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -7705,7 +7719,7 @@
         "decision_id": "issue_68_domain_authoring_topic_022",
         "end_word_anchor_time": "01:27:35.094",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:27:35.634",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_022a",
@@ -7878,7 +7892,7 @@
         "decision_id": "issue_68_domain_authoring_topic_023",
         "end_word_anchor_time": "01:29:16.038",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:29:17.600",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_023a",
@@ -7988,7 +8002,7 @@
         "decision_id": "issue_68_domain_authoring_topic_024",
         "end_word_anchor_time": "01:33:08.925",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:33:09.106",
         "split_part_ids": []
       },
@@ -8199,7 +8213,7 @@
         "decision_id": "issue_68_domain_authoring_topic_025",
         "end_word_anchor_time": "01:35:28.101",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:35:31.049",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_025a",
@@ -8308,7 +8322,7 @@
         "decision_id": "issue_68_domain_authoring_topic_026",
         "end_word_anchor_time": "01:36:33.829",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:36:37.660",
         "split_part_ids": []
       },
@@ -8413,7 +8427,7 @@
         "decision_id": "issue_68_domain_authoring_topic_027",
         "end_word_anchor_time": "01:37:33.031",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:37:34.034",
         "split_part_ids": []
       },
@@ -8521,7 +8535,7 @@
         "decision_id": "issue_68_domain_authoring_topic_028",
         "end_word_anchor_time": "01:39:00.574",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:39:02.496",
         "split_part_ids": []
       },
@@ -8732,7 +8746,7 @@
         "decision_id": "issue_68_domain_authoring_topic_029",
         "end_word_anchor_time": "01:44:20.728",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:44:23.173",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_029a",
@@ -8841,7 +8855,7 @@
         "decision_id": "issue_68_domain_authoring_topic_030",
         "end_word_anchor_time": "01:48:04.089",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:48:10.640",
         "split_part_ids": []
       },
@@ -8950,7 +8964,7 @@
         "decision_id": "issue_68_domain_authoring_topic_031",
         "end_word_anchor_time": "01:49:49.460",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:49:51.747",
         "split_part_ids": []
       },
@@ -9167,7 +9181,7 @@
         "decision_id": "issue_68_domain_authoring_topic_032",
         "end_word_anchor_time": "01:56:21.019",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "01:56:23.720",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_032a",
@@ -9371,7 +9385,7 @@
         "decision_id": "issue_68_domain_authoring_topic_034",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -9476,7 +9490,7 @@
         "decision_id": "issue_68_domain_authoring_topic_035",
         "end_word_anchor_time": "02:02:21.451",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "02:02:21.771",
         "split_part_ids": []
       },
@@ -9580,7 +9594,7 @@
         "decision_id": "issue_68_domain_authoring_topic_036",
         "end_word_anchor_time": "02:08:42.453",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "7bf1e51a3832273aac08e5ed3a855bfe1e74b3f4bacf98e98e6a59a0f01e531b",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
         "next_start_word_anchor_time": "02:08:43.577",
         "split_part_ids": []
       },
@@ -9769,7 +9783,94 @@
       "transcript_revision_id": "transcript_revision_video_002_r1"
     },
     {
-      "authoring_status": "PENDING",
+      "authored_topics": [
+        {
+          "authored_title": "Проекция человека: дистанционное тестирование и коррекция",
+          "authoring_disposition": "SEMANTIC_TOPIC",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "02:11:36.098",
+          "end_word_anchor_time": "02:11:35.610",
+          "end_word_id": "transcript_revision_video_002_r1:word:012516",
+          "end_word_sequence": 12516,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:012195",
+              "start_word_id": "transcript_revision_video_002_r1:word:012187",
+              "text": "Теперь чуть-чуть на усложнение. Еще дальше идем, да, на"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:012516",
+              "start_word_id": "transcript_revision_video_002_r1:word:012508",
+              "text": "вы только про нее забыли, и она перестала существовать."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:012360",
+              "start_word_id": "transcript_revision_video_002_r1:word:012344",
+              "text": "я там представлю. Ага. Я представил проекцию, поставил вот сейчас передо мной, и я тестирую. Твое имя"
+            }
+          },
+          "part_label": "38A",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "02:08:43.577",
+          "start_word_anchor_time": "02:08:43.577",
+          "start_word_id": "transcript_revision_video_002_r1:word:012187",
+          "start_word_sequence": 12187,
+          "topic_id": "issue_68_video_002_topic_proposal_038a"
+        },
+        {
+          "authored_title": "Фантом человека: дистанционная работа и возвращение в тело",
+          "authoring_disposition": "SEMANTIC_TOPIC",
+          "domain_review_status": "REVIEW_REQUIRED",
+          "end_time": "02:16:27.311",
+          "end_word_anchor_time": "02:16:26.890",
+          "end_word_id": "transcript_revision_video_002_r1:word:013057",
+          "end_word_sequence": 13057,
+          "evidence_preview": {
+            "beginning": {
+              "end_word_id": "transcript_revision_video_002_r1:word:012525",
+              "start_word_id": "transcript_revision_video_002_r1:word:012517",
+              "text": "И очень похожий метод тестирования, то есть уже тестирование"
+            },
+            "end": {
+              "end_word_id": "transcript_revision_video_002_r1:word:013057",
+              "start_word_id": "transcript_revision_video_002_r1:word:013049",
+              "text": "такая профессиональная работа для этих, профессиональная качественная работа происходит."
+            },
+            "middle": {
+              "end_word_id": "transcript_revision_video_002_r1:word:012795",
+              "start_word_id": "transcript_revision_video_002_r1:word:012779",
+              "text": "с тещей, когда я вам рассказывал, да, там, что у нее было предансультное состояние, да, там, микроинсульт"
+            }
+          },
+          "part_label": "38B",
+          "review_status": "UNREVIEWED",
+          "semantic_status": "PROVISIONAL",
+          "source_id": "source_video_002",
+          "start_time": "02:11:41.154",
+          "start_word_anchor_time": "02:11:41.154",
+          "start_word_id": "transcript_revision_video_002_r1:word:012517",
+          "start_word_sequence": 12517,
+          "topic_id": "issue_68_video_002_topic_proposal_038b"
+        }
+      ],
+      "authoring_decision": {
+        "absorbed_proposal_ids": [],
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "boundary_action": "REALIGN_RIGHT",
+        "decision_id": "issue_68_domain_authoring_topic_038",
+        "end_word_anchor_time": "02:16:26.890",
+        "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+        "ledger_sha256": "c44a3e765d9ed349054df0c12d8b0ea19f2698b053353266bd43950543f15e6b",
+        "next_start_word_anchor_time": "02:16:27.351",
+        "split_part_ids": [
+          "issue_68_video_002_topic_proposal_038a",
+          "issue_68_video_002_topic_proposal_038b"
+        ]
+      },
+      "authoring_status": "COMPLETED",
       "available_decisions": [
         "ACCEPT",
         "RENAME",
@@ -9792,10 +9893,10 @@
         "level": "MEDIUM"
       },
       "domain_review_status": "REVIEW_REQUIRED",
-      "end_seconds": 7956.59,
-      "end_time": "02:12:36.590",
-      "end_word_id": "transcript_revision_video_002_r1:word:012637",
-      "end_word_sequence": 12637,
+      "end_seconds": 8187.311,
+      "end_time": "02:16:27.311",
+      "end_word_id": "transcript_revision_video_002_r1:word:013057",
+      "end_word_sequence": 13057,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_002_r1:word:012195",
@@ -9803,14 +9904,14 @@
           "text": "Теперь чуть-чуть на усложнение. Еще дальше идем, да, на"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:012637",
-          "start_word_id": "transcript_revision_video_002_r1:word:012629",
-          "text": "плотный, насыщенный, как бы, и прямо ощущение присутствия, как"
+          "end_word_id": "transcript_revision_video_002_r1:word:013057",
+          "start_word_id": "transcript_revision_video_002_r1:word:013049",
+          "text": "такая профессиональная работа для этих, профессиональная качественная работа происходит."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:012420",
-          "start_word_id": "transcript_revision_video_002_r1:word:012404",
-          "text": "И в чем плюс вот этой проекции, работы с проекцией? То, что мы можем проекцию из человека"
+          "end_word_id": "transcript_revision_video_002_r1:word:012630",
+          "start_word_id": "transcript_revision_video_002_r1:word:012614",
+          "text": "достаю фантом. Достаю, и, знаете, вот по ощущениям даже этот фантом, он другой, он более плотный, насыщенный,"
         }
       },
       "generator_interval": {
@@ -9843,7 +9944,7 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "В разговоре обсуждаются методы тестирования, основанные на создании проекций и фантомов людей, которые можно извлекать и тестировать, а также на их исчезновении при потере внимания.",
-        "Фрагмент проходит от «Теперь чуть-чуть на усложнение. Еще дальше идем,…» к «как бы, и прямо ощущение присутствия, как»."
+        "Фрагмент проходит от «Теперь чуть-чуть на усложнение. Еще дальше идем,…» к «работа для этих, профессиональная качественная работа происходит.»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
@@ -9890,9 +9991,9 @@
       "end_word_sequence": 13232,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:012646",
-          "start_word_id": "transcript_revision_video_002_r1:word:012638",
-          "text": "бы, да, вот этого человека есть. Вот здесь вот"
+          "end_word_id": "transcript_revision_video_002_r1:word:013066",
+          "start_word_id": "transcript_revision_video_002_r1:word:013058",
+          "text": "Давайте попробуйте, потренируйтесь, возьмите какого-то своего знакомого, знакомого человека,"
         },
         "end": {
           "end_word_id": "transcript_revision_video_002_r1:word:013232",
@@ -9900,15 +10001,21 @@
           "text": "она сама исчезла. Давайте попробуем поработать с фантомом, то"
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:012943",
-          "start_word_id": "transcript_revision_video_002_r1:word:012927",
-          "text": "ничего с ним не делал. Чтобы он точно туда ушел, зафиксировался, желательно образ этот натянуть и какое-то"
+          "end_word_id": "transcript_revision_video_002_r1:word:013153",
+          "start_word_id": "transcript_revision_video_002_r1:word:013137",
+          "text": "его можете тестировать. Да, нет, да. Сильный ответ, слабый ответ. Вот потестируйте, так, воображение. Кто угодно это"
         }
       },
       "generator_interval": {
         "end_seconds": 8325.97,
         "start_seconds": 7956.61,
         "start_segment_id": 1097
+      },
+      "left_boundary_authoring_decision": {
+        "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+        "decision_id": "issue_68_domain_authoring_topic_038",
+        "from_word_id": "transcript_revision_video_002_r1:word:012638",
+        "to_word_id": "transcript_revision_video_002_r1:word:013058"
       },
       "proposal_id": "issue_68_video_002_topic_proposal_039",
       "proposal_number": 39,
@@ -9929,14 +10036,14 @@
       "review_status": "UNREVIEWED",
       "review_summary": [
         "Участник указывает на конкретного человека, находящегося перед ним.",
-        "Фрагмент проходит от «бы, да, вот этого человека есть. Вот…» к «исчезла. Давайте попробуем поработать с фантомом, то»."
+        "Фрагмент проходит от «Давайте попробуйте, потренируйтесь, возьмите какого-то своего знакомого,…» к «исчезла. Давайте попробуем поработать с фантомом, то»."
       ],
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_seconds": 7956.61,
-      "start_time": "02:12:36.610",
-      "start_word_id": "transcript_revision_video_002_r1:word:012638",
-      "start_word_sequence": 12638,
+      "start_seconds": 8187.351,
+      "start_time": "02:16:27.351",
+      "start_word_id": "transcript_revision_video_002_r1:word:013058",
+      "start_word_sequence": 13058,
       "transcript_assurance": {
         "method": "existing_machine_transcript_import",
         "origin": "machine_generated",

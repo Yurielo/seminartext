@@ -975,6 +975,45 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 36, Day 2: принять MERGE + REALIGN + RENAME. Новое название: «Тестирование по изображению: восприятие сильного и слабого ответа». Диапазон word:011658–word:012186; машинная Тема 37 полностью поглощена; следующая тема начинается с word:012187. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:011658"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_domain_authoring_topic_038",
+      "end_word_id": "transcript_revision_video_002_r1:word:013057",
+      "end_word_anchor_time": "02:16:26.890",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_039",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:013058",
+      "next_start_word_anchor_time": "02:16:27.351",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:012637",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:012638",
+      "proposal_id": "issue_68_video_002_topic_proposal_038",
+      "reason": "Исходная машинная тема объединяла два связанных, но самостоятельных метода, между которыми с word:012517 явно начинается «тестирование фантома», а её правая граница word:012637/word:012638 разрывала фразу «как бы». Разделение сохраняет отдельные объяснения проекции и фантома; новая правая граница завершает объяснение профессиональной дистанционной работы, а с word:013058 начинается практическое упражнение для участников.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 38, Day 2: принять SPLIT + REALIGN. 38A word:012187–word:012516 «Проекция человека: дистанционное тестирование и коррекция»; 38B word:012517–word:013057 «Фантом человека: дистанционная работа и возвращение в тело». Следующая тема начинается с word:013058. Статус обеих частей PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "02:11:35.610",
+          "end_word_id": "transcript_revision_video_002_r1:word:012516",
+          "part_id": "issue_68_video_002_topic_proposal_038a",
+          "part_label": "38A",
+          "start_word_anchor_time": "02:08:43.577",
+          "start_word_id": "transcript_revision_video_002_r1:word:012187",
+          "title": "Проекция человека: дистанционное тестирование и коррекция"
+        },
+        {
+          "end_word_anchor_time": "02:16:26.890",
+          "end_word_id": "transcript_revision_video_002_r1:word:013057",
+          "part_id": "issue_68_video_002_topic_proposal_038b",
+          "part_label": "38B",
+          "start_word_anchor_time": "02:11:41.154",
+          "start_word_id": "transcript_revision_video_002_r1:word:012517",
+          "title": "Фантом человека: дистанционная работа и возвращение в тело"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_002_r1:word:012187"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",

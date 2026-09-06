@@ -510,10 +510,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 37,
-        "pending": 225,
+        "completed": 38,
+        "pending": 224,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_038",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_039",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -1058,6 +1058,27 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert thirty_eighth["start_word_id"].endswith("word:012187")
     assert thirty_eighth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_036"
+    )
+    assert thirty_eighth["end_word_id"].endswith("word:013057")
+    assert [item["part_label"] for item in thirty_eighth["authored_topics"]] == [
+        "38A",
+        "38B",
+    ]
+    assert [
+        item["authored_title"] for item in thirty_eighth["authored_topics"]
+    ] == [
+        "Проекция человека: дистанционное тестирование и коррекция",
+        "Фантом человека: дистанционная работа и возвращение в тело",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in thirty_eighth["authored_topics"]
+    )
+    thirty_ninth = package["topic_proposals"][38]
+    assert thirty_ninth["start_word_id"].endswith("word:013058")
+    assert thirty_ninth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_038"
     )
     assert all(
         link["topic_reference"]
