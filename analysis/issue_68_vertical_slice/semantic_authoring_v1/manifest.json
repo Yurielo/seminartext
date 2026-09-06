@@ -3,12 +3,31 @@
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
     "decision_count": 38,
-    "sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7"
+    "sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff"
   },
   "files": {
-    "DOMAIN_AUTHORING_REVIEW.md": "37f89a97e544d3a3153f3bf580704c9faec91c11644aba22fcd93c8f4d3e59f0",
-    "review_batches.json": "ff7bcb7337feff9b9b978741d64b3c6b608c00f15a3b8886345e27bf65346809",
-    "semantic_authoring_package.json": "bf4a5d77fb816da19e58ab8873fb47971d2463ac60ed5832b86c315a71653934"
+    "DOMAIN_AUTHORING_REVIEW.md": "3f27bb9906587e1c1ff1b24e1d565f36c5d411d0a91d184a27622c66fc4e7807",
+    "review_batches.json": "e67f54282b025213a2475a4dd3554136a349821f566d7c0c759686a399416645",
+    "semantic_authoring_package.json": "91525ee8939aa3718a19735a120f268d9e1674b7364d089fa01f14113f59102c"
+  },
+  "human_decision_policy": {
+    "authority": "PRODUCT_OWNER_DIRECT_WORKFLOW_DECISION",
+    "codex_triage_required": true,
+    "decision_date": "2026-09-07",
+    "final_consolidated_domain_review_required": true,
+    "human_gate_conditions": [
+      "multiple_semantically_reasonable_boundaries_or_titles",
+      "material_evidence_or_provenance_conflict",
+      "uncertain_non_semantic_exclusion",
+      "concept_identity_or_alias_decision",
+      "semantic_acceptance_or_rejection"
+    ],
+    "machine_proposal_count_is_not_human_gate_count": true,
+    "mode": "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW",
+    "per_machine_proposal_human_gate_required": false,
+    "semantic_acceptance_automatic": false,
+    "source_instruction": "Предусмотреть human decisions только в по-настоящему спорных местах, а не во всех 262 предложениях.",
+    "straightforward_handling": "CODEX_ASSISTED_PROVISIONAL_AUTHORING_WITHOUT_PER_ITEM_HUMAN_GATE"
   },
   "package_status": "READY_FOR_DOMAIN_AUTHORING",
   "schema_version": "1.0.0",

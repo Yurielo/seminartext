@@ -2629,12 +2629,16 @@
   "domain_authoring_decision_ledger": {
     "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
     "decision_count": 38,
-    "sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7"
+    "sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff"
   },
   "domain_authoring_progress": {
     "completed": 43,
+    "human_decision_count_requires_codex_triage": true,
+    "machine_proposal_count_is_not_human_gate_count": true,
     "next_proposal_id": "issue_68_video_002_topic_proposal_044",
     "pending": 219,
+    "pending_human_decisions": null,
+    "pending_machine_proposals": 219,
     "total": 262
   },
   "errors": [],
@@ -2645,6 +2649,25 @@
     "parameters_changed": false,
     "pipeline": "legacy_gemma3_4b_two_stage_topic_pipeline",
     "training_or_tuning_performed": false
+  },
+  "human_decision_policy": {
+    "authority": "PRODUCT_OWNER_DIRECT_WORKFLOW_DECISION",
+    "codex_triage_required": true,
+    "decision_date": "2026-09-07",
+    "final_consolidated_domain_review_required": true,
+    "human_gate_conditions": [
+      "multiple_semantically_reasonable_boundaries_or_titles",
+      "material_evidence_or_provenance_conflict",
+      "uncertain_non_semantic_exclusion",
+      "concept_identity_or_alias_decision",
+      "semantic_acceptance_or_rejection"
+    ],
+    "machine_proposal_count_is_not_human_gate_count": true,
+    "mode": "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW",
+    "per_machine_proposal_human_gate_required": false,
+    "semantic_acceptance_automatic": false,
+    "source_instruction": "Предусмотреть human decisions только в по-настоящему спорных местах, а не во всех 262 предложениях.",
+    "straightforward_handling": "CODEX_ASSISTED_PROVISIONAL_AUTHORING_WITHOUT_PER_ITEM_HUMAN_GATE"
   },
   "input_artifacts": {
     "source_video_002": {
@@ -4764,7 +4787,7 @@
         "decision_id": "issue_68_domain_authoring_topic_001",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -4866,7 +4889,7 @@
         "decision_id": "issue_68_domain_authoring_topic_002",
         "end_word_anchor_time": "00:02:21.137",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:02:21.618",
         "split_part_ids": []
       },
@@ -5108,7 +5131,7 @@
         "decision_id": "issue_68_domain_authoring_topic_003",
         "end_word_anchor_time": "00:13:35.183",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:13:40.091",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_003a",
@@ -5220,7 +5243,7 @@
         "decision_id": "issue_68_domain_authoring_topic_004",
         "end_word_anchor_time": "00:18:18.863",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:18:19.464",
         "split_part_ids": []
       },
@@ -5328,7 +5351,7 @@
         "decision_id": "issue_68_domain_authoring_topic_005",
         "end_word_anchor_time": "00:20:45.677",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:20:46.418",
         "split_part_ids": []
       },
@@ -5437,7 +5460,7 @@
         "decision_id": "issue_68_domain_authoring_topic_006",
         "end_word_anchor_time": "00:23:37.431",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:23:42.407",
         "split_part_ids": []
       },
@@ -5542,7 +5565,7 @@
         "decision_id": "issue_68_domain_authoring_topic_007",
         "end_word_anchor_time": "00:27:44.921",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:27:49.810",
         "split_part_ids": []
       },
@@ -5650,7 +5673,7 @@
         "decision_id": "issue_68_domain_authoring_topic_008",
         "end_word_anchor_time": "00:35:42.471",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:35:46.194",
         "split_part_ids": []
       },
@@ -5755,7 +5778,7 @@
         "decision_id": "issue_68_domain_authoring_topic_009",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -5862,7 +5885,7 @@
         "decision_id": "issue_68_domain_authoring_topic_010",
         "end_word_anchor_time": "00:37:42.314",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:37:46.077",
         "split_part_ids": []
       },
@@ -5964,7 +5987,7 @@
         "decision_id": "issue_68_domain_authoring_topic_011",
         "end_word_anchor_time": "00:42:20.661",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:42:40.195",
         "split_part_ids": []
       },
@@ -6069,7 +6092,7 @@
         "decision_id": "issue_68_domain_authoring_topic_012",
         "end_word_anchor_time": "00:47:36.651",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:47:36.931",
         "split_part_ids": []
       },
@@ -6245,7 +6268,7 @@
         "decision_id": "issue_68_domain_authoring_topic_013",
         "end_word_anchor_time": "00:51:33.531",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:51:42.478",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_013a",
@@ -6463,7 +6486,7 @@
         "decision_id": "issue_68_domain_authoring_topic_014",
         "end_word_anchor_time": "00:59:59.669",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "00:59:59.769",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_014a",
@@ -6681,7 +6704,7 @@
         "decision_id": "issue_68_domain_authoring_topic_015",
         "end_word_anchor_time": "01:06:51.767",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:06:52.228",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_015a",
@@ -6864,7 +6887,7 @@
         "decision_id": "issue_68_domain_authoring_topic_016",
         "end_word_anchor_time": "01:10:32.279",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:10:34.131",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_016a",
@@ -6972,7 +6995,7 @@
         "decision_id": "issue_68_domain_authoring_topic_017",
         "end_word_anchor_time": "01:13:14.416",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:13:15.598",
         "split_part_ids": []
       },
@@ -7148,7 +7171,7 @@
         "decision_id": "issue_68_domain_authoring_topic_018",
         "end_word_anchor_time": "01:18:53.304",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:18:54.046",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_018a",
@@ -7256,7 +7279,7 @@
         "decision_id": "issue_68_domain_authoring_topic_019",
         "end_word_anchor_time": "01:20:18.455",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:20:18.736",
         "split_part_ids": []
       },
@@ -7432,7 +7455,7 @@
         "decision_id": "issue_68_domain_authoring_topic_020",
         "end_word_anchor_time": "01:24:22.134",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:24:23.677",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_020a",
@@ -7540,7 +7563,7 @@
         "decision_id": "issue_68_domain_authoring_topic_021",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -7719,7 +7742,7 @@
         "decision_id": "issue_68_domain_authoring_topic_022",
         "end_word_anchor_time": "01:27:35.094",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:27:35.634",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_022a",
@@ -7892,7 +7915,7 @@
         "decision_id": "issue_68_domain_authoring_topic_023",
         "end_word_anchor_time": "01:29:16.038",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:29:17.600",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_023a",
@@ -8002,7 +8025,7 @@
         "decision_id": "issue_68_domain_authoring_topic_024",
         "end_word_anchor_time": "01:33:08.925",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:33:09.106",
         "split_part_ids": []
       },
@@ -8213,7 +8236,7 @@
         "decision_id": "issue_68_domain_authoring_topic_025",
         "end_word_anchor_time": "01:35:28.101",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:35:31.049",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_025a",
@@ -8322,7 +8345,7 @@
         "decision_id": "issue_68_domain_authoring_topic_026",
         "end_word_anchor_time": "01:36:33.829",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:36:37.660",
         "split_part_ids": []
       },
@@ -8427,7 +8450,7 @@
         "decision_id": "issue_68_domain_authoring_topic_027",
         "end_word_anchor_time": "01:37:33.031",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:37:34.034",
         "split_part_ids": []
       },
@@ -8535,7 +8558,7 @@
         "decision_id": "issue_68_domain_authoring_topic_028",
         "end_word_anchor_time": "01:39:00.574",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:39:02.496",
         "split_part_ids": []
       },
@@ -8746,7 +8769,7 @@
         "decision_id": "issue_68_domain_authoring_topic_029",
         "end_word_anchor_time": "01:44:20.728",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:44:23.173",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_029a",
@@ -8855,7 +8878,7 @@
         "decision_id": "issue_68_domain_authoring_topic_030",
         "end_word_anchor_time": "01:48:04.089",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:48:10.640",
         "split_part_ids": []
       },
@@ -8964,7 +8987,7 @@
         "decision_id": "issue_68_domain_authoring_topic_031",
         "end_word_anchor_time": "01:49:49.460",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:49:51.747",
         "split_part_ids": []
       },
@@ -9181,7 +9204,7 @@
         "decision_id": "issue_68_domain_authoring_topic_032",
         "end_word_anchor_time": "01:56:21.019",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "01:56:23.720",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_032a",
@@ -9385,7 +9408,7 @@
         "decision_id": "issue_68_domain_authoring_topic_034",
         "end_word_anchor_time": null,
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": null,
         "split_part_ids": []
       },
@@ -9490,7 +9513,7 @@
         "decision_id": "issue_68_domain_authoring_topic_035",
         "end_word_anchor_time": "02:02:21.451",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "02:02:21.771",
         "split_part_ids": []
       },
@@ -9594,7 +9617,7 @@
         "decision_id": "issue_68_domain_authoring_topic_036",
         "end_word_anchor_time": "02:08:42.453",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "02:08:43.577",
         "split_part_ids": []
       },
@@ -9863,7 +9886,7 @@
         "decision_id": "issue_68_domain_authoring_topic_038",
         "end_word_anchor_time": "02:16:26.890",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "02:16:27.351",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_038a",
@@ -10044,7 +10067,7 @@
         "decision_id": "issue_68_domain_authoring_topic_039",
         "end_word_anchor_time": "02:20:54.718",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "02:20:55.760",
         "split_part_ids": [
           "issue_68_video_002_topic_proposal_039a",
@@ -10248,7 +10271,7 @@
         "decision_id": "issue_68_domain_authoring_topic_041",
         "end_word_anchor_time": "02:27:26.516",
         "ledger_artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
-        "ledger_sha256": "8373ae3b4facb43d80533895127f8473540265aad4568f9c6719a58f1dfcd1a7",
+        "ledger_sha256": "ffada0ce24137e55a7f0d2eb524de9735042096c44a1c06058956ffa493281ff",
         "next_start_word_anchor_time": "02:27:30.140",
         "split_part_ids": []
       },

@@ -16,7 +16,20 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 Concept candidates: **18**.  Provisional
 Topic→Concept links: **259**.
 
-## First review item
+## Human-decision policy
+
+The 262 machine proposals are evidence units, not
+262 mandatory human gates. Codex first triages every unresolved
+proposal. Straightforward cases may be prepared as provisional authoring without
+a per-item human decision. A human decision is requested only for a genuine
+semantic ambiguity, material evidence/provenance conflict, uncertain exclusion,
+Concept identity choice, or semantic acceptance/rejection. Nothing becomes
+accepted automatically; one explicit consolidated `DOMAIN_REVIEW` remains
+required after provisional authoring.
+
+Policy mode: `EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW`.
+
+## Next Codex triage item
 
 ### 44. Фасциальные Диаграммы и Сакральные Ритмы
 
@@ -30,5 +43,5 @@ Topic→Concept links: **259**.
 - Machine recommendation: `ACCEPT`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 44 — принять`,
-`Название изменить на …`, or `Разделить после фразы …`.
+This item is not automatically a human gate. If Codex finds a genuine ambiguity,
+the evidence and bounded alternatives are presented to the Product Owner.

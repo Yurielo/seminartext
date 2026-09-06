@@ -151,10 +151,29 @@ def build_package(
 
     decision_document: dict[str, Any] | None = None
     decisions_by_proposal: dict[str, dict[str, Any]] = {}
+    human_decision_policy: dict[str, Any] = {
+        "mode": "CONSERVATIVE_PER_ITEM",
+        "per_machine_proposal_human_gate_required": True,
+        "machine_proposal_count_is_not_human_gate_count": False,
+        "codex_triage_required": False,
+        "final_consolidated_domain_review_required": True,
+        "semantic_acceptance_automatic": False,
+    }
     if decisions_path is not None:
         decision_document = read_json(decisions_path)
         if decision_document.get("semantic_gate") != "DOMAIN_AUTHORING":
             errors.append("decision ledger is not a DOMAIN_AUTHORING artifact")
+        ledger_policy = decision_document.get("human_decision_policy")
+        if ledger_policy is not None:
+            human_decision_policy = ledger_policy
+            if ledger_policy.get("mode") != "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW":
+                errors.append("unsupported human decision policy mode")
+            if ledger_policy.get("per_machine_proposal_human_gate_required") is not False:
+                errors.append("exception-only policy still requires per-proposal human gates")
+            if ledger_policy.get("final_consolidated_domain_review_required") is not True:
+                errors.append("exception-only policy bypasses consolidated DOMAIN_REVIEW")
+            if ledger_policy.get("semantic_acceptance_automatic") is not False:
+                errors.append("human decision policy permits automatic semantic acceptance")
         for decision in decision_document.get("decisions", []):
             proposal_id = decision.get("proposal_id")
             if not proposal_id or proposal_id in decisions_by_proposal:
@@ -657,6 +676,8 @@ def build_package(
     batches = {
         "schema_version": "1.0.0",
         "artifact_type": "seminartext.issue_68_domain_authoring_batches",
+        "purpose": "CODEX_TRIAGE_QUEUE_NOT_PER_PROPOSAL_HUMAN_GATES",
+        "human_decision_policy": human_decision_policy,
         "review_order": ["source_video_002", "source_video_003", "source_video_004", "concepts", "links"],
         "topic_batches": [
             {
@@ -713,9 +734,18 @@ def build_package(
             if decision_document is not None and decisions_path is not None
             else None
         ),
+        "human_decision_policy": human_decision_policy,
         "domain_authoring_progress": {
             "completed": len(completed_authoring),
             "pending": len(proposals) - len(completed_authoring),
+            "pending_machine_proposals": len(proposals) - len(completed_authoring),
+            "pending_human_decisions": None,
+            "human_decision_count_requires_codex_triage": human_decision_policy.get(
+                "codex_triage_required", False
+            ),
+            "machine_proposal_count_is_not_human_gate_count": human_decision_policy.get(
+                "machine_proposal_count_is_not_human_gate_count", False
+            ),
             "total": len(proposals),
             "next_proposal_id": next(
                 (item["proposal_id"] for item in proposals if item["authoring_status"] == "PENDING"),
@@ -762,7 +792,20 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 Concept candidates: **{len(package['concept_candidates'])}**.  Provisional
 Topic→Concept links: **{len(package['topic_concept_link_proposals'])}**.
 
-## First review item
+## Human-decision policy
+
+The {len(package['topic_proposals'])} machine proposals are evidence units, not
+{len(package['topic_proposals'])} mandatory human gates. Codex first triages every unresolved
+proposal. Straightforward cases may be prepared as provisional authoring without
+a per-item human decision. A human decision is requested only for a genuine
+semantic ambiguity, material evidence/provenance conflict, uncertain exclusion,
+Concept identity choice, or semantic acceptance/rejection. Nothing becomes
+accepted automatically; one explicit consolidated `DOMAIN_REVIEW` remains
+required after provisional authoring.
+
+Policy mode: `{package['human_decision_policy']['mode']}`.
+
+## Next Codex triage item
 
 ### {first['proposal_number']}. {first['proposed_title']}
 
@@ -776,8 +819,8 @@ Topic→Concept links: **{len(package['topic_concept_link_proposals'])}**.
 - Machine recommendation: `{first['recommended_decision']}`
 - Available decisions: {', '.join(first['available_decisions'])}
 
-Natural Russian responses are supported, for example: `Тема {first['proposal_number']} — принять`,
-`Название изменить на …`, or `Разделить после фразы …`.
+This item is not automatically a human gate. If Codex finds a genuine ambiguity,
+the evidence and bounded alternatives are presented to the Product Owner.
 """
     path.write_text(text, encoding="utf-8")
 
@@ -807,6 +850,7 @@ def main() -> int:
         "artifact_type": "seminartext.issue_68_semantic_package_manifest",
         "package_status": package["status"],
         "semantic_authority": package["semantic_authority"],
+        "human_decision_policy": package["human_decision_policy"],
         "domain_authoring_decision_ledger": package["domain_authoring_decision_ledger"],
         "files": {
             name: sha256(output / name)

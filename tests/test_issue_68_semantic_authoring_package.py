@@ -142,6 +142,32 @@ def test_unexpected_generator_fails_closed(tmp_path: Path) -> None:
     assert any("unexpected generator identity" in item for item in package["errors"])
 
 
+def test_exception_only_policy_cannot_enable_automatic_semantic_acceptance(
+    tmp_path: Path,
+) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "human_decision_policy": {
+                "mode": "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW",
+                "per_machine_proposal_human_gate_required": False,
+                "final_consolidated_domain_review_required": True,
+                "semantic_acceptance_automatic": True,
+            },
+            "decisions": [],
+        },
+    )
+
+    package, _ = MODULE.build_package(project, review, decision_path)
+
+    assert package["status"] == "INVALID"
+    assert "human decision policy permits automatic semantic acceptance" in package["errors"]
+
+
 def test_rename_authoring_decision_preserves_word_range_and_stays_provisional(tmp_path: Path) -> None:
     project, review = make_fixture(tmp_path)
     decision_path = project / "authoring_decisions.json"
@@ -180,7 +206,11 @@ def test_rename_authoring_decision_preserves_word_range_and_stays_provisional(tm
     assert batches["topic_batches"][0]["authoring_status"] == "COMPLETED"
     assert package["domain_authoring_progress"] == {
         "completed": 1,
+        "human_decision_count_requires_codex_triage": False,
+        "machine_proposal_count_is_not_human_gate_count": False,
         "pending": 5,
+        "pending_human_decisions": None,
+        "pending_machine_proposals": 5,
         "total": 6,
         "next_proposal_id": "issue_68_video_002_topic_proposal_002",
     }
@@ -511,10 +541,21 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
         "completed": 43,
+        "human_decision_count_requires_codex_triage": True,
+        "machine_proposal_count_is_not_human_gate_count": True,
         "pending": 219,
+        "pending_human_decisions": None,
+        "pending_machine_proposals": 219,
         "total": 262,
         "next_proposal_id": "issue_68_video_002_topic_proposal_044",
     }
+    assert package["human_decision_policy"]["mode"] == (
+        "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW"
+    )
+    assert package["human_decision_policy"]["per_machine_proposal_human_gate_required"] is False
+    assert package["human_decision_policy"]["final_consolidated_domain_review_required"] is True
+    assert package["human_decision_policy"]["semantic_acceptance_automatic"] is False
+    assert batches["purpose"] == "CODEX_TRIAGE_QUEUE_NOT_PER_PROPOSAL_HUMAN_GATES"
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
     )
