@@ -329,10 +329,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 24,
-        "pending": 238,
+        "completed": 25,
+        "pending": 237,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_025",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_026",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -688,6 +688,30 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert twenty_fifth["start_word_id"].endswith("word:008757")
     assert twenty_fifth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_024"
+    )
+    assert twenty_fifth["end_word_id"].endswith("word:009030")
+    assert twenty_fifth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twenty_fifth["authored_topics"]] == [
+        "25A",
+        "25B",
+        "25C",
+    ]
+    assert [
+        item["authored_title"] for item in twenty_fifth["authored_topics"]
+    ] == [
+        "Материальность мыслей и след действий и намерений во Вселенной",
+        "Мышечный тест как способ проверки истинности утверждений",
+        "Непрожитые эмоции и генетическая передача эмоциональных программ",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in twenty_fifth["authored_topics"]
+    )
+    twenty_sixth = package["topic_proposals"][25]
+    assert twenty_sixth["start_word_id"].endswith("word:009031")
+    assert twenty_sixth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_025"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
