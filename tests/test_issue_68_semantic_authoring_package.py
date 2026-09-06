@@ -329,10 +329,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 29,
-        "pending": 233,
+        "completed": 30,
+        "pending": 232,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_030",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_031",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -772,6 +772,18 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert thirtieth["start_word_id"].endswith("word:009833")
     assert thirtieth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_029"
+    )
+    assert thirtieth["end_word_id"].endswith("word:010249")
+    assert thirtieth["authored_title"] == (
+        "Метод одной руки: техника и преимущества самотестирования"
+    )
+    assert thirtieth["authoring_status"] == "COMPLETED"
+    assert thirtieth["semantic_status"] == "PROVISIONAL"
+    assert thirtieth["domain_review_status"] == "REVIEW_REQUIRED"
+    thirty_first = package["topic_proposals"][30]
+    assert thirty_first["start_word_id"].endswith("word:010250")
+    assert thirty_first["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_030"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
