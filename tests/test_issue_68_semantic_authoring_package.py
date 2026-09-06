@@ -329,10 +329,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 23,
-        "pending": 239,
+        "completed": 24,
+        "pending": 238,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_024",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_025",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -676,6 +676,18 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert twenty_fourth["start_word_id"].endswith("word:008354")
     assert twenty_fourth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_023"
+    )
+    assert twenty_fourth["end_word_id"].endswith("word:008756")
+    assert twenty_fourth["authored_title"] == (
+        "Квантовая связанность: общее поле и влияние на расстоянии"
+    )
+    assert twenty_fourth["authoring_status"] == "COMPLETED"
+    assert twenty_fourth["semantic_status"] == "PROVISIONAL"
+    assert twenty_fourth["domain_review_status"] == "REVIEW_REQUIRED"
+    twenty_fifth = package["topic_proposals"][24]
+    assert twenty_fifth["start_word_id"].endswith("word:008757")
+    assert twenty_fifth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_024"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]
