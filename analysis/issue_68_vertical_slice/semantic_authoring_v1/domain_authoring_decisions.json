@@ -1056,6 +1056,30 @@
         }
       ],
       "start_word_id": "transcript_revision_video_002_r1:word:013058"
+    },
+    {
+      "action": "MERGE_REALIGN_RENAME",
+      "absorbed_proposal_ids": [
+        "issue_68_video_002_topic_proposal_042",
+        "issue_68_video_002_topic_proposal_043"
+      ],
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_domain_authoring_topic_041",
+      "end_word_id": "transcript_revision_video_002_r1:word:014008",
+      "end_word_anchor_time": "02:27:26.516",
+      "new_title": "Фасциальное тестирование: принцип, техника и преимущества",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_044",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:014009",
+      "next_start_word_anchor_time": "02:27:30.140",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:013395",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:013396",
+      "proposal_id": "issue_68_video_002_topic_proposal_041",
+      "reason": "Исходное название про установку фантома не соответствует начавшемуся с word:013354 объяснению следующего метода тестирования. Граница word:013395/word:013396 разрывала фразу «Очень хороший метод тестирования», а границы word:013736/word:013737 и word:013844/word:013845 разделяли продолжение единого объяснения фасциального тестирования. Объединённый диапазон сохраняет принцип, технику, обратную связь и преимущества метода; с word:014009 явно начинается новый метод тестирования по краниосакральному ритму.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 41, Day 2: принять MERGE + REALIGN + RENAME. Новое название: «Фасциальное тестирование: принцип, техника и преимущества». Диапазон word:013354–word:014008; машинные Темы 42 и 43 полностью поглощены; следующая тема начинается с word:014009. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:013354"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",

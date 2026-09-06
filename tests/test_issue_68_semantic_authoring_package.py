@@ -510,10 +510,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 40,
-        "pending": 222,
+        "completed": 43,
+        "pending": 219,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_041",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_044",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -1111,12 +1111,42 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert forty_first["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_039"
     )
+    assert forty_first["end_word_id"].endswith("word:014008")
+    assert forty_first["authored_title"] == (
+        "Фасциальное тестирование: принцип, техника и преимущества"
+    )
+    assert forty_first["authoring_status"] == "COMPLETED"
+    assert forty_first["semantic_status"] == "PROVISIONAL"
+    assert forty_first["domain_review_status"] == "REVIEW_REQUIRED"
+    assert forty_first["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_042",
+        "issue_68_video_002_topic_proposal_043",
+    ]
+    forty_second = package["topic_proposals"][41]
+    assert forty_second["authoring_status"] == "COMPLETED"
+    assert forty_second["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert forty_second["absorbed_by_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_041"
+    )
+    forty_third = package["topic_proposals"][42]
+    assert forty_third["authoring_status"] == "COMPLETED"
+    assert forty_third["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert forty_third["absorbed_by_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_041"
+    )
+    forty_fourth = package["topic_proposals"][43]
+    assert forty_fourth["start_word_id"].endswith("word:014009")
+    assert forty_fourth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_041"
+    )
     assert all(
         link["topic_reference"]
         not in {
             "issue_68_video_002_topic_proposal_033",
             "issue_68_video_002_topic_proposal_037",
             "issue_68_video_002_topic_proposal_040",
+            "issue_68_video_002_topic_proposal_042",
+            "issue_68_video_002_topic_proposal_043",
         }
         for link in package["topic_concept_link_proposals"]
     )
