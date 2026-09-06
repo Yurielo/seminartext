@@ -411,6 +411,79 @@ def test_split_realign_can_absorb_a_consecutive_machine_proposal(tmp_path: Path)
     )
 
 
+def test_merge_realign_rename_absorbs_a_consecutive_machine_proposal(
+    tmp_path: Path,
+) -> None:
+    project, review = make_fixture(tmp_path)
+    topic_path = project / "transcript/video_002/topics.json"
+    topic_document = json.loads(topic_path.read_text(encoding="utf-8"))
+    topic_document["topics"] = [
+        {**topic_document["topics"][0], "start_seconds": 0.0, "end_seconds": 4.0},
+        {**topic_document["topics"][1], "start_seconds": 4.0, "end_seconds": 8.0},
+        {**topic_document["topics"][1], "start_seconds": 8.0, "end_seconds": 12.0},
+    ]
+    write_json(topic_path, topic_document)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "decision_merge_absorb",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "absorbed_proposal_ids": [
+                        "issue_68_video_002_topic_proposal_002"
+                    ],
+                    "next_proposal_id": "issue_68_video_002_topic_proposal_003",
+                    "source_id": "source_video_002",
+                    "action": "MERGE_REALIGN_RENAME",
+                    "new_title": "Объединённая тема",
+                    "boundary_action": "REALIGN_RIGHT",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000007",
+                    "end_word_anchor_time": "00:00:07.000",
+                    "next_start_word_id": "transcript_revision_video_002_r1:word:000008",
+                    "next_start_word_anchor_time": "00:00:08.000",
+                    "previous_next_start_word_id": (
+                        "transcript_revision_video_002_r1:word:000004"
+                    ),
+                    "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+                }
+            ],
+        },
+    )
+
+    package, batches = MODULE.build_package(project, review, decision_path)
+    first, absorbed, third = package["topic_proposals"][:3]
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert first["end_word_sequence"] == 7
+    assert first["authored_title"] == "Объединённая тема"
+    assert first["authoring_decision"]["action"] == "MERGE_REALIGN_RENAME"
+    assert first["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_002"
+    ]
+    assert absorbed["authoring_status"] == "COMPLETED"
+    assert absorbed["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert absorbed["absorbed_by_authoring_decision"]["authored_topic_id"] == (
+        "issue_68_video_002_topic_proposal_001"
+    )
+    assert third["start_word_sequence"] == 8
+    assert third["left_boundary_authoring_decision"]["decision_id"] == (
+        "decision_merge_absorb"
+    )
+    assert batches["topic_batches"][1]["authoring_status"] == "COMPLETED"
+    assert package["coverage"]["source_video_002"]["covered_word_count"] == 12
+    assert package["coverage"]["source_video_002"]["gaps"] == []
+    assert package["coverage"]["source_video_002"]["overlaps"] == []
+    assert all(
+        link["topic_reference"] != "issue_68_video_002_topic_proposal_002"
+        for link in package["topic_concept_link_proposals"]
+    )
+
+
 def test_committed_real_package_is_complete_and_fail_closed() -> None:
     package_path = (
         ROOT
@@ -437,10 +510,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 35,
-        "pending": 227,
+        "completed": 37,
+        "pending": 225,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_036",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_038",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -962,8 +1035,36 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert thirty_sixth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_035"
     )
+    assert thirty_sixth["end_word_id"].endswith("word:012186")
+    assert thirty_sixth["authored_title"] == (
+        "Тестирование по изображению: восприятие сильного и слабого ответа"
+    )
+    assert thirty_sixth["authoring_status"] == "COMPLETED"
+    assert thirty_sixth["semantic_status"] == "PROVISIONAL"
+    assert thirty_sixth["domain_review_status"] == "REVIEW_REQUIRED"
+    assert thirty_sixth["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_037"
+    ]
+    thirty_seventh = package["topic_proposals"][36]
+    assert thirty_seventh["authoring_status"] == "COMPLETED"
+    assert thirty_seventh["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert thirty_seventh["absorbed_by_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_036"
+    )
+    assert thirty_seventh["absorbed_by_authoring_decision"]["authored_topic_id"] == (
+        "issue_68_video_002_topic_proposal_036"
+    )
+    thirty_eighth = package["topic_proposals"][37]
+    assert thirty_eighth["start_word_id"].endswith("word:012187")
+    assert thirty_eighth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_036"
+    )
     assert all(
-        link["topic_reference"] != "issue_68_video_002_topic_proposal_033"
+        link["topic_reference"]
+        not in {
+            "issue_68_video_002_topic_proposal_033",
+            "issue_68_video_002_topic_proposal_037",
+        }
         for link in package["topic_concept_link_proposals"]
     )
     for coverage in package["coverage"].values():

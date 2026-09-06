@@ -203,9 +203,12 @@ def build_package(
             if not boundary_decision or boundary_decision.get("boundary_action") != "REALIGN_RIGHT":
                 continue
             absorbed_ids = boundary_decision.get("absorbed_proposal_ids", [])
-            if absorbed_ids and boundary_decision.get("action") != "SPLIT_REALIGN":
+            if absorbed_ids and boundary_decision.get("action") not in {
+                "SPLIT_REALIGN",
+                "MERGE_REALIGN_RENAME",
+            }:
                 errors.append(
-                    f"absorbed proposals require SPLIT_REALIGN for {proposal_id}"
+                    f"absorbed proposals require a merge-capable action for {proposal_id}"
                 )
             expected_absorbed_ids = [
                 f"issue_68_{registry_id}_topic_proposal_{item + 1:03d}"
@@ -354,22 +357,34 @@ def build_package(
                 proposal["absorbed_by_authoring_decision"] = {
                     "decision_id": absorption_decision.get("decision_id"),
                     "proposal_id": absorption_decision.get("proposal_id"),
-                    "authored_topic_id": absorption_decision.get("split_parts", [{}])[-1].get(
-                        "part_id"
+                    "authored_topic_id": (
+                        absorption_decision.get("split_parts", [{}])[-1].get("part_id")
+                        or absorption_decision.get("proposal_id")
                     ),
                     "authority": absorption_decision.get("authority"),
                 }
             if decision_record is not None:
                 action = decision_record.get("action")
-                if action not in {"RENAME", "REALIGN_RENAME", "SPLIT_REALIGN"}:
+                if action not in {
+                    "RENAME",
+                    "REALIGN_RENAME",
+                    "SPLIT_REALIGN",
+                    "MERGE_REALIGN_RENAME",
+                }:
                     errors.append(f"unsupported authoring action for {proposal_id}")
-                if action in {"RENAME", "REALIGN_RENAME"} and not decision_record.get(
-                    "new_title"
-                ):
+                if action in {
+                    "RENAME",
+                    "REALIGN_RENAME",
+                    "MERGE_REALIGN_RENAME",
+                } and not decision_record.get("new_title"):
                     errors.append(f"RENAME has no new_title for {proposal_id}")
                 expected_boundary_action = (
                     "REALIGN_RIGHT"
-                    if action in {"REALIGN_RENAME", "SPLIT_REALIGN"}
+                    if action in {
+                        "REALIGN_RENAME",
+                        "SPLIT_REALIGN",
+                        "MERGE_REALIGN_RENAME",
+                    }
                     else "PRESERVE"
                 )
                 if decision_record.get("boundary_action") != expected_boundary_action:

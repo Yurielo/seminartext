@@ -952,6 +952,29 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 35, Day 2: принять REALIGN + RENAME. Новое название: «Дисциплина как основа результата в обучении». Диапазон word:011507–word:011657; следующая тема начинается с word:011658. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:011507"
+    },
+    {
+      "action": "MERGE_REALIGN_RENAME",
+      "absorbed_proposal_ids": [
+        "issue_68_video_002_topic_proposal_037"
+      ],
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_domain_authoring_topic_036",
+      "end_word_id": "transcript_revision_video_002_r1:word:012186",
+      "end_word_anchor_time": "02:08:42.453",
+      "new_title": "Тестирование по изображению: восприятие сильного и слабого ответа",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_038",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:012187",
+      "next_start_word_anchor_time": "02:08:43.577",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:011701",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:011702",
+      "proposal_id": "issue_68_video_002_topic_proposal_036",
+      "reason": "Исходная машинная граница word:011701/word:011702 разрывала фразу «по любому изображению», а граница word:012112/word:012113 разрывала перечисление примеров. Объединённый диапазон сохраняет единый метод тестирования по фотографии, рисунку или видео и восприятия сильного/слабого ответа; фраза «Это у нас был седьмой вид» завершает блок, а с word:012187 начинается усложнение и отдельное объяснение проекций.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 36, Day 2: принять MERGE + REALIGN + RENAME. Новое название: «Тестирование по изображению: восприятие сильного и слабого ответа». Диапазон word:011658–word:012186; машинная Тема 37 полностью поглощена; следующая тема начинается с word:012187. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:011658"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",
