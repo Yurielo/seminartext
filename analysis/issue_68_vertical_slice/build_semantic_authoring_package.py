@@ -196,12 +196,30 @@ def build_package(
 
         word_by_id = {word["id"]: word for word in words}
         left_boundary_decisions: dict[str, dict[str, Any]] = {}
+        absorbed_by_proposal: dict[str, dict[str, Any]] = {}
         for index in range(len(topics) - 1):
             proposal_id = f"issue_68_{registry_id}_topic_proposal_{index + 1:03d}"
-            next_proposal_id = f"issue_68_{registry_id}_topic_proposal_{index + 2:03d}"
             boundary_decision = decisions_by_proposal.get(proposal_id)
             if not boundary_decision or boundary_decision.get("boundary_action") != "REALIGN_RIGHT":
                 continue
+            absorbed_ids = boundary_decision.get("absorbed_proposal_ids", [])
+            if absorbed_ids and boundary_decision.get("action") != "SPLIT_REALIGN":
+                errors.append(
+                    f"absorbed proposals require SPLIT_REALIGN for {proposal_id}"
+                )
+            expected_absorbed_ids = [
+                f"issue_68_{registry_id}_topic_proposal_{item + 1:03d}"
+                for item in range(index + 1, index + 1 + len(absorbed_ids))
+            ]
+            if absorbed_ids != expected_absorbed_ids:
+                errors.append(f"absorbed proposals are not consecutive for {proposal_id}")
+            next_index = index + 1 + len(absorbed_ids)
+            if next_index >= len(topics):
+                errors.append(f"realigned boundary has no following proposal for {proposal_id}")
+                continue
+            next_proposal_id = (
+                f"issue_68_{registry_id}_topic_proposal_{next_index + 1:03d}"
+            )
             next_word = word_by_id.get(boundary_decision.get("next_start_word_id"))
             end_word = word_by_id.get(boundary_decision.get("end_word_id"))
             if next_word is None or end_word is None:
@@ -221,16 +239,26 @@ def build_package(
                 next_word.get("start_seconds")
             ):
                 errors.append(f"realigned next-start timestamp mismatch for {proposal_id}")
-            start_sequences[index + 1] = next_word["sequence"]
+            start_sequences[next_index] = next_word["sequence"]
             left_boundary_decisions[next_proposal_id] = boundary_decision
+            for absorbed_id in absorbed_ids:
+                if absorbed_id in absorbed_by_proposal:
+                    errors.append(f"proposal absorbed more than once: {absorbed_id}")
+                absorbed_by_proposal[absorbed_id] = boundary_decision
 
         for index in range(1, len(start_sequences)):
             if start_sequences[index] <= start_sequences[index - 1]:
                 errors.append(f"non-increasing Canonical Word boundary in {source_id} topic {index + 1}")
 
         for index, topic in enumerate(topics):
+            proposal_id = f"issue_68_{registry_id}_topic_proposal_{index + 1:03d}"
+            decision_record = decisions_by_proposal.get(proposal_id)
             start_sequence = start_sequences[index]
             end_sequence = start_sequences[index + 1] - 1 if index + 1 < len(topics) else len(words) - 1
+            if decision_record and decision_record.get("absorbed_proposal_ids"):
+                authored_end = word_by_id.get(decision_record.get("end_word_id"))
+                if authored_end is not None:
+                    end_sequence = authored_end["sequence"]
             selected = words[start_sequence : end_sequence + 1]
             if not selected:
                 errors.append(f"empty Canonical Word range in {source_id} topic {index + 1}")
@@ -244,7 +272,6 @@ def build_package(
             timed_selected = [word for word in selected if word.get("start_seconds") is not None]
             locator_start = timed_selected[0]["start_seconds"] if timed_selected else topic["start_seconds"]
             locator_end = timed_selected[-1]["end_seconds"] if timed_selected else topic["end_seconds"]
-            proposal_id = f"issue_68_{registry_id}_topic_proposal_{index + 1:03d}"
             previews = {
                 "beginning": excerpt(selected, 0),
                 "middle": excerpt(selected, len(selected) // 2),
@@ -318,7 +345,20 @@ def build_package(
                     "to_word_id": left_boundary_decision.get("next_start_word_id"),
                     "authority": left_boundary_decision.get("authority"),
                 }
-            decision_record = decisions_by_proposal.get(proposal_id)
+            absorption_decision = absorbed_by_proposal.get(proposal_id)
+            if absorption_decision is not None:
+                if decision_record is not None:
+                    errors.append(f"absorbed proposal has its own decision: {proposal_id}")
+                proposal["authoring_status"] = "COMPLETED"
+                proposal["authoring_disposition"] = "MERGED_INTO_PREVIOUS"
+                proposal["absorbed_by_authoring_decision"] = {
+                    "decision_id": absorption_decision.get("decision_id"),
+                    "proposal_id": absorption_decision.get("proposal_id"),
+                    "authored_topic_id": absorption_decision.get("split_parts", [{}])[-1].get(
+                        "part_id"
+                    ),
+                    "authority": absorption_decision.get("authority"),
+                }
             if decision_record is not None:
                 action = decision_record.get("action")
                 if action not in {"RENAME", "REALIGN_RENAME", "SPLIT_REALIGN"}:
@@ -439,16 +479,24 @@ def build_package(
                     "split_part_ids": [
                         part.get("part_id") for part in decision_record.get("split_parts", [])
                     ],
+                    "absorbed_proposal_ids": decision_record.get(
+                        "absorbed_proposal_ids", []
+                    ),
                     "ledger_artifact_id": decision_document.get("artifact_id") if decision_document else None,
                     "ledger_sha256": sha256(decisions_path) if decisions_path else None,
                 }
             proposals.append(proposal)
 
         source_proposals = [item for item in proposals if item["source_id"] == source_id]
+        coverage_proposals = [
+            item
+            for item in source_proposals
+            if item.get("authoring_disposition") != "MERGED_INTO_PREVIOUS"
+        ]
         gaps: list[dict[str, int]] = []
         overlaps: list[dict[str, int]] = []
         expected = 0
-        for item in source_proposals:
+        for item in coverage_proposals:
             if item["start_word_sequence"] > expected:
                 gaps.append({"start_sequence": expected, "end_sequence": item["start_word_sequence"] - 1})
             if item["start_word_sequence"] < expected:
@@ -459,7 +507,10 @@ def build_package(
         per_source[source_id] = {
             "proposal_count": len(source_proposals),
             "canonical_word_count": len(words),
-            "covered_word_count": sum(item["end_word_sequence"] - item["start_word_sequence"] + 1 for item in source_proposals),
+            "covered_word_count": sum(
+                item["end_word_sequence"] - item["start_word_sequence"] + 1
+                for item in coverage_proposals
+            ),
             "gaps": gaps,
             "overlaps": overlaps,
             "review_status": "UNREVIEWED",
@@ -488,6 +539,8 @@ def build_package(
     concept_topics: list[dict[str, Any]] = []
     concept_topics.extend(accepted_day1)
     for item in proposals:
+        if item.get("authoring_disposition") == "MERGED_INTO_PREVIOUS":
+            continue
         if item.get("authored_topics"):
             for authored in item["authored_topics"]:
                 if authored["authoring_disposition"] == "NON_SEMANTIC_EXCLUDED":

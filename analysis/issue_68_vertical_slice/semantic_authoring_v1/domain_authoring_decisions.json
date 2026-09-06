@@ -867,6 +867,57 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 31, Day 2: принять REALIGN + RENAME. Новое название: «Разбор результатов самотестирования: усилие, контроль и расслабление». Диапазон word:010250–word:010444; следующая тема начинается с word:010445. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:010250"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-06",
+      "decision_id": "issue_68_domain_authoring_topic_032",
+      "absorbed_proposal_ids": [
+        "issue_68_video_002_topic_proposal_033"
+      ],
+      "end_word_id": "transcript_revision_video_002_r1:word:011056",
+      "end_word_anchor_time": "01:56:21.019",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_034",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:011057",
+      "next_start_word_anchor_time": "01:56:23.720",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:010981",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:010982",
+      "proposal_id": "issue_68_video_002_topic_proposal_032",
+      "reason": "Исходная машинная тема объединяла три самостоятельных метода самотестирования, между которыми преподаватель дважды явно говорит «Идём дальше», а её правая граница разрывала демонстрацию третьего метода. Разделение сохраняет каждый метод как самостоятельную смысловую единицу; word:011056 завершает проверку результатов, а с word:011057 начинается отдельный разговор с участницей о трудностях обучения.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 32, Day 2: принять SPLIT + REALIGN. 32A word:010445–word:010664 «Самотестирование указательного пальца с участием второй руки»; 32B word:010665–word:010791 «Метод кольца: два варианта самотестирования»; 32C word:010792–word:011056 «Тестирование лучевого сгибателя кисти». Машинная Тема 33 полностью поглощена частью 32C; следующая самостоятельная тема начинается с word:011057 (машинное предложение 34). Статус всех трёх частей PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "01:52:00.229",
+          "end_word_id": "transcript_revision_video_002_r1:word:010664",
+          "part_id": "issue_68_video_002_topic_proposal_032a",
+          "part_label": "32A",
+          "start_word_anchor_time": "01:49:51.747",
+          "start_word_id": "transcript_revision_video_002_r1:word:010445",
+          "title": "Самотестирование указательного пальца с участием второй руки"
+        },
+        {
+          "end_word_anchor_time": "01:53:23.923",
+          "end_word_id": "transcript_revision_video_002_r1:word:010791",
+          "part_id": "issue_68_video_002_topic_proposal_032b",
+          "part_label": "32B",
+          "start_word_anchor_time": "01:52:02.955",
+          "start_word_id": "transcript_revision_video_002_r1:word:010665",
+          "title": "Метод кольца: два варианта самотестирования"
+        },
+        {
+          "end_word_anchor_time": "01:56:21.019",
+          "end_word_id": "transcript_revision_video_002_r1:word:011056",
+          "part_id": "issue_68_video_002_topic_proposal_032c",
+          "part_label": "32C",
+          "start_word_anchor_time": "01:53:25.566",
+          "start_word_id": "transcript_revision_video_002_r1:word:010792",
+          "title": "Тестирование лучевого сгибателя кисти"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_002_r1:word:010445"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",
