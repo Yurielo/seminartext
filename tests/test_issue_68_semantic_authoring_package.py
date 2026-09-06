@@ -510,10 +510,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 38,
-        "pending": 224,
+        "completed": 40,
+        "pending": 222,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_039",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_041",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -1080,11 +1080,43 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert thirty_ninth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_038"
     )
+    assert thirty_ninth["end_word_id"].endswith("word:013353")
+    assert [item["part_label"] for item in thirty_ninth["authored_topics"]] == [
+        "39A",
+        "39B",
+    ]
+    assert [item["authored_title"] for item in thirty_ninth["authored_topics"]] == [
+        "Практика тестирования проекции человека",
+        "Практика тестирования фантома и его возвращения",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in thirty_ninth["authored_topics"]
+    )
+    assert thirty_ninth["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_040"
+    ]
+    fortieth = package["topic_proposals"][39]
+    assert fortieth["authoring_status"] == "COMPLETED"
+    assert fortieth["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert fortieth["absorbed_by_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_039"
+    )
+    assert fortieth["absorbed_by_authoring_decision"]["authored_topic_id"] == (
+        "issue_68_video_002_topic_proposal_039b"
+    )
+    forty_first = package["topic_proposals"][40]
+    assert forty_first["start_word_id"].endswith("word:013354")
+    assert forty_first["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_039"
+    )
     assert all(
         link["topic_reference"]
         not in {
             "issue_68_video_002_topic_proposal_033",
             "issue_68_video_002_topic_proposal_037",
+            "issue_68_video_002_topic_proposal_040",
         }
         for link in package["topic_concept_link_proposals"]
     )
