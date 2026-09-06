@@ -918,6 +918,20 @@
         }
       ],
       "start_word_id": "transcript_revision_video_002_r1:word:010445"
+    },
+    {
+      "action": "RENAME",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "PRESERVE",
+      "decision_date": "2026-09-06",
+      "decision_id": "issue_68_domain_authoring_topic_034",
+      "end_word_id": "transcript_revision_video_002_r1:word:011506",
+      "new_title": "Освоение мышечного тестирования: терпение, практика и мотивация",
+      "proposal_id": "issue_68_video_002_topic_proposal_034",
+      "reason": "Фрагмент объединяет реакцию участницы на трудности, объяснение постепенного формирования навыков, аналогии с ходьбой, велосипедом и письмом, а также рекомендацию не отчаиваться. Исходные границы сохраняют эту смысловую единицу перед отдельным блоком о роли дисциплины.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 34, Day 2: принять RENAME. Новое название: «Освоение мышечного тестирования: терпение, практика и мотивация». Диапазон word:011057–word:011506; границы оставить без изменений. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:011057"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",

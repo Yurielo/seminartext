@@ -14,21 +14,21 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **257**.
+Topic→Concept links: **258**.
 
 ## First review item
 
-### 34. Недоумение и обучение
+### 35. Дисциплина и Результат
 
 - Source: `source_video_002`
-- Time: `01:56:23.720` — `02:00:34.864`
-- Words: `transcript_revision_video_002_r1:word:011057` — `transcript_revision_video_002_r1:word:011506`
-- Summary: Говорящий выражает недоумение и гнев, призывая к спокойствию и подчеркивая, что обучение может проходить в разном темпе для разных людей. Фрагмент проходит от «Никак. Ну, я не понимаю, я злюсь.…» к «состоянии. Приболели, может быть. Поэтому не отчаивайтесь.».
-- Beginning: Никак. Ну, я не понимаю, я злюсь. Все, короче.
-- Middle: какими-то, да, вот. Примитивный рефлекс у нас там есть, там, рефлекс паралича при страхе, рефлекс мороза, там,
-- End: каком-то нерешенном состоянии. Приболели, может быть. Поэтому не отчаивайтесь.
+- Time: `02:00:41.150` — `02:01:49.174`
+- Words: `transcript_revision_video_002_r1:word:011507` — `transcript_revision_video_002_r1:word:011602`
+- Summary: Успех достигается благодаря систематической работе и дисциплине, как это демонстрирует пример трансформации персонажа из фильма. Фрагмент проходит от «Я сложные такие объяснения даю. Для того,…» к «забитого чувака стал таким этим. А тот».
+- Beginning: Я сложные такие объяснения даю. Для того, чтобы вы
+- Middle: Как Дуэйн Джонсон. Скала. Там как-то было. Фильм такой классный. Полтора шпиона. Хорошая комедия. Американская. Смешная. Он
+- End: такого жирного забитого чувака стал таким этим. А тот
 - Machine recommendation: `ACCEPT`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
-Natural Russian responses are supported, for example: `Тема 34 — принять`,
+Natural Russian responses are supported, for example: `Тема 35 — принять`,
 `Название изменить на …`, or `Разделить после фразы …`.
