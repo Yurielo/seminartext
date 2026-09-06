@@ -437,10 +437,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 34,
-        "pending": 228,
+        "completed": 35,
+        "pending": 227,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_035",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_036",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -950,7 +950,18 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert thirty_fourth["domain_review_status"] == "REVIEW_REQUIRED"
     thirty_fifth = package["topic_proposals"][34]
     assert thirty_fifth["start_word_id"].endswith("word:011507")
-    assert thirty_fifth["authoring_status"] == "PENDING"
+    assert thirty_fifth["end_word_id"].endswith("word:011657")
+    assert thirty_fifth["authored_title"] == (
+        "Дисциплина как основа результата в обучении"
+    )
+    assert thirty_fifth["authoring_status"] == "COMPLETED"
+    assert thirty_fifth["semantic_status"] == "PROVISIONAL"
+    assert thirty_fifth["domain_review_status"] == "REVIEW_REQUIRED"
+    thirty_sixth = package["topic_proposals"][35]
+    assert thirty_sixth["start_word_id"].endswith("word:011658")
+    assert thirty_sixth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_035"
+    )
     assert all(
         link["topic_reference"] != "issue_68_video_002_topic_proposal_033"
         for link in package["topic_concept_link_proposals"]
