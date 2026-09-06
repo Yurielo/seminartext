@@ -329,10 +329,10 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 30,
-        "pending": 232,
+        "completed": 31,
+        "pending": 231,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_031",
+        "next_proposal_id": "issue_68_video_002_topic_proposal_032",
     }
     assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
         expected_counts.values()
@@ -784,6 +784,18 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert thirty_first["start_word_id"].endswith("word:010250")
     assert thirty_first["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_030"
+    )
+    assert thirty_first["end_word_id"].endswith("word:010444")
+    assert thirty_first["authored_title"] == (
+        "Разбор результатов самотестирования: усилие, контроль и расслабление"
+    )
+    assert thirty_first["authoring_status"] == "COMPLETED"
+    assert thirty_first["semantic_status"] == "PROVISIONAL"
+    assert thirty_first["domain_review_status"] == "REVIEW_REQUIRED"
+    thirty_second = package["topic_proposals"][31]
+    assert thirty_second["start_word_id"].endswith("word:010445")
+    assert thirty_second["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_031"
     )
     for coverage in package["coverage"].values():
         assert coverage["covered_word_count"] == coverage["canonical_word_count"]

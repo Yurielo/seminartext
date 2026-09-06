@@ -847,6 +847,26 @@
       "source_id": "source_video_002",
       "source_instruction": "DOMAIN_AUTHORING — Тема 30, Day 2: принять REALIGN + RENAME. Новое название: «Метод одной руки: техника и преимущества самотестирования». Диапазон word:009833–word:010249; следующая тема начинается с word:010250. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
       "start_word_id": "transcript_revision_video_002_r1:word:009833"
+    },
+    {
+      "action": "REALIGN_RENAME",
+      "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-06",
+      "decision_id": "issue_68_domain_authoring_topic_031",
+      "end_word_id": "transcript_revision_video_002_r1:word:010444",
+      "end_word_anchor_time": "01:49:49.460",
+      "new_title": "Разбор результатов самотестирования: усилие, контроль и расслабление",
+      "next_proposal_id": "issue_68_video_002_topic_proposal_032",
+      "next_start_word_id": "transcript_revision_video_002_r1:word:010445",
+      "next_start_word_anchor_time": "01:49:51.747",
+      "previous_end_word_id": "transcript_revision_video_002_r1:word:010402",
+      "previous_next_start_word_id": "transcript_revision_video_002_r1:word:010403",
+      "proposal_id": "issue_68_video_002_topic_proposal_031",
+      "reason": "Диапазон представляет единый блок проверки результатов участников и индивидуального разбора, в котором избыточные усилие и контроль противопоставляются расслаблению и игровому отношению к самотестированию. Исходная машинная граница разрывала этот разбор; word:010444 завершает его явным переходом «Идём дальше», а с word:010445 начинается описание отдельного метода с участием двух рук.",
+      "source_id": "source_video_002",
+      "source_instruction": "DOMAIN_AUTHORING — Тема 31, Day 2: принять REALIGN + RENAME. Новое название: «Разбор результатов самотестирования: усилие, контроль и расслабление». Диапазон word:010250–word:010444; следующая тема начинается с word:010445. Статус PROVISIONAL / DOMAIN_REVIEW_REQUIRED.",
+      "start_word_id": "transcript_revision_video_002_r1:word:010250"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",
