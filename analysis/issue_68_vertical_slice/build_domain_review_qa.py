@@ -105,27 +105,30 @@ TOPIC_EXCEPTIONS: dict[str, dict[str, Any]] = {
         "confidence": "MEDIUM",
     },
     "issue_68_video_004_topic_proposal_024h": {
-        "taxonomy": ["OVER-MERGE", "TRANSITION_SPLIT", "PROCEDURAL_FRAGMENTATION"],
+        "taxonomy": ["OVER-MERGE", "TRANSITION_SPLIT", "PROCEDURAL_CONTENT_MIX"],
         "problem": (
-            "The resource-focused discussion ends before an extended brain-gym "
-            "and pretest recap. The current range combines those different "
-            "discourse functions under one title."
+            "The resource-focused discussion ends before a guided brain-gym "
+            "sequence and pretest recap. The current range combines two distinct "
+            "semantic functions under one title."
         ),
         "recommended_correction": {
             "action": "SPLIT_REALIGN",
             "semantic_part": {
                 "preserve_title": True,
                 "start_word_id": "transcript_revision_video_004_r1:word:009738",
-                "end_word_id": "transcript_revision_video_004_r1:word:010256",
+                "end_word_id": "transcript_revision_video_004_r1:word:010253",
             },
-            "separate_structure_part": {
-                "title": "Гимнастика и повторение претестов перед вопросами",
-                "start_word_id": "transcript_revision_video_004_r1:word:010257",
+            "separate_semantic_part": {
+                "title": "Гимнастика для мозга и повторение претестов перед вопросами",
+                "start_word_id": "transcript_revision_video_004_r1:word:010254",
                 "end_word_id": "transcript_revision_video_004_r1:word:010431",
-                "proposed_role": "SEMINAR_STRUCTURE",
+                "proposed_role": "SEMANTIC_TOPIC",
             },
         },
-        "alternative": "Exclude the exercise recap from Canonical Knowledge.",
+        "alternative": (
+            "Classify the second part as SEMINAR_STRUCTURE only if the guided "
+            "exercise is intended as navigation rather than reusable content."
+        ),
         "confidence": "HIGH",
     },
 }
@@ -343,7 +346,11 @@ def apply_domain_review_decisions(
         if decision.get("authority") != "PRODUCT_OWNER_DOMAIN_REVIEW":
             errors.append(f"non-authoritative DOMAIN_REVIEW decision {decision_id}")
             continue
-        if decision.get("action") not in {"SPLIT_REALIGN", "REALIGN_LEFT"}:
+        if decision.get("action") not in {
+            "SPLIT_REALIGN",
+            "REALIGN_LEFT",
+            "CONFIRM_AUDIO_RECESSION_SEMANTIC_NORMALIZATION_TO_REGRESSION",
+        }:
             errors.append(f"unsupported DOMAIN_REVIEW action in {decision_id}")
             continue
         if target_id in resolved:
@@ -440,6 +447,7 @@ def apply_domain_review_decisions(
                 "end_time": semantic["end_time"],
                 "domain_review_decision_id": decision_id,
                 "domain_review_authority": decision["authority"],
+                "domain_review_action": decision["action"],
             }
         )
         index = original_order[target_id]
@@ -486,6 +494,11 @@ def apply_domain_review_decisions(
                 "results": resolved_results,
                 "neighborhood_qa": neighborhood_checks,
                 "package_semantic_promotion": False,
+                **(
+                    {"terminology_normalization": decision["terminology_normalization"]}
+                    if "terminology_normalization" in decision
+                    else {}
+                ),
             }
         )
 
@@ -547,6 +560,10 @@ def build_qa(
             if unit["topic_id"] in resolved_topic_ids
             else TOPIC_EXCEPTIONS.get(unit["topic_id"])
         )
+        terminology_normalized = (
+            unit.get("domain_review_action")
+            == "CONFIRM_AUDIO_RECESSION_SEMANTIC_NORMALIZATION_TO_REGRESSION"
+        )
         classification = "REVIEW_EXCEPTION" if exception else "REVIEW_CLEAR"
         correction = exception.get("recommended_correction", {}) if exception else {}
         boundary_action = correction.get("action")
@@ -577,13 +594,21 @@ def build_qa(
                 "DECIDED" if unit["topic_id"] in resolved_topic_ids else "REVIEW_REQUIRED"
             ),
             "qa_dimensions": {
-                "title_content_correspondence": "REVIEW_REQUIRED" if exception and "MALFORMED_TITLE" in exception["taxonomy"] else "PASS",
+                "title_content_correspondence": (
+                    "REVIEW_REQUIRED"
+                    if exception and "MALFORMED_TITLE" in exception["taxonomy"]
+                    else "PASS"
+                ),
                 "left_boundary": "REVIEW_REQUIRED" if left_boundary_requires_review else "PASS",
                 "right_boundary": "REVIEW_REQUIRED" if right_boundary_requires_review else "PASS",
                 "semantic_coherence": "REVIEW_REQUIRED" if exception else "PASS",
                 "neighbor_relationship": "REVIEW_REQUIRED" if exception else "PASS",
                 "provenance": "PASS",
-                "transcript_assurance": "MACHINE_UNVERIFIED_EXPLICIT",
+                "transcript_assurance": (
+                    "SELECTIVE_AUDIO_TERM_VERIFIED"
+                    if terminology_normalized
+                    else "MACHINE_UNVERIFIED_EXPLICIT"
+                ),
             },
             "protected_pattern": VALID_SHORT_TOPICS.get(unit["topic_id"]),
         }
@@ -725,7 +750,9 @@ def build_qa(
         link_results.append(result)
 
     topic_clear = sum(item["classification"] == "REVIEW_CLEAR" for item in topic_results)
-    topic_exceptions = len(topic_results) - topic_clear
+    topic_exceptions = sum(
+        item["classification"] == "REVIEW_EXCEPTION" for item in topic_results
+    )
     concept_clear = sum(
         item["classification"] == "CLEAR_FOR_HUMAN_BATCH_REVIEW"
         for item in concept_results
@@ -745,6 +772,17 @@ def build_qa(
         None,
     )
     first_exception = first_topic_exception or first_concept_exception or first_link_exception
+    transcript_exception_results = [dict(item) for item in TRANSCRIPT_EXCEPTIONS]
+    for item in transcript_exception_results:
+        if item["exception_id"] == "issue_68_transcript_exception_regression_term":
+            item["partial_resolution"] = {
+                "topic_id": "issue_68_video_004_topic_proposal_001c",
+                "decision_id": "issue_68_domain_review_topic_001c",
+                "status": "SOURCE_TERM_CONFIRMED_SEMANTIC_TERM_NORMALIZED",
+                "source_term": "рецессия",
+                "semantic_term": "регрессия",
+                "transcript_revision_mutated": False,
+            }
 
     return {
         "schema_version": "1.0.0",
@@ -846,7 +884,7 @@ def build_qa(
         "domain_review_resolutions": domain_review_resolutions,
         "concept_results": concept_results,
         "link_results": link_results,
-        "selective_transcript_verification_exceptions": TRANSCRIPT_EXCEPTIONS,
+        "selective_transcript_verification_exceptions": transcript_exception_results,
         "coverage": package["coverage"],
         "first_material_exception": first_exception,
         "safety": {

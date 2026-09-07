@@ -54,6 +54,7 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
     assert [item["topic_id"] for item in decided] == [
         "issue_68_video_002_topic_proposal_020a",
         "issue_68_video_003_topic_proposal_051a",
+        "issue_68_video_004_topic_proposal_001c",
     ]
     assert all(
         item["domain_review_status"] == "REVIEW_REQUIRED"
@@ -77,14 +78,15 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["topic_id"] == "issue_68_video_004_topic_proposal_001c"
+    assert first["topic_id"] == "issue_68_video_004_topic_proposal_024h"
     assert first["classification"] == "REVIEW_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
-    assert first["qa_dimensions"]["left_boundary"] == "PASS"
-    assert first["qa_dimensions"]["right_boundary"] == "PASS"
+    assert first["qa_dimensions"]["left_boundary"] == "REVIEW_REQUIRED"
+    assert first["qa_dimensions"]["right_boundary"] == "REVIEW_REQUIRED"
     assert "issue_68_video_002_topic_proposal_020a" not in review
     assert "issue_68_video_003_topic_proposal_051a" not in review
-    assert "issue_68_video_004_topic_proposal_001c" in review
+    assert "issue_68_video_004_topic_proposal_001c" not in review
+    assert "issue_68_video_004_topic_proposal_024h" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -161,4 +163,47 @@ def test_product_owner_topic_051a_decision_is_exact_and_neighbor_qa_passes() -> 
         "next_topic_id": "issue_68_video_003_topic_proposal_051b",
         "next_topic_starts_after_original_range": True,
         "neighboring_topic_overlap": False,
+    }
+
+
+def test_product_owner_topic_001c_audio_term_normalization_is_traceable() -> None:
+    qa = read_json(QA_PATH)
+    topic = next(
+        item
+        for item in qa["topic_results"]
+        if item["topic_id"] == "issue_68_video_004_topic_proposal_001c"
+    )
+    resolution = topic["domain_review_resolution"]
+
+    assert topic["classification"] == "REVIEW_CLEAR"
+    assert topic["domain_review_status"] == "DECIDED"
+    assert topic["semantic_status"] == "PROVISIONAL"
+    assert topic["title"] == "Специфическая, генетическая и неспецифическая регрессия"
+    assert topic["start_word_id"].endswith(":word:000615")
+    assert topic["end_word_id"].endswith(":word:000754")
+    assert topic["qa_dimensions"]["left_boundary"] == "PASS"
+    assert topic["qa_dimensions"]["right_boundary"] == "PASS"
+    assert topic["qa_dimensions"]["transcript_assurance"] == "SELECTIVE_AUDIO_TERM_VERIFIED"
+    assert resolution["action"] == "CONFIRM_AUDIO_RECESSION_SEMANTIC_NORMALIZATION_TO_REGRESSION"
+    assert resolution["status"] == "DECIDED"
+    assert resolution["package_semantic_promotion"] is False
+    assert resolution["terminology_normalization"] == {
+        "semantic_term": "регрессия",
+        "source_term": "рецессия",
+        "source_term_verification": "HUMAN_CONFIRMED_FROM_SOURCE_AUDIO",
+        "traceability": "PRESERVED",
+        "transcript_revision_action": "PRESERVE_UNCHANGED",
+    }
+    transcript_exception = next(
+        item
+        for item in qa["selective_transcript_verification_exceptions"]
+        if item["exception_id"] == "issue_68_transcript_exception_regression_term"
+    )
+    assert transcript_exception["partial_resolution"] == {
+        "topic_id": "issue_68_video_004_topic_proposal_001c",
+        "decision_id": "issue_68_domain_review_topic_001c",
+        "status": "SOURCE_TERM_CONFIRMED_SEMANTIC_TERM_NORMALIZED",
+        "source_term": "рецессия",
+        "semantic_term": "регрессия",
+        "transcript_revision_mutated": False,
     }

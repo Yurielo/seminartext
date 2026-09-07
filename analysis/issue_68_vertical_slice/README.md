@@ -60,7 +60,7 @@ exception. A decided exception does not promote the remaining package.
 - Full Canonical Word coverage by provisional Topic proposals: `PASS`
 - Days 2–4 authoring: `262/262 COMPLETED_PROVISIONAL`
 - Resulting semantic units classified by QA: `181`
-- Persisted exact DOMAIN_REVIEW decisions: `2`
+- Persisted exact DOMAIN_REVIEW decisions: `3`
 - Days 2–4 Topic authority: `UNREVIEWED`
 - Concept candidates and Topic→Concept links: `PROVISIONAL_UNREVIEWED`
 - Obsidian export: `NOT_RUN_BLOCKED_SEMANTIC_INPUT`

@@ -7,8 +7,8 @@ does not mean `ACCEPTED`.
 
 - Machine Topic proposals: **262**
 - Resulting authored semantic units: **181**
-- Topic `REVIEW_CLEAR`: **179**
-- Topic `REVIEW_EXCEPTION`: **2**
+- Topic `REVIEW_CLEAR`: **180**
+- Topic `REVIEW_EXCEPTION`: **1**
 - Concept candidates: **18**
 - Concept identity exceptions: **7**
 - Topic→Concept input links: **254**
@@ -23,35 +23,44 @@ packet exposes only the first unresolved material exception.
 ## First material exception
 
 - Source: `source_video_004`
-- Topic: `issue_68_video_004_topic_proposal_001c`
-- Time: `00:08:46.571` — `00:10:26.178`
-- Words: `transcript_revision_video_004_r1:word:000615` — `transcript_revision_video_004_r1:word:000754`
-- Current title: **Специфическая, генетическая и неспецифическая рецессия**
+- Topic: `issue_68_video_004_topic_proposal_024h`
+- Time: `01:51:40.189` — `02:01:19.486`
+- Words: `transcript_revision_video_004_r1:word:009738` — `transcript_revision_video_004_r1:word:010431`
+- Current title: **Генетическая линия, предел глубины и ресурсный фокус работы**
 - Classification: `REVIEW_EXCEPTION`
-- Taxonomy: MALFORMED_TITLE, TRANSCRIPT_UNCERTAINTY
-- Confidence: `MEDIUM`
+- Taxonomy: OVER-MERGE, TRANSITION_SPLIT, PROCEDURAL_CONTENT_MIX
+- Confidence: `HIGH`
 
 ### Exact problem
 
-The title and machine transcript use «рецессия» for a method whose surrounding explanation appears to describe temporal regression. The intended domain term cannot be authoritatively inferred from the machine TranscriptRevision alone.
+The resource-focused discussion ends before a guided brain-gym sequence and pretest recap. The current range combines two distinct semantic functions under one title.
 
 ### Exact evidence preview
 
-- Beginning: И оно звучит так, как время, в которое коррекция пройдет наилучшим образом. То есть мы не знаем, что это за время. Какая же бывает вида специфической рецессии? Это текущее воплощение, то есть
-- Middle: опыт, то есть от момента рождения до настоящего времени. Есть специфическая также рецессия, туда относится генетическое прошлое, то есть какой-то конкретный предок. Бабушка по материнской линии, либо дедушка по материнской линии в
-- End: подробнее. Итого, мы можем уйти в какое-то конкретное время, либо в время, которое мы даже не знаем, куда мы попадем, которое называется неспецифическая рецессия, или время, в которое коррекция пройдет наилучшим образом.
+- Beginning: Мы здесь работаем, смотрите, мы с вами когда проговорили про первое поколение, здесь не очень верно на схеме написано, но вообще. У нас человек, с которым мы работаем, или мы сами, давайте
+- Middle: тоже для вас такое замечание. Вот смотрите. Мы даже со своим личным опытом от зачатия до настоящего времени мы вряд ли сможем когда-либо разобраться. На то, чтобы с этими проблемами разобраться, нужно
+- End: но сейчас запоминаем. Дальше мы дышим с вами, дальше мы промахиваем с вами меридианы, передний, средний меридиан, задний, средний меридиан. Делали гимнастику для мозга, восстановили свои когнитивные способности и переходим к вопросам.
 
 ### Recommended correction
 
 ```json
 {
-  "action": "SELECTIVE_TRANSCRIPT_VERIFICATION_THEN_RENAME_IF_CONFIRMED",
-  "candidate_title": "Специфическая, генетическая и неспецифическая регрессия",
-  "preserve_word_range": true
+  "action": "SPLIT_REALIGN",
+  "semantic_part": {
+    "end_word_id": "transcript_revision_video_004_r1:word:010253",
+    "preserve_title": true,
+    "start_word_id": "transcript_revision_video_004_r1:word:009738"
+  },
+  "separate_semantic_part": {
+    "end_word_id": "transcript_revision_video_004_r1:word:010431",
+    "proposed_role": "SEMANTIC_TOPIC",
+    "start_word_id": "transcript_revision_video_004_r1:word:010254",
+    "title": "Гимнастика для мозга и повторение претестов перед вопросами"
+  }
 }
 ```
 
-Alternative: Retain «рецессия» with an explicit source-term note if selective verification confirms that wording.
+Alternative: Classify the second part as SEMINAR_STRUCTURE only if the guided exercise is intended as navigation rather than reusable content.
 
 ### Human decision required
 

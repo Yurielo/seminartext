@@ -68,6 +68,36 @@
         }
       ],
       "target_topic_id": "issue_68_video_003_topic_proposal_051a"
+    },
+    {
+      "action": "CONFIRM_AUDIO_RECESSION_SEMANTIC_NORMALIZATION_TO_REGRESSION",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_domain_review_topic_001c",
+      "original_range": {
+        "end_word_id": "transcript_revision_video_004_r1:word:000754",
+        "start_word_id": "transcript_revision_video_004_r1:word:000615"
+      },
+      "rationale": "Selective source-audio verification confirms that the author says «рецессия». The semantic meaning is return to a specific age, time, or past experience, so the semantic Topic is normalized to «регрессия» without rewriting the historical TranscriptRevision.",
+      "rejected_alternative": "Rewrite the historical TranscriptRevision as though the author pronounced «регрессия».",
+      "results": [
+        {
+          "disposition": "SEMANTIC_TOPIC",
+          "end_word_id": "transcript_revision_video_004_r1:word:000754",
+          "source_id": "source_video_004",
+          "start_word_id": "transcript_revision_video_004_r1:word:000615",
+          "title": "Специфическая, генетическая и неспецифическая регрессия",
+          "topic_id": "issue_68_video_004_topic_proposal_001c"
+        }
+      ],
+      "target_topic_id": "issue_68_video_004_topic_proposal_001c",
+      "terminology_normalization": {
+        "semantic_term": "регрессия",
+        "source_term": "рецессия",
+        "source_term_verification": "HUMAN_CONFIRMED_FROM_SOURCE_AUDIO",
+        "traceability": "PRESERVED",
+        "transcript_revision_action": "PRESERVE_UNCHANGED"
+      }
     }
   ],
   "package_semantic_authority": "PROVISIONAL_UNREVIEWED",
