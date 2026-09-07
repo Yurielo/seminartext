@@ -48,12 +48,19 @@ python analysis/issue_68_vertical_slice/build_domain_review_qa.py \
   --output-dir analysis/issue_68_vertical_slice/domain_review_v1
 ```
 
+Explicit Product Owner decisions for individual exceptions are stored in
+`domain_review_v1/domain_review_decisions.json`. The builder validates their
+exact Canonical Word partition, preserves `NON_SEMANTIC_EXCLUDED` lineage,
+re-QA's both neighboring boundaries, and then exposes the next unresolved
+exception. A decided exception does not promote the remaining package.
+
 ## Current gate
 
 - Engineering evidence validation: `PASS`
 - Full Canonical Word coverage by provisional Topic proposals: `PASS`
 - Days 2–4 authoring: `262/262 COMPLETED_PROVISIONAL`
 - Resulting semantic units classified by QA: `181`
+- Persisted exact DOMAIN_REVIEW decisions: `1`
 - Days 2–4 Topic authority: `UNREVIEWED`
 - Concept candidates and Topic→Concept links: `PROVISIONAL_UNREVIEWED`
 - Obsidian export: `NOT_RUN_BLOCKED_SEMANTIC_INPUT`

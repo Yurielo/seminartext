@@ -21,7 +21,9 @@ from typing import Any
 SOURCE_ORDER = ("source_video_002", "source_video_003", "source_video_004")
 
 # These are explicit semantic-QA findings, not automatic ReviewDecisions.  Each
-# one is bound below to the exact current Canonical Word range.
+# one is bound below to the exact current Canonical Word range. A finding stops
+# being an unresolved exception only when an explicit Product Owner decision in
+# the DOMAIN_REVIEW ledger below has been validated and applied.
 TOPIC_EXCEPTIONS: dict[str, dict[str, Any]] = {
     "issue_68_video_002_topic_proposal_020a": {
         "taxonomy": [
@@ -308,11 +310,194 @@ def authored_units(package: dict[str, Any]) -> list[dict[str, Any]]:
     return units
 
 
+def apply_domain_review_decisions(
+    units: list[dict[str, Any]],
+    decision_ledger: dict[str, Any],
+    words_by_source: dict[str, list[dict[str, Any]]],
+    errors: list[str],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], set[str]]:
+    """Apply only exact, explicitly authorized exception decisions.
+
+    This layer does not accept the full semantic package. It replaces the
+    reviewed target's provisional range/title, preserves non-semantic source
+    fragments as explicit lineage records, and leaves every other item under
+    the existing review policy.
+    """
+
+    if decision_ledger.get("artifact_type") != "seminartext.issue_68_domain_review_decisions":
+        errors.append("invalid DOMAIN_REVIEW decision-ledger artifact type")
+        return units, [], set()
+    if decision_ledger.get("review_gate") != "DOMAIN_REVIEW":
+        errors.append("invalid DOMAIN_REVIEW decision-ledger gate")
+    if decision_ledger.get("package_semantic_authority") != "PROVISIONAL_UNREVIEWED":
+        errors.append("DOMAIN_REVIEW ledger must not promote package authority")
+
+    unit_by_id = {item["topic_id"]: item for item in units}
+    original_order = {item["topic_id"]: index for index, item in enumerate(units)}
+    resolved: set[str] = set()
+    resolutions: list[dict[str, Any]] = []
+
+    for decision in decision_ledger.get("decisions", []):
+        decision_id = decision.get("decision_id", "<missing>")
+        target_id = decision.get("target_topic_id")
+        if decision.get("authority") != "PRODUCT_OWNER_DOMAIN_REVIEW":
+            errors.append(f"non-authoritative DOMAIN_REVIEW decision {decision_id}")
+            continue
+        if decision.get("action") != "SPLIT_REALIGN":
+            errors.append(f"unsupported DOMAIN_REVIEW action in {decision_id}")
+            continue
+        if target_id in resolved:
+            errors.append(f"duplicate DOMAIN_REVIEW target {target_id}")
+            continue
+        target = unit_by_id.get(target_id)
+        if target is None:
+            errors.append(f"orphan DOMAIN_REVIEW target {target_id}")
+            continue
+
+        source_id = target["source_id"]
+        expected_original = decision.get("original_range", {})
+        if (
+            expected_original.get("start_word_id") != target["start_word_id"]
+            or expected_original.get("end_word_id") != target["end_word_id"]
+        ):
+            errors.append(f"DOMAIN_REVIEW original-range mismatch for {target_id}")
+            continue
+
+        results = decision.get("results", [])
+        if not results:
+            errors.append(f"DOMAIN_REVIEW decision has no results: {decision_id}")
+            continue
+        sequences: list[tuple[int, int]] = []
+        semantic_results = []
+        resolved_results = []
+        malformed = False
+        for result in results:
+            if result.get("source_id") != source_id:
+                errors.append(f"DOMAIN_REVIEW source mismatch in {decision_id}")
+                malformed = True
+                break
+            start = word_sequence(result["start_word_id"])
+            end = word_sequence(result["end_word_id"])
+            if start > end:
+                errors.append(f"DOMAIN_REVIEW inverted range in {decision_id}")
+                malformed = True
+                break
+            source_words = words_by_source[source_id]
+            if (
+                start >= len(source_words)
+                or end >= len(source_words)
+                or source_words[start]["id"] != result["start_word_id"]
+                or source_words[end]["id"] != result["end_word_id"]
+            ):
+                errors.append(f"DOMAIN_REVIEW unresolved evidence in {decision_id}")
+                malformed = True
+                break
+            disposition = result.get("disposition")
+            if disposition not in {"SEMANTIC_TOPIC", "NON_SEMANTIC_EXCLUDED"}:
+                errors.append(f"DOMAIN_REVIEW invalid disposition in {decision_id}")
+                malformed = True
+                break
+            sequences.append((start, end))
+            resolved_results.append(
+                {
+                    **result,
+                    "start_word_sequence": start,
+                    "end_word_sequence": end,
+                    "start_time": source_words[start]["start_seconds"],
+                    "end_time": source_words[end]["end_seconds"],
+                    "canonical_evidence_sha256": sha256_bytes(
+                        " ".join(word["text"] for word in source_words[start : end + 1]).encode("utf-8")
+                    ),
+                }
+            )
+            if disposition == "SEMANTIC_TOPIC":
+                semantic_results.append(resolved_results[-1])
+        if malformed:
+            continue
+        sequences.sort()
+        original_start = target["start_word_sequence"]
+        original_end = target["end_word_sequence"]
+        if (
+            sequences[0][0] != original_start
+            or sequences[-1][1] != original_end
+            or any(left[1] + 1 != right[0] for left, right in zip(sequences, sequences[1:]))
+        ):
+            errors.append(f"DOMAIN_REVIEW results do not exactly partition {target_id}")
+            continue
+        if len(semantic_results) != 1 or semantic_results[0].get("topic_id") != target_id:
+            errors.append(f"DOMAIN_REVIEW must preserve one semantic target identity for {target_id}")
+            continue
+
+        semantic = semantic_results[0]
+        target.update(
+            {
+                "title": semantic["title"],
+                "start_word_id": semantic["start_word_id"],
+                "end_word_id": semantic["end_word_id"],
+                "start_word_sequence": semantic["start_word_sequence"],
+                "end_word_sequence": semantic["end_word_sequence"],
+                "start_time": semantic["start_time"],
+                "end_time": semantic["end_time"],
+                "domain_review_decision_id": decision_id,
+                "domain_review_authority": decision["authority"],
+            }
+        )
+        index = original_order[target_id]
+        previous_unit = units[index - 1] if index > 0 and units[index - 1]["source_id"] == source_id else None
+        next_unit = units[index + 1] if index + 1 < len(units) and units[index + 1]["source_id"] == source_id else None
+        neighborhood_checks = {
+            "previous_topic_id": previous_unit["topic_id"] if previous_unit else None,
+            "previous_topic_ends_before_original_range": bool(
+                previous_unit and previous_unit["end_word_sequence"] + 1 == original_start
+            ),
+            "decision_results_exactly_partition_original_range": True,
+            "semantic_range_inside_original_range": (
+                original_start <= semantic["start_word_sequence"]
+                and semantic["end_word_sequence"] <= original_end
+            ),
+            "next_topic_id": next_unit["topic_id"] if next_unit else None,
+            "next_topic_starts_after_original_range": bool(
+                next_unit and original_end + 1 == next_unit["start_word_sequence"]
+            ),
+            "neighboring_topic_overlap": bool(
+                (previous_unit and previous_unit["end_word_sequence"] >= original_start)
+                or (next_unit and next_unit["start_word_sequence"] <= original_end)
+            ),
+        }
+        if not all(
+            value is True
+            for key, value in neighborhood_checks.items()
+            if key not in {"previous_topic_id", "next_topic_id", "neighboring_topic_overlap"}
+        ) or neighborhood_checks["neighboring_topic_overlap"]:
+            errors.append(f"DOMAIN_REVIEW neighborhood QA failed for {target_id}")
+            continue
+
+        resolved.add(target_id)
+        resolutions.append(
+            {
+                "decision_id": decision_id,
+                "target_topic_id": target_id,
+                "authority": decision["authority"],
+                "review_gate": "DOMAIN_REVIEW",
+                "status": "DECIDED",
+                "action": decision["action"],
+                "rationale": decision["rationale"],
+                "rejected_alternative": decision["rejected_alternative"],
+                "results": resolved_results,
+                "neighborhood_qa": neighborhood_checks,
+                "package_semantic_promotion": False,
+            }
+        )
+
+    return units, resolutions, resolved
+
+
 def build_qa(
     repository: Path,
     project: Path,
     review_result_path: Path,
     semantic_package_path: Path,
+    domain_review_decisions_path: Path,
 ) -> dict[str, Any]:
     errors: list[str] = []
     package = read_json(semantic_package_path)
@@ -343,7 +528,11 @@ def build_qa(
     for words in words_by_source.values():
         words.sort(key=lambda item: item["sequence"])
 
+    decision_ledger = read_json(domain_review_decisions_path)
     units = authored_units(package)
+    units, domain_review_resolutions, resolved_topic_ids = apply_domain_review_decisions(
+        units, decision_ledger, words_by_source, errors
+    )
     topic_results: list[dict[str, Any]] = []
     for unit in units:
         words = words_by_source[unit["source_id"]][
@@ -353,7 +542,11 @@ def build_qa(
             errors.append(f"unresolved exact evidence for {unit['topic_id']}")
             continue
         full_text = " ".join(item["text"] for item in words)
-        exception = TOPIC_EXCEPTIONS.get(unit["topic_id"])
+        exception = (
+            None
+            if unit["topic_id"] in resolved_topic_ids
+            else TOPIC_EXCEPTIONS.get(unit["topic_id"])
+        )
         classification = "REVIEW_EXCEPTION" if exception else "REVIEW_CLEAR"
         correction = exception.get("recommended_correction", {}) if exception else {}
         boundary_action = correction.get("action")
@@ -380,7 +573,9 @@ def build_qa(
             "classification": classification,
             "review_method": "CODEX_SEMANTIC_QA_OVER_FULL_CANONICAL_WORD_RANGE",
             "semantic_status": "PROVISIONAL",
-            "domain_review_status": "REVIEW_REQUIRED",
+            "domain_review_status": (
+                "DECIDED" if unit["topic_id"] in resolved_topic_ids else "REVIEW_REQUIRED"
+            ),
             "qa_dimensions": {
                 "title_content_correspondence": "REVIEW_REQUIRED" if exception and "MALFORMED_TITLE" in exception["taxonomy"] else "PASS",
                 "left_boundary": "REVIEW_REQUIRED" if left_boundary_requires_review else "PASS",
@@ -394,6 +589,12 @@ def build_qa(
         }
         if exception:
             result["exception"] = {**exception, "human_decision_required": True}
+        if unit["topic_id"] in resolved_topic_ids:
+            result["domain_review_resolution"] = next(
+                item
+                for item in domain_review_resolutions
+                if item["target_topic_id"] == unit["topic_id"]
+            )
         topic_results.append(result)
 
     link_units: list[dict[str, Any]] = [
@@ -565,6 +766,7 @@ def build_qa(
             "semantic_package_sha256": sha256(semantic_package_path),
             "canonical_evidence_sha256": sha256(bundle_path),
             "review_result_sha256": sha256(review_result_path),
+            "domain_review_decisions_sha256": sha256(domain_review_decisions_path),
             "baseline_rebuilt_without_authoring_decisions": True,
         },
         "inventory_reconciliation": {
@@ -588,6 +790,7 @@ def build_qa(
             "topic_results_total": len(topic_results),
             "topic_review_clear": topic_clear,
             "topic_review_exception": topic_exceptions,
+            "topic_domain_review_decisions": len(domain_review_resolutions),
             "concept_candidates_total": len(concept_results),
             "concept_clear": concept_clear,
             "concept_identity_exception": len(concept_results) - concept_clear,
@@ -640,6 +843,7 @@ def build_qa(
             for source_id in SOURCE_ORDER
         },
         "topic_results": topic_results,
+        "domain_review_resolutions": domain_review_resolutions,
         "concept_results": concept_results,
         "link_results": link_results,
         "selective_transcript_verification_exceptions": TRANSCRIPT_EXCEPTIONS,
@@ -739,16 +943,23 @@ def main() -> int:
     parser.add_argument("--review-result", type=Path, required=True)
     parser.add_argument("--semantic-package", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--domain-review-decisions", type=Path)
     args = parser.parse_args()
 
     repository = args.repository.resolve()
     output = args.output_dir.resolve()
     output.mkdir(parents=True, exist_ok=True)
+    decision_path = (
+        args.domain_review_decisions.resolve()
+        if args.domain_review_decisions
+        else output / "domain_review_decisions.json"
+    )
     qa = build_qa(
         repository,
         args.project.resolve(),
         args.review_result.resolve(),
         args.semantic_package.resolve(),
+        decision_path,
     )
     qa_path = output / "domain_review_qa.json"
     review_path = output / "DOMAIN_REVIEW.md"
@@ -763,6 +974,7 @@ def main() -> int:
             "qa_status": qa["status"],
             "summary": qa["summary"],
             "files": {
+                "domain_review_decisions.json": sha256(decision_path),
                 "domain_review_qa.json": sha256(qa_path),
                 "DOMAIN_REVIEW.md": sha256(review_path),
             },

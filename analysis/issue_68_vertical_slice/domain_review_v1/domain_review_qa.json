@@ -310,7 +310,7 @@
   },
   "day_semantic_maps": {
     "source_video_002": {
-      "coherence_status": "REVIEW_EXCEPTION_PRESENT",
+      "coherence_status": "REVIEW_CLEAR",
       "repeated_titles": [],
       "topic_count": 86,
       "topics": [
@@ -518,10 +518,10 @@
           "topic_id": "issue_68_video_002_topic_proposal_019"
         },
         {
-          "classification": "REVIEW_EXCEPTION",
-          "end_time": "01:21:11.830",
-          "start_time": "01:20:18.736",
-          "title": "Перерыв и задание: классификация входящей, внутренней и производимой энергии",
+          "classification": "REVIEW_CLEAR",
+          "end_time": 4865.015,
+          "start_time": 4831.481,
+          "title": "Задание: классификация входящей, внутренней и производимой энергии",
           "topic_id": "issue_68_video_002_topic_proposal_020a"
         },
         {
@@ -1598,88 +1598,139 @@
       ]
     }
   },
+  "domain_review_resolutions": [
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "decision_id": "issue_68_domain_review_topic_020a",
+      "neighborhood_qa": {
+        "decision_results_exactly_partition_original_range": true,
+        "neighboring_topic_overlap": false,
+        "next_topic_id": "issue_68_video_002_topic_proposal_020b",
+        "next_topic_starts_after_original_range": true,
+        "previous_topic_ends_before_original_range": true,
+        "previous_topic_id": "issue_68_video_002_topic_proposal_019",
+        "semantic_range_inside_original_range": true
+      },
+      "package_semantic_promotion": false,
+      "rationale": "The scheduling fragments before and after the exercise are non-semantic, while the exercise itself is substantive learning content about the three kinds of energy and must remain a semantic Topic.",
+      "rejected_alternative": "Classify the entire original range as SEMINAR_STRUCTURE.",
+      "results": [
+        {
+          "canonical_evidence_sha256": "2d02d4382af405369a7e9696fb89cc2f76dc2e4a73e2f5984b770e8c60a78c3e",
+          "disposition": "NON_SEMANTIC_EXCLUDED",
+          "end_time": 4825.193,
+          "end_word_id": "transcript_revision_video_002_r1:word:007525",
+          "end_word_sequence": 7525,
+          "reason": "break scheduling",
+          "source_id": "source_video_002",
+          "start_time": 4818.736,
+          "start_word_id": "transcript_revision_video_002_r1:word:007504",
+          "start_word_sequence": 7504
+        },
+        {
+          "canonical_evidence_sha256": "400cc9d2b9f53a06d6fc5f0cd4a50b4769f86b538b8995a3b1454fbad41b7374",
+          "disposition": "SEMANTIC_TOPIC",
+          "end_time": 4865.015,
+          "end_word_id": "transcript_revision_video_002_r1:word:007581",
+          "end_word_sequence": 7581,
+          "source_id": "source_video_002",
+          "start_time": 4831.481,
+          "start_word_id": "transcript_revision_video_002_r1:word:007526",
+          "start_word_sequence": 7526,
+          "title": "Задание: классификация входящей, внутренней и производимой энергии",
+          "topic_id": "issue_68_video_002_topic_proposal_020a"
+        },
+        {
+          "canonical_evidence_sha256": "1e0f74fedb7a9ef106fe79614bf07e2601281b0eb12c1c220b72a490463edb32",
+          "disposition": "NON_SEMANTIC_EXCLUDED",
+          "end_time": 4871.83,
+          "end_word_id": "transcript_revision_video_002_r1:word:007588",
+          "end_word_sequence": 7588,
+          "reason": "return-time scheduling",
+          "source_id": "source_video_002",
+          "start_time": 4865.075,
+          "start_word_id": "transcript_revision_video_002_r1:word:007582",
+          "start_word_sequence": 7582
+        }
+      ],
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_topic_id": "issue_68_video_002_topic_proposal_020a"
+    }
+  ],
   "errors": [],
   "first_material_exception": {
-    "authoring_authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
-    "canonical_evidence_sha256": "1d18137961d544ec4501ebfb8fb7fe0c8c4b6513d5e350f0de4b9f50386ff8a3",
+    "authoring_authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+    "canonical_evidence_sha256": "b2fa15cc383cc269ba0ad7964304ab5c64dfe116fc8837824ebfd05e14ac0ad3",
     "classification": "REVIEW_EXCEPTION",
     "domain_review_status": "REVIEW_REQUIRED",
-    "end_time": "01:21:11.830",
-    "end_word_id": "transcript_revision_video_002_r1:word:007588",
-    "end_word_sequence": 7588,
+    "end_time": "02:55:09.070",
+    "end_word_id": "transcript_revision_video_003_r1:word:015449",
+    "end_word_sequence": 15449,
     "evidence_preview": {
       "beginning": {
-        "end_word_id": "transcript_revision_video_002_r1:word:007535",
-        "start_word_id": "transcript_revision_video_002_r1:word:007504",
-        "text": "И давайте сделаем с вами небольшой перерыв на 10 минут, то есть у нас 10.20, 10.30 мы с вами встречаемся и продолжим. И пока подумайте на такие вопросы, я оставлю этот слайд"
+        "end_word_id": "transcript_revision_video_003_r1:word:015243",
+        "start_word_id": "transcript_revision_video_003_r1:word:015212",
+        "text": "Проведем обеденный перерыв. У нас будет на час. И у нас есть список желающих участвовать. Можно я? Мы тестируем по... То есть как бы не я решаю, а я по тесту проверяю."
       },
       "end": {
-        "end_word_id": "transcript_revision_video_002_r1:word:007588",
-        "start_word_id": "transcript_revision_video_002_r1:word:007557",
-        "text": "которую мы производим. Подготовьте свои варианты ответа на эти, даже не ответы, а варианты, что мы можем сделать. Мы можем в табличку вот эту вписать. Через 10 минут, 10.30 по Москве включаемся."
+        "end_word_id": "transcript_revision_video_003_r1:word:015449",
+        "start_word_id": "transcript_revision_video_003_r1:word:015418",
+        "text": "Вот. То есть вот это тема у нас будет. Я бы выбрала. Я доверяю своему тестированию. Продолжение следует... Это поменьше выбрали из всех, я понимаю. Это первый признак, что тема под стрессом."
       },
       "middle": {
-        "end_word_id": "transcript_revision_video_002_r1:word:007561",
-        "start_word_id": "transcript_revision_video_002_r1:word:007530",
-        "text": "такие вопросы, я оставлю этот слайд здесь, чтобы работал. Вот есть энергия, которая в нас входит, которую мы принимаем, энергия, которая внутри нас, которая существует, и энергия, которую мы производим. Подготовьте свои"
+        "end_word_id": "transcript_revision_video_003_r1:word:015346",
+        "start_word_id": "transcript_revision_video_003_r1:word:015315",
+        "text": "стресс на обучение. Это подумайте о том, что... Не нужно выбрать, да? Нет. Мы все по тесту. У нас забываем вообще выбрать. Забываем там, я хочу и так далее. У нас есть"
       }
     },
     "exception": {
-      "alternative": "Preserve the full range only as SEMINAR_STRUCTURE rather than as a knowledge Topic.",
+      "alternative": "Preserve the current range as SEMINAR_STRUCTURE.",
       "confidence": "HIGH",
       "human_decision_required": true,
-      "problem": "The semantic assignment is wrapped by two scheduling fragments: the break announcement at the left and the return-time announcement at the right. Treating the whole range as one knowledge Topic mixes seminar organization with the energy-classification task.",
+      "problem": "The unit opens with an unrelated lunch-break duration announcement before the participant and demonstration-topic selection begins.",
       "recommended_correction": {
-        "action": "SPLIT_REALIGN",
-        "exclude_as_nonsemantic": [
-          {
-            "end_word_id": "transcript_revision_video_002_r1:word:007525",
-            "reason": "break scheduling",
-            "start_word_id": "transcript_revision_video_002_r1:word:007504"
-          },
-          {
-            "end_word_id": "transcript_revision_video_002_r1:word:007588",
-            "reason": "return-time scheduling",
-            "start_word_id": "transcript_revision_video_002_r1:word:007582"
-          }
-        ],
-        "semantic_part": {
-          "end_word_id": "transcript_revision_video_002_r1:word:007581",
-          "start_word_id": "transcript_revision_video_002_r1:word:007526",
-          "title": "Задание: классификация входящей, внутренней и производимой энергии"
-        }
+        "action": "REALIGN_LEFT",
+        "exclude_as_nonsemantic": {
+          "end_word_id": "transcript_revision_video_003_r1:word:015219",
+          "start_word_id": "transcript_revision_video_003_r1:word:015212"
+        },
+        "preserve_end_word_id": "transcript_revision_video_003_r1:word:015449",
+        "start_word_id": "transcript_revision_video_003_r1:word:015220"
       },
       "taxonomy": [
         "NON_SEMANTIC_CONTENT_CONTAMINATION",
-        "DISCOURSE_FUNCTION_BOUNDARY_MISSED"
+        "BOUNDARY_OFFSET"
       ]
     },
-    "origin_proposal_id": "issue_68_video_002_topic_proposal_020",
+    "origin_proposal_id": "issue_68_video_003_topic_proposal_051",
     "protected_pattern": null,
     "qa_dimensions": {
       "left_boundary": "REVIEW_REQUIRED",
       "neighbor_relationship": "REVIEW_REQUIRED",
       "provenance": "PASS",
-      "right_boundary": "REVIEW_REQUIRED",
+      "right_boundary": "PASS",
       "semantic_coherence": "REVIEW_REQUIRED",
       "title_content_correspondence": "PASS",
       "transcript_assurance": "MACHINE_UNVERIFIED_EXPLICIT"
     },
     "review_method": "CODEX_SEMANTIC_QA_OVER_FULL_CANONICAL_WORD_RANGE",
     "semantic_status": "PROVISIONAL",
-    "source_id": "source_video_002",
-    "start_time": "01:20:18.736",
-    "start_word_id": "transcript_revision_video_002_r1:word:007504",
-    "start_word_sequence": 7504,
-    "title": "Перерыв и задание: классификация входящей, внутренней и производимой энергии",
-    "topic_id": "issue_68_video_002_topic_proposal_020a",
-    "word_count": 85
+    "source_id": "source_video_003",
+    "start_time": "02:50:36.490",
+    "start_word_id": "transcript_revision_video_003_r1:word:015212",
+    "start_word_sequence": 15212,
+    "title": "Выбор участника и темы демонстрационной сессии",
+    "topic_id": "issue_68_video_003_topic_proposal_051a",
+    "word_count": 238
   },
   "input_inventory": {
     "authored_topic_results": 181,
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
+    "domain_review_decisions_sha256": "1a52eb5f26ed62fc2bd95b5e6b3aaebf109e5d14cc8e6a67bc5274eaf718a6eb",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -10712,9 +10763,10 @@
     "link_exception": 63,
     "links_total": 254,
     "selective_transcript_verification_exceptions": 2,
+    "topic_domain_review_decisions": 1,
     "topic_results_total": 181,
-    "topic_review_clear": 177,
-    "topic_review_exception": 4
+    "topic_review_clear": 178,
+    "topic_review_exception": 3
   },
   "topic_results": [
     {
@@ -12053,79 +12105,110 @@
     },
     {
       "authoring_authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
-      "canonical_evidence_sha256": "1d18137961d544ec4501ebfb8fb7fe0c8c4b6513d5e350f0de4b9f50386ff8a3",
-      "classification": "REVIEW_EXCEPTION",
-      "domain_review_status": "REVIEW_REQUIRED",
-      "end_time": "01:21:11.830",
-      "end_word_id": "transcript_revision_video_002_r1:word:007588",
-      "end_word_sequence": 7588,
+      "canonical_evidence_sha256": "400cc9d2b9f53a06d6fc5f0cd4a50b4769f86b538b8995a3b1454fbad41b7374",
+      "classification": "REVIEW_CLEAR",
+      "domain_review_authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "domain_review_decision_id": "issue_68_domain_review_topic_020a",
+      "domain_review_resolution": {
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "decision_id": "issue_68_domain_review_topic_020a",
+        "neighborhood_qa": {
+          "decision_results_exactly_partition_original_range": true,
+          "neighboring_topic_overlap": false,
+          "next_topic_id": "issue_68_video_002_topic_proposal_020b",
+          "next_topic_starts_after_original_range": true,
+          "previous_topic_ends_before_original_range": true,
+          "previous_topic_id": "issue_68_video_002_topic_proposal_019",
+          "semantic_range_inside_original_range": true
+        },
+        "package_semantic_promotion": false,
+        "rationale": "The scheduling fragments before and after the exercise are non-semantic, while the exercise itself is substantive learning content about the three kinds of energy and must remain a semantic Topic.",
+        "rejected_alternative": "Classify the entire original range as SEMINAR_STRUCTURE.",
+        "results": [
+          {
+            "canonical_evidence_sha256": "2d02d4382af405369a7e9696fb89cc2f76dc2e4a73e2f5984b770e8c60a78c3e",
+            "disposition": "NON_SEMANTIC_EXCLUDED",
+            "end_time": 4825.193,
+            "end_word_id": "transcript_revision_video_002_r1:word:007525",
+            "end_word_sequence": 7525,
+            "reason": "break scheduling",
+            "source_id": "source_video_002",
+            "start_time": 4818.736,
+            "start_word_id": "transcript_revision_video_002_r1:word:007504",
+            "start_word_sequence": 7504
+          },
+          {
+            "canonical_evidence_sha256": "400cc9d2b9f53a06d6fc5f0cd4a50b4769f86b538b8995a3b1454fbad41b7374",
+            "disposition": "SEMANTIC_TOPIC",
+            "end_time": 4865.015,
+            "end_word_id": "transcript_revision_video_002_r1:word:007581",
+            "end_word_sequence": 7581,
+            "source_id": "source_video_002",
+            "start_time": 4831.481,
+            "start_word_id": "transcript_revision_video_002_r1:word:007526",
+            "start_word_sequence": 7526,
+            "title": "Задание: классификация входящей, внутренней и производимой энергии",
+            "topic_id": "issue_68_video_002_topic_proposal_020a"
+          },
+          {
+            "canonical_evidence_sha256": "1e0f74fedb7a9ef106fe79614bf07e2601281b0eb12c1c220b72a490463edb32",
+            "disposition": "NON_SEMANTIC_EXCLUDED",
+            "end_time": 4871.83,
+            "end_word_id": "transcript_revision_video_002_r1:word:007588",
+            "end_word_sequence": 7588,
+            "reason": "return-time scheduling",
+            "source_id": "source_video_002",
+            "start_time": 4865.075,
+            "start_word_id": "transcript_revision_video_002_r1:word:007582",
+            "start_word_sequence": 7582
+          }
+        ],
+        "review_gate": "DOMAIN_REVIEW",
+        "status": "DECIDED",
+        "target_topic_id": "issue_68_video_002_topic_proposal_020a"
+      },
+      "domain_review_status": "DECIDED",
+      "end_time": 4865.015,
+      "end_word_id": "transcript_revision_video_002_r1:word:007581",
+      "end_word_sequence": 7581,
       "evidence_preview": {
         "beginning": {
-          "end_word_id": "transcript_revision_video_002_r1:word:007535",
-          "start_word_id": "transcript_revision_video_002_r1:word:007504",
-          "text": "И давайте сделаем с вами небольшой перерыв на 10 минут, то есть у нас 10.20, 10.30 мы с вами встречаемся и продолжим. И пока подумайте на такие вопросы, я оставлю этот слайд"
+          "end_word_id": "transcript_revision_video_002_r1:word:007557",
+          "start_word_id": "transcript_revision_video_002_r1:word:007526",
+          "text": "И пока подумайте на такие вопросы, я оставлю этот слайд здесь, чтобы работал. Вот есть энергия, которая в нас входит, которую мы принимаем, энергия, которая внутри нас, которая существует, и энергия, которую"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_002_r1:word:007588",
-          "start_word_id": "transcript_revision_video_002_r1:word:007557",
-          "text": "которую мы производим. Подготовьте свои варианты ответа на эти, даже не ответы, а варианты, что мы можем сделать. Мы можем в табличку вот эту вписать. Через 10 минут, 10.30 по Москве включаемся."
+          "end_word_id": "transcript_revision_video_002_r1:word:007581",
+          "start_word_id": "transcript_revision_video_002_r1:word:007550",
+          "text": "которая внутри нас, которая существует, и энергия, которую мы производим. Подготовьте свои варианты ответа на эти, даже не ответы, а варианты, что мы можем сделать. Мы можем в табличку вот эту вписать."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_002_r1:word:007561",
-          "start_word_id": "transcript_revision_video_002_r1:word:007530",
-          "text": "такие вопросы, я оставлю этот слайд здесь, чтобы работал. Вот есть энергия, которая в нас входит, которую мы принимаем, энергия, которая внутри нас, которая существует, и энергия, которую мы производим. Подготовьте свои"
+          "end_word_id": "transcript_revision_video_002_r1:word:007569",
+          "start_word_id": "transcript_revision_video_002_r1:word:007538",
+          "text": "работал. Вот есть энергия, которая в нас входит, которую мы принимаем, энергия, которая внутри нас, которая существует, и энергия, которую мы производим. Подготовьте свои варианты ответа на эти, даже не ответы, а"
         }
-      },
-      "exception": {
-        "alternative": "Preserve the full range only as SEMINAR_STRUCTURE rather than as a knowledge Topic.",
-        "confidence": "HIGH",
-        "human_decision_required": true,
-        "problem": "The semantic assignment is wrapped by two scheduling fragments: the break announcement at the left and the return-time announcement at the right. Treating the whole range as one knowledge Topic mixes seminar organization with the energy-classification task.",
-        "recommended_correction": {
-          "action": "SPLIT_REALIGN",
-          "exclude_as_nonsemantic": [
-            {
-              "end_word_id": "transcript_revision_video_002_r1:word:007525",
-              "reason": "break scheduling",
-              "start_word_id": "transcript_revision_video_002_r1:word:007504"
-            },
-            {
-              "end_word_id": "transcript_revision_video_002_r1:word:007588",
-              "reason": "return-time scheduling",
-              "start_word_id": "transcript_revision_video_002_r1:word:007582"
-            }
-          ],
-          "semantic_part": {
-            "end_word_id": "transcript_revision_video_002_r1:word:007581",
-            "start_word_id": "transcript_revision_video_002_r1:word:007526",
-            "title": "Задание: классификация входящей, внутренней и производимой энергии"
-          }
-        },
-        "taxonomy": [
-          "NON_SEMANTIC_CONTENT_CONTAMINATION",
-          "DISCOURSE_FUNCTION_BOUNDARY_MISSED"
-        ]
       },
       "origin_proposal_id": "issue_68_video_002_topic_proposal_020",
       "protected_pattern": null,
       "qa_dimensions": {
-        "left_boundary": "REVIEW_REQUIRED",
-        "neighbor_relationship": "REVIEW_REQUIRED",
+        "left_boundary": "PASS",
+        "neighbor_relationship": "PASS",
         "provenance": "PASS",
-        "right_boundary": "REVIEW_REQUIRED",
-        "semantic_coherence": "REVIEW_REQUIRED",
+        "right_boundary": "PASS",
+        "semantic_coherence": "PASS",
         "title_content_correspondence": "PASS",
         "transcript_assurance": "MACHINE_UNVERIFIED_EXPLICIT"
       },
       "review_method": "CODEX_SEMANTIC_QA_OVER_FULL_CANONICAL_WORD_RANGE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002",
-      "start_time": "01:20:18.736",
-      "start_word_id": "transcript_revision_video_002_r1:word:007504",
-      "start_word_sequence": 7504,
-      "title": "Перерыв и задание: классификация входящей, внутренней и производимой энергии",
+      "start_time": 4831.481,
+      "start_word_id": "transcript_revision_video_002_r1:word:007526",
+      "start_word_sequence": 7526,
+      "title": "Задание: классификация входящей, внутренней и производимой энергии",
       "topic_id": "issue_68_video_002_topic_proposal_020a",
-      "word_count": 85
+      "word_count": 56
     },
     {
       "authoring_authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",

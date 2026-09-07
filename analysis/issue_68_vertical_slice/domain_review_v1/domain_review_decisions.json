@@ -1,0 +1,46 @@
+{
+  "artifact_id": "issue_68_stress_code_domain_review_decisions_v1",
+  "artifact_type": "seminartext.issue_68_domain_review_decisions",
+  "decisions": [
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_domain_review_topic_020a",
+      "original_range": {
+        "end_word_id": "transcript_revision_video_002_r1:word:007588",
+        "start_word_id": "transcript_revision_video_002_r1:word:007504"
+      },
+      "rationale": "The scheduling fragments before and after the exercise are non-semantic, while the exercise itself is substantive learning content about the three kinds of energy and must remain a semantic Topic.",
+      "rejected_alternative": "Classify the entire original range as SEMINAR_STRUCTURE.",
+      "results": [
+        {
+          "disposition": "NON_SEMANTIC_EXCLUDED",
+          "end_word_id": "transcript_revision_video_002_r1:word:007525",
+          "reason": "break scheduling",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:007504"
+        },
+        {
+          "disposition": "SEMANTIC_TOPIC",
+          "end_word_id": "transcript_revision_video_002_r1:word:007581",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:007526",
+          "title": "Задание: классификация входящей, внутренней и производимой энергии",
+          "topic_id": "issue_68_video_002_topic_proposal_020a"
+        },
+        {
+          "disposition": "NON_SEMANTIC_EXCLUDED",
+          "end_word_id": "transcript_revision_video_002_r1:word:007588",
+          "reason": "return-time scheduling",
+          "source_id": "source_video_002",
+          "start_word_id": "transcript_revision_video_002_r1:word:007582"
+        }
+      ],
+      "target_topic_id": "issue_68_video_002_topic_proposal_020a"
+    }
+  ],
+  "package_semantic_authority": "PROVISIONAL_UNREVIEWED",
+  "review_gate": "DOMAIN_REVIEW",
+  "schema_version": "1.0.0"
+}

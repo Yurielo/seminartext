@@ -7,8 +7,8 @@ does not mean `ACCEPTED`.
 
 - Machine Topic proposals: **262**
 - Resulting authored semantic units: **181**
-- Topic `REVIEW_CLEAR`: **177**
-- Topic `REVIEW_EXCEPTION`: **4**
+- Topic `REVIEW_CLEAR`: **178**
+- Topic `REVIEW_EXCEPTION`: **3**
 - Concept candidates: **18**
 - Concept identity exceptions: **7**
 - Topic→Concept input links: **254**
@@ -22,51 +22,40 @@ packet exposes only the first unresolved material exception.
 
 ## First material exception
 
-- Source: `source_video_002`
-- Topic: `issue_68_video_002_topic_proposal_020a`
-- Time: `01:20:18.736` — `01:21:11.830`
-- Words: `transcript_revision_video_002_r1:word:007504` — `transcript_revision_video_002_r1:word:007588`
-- Current title: **Перерыв и задание: классификация входящей, внутренней и производимой энергии**
+- Source: `source_video_003`
+- Topic: `issue_68_video_003_topic_proposal_051a`
+- Time: `02:50:36.490` — `02:55:09.070`
+- Words: `transcript_revision_video_003_r1:word:015212` — `transcript_revision_video_003_r1:word:015449`
+- Current title: **Выбор участника и темы демонстрационной сессии**
 - Classification: `REVIEW_EXCEPTION`
-- Taxonomy: NON_SEMANTIC_CONTENT_CONTAMINATION, DISCOURSE_FUNCTION_BOUNDARY_MISSED
+- Taxonomy: NON_SEMANTIC_CONTENT_CONTAMINATION, BOUNDARY_OFFSET
 - Confidence: `HIGH`
 
 ### Exact problem
 
-The semantic assignment is wrapped by two scheduling fragments: the break announcement at the left and the return-time announcement at the right. Treating the whole range as one knowledge Topic mixes seminar organization with the energy-classification task.
+The unit opens with an unrelated lunch-break duration announcement before the participant and demonstration-topic selection begins.
 
 ### Exact evidence preview
 
-- Beginning: И давайте сделаем с вами небольшой перерыв на 10 минут, то есть у нас 10.20, 10.30 мы с вами встречаемся и продолжим. И пока подумайте на такие вопросы, я оставлю этот слайд
-- Middle: такие вопросы, я оставлю этот слайд здесь, чтобы работал. Вот есть энергия, которая в нас входит, которую мы принимаем, энергия, которая внутри нас, которая существует, и энергия, которую мы производим. Подготовьте свои
-- End: которую мы производим. Подготовьте свои варианты ответа на эти, даже не ответы, а варианты, что мы можем сделать. Мы можем в табличку вот эту вписать. Через 10 минут, 10.30 по Москве включаемся.
+- Beginning: Проведем обеденный перерыв. У нас будет на час. И у нас есть список желающих участвовать. Можно я? Мы тестируем по... То есть как бы не я решаю, а я по тесту проверяю.
+- Middle: стресс на обучение. Это подумайте о том, что... Не нужно выбрать, да? Нет. Мы все по тесту. У нас забываем вообще выбрать. Забываем там, я хочу и так далее. У нас есть
+- End: Вот. То есть вот это тема у нас будет. Я бы выбрала. Я доверяю своему тестированию. Продолжение следует... Это поменьше выбрали из всех, я понимаю. Это первый признак, что тема под стрессом.
 
 ### Recommended correction
 
 ```json
 {
-  "action": "SPLIT_REALIGN",
-  "exclude_as_nonsemantic": [
-    {
-      "end_word_id": "transcript_revision_video_002_r1:word:007525",
-      "reason": "break scheduling",
-      "start_word_id": "transcript_revision_video_002_r1:word:007504"
-    },
-    {
-      "end_word_id": "transcript_revision_video_002_r1:word:007588",
-      "reason": "return-time scheduling",
-      "start_word_id": "transcript_revision_video_002_r1:word:007582"
-    }
-  ],
-  "semantic_part": {
-    "end_word_id": "transcript_revision_video_002_r1:word:007581",
-    "start_word_id": "transcript_revision_video_002_r1:word:007526",
-    "title": "Задание: классификация входящей, внутренней и производимой энергии"
-  }
+  "action": "REALIGN_LEFT",
+  "exclude_as_nonsemantic": {
+    "end_word_id": "transcript_revision_video_003_r1:word:015219",
+    "start_word_id": "transcript_revision_video_003_r1:word:015212"
+  },
+  "preserve_end_word_id": "transcript_revision_video_003_r1:word:015449",
+  "start_word_id": "transcript_revision_video_003_r1:word:015220"
 }
 ```
 
-Alternative: Preserve the full range only as SEMINAR_STRUCTURE rather than as a knowledge Topic.
+Alternative: Preserve the current range as SEMINAR_STRUCTURE.
 
 ### Human decision required
 
