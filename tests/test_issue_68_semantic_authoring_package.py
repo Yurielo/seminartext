@@ -129,6 +129,40 @@ def test_package_is_complete_provisional_and_word_contiguous(tmp_path: Path) -> 
         assert coverage["overlaps"] == []
 
 
+def test_review_markdown_handles_fully_triaged_package(tmp_path: Path) -> None:
+    output = tmp_path / "DOMAIN_AUTHORING_REVIEW.md"
+    package = {
+        "coverage": {
+            source_id: {
+                "proposal_count": 1,
+                "covered_word_count": 12,
+                "canonical_word_count": 12,
+                "gaps": [],
+                "overlaps": [],
+            }
+            for source_id in ("source_video_002", "source_video_003", "source_video_004")
+        },
+        "topic_proposals": [
+            {
+                "proposal_id": "proposal_1",
+                "authoring_status": "COMPLETED",
+            }
+        ],
+        "concept_candidates": [],
+        "topic_concept_link_proposals": [],
+        "human_decision_policy": {
+            "mode": "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW",
+        },
+    }
+
+    MODULE.write_review_markdown(output, package)
+
+    review = output.read_text(encoding="utf-8")
+    assert "All machine proposals have a provisional DOMAIN_AUTHORING disposition" in review
+    assert "requires the explicit consolidated `DOMAIN_REVIEW`" in review
+    assert "Next Codex triage item" not in review
+
+
 def test_unexpected_generator_fails_closed(tmp_path: Path) -> None:
     project, review = make_fixture(tmp_path)
     path = project / "transcript/video_003/topics.json"
@@ -575,14 +609,14 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 118,
+        "completed": 262,
         "human_decision_count_requires_codex_triage": True,
         "machine_proposal_count_is_not_human_gate_count": True,
-        "pending": 144,
+        "pending": 0,
         "pending_human_decisions": None,
-        "pending_machine_proposals": 144,
+        "pending_machine_proposals": 0,
         "total": 262,
-        "next_proposal_id": "issue_68_video_003_topic_proposal_028",
+        "next_proposal_id": None,
     }
     assert package["human_decision_policy"]["mode"] == (
         "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW"
@@ -1215,14 +1249,14 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert forty_fourth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_041"
     )
-    last_completed = package["topic_proposals"][117]
-    assert last_completed["proposal_id"] == "issue_68_video_003_topic_proposal_027"
+    last_completed = package["topic_proposals"][-1]
+    assert last_completed["proposal_id"] == "issue_68_video_004_topic_proposal_079"
     assert last_completed["authoring_status"] == "COMPLETED"
-    assert last_completed["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
-    next_pending = package["topic_proposals"][118]
-    assert next_pending["proposal_id"] == "issue_68_video_003_topic_proposal_028"
-    assert next_pending["start_word_id"].endswith("word:008014")
-    assert next_pending["authoring_status"] == "PENDING"
+    assert last_completed["authored_title"] == "Заключительные вопросы и завершение семинара"
+    assert all(
+        proposal["authoring_status"] == "COMPLETED"
+        for proposal in package["topic_proposals"]
+    )
     codex_authored = [
         item
         for item in package["topic_proposals"]

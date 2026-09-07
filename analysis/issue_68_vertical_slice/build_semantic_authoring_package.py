@@ -785,9 +785,13 @@ def build_package(
 def write_review_markdown(path: Path, package: dict[str, Any]) -> None:
     counts = package["coverage"]
     first = next(
-        item for item in package["topic_proposals"] if item["authoring_status"] == "PENDING"
+        (
+            item
+            for item in package["topic_proposals"]
+            if item["authoring_status"] == "PENDING"
+        ),
+        None,
     )
-    preview = first["evidence_preview"]
     text = f"""# Issue #68 — Semantic DOMAIN_AUTHORING review
 
 The complete machine-assisted package is stored in `semantic_authoring_package.json`.
@@ -819,6 +823,19 @@ accepted automatically; one explicit consolidated `DOMAIN_REVIEW` remains
 required after provisional authoring.
 
 Policy mode: `{package['human_decision_policy']['mode']}`.
+"""
+    if first is None:
+        text += """
+## Codex triage status
+
+All machine proposals have a provisional DOMAIN_AUTHORING disposition. No
+per-proposal semantic acceptance was inferred. The complete package remains
+`UNREVIEWED` and requires the explicit consolidated `DOMAIN_REVIEW` defined by
+the human-decision policy before any semantic result can become accepted.
+"""
+    else:
+        preview = first["evidence_preview"]
+        text += f"""
 
 ## Next Codex triage item
 

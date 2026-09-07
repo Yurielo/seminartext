@@ -1960,6 +1960,1220 @@
       ],
       "start_word_id": "transcript_revision_video_003_r1:word:006309",
       "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_003_topic_proposal_029",
+        "issue_68_video_003_topic_proposal_030",
+        "issue_68_video_003_topic_proposal_031"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_028",
+      "end_word_id": "transcript_revision_video_003_r1:word:009608",
+      "end_word_anchor_time": "01:51:19.703",
+      "next_proposal_id": "issue_68_video_003_topic_proposal_032",
+      "next_start_word_id": "transcript_revision_video_003_r1:word:009609",
+      "next_start_word_anchor_time": "01:51:20.745",
+      "previous_end_word_id": "transcript_revision_video_003_r1:word:008838",
+      "previous_next_start_word_id": "transcript_revision_video_003_r1:word:008839",
+      "proposal_id": "issue_68_video_003_topic_proposal_028",
+      "reason": "Машинные Темы 28–31 разрывают вводную теорию стресса и единый сравнительный пример острой реакции у животного и подавленной реакции у человека. На word:009608 завершается вывод о переходе к психосоматическим проявлениям; далее начинается подробный разбор стадий.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация введения в теорию стресса и примера реакции «бей или беги»; стадии начинаются с word:009609.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "01:40:37.202",
+          "end_word_id": "transcript_revision_video_003_r1:word:008591",
+          "part_id": "issue_68_video_003_topic_proposal_028a",
+          "part_label": "28A",
+          "start_word_anchor_time": "01:34:01.977",
+          "start_word_id": "transcript_revision_video_003_r1:word:008014",
+          "title": "Теория стресса: неспецифическая адаптационная реакция организма"
+        },
+        {
+          "end_word_anchor_time": "01:51:19.703",
+          "end_word_id": "transcript_revision_video_003_r1:word:009608",
+          "part_id": "issue_68_video_003_topic_proposal_028b",
+          "part_label": "28B",
+          "start_word_anchor_time": "01:40:38.465",
+          "start_word_id": "transcript_revision_video_003_r1:word:008592",
+          "title": "Острая реакция «бей или беги»: животное и человек"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_003_r1:word:008014",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_003_topic_proposal_033",
+        "issue_68_video_003_topic_proposal_034",
+        "issue_68_video_003_topic_proposal_035",
+        "issue_68_video_003_topic_proposal_036"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_032",
+      "end_word_id": "transcript_revision_video_003_r1:word:011255",
+      "end_word_anchor_time": "02:07:22.906",
+      "next_proposal_id": "issue_68_video_003_topic_proposal_037",
+      "next_start_word_id": "transcript_revision_video_003_r1:word:011256",
+      "next_start_word_anchor_time": "02:07:31.749",
+      "previous_end_word_id": "transcript_revision_video_003_r1:word:009708",
+      "previous_next_start_word_id": "transcript_revision_video_003_r1:word:009709",
+      "proposal_id": "issue_68_video_003_topic_proposal_032",
+      "reason": "Машинные Темы 32–36 дробят единый разбор трёх стадий стресса. Границы между общим обзором, тревогой, адаптацией и истощением прямо обозначены преподавателем; итоговый вопрос и подтверждение понимания завершаются на word:011255.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация трёх стадий стресса в обзор и три последовательные части; гимнастика начинается с word:011256.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "01:54:27.686",
+          "end_word_id": "transcript_revision_video_003_r1:word:009926",
+          "part_id": "issue_68_video_003_topic_proposal_032a",
+          "part_label": "32A",
+          "start_word_anchor_time": "01:51:20.745",
+          "start_word_id": "transcript_revision_video_003_r1:word:009609",
+          "title": "Три стадии стресса: тревога, сопротивление и истощение"
+        },
+        {
+          "end_word_anchor_time": "01:58:10.879",
+          "end_word_id": "transcript_revision_video_003_r1:word:010340",
+          "part_id": "issue_68_video_003_topic_proposal_032b",
+          "part_label": "32B",
+          "start_word_anchor_time": "01:54:30.969",
+          "start_word_id": "transcript_revision_video_003_r1:word:009927",
+          "title": "Стадия тревоги: физиологические признаки и сужение восприятия"
+        },
+        {
+          "end_word_anchor_time": "02:02:46.357",
+          "end_word_id": "transcript_revision_video_003_r1:word:010837",
+          "part_id": "issue_68_video_003_topic_proposal_032c",
+          "part_label": "32C",
+          "start_word_anchor_time": "01:58:12.563",
+          "start_word_id": "transcript_revision_video_003_r1:word:010341",
+          "title": "Стадия сопротивления: адаптация, зрительный дисбаланс и травматизация"
+        },
+        {
+          "end_word_anchor_time": "02:07:22.906",
+          "end_word_id": "transcript_revision_video_003_r1:word:011255",
+          "part_id": "issue_68_video_003_topic_proposal_032d",
+          "part_label": "32D",
+          "start_word_anchor_time": "02:02:46.638",
+          "start_word_id": "transcript_revision_video_003_r1:word:010838",
+          "title": "Стадия истощения: хронический стресс и психосоматические последствия"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_003_r1:word:009609",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "MERGE_REALIGN_RENAME",
+      "absorbed_proposal_ids": [
+        "issue_68_video_003_topic_proposal_038"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_037",
+      "end_word_id": "transcript_revision_video_003_r1:word:011554",
+      "end_word_anchor_time": "02:12:14.579",
+      "new_title": "Гимнастика для мозга и повторение претестов после теории стресса",
+      "next_proposal_id": "issue_68_video_003_topic_proposal_039",
+      "next_start_word_id": "transcript_revision_video_003_r1:word:011555",
+      "next_start_word_anchor_time": "02:12:14.799",
+      "previous_end_word_id": "transcript_revision_video_003_r1:word:011340",
+      "previous_next_start_word_id": "transcript_revision_video_003_r1:word:011341",
+      "proposal_id": "issue_68_video_003_topic_proposal_037",
+      "reason": "Машинные Темы 37–38 разрывают непрерывную последовательность перекрёстной координации и претестов. Упражнение и повторный вопрос о теории стресса завершаются на word:011554; далее начинается знакомство с антистрессовой коррекцией.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорное provisional-объединение гимнастики и претестов; антистрессовая коррекция начинается с word:011555.",
+      "start_word_id": "transcript_revision_video_003_r1:word:011256",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_003_topic_proposal_040",
+        "issue_68_video_003_topic_proposal_041",
+        "issue_68_video_003_topic_proposal_042",
+        "issue_68_video_003_topic_proposal_043"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_039",
+      "end_word_id": "transcript_revision_video_003_r1:word:013355",
+      "end_word_anchor_time": "02:30:13.148",
+      "next_proposal_id": "issue_68_video_003_topic_proposal_044",
+      "next_start_word_id": "transcript_revision_video_003_r1:word:013356",
+      "next_start_word_anchor_time": "02:30:14.950",
+      "previous_end_word_id": "transcript_revision_video_003_r1:word:011629",
+      "previous_next_start_word_id": "transcript_revision_video_003_r1:word:011630",
+      "proposal_id": "issue_68_video_003_topic_proposal_039",
+      "reason": "Машинные Темы 39–43 дробят последовательное введение антистрессовой коррекции: связь стресса с функциональными нарушениями обработки информации, механизм лобно-затылочного удержания, признаки завершения и способы применения. Завершающий переход к карте эмоций включает различение осознаваемых и заблокированных эмоций и вводит понятие алекситимии; с word:013356 начинается отдельное объяснение её признаков.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация введения и применения антистрессовой коррекции; признаки алекситимии начинаются с word:013356.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "02:17:30.271",
+          "end_word_id": "transcript_revision_video_003_r1:word:012039",
+          "part_id": "issue_68_video_003_topic_proposal_039a",
+          "part_label": "39A",
+          "start_word_anchor_time": "02:12:14.799",
+          "start_word_id": "transcript_revision_video_003_r1:word:011555",
+          "title": "Антистрессовая коррекция и функциональные нарушения обработки информации"
+        },
+        {
+          "end_word_anchor_time": "02:21:06.696",
+          "end_word_id": "transcript_revision_video_003_r1:word:012431",
+          "part_id": "issue_68_video_003_topic_proposal_039b",
+          "part_label": "39B",
+          "start_word_anchor_time": "02:17:30.372",
+          "start_word_id": "transcript_revision_video_003_r1:word:012040",
+          "title": "Механизм антистрессовой коррекции: лобные доли и зрительная кора"
+        },
+        {
+          "end_word_anchor_time": "02:23:27.784",
+          "end_word_id": "transcript_revision_video_003_r1:word:012687",
+          "part_id": "issue_68_video_003_topic_proposal_039c",
+          "part_label": "39C",
+          "start_word_anchor_time": "02:21:07.797",
+          "start_word_id": "transcript_revision_video_003_r1:word:012432",
+          "title": "Признаки завершения и бытовое применение антистрессовой коррекции"
+        },
+        {
+          "end_word_anchor_time": "02:27:09.700",
+          "end_word_id": "transcript_revision_video_003_r1:word:013084",
+          "part_id": "issue_68_video_003_topic_proposal_039d",
+          "part_label": "39D",
+          "start_word_anchor_time": "02:23:28.888",
+          "start_word_id": "transcript_revision_video_003_r1:word:012688",
+          "title": "Применение антистрессовой коррекции для осознания и в протоколе сессии"
+        },
+        {
+          "end_word_anchor_time": "02:30:13.148",
+          "end_word_id": "transcript_revision_video_003_r1:word:013355",
+          "part_id": "issue_68_video_003_topic_proposal_039e",
+          "part_label": "39E",
+          "start_word_anchor_time": "02:27:12.625",
+          "start_word_id": "transcript_revision_video_003_r1:word:013085",
+          "title": "Переход к демонстрации, типы эмоций и понятие алекситимии"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_003_r1:word:011555",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "RENAME",
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "PRESERVE",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_044",
+      "end_word_id": "transcript_revision_video_003_r1:word:013500",
+      "end_word_anchor_time": "02:32:15.547",
+      "new_title": "Алекситимия: трудности распознавания и выражения эмоционального состояния",
+      "next_proposal_id": "issue_68_video_003_topic_proposal_045",
+      "next_start_word_id": "transcript_revision_video_003_r1:word:013501",
+      "next_start_word_anchor_time": "02:32:17.590",
+      "proposal_id": "issue_68_video_003_topic_proposal_044",
+      "reason": "После введения понятия алекситимии преподаватель описывает её признаки до завершения примера выбора работы на word:013500. С word:013501 начинается устройство таблицы карты эмоций.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорное provisional-уточнение названия блока о признаках алекситимии.",
+      "start_word_anchor_time": "02:30:14.950",
+      "start_word_id": "transcript_revision_video_003_r1:word:013356",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_003_topic_proposal_046",
+        "issue_68_video_003_topic_proposal_047",
+        "issue_68_video_003_topic_proposal_048",
+        "issue_68_video_003_topic_proposal_049",
+        "issue_68_video_003_topic_proposal_050"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_045",
+      "end_word_id": "transcript_revision_video_003_r1:word:015211",
+      "end_word_anchor_time": "02:50:35.548",
+      "next_proposal_id": "issue_68_video_003_topic_proposal_051",
+      "next_start_word_id": "transcript_revision_video_003_r1:word:015212",
+      "next_start_word_anchor_time": "02:50:36.490",
+      "proposal_id": "issue_68_video_003_topic_proposal_045",
+      "reason": "Машинные Темы 45–50 разрывают единое объяснение карты эмоций: её структуру, трёхзначное кодирование, назначение, временной охват уровней и порядок чтения парных состояний с антистрессовой коррекцией. Внутренние переходы прямо обозначены преподавателем и сохранены как шесть частей; с word:015212 начинается организационный переход к демонстрации.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация устройства и применения карты эмоций; демонстрационный блок начинается с word:015212.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "02:35:32.927",
+          "end_word_id": "transcript_revision_video_003_r1:word:013739",
+          "part_id": "issue_68_video_003_topic_proposal_045a",
+          "part_label": "45A",
+          "start_word_anchor_time": "02:32:17.590",
+          "start_word_id": "transcript_revision_video_003_r1:word:013501",
+          "title": "Структура карты эмоций: уровни, категории и парные состояния"
+        },
+        {
+          "end_word_anchor_time": "02:41:09.457",
+          "end_word_id": "transcript_revision_video_003_r1:word:014260",
+          "part_id": "issue_68_video_003_topic_proposal_045b",
+          "part_label": "45B",
+          "start_word_anchor_time": "02:35:33.810",
+          "start_word_id": "transcript_revision_video_003_r1:word:013740",
+          "title": "Трёхзначное кодирование и тестирование эмоционального состояния"
+        },
+        {
+          "end_word_anchor_time": "02:43:30.765",
+          "end_word_id": "transcript_revision_video_003_r1:word:014542",
+          "part_id": "issue_68_video_003_topic_proposal_045c",
+          "part_label": "45C",
+          "start_word_anchor_time": "02:41:12.284",
+          "start_word_id": "transcript_revision_video_003_r1:word:014261",
+          "title": "Назначение карты эмоций и взаимосвязь уровней осознания"
+        },
+        {
+          "end_word_anchor_time": "02:46:21.617",
+          "end_word_id": "transcript_revision_video_003_r1:word:014764",
+          "part_id": "issue_68_video_003_topic_proposal_045d",
+          "part_label": "45D",
+          "start_word_anchor_time": "02:43:33.532",
+          "start_word_id": "transcript_revision_video_003_r1:word:014543",
+          "title": "Временной охват сознания, подсознания и уровня тела"
+        },
+        {
+          "end_word_anchor_time": "02:49:57.343",
+          "end_word_id": "transcript_revision_video_003_r1:word:015163",
+          "part_id": "issue_68_video_003_topic_proposal_045e",
+          "part_label": "45E",
+          "start_word_anchor_time": "02:46:22.317",
+          "start_word_id": "transcript_revision_video_003_r1:word:014765",
+          "title": "Чтение негативного и позитивного состояний с антистрессовой коррекцией"
+        },
+        {
+          "end_word_anchor_time": "02:50:35.548",
+          "end_word_id": "transcript_revision_video_003_r1:word:015211",
+          "part_id": "issue_68_video_003_topic_proposal_045f",
+          "part_label": "45F",
+          "start_word_anchor_time": "02:49:59.529",
+          "start_word_id": "transcript_revision_video_003_r1:word:015164",
+          "title": "Подготовка демонстрации антистрессовой коррекции"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_003_r1:word:013501",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_003_topic_proposal_052",
+        "issue_68_video_003_topic_proposal_053",
+        "issue_68_video_003_topic_proposal_054",
+        "issue_68_video_003_topic_proposal_055",
+        "issue_68_video_003_topic_proposal_056",
+        "issue_68_video_003_topic_proposal_057",
+        "issue_68_video_003_topic_proposal_058",
+        "issue_68_video_003_topic_proposal_059",
+        "issue_68_video_003_topic_proposal_060",
+        "issue_68_video_003_topic_proposal_061",
+        "issue_68_video_003_topic_proposal_062",
+        "issue_68_video_003_topic_proposal_063",
+        "issue_68_video_003_topic_proposal_064",
+        "issue_68_video_003_topic_proposal_065",
+        "issue_68_video_003_topic_proposal_066",
+        "issue_68_video_003_topic_proposal_067",
+        "issue_68_video_003_topic_proposal_068",
+        "issue_68_video_003_topic_proposal_069"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_051",
+      "end_word_id": "transcript_revision_video_003_r1:word:019739",
+      "end_word_anchor_time": "03:43:23.625",
+      "next_proposal_id": "issue_68_video_003_topic_proposal_070",
+      "next_start_word_id": "transcript_revision_video_003_r1:word:019740",
+      "next_start_word_anchor_time": "03:43:28.233",
+      "previous_end_word_id": "transcript_revision_video_003_r1:word:015352",
+      "previous_next_start_word_id": "transcript_revision_video_003_r1:word:015353",
+      "proposal_id": "issue_68_video_003_topic_proposal_051",
+      "reason": "Машинные Темы 51–69 дробят одну полную демонстрационную сессию: выбор темы, прохождение протокола, чтение негативных и позитивных состояний, поиск возрастного контекста, возврат в настоящее, оценку результата и рекомендации. После перерыва преподаватель кратко подводит итог демонстрации; новая коррекция ДПДГ начинается с word:019740.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация полной демонстрации антистрессовой коррекции по карте эмоций; ДПДГ начинается с word:019740.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "02:55:07.887",
+          "end_word_id": "transcript_revision_video_003_r1:word:015449",
+          "part_id": "issue_68_video_003_topic_proposal_051a",
+          "part_label": "51A",
+          "start_word_anchor_time": "02:50:36.490",
+          "start_word_id": "transcript_revision_video_003_r1:word:015212",
+          "title": "Выбор участника и темы демонстрационной сессии"
+        },
+        {
+          "end_word_anchor_time": "03:01:07.390",
+          "end_word_id": "transcript_revision_video_003_r1:word:015857",
+          "part_id": "issue_68_video_003_topic_proposal_051b",
+          "part_label": "51B",
+          "start_word_anchor_time": "02:55:25.044",
+          "start_word_id": "transcript_revision_video_003_r1:word:015450",
+          "title": "Настройка протокола и определение эмоционального состояния"
+        },
+        {
+          "end_word_anchor_time": "03:12:06.707",
+          "end_word_id": "transcript_revision_video_003_r1:word:016870",
+          "part_id": "issue_68_video_003_topic_proposal_051c",
+          "part_label": "51C",
+          "start_word_anchor_time": "03:01:12.143",
+          "start_word_id": "transcript_revision_video_003_r1:word:015858",
+          "title": "Чтение негативных состояний: загруженность и ощущение несостоятельности"
+        },
+        {
+          "end_word_anchor_time": "03:20:11.984",
+          "end_word_id": "transcript_revision_video_003_r1:word:017639",
+          "part_id": "issue_68_video_003_topic_proposal_051d",
+          "part_label": "51D",
+          "start_word_anchor_time": "03:12:07.710",
+          "start_word_id": "transcript_revision_video_003_r1:word:016871",
+          "title": "Связь состояния с запросом и поиск возрастного контекста"
+        },
+        {
+          "end_word_anchor_time": "03:25:48.713",
+          "end_word_id": "transcript_revision_video_003_r1:word:018092",
+          "part_id": "issue_68_video_003_topic_proposal_051e",
+          "part_label": "51E",
+          "start_word_anchor_time": "03:20:12.665",
+          "start_word_id": "transcript_revision_video_003_r1:word:017640",
+          "title": "Чтение позитивных состояний и проверка их связи с запросом"
+        },
+        {
+          "end_word_anchor_time": "03:29:42.456",
+          "end_word_id": "transcript_revision_video_003_r1:word:018506",
+          "part_id": "issue_68_video_003_topic_proposal_051f",
+          "part_label": "51F",
+          "start_word_anchor_time": "03:25:49.856",
+          "start_word_id": "transcript_revision_video_003_r1:word:018093",
+          "title": "Возвращение в настоящее и интеграция смысла коррекции"
+        },
+        {
+          "end_word_anchor_time": "03:38:52.441",
+          "end_word_id": "transcript_revision_video_003_r1:word:019409",
+          "part_id": "issue_68_video_003_topic_proposal_051g",
+          "part_label": "51G",
+          "start_word_anchor_time": "03:29:44.259",
+          "start_word_id": "transcript_revision_video_003_r1:word:018507",
+          "title": "Оценка результата, осознания участницы и практическая рекомендация"
+        },
+        {
+          "end_word_anchor_time": "03:40:20.744",
+          "end_word_id": "transcript_revision_video_003_r1:word:019558",
+          "part_id": "issue_68_video_003_topic_proposal_051h",
+          "part_label": "51H",
+          "start_word_anchor_time": "03:38:52.581",
+          "start_word_id": "transcript_revision_video_003_r1:word:019410",
+          "title": "Завершение сессии и фиксация позитивного фокуса"
+        },
+        {
+          "authoring_disposition": "NON_SEMANTIC_EXCLUDED",
+          "end_word_anchor_time": "03:40:38.948",
+          "end_word_id": "transcript_revision_video_003_r1:word:019585",
+          "part_id": "issue_68_video_003_topic_proposal_051i",
+          "part_label": "51I",
+          "start_word_anchor_time": "03:40:24.693",
+          "start_word_id": "transcript_revision_video_003_r1:word:019559",
+          "title": "Объявление часового перерыва"
+        },
+        {
+          "end_word_anchor_time": "03:43:23.625",
+          "end_word_id": "transcript_revision_video_003_r1:word:019739",
+          "part_id": "issue_68_video_003_topic_proposal_051j",
+          "part_label": "51J",
+          "start_word_anchor_time": "03:40:45.036",
+          "start_word_id": "transcript_revision_video_003_r1:word:019586",
+          "title": "Итоги демонстрации антистрессовой коррекции по карте эмоций"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_003_r1:word:015212",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_003_topic_proposal_071",
+        "issue_68_video_003_topic_proposal_072",
+        "issue_68_video_003_topic_proposal_073",
+        "issue_68_video_003_topic_proposal_074",
+        "issue_68_video_003_topic_proposal_075",
+        "issue_68_video_003_topic_proposal_076",
+        "issue_68_video_003_topic_proposal_077",
+        "issue_68_video_003_topic_proposal_078",
+        "issue_68_video_003_topic_proposal_079",
+        "issue_68_video_003_topic_proposal_080",
+        "issue_68_video_003_topic_proposal_081",
+        "issue_68_video_003_topic_proposal_082",
+        "issue_68_video_003_topic_proposal_083"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_070",
+      "end_word_id": "transcript_revision_video_003_r1:word:022730",
+      "end_word_anchor_time": "04:17:24.680",
+      "next_proposal_id": "issue_68_video_003_topic_proposal_084",
+      "next_start_word_id": "transcript_revision_video_003_r1:word:022731",
+      "next_start_word_anchor_time": "04:17:31.332",
+      "previous_end_word_id": "transcript_revision_video_003_r1:word:019975",
+      "previous_next_start_word_id": "transcript_revision_video_003_r1:word:019976",
+      "proposal_id": "issue_68_video_003_topic_proposal_070",
+      "reason": "Машинные Темы 70–83 дробят единое изложение ДПДГ: теорию переработки травматического опыта, переход от негативной модели к позитивной, технику движений глаз, очный и дистанционный варианты, две фазы и практическую демонстрацию. На word:022730 завершается пояснение границ этой коррекции; далее преподаватель выбирает следующую тему — формирование позитивного образа в прошлом.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация теории, техники и демонстрации ДПДГ; формирование позитивного образа начинается с word:022731.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "03:50:17.392",
+          "end_word_id": "transcript_revision_video_003_r1:word:020337",
+          "part_id": "issue_68_video_003_topic_proposal_070a",
+          "part_label": "70A",
+          "start_word_anchor_time": "03:43:28.233",
+          "start_word_id": "transcript_revision_video_003_r1:word:019740",
+          "title": "ДПДГ: переработка травматического опыта и переход от негатива к позитиву"
+        },
+        {
+          "end_word_anchor_time": "03:51:43.947",
+          "end_word_id": "transcript_revision_video_003_r1:word:020456",
+          "part_id": "issue_68_video_003_topic_proposal_070b",
+          "part_label": "70B",
+          "start_word_anchor_time": "03:50:17.712",
+          "start_word_id": "transcript_revision_video_003_r1:word:020338",
+          "title": "Принцип глазодвигательной коррекции негативного состояния"
+        },
+        {
+          "end_word_anchor_time": "03:55:49.366",
+          "end_word_id": "transcript_revision_video_003_r1:word:020890",
+          "part_id": "issue_68_video_003_topic_proposal_070c",
+          "part_label": "70C",
+          "start_word_anchor_time": "03:51:46.770",
+          "start_word_id": "transcript_revision_video_003_r1:word:020457",
+          "title": "Траектории движений глаз и очная техника ДПДГ"
+        },
+        {
+          "end_word_anchor_time": "04:00:03.906",
+          "end_word_id": "transcript_revision_video_003_r1:word:021355",
+          "part_id": "issue_68_video_003_topic_proposal_070d",
+          "part_label": "70D",
+          "start_word_anchor_time": "03:55:49.706",
+          "start_word_id": "transcript_revision_video_003_r1:word:020891",
+          "title": "Дистанционная техника и распознавание стрессовых направлений взгляда"
+        },
+        {
+          "end_word_anchor_time": "04:04:56.217",
+          "end_word_id": "transcript_revision_video_003_r1:word:021854",
+          "part_id": "issue_68_video_003_topic_proposal_070e",
+          "part_label": "70E",
+          "start_word_anchor_time": "04:00:04.607",
+          "start_word_id": "transcript_revision_video_003_r1:word:021356",
+          "title": "Две фазы ДПДГ и межполушарная интеграция"
+        },
+        {
+          "end_word_anchor_time": "04:15:02.723",
+          "end_word_id": "transcript_revision_video_003_r1:word:022566",
+          "part_id": "issue_68_video_003_topic_proposal_070f",
+          "part_label": "70F",
+          "start_word_anchor_time": "04:05:02.960",
+          "start_word_id": "transcript_revision_video_003_r1:word:021855",
+          "title": "Практическая демонстрация ДПДГ: негативная и позитивная фазы"
+        },
+        {
+          "end_word_anchor_time": "04:17:24.680",
+          "end_word_id": "transcript_revision_video_003_r1:word:022730",
+          "part_id": "issue_68_video_003_topic_proposal_070g",
+          "part_label": "70G",
+          "start_word_anchor_time": "04:15:03.924",
+          "start_word_id": "transcript_revision_video_003_r1:word:022567",
+          "title": "Связь ДПДГ с антистрессовой коррекцией и выбором метода"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_003_r1:word:019740",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_003_topic_proposal_085",
+        "issue_68_video_003_topic_proposal_086",
+        "issue_68_video_003_topic_proposal_087",
+        "issue_68_video_003_topic_proposal_088",
+        "issue_68_video_003_topic_proposal_089",
+        "issue_68_video_003_topic_proposal_090",
+        "issue_68_video_003_topic_proposal_091"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_084",
+      "end_word_id": "transcript_revision_video_003_r1:word:024809",
+      "end_word_anchor_time": null,
+      "next_proposal_id": "issue_68_video_003_topic_proposal_092",
+      "next_start_word_id": "transcript_revision_video_003_r1:word:024810",
+      "next_start_word_anchor_time": "04:40:02.042",
+      "previous_end_word_id": "transcript_revision_video_003_r1:word:023086",
+      "previous_next_start_word_id": "transcript_revision_video_003_r1:word:023087",
+      "proposal_id": "issue_68_video_003_topic_proposal_084",
+      "reason": "Машинные Темы 84–91 дробят единое объяснение формирования позитивного образа в прошлом: реакцию мозга на воображаемое, модель памяти, нейронные связи, необходимость снять заряд старого опыта и создать насыщенное позитивное воспоминание. На word:024809 завершается пример построения образа; далее объясняется его интеграция и возврат в настоящее.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация теории и практического построения позитивного образа; интеграция начинается с word:024810.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "04:23:08.542",
+          "end_word_id": "transcript_revision_video_003_r1:word:023187",
+          "part_id": "issue_68_video_003_topic_proposal_084a",
+          "part_label": "84A",
+          "start_word_anchor_time": "04:17:31.332",
+          "start_word_id": "transcript_revision_video_003_r1:word:022731",
+          "title": "Формирование позитивного образа: воображаемый опыт и файловая модель памяти"
+        },
+        {
+          "end_word_anchor_time": "04:27:41.703",
+          "end_word_id": "transcript_revision_video_003_r1:word:023601",
+          "part_id": "issue_68_video_003_topic_proposal_084b",
+          "part_label": "84B",
+          "start_word_anchor_time": "04:23:10.484",
+          "start_word_id": "transcript_revision_video_003_r1:word:023188",
+          "title": "Перенос заряда со старой нейронной связи на позитивное воспоминание"
+        },
+        {
+          "end_word_anchor_time": "04:37:57.758",
+          "end_word_id": "transcript_revision_video_003_r1:word:024529",
+          "part_id": "issue_68_video_003_topic_proposal_084c",
+          "part_label": "84C",
+          "start_word_anchor_time": "04:27:44.747",
+          "start_word_id": "transcript_revision_video_003_r1:word:023602",
+          "title": "Условия формирования памяти и позитивной опоры для будущего поведения"
+        },
+        {
+          "end_word_anchor_time": null,
+          "end_word_id": "transcript_revision_video_003_r1:word:024809",
+          "part_id": "issue_68_video_003_topic_proposal_084d",
+          "part_label": "84D",
+          "start_word_anchor_time": "04:37:58.179",
+          "start_word_id": "transcript_revision_video_003_r1:word:024530",
+          "title": "Практическое построение насыщенного позитивного образа в прошлом"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_003_r1:word:022731",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "RENAME",
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "PRESERVE",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day3_topic_092",
+      "end_word_id": "transcript_revision_video_003_r1:word:025600",
+      "new_title": "Интеграция позитивного образа и возвращение в настоящее",
+      "proposal_id": "issue_68_video_003_topic_proposal_092",
+      "reason": "Заключительный блок третьего дня объясняет включение позитивного опыта в жизненную стратегию, два способа возврата из прошлого в настоящее, перенос недостающего ресурса и организационные итоги дня. Исходные границы охватывают блок полностью.",
+      "source_id": "source_video_003",
+      "source_instruction": "CODEX TRIAGE — бесспорное provisional-переименование заключительного блока Day 3 с сохранением диапазона word:024810–word:025600.",
+      "start_word_id": "transcript_revision_video_003_r1:word:024810",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_004_topic_proposal_002",
+        "issue_68_video_004_topic_proposal_003",
+        "issue_68_video_004_topic_proposal_004",
+        "issue_68_video_004_topic_proposal_005",
+        "issue_68_video_004_topic_proposal_006",
+        "issue_68_video_004_topic_proposal_007",
+        "issue_68_video_004_topic_proposal_008",
+        "issue_68_video_004_topic_proposal_009",
+        "issue_68_video_004_topic_proposal_010"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day4_topic_001",
+      "end_word_id": "transcript_revision_video_004_r1:word:001804",
+      "end_word_anchor_time": "00:29:00.934",
+      "next_proposal_id": "issue_68_video_004_topic_proposal_011",
+      "next_start_word_id": "transcript_revision_video_004_r1:word:001805",
+      "next_start_word_anchor_time": "00:29:01.395",
+      "previous_end_word_id": "transcript_revision_video_004_r1:word:000039",
+      "previous_next_start_word_id": "transcript_revision_video_004_r1:word:000040",
+      "proposal_id": "issue_68_video_004_topic_proposal_001",
+      "reason": "Машинные Темы 1–10 дробят связное начало четвёртого дня: уточнение раздаточного материала, введение времени коррекции, виды рецессии, поиск возраста, учебное задание, гимнастику и разбор ответа. На word:001804 разбор задания завершён; далее начинается систематизация специфической рецессии.",
+      "source_id": "source_video_004",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация вводного блока Day 4 и учебного разбора поиска возраста; теория специфической рецессии начинается с word:001805.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "00:02:46.302",
+          "end_word_id": "transcript_revision_video_004_r1:word:000173",
+          "part_id": "issue_68_video_004_topic_proposal_001a",
+          "part_label": "1A",
+          "start_word_anchor_time": "00:00:02.920",
+          "start_word_id": "transcript_revision_video_004_r1:word:000000",
+          "title": "Начало четвёртого дня и уточнение раздаточного материала"
+        },
+        {
+          "end_word_anchor_time": "00:08:41.033",
+          "end_word_id": "transcript_revision_video_004_r1:word:000614",
+          "part_id": "issue_68_video_004_topic_proposal_001b",
+          "part_label": "1B",
+          "start_word_anchor_time": "00:03:01.049",
+          "start_word_id": "transcript_revision_video_004_r1:word:000174",
+          "title": "Время коррекции, память и возможность работы с прошлым"
+        },
+        {
+          "end_word_anchor_time": "00:10:25.978",
+          "end_word_id": "transcript_revision_video_004_r1:word:000754",
+          "part_id": "issue_68_video_004_topic_proposal_001c",
+          "part_label": "1C",
+          "start_word_anchor_time": "00:08:46.571",
+          "start_word_id": "transcript_revision_video_004_r1:word:000615",
+          "title": "Специфическая, генетическая и неспецифическая рецессия"
+        },
+        {
+          "end_word_anchor_time": "00:12:39.730",
+          "end_word_id": "transcript_revision_video_004_r1:word:000969",
+          "part_id": "issue_68_video_004_topic_proposal_001d",
+          "part_label": "1D",
+          "start_word_anchor_time": "00:10:26.198",
+          "start_word_id": "transcript_revision_video_004_r1:word:000755",
+          "title": "Поиск возраста коррекции по диапазонам"
+        },
+        {
+          "end_word_anchor_time": "00:20:06.883",
+          "end_word_id": "transcript_revision_video_004_r1:word:001178",
+          "part_id": "issue_68_video_004_topic_proposal_001e",
+          "part_label": "1E",
+          "start_word_anchor_time": "00:12:49.638",
+          "start_word_id": "transcript_revision_video_004_r1:word:000970",
+          "title": "Учебное задание: определить возраст четырнадцать лет"
+        },
+        {
+          "end_word_anchor_time": "00:25:35.600",
+          "end_word_id": "transcript_revision_video_004_r1:word:001466",
+          "part_id": "issue_68_video_004_topic_proposal_001f",
+          "part_label": "1F",
+          "start_word_anchor_time": "00:20:07.144",
+          "start_word_id": "transcript_revision_video_004_r1:word:001179",
+          "title": "Гимнастика, претесты и закладка позитивного прошлого"
+        },
+        {
+          "end_word_anchor_time": "00:29:00.934",
+          "end_word_id": "transcript_revision_video_004_r1:word:001804",
+          "part_id": "issue_68_video_004_topic_proposal_001g",
+          "part_label": "1G",
+          "start_word_anchor_time": "00:25:35.780",
+          "start_word_id": "transcript_revision_video_004_r1:word:001467",
+          "title": "Разбор поиска возраста по стрессу и по вопросам"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_004_r1:word:000000",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_004_topic_proposal_012",
+        "issue_68_video_004_topic_proposal_013",
+        "issue_68_video_004_topic_proposal_014",
+        "issue_68_video_004_topic_proposal_015",
+        "issue_68_video_004_topic_proposal_016",
+        "issue_68_video_004_topic_proposal_017",
+        "issue_68_video_004_topic_proposal_018",
+        "issue_68_video_004_topic_proposal_019",
+        "issue_68_video_004_topic_proposal_020",
+        "issue_68_video_004_topic_proposal_021",
+        "issue_68_video_004_topic_proposal_022",
+        "issue_68_video_004_topic_proposal_023"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day4_topic_011",
+      "end_word_id": "transcript_revision_video_004_r1:word:005082",
+      "end_word_anchor_time": "01:03:19.464",
+      "next_proposal_id": "issue_68_video_004_topic_proposal_024",
+      "next_start_word_id": "transcript_revision_video_004_r1:word:005083",
+      "next_start_word_anchor_time": "01:03:19.705",
+      "previous_end_word_id": "transcript_revision_video_004_r1:word:002448",
+      "previous_next_start_word_id": "transcript_revision_video_004_r1:word:002449",
+      "proposal_id": "issue_68_video_004_topic_proposal_011",
+      "reason": "Машинные Темы 11–23 дробят непрерывное объяснение рецессии: временные этапы специфической рецессии, два пути входа в генетическое прошлое, выбор поколения и линии, работу с унаследованной программой, запрет домысливания и технику неспецифической рецессии. На word:005082 техника возврата завершена; далее начинается сравнение преимуществ и ограничений неспецифической рецессии.",
+      "source_id": "source_video_004",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация специфической, генетической и неспецифической рецессии; сравнительная оценка начинается с word:005083.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "00:36:57.217",
+          "end_word_id": "transcript_revision_video_004_r1:word:002521",
+          "part_id": "issue_68_video_004_topic_proposal_011a",
+          "part_label": "11A",
+          "start_word_anchor_time": "00:29:01.395",
+          "start_word_id": "transcript_revision_video_004_r1:word:001805",
+          "title": "Этапы специфической рецессии и два пути входа в генетическое прошлое"
+        },
+        {
+          "end_word_anchor_time": "00:43:08.478",
+          "end_word_id": "transcript_revision_video_004_r1:word:003181",
+          "part_id": "issue_68_video_004_topic_proposal_011b",
+          "part_label": "11B",
+          "start_word_anchor_time": "00:36:57.557",
+          "start_word_id": "transcript_revision_video_004_r1:word:002522",
+          "title": "Поиск поколения и родительской линии генетической программы"
+        },
+        {
+          "end_word_anchor_time": "00:52:52.033",
+          "end_word_id": "transcript_revision_video_004_r1:word:004103",
+          "part_id": "issue_68_video_004_topic_proposal_011c",
+          "part_label": "11C",
+          "start_word_anchor_time": "00:43:09.061",
+          "start_word_id": "transcript_revision_video_004_r1:word:003182",
+          "title": "Работа с унаследованной моделью поведения, а не с образом предка"
+        },
+        {
+          "end_word_anchor_time": "00:55:59.581",
+          "end_word_id": "transcript_revision_video_004_r1:word:004450",
+          "part_id": "issue_68_video_004_topic_proposal_011d",
+          "part_label": "11D",
+          "start_word_anchor_time": "00:52:54.500",
+          "start_word_id": "transcript_revision_video_004_r1:word:004104",
+          "title": "Ограничение домысливания и работа без принуждения к воспоминаниям"
+        },
+        {
+          "end_word_anchor_time": "01:03:19.464",
+          "end_word_id": "transcript_revision_video_004_r1:word:005082",
+          "part_id": "issue_68_video_004_topic_proposal_011e",
+          "part_label": "11E",
+          "start_word_anchor_time": "00:56:00.704",
+          "start_word_id": "transcript_revision_video_004_r1:word:004451",
+          "title": "Техника неспецифической рецессии и возврата в настоящее"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_004_r1:word:001805",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_004_topic_proposal_025",
+        "issue_68_video_004_topic_proposal_026",
+        "issue_68_video_004_topic_proposal_027",
+        "issue_68_video_004_topic_proposal_028",
+        "issue_68_video_004_topic_proposal_029",
+        "issue_68_video_004_topic_proposal_030",
+        "issue_68_video_004_topic_proposal_031",
+        "issue_68_video_004_topic_proposal_032",
+        "issue_68_video_004_topic_proposal_033",
+        "issue_68_video_004_topic_proposal_034",
+        "issue_68_video_004_topic_proposal_035",
+        "issue_68_video_004_topic_proposal_036",
+        "issue_68_video_004_topic_proposal_037",
+        "issue_68_video_004_topic_proposal_038",
+        "issue_68_video_004_topic_proposal_039",
+        "issue_68_video_004_topic_proposal_040",
+        "issue_68_video_004_topic_proposal_041",
+        "issue_68_video_004_topic_proposal_042",
+        "issue_68_video_004_topic_proposal_043"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day4_topic_024",
+      "end_word_id": "transcript_revision_video_004_r1:word:011660",
+      "end_word_anchor_time": "02:13:56.880",
+      "next_proposal_id": "issue_68_video_004_topic_proposal_044",
+      "next_start_word_id": "transcript_revision_video_004_r1:word:011661",
+      "next_start_word_anchor_time": "02:13:57.862",
+      "previous_end_word_id": "transcript_revision_video_004_r1:word:005850",
+      "previous_next_start_word_id": "transcript_revision_video_004_r1:word:005851",
+      "proposal_id": "issue_68_video_004_topic_proposal_024",
+      "reason": "Машинные Темы 24–43 пересекают крупный учебный блок о выборе вида рецессии, значимых периодах развития и работе с прошлым. Его внутренние переходы явно проговорены: ограничения неспецифической рецессии, типы времени, зачатие, беременность, роды, первый год, генетическая линия, сращивание смысла и место коррекции в общем протоколе. С word:011661 начинается отдельная коррекция простукиванием с прослеживанием.",
+      "source_id": "source_video_004",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация блока о рецессии, периодах развития и работе с прошлым; новая коррекция начинается с word:011661.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "01:08:46.450",
+          "end_word_id": "transcript_revision_video_004_r1:word:005526",
+          "part_id": "issue_68_video_004_topic_proposal_024a",
+          "part_label": "24A",
+          "start_word_anchor_time": "01:03:19.705",
+          "start_word_id": "transcript_revision_video_004_r1:word:005083",
+          "title": "Преимущества и ограничения неспецифической рецессии"
+        },
+        {
+          "end_word_anchor_time": "01:18:12.476",
+          "end_word_id": "transcript_revision_video_004_r1:word:006507",
+          "part_id": "issue_68_video_004_topic_proposal_024b",
+          "part_label": "24B",
+          "start_word_anchor_time": "01:08:46.631",
+          "start_word_id": "transcript_revision_video_004_r1:word:005527",
+          "title": "Время возникновения причины, осознания и прослеживание по возрастам"
+        },
+        {
+          "end_word_anchor_time": "01:21:49.583",
+          "end_word_id": "transcript_revision_video_004_r1:word:006917",
+          "part_id": "issue_68_video_004_topic_proposal_024c",
+          "part_label": "24C",
+          "start_word_anchor_time": "01:18:15.459",
+          "start_word_id": "transcript_revision_video_004_r1:word:006508",
+          "title": "Определение типа времени после нахождения возраста"
+        },
+        {
+          "end_word_anchor_time": "01:25:30.803",
+          "end_word_id": "transcript_revision_video_004_r1:word:007251",
+          "part_id": "issue_68_video_004_topic_proposal_024d",
+          "part_label": "24D",
+          "start_word_anchor_time": "01:21:50.464",
+          "start_word_id": "transcript_revision_video_004_r1:word:006918",
+          "title": "Зачатие и предимплантационный период как отдельные интервалы"
+        },
+        {
+          "end_word_anchor_time": "01:30:56.647",
+          "end_word_id": "transcript_revision_video_004_r1:word:007858",
+          "part_id": "issue_68_video_004_topic_proposal_024e",
+          "part_label": "24E",
+          "start_word_anchor_time": "01:25:32.290",
+          "start_word_id": "transcript_revision_video_004_r1:word:007252",
+          "title": "Триместры беременности и характерные стрессовые факторы"
+        },
+        {
+          "end_word_anchor_time": "01:38:11.567",
+          "end_word_id": "transcript_revision_video_004_r1:word:008611",
+          "part_id": "issue_68_video_004_topic_proposal_024f",
+          "part_label": "24F",
+          "start_word_anchor_time": "01:30:56.967",
+          "start_word_id": "transcript_revision_video_004_r1:word:007859",
+          "title": "Четыре стадии родов и связанные с ними переживания"
+        },
+        {
+          "end_word_anchor_time": "01:51:23.783",
+          "end_word_id": "transcript_revision_video_004_r1:word:009737",
+          "part_id": "issue_68_video_004_topic_proposal_024g",
+          "part_label": "24G",
+          "start_word_anchor_time": "01:38:13.109",
+          "start_word_id": "transcript_revision_video_004_r1:word:008612",
+          "title": "Рефлекс Моро, первый год жизни и формирование моделей поведения"
+        },
+        {
+          "end_word_anchor_time": "02:01:17.964",
+          "end_word_id": "transcript_revision_video_004_r1:word:010431",
+          "part_id": "issue_68_video_004_topic_proposal_024h",
+          "part_label": "24H",
+          "start_word_anchor_time": "01:51:40.189",
+          "start_word_id": "transcript_revision_video_004_r1:word:009738",
+          "title": "Генетическая линия, предел глубины и ресурсный фокус работы"
+        },
+        {
+          "end_word_anchor_time": "02:08:05.912",
+          "end_word_id": "transcript_revision_video_004_r1:word:011057",
+          "part_id": "issue_68_video_004_topic_proposal_024i",
+          "part_label": "24I",
+          "start_word_anchor_time": "02:01:19.506",
+          "start_word_id": "transcript_revision_video_004_r1:word:010432",
+          "title": "Сращивание событий, эмоций и модели поведения при работе в прошлом"
+        },
+        {
+          "end_word_anchor_time": "02:13:56.880",
+          "end_word_id": "transcript_revision_video_004_r1:word:011660",
+          "part_id": "issue_68_video_004_topic_proposal_024j",
+          "part_label": "24J",
+          "start_word_anchor_time": "02:08:10.897",
+          "start_word_id": "transcript_revision_video_004_r1:word:011058",
+          "title": "Общий протокол как каркас для последующих коррекций"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_004_r1:word:005083",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_004_topic_proposal_045",
+        "issue_68_video_004_topic_proposal_046",
+        "issue_68_video_004_topic_proposal_047",
+        "issue_68_video_004_topic_proposal_048",
+        "issue_68_video_004_topic_proposal_049",
+        "issue_68_video_004_topic_proposal_050"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day4_topic_044",
+      "end_word_id": "transcript_revision_video_004_r1:word:014181",
+      "end_word_anchor_time": "02:39:11.869",
+      "next_proposal_id": "issue_68_video_004_topic_proposal_051",
+      "next_start_word_id": "transcript_revision_video_004_r1:word:014182",
+      "next_start_word_anchor_time": "02:39:12.369",
+      "previous_end_word_id": "transcript_revision_video_004_r1:word:012223",
+      "previous_next_start_word_id": "transcript_revision_video_004_r1:word:012224",
+      "proposal_id": "issue_68_video_004_topic_proposal_044",
+      "reason": "Машинные Темы 44–50 дробят связное объяснение коррекции простукиванием с прослеживанием и следующего шага протокола — проекции в будущее. Преподаватель последовательно объясняет меридианные точки, выбор точек, технику, ретест, создание позитивного будущего и возврат. На word:014181 вопросы по проекции завершены; далее объявлен перерыв.",
+      "source_id": "source_video_004",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация коррекции простукиванием с прослеживанием и проекции в будущее; перерыв начинается с word:014182.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "02:24:47.208",
+          "end_word_id": "transcript_revision_video_004_r1:word:012723",
+          "part_id": "issue_68_video_004_topic_proposal_044a",
+          "part_label": "44A",
+          "start_word_anchor_time": "02:13:57.862",
+          "start_word_id": "transcript_revision_video_004_r1:word:011661",
+          "title": "Простукивание с прослеживанием: мудра, меридианные точки и принцип коррекции"
+        },
+        {
+          "end_word_anchor_time": "02:29:15.770",
+          "end_word_id": "transcript_revision_video_004_r1:word:013158",
+          "part_id": "issue_68_video_004_topic_proposal_044b",
+          "part_label": "44B",
+          "start_word_anchor_time": "02:24:47.648",
+          "start_word_id": "transcript_revision_video_004_r1:word:012724",
+          "title": "Выбор меридианных точек и техника простукивания с движениями глаз"
+        },
+        {
+          "end_word_anchor_time": "02:34:09.821",
+          "end_word_id": "transcript_revision_video_004_r1:word:013676",
+          "part_id": "issue_68_video_004_topic_proposal_044c",
+          "part_label": "44C",
+          "start_word_anchor_time": "02:29:15.910",
+          "start_word_id": "transcript_revision_video_004_r1:word:013159",
+          "title": "Ретест после коррекции и определение времени проекции в будущее"
+        },
+        {
+          "end_word_anchor_time": "02:39:11.869",
+          "end_word_id": "transcript_revision_video_004_r1:word:014181",
+          "part_id": "issue_68_video_004_topic_proposal_044d",
+          "part_label": "44D",
+          "start_word_anchor_time": "02:34:10.362",
+          "start_word_id": "transcript_revision_video_004_r1:word:013677",
+          "title": "Создание позитивного будущего и возврат в настоящее"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_004_r1:word:011661",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_004_topic_proposal_052",
+        "issue_68_video_004_topic_proposal_053",
+        "issue_68_video_004_topic_proposal_054",
+        "issue_68_video_004_topic_proposal_055",
+        "issue_68_video_004_topic_proposal_056",
+        "issue_68_video_004_topic_proposal_057",
+        "issue_68_video_004_topic_proposal_058",
+        "issue_68_video_004_topic_proposal_059",
+        "issue_68_video_004_topic_proposal_060",
+        "issue_68_video_004_topic_proposal_061",
+        "issue_68_video_004_topic_proposal_062",
+        "issue_68_video_004_topic_proposal_063",
+        "issue_68_video_004_topic_proposal_064",
+        "issue_68_video_004_topic_proposal_065"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day4_topic_051",
+      "end_word_id": "transcript_revision_video_004_r1:word:019994",
+      "end_word_anchor_time": "03:37:03.456",
+      "next_proposal_id": "issue_68_video_004_topic_proposal_066",
+      "next_start_word_id": "transcript_revision_video_004_r1:word:019995",
+      "next_start_word_anchor_time": "03:37:06.200",
+      "previous_end_word_id": "transcript_revision_video_004_r1:word:014782",
+      "previous_next_start_word_id": "transcript_revision_video_004_r1:word:014783",
+      "proposal_id": "issue_68_video_004_topic_proposal_051",
+      "reason": "Машинные Темы 51–66 дробят один блок завершения протокола: дополнительные действия, домашнее задание, рекомендации, ответственность клиента, реалистичные ожидания результата и возможный дискомфорт после сессии. На word:019994 заканчивается подготовка к демонстрации полного цикла; с word:019995 начинается работа с участницей.",
+      "source_id": "source_video_004",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация завершения протокола и ограничений результата; демонстрационная сессия начинается с word:019995.",
+      "split_parts": [
+        {
+          "authoring_disposition": "NON_SEMANTIC_EXCLUDED",
+          "end_word_anchor_time": "02:39:35.491",
+          "end_word_id": "transcript_revision_video_004_r1:word:014234",
+          "part_id": "issue_68_video_004_topic_proposal_051a",
+          "part_label": "51A",
+          "start_word_anchor_time": "02:39:12.369",
+          "start_word_id": "transcript_revision_video_004_r1:word:014182",
+          "title": "Объявление часового перерыва"
+        },
+        {
+          "end_word_anchor_time": "02:45:17.122",
+          "end_word_id": "transcript_revision_video_004_r1:word:014883",
+          "part_id": "issue_68_video_004_topic_proposal_051b",
+          "part_label": "51B",
+          "start_word_anchor_time": "02:39:42.775",
+          "start_word_id": "transcript_revision_video_004_r1:word:014235",
+          "title": "Завершение коррекции и проверка необходимости дополнительных действий"
+        },
+        {
+          "end_word_anchor_time": "02:50:05.703",
+          "end_word_id": "transcript_revision_video_004_r1:word:015426",
+          "part_id": "issue_68_video_004_topic_proposal_051c",
+          "part_label": "51C",
+          "start_word_anchor_time": "02:45:17.282",
+          "start_word_id": "transcript_revision_video_004_r1:word:014884",
+          "title": "Домашнее задание, сроки выполнения и рекомендации клиенту"
+        },
+        {
+          "end_word_anchor_time": "03:01:10.784",
+          "end_word_id": "transcript_revision_video_004_r1:word:016428",
+          "part_id": "issue_68_video_004_topic_proposal_051d",
+          "part_label": "51D",
+          "start_word_anchor_time": "02:50:06.444",
+          "start_word_id": "transcript_revision_video_004_r1:word:015427",
+          "title": "Изменение поведения после сессии и предел ответственности специалиста"
+        },
+        {
+          "end_word_anchor_time": "03:13:02.103",
+          "end_word_id": "transcript_revision_video_004_r1:word:017447",
+          "part_id": "issue_68_video_004_topic_proposal_051e",
+          "part_label": "51E",
+          "start_word_anchor_time": "03:01:12.308",
+          "start_word_id": "transcript_revision_video_004_r1:word:016429",
+          "title": "Ответственность за позитивные изменения и реалистичный объём работы"
+        },
+        {
+          "end_word_anchor_time": "03:26:06.486",
+          "end_word_id": "transcript_revision_video_004_r1:word:018928",
+          "part_id": "issue_68_video_004_topic_proposal_051f",
+          "part_label": "51F",
+          "start_word_anchor_time": "03:13:04.607",
+          "start_word_id": "transcript_revision_video_004_r1:word:017448",
+          "title": "Факторы результата, ожидания клиента и риск обесценивания изменений"
+        },
+        {
+          "end_word_anchor_time": "03:37:03.456",
+          "end_word_id": "transcript_revision_video_004_r1:word:019994",
+          "part_id": "issue_68_video_004_topic_proposal_051g",
+          "part_label": "51G",
+          "start_word_anchor_time": "03:26:10.294",
+          "start_word_id": "transcript_revision_video_004_r1:word:018929",
+          "title": "Дискомфорт после сессии, ложная причинность и флексионный тип реакции"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_004_r1:word:014182",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "absorbed_proposal_ids": [
+        "issue_68_video_004_topic_proposal_067",
+        "issue_68_video_004_topic_proposal_068",
+        "issue_68_video_004_topic_proposal_069",
+        "issue_68_video_004_topic_proposal_070",
+        "issue_68_video_004_topic_proposal_071",
+        "issue_68_video_004_topic_proposal_072",
+        "issue_68_video_004_topic_proposal_073",
+        "issue_68_video_004_topic_proposal_074",
+        "issue_68_video_004_topic_proposal_075",
+        "issue_68_video_004_topic_proposal_076",
+        "issue_68_video_004_topic_proposal_077",
+        "issue_68_video_004_topic_proposal_078"
+      ],
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "REALIGN_RIGHT",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day4_topic_066",
+      "end_word_id": "transcript_revision_video_004_r1:word:024792",
+      "end_word_anchor_time": "04:25:29.112",
+      "next_proposal_id": "issue_68_video_004_topic_proposal_079",
+      "next_start_word_id": "transcript_revision_video_004_r1:word:024793",
+      "next_start_word_anchor_time": "04:25:30.280",
+      "previous_end_word_id": "transcript_revision_video_004_r1:word:020056",
+      "previous_next_start_word_id": "transcript_revision_video_004_r1:word:020057",
+      "proposal_id": "issue_68_video_004_topic_proposal_066",
+      "reason": "Машинные Темы 66–78 дробят одну полную демонстрационную сессию по стрессу на обучение: настройку, чтение негативных и позитивных состояний, поиск возраста и школьного события, меридианную коррекцию, позитивный образ, ретест и рекомендации. На word:024792 завершаются итоги курса и анонс зачёта; далее остаются заключительные вопросы.",
+      "source_id": "source_video_004",
+      "source_instruction": "CODEX TRIAGE — бесспорная provisional-нормализация полной демонстрационной сессии по стрессу на обучение; финальные вопросы начинаются с word:024793.",
+      "split_parts": [
+        {
+          "end_word_anchor_time": "03:43:02.125",
+          "end_word_id": "transcript_revision_video_004_r1:word:020503",
+          "part_id": "issue_68_video_004_topic_proposal_066a",
+          "part_label": "66A",
+          "start_word_anchor_time": "03:37:06.200",
+          "start_word_id": "transcript_revision_video_004_r1:word:019995",
+          "title": "Настройка демонстрационной сессии и определение эмоционального состояния"
+        },
+        {
+          "end_word_anchor_time": "03:54:38.106",
+          "end_word_id": "transcript_revision_video_004_r1:word:021860",
+          "part_id": "issue_68_video_004_topic_proposal_066b",
+          "part_label": "66B",
+          "start_word_anchor_time": "03:43:02.686",
+          "start_word_id": "transcript_revision_video_004_r1:word:020504",
+          "title": "Негативные состояния в обучении: негодование, язвительность и бесчувственность"
+        },
+        {
+          "end_word_anchor_time": "03:59:59.387",
+          "end_word_id": "transcript_revision_video_004_r1:word:022328",
+          "part_id": "issue_68_video_004_topic_proposal_066c",
+          "part_label": "66C",
+          "start_word_anchor_time": "03:54:39.009",
+          "start_word_id": "transcript_revision_video_004_r1:word:021861",
+          "title": "Позитивная самооценка и формулирование желаемого состояния"
+        },
+        {
+          "end_word_anchor_time": "04:05:06.294",
+          "end_word_id": "transcript_revision_video_004_r1:word:022859",
+          "part_id": "issue_68_video_004_topic_proposal_066d",
+          "part_label": "66D",
+          "start_word_anchor_time": "04:00:00.470",
+          "start_word_id": "transcript_revision_video_004_r1:word:022329",
+          "title": "Поиск возраста и школьное воспоминание о несправедливой оценке"
+        },
+        {
+          "end_word_anchor_time": "04:13:17.170",
+          "end_word_id": "transcript_revision_video_004_r1:word:023553",
+          "part_id": "issue_68_video_004_topic_proposal_066e",
+          "part_label": "66E",
+          "start_word_anchor_time": "04:05:06.856",
+          "start_word_id": "transcript_revision_video_004_r1:word:022860",
+          "title": "Выбор меридианов и коррекция простукиванием с прослеживанием"
+        },
+        {
+          "end_word_anchor_time": "04:18:13.756",
+          "end_word_id": "transcript_revision_video_004_r1:word:024030",
+          "part_id": "issue_68_video_004_topic_proposal_066f",
+          "part_label": "66F",
+          "start_word_anchor_time": "04:13:17.551",
+          "start_word_id": "transcript_revision_video_004_r1:word:023554",
+          "title": "Создание позитивного школьного воспоминания и проверка результата"
+        },
+        {
+          "end_word_anchor_time": "04:25:29.112",
+          "end_word_id": "transcript_revision_video_004_r1:word:024792",
+          "part_id": "issue_68_video_004_topic_proposal_066g",
+          "part_label": "66G",
+          "start_word_anchor_time": "04:18:15.481",
+          "start_word_id": "transcript_revision_video_004_r1:word:024031",
+          "title": "Ретест, рекомендации участнице и итоги четырёхдневного обучения"
+        }
+      ],
+      "start_word_id": "transcript_revision_video_004_r1:word:019995",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+    },
+    {
+      "action": "RENAME",
+      "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "boundary_action": "PRESERVE",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_codex_authoring_day4_topic_079",
+      "end_word_id": "transcript_revision_video_004_r1:word:024934",
+      "new_title": "Заключительные вопросы и завершение семинара",
+      "proposal_id": "issue_68_video_004_topic_proposal_079",
+      "reason": "Последний диапазон Day 4 содержит ответы на заключительные вопросы, организационные указания и прощание. Исходные границы охватывают окончание источника полностью.",
+      "source_id": "source_video_004",
+      "source_instruction": "CODEX TRIAGE — бесспорное provisional-переименование финального блока Day 4 с сохранением диапазона word:024793–word:024934.",
+      "start_word_id": "transcript_revision_video_004_r1:word:024793",
+      "triage_classification": "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
     }
   ],
   "semantic_effect": "PROVISIONAL_DOMAIN_AUTHORING_ONLY_NOT_ACCEPTED",

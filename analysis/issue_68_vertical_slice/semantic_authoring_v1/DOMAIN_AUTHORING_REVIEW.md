@@ -13,8 +13,8 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 | `source_video_004` | 79 | 24935/24935 | 0 | 0 |
 
 
-Concept candidates: **18**.  Provisional
-Topic→Concept links: **240**.
+Concept candidates: **15**.  Provisional
+Topic→Concept links: **179**.
 
 ## Human-decision policy
 
@@ -29,19 +29,9 @@ required after provisional authoring.
 
 Policy mode: `EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW`.
 
-## Next Codex triage item
+## Codex triage status
 
-### 119. Психосоматика и Стресс
-
-- Source: `source_video_003`
-- Time: `01:34:01.977` — `01:43:40.287`
-- Words: `transcript_revision_video_003_r1:word:008014` — `transcript_revision_video_003_r1:word:008838`
-- Summary: Семинар рассматривает связь между эмоциональными переживаниями и физическими заболеваниями, используя термины психосоматика и теорию стресса, сформулированную Гансом Елье. Фрагмент проходит от «И следующая у нас тема с вами…» к «То есть мышцы начинают, становятся, условно говоря,».
-- Beginning: И следующая у нас тема с вами это теория
-- Middle: все, то есть, ну, например, специфический эффект, там, эмоции, да, появились, специфический эффект, там, если порезались, как
-- End: АТФ происходит. То есть мышцы начинают, становятся, условно говоря,
-- Machine recommendation: `ACCEPT`
-- Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
-
-This item is not automatically a human gate. If Codex finds a genuine ambiguity,
-the evidence and bounded alternatives are presented to the Product Owner.
+All machine proposals have a provisional DOMAIN_AUTHORING disposition. No
+per-proposal semantic acceptance was inferred. The complete package remains
+`UNREVIEWED` and requires the explicit consolidated `DOMAIN_REVIEW` defined by
+the human-decision policy before any semantic result can become accepted.
