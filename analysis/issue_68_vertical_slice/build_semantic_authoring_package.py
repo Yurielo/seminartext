@@ -29,6 +29,10 @@ DECISIONS = [
     "OTHER",
 ]
 AUTHORING_DISPOSITIONS = {"SEMANTIC_TOPIC", "NON_SEMANTIC_EXCLUDED"}
+AUTHORING_AUTHORITIES = {
+    "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+    "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+}
 
 # These are proposal seeds, not Canonical Concept identities.  Matching is
 # deliberately transparent and conservative; identity remains a human gate.
@@ -410,6 +414,14 @@ def build_package(
                     errors.append(f"unexpected boundary mutation for {proposal_id}")
                 if decision_record.get("source_id") != source_id:
                     errors.append(f"decision source mismatch for {proposal_id}")
+                if decision_record.get("authority") not in AUTHORING_AUTHORITIES:
+                    errors.append(f"unsupported authoring authority for {proposal_id}")
+                if (
+                    decision_record.get("authority") == "CODEX_ASSISTED_PROVISIONAL_AUTHORING"
+                    and decision_record.get("triage_classification")
+                    != "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+                ):
+                    errors.append(f"Codex authoring lacks explicit triage classification for {proposal_id}")
                 if (
                     decision_record.get("start_word_id") != proposal["start_word_id"]
                     or decision_record.get("end_word_id") != proposal["end_word_id"]
@@ -510,6 +522,9 @@ def build_package(
                         "next_start_word_anchor_time"
                     ),
                     "authority": decision_record.get("authority"),
+                    "triage_classification": decision_record.get(
+                        "triage_classification"
+                    ),
                     "split_part_ids": [
                         part.get("part_id") for part in decision_record.get("split_parts", [])
                     ],

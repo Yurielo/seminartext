@@ -168,6 +168,41 @@ def test_exception_only_policy_cannot_enable_automatic_semantic_acceptance(
     assert "human decision policy permits automatic semantic acceptance" in package["errors"]
 
 
+def test_codex_assisted_authoring_requires_straightforward_triage_classification(
+    tmp_path: Path,
+) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "codex_decision_without_triage",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "source_id": "source_video_002",
+                    "action": "RENAME",
+                    "new_title": "Предварительное название",
+                    "boundary_action": "PRESERVE",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000005",
+                    "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+                }
+            ],
+        },
+    )
+
+    package, _ = MODULE.build_package(project, review, decision_path)
+
+    assert package["status"] == "INVALID"
+    assert any(
+        "Codex authoring lacks explicit triage classification" in item
+        for item in package["errors"]
+    )
+
+
 def test_rename_authoring_decision_preserves_word_range_and_stays_provisional(tmp_path: Path) -> None:
     project, review = make_fixture(tmp_path)
     decision_path = project / "authoring_decisions.json"
@@ -540,14 +575,14 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     } == expected_counts
     assert len(package["topic_proposals"]) == sum(expected_counts.values())
     assert package["domain_authoring_progress"] == {
-        "completed": 43,
+        "completed": 118,
         "human_decision_count_requires_codex_triage": True,
         "machine_proposal_count_is_not_human_gate_count": True,
-        "pending": 219,
+        "pending": 144,
         "pending_human_decisions": None,
-        "pending_machine_proposals": 219,
+        "pending_machine_proposals": 144,
         "total": 262,
-        "next_proposal_id": "issue_68_video_002_topic_proposal_044",
+        "next_proposal_id": "issue_68_video_003_topic_proposal_028",
     }
     assert package["human_decision_policy"]["mode"] == (
         "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW"
@@ -1179,6 +1214,28 @@ def test_committed_real_package_is_complete_and_fail_closed() -> None:
     assert forty_fourth["start_word_id"].endswith("word:014009")
     assert forty_fourth["left_boundary_authoring_decision"]["decision_id"] == (
         "issue_68_domain_authoring_topic_041"
+    )
+    last_completed = package["topic_proposals"][117]
+    assert last_completed["proposal_id"] == "issue_68_video_003_topic_proposal_027"
+    assert last_completed["authoring_status"] == "COMPLETED"
+    assert last_completed["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    next_pending = package["topic_proposals"][118]
+    assert next_pending["proposal_id"] == "issue_68_video_003_topic_proposal_028"
+    assert next_pending["start_word_id"].endswith("word:008014")
+    assert next_pending["authoring_status"] == "PENDING"
+    codex_authored = [
+        item
+        for item in package["topic_proposals"]
+        if item.get("authoring_decision", {}).get("authority")
+        == "CODEX_ASSISTED_PROVISIONAL_AUTHORING"
+    ]
+    assert codex_authored
+    assert all(
+        item["authoring_decision"]["triage_classification"]
+        == "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+        and item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in codex_authored
     )
     assert all(
         link["topic_reference"]

@@ -14,7 +14,7 @@ All new Topics, Concept candidates, and Topic→Concept links are provisional an
 
 
 Concept candidates: **18**.  Provisional
-Topic→Concept links: **259**.
+Topic→Concept links: **240**.
 
 ## Human-decision policy
 
@@ -31,15 +31,15 @@ Policy mode: `EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW`.
 
 ## Next Codex triage item
 
-### 44. Фасциальные Диаграммы и Сакральные Ритмы
+### 119. Психосоматика и Стресс
 
-- Source: `source_video_002`
-- Time: `02:27:30.140` — `02:31:18.760`
-- Words: `transcript_revision_video_002_r1:word:014009` — `transcript_revision_video_002_r1:word:014334`
-- Summary: Обсуждается метод тестирования по фасциальным диаграммам, его универсальность и связь с крайне сакральным ритмом, а также с ритмом дыхания клетки, который сохраняется на всю жизнь. Фрагмент проходит от «И еще метод тестирования по крайне сакральному…» к «на весу, чтобы это было. Руки располагаем».
-- Beginning: И еще метод тестирования по крайне сакральному ритму. Какие
-- Middle: этом дыхании выделяют две фазы. Ну, на самом деле, три, но две. Давайте, чтобы проще было. Это
-- End: стол, не на весу, чтобы это было. Руки располагаем
+- Source: `source_video_003`
+- Time: `01:34:01.977` — `01:43:40.287`
+- Words: `transcript_revision_video_003_r1:word:008014` — `transcript_revision_video_003_r1:word:008838`
+- Summary: Семинар рассматривает связь между эмоциональными переживаниями и физическими заболеваниями, используя термины психосоматика и теорию стресса, сформулированную Гансом Елье. Фрагмент проходит от «И следующая у нас тема с вами…» к «То есть мышцы начинают, становятся, условно говоря,».
+- Beginning: И следующая у нас тема с вами это теория
+- Middle: все, то есть, ну, например, специфический эффект, там, эмоции, да, появились, специфический эффект, там, если порезались, как
+- End: АТФ происходит. То есть мышцы начинают, становятся, условно говоря,
 - Machine recommendation: `ACCEPT`
 - Available decisions: ACCEPT, RENAME, REALIGN, SPLIT, MERGE, EXCLUDE_NON_SEMANTIC, OTHER
 
