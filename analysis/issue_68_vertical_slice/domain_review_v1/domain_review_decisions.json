@@ -38,6 +38,36 @@
         }
       ],
       "target_topic_id": "issue_68_video_002_topic_proposal_020a"
+    },
+    {
+      "action": "REALIGN_LEFT",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "decision_date": "2026-09-07",
+      "decision_id": "issue_68_domain_review_topic_051a",
+      "original_range": {
+        "end_word_id": "transcript_revision_video_003_r1:word:015449",
+        "start_word_id": "transcript_revision_video_003_r1:word:015212"
+      },
+      "rationale": "The lunch-break announcement is organizational noise, while the following participant and demonstration-topic selection directly forms the substantive demonstration work and must remain a semantic Topic.",
+      "rejected_alternative": "Classify the entire original range as SEMINAR_STRUCTURE.",
+      "results": [
+        {
+          "disposition": "NON_SEMANTIC_EXCLUDED",
+          "end_word_id": "transcript_revision_video_003_r1:word:015219",
+          "reason": "lunch-break scheduling",
+          "source_id": "source_video_003",
+          "start_word_id": "transcript_revision_video_003_r1:word:015212"
+        },
+        {
+          "disposition": "SEMANTIC_TOPIC",
+          "end_word_id": "transcript_revision_video_003_r1:word:015449",
+          "source_id": "source_video_003",
+          "start_word_id": "transcript_revision_video_003_r1:word:015220",
+          "title": "Выбор участника и темы демонстрационной сессии",
+          "topic_id": "issue_68_video_003_topic_proposal_051a"
+        }
+      ],
+      "target_topic_id": "issue_68_video_003_topic_proposal_051a"
     }
   ],
   "package_semantic_authority": "PROVISIONAL_UNREVIEWED",

@@ -1,9 +1,9 @@
 {
   "artifact_type": "seminartext.issue_68_domain_review_manifest",
   "files": {
-    "DOMAIN_REVIEW.md": "b9c168e415175a54b0c4310d81b65aa5626b1b697759ebb63153b8c2ede131ed",
-    "domain_review_decisions.json": "1a52eb5f26ed62fc2bd95b5e6b3aaebf109e5d14cc8e6a67bc5274eaf718a6eb",
-    "domain_review_qa.json": "e7567976f75b8854760abdc919f33f52de18829c4b1ea21755365b06cc258154"
+    "DOMAIN_REVIEW.md": "35ba90fef689c6070a2cd7472421fa2b07158c4934cd891cd5fa3d564730c910",
+    "domain_review_decisions.json": "70711290cd57abe2377a73ccaaba142b0887b30ba9eb8ff5b88702793e2898ce",
+    "domain_review_qa.json": "925ef60aaaccecce3210cb06c1ee250426c531b342990b47d1bb9fd6dc0fca80"
   },
   "qa_status": "READY_WITH_EXCEPTIONS",
   "schema_version": "1.0.0",
@@ -18,9 +18,9 @@
     "link_exception": 63,
     "links_total": 254,
     "selective_transcript_verification_exceptions": 2,
-    "topic_domain_review_decisions": 1,
+    "topic_domain_review_decisions": 2,
     "topic_results_total": 181,
-    "topic_review_clear": 178,
-    "topic_review_exception": 3
+    "topic_review_clear": 179,
+    "topic_review_exception": 2
   }
 }

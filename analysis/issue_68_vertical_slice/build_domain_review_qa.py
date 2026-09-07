@@ -343,7 +343,7 @@ def apply_domain_review_decisions(
         if decision.get("authority") != "PRODUCT_OWNER_DOMAIN_REVIEW":
             errors.append(f"non-authoritative DOMAIN_REVIEW decision {decision_id}")
             continue
-        if decision.get("action") != "SPLIT_REALIGN":
+        if decision.get("action") not in {"SPLIT_REALIGN", "REALIGN_LEFT"}:
             errors.append(f"unsupported DOMAIN_REVIEW action in {decision_id}")
             continue
         if target_id in resolved:

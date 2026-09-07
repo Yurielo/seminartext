@@ -7,8 +7,8 @@ does not mean `ACCEPTED`.
 
 - Machine Topic proposals: **262**
 - Resulting authored semantic units: **181**
-- Topic `REVIEW_CLEAR`: **178**
-- Topic `REVIEW_EXCEPTION`: **3**
+- Topic `REVIEW_CLEAR`: **179**
+- Topic `REVIEW_EXCEPTION`: **2**
 - Concept candidates: **18**
 - Concept identity exceptions: **7**
 - Topic→Concept input links: **254**
@@ -22,40 +22,36 @@ packet exposes only the first unresolved material exception.
 
 ## First material exception
 
-- Source: `source_video_003`
-- Topic: `issue_68_video_003_topic_proposal_051a`
-- Time: `02:50:36.490` — `02:55:09.070`
-- Words: `transcript_revision_video_003_r1:word:015212` — `transcript_revision_video_003_r1:word:015449`
-- Current title: **Выбор участника и темы демонстрационной сессии**
+- Source: `source_video_004`
+- Topic: `issue_68_video_004_topic_proposal_001c`
+- Time: `00:08:46.571` — `00:10:26.178`
+- Words: `transcript_revision_video_004_r1:word:000615` — `transcript_revision_video_004_r1:word:000754`
+- Current title: **Специфическая, генетическая и неспецифическая рецессия**
 - Classification: `REVIEW_EXCEPTION`
-- Taxonomy: NON_SEMANTIC_CONTENT_CONTAMINATION, BOUNDARY_OFFSET
-- Confidence: `HIGH`
+- Taxonomy: MALFORMED_TITLE, TRANSCRIPT_UNCERTAINTY
+- Confidence: `MEDIUM`
 
 ### Exact problem
 
-The unit opens with an unrelated lunch-break duration announcement before the participant and demonstration-topic selection begins.
+The title and machine transcript use «рецессия» for a method whose surrounding explanation appears to describe temporal regression. The intended domain term cannot be authoritatively inferred from the machine TranscriptRevision alone.
 
 ### Exact evidence preview
 
-- Beginning: Проведем обеденный перерыв. У нас будет на час. И у нас есть список желающих участвовать. Можно я? Мы тестируем по... То есть как бы не я решаю, а я по тесту проверяю.
-- Middle: стресс на обучение. Это подумайте о том, что... Не нужно выбрать, да? Нет. Мы все по тесту. У нас забываем вообще выбрать. Забываем там, я хочу и так далее. У нас есть
-- End: Вот. То есть вот это тема у нас будет. Я бы выбрала. Я доверяю своему тестированию. Продолжение следует... Это поменьше выбрали из всех, я понимаю. Это первый признак, что тема под стрессом.
+- Beginning: И оно звучит так, как время, в которое коррекция пройдет наилучшим образом. То есть мы не знаем, что это за время. Какая же бывает вида специфической рецессии? Это текущее воплощение, то есть
+- Middle: опыт, то есть от момента рождения до настоящего времени. Есть специфическая также рецессия, туда относится генетическое прошлое, то есть какой-то конкретный предок. Бабушка по материнской линии, либо дедушка по материнской линии в
+- End: подробнее. Итого, мы можем уйти в какое-то конкретное время, либо в время, которое мы даже не знаем, куда мы попадем, которое называется неспецифическая рецессия, или время, в которое коррекция пройдет наилучшим образом.
 
 ### Recommended correction
 
 ```json
 {
-  "action": "REALIGN_LEFT",
-  "exclude_as_nonsemantic": {
-    "end_word_id": "transcript_revision_video_003_r1:word:015219",
-    "start_word_id": "transcript_revision_video_003_r1:word:015212"
-  },
-  "preserve_end_word_id": "transcript_revision_video_003_r1:word:015449",
-  "start_word_id": "transcript_revision_video_003_r1:word:015220"
+  "action": "SELECTIVE_TRANSCRIPT_VERIFICATION_THEN_RENAME_IF_CONFIRMED",
+  "candidate_title": "Специфическая, генетическая и неспецифическая регрессия",
+  "preserve_word_range": true
 }
 ```
 
-Alternative: Preserve the current range as SEMINAR_STRUCTURE.
+Alternative: Retain «рецессия» with an explicit source-term note if selective verification confirms that wording.
 
 ### Human decision required
 
