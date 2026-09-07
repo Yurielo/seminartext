@@ -27,7 +27,7 @@ def test_domain_review_qa_preserves_expected_input_inventory() -> None:
     assert qa["status"] == "READY_WITH_EXCEPTIONS"
     assert qa["semantic_authority"] == "PROVISIONAL_UNREVIEWED"
     assert qa["input_inventory"]["machine_topic_proposals"] == 262
-    assert qa["input_inventory"]["authored_topic_results"] == 181
+    assert qa["input_inventory"]["authored_topic_results"] == 182
     assert qa["input_inventory"]["concept_candidates"] == 18
     assert qa["input_inventory"]["topic_concept_link_proposals"] == 254
     assert qa["input_inventory"]["baseline_rebuilt_without_authoring_decisions"] is True
@@ -45,7 +45,7 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
     concepts = qa["concept_results"]
     links = qa["link_results"]
 
-    assert len(topics) == 181
+    assert len(topics) == 182
     assert len(concepts) == 18
     assert len(links) == 254
     assert all(item["classification"] in {"REVIEW_CLEAR", "REVIEW_EXCEPTION"} for item in topics)
@@ -55,6 +55,8 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
         "issue_68_video_002_topic_proposal_020a",
         "issue_68_video_003_topic_proposal_051a",
         "issue_68_video_004_topic_proposal_001c",
+        "issue_68_video_004_topic_proposal_024h",
+        "issue_68_video_004_topic_proposal_024h2",
     ]
     assert all(
         item["domain_review_status"] == "REVIEW_REQUIRED"
@@ -78,15 +80,14 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["topic_id"] == "issue_68_video_004_topic_proposal_024h"
-    assert first["classification"] == "REVIEW_EXCEPTION"
+    assert first["candidate_concept_id"] == "issue_68_candidate_concept_correction"
+    assert first["classification"] == "IDENTITY_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
-    assert first["qa_dimensions"]["left_boundary"] == "REVIEW_REQUIRED"
-    assert first["qa_dimensions"]["right_boundary"] == "REVIEW_REQUIRED"
     assert "issue_68_video_002_topic_proposal_020a" not in review
     assert "issue_68_video_003_topic_proposal_051a" not in review
     assert "issue_68_video_004_topic_proposal_001c" not in review
-    assert "issue_68_video_004_topic_proposal_024h" in review
+    assert "issue_68_video_004_topic_proposal_024h" not in review
+    assert "issue_68_candidate_concept_correction" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -207,3 +208,49 @@ def test_product_owner_topic_001c_audio_term_normalization_is_traceable() -> Non
         "semantic_term": "регрессия",
         "transcript_revision_mutated": False,
     }
+
+
+def test_product_owner_topic_024h_split_is_exact_and_neighbor_qa_passes() -> None:
+    qa = read_json(QA_PATH)
+    topics = {
+        item["topic_id"]: item
+        for item in qa["topic_results"]
+        if item["topic_id"]
+        in {
+            "issue_68_video_004_topic_proposal_024h",
+            "issue_68_video_004_topic_proposal_024h2",
+        }
+    }
+    first = topics["issue_68_video_004_topic_proposal_024h"]
+    second = topics["issue_68_video_004_topic_proposal_024h2"]
+    resolution = first["domain_review_resolution"]
+
+    assert first["classification"] == second["classification"] == "REVIEW_CLEAR"
+    assert first["domain_review_status"] == second["domain_review_status"] == "DECIDED"
+    assert first["semantic_status"] == second["semantic_status"] == "PROVISIONAL"
+    assert first["title"] == (
+        "Генетический опыт: предел глубины анализа и переход к ресурсному состоянию"
+    )
+    assert first["start_word_id"].endswith(":word:009738")
+    assert first["end_word_id"].endswith(":word:010253")
+    assert second["title"] == "Гимнастика для мозга и повторение претестов"
+    assert second["start_word_id"].endswith(":word:010254")
+    assert second["end_word_id"].endswith(":word:010431")
+    assert resolution == second["domain_review_resolution"]
+    assert resolution["action"] == "SPLIT_REALIGN"
+    assert resolution["result_topic_ids"] == [
+        "issue_68_video_004_topic_proposal_024h",
+        "issue_68_video_004_topic_proposal_024h2",
+    ]
+    assert resolution["status"] == "DECIDED"
+    assert resolution["package_semantic_promotion"] is False
+    assert resolution["neighborhood_qa"] == {
+        "previous_topic_id": "issue_68_video_004_topic_proposal_024g",
+        "previous_topic_ends_before_original_range": True,
+        "decision_results_exactly_partition_original_range": True,
+        "semantic_range_inside_original_range": True,
+        "next_topic_id": "issue_68_video_004_topic_proposal_024i",
+        "next_topic_starts_after_original_range": True,
+        "neighboring_topic_overlap": False,
+    }
+    assert qa["summary"]["topic_domain_review_decisions"] == 4

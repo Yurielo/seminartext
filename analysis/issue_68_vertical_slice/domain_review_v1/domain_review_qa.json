@@ -1311,9 +1311,9 @@
       ]
     },
     "source_video_004": {
-      "coherence_status": "REVIEW_EXCEPTION_PRESENT",
+      "coherence_status": "REVIEW_CLEAR",
       "repeated_titles": [],
-      "topic_count": 40,
+      "topic_count": 41,
       "topics": [
         {
           "classification": "REVIEW_CLEAR",
@@ -1449,11 +1449,18 @@
           "topic_id": "issue_68_video_004_topic_proposal_024g"
         },
         {
-          "classification": "REVIEW_EXCEPTION",
-          "end_time": "02:01:19.486",
-          "start_time": "01:51:40.189",
-          "title": "Генетическая линия, предел глубины и ресурсный фокус работы",
+          "classification": "REVIEW_CLEAR",
+          "end_time": 7079.241,
+          "start_time": 6700.189,
+          "title": "Генетический опыт: предел глубины анализа и переход к ресурсному состоянию",
           "topic_id": "issue_68_video_004_topic_proposal_024h"
+        },
+        {
+          "classification": "REVIEW_CLEAR",
+          "end_time": 7279.486,
+          "start_time": 7079.261,
+          "title": "Гимнастика для мозга и повторение претестов",
+          "topic_id": "issue_68_video_004_topic_proposal_024h2"
         },
         {
           "classification": "REVIEW_CLEAR",
@@ -1615,6 +1622,9 @@
       "package_semantic_promotion": false,
       "rationale": "The scheduling fragments before and after the exercise are non-semantic, while the exercise itself is substantive learning content about the three kinds of energy and must remain a semantic Topic.",
       "rejected_alternative": "Classify the entire original range as SEMINAR_STRUCTURE.",
+      "result_topic_ids": [
+        "issue_68_video_002_topic_proposal_020a"
+      ],
       "results": [
         {
           "canonical_evidence_sha256": "2d02d4382af405369a7e9696fb89cc2f76dc2e4a73e2f5984b770e8c60a78c3e",
@@ -1674,6 +1684,9 @@
       "package_semantic_promotion": false,
       "rationale": "The lunch-break announcement is organizational noise, while the following participant and demonstration-topic selection directly forms the substantive demonstration work and must remain a semantic Topic.",
       "rejected_alternative": "Classify the entire original range as SEMINAR_STRUCTURE.",
+      "result_topic_ids": [
+        "issue_68_video_003_topic_proposal_051a"
+      ],
       "results": [
         {
           "canonical_evidence_sha256": "799e1ec533b1efd9337f3e98756b8342f8fcd0ed99d2040dd3901115f4fdd574",
@@ -1721,6 +1734,9 @@
       "package_semantic_promotion": false,
       "rationale": "Selective source-audio verification confirms that the author says «рецессия». The semantic meaning is return to a specific age, time, or past experience, so the semantic Topic is normalized to «регрессия» without rewriting the historical TranscriptRevision.",
       "rejected_alternative": "Rewrite the historical TranscriptRevision as though the author pronounced «регрессия».",
+      "result_topic_ids": [
+        "issue_68_video_004_topic_proposal_001c"
+      ],
       "results": [
         {
           "canonical_evidence_sha256": "41431f41d4c5bb4fb058d9a0d8423e432625c40e3fe9cf4fa206916f8604611d",
@@ -1746,86 +1762,85 @@
         "traceability": "PRESERVED",
         "transcript_revision_action": "PRESERVE_UNCHANGED"
       }
+    },
+    {
+      "action": "SPLIT_REALIGN",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "decision_id": "issue_68_domain_review_topic_024h",
+      "neighborhood_qa": {
+        "decision_results_exactly_partition_original_range": true,
+        "neighboring_topic_overlap": false,
+        "next_topic_id": "issue_68_video_004_topic_proposal_024i",
+        "next_topic_starts_after_original_range": true,
+        "previous_topic_ends_before_original_range": true,
+        "previous_topic_id": "issue_68_video_004_topic_proposal_024g",
+        "semantic_range_inside_original_range": true
+      },
+      "package_semantic_promotion": false,
+      "rationale": "The range contains two independently useful semantic units: the limit of exhaustive work with genetic experience and the guided brain-gym/pretest sequence. The split follows the completed phrase «Вот так.» and preserves both as semantic Topics.",
+      "rejected_alternative": "Classify the guided exercise as SEMINAR_STRUCTURE instead of reusable semantic content.",
+      "result_topic_ids": [
+        "issue_68_video_004_topic_proposal_024h",
+        "issue_68_video_004_topic_proposal_024h2"
+      ],
+      "results": [
+        {
+          "canonical_evidence_sha256": "1d26c7fa42d042e85532ff47758c14f4fb5c1b06d551e94e798eaa6522b64a6d",
+          "disposition": "SEMANTIC_TOPIC",
+          "end_time": 7079.241,
+          "end_word_id": "transcript_revision_video_004_r1:word:010253",
+          "end_word_sequence": 10253,
+          "source_id": "source_video_004",
+          "start_time": 6700.189,
+          "start_word_id": "transcript_revision_video_004_r1:word:009738",
+          "start_word_sequence": 9738,
+          "title": "Генетический опыт: предел глубины анализа и переход к ресурсному состоянию",
+          "topic_id": "issue_68_video_004_topic_proposal_024h"
+        },
+        {
+          "canonical_evidence_sha256": "7fb6df6dcd5203a9ab18399fa728b9050c7bdea666e1b2abe0e05c4638aa166e",
+          "disposition": "SEMANTIC_TOPIC",
+          "end_time": 7279.486,
+          "end_word_id": "transcript_revision_video_004_r1:word:010431",
+          "end_word_sequence": 10431,
+          "source_id": "source_video_004",
+          "start_time": 7079.261,
+          "start_word_id": "transcript_revision_video_004_r1:word:010254",
+          "start_word_sequence": 10254,
+          "title": "Гимнастика для мозга и повторение претестов",
+          "topic_id": "issue_68_video_004_topic_proposal_024h2"
+        }
+      ],
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_topic_id": "issue_68_video_004_topic_proposal_024h"
     }
   ],
   "errors": [],
   "first_material_exception": {
-    "authoring_authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
-    "canonical_evidence_sha256": "f946bcbc7ec830e5d52afb976aef74e1bdc1bc5ad10f8438799210e39dca79cc",
-    "classification": "REVIEW_EXCEPTION",
-    "domain_review_status": "REVIEW_REQUIRED",
-    "end_time": "02:01:19.486",
-    "end_word_id": "transcript_revision_video_004_r1:word:010431",
-    "end_word_sequence": 10431,
-    "evidence_preview": {
-      "beginning": {
-        "end_word_id": "transcript_revision_video_004_r1:word:009769",
-        "start_word_id": "transcript_revision_video_004_r1:word:009738",
-        "text": "Мы здесь работаем, смотрите, мы с вами когда проговорили про первое поколение, здесь не очень верно на схеме написано, но вообще. У нас человек, с которым мы работаем, или мы сами, давайте"
-      },
-      "end": {
-        "end_word_id": "transcript_revision_video_004_r1:word:010431",
-        "start_word_id": "transcript_revision_video_004_r1:word:010400",
-        "text": "но сейчас запоминаем. Дальше мы дышим с вами, дальше мы промахиваем с вами меридианы, передний, средний меридиан, задний, средний меридиан. Делали гимнастику для мозга, восстановили свои когнитивные способности и переходим к вопросам."
-      },
-      "middle": {
-        "end_word_id": "transcript_revision_video_004_r1:word:010100",
-        "start_word_id": "transcript_revision_video_004_r1:word:010069",
-        "text": "тоже для вас такое замечание. Вот смотрите. Мы даже со своим личным опытом от зачатия до настоящего времени мы вряд ли сможем когда-либо разобраться. На то, чтобы с этими проблемами разобраться, нужно"
-      }
-    },
+    "candidate_concept_id": "issue_68_candidate_concept_correction",
+    "classification": "IDENTITY_EXCEPTION",
+    "evidence_reference_count": 45,
     "exception": {
-      "alternative": "Classify the second part as SEMINAR_STRUCTURE only if the guided exercise is intended as navigation rather than reusable content.",
-      "confidence": "HIGH",
       "human_decision_required": true,
-      "problem": "The resource-focused discussion ends before a guided brain-gym sequence and pretest recap. The current range combines two distinct semantic functions under one title.",
-      "recommended_correction": {
-        "action": "SPLIT_REALIGN",
-        "semantic_part": {
-          "end_word_id": "transcript_revision_video_004_r1:word:010253",
-          "preserve_title": true,
-          "start_word_id": "transcript_revision_video_004_r1:word:009738"
-        },
-        "separate_semantic_part": {
-          "end_word_id": "transcript_revision_video_004_r1:word:010431",
-          "proposed_role": "SEMANTIC_TOPIC",
-          "start_word_id": "transcript_revision_video_004_r1:word:010254",
-          "title": "Гимнастика для мозга и повторение претестов перед вопросами"
-        }
-      },
-      "taxonomy": [
-        "OVER-MERGE",
-        "TRANSITION_SPLIT",
-        "PROCEDURAL_CONTENT_MIX"
-      ]
+      "problem": "The label spans multiple distinct correction modalities and is too broad for identity assignment.",
+      "recommendation": "Decide whether it is an umbrella Concept or separate modality Concepts."
     },
-    "origin_proposal_id": "issue_68_video_004_topic_proposal_024",
-    "protected_pattern": null,
-    "qa_dimensions": {
-      "left_boundary": "REVIEW_REQUIRED",
-      "neighbor_relationship": "REVIEW_REQUIRED",
-      "provenance": "PASS",
-      "right_boundary": "REVIEW_REQUIRED",
-      "semantic_coherence": "REVIEW_REQUIRED",
-      "title_content_correspondence": "PASS",
-      "transcript_assurance": "MACHINE_UNVERIFIED_EXPLICIT"
-    },
-    "review_method": "CODEX_SEMANTIC_QA_OVER_FULL_CANONICAL_WORD_RANGE",
+    "proposed_canonical_label": "Коррекция",
     "semantic_status": "PROVISIONAL",
-    "source_id": "source_video_004",
-    "start_time": "01:51:40.189",
-    "start_word_id": "transcript_revision_video_004_r1:word:009738",
-    "start_word_sequence": 9738,
-    "title": "Генетическая линия, предел глубины и ресурсный фокус работы",
-    "topic_id": "issue_68_video_004_topic_proposal_024h",
-    "word_count": 694
+    "source_terms": [
+      "коррекции",
+      "коррекцию",
+      "Коррекция",
+      "коррекция"
+    ]
   },
   "input_inventory": {
-    "authored_topic_results": 181,
+    "authored_topic_results": 182,
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "9ec2925ec9d67d044a0bcb40e1880fb9dfcbbd629d3870a52ea88c2313447c3d",
+    "domain_review_decisions_sha256": "107a48b0657c91bd52a7a715f5762450734906907a8a58a8287dcd2847e3b0ab",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -7712,7 +7727,7 @@
       "evidence_support": [
         {
           "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h",
+          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h2",
           "exact_pattern_match_count": 0,
           "intersection_end_word_id": "transcript_revision_video_004_r1:word:010431",
           "intersection_sha256": "91c95997390eac8efdbdc61973eb9609d3ddc0437f3a44dbc68c3c91d5ede923",
@@ -7737,7 +7752,7 @@
       "input_topic_reference": "issue_68_video_004_topic_proposal_040",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_040_nervous_system",
       "overlapping_authored_topic_references": [
-        "issue_68_video_004_topic_proposal_024h",
+        "issue_68_video_004_topic_proposal_024h2",
         "issue_68_video_004_topic_proposal_024i"
       ],
       "recommended_target_topic_references": [],
@@ -8247,11 +8262,11 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "evidence_support": [
         {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h",
+          "authored_title_correspondence": true,
+          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h2",
           "exact_pattern_match_count": 1,
           "intersection_end_word_id": "transcript_revision_video_004_r1:word:010431",
           "intersection_sha256": "91c95997390eac8efdbdc61973eb9609d3ddc0437f3a44dbc68c3c91d5ede923",
@@ -8267,22 +8282,18 @@
         }
       ],
       "exact_term_target_references": [
-        "issue_68_video_004_topic_proposal_024h"
+        "issue_68_video_004_topic_proposal_024h2"
       ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
       "input_topic_reference": "issue_68_video_004_topic_proposal_040",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_040_brain",
       "overlapping_authored_topic_references": [
-        "issue_68_video_004_topic_proposal_024h",
+        "issue_68_video_004_topic_proposal_024h2",
         "issue_68_video_004_topic_proposal_024i"
       ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "recommended_target_topic_references": [
+        "issue_68_video_004_topic_proposal_024h2"
+      ],
+      "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -8519,14 +8530,22 @@
         {
           "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_004_topic_proposal_024h",
+          "exact_pattern_match_count": 0,
+          "intersection_end_word_id": "transcript_revision_video_004_r1:word:010253",
+          "intersection_sha256": "25a7b55c60055af9a5fd163fde1fc11a7bb245ffc56aef705cdb99e56fb7a9f8",
+          "intersection_start_word_id": "transcript_revision_video_004_r1:word:009741"
+        },
+        {
+          "authored_title_correspondence": false,
+          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h2",
           "exact_pattern_match_count": 1,
           "intersection_end_word_id": "transcript_revision_video_004_r1:word:010415",
-          "intersection_sha256": "db954c651b05f5995688d5a9f2133670807241ec3355f321f901058593223848",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:009741"
+          "intersection_sha256": "36c7617cbf96c39e6ae18f3ca6b0301e43b34a17879bf7d0aa1dec252d318628",
+          "intersection_start_word_id": "transcript_revision_video_004_r1:word:010254"
         }
       ],
       "exact_term_target_references": [
-        "issue_68_video_004_topic_proposal_024h"
+        "issue_68_video_004_topic_proposal_024h2"
       ],
       "exception": {
         "confidence": "MEDIUM",
@@ -8537,7 +8556,8 @@
       "input_topic_reference": "issue_68_video_004_topic_proposal_039",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_039_meridians",
       "overlapping_authored_topic_references": [
-        "issue_68_video_004_topic_proposal_024h"
+        "issue_68_video_004_topic_proposal_024h",
+        "issue_68_video_004_topic_proposal_024h2"
       ],
       "recommended_target_topic_references": [],
       "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
@@ -8550,7 +8570,7 @@
       "evidence_support": [
         {
           "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h",
+          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h2",
           "exact_pattern_match_count": 2,
           "intersection_end_word_id": "transcript_revision_video_004_r1:word:010431",
           "intersection_sha256": "91c95997390eac8efdbdc61973eb9609d3ddc0437f3a44dbc68c3c91d5ede923",
@@ -8566,16 +8586,16 @@
         }
       ],
       "exact_term_target_references": [
-        "issue_68_video_004_topic_proposal_024h"
+        "issue_68_video_004_topic_proposal_024h2"
       ],
       "input_topic_reference": "issue_68_video_004_topic_proposal_040",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_040_meridians",
       "overlapping_authored_topic_references": [
-        "issue_68_video_004_topic_proposal_024h",
+        "issue_68_video_004_topic_proposal_024h2",
         "issue_68_video_004_topic_proposal_024i"
       ],
       "recommended_target_topic_references": [
-        "issue_68_video_004_topic_proposal_024h"
+        "issue_68_video_004_topic_proposal_024h2"
       ],
       "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
@@ -10862,14 +10882,14 @@
     "concept_identity_exception": 7,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 191,
-    "link_exception": 63,
+    "link_clear": 192,
+    "link_exception": 62,
     "links_total": 254,
     "selective_transcript_verification_exceptions": 2,
-    "topic_domain_review_decisions": 3,
-    "topic_results_total": 181,
-    "topic_review_clear": 180,
-    "topic_review_exception": 1
+    "topic_domain_review_decisions": 4,
+    "topic_results_total": 182,
+    "topic_review_clear": 182,
+    "topic_review_exception": 0
   },
   "topic_results": [
     {
@@ -12229,6 +12249,9 @@
         "package_semantic_promotion": false,
         "rationale": "The scheduling fragments before and after the exercise are non-semantic, while the exercise itself is substantive learning content about the three kinds of energy and must remain a semantic Topic.",
         "rejected_alternative": "Classify the entire original range as SEMINAR_STRUCTURE.",
+        "result_topic_ids": [
+          "issue_68_video_002_topic_proposal_020a"
+        ],
         "results": [
           {
             "canonical_evidence_sha256": "2d02d4382af405369a7e9696fb89cc2f76dc2e4a73e2f5984b770e8c60a78c3e",
@@ -16477,6 +16500,9 @@
         "package_semantic_promotion": false,
         "rationale": "The lunch-break announcement is organizational noise, while the following participant and demonstration-topic selection directly forms the substantive demonstration work and must remain a semantic Topic.",
         "rejected_alternative": "Classify the entire original range as SEMINAR_STRUCTURE.",
+        "result_topic_ids": [
+          "issue_68_video_003_topic_proposal_051a"
+        ],
         "results": [
           {
             "canonical_evidence_sha256": "799e1ec533b1efd9337f3e98756b8342f8fcd0ed99d2040dd3901115f4fdd574",
@@ -17585,6 +17611,9 @@
         "package_semantic_promotion": false,
         "rationale": "Selective source-audio verification confirms that the author says «рецессия». The semantic meaning is return to a specific age, time, or past experience, so the semantic Topic is normalized to «регрессия» without rewriting the historical TranscriptRevision.",
         "rejected_alternative": "Rewrite the historical TranscriptRevision as though the author pronounced «регрессия».",
+        "result_topic_ids": [
+          "issue_68_video_004_topic_proposal_001c"
+        ],
         "results": [
           {
             "canonical_evidence_sha256": "41431f41d4c5bb4fb058d9a0d8423e432625c40e3fe9cf4fa206916f8604611d",
@@ -18391,12 +18420,67 @@
     },
     {
       "authoring_authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
-      "canonical_evidence_sha256": "f946bcbc7ec830e5d52afb976aef74e1bdc1bc5ad10f8438799210e39dca79cc",
-      "classification": "REVIEW_EXCEPTION",
-      "domain_review_status": "REVIEW_REQUIRED",
-      "end_time": "02:01:19.486",
-      "end_word_id": "transcript_revision_video_004_r1:word:010431",
-      "end_word_sequence": 10431,
+      "canonical_evidence_sha256": "1d26c7fa42d042e85532ff47758c14f4fb5c1b06d551e94e798eaa6522b64a6d",
+      "classification": "REVIEW_CLEAR",
+      "domain_review_action": "SPLIT_REALIGN",
+      "domain_review_authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "domain_review_decision_id": "issue_68_domain_review_topic_024h",
+      "domain_review_resolution": {
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "decision_id": "issue_68_domain_review_topic_024h",
+        "neighborhood_qa": {
+          "decision_results_exactly_partition_original_range": true,
+          "neighboring_topic_overlap": false,
+          "next_topic_id": "issue_68_video_004_topic_proposal_024i",
+          "next_topic_starts_after_original_range": true,
+          "previous_topic_ends_before_original_range": true,
+          "previous_topic_id": "issue_68_video_004_topic_proposal_024g",
+          "semantic_range_inside_original_range": true
+        },
+        "package_semantic_promotion": false,
+        "rationale": "The range contains two independently useful semantic units: the limit of exhaustive work with genetic experience and the guided brain-gym/pretest sequence. The split follows the completed phrase «Вот так.» and preserves both as semantic Topics.",
+        "rejected_alternative": "Classify the guided exercise as SEMINAR_STRUCTURE instead of reusable semantic content.",
+        "result_topic_ids": [
+          "issue_68_video_004_topic_proposal_024h",
+          "issue_68_video_004_topic_proposal_024h2"
+        ],
+        "results": [
+          {
+            "canonical_evidence_sha256": "1d26c7fa42d042e85532ff47758c14f4fb5c1b06d551e94e798eaa6522b64a6d",
+            "disposition": "SEMANTIC_TOPIC",
+            "end_time": 7079.241,
+            "end_word_id": "transcript_revision_video_004_r1:word:010253",
+            "end_word_sequence": 10253,
+            "source_id": "source_video_004",
+            "start_time": 6700.189,
+            "start_word_id": "transcript_revision_video_004_r1:word:009738",
+            "start_word_sequence": 9738,
+            "title": "Генетический опыт: предел глубины анализа и переход к ресурсному состоянию",
+            "topic_id": "issue_68_video_004_topic_proposal_024h"
+          },
+          {
+            "canonical_evidence_sha256": "7fb6df6dcd5203a9ab18399fa728b9050c7bdea666e1b2abe0e05c4638aa166e",
+            "disposition": "SEMANTIC_TOPIC",
+            "end_time": 7279.486,
+            "end_word_id": "transcript_revision_video_004_r1:word:010431",
+            "end_word_sequence": 10431,
+            "source_id": "source_video_004",
+            "start_time": 7079.261,
+            "start_word_id": "transcript_revision_video_004_r1:word:010254",
+            "start_word_sequence": 10254,
+            "title": "Гимнастика для мозга и повторение претестов",
+            "topic_id": "issue_68_video_004_topic_proposal_024h2"
+          }
+        ],
+        "review_gate": "DOMAIN_REVIEW",
+        "status": "DECIDED",
+        "target_topic_id": "issue_68_video_004_topic_proposal_024h"
+      },
+      "domain_review_status": "DECIDED",
+      "end_time": 7079.241,
+      "end_word_id": "transcript_revision_video_004_r1:word:010253",
+      "end_word_sequence": 10253,
       "evidence_preview": {
         "beginning": {
           "end_word_id": "transcript_revision_video_004_r1:word:009769",
@@ -18404,61 +18488,137 @@
           "text": "Мы здесь работаем, смотрите, мы с вами когда проговорили про первое поколение, здесь не очень верно на схеме написано, но вообще. У нас человек, с которым мы работаем, или мы сами, давайте"
         },
         "end": {
-          "end_word_id": "transcript_revision_video_004_r1:word:010431",
-          "start_word_id": "transcript_revision_video_004_r1:word:010400",
-          "text": "но сейчас запоминаем. Дальше мы дышим с вами, дальше мы промахиваем с вами меридианы, передний, средний меридиан, задний, средний меридиан. Делали гимнастику для мозга, восстановили свои когнитивные способности и переходим к вопросам."
+          "end_word_id": "transcript_revision_video_004_r1:word:010253",
+          "start_word_id": "transcript_revision_video_004_r1:word:010222",
+          "text": "точечно с ним. Но не надо пытаться все это дело отработать. Не касаться не только генетического опыта, а всего того, что у вас в жизни, в вашем личном опыте происходило. Вот так."
         },
         "middle": {
-          "end_word_id": "transcript_revision_video_004_r1:word:010100",
-          "start_word_id": "transcript_revision_video_004_r1:word:010069",
-          "text": "тоже для вас такое замечание. Вот смотрите. Мы даже со своим личным опытом от зачатия до настоящего времени мы вряд ли сможем когда-либо разобраться. На то, чтобы с этими проблемами разобраться, нужно"
+          "end_word_id": "transcript_revision_video_004_r1:word:010011",
+          "start_word_id": "transcript_revision_video_004_r1:word:009980",
+          "text": "с каким-то вот этим. Либо со всей Со всем этим составляющим. Или вообще со всей этой частью. Если это какие-то, как мы говорим, социальные потрясения, войны, эпидемии, снежный буран. То есть это"
         }
-      },
-      "exception": {
-        "alternative": "Classify the second part as SEMINAR_STRUCTURE only if the guided exercise is intended as navigation rather than reusable content.",
-        "confidence": "HIGH",
-        "human_decision_required": true,
-        "problem": "The resource-focused discussion ends before a guided brain-gym sequence and pretest recap. The current range combines two distinct semantic functions under one title.",
-        "recommended_correction": {
-          "action": "SPLIT_REALIGN",
-          "semantic_part": {
-            "end_word_id": "transcript_revision_video_004_r1:word:010253",
-            "preserve_title": true,
-            "start_word_id": "transcript_revision_video_004_r1:word:009738"
-          },
-          "separate_semantic_part": {
-            "end_word_id": "transcript_revision_video_004_r1:word:010431",
-            "proposed_role": "SEMANTIC_TOPIC",
-            "start_word_id": "transcript_revision_video_004_r1:word:010254",
-            "title": "Гимнастика для мозга и повторение претестов перед вопросами"
-          }
-        },
-        "taxonomy": [
-          "OVER-MERGE",
-          "TRANSITION_SPLIT",
-          "PROCEDURAL_CONTENT_MIX"
-        ]
       },
       "origin_proposal_id": "issue_68_video_004_topic_proposal_024",
       "protected_pattern": null,
       "qa_dimensions": {
-        "left_boundary": "REVIEW_REQUIRED",
-        "neighbor_relationship": "REVIEW_REQUIRED",
+        "left_boundary": "PASS",
+        "neighbor_relationship": "PASS",
         "provenance": "PASS",
-        "right_boundary": "REVIEW_REQUIRED",
-        "semantic_coherence": "REVIEW_REQUIRED",
+        "right_boundary": "PASS",
+        "semantic_coherence": "PASS",
         "title_content_correspondence": "PASS",
         "transcript_assurance": "MACHINE_UNVERIFIED_EXPLICIT"
       },
       "review_method": "CODEX_SEMANTIC_QA_OVER_FULL_CANONICAL_WORD_RANGE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004",
-      "start_time": "01:51:40.189",
+      "start_time": 6700.189,
       "start_word_id": "transcript_revision_video_004_r1:word:009738",
       "start_word_sequence": 9738,
-      "title": "Генетическая линия, предел глубины и ресурсный фокус работы",
+      "title": "Генетический опыт: предел глубины анализа и переход к ресурсному состоянию",
       "topic_id": "issue_68_video_004_topic_proposal_024h",
-      "word_count": 694
+      "word_count": 516
+    },
+    {
+      "authoring_authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+      "canonical_evidence_sha256": "7fb6df6dcd5203a9ab18399fa728b9050c7bdea666e1b2abe0e05c4638aa166e",
+      "classification": "REVIEW_CLEAR",
+      "domain_review_action": "SPLIT_REALIGN",
+      "domain_review_authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "domain_review_decision_id": "issue_68_domain_review_topic_024h",
+      "domain_review_resolution": {
+        "action": "SPLIT_REALIGN",
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "decision_id": "issue_68_domain_review_topic_024h",
+        "neighborhood_qa": {
+          "decision_results_exactly_partition_original_range": true,
+          "neighboring_topic_overlap": false,
+          "next_topic_id": "issue_68_video_004_topic_proposal_024i",
+          "next_topic_starts_after_original_range": true,
+          "previous_topic_ends_before_original_range": true,
+          "previous_topic_id": "issue_68_video_004_topic_proposal_024g",
+          "semantic_range_inside_original_range": true
+        },
+        "package_semantic_promotion": false,
+        "rationale": "The range contains two independently useful semantic units: the limit of exhaustive work with genetic experience and the guided brain-gym/pretest sequence. The split follows the completed phrase «Вот так.» and preserves both as semantic Topics.",
+        "rejected_alternative": "Classify the guided exercise as SEMINAR_STRUCTURE instead of reusable semantic content.",
+        "result_topic_ids": [
+          "issue_68_video_004_topic_proposal_024h",
+          "issue_68_video_004_topic_proposal_024h2"
+        ],
+        "results": [
+          {
+            "canonical_evidence_sha256": "1d26c7fa42d042e85532ff47758c14f4fb5c1b06d551e94e798eaa6522b64a6d",
+            "disposition": "SEMANTIC_TOPIC",
+            "end_time": 7079.241,
+            "end_word_id": "transcript_revision_video_004_r1:word:010253",
+            "end_word_sequence": 10253,
+            "source_id": "source_video_004",
+            "start_time": 6700.189,
+            "start_word_id": "transcript_revision_video_004_r1:word:009738",
+            "start_word_sequence": 9738,
+            "title": "Генетический опыт: предел глубины анализа и переход к ресурсному состоянию",
+            "topic_id": "issue_68_video_004_topic_proposal_024h"
+          },
+          {
+            "canonical_evidence_sha256": "7fb6df6dcd5203a9ab18399fa728b9050c7bdea666e1b2abe0e05c4638aa166e",
+            "disposition": "SEMANTIC_TOPIC",
+            "end_time": 7279.486,
+            "end_word_id": "transcript_revision_video_004_r1:word:010431",
+            "end_word_sequence": 10431,
+            "source_id": "source_video_004",
+            "start_time": 7079.261,
+            "start_word_id": "transcript_revision_video_004_r1:word:010254",
+            "start_word_sequence": 10254,
+            "title": "Гимнастика для мозга и повторение претестов",
+            "topic_id": "issue_68_video_004_topic_proposal_024h2"
+          }
+        ],
+        "review_gate": "DOMAIN_REVIEW",
+        "status": "DECIDED",
+        "target_topic_id": "issue_68_video_004_topic_proposal_024h"
+      },
+      "domain_review_status": "DECIDED",
+      "end_time": 7279.486,
+      "end_word_id": "transcript_revision_video_004_r1:word:010431",
+      "end_word_sequence": 10431,
+      "evidence_preview": {
+        "beginning": {
+          "end_word_id": "transcript_revision_video_004_r1:word:010285",
+          "start_word_id": "transcript_revision_video_004_r1:word:010254",
+          "text": "Давайте сделаем сейчас перерыв. Не перерыв, а гимнастику. И послушаю ваши вопросы и поотвечаю на них вообще по времени, по возрастам. По специфическим по этим возрастам. Может по возврату по возрасту. Либо"
+        },
+        "end": {
+          "end_word_id": "transcript_revision_video_004_r1:word:010431",
+          "start_word_id": "transcript_revision_video_004_r1:word:010400",
+          "text": "но сейчас запоминаем. Дальше мы дышим с вами, дальше мы промахиваем с вами меридианы, передний, средний меридиан, задний, средний меридиан. Делали гимнастику для мозга, восстановили свои когнитивные способности и переходим к вопросам."
+        },
+        "middle": {
+          "end_word_id": "transcript_revision_video_004_r1:word:010358",
+          "start_word_id": "transcript_revision_video_004_r1:word:010327",
+          "text": "5, 6, 7, 8, 9, 10, 11, 12. 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12. Дальше переходим к претестам. Первый претест у нас. Это мы очищение. Очищаем"
+        }
+      },
+      "origin_proposal_id": "issue_68_video_004_topic_proposal_024",
+      "protected_pattern": null,
+      "qa_dimensions": {
+        "left_boundary": "PASS",
+        "neighbor_relationship": "PASS",
+        "provenance": "PASS",
+        "right_boundary": "PASS",
+        "semantic_coherence": "PASS",
+        "title_content_correspondence": "PASS",
+        "transcript_assurance": "MACHINE_UNVERIFIED_EXPLICIT"
+      },
+      "review_method": "CODEX_SEMANTIC_QA_OVER_FULL_CANONICAL_WORD_RANGE",
+      "semantic_status": "PROVISIONAL",
+      "source_id": "source_video_004",
+      "start_time": 7079.261,
+      "start_word_id": "transcript_revision_video_004_r1:word:010254",
+      "start_word_sequence": 10254,
+      "title": "Гимнастика для мозга и повторение претестов",
+      "topic_id": "issue_68_video_004_topic_proposal_024h2",
+      "word_count": 178
     },
     {
       "authoring_authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",

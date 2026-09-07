@@ -431,11 +431,18 @@ def apply_domain_review_decisions(
         ):
             errors.append(f"DOMAIN_REVIEW results do not exactly partition {target_id}")
             continue
-        if len(semantic_results) != 1 or semantic_results[0].get("topic_id") != target_id:
-            errors.append(f"DOMAIN_REVIEW must preserve one semantic target identity for {target_id}")
+        semantic_ids = [item.get("topic_id") for item in semantic_results]
+        if not semantic_results or semantic_ids.count(target_id) != 1:
+            errors.append(f"DOMAIN_REVIEW must preserve the semantic target identity for {target_id}")
+            continue
+        if any(not item for item in semantic_ids) or len(set(semantic_ids)) != len(semantic_ids):
+            errors.append(f"DOMAIN_REVIEW semantic result IDs are invalid for {target_id}")
+            continue
+        if any(item != target_id and item in unit_by_id for item in semantic_ids):
+            errors.append(f"DOMAIN_REVIEW semantic result ID collision for {target_id}")
             continue
 
-        semantic = semantic_results[0]
+        semantic = next(item for item in semantic_results if item["topic_id"] == target_id)
         target.update(
             {
                 "title": semantic["title"],
@@ -480,11 +487,43 @@ def apply_domain_review_decisions(
             errors.append(f"DOMAIN_REVIEW neighborhood QA failed for {target_id}")
             continue
 
-        resolved.add(target_id)
+        additional_units = []
+        for item in semantic_results:
+            if item["topic_id"] == target_id:
+                continue
+            additional_units.append(
+                {
+                    "topic_id": item["topic_id"],
+                    "source_id": source_id,
+                    "title": item["title"],
+                    "start_word_id": item["start_word_id"],
+                    "end_word_id": item["end_word_id"],
+                    "start_word_sequence": item["start_word_sequence"],
+                    "end_word_sequence": item["end_word_sequence"],
+                    "start_time": item["start_time"],
+                    "end_time": item["end_time"],
+                    "origin_proposal_id": target["origin_proposal_id"],
+                    "authoring_authority": target["authoring_authority"],
+                    "domain_review_decision_id": decision_id,
+                    "domain_review_authority": decision["authority"],
+                    "domain_review_action": decision["action"],
+                }
+            )
+        if additional_units:
+            units[index + 1 : index + 1] = sorted(
+                additional_units, key=lambda item: item["start_word_sequence"]
+            )
+            for offset, item in enumerate(units):
+                original_order[item["topic_id"]] = offset
+                unit_by_id[item["topic_id"]] = item
+
+        result_topic_ids = [item["topic_id"] for item in semantic_results]
+        resolved.update(result_topic_ids)
         resolutions.append(
             {
                 "decision_id": decision_id,
                 "target_topic_id": target_id,
+                "result_topic_ids": result_topic_ids,
                 "authority": decision["authority"],
                 "review_gate": "DOMAIN_REVIEW",
                 "status": "DECIDED",
@@ -618,7 +657,7 @@ def build_qa(
             result["domain_review_resolution"] = next(
                 item
                 for item in domain_review_resolutions
-                if item["target_topic_id"] == unit["topic_id"]
+                if unit["topic_id"] in item["result_topic_ids"]
             )
         topic_results.append(result)
 
@@ -932,7 +971,7 @@ packet exposes only the first unresolved material exception.
 No material exception remains. Proposed decision: `DOMAIN_REVIEW_ACCEPT` or
 `DOMAIN_REVIEW_REJECT`.
 """
-    else:
+    elif first["classification"] == "REVIEW_EXCEPTION":
         exception = first["exception"]
         preview = first["evidence_preview"]
         text += f"""
@@ -969,6 +1008,56 @@ Alternative: {exception['alternative']}
 
 Choose one bounded outcome for this exception. No other exception is presented
 until this decision is persisted and the affected neighborhood is rebuilt and
+re-QA'd.
+"""
+    elif first["classification"] == "IDENTITY_EXCEPTION":
+        exception = first["exception"]
+        text += f"""
+## First material exception — Concept identity
+
+- Concept candidate: `{first['candidate_concept_id']}`
+- Proposed label: **{first['proposed_canonical_label']}**
+- Source terms: {', '.join(first['source_terms'])}
+- Exact evidence references: **{first['evidence_reference_count']}**
+- Classification: `IDENTITY_EXCEPTION`
+
+### Exact problem
+
+{exception['problem']}
+
+### Recommended review
+
+{exception['recommendation']}
+
+### Human decision required
+
+Choose one bounded Concept-identity outcome. No later exception is presented
+until this decision is persisted and the affected Topic→Concept links are
+rebuilt and re-QA'd.
+"""
+    else:
+        exception = first["exception"]
+        text += f"""
+## First material exception — Topic→Concept link
+
+- Link: `{first['link_id']}`
+- Topic: `{first['input_topic_reference']}`
+- Concept candidate: `{first['candidate_concept_reference']}`
+- Source: `{first['source_id']}`
+- Classification: `LINK_EXCEPTION`
+
+### Exact problem
+
+{exception['problem']}
+
+### Recommended review
+
+{exception['recommended_correction']}
+
+### Human decision required
+
+Accept, remap, reject, or defer this exact link. No later exception is
+presented until this decision is persisted and the affected neighborhood is
 re-QA'd.
 """
     path.write_text(text, encoding="utf-8")
