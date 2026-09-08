@@ -290,6 +290,40 @@
       "target_candidate_concept_id": "issue_68_candidate_concept_self_regulation"
     }
   ],
+  "link_decisions": [
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-09-08",
+      "decision_id": "issue_68_domain_review_link_day2_intro_stress",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_001",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000066",
+            "intersection_sha256": "92173596ea22156ba98ee5275db673f9acef4511cf446b61cc79686bfd55ce27",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000000"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_001"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_001",
+        "source_id": "source_video_002"
+      },
+      "named_program_reference_only": true,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The sole match is the program name «Стресс-код» in the Day 2 introduction. The fragment introduces the training day and the move from theory to practice; it does not discuss stress as a semantic Concept.",
+      "rejection_reason": "A named-program occurrence is not exact evidence that this Topic discusses the Concept «Стресс».",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_001_stress",
+      "topic_changed": false
+    }
+  ],
   "decisions": [
     {
       "action": "SPLIT_REALIGN",

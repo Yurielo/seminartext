@@ -1,9 +1,9 @@
 {
   "artifact_type": "seminartext.issue_68_domain_review_manifest",
   "files": {
-    "DOMAIN_REVIEW.md": "ad0fcda7b728dec1e05e5614b77fa72a2ab3aa4d7bb96cda244f4ffddb718ce0",
-    "domain_review_decisions.json": "33724f6f7f7b6ec9ffcef6a175cd1031c81fbe7cd38fe06576be4b13d454f061",
-    "domain_review_qa.json": "66317a0b0de192827133b5a2b4a1cfdd2cb607254c48af69a3a27515f5bf3663"
+    "DOMAIN_REVIEW.md": "0c958e37e40244bede53cb5973921c2dd57fc7d2fdf6cd2b61c0d7376eb97d20",
+    "domain_review_decisions.json": "56c56cef2a7363b0eb2768acda7cd5112ab7f14f42248b13b533c2a0ba6e173c",
+    "domain_review_qa.json": "210369d72490b9b81f7d8baa2cb4a123e33b888babd6a048233ca4ae06276a98"
   },
   "qa_status": "READY_WITH_EXCEPTIONS",
   "schema_version": "1.0.0",
@@ -16,8 +16,9 @@
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
     "link_clear": 197,
-    "link_exception": 62,
-    "links_total": 259,
+    "link_domain_review_decisions": 1,
+    "link_exception": 61,
+    "links_total": 258,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,

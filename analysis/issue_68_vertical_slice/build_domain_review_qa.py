@@ -1302,6 +1302,79 @@ def apply_concept_identity_decisions(
     return transformed, resolutions, resolved, link_rewrites
 
 
+def apply_link_decisions(
+    link_results: list[dict[str, Any]],
+    decision_ledger: dict[str, Any],
+    errors: list[str],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Apply exact Product Owner decisions over provisional Topic→Concept links."""
+
+    transformed = [dict(item) for item in link_results]
+    resolutions: list[dict[str, Any]] = []
+    decided: set[str] = set()
+    for decision in decision_ledger.get("link_decisions", []):
+        decision_id = decision.get("decision_id", "<missing>")
+        target_id = decision.get("target_link_id")
+        if decision.get("authority") != "PRODUCT_OWNER_DOMAIN_REVIEW":
+            errors.append(f"non-authoritative link decision {decision_id}")
+            continue
+        if decision.get("outcome") != "REJECT_LINK":
+            errors.append(f"unsupported link decision outcome in {decision_id}")
+            continue
+        if target_id in decided:
+            errors.append(f"duplicate link decision target {target_id}")
+            continue
+        link = next(
+            (item for item in transformed if item["link_id"] == target_id),
+            None,
+        )
+        if link is None:
+            errors.append(f"orphan link decision target {target_id}")
+            continue
+        snapshot = decision.get("link_snapshot", {})
+        if snapshot != {
+            "input_topic_reference": link["input_topic_reference"],
+            "candidate_concept_reference": link["candidate_concept_reference"],
+            "source_id": link["source_id"],
+            "classification": link["classification"],
+            "exact_term_target_references": link["exact_term_target_references"],
+            "evidence_support": link["evidence_support"],
+        }:
+            errors.append(f"link snapshot mismatch in {decision_id}")
+            continue
+        if (
+            link["classification"] != "LINK_EXCEPTION"
+            or decision.get("named_program_reference_only") is not True
+            or decision.get("topic_changed") is not False
+            or decision.get("concept_changed") is not False
+            or decision.get("package_semantic_promotion") is not False
+            or not decision.get("rejection_reason")
+        ):
+            errors.append(f"link rejection safeguards missing in {decision_id}")
+            continue
+
+        transformed = [item for item in transformed if item["link_id"] != target_id]
+        decided.add(target_id)
+        resolutions.append(
+            {
+                "decision_id": decision_id,
+                "target_link_id": target_id,
+                "authority": decision["authority"],
+                "review_gate": "DOMAIN_REVIEW",
+                "status": "DECIDED",
+                "outcome": "REJECT_LINK",
+                "link_snapshot": snapshot,
+                "named_program_reference_only": True,
+                "topic_changed": False,
+                "concept_changed": False,
+                "rejection_reason": decision["rejection_reason"],
+                "rationale": decision["rationale"],
+                "package_semantic_promotion": False,
+            }
+        )
+    return transformed, resolutions
+
+
 def build_qa(
     repository: Path,
     project: Path,
@@ -1602,6 +1675,10 @@ def build_qa(
             }
         link_results.append(result)
 
+    link_results, link_review_resolutions = apply_link_decisions(
+        link_results, decision_ledger, errors
+    )
+
     topic_clear = sum(item["classification"] == "REVIEW_CLEAR" for item in topic_results)
     topic_exceptions = sum(
         item["classification"] == "REVIEW_EXCEPTION" for item in topic_results
@@ -1688,6 +1765,7 @@ def build_qa(
             "topic_review_exception": topic_exceptions,
             "topic_domain_review_decisions": len(domain_review_resolutions),
             "concept_domain_review_decisions": len(concept_identity_resolutions),
+            "link_domain_review_decisions": len(link_review_resolutions),
             "concept_candidates_total": len(concept_results),
             "concept_clear": concept_clear,
             "concept_identity_exception": len(concept_results) - concept_clear,
@@ -1746,6 +1824,7 @@ def build_qa(
             for item in concept_identity_resolutions
             if item["outcome"] == "REJECT"
         ],
+        "rejected_link_resolutions": link_review_resolutions,
         "concept_results": concept_results,
         "link_results": link_results,
         "selective_transcript_verification_exceptions": transcript_exception_results,
