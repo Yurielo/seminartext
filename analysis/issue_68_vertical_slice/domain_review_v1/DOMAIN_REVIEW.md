@@ -10,7 +10,7 @@ does not mean `ACCEPTED`.
 - Topic `REVIEW_CLEAR`: **182**
 - Topic `REVIEW_EXCEPTION`: **0**
 - Concept candidates: **18**
-- Concept identity exceptions: **7**
+- Concept identity exceptions: **6**
 - Topic→Concept input links: **254**
 - Link exceptions: **62**
 - Selective transcript-verification exceptions: **2**
@@ -22,19 +22,19 @@ packet exposes only the first unresolved material exception.
 
 ## First material exception — Concept identity
 
-- Concept candidate: `issue_68_candidate_concept_correction`
-- Proposed label: **Коррекция**
-- Source terms: коррекции, коррекцию, Коррекция, коррекция
-- Exact evidence references: **45**
+- Concept candidate: `issue_68_candidate_concept_nervous_system`
+- Proposed label: **Нервная система**
+- Source terms: Нейронные сети, Нервная сеть, Нервная Система, Нервная система, нервная система, нервной системы
+- Exact evidence references: **10**
 - Classification: `IDENTITY_EXCEPTION`
 
 ### Exact problem
 
-The label spans multiple distinct correction modalities and is too broad for identity assignment.
+The seed groups nervous system, neural network, and neuron-network language that may denote related but distinct Concepts.
 
 ### Recommended review
 
-Decide whether it is an umbrella Concept or separate modality Concepts.
+Review as RELATED versus SAME_CONCEPT before identity assignment.
 
 ### Human decision required
 

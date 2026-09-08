@@ -1,17 +1,18 @@
 {
   "artifact_type": "seminartext.issue_68_domain_review_manifest",
   "files": {
-    "DOMAIN_REVIEW.md": "a4a69c5ada7e800b9e56333ddd490d69464332fed4da53a6e89c472d9d93c9bf",
-    "domain_review_decisions.json": "107a48b0657c91bd52a7a715f5762450734906907a8a58a8287dcd2847e3b0ab",
-    "domain_review_qa.json": "9a2e02b3f5650a1dfc2b39ab863ade6c1bcb085f5013e0d1c6851201b4f3892d"
+    "DOMAIN_REVIEW.md": "11d424d11e3830266e33c4bbd3faf15a7f658316d72e74cb56f5c5355330365e",
+    "domain_review_decisions.json": "d77f6a8f26df8df089e0fa7d36808c35df93a36427dd15539e684d6340fe7339",
+    "domain_review_qa.json": "82fa62c4ae27b9c70e0e4357d137b75815220f671ac28bde62871172a58e7ff6"
   },
   "qa_status": "READY_WITH_EXCEPTIONS",
   "schema_version": "1.0.0",
   "semantic_authority": "PROVISIONAL_UNREVIEWED",
   "summary": {
     "concept_candidates_total": 18,
-    "concept_clear": 11,
-    "concept_identity_exception": 7,
+    "concept_clear": 12,
+    "concept_domain_review_decisions": 1,
+    "concept_identity_exception": 6,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
     "link_clear": 192,

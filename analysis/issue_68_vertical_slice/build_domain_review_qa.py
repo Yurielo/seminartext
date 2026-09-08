@@ -544,6 +544,93 @@ def apply_domain_review_decisions(
     return units, resolutions, resolved
 
 
+def apply_concept_identity_decisions(
+    candidates: list[dict[str, Any]],
+    decision_ledger: dict[str, Any],
+    errors: list[str],
+) -> tuple[list[dict[str, Any]], set[str]]:
+    """Validate explicit Product Owner decisions over Concept identity.
+
+    A SAME_CONCEPT umbrella decision binds only the generic lexical forms and
+    the stated umbrella scope. It does not merge the identities of methods
+    mentioned by the linked Topics.
+    """
+
+    candidate_by_id = {
+        item["candidate_concept_id"]: item for item in candidates
+    }
+    resolutions: list[dict[str, Any]] = []
+    resolved: set[str] = set()
+    for decision in decision_ledger.get("concept_identity_decisions", []):
+        decision_id = decision.get("decision_id", "<missing>")
+        target_id = decision.get("target_candidate_concept_id")
+        if decision.get("authority") != "PRODUCT_OWNER_DOMAIN_REVIEW":
+            errors.append(f"non-authoritative Concept decision {decision_id}")
+            continue
+        if decision.get("outcome") != "SAME_CONCEPT":
+            errors.append(f"unsupported Concept decision outcome in {decision_id}")
+            continue
+        if target_id in resolved:
+            errors.append(f"duplicate Concept decision target {target_id}")
+            continue
+        candidate = candidate_by_id.get(target_id)
+        if candidate is None:
+            errors.append(f"orphan Concept decision target {target_id}")
+            continue
+        snapshot = decision.get("candidate_snapshot", {})
+        if snapshot.get("proposed_canonical_label") != candidate.get(
+            "proposed_canonical_label"
+        ):
+            errors.append(f"Concept label snapshot mismatch in {decision_id}")
+            continue
+        if snapshot.get("source_terms") != candidate.get("source_terms"):
+            errors.append(f"Concept source-term snapshot mismatch in {decision_id}")
+            continue
+        if snapshot.get("evidence_reference_count") != len(
+            candidate.get("evidence_references", [])
+        ):
+            errors.append(f"Concept evidence-count snapshot mismatch in {decision_id}")
+            continue
+        if decision.get("accepted_canonical_label") != candidate.get(
+            "proposed_canonical_label"
+        ):
+            errors.append(f"Concept accepted-label mismatch in {decision_id}")
+            continue
+        if decision.get("canonical_role") != "UMBRELLA_CONCEPT":
+            errors.append(f"Concept umbrella role missing in {decision_id}")
+            continue
+        if decision.get("identity_scope") != "GENERAL_CORRECTION_PROCESS_ONLY":
+            errors.append(f"Concept identity scope mismatch in {decision_id}")
+            continue
+        if decision.get("separate_method_identities_merged") is not False:
+            errors.append(f"Concept method-identity safeguard missing in {decision_id}")
+            continue
+        if decision.get("method_identity_policy") != (
+            "DISTINCT_UNLESS_SEPARATELY_HUMAN_REVIEWED"
+        ):
+            errors.append(f"Concept method-identity policy mismatch in {decision_id}")
+            continue
+        resolved.add(target_id)
+        resolutions.append(
+            {
+                "decision_id": decision_id,
+                "target_candidate_concept_id": target_id,
+                "authority": decision["authority"],
+                "review_gate": "DOMAIN_REVIEW",
+                "status": "DECIDED",
+                "outcome": "SAME_CONCEPT",
+                "accepted_canonical_label": decision["accepted_canonical_label"],
+                "canonical_role": "UMBRELLA_CONCEPT",
+                "identity_scope": decision["identity_scope"],
+                "separate_method_identities_merged": False,
+                "method_identity_policy": decision["method_identity_policy"],
+                "rationale": decision["rationale"],
+                "package_semantic_promotion": False,
+            }
+        )
+    return resolutions, resolved
+
+
 def build_qa(
     repository: Path,
     project: Path,
@@ -684,21 +771,36 @@ def build_qa(
             }
         )
 
+    concept_identity_resolutions, resolved_concept_ids = apply_concept_identity_decisions(
+        baseline["concept_candidates"], decision_ledger, errors
+    )
     concept_results = []
     for candidate in baseline["concept_candidates"]:
         candidate_id = candidate["candidate_concept_id"]
-        exception = CONCEPT_EXCEPTIONS.get(candidate_id)
-        concept_results.append(
-            {
-                "candidate_concept_id": candidate_id,
-                "proposed_canonical_label": candidate["proposed_canonical_label"],
-                "source_terms": candidate["source_terms"],
-                "evidence_reference_count": len(candidate["evidence_references"]),
-                "classification": "IDENTITY_EXCEPTION" if exception else "CLEAR_FOR_HUMAN_BATCH_REVIEW",
-                "exception": ({**exception, "human_decision_required": True} if exception else None),
-                "semantic_status": "PROVISIONAL",
-            }
+        exception = (
+            None
+            if candidate_id in resolved_concept_ids
+            else CONCEPT_EXCEPTIONS.get(candidate_id)
         )
+        result = {
+            "candidate_concept_id": candidate_id,
+            "proposed_canonical_label": candidate["proposed_canonical_label"],
+            "source_terms": candidate["source_terms"],
+            "evidence_reference_count": len(candidate["evidence_references"]),
+            "classification": "IDENTITY_EXCEPTION" if exception else "CLEAR_FOR_HUMAN_BATCH_REVIEW",
+            "exception": ({**exception, "human_decision_required": True} if exception else None),
+            "semantic_status": "PROVISIONAL",
+            "domain_review_status": (
+                "DECIDED" if candidate_id in resolved_concept_ids else "REVIEW_REQUIRED"
+            ),
+        }
+        if candidate_id in resolved_concept_ids:
+            result["domain_review_resolution"] = next(
+                item
+                for item in concept_identity_resolutions
+                if item["target_candidate_concept_id"] == candidate_id
+            )
+        concept_results.append(result)
 
     baseline_topics = {
         item["proposal_id"]: item for item in baseline["topic_proposals"]
@@ -868,6 +970,7 @@ def build_qa(
             "topic_review_clear": topic_clear,
             "topic_review_exception": topic_exceptions,
             "topic_domain_review_decisions": len(domain_review_resolutions),
+            "concept_domain_review_decisions": len(concept_identity_resolutions),
             "concept_candidates_total": len(concept_results),
             "concept_clear": concept_clear,
             "concept_identity_exception": len(concept_results) - concept_clear,

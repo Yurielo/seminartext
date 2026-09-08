@@ -80,14 +80,15 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["candidate_concept_id"] == "issue_68_candidate_concept_correction"
+    assert first["candidate_concept_id"] == "issue_68_candidate_concept_nervous_system"
     assert first["classification"] == "IDENTITY_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
     assert "issue_68_video_002_topic_proposal_020a" not in review
     assert "issue_68_video_003_topic_proposal_051a" not in review
     assert "issue_68_video_004_topic_proposal_001c" not in review
     assert "issue_68_video_004_topic_proposal_024h" not in review
-    assert "issue_68_candidate_concept_correction" in review
+    assert "issue_68_candidate_concept_correction" not in review
+    assert "issue_68_candidate_concept_nervous_system" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -254,3 +255,31 @@ def test_product_owner_topic_024h_split_is_exact_and_neighbor_qa_passes() -> Non
         "neighboring_topic_overlap": False,
     }
     assert qa["summary"]["topic_domain_review_decisions"] == 4
+
+
+def test_product_owner_correction_concept_is_a_bounded_umbrella() -> None:
+    qa = read_json(QA_PATH)
+    concept = next(
+        item
+        for item in qa["concept_results"]
+        if item["candidate_concept_id"] == "issue_68_candidate_concept_correction"
+    )
+    resolution = concept["domain_review_resolution"]
+
+    assert concept["classification"] == "CLEAR_FOR_HUMAN_BATCH_REVIEW"
+    assert concept["domain_review_status"] == "DECIDED"
+    assert concept["semantic_status"] == "PROVISIONAL"
+    assert concept["proposed_canonical_label"] == "Коррекция"
+    assert concept["evidence_reference_count"] == 45
+    assert resolution["status"] == "DECIDED"
+    assert resolution["outcome"] == "SAME_CONCEPT"
+    assert resolution["canonical_role"] == "UMBRELLA_CONCEPT"
+    assert resolution["identity_scope"] == "GENERAL_CORRECTION_PROCESS_ONLY"
+    assert resolution["separate_method_identities_merged"] is False
+    assert resolution["method_identity_policy"] == (
+        "DISTINCT_UNLESS_SEPARATELY_HUMAN_REVIEWED"
+    )
+    assert resolution["package_semantic_promotion"] is False
+    assert qa["summary"]["concept_domain_review_decisions"] == 1
+    assert qa["summary"]["concept_clear"] == 12
+    assert qa["summary"]["concept_identity_exception"] == 6

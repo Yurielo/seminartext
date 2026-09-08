@@ -1,6 +1,31 @@
 {
   "artifact_id": "issue_68_stress_code_domain_review_decisions_v1",
   "artifact_type": "seminartext.issue_68_domain_review_decisions",
+  "concept_identity_decisions": [
+    {
+      "accepted_canonical_label": "Коррекция",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "candidate_snapshot": {
+        "evidence_reference_count": 45,
+        "proposed_canonical_label": "Коррекция",
+        "source_terms": [
+          "коррекции",
+          "коррекцию",
+          "Коррекция",
+          "коррекция"
+        ]
+      },
+      "canonical_role": "UMBRELLA_CONCEPT",
+      "decision_date": "2026-09-08",
+      "decision_id": "issue_68_domain_review_concept_correction",
+      "identity_scope": "GENERAL_CORRECTION_PROCESS_ONLY",
+      "method_identity_policy": "DISTINCT_UNLESS_SEPARATELY_HUMAN_REVIEWED",
+      "outcome": "SAME_CONCEPT",
+      "rationale": "The grammatical source forms denote the same general correction-process Concept across the evidence. Named correction methods remain distinct identities and are not merged by this umbrella decision.",
+      "separate_method_identities_merged": false,
+      "target_candidate_concept_id": "issue_68_candidate_concept_correction"
+    }
+  ],
   "decisions": [
     {
       "action": "SPLIT_REALIGN",
