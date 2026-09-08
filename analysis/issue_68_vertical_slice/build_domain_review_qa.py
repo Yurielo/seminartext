@@ -1305,6 +1305,8 @@ def apply_concept_identity_decisions(
 def apply_link_decisions(
     link_results: list[dict[str, Any]],
     decision_ledger: dict[str, Any],
+    topic_results: list[dict[str, Any]],
+    words_by_source: dict[str, list[dict[str, Any]]],
     errors: list[str],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Apply exact Product Owner decisions over provisional Topic→Concept links."""
@@ -1318,7 +1320,8 @@ def apply_link_decisions(
         if decision.get("authority") != "PRODUCT_OWNER_DOMAIN_REVIEW":
             errors.append(f"non-authoritative link decision {decision_id}")
             continue
-        if decision.get("outcome") != "REJECT_LINK":
+        outcome = decision.get("outcome")
+        if outcome not in {"REJECT_LINK", "REMAP_LINK"}:
             errors.append(f"unsupported link decision outcome in {decision_id}")
             continue
         if target_id in decided:
@@ -1342,12 +1345,132 @@ def apply_link_decisions(
         }:
             errors.append(f"link snapshot mismatch in {decision_id}")
             continue
+        if link["classification"] != "LINK_EXCEPTION":
+            errors.append(f"link decision target is not an exception in {decision_id}")
+            continue
         if (
-            link["classification"] != "LINK_EXCEPTION"
-            or decision.get("named_program_reference_only") is not True
-            or decision.get("topic_changed") is not False
+            decision.get("topic_changed") is not False
             or decision.get("concept_changed") is not False
             or decision.get("package_semantic_promotion") is not False
+        ):
+            errors.append(f"link rejection safeguards missing in {decision_id}")
+            continue
+
+        if outcome == "REMAP_LINK":
+            replacement_topic_id = decision.get("replacement_topic_reference")
+            replacement_topic = next(
+                (
+                    item
+                    for item in topic_results
+                    if item["topic_id"] == replacement_topic_id
+                ),
+                None,
+            )
+            expected_topic_snapshot = decision.get("replacement_topic_snapshot")
+            if replacement_topic is None or expected_topic_snapshot != {
+                "source_id": replacement_topic["source_id"],
+                "title": replacement_topic["title"],
+                "start_word_id": replacement_topic["start_word_id"],
+                "end_word_id": replacement_topic["end_word_id"],
+                "canonical_evidence_sha256": replacement_topic[
+                    "canonical_evidence_sha256"
+                ],
+            }:
+                errors.append(f"replacement Topic snapshot mismatch in {decision_id}")
+                continue
+            if replacement_topic["source_id"] != link["source_id"]:
+                errors.append(f"cross-source link remap in {decision_id}")
+                continue
+            concept_key = link["candidate_concept_reference"].removeprefix(
+                "issue_68_candidate_concept_"
+            )
+            pattern = CONCEPT_PATTERNS[concept_key]
+            source_words = words_by_source[replacement_topic["source_id"]]
+            start = replacement_topic["start_word_sequence"]
+            end = replacement_topic["end_word_sequence"]
+            replacement_words = source_words[start : end + 1]
+            replacement_text = " ".join(item["text"] for item in replacement_words)
+            match_count = len(
+                list(re.finditer(pattern, replacement_text, re.IGNORECASE))
+            )
+            if (
+                match_count != decision.get("expected_exact_pattern_match_count")
+                or match_count < 2
+                or not decision.get("remap_reason")
+            ):
+                errors.append(f"replacement evidence mismatch in {decision_id}")
+                continue
+            replacement_link_id = (
+                f"issue_68_link_{replacement_topic_id}_{concept_key}"
+            )
+            if any(
+                item["link_id"] == replacement_link_id
+                and item["link_id"] != target_id
+                for item in transformed
+            ):
+                errors.append(f"duplicate replacement link in {decision_id}")
+                continue
+            replacement_evidence = {
+                "authored_topic_reference": replacement_topic_id,
+                "intersection_start_word_id": replacement_words[0]["id"],
+                "intersection_end_word_id": replacement_words[-1]["id"],
+                "intersection_sha256": sha256_bytes(
+                    replacement_text.encode("utf-8")
+                ),
+                "exact_pattern_match_count": match_count,
+                "authored_title_correspondence": bool(
+                    re.search(pattern, replacement_topic["title"], re.IGNORECASE)
+                ),
+            }
+            resolution = {
+                "decision_id": decision_id,
+                "target_link_id": target_id,
+                "result_link_id": replacement_link_id,
+                "authority": decision["authority"],
+                "review_gate": "DOMAIN_REVIEW",
+                "status": "DECIDED",
+                "outcome": "REMAP_LINK",
+                "link_snapshot": snapshot,
+                "replacement_topic_reference": replacement_topic_id,
+                "replacement_topic_snapshot": expected_topic_snapshot,
+                "replacement_evidence_support": replacement_evidence,
+                "topic_changed": False,
+                "concept_changed": False,
+                "remap_reason": decision["remap_reason"],
+                "rationale": decision["rationale"],
+                "package_semantic_promotion": False,
+            }
+            replacement = {
+                "link_id": replacement_link_id,
+                "input_topic_reference": replacement_topic_id,
+                "candidate_concept_reference": link[
+                    "candidate_concept_reference"
+                ],
+                "source_id": link["source_id"],
+                "classification": "LINK_CLEAR",
+                "overlapping_authored_topic_references": [replacement_topic_id],
+                "exact_term_target_references": [replacement_topic_id],
+                "recommended_target_topic_references": [replacement_topic_id],
+                "evidence_support": [replacement_evidence],
+                "relevance_basis": (
+                    "PRODUCT_OWNER_REMAP_WITH_REPEATED_EXACT_EVIDENCE"
+                ),
+                "semantic_status": "PROVISIONAL",
+                "domain_review_status": "DECIDED",
+                "link_review_decision_id": decision_id,
+            }
+            position = next(
+                index
+                for index, item in enumerate(transformed)
+                if item["link_id"] == target_id
+            )
+            transformed[position] = replacement
+            decided.add(target_id)
+            resolutions.append(resolution)
+            continue
+
+        if (
+            decision.get("named_program_reference_only") is not True
             or not decision.get("rejection_reason")
         ):
             errors.append(f"link rejection safeguards missing in {decision_id}")
@@ -1676,7 +1799,7 @@ def build_qa(
         link_results.append(result)
 
     link_results, link_review_resolutions = apply_link_decisions(
-        link_results, decision_ledger, errors
+        link_results, decision_ledger, topic_results, words_by_source, errors
     )
 
     topic_clear = sum(item["classification"] == "REVIEW_CLEAR" for item in topic_results)
@@ -1824,7 +1947,7 @@ def build_qa(
             for item in concept_identity_resolutions
             if item["outcome"] == "REJECT"
         ],
-        "rejected_link_resolutions": link_review_resolutions,
+        "link_review_resolutions": link_review_resolutions,
         "concept_results": concept_results,
         "link_results": link_results,
         "selective_transcript_verification_exceptions": transcript_exception_results,

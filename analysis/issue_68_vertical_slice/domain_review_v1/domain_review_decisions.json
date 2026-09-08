@@ -322,6 +322,54 @@
       "rejection_reason": "A named-program occurrence is not exact evidence that this Topic discusses the Concept «Стресс».",
       "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_001_stress",
       "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-09-09",
+      "decision_id": "issue_68_domain_review_link_day3_topic_014_stress",
+      "expected_exact_pattern_match_count": 5,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_012",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:005462",
+            "intersection_sha256": "c3eea833e1d44d4295c47a4cbeefa8051afa9fe48b19c6111626f6114f7f31c2",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005023"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:005526",
+            "intersection_sha256": "e6fec76bea49f2ed38941342e3908e7cc33dc8c3a9bca34ab38f5c9aa5b274c3",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005463"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_015"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_014",
+        "source_id": "source_video_003"
+      },
+      "outcome": "REMAP_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "After DOMAIN_AUTHORING boundary reconciliation, the source range of machine Topic 014 overlaps authored Topics 012 and 015. Topic 012 contains no stress term, while authored Topic 015 contains five exact stress-term occurrences and substantively discusses testing by stress and locating the problem/stress through strong and weak muscle responses.",
+      "remap_reason": "The only original match falls after the authored boundary at word:005463, and the full replacement Topic provides repeated exact evidence for the Concept «Стресс».",
+      "replacement_topic_reference": "issue_68_video_003_topic_proposal_015",
+      "replacement_topic_snapshot": {
+        "canonical_evidence_sha256": "e9295627b2134ab2094a30303e28614f733efe7479bd79bcc7d01f4f1a0b2c25",
+        "end_word_id": "transcript_revision_video_003_r1:word:006308",
+        "source_id": "source_video_003",
+        "start_word_id": "transcript_revision_video_003_r1:word:005463",
+        "title": "Проверка интерпретации сильного и слабого ответа мышечного теста"
+      },
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_014_stress",
+      "topic_changed": false
     }
   ],
   "decisions": [

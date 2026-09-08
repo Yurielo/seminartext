@@ -3740,19 +3740,11 @@
     "evidence_support": [
       {
         "authored_title_correspondence": false,
-        "authored_topic_reference": "issue_68_video_003_topic_proposal_012",
-        "exact_pattern_match_count": 0,
-        "intersection_end_word_id": "transcript_revision_video_003_r1:word:005462",
-        "intersection_sha256": "c3eea833e1d44d4295c47a4cbeefa8051afa9fe48b19c6111626f6114f7f31c2",
-        "intersection_start_word_id": "transcript_revision_video_003_r1:word:005023"
-      },
-      {
-        "authored_title_correspondence": false,
         "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
         "exact_pattern_match_count": 1,
-        "intersection_end_word_id": "transcript_revision_video_003_r1:word:005526",
-        "intersection_sha256": "e6fec76bea49f2ed38941342e3908e7cc33dc8c3a9bca34ab38f5c9aa5b274c3",
-        "intersection_start_word_id": "transcript_revision_video_003_r1:word:005463"
+        "intersection_end_word_id": "transcript_revision_video_003_r1:word:005933",
+        "intersection_sha256": "6f48a5b9a62f53fbf28dff83791038a80f328619dde60edbd9e93dd3cc3c7d04",
+        "intersection_start_word_id": "transcript_revision_video_003_r1:word:005797"
       }
     ],
     "exact_term_target_references": [
@@ -3764,10 +3756,9 @@
       "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
       "recommended_correction": "Review the exact context and accept, remap, or reject this link."
     },
-    "input_topic_reference": "issue_68_video_003_topic_proposal_014",
-    "link_id": "issue_68_link_issue_68_video_003_topic_proposal_014_stress",
+    "input_topic_reference": "issue_68_video_003_topic_proposal_018",
+    "link_id": "issue_68_link_issue_68_video_003_topic_proposal_018_stress",
     "overlapping_authored_topic_references": [
-      "issue_68_video_003_topic_proposal_012",
       "issue_68_video_003_topic_proposal_015"
     ],
     "recommended_target_topic_references": [],
@@ -3780,7 +3771,7 @@
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "56c56cef2a7363b0eb2768acda7cd5112ab7f14f42248b13b533c2a0ba6e173c",
+    "domain_review_decisions_sha256": "ba53d543e87801c7e5c0978110f9747c1ac6433193fe540b244f65e78da9d656",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -4335,42 +4326,31 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_stress",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_012",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:005462",
-          "intersection_sha256": "c3eea833e1d44d4295c47a4cbeefa8051afa9fe48b19c6111626f6114f7f31c2",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:005023"
-        },
-        {
-          "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:005526",
-          "intersection_sha256": "e6fec76bea49f2ed38941342e3908e7cc33dc8c3a9bca34ab38f5c9aa5b274c3",
+          "exact_pattern_match_count": 5,
+          "intersection_end_word_id": "transcript_revision_video_003_r1:word:006308",
+          "intersection_sha256": "e9295627b2134ab2094a30303e28614f733efe7479bd79bcc7d01f4f1a0b2c25",
           "intersection_start_word_id": "transcript_revision_video_003_r1:word:005463"
         }
       ],
       "exact_term_target_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_003_topic_proposal_014",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_014_stress",
+      "input_topic_reference": "issue_68_video_003_topic_proposal_015",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_015_stress",
+      "link_review_decision_id": "issue_68_domain_review_link_day3_topic_014_stress",
       "overlapping_authored_topic_references": [
-        "issue_68_video_003_topic_proposal_012",
         "issue_68_video_003_topic_proposal_015"
       ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "recommended_target_topic_references": [
+        "issue_68_video_003_topic_proposal_015"
+      ],
+      "relevance_basis": "PRODUCT_OWNER_REMAP_WITH_REPEATED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -13546,6 +13526,98 @@
       "source_id": "source_video_003"
     }
   ],
+  "link_review_resolutions": [
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_link_day2_intro_stress",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_001",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000066",
+            "intersection_sha256": "92173596ea22156ba98ee5275db673f9acef4511cf446b61cc79686bfd55ce27",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000000"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_001"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_001",
+        "source_id": "source_video_002"
+      },
+      "named_program_reference_only": true,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The sole match is the program name «Стресс-код» in the Day 2 introduction. The fragment introduces the training day and the move from theory to practice; it does not discuss stress as a semantic Concept.",
+      "rejection_reason": "A named-program occurrence is not exact evidence that this Topic discusses the Concept «Стресс».",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_001_stress",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_link_day3_topic_014_stress",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_012",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:005462",
+            "intersection_sha256": "c3eea833e1d44d4295c47a4cbeefa8051afa9fe48b19c6111626f6114f7f31c2",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005023"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:005526",
+            "intersection_sha256": "e6fec76bea49f2ed38941342e3908e7cc33dc8c3a9bca34ab38f5c9aa5b274c3",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005463"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_015"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_014",
+        "source_id": "source_video_003"
+      },
+      "outcome": "REMAP_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "After DOMAIN_AUTHORING boundary reconciliation, the source range of machine Topic 014 overlaps authored Topics 012 and 015. Topic 012 contains no stress term, while authored Topic 015 contains five exact stress-term occurrences and substantively discusses testing by stress and locating the problem/stress through strong and weak muscle responses.",
+      "remap_reason": "The only original match falls after the authored boundary at word:005463, and the full replacement Topic provides repeated exact evidence for the Concept «Стресс».",
+      "replacement_evidence_support": {
+        "authored_title_correspondence": false,
+        "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
+        "exact_pattern_match_count": 5,
+        "intersection_end_word_id": "transcript_revision_video_003_r1:word:006308",
+        "intersection_sha256": "e9295627b2134ab2094a30303e28614f733efe7479bd79bcc7d01f4f1a0b2c25",
+        "intersection_start_word_id": "transcript_revision_video_003_r1:word:005463"
+      },
+      "replacement_topic_reference": "issue_68_video_003_topic_proposal_015",
+      "replacement_topic_snapshot": {
+        "canonical_evidence_sha256": "e9295627b2134ab2094a30303e28614f733efe7479bd79bcc7d01f4f1a0b2c25",
+        "end_word_id": "transcript_revision_video_003_r1:word:006308",
+        "source_id": "source_video_003",
+        "start_word_id": "transcript_revision_video_003_r1:word:005463",
+        "title": "Проверка интерпретации сильного и слабого ответа мышечного теста"
+      },
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_015_stress",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_014_stress",
+      "topic_changed": false
+    }
+  ],
   "rejected_concept_resolutions": [
     {
       "all_link_proposals_rejected": true,
@@ -13602,41 +13674,6 @@
       "source_term_identity_not_confirmed": true,
       "status": "DECIDED",
       "target_candidate_concept_id": "issue_68_candidate_concept_self_regulation"
-    }
-  ],
-  "rejected_link_resolutions": [
-    {
-      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
-      "concept_changed": false,
-      "decision_id": "issue_68_domain_review_link_day2_intro_stress",
-      "link_snapshot": {
-        "candidate_concept_reference": "issue_68_candidate_concept_stress",
-        "classification": "LINK_EXCEPTION",
-        "evidence_support": [
-          {
-            "authored_title_correspondence": false,
-            "authored_topic_reference": "issue_68_video_002_topic_proposal_001",
-            "exact_pattern_match_count": 1,
-            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000066",
-            "intersection_sha256": "92173596ea22156ba98ee5275db673f9acef4511cf446b61cc79686bfd55ce27",
-            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000000"
-          }
-        ],
-        "exact_term_target_references": [
-          "issue_68_video_002_topic_proposal_001"
-        ],
-        "input_topic_reference": "issue_68_video_002_topic_proposal_001",
-        "source_id": "source_video_002"
-      },
-      "named_program_reference_only": true,
-      "outcome": "REJECT_LINK",
-      "package_semantic_promotion": false,
-      "rationale": "The sole match is the program name «Стресс-код» in the Day 2 introduction. The fragment introduces the training day and the move from theory to practice; it does not discuss stress as a semantic Concept.",
-      "rejection_reason": "A named-program occurrence is not exact evidence that this Topic discusses the Concept «Стресс».",
-      "review_gate": "DOMAIN_REVIEW",
-      "status": "DECIDED",
-      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_001_stress",
-      "topic_changed": false
     }
   ],
   "review_policy": {
@@ -13701,9 +13738,9 @@
     "concept_identity_exception": 0,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 197,
-    "link_domain_review_decisions": 1,
-    "link_exception": 61,
+    "link_clear": 198,
+    "link_domain_review_decisions": 2,
+    "link_exception": 60,
     "links_total": 258,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
