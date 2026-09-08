@@ -9,10 +9,10 @@ does not mean `ACCEPTED`.
 - Resulting authored semantic units: **182**
 - Topic `REVIEW_CLEAR`: **182**
 - Topic `REVIEW_EXCEPTION`: **0**
-- Concept candidates: **18**
-- Concept identity exceptions: **6**
-- Topic→Concept input links: **254**
-- Link exceptions: **62**
+- Concept candidates after review decisions: **19** (baseline: **18**)
+- Concept identity exceptions: **5**
+- Topic→Concept QA results after review decisions: **256** (baseline: **254**)
+- Link exceptions: **64**
 - Selective transcript-verification exceptions: **2**
 - Coverage gaps / overlaps: **0 / 0**
 
@@ -22,19 +22,19 @@ packet exposes only the first unresolved material exception.
 
 ## First material exception — Concept identity
 
-- Concept candidate: `issue_68_candidate_concept_nervous_system`
-- Proposed label: **Нервная система**
-- Source terms: Нейронные сети, Нервная сеть, Нервная Система, Нервная система, нервная система, нервной системы
-- Exact evidence references: **10**
+- Concept candidate: `issue_68_candidate_concept_brain`
+- Proposed label: **Мозг и полушария**
+- Source terms: Мозг, мозг, мозга, полушарий, полушария
+- Exact evidence references: **12**
 - Classification: `IDENTITY_EXCEPTION`
 
 ### Exact problem
 
-The seed groups nervous system, neural network, and neuron-network language that may denote related but distinct Concepts.
+«Мозг» and «полушария» mix a whole structure with one of its organizational distinctions.
 
 ### Recommended review
 
-Review as RELATED versus SAME_CONCEPT before identity assignment.
+Choose one umbrella identity or separate hierarchical Concepts.
 
 ### Human decision required
 

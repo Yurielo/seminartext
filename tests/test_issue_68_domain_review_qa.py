@@ -46,8 +46,12 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
     links = qa["link_results"]
 
     assert len(topics) == 182
-    assert len(concepts) == 18
-    assert len(links) == 254
+    assert len(concepts) == 19
+    assert len(links) == 256
+    assert len({item["candidate_concept_id"] for item in concepts}) == len(concepts)
+    assert len({item["link_id"] for item in links}) == len(links)
+    concept_ids = {item["candidate_concept_id"] for item in concepts}
+    assert all(item["candidate_concept_reference"] in concept_ids for item in links)
     assert all(item["classification"] in {"REVIEW_CLEAR", "REVIEW_EXCEPTION"} for item in topics)
     assert all(item["semantic_status"] == "PROVISIONAL" for item in topics)
     decided = [item for item in topics if item["domain_review_status"] == "DECIDED"]
@@ -80,7 +84,7 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["candidate_concept_id"] == "issue_68_candidate_concept_nervous_system"
+    assert first["candidate_concept_id"] == "issue_68_candidate_concept_brain"
     assert first["classification"] == "IDENTITY_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
     assert "issue_68_video_002_topic_proposal_020a" not in review
@@ -88,7 +92,8 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_video_004_topic_proposal_001c" not in review
     assert "issue_68_video_004_topic_proposal_024h" not in review
     assert "issue_68_candidate_concept_correction" not in review
-    assert "issue_68_candidate_concept_nervous_system" in review
+    assert "issue_68_candidate_concept_nervous_system" not in review
+    assert "issue_68_candidate_concept_brain" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -280,6 +285,79 @@ def test_product_owner_correction_concept_is_a_bounded_umbrella() -> None:
         "DISTINCT_UNLESS_SEPARATELY_HUMAN_REVIEWED"
     )
     assert resolution["package_semantic_promotion"] is False
-    assert qa["summary"]["concept_domain_review_decisions"] == 1
-    assert qa["summary"]["concept_clear"] == 12
-    assert qa["summary"]["concept_identity_exception"] == 6
+
+
+def test_product_owner_nervous_system_related_concepts_are_not_merged() -> None:
+    qa = read_json(QA_PATH)
+    concepts = {
+        item["candidate_concept_id"]: item
+        for item in qa["concept_results"]
+        if item["candidate_concept_id"]
+        in {
+            "issue_68_candidate_concept_nervous_system",
+            "issue_68_candidate_concept_neural_connections_and_networks",
+        }
+    }
+    nervous_system = concepts["issue_68_candidate_concept_nervous_system"]
+    neural_networks = concepts[
+        "issue_68_candidate_concept_neural_connections_and_networks"
+    ]
+    resolution = nervous_system["domain_review_resolution"]
+
+    assert nervous_system["classification"] == "CLEAR_FOR_HUMAN_BATCH_REVIEW"
+    assert neural_networks["classification"] == "CLEAR_FOR_HUMAN_BATCH_REVIEW"
+    assert nervous_system["domain_review_status"] == "DECIDED"
+    assert neural_networks["domain_review_status"] == "DECIDED"
+    assert (
+        nervous_system["semantic_status"]
+        == neural_networks["semantic_status"]
+        == "PROVISIONAL"
+    )
+    assert nervous_system["evidence_reference_count"] == 8
+    assert neural_networks["evidence_reference_count"] == 4
+    assert resolution == neural_networks["domain_review_resolution"]
+    assert resolution["outcome"] == "RELATED"
+    assert resolution["relation"] == "RELATED"
+    assert resolution["identities_merged"] is False
+    assert resolution["result_concept_ids"] == [
+        "issue_68_candidate_concept_nervous_system",
+        "issue_68_candidate_concept_neural_connections_and_networks",
+    ]
+    assert resolution["link_semantic_acceptance"] is False
+    assert len(resolution["evidence_partition"]) == 10
+    unresolved = [
+        item
+        for item in resolution["evidence_partition"]
+        if item["unresolved_exact_term_signal"]
+    ]
+    assert [item["topic_reference"] for item in unresolved] == [
+        "issue_68_video_004_topic_proposal_040"
+    ]
+
+    rewritten = [
+        item
+        for item in qa["link_results"]
+        if "concept_identity_rebuild" in item
+    ]
+    by_topic = {}
+    for item in rewritten:
+        by_topic.setdefault(item["input_topic_reference"], set()).add(
+            item["candidate_concept_reference"]
+        )
+        assert item["concept_identity_rebuild"]["semantic_acceptance"] is False
+    assert by_topic["issue_68_video_003_topic_proposal_026"] == {
+        "issue_68_candidate_concept_neural_connections_and_networks"
+    }
+    assert by_topic["issue_68_video_003_topic_proposal_086"] == {
+        "issue_68_candidate_concept_nervous_system",
+        "issue_68_candidate_concept_neural_connections_and_networks",
+    }
+    assert by_topic["issue_68_video_004_topic_proposal_014"] == {
+        "issue_68_candidate_concept_nervous_system",
+        "issue_68_candidate_concept_neural_connections_and_networks",
+    }
+    assert qa["summary"]["concept_domain_review_decisions"] == 2
+    assert qa["summary"]["concept_candidates_total"] == 19
+    assert qa["summary"]["concept_clear"] == 14
+    assert qa["summary"]["concept_identity_exception"] == 5
+    assert qa["summary"]["links_total"] == 256

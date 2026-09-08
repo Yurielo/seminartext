@@ -176,7 +176,10 @@ CONCEPT_PATTERNS = {
     "correction": r"коррекц",
     "protocol": r"протокол",
     "emotion": r"эмоц",
-    "nervous_system": r"(?:нервн\w*\s+(?:систем|сет)|нейронн\w*\s+сет)",
+    "nervous_system": r"нервн\w*\s+систем",
+    "neural_connections_and_networks": (
+        r"(?:нейронн\w*\s+(?:связ|сет|цеп)|нервн\w*\s+(?:связ|сет|цеп))"
+    ),
     "adaptation": r"адаптац|адаптив",
     "brain": r"мозг|полушар",
     "meridians": r"меридиан",
@@ -547,8 +550,14 @@ def apply_domain_review_decisions(
 def apply_concept_identity_decisions(
     candidates: list[dict[str, Any]],
     decision_ledger: dict[str, Any],
+    words_by_source: dict[str, list[dict[str, Any]]],
     errors: list[str],
-) -> tuple[list[dict[str, Any]], set[str]]:
+) -> tuple[
+    list[dict[str, Any]],
+    list[dict[str, Any]],
+    set[str],
+    dict[tuple[str, str], dict[str, Any]],
+]:
     """Validate explicit Product Owner decisions over Concept identity.
 
     A SAME_CONCEPT umbrella decision binds only the generic lexical forms and
@@ -556,18 +565,19 @@ def apply_concept_identity_decisions(
     mentioned by the linked Topics.
     """
 
-    candidate_by_id = {
-        item["candidate_concept_id"]: item for item in candidates
-    }
+    transformed = [dict(item) for item in candidates]
+    candidate_by_id = {item["candidate_concept_id"]: item for item in transformed}
     resolutions: list[dict[str, Any]] = []
     resolved: set[str] = set()
+    link_rewrites: dict[tuple[str, str], dict[str, Any]] = {}
     for decision in decision_ledger.get("concept_identity_decisions", []):
         decision_id = decision.get("decision_id", "<missing>")
         target_id = decision.get("target_candidate_concept_id")
         if decision.get("authority") != "PRODUCT_OWNER_DOMAIN_REVIEW":
             errors.append(f"non-authoritative Concept decision {decision_id}")
             continue
-        if decision.get("outcome") != "SAME_CONCEPT":
+        outcome = decision.get("outcome")
+        if outcome not in {"SAME_CONCEPT", "RELATED"}:
             errors.append(f"unsupported Concept decision outcome in {decision_id}")
             continue
         if target_id in resolved:
@@ -591,44 +601,177 @@ def apply_concept_identity_decisions(
         ):
             errors.append(f"Concept evidence-count snapshot mismatch in {decision_id}")
             continue
-        if decision.get("accepted_canonical_label") != candidate.get(
-            "proposed_canonical_label"
+        if outcome == "SAME_CONCEPT":
+            if decision.get("accepted_canonical_label") != candidate.get(
+                "proposed_canonical_label"
+            ):
+                errors.append(f"Concept accepted-label mismatch in {decision_id}")
+                continue
+            if decision.get("canonical_role") != "UMBRELLA_CONCEPT":
+                errors.append(f"Concept umbrella role missing in {decision_id}")
+                continue
+            if decision.get("identity_scope") != "GENERAL_CORRECTION_PROCESS_ONLY":
+                errors.append(f"Concept identity scope mismatch in {decision_id}")
+                continue
+            if decision.get("separate_method_identities_merged") is not False:
+                errors.append(f"Concept method-identity safeguard missing in {decision_id}")
+                continue
+            if decision.get("method_identity_policy") != (
+                "DISTINCT_UNLESS_SEPARATELY_HUMAN_REVIEWED"
+            ):
+                errors.append(f"Concept method-identity policy mismatch in {decision_id}")
+                continue
+            resolved.add(target_id)
+            resolutions.append(
+                {
+                    "decision_id": decision_id,
+                    "target_candidate_concept_id": target_id,
+                    "result_concept_ids": [target_id],
+                    "authority": decision["authority"],
+                    "review_gate": "DOMAIN_REVIEW",
+                    "status": "DECIDED",
+                    "outcome": "SAME_CONCEPT",
+                    "accepted_canonical_label": decision[
+                        "accepted_canonical_label"
+                    ],
+                    "canonical_role": "UMBRELLA_CONCEPT",
+                    "identity_scope": decision["identity_scope"],
+                    "separate_method_identities_merged": False,
+                    "method_identity_policy": decision["method_identity_policy"],
+                    "rationale": decision["rationale"],
+                    "package_semantic_promotion": False,
+                }
+            )
+            continue
+
+        related = decision.get("related_concept", {})
+        retained_spec = decision.get("retained_concept", {})
+        related_id = related.get("candidate_concept_id")
+        if not related_id or related_id in candidate_by_id:
+            errors.append(f"invalid related Concept identity in {decision_id}")
+            continue
+        if (
+            target_id != "issue_68_candidate_concept_nervous_system"
+            or decision.get("partition_strategy")
+            != "NERVOUS_SYSTEM_VS_NEURAL_CONNECTIONS_EXACT_TERMS"
         ):
-            errors.append(f"Concept accepted-label mismatch in {decision_id}")
+            errors.append(f"unsupported RELATED partition in {decision_id}")
             continue
-        if decision.get("canonical_role") != "UMBRELLA_CONCEPT":
-            errors.append(f"Concept umbrella role missing in {decision_id}")
-            continue
-        if decision.get("identity_scope") != "GENERAL_CORRECTION_PROCESS_ONLY":
-            errors.append(f"Concept identity scope mismatch in {decision_id}")
-            continue
-        if decision.get("separate_method_identities_merged") is not False:
-            errors.append(f"Concept method-identity safeguard missing in {decision_id}")
-            continue
-        if decision.get("method_identity_policy") != (
-            "DISTINCT_UNLESS_SEPARATELY_HUMAN_REVIEWED"
+        if (
+            retained_spec.get("candidate_concept_id") != target_id
+            or retained_spec.get("proposed_canonical_label")
+            != candidate.get("proposed_canonical_label")
+            or not related.get("proposed_canonical_label")
         ):
-            errors.append(f"Concept method-identity policy mismatch in {decision_id}")
+            errors.append(f"RELATED Concept result mismatch in {decision_id}")
             continue
-        resolved.add(target_id)
+        retained_terms = retained_spec.get("source_terms", [])
+        related_terms = related.get("source_terms", [])
+        if (
+            set(retained_terms) & set(related_terms)
+            or set(retained_terms) | set(related_terms)
+            != set(candidate.get("source_terms", []))
+        ):
+            errors.append(f"RELATED source-term partition mismatch in {decision_id}")
+            continue
+        if decision.get("identities_merged") is not False:
+            errors.append(f"RELATED decision merged identities in {decision_id}")
+            continue
+        if decision.get("relation") != "RELATED":
+            errors.append(f"RELATED relation missing in {decision_id}")
+            continue
+        if len(candidate.get("topic_references", [])) != len(
+            candidate.get("evidence_references", [])
+        ):
+            errors.append(f"Concept reference alignment mismatch in {decision_id}")
+            continue
+
+        system_pattern = re.compile(CONCEPT_PATTERNS["nervous_system"], re.IGNORECASE)
+        network_pattern = re.compile(
+            CONCEPT_PATTERNS["neural_connections_and_networks"], re.IGNORECASE
+        )
+        retained_topics: list[str] = []
+        retained_evidence: list[dict[str, Any]] = []
+        related_topics: list[str] = []
+        related_evidence: list[dict[str, Any]] = []
+        evidence_partition = []
+        for topic_reference, evidence in zip(
+            candidate["topic_references"], candidate["evidence_references"]
+        ):
+            source_id = evidence["source_id"]
+            start = word_sequence(evidence["start_word_id"])
+            end = word_sequence(evidence["end_word_id"])
+            source_words = words_by_source[source_id]
+            text = " ".join(item["text"] for item in source_words[start : end + 1])
+            system_matches = len(system_pattern.findall(text))
+            network_matches = len(network_pattern.findall(text))
+            target_ids = []
+            if system_matches or not network_matches:
+                retained_topics.append(topic_reference)
+                retained_evidence.append(evidence)
+                target_ids.append(target_id)
+            if network_matches:
+                related_topics.append(topic_reference)
+                related_evidence.append(evidence)
+                target_ids.append(related_id)
+            link_rewrites[(target_id, topic_reference)] = {
+                "decision_id": decision_id,
+                "target_concept_ids": target_ids,
+                "exact_system_match_count": system_matches,
+                "exact_network_match_count": network_matches,
+                "unresolved_exact_term_signal": not system_matches and not network_matches,
+            }
+            evidence_partition.append(
+                {
+                    "topic_reference": topic_reference,
+                    **evidence,
+                    **link_rewrites[(target_id, topic_reference)],
+                }
+            )
+
+        retained = dict(candidate)
+        retained["source_terms"] = retained_terms
+        retained["topic_references"] = retained_topics
+        retained["evidence_references"] = retained_evidence
+        related_candidate = {
+            "candidate_concept_id": related_id,
+            "proposed_canonical_label": related["proposed_canonical_label"],
+            "source_terms": related["source_terms"],
+            "topic_references": related_topics,
+            "evidence_references": related_evidence,
+            "semantic_status": "PROVISIONAL",
+            "review_status": "DOMAIN_REVIEW_DECIDED",
+        }
+        position = next(
+            index
+            for index, item in enumerate(transformed)
+            if item["candidate_concept_id"] == target_id
+        )
+        transformed[position : position + 1] = [retained, related_candidate]
+        candidate_by_id[target_id] = retained
+        candidate_by_id[related_id] = related_candidate
+        resolved.update({target_id, related_id})
         resolutions.append(
             {
                 "decision_id": decision_id,
                 "target_candidate_concept_id": target_id,
+                "result_concept_ids": [target_id, related_id],
                 "authority": decision["authority"],
                 "review_gate": "DOMAIN_REVIEW",
                 "status": "DECIDED",
-                "outcome": "SAME_CONCEPT",
-                "accepted_canonical_label": decision["accepted_canonical_label"],
-                "canonical_role": "UMBRELLA_CONCEPT",
-                "identity_scope": decision["identity_scope"],
-                "separate_method_identities_merged": False,
-                "method_identity_policy": decision["method_identity_policy"],
+                "outcome": "RELATED",
+                "relation": "RELATED",
+                "identities_merged": False,
+                "retained_concept": retained_spec,
+                "related_concept": related,
+                "evidence_partition": evidence_partition,
+                "link_rebuild_authority": "CODEX_DETERMINISTIC_EXACT_TERM_PARTITION",
+                "link_semantic_acceptance": False,
                 "rationale": decision["rationale"],
                 "package_semantic_promotion": False,
             }
         )
-    return resolutions, resolved
+    return transformed, resolutions, resolved, link_rewrites
 
 
 def build_qa(
@@ -771,11 +914,16 @@ def build_qa(
             }
         )
 
-    concept_identity_resolutions, resolved_concept_ids = apply_concept_identity_decisions(
-        baseline["concept_candidates"], decision_ledger, errors
+    (
+        reviewed_concept_candidates,
+        concept_identity_resolutions,
+        resolved_concept_ids,
+        concept_link_rewrites,
+    ) = apply_concept_identity_decisions(
+        baseline["concept_candidates"], decision_ledger, words_by_source, errors
     )
     concept_results = []
-    for candidate in baseline["concept_candidates"]:
+    for candidate in reviewed_concept_candidates:
         candidate_id = candidate["candidate_concept_id"]
         exception = (
             None
@@ -798,7 +946,7 @@ def build_qa(
             result["domain_review_resolution"] = next(
                 item
                 for item in concept_identity_resolutions
-                if item["target_candidate_concept_id"] == candidate_id
+                if candidate_id in item["result_concept_ids"]
             )
         concept_results.append(result)
 
@@ -813,8 +961,40 @@ def build_qa(
             "proposed_title": item["title"],
         }
 
-    link_results = []
+    reviewed_links = []
     for link in baseline["topic_concept_link_proposals"]:
+        rewrite = concept_link_rewrites.get(
+            (link["candidate_concept_reference"], link["topic_reference"])
+        )
+        target_concept_ids = (
+            rewrite["target_concept_ids"]
+            if rewrite
+            else [link["candidate_concept_reference"]]
+        )
+        original_key = link["candidate_concept_reference"].removeprefix(
+            "issue_68_candidate_concept_"
+        )
+        for target_concept_id in target_concept_ids:
+            rebuilt = dict(link)
+            rebuilt["candidate_concept_reference"] = target_concept_id
+            if target_concept_id != link["candidate_concept_reference"]:
+                target_key = target_concept_id.removeprefix(
+                    "issue_68_candidate_concept_"
+                )
+                rebuilt["link_id"] = (
+                    link["link_id"].removesuffix(f"_{original_key}")
+                    + f"_{target_key}"
+                )
+            if rewrite:
+                rebuilt["concept_identity_rebuild"] = {
+                    **rewrite,
+                    "semantic_status": "PROVISIONAL",
+                    "semantic_acceptance": False,
+                }
+            reviewed_links.append(rebuilt)
+
+    link_results = []
+    for link in reviewed_links:
         concept_key = link["candidate_concept_reference"].removeprefix(
             "issue_68_candidate_concept_"
         )
@@ -878,6 +1058,10 @@ def build_qa(
             ),
             "semantic_status": "PROVISIONAL",
         }
+        if "concept_identity_rebuild" in link:
+            result["concept_identity_rebuild"] = link[
+                "concept_identity_rebuild"
+            ]
         if not is_clear:
             result["exception"] = {
                 "problem": (
@@ -940,8 +1124,10 @@ def build_qa(
         "input_inventory": {
             "machine_topic_proposals": len(baseline["topic_proposals"]),
             "authored_topic_results": len(topic_results),
-            "concept_candidates": len(concept_results),
-            "topic_concept_link_proposals": len(link_results),
+            "concept_candidates": len(baseline["concept_candidates"]),
+            "topic_concept_link_proposals": len(
+                baseline["topic_concept_link_proposals"]
+            ),
             "semantic_package_sha256": sha256(semantic_package_path),
             "canonical_evidence_sha256": sha256(bundle_path),
             "review_result_sha256": sha256(review_result_path),
@@ -955,13 +1141,16 @@ def build_qa(
             "current_semantic_package_link_projection": len(
                 package["topic_concept_link_proposals"]
             ),
-            "qa_concept_input": len(concept_results),
-            "qa_link_input": len(link_results),
+            "qa_concept_results_after_review_decisions": len(concept_results),
+            "qa_link_results_after_review_decisions": len(link_results),
             "explanation": (
                 "The QA input rebuilds the original provisional 18/254 inventory "
                 "from the same hash-bound generator artifacts before DOMAIN_AUTHORING. "
-                "The current 15/179 projection is a lossy preview-based regeneration "
-                "after split/merge authoring and is not treated as deletion or review."
+                "Explicit DOMAIN_REVIEW identity decisions may create additional "
+                "Concept and provisional link results without deleting baseline "
+                "provenance. The current 15/179 projection is a lossy preview-based "
+                "regeneration after split/merge authoring and is not treated as "
+                "deletion or review."
             ),
             "semantic_change_inferred": False,
         },
@@ -1056,9 +1245,9 @@ does not mean `ACCEPTED`.
 - Resulting authored semantic units: **{summary['topic_results_total']}**
 - Topic `REVIEW_CLEAR`: **{summary['topic_review_clear']}**
 - Topic `REVIEW_EXCEPTION`: **{summary['topic_review_exception']}**
-- Concept candidates: **{summary['concept_candidates_total']}**
+- Concept candidates after review decisions: **{summary['concept_candidates_total']}** (baseline: **{qa['input_inventory']['concept_candidates']}**)
 - Concept identity exceptions: **{summary['concept_identity_exception']}**
-- Topic→Concept input links: **{summary['links_total']}**
+- Topic→Concept QA results after review decisions: **{summary['links_total']}** (baseline: **{qa['input_inventory']['topic_concept_link_proposals']}**)
 - Link exceptions: **{summary['link_exception']}**
 - Selective transcript-verification exceptions: **{summary['selective_transcript_verification_exceptions']}**
 - Coverage gaps / overlaps: **{summary['coverage_gaps']} / {summary['coverage_overlaps']}**

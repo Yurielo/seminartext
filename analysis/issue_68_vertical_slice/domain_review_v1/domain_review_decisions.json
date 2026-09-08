@@ -24,6 +24,47 @@
       "rationale": "The grammatical source forms denote the same general correction-process Concept across the evidence. Named correction methods remain distinct identities and are not merged by this umbrella decision.",
       "separate_method_identities_merged": false,
       "target_candidate_concept_id": "issue_68_candidate_concept_correction"
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "candidate_snapshot": {
+        "evidence_reference_count": 10,
+        "proposed_canonical_label": "Нервная система",
+        "source_terms": [
+          "Нейронные сети",
+          "Нервная сеть",
+          "Нервная Система",
+          "Нервная система",
+          "нервная система",
+          "нервной системы"
+        ]
+      },
+      "decision_date": "2026-09-08",
+      "decision_id": "issue_68_domain_review_concept_nervous_system",
+      "identities_merged": false,
+      "outcome": "RELATED",
+      "partition_strategy": "NERVOUS_SYSTEM_VS_NEURAL_CONNECTIONS_EXACT_TERMS",
+      "related_concept": {
+        "candidate_concept_id": "issue_68_candidate_concept_neural_connections_and_networks",
+        "proposed_canonical_label": "Нейронные связи и сети",
+        "source_terms": [
+          "Нейронные сети",
+          "Нервная сеть"
+        ]
+      },
+      "relation": "RELATED",
+      "retained_concept": {
+        "candidate_concept_id": "issue_68_candidate_concept_nervous_system",
+        "proposed_canonical_label": "Нервная система",
+        "source_terms": [
+          "Нервная Система",
+          "Нервная система",
+          "нервная система",
+          "нервной системы"
+        ]
+      },
+      "rationale": "The whole physiological nervous system and the neural connections/networks used to describe memory and behavior are related but distinct semantic identities. The decision preserves two Concepts and forbids identity merging.",
+      "target_candidate_concept_id": "issue_68_candidate_concept_nervous_system"
     }
   ],
   "decisions": [
