@@ -274,6 +274,24 @@ RELATED_PARTITION_STRATEGIES = {
     },
 }
 
+NEW_CONCEPT_STRATEGIES = {
+    "LIFE_GOAL_REUSABLE_CONCEPT_WITH_EXACT_LINK_REVIEW": {
+        "target_concept_id": "issue_68_candidate_concept_life_goals",
+        "accepted_canonical_label": "Цель жизни",
+        "accepted_lexical_forms": [
+            "цель жизни",
+            "жизненные цели",
+            "цели жизни",
+        ],
+        "accepted_topic_references": [
+            "issue_68_video_003_topic_proposal_060"
+        ],
+        "rejected_topic_references": [
+            "issue_68_video_003_topic_proposal_064"
+        ],
+    },
+}
+
 TRANSCRIPT_EXCEPTIONS = [
     {
         "exception_id": "issue_68_transcript_exception_craniosacral_term",
@@ -658,7 +676,7 @@ def apply_concept_identity_decisions(
             errors.append(f"non-authoritative Concept decision {decision_id}")
             continue
         outcome = decision.get("outcome")
-        if outcome not in {"SAME_CONCEPT", "RELATED"}:
+        if outcome not in {"SAME_CONCEPT", "NEW_CONCEPT", "RELATED"}:
             errors.append(f"unsupported Concept decision outcome in {decision_id}")
             continue
         if target_id in resolved:
@@ -681,6 +699,110 @@ def apply_concept_identity_decisions(
             candidate.get("evidence_references", [])
         ):
             errors.append(f"Concept evidence-count snapshot mismatch in {decision_id}")
+            continue
+        if outcome == "NEW_CONCEPT":
+            strategy = NEW_CONCEPT_STRATEGIES.get(decision.get("review_strategy"))
+            if not strategy or target_id != strategy["target_concept_id"]:
+                errors.append(f"unsupported NEW_CONCEPT review in {decision_id}")
+                continue
+            if (
+                decision.get("accepted_canonical_label")
+                != strategy["accepted_canonical_label"]
+                or decision.get("accepted_lexical_forms")
+                != strategy["accepted_lexical_forms"]
+            ):
+                errors.append(f"NEW_CONCEPT terminology mismatch in {decision_id}")
+                continue
+            accepted_topics = decision.get("accepted_topic_references", [])
+            rejected_topics = decision.get("rejected_topic_references", [])
+            if (
+                accepted_topics != strategy["accepted_topic_references"]
+                or rejected_topics != strategy["rejected_topic_references"]
+                or set(accepted_topics) & set(rejected_topics)
+                or set(accepted_topics) | set(rejected_topics)
+                != set(candidate.get("topic_references", []))
+            ):
+                errors.append(f"NEW_CONCEPT link partition mismatch in {decision_id}")
+                continue
+            if decision.get("identity_confirmed_reusable") is not True:
+                errors.append(f"NEW_CONCEPT reusable identity missing in {decision_id}")
+                continue
+            if not decision.get("rejected_link_reason"):
+                errors.append(f"NEW_CONCEPT rejected-link reason missing in {decision_id}")
+                continue
+            if decision.get("package_semantic_promotion") is not False:
+                errors.append(f"NEW_CONCEPT package promotion in {decision_id}")
+                continue
+
+            accepted_evidence: list[dict[str, Any]] = []
+            accepted_topic_results: list[str] = []
+            evidence_partition = []
+            for topic_reference, evidence in zip(
+                candidate["topic_references"], candidate["evidence_references"]
+            ):
+                accepted = topic_reference in accepted_topics
+                target_ids = [target_id] if accepted else []
+                if accepted:
+                    accepted_topic_results.append(topic_reference)
+                    accepted_evidence.append(evidence)
+                rewrite = {
+                    "decision_id": decision_id,
+                    "target_concept_ids": target_ids,
+                    "review_outcome": "ACCEPT" if accepted else "REJECT",
+                    "partition_basis": "EXPLICIT_EVIDENCE_LINK_REVIEW",
+                    "unresolved_exact_term_signal": False,
+                }
+                link_rewrites[(target_id, topic_reference)] = rewrite
+                evidence_partition.append(
+                    {"topic_reference": topic_reference, **evidence, **rewrite}
+                )
+
+            reviewed_candidate = dict(candidate)
+            reviewed_candidate["proposed_canonical_label"] = decision[
+                "accepted_canonical_label"
+            ]
+            reviewed_candidate["source_terms"] = decision[
+                "accepted_lexical_forms"
+            ]
+            reviewed_candidate["topic_references"] = accepted_topic_results
+            reviewed_candidate["evidence_references"] = accepted_evidence
+            position = next(
+                index
+                for index, item in enumerate(transformed)
+                if item["candidate_concept_id"] == target_id
+            )
+            transformed[position] = reviewed_candidate
+            candidate_by_id[target_id] = reviewed_candidate
+            resolved.add(target_id)
+            resolutions.append(
+                {
+                    "decision_id": decision_id,
+                    "target_candidate_concept_id": target_id,
+                    "result_concept_ids": [target_id],
+                    "authority": decision["authority"],
+                    "review_gate": "DOMAIN_REVIEW",
+                    "status": "DECIDED",
+                    "outcome": "NEW_CONCEPT",
+                    "accepted_canonical_label": decision[
+                        "accepted_canonical_label"
+                    ],
+                    "accepted_lexical_forms": decision[
+                        "accepted_lexical_forms"
+                    ],
+                    "identity_confirmed_reusable": True,
+                    "accepted_topic_references": accepted_topics,
+                    "rejected_topic_references": rejected_topics,
+                    "rejected_link_reason": decision["rejected_link_reason"],
+                    "candidate_snapshot": snapshot,
+                    "evidence_partition": evidence_partition,
+                    "link_rebuild_authority": (
+                        "PRODUCT_OWNER_EXPLICIT_EVIDENCE_LINK_REVIEW"
+                    ),
+                    "link_semantic_acceptance": False,
+                    "rationale": decision["rationale"],
+                    "package_semantic_promotion": False,
+                }
+            )
             continue
         if outcome == "SAME_CONCEPT":
             if decision.get("accepted_canonical_label") != candidate.get(

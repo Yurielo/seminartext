@@ -2123,19 +2123,79 @@
     },
     {
       "candidate_concept_id": "issue_68_candidate_concept_life_goals",
-      "classification": "IDENTITY_EXCEPTION",
-      "domain_review_status": "REVIEW_REQUIRED",
-      "evidence_reference_count": 2,
-      "exception": {
-        "human_decision_required": true,
-        "problem": "The candidate is supported by a narrow title/summary signal and lacks a robust exact-term evidence base.",
-        "recommendation": "Confirm that the evidence denotes a reusable Concept rather than a local session formulation."
+      "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
+      "domain_review_resolution": {
+        "accepted_canonical_label": "Цель жизни",
+        "accepted_lexical_forms": [
+          "цель жизни",
+          "жизненные цели",
+          "цели жизни"
+        ],
+        "accepted_topic_references": [
+          "issue_68_video_003_topic_proposal_060"
+        ],
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "candidate_snapshot": {
+          "evidence_reference_count": 2,
+          "proposed_canonical_label": "Жизненные цели",
+          "source_terms": [
+            "Жизненные цели",
+            "Цели Жизни"
+          ]
+        },
+        "decision_id": "issue_68_domain_review_concept_life_goal",
+        "evidence_partition": [
+          {
+            "decision_id": "issue_68_domain_review_concept_life_goal",
+            "end_word_id": "transcript_revision_video_003_r1:word:017501",
+            "partition_basis": "EXPLICIT_EVIDENCE_LINK_REVIEW",
+            "review_outcome": "ACCEPT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:017069",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_life_goals"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_060",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_life_goal",
+            "end_word_id": "transcript_revision_video_003_r1:word:018129",
+            "partition_basis": "EXPLICIT_EVIDENCE_LINK_REVIEW",
+            "review_outcome": "REJECT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:018026",
+            "target_concept_ids": [],
+            "topic_reference": "issue_68_video_003_topic_proposal_064",
+            "unresolved_exact_term_signal": false
+          }
+        ],
+        "identity_confirmed_reusable": true,
+        "link_rebuild_authority": "PRODUCT_OWNER_EXPLICIT_EVIDENCE_LINK_REVIEW",
+        "link_semantic_acceptance": false,
+        "outcome": "NEW_CONCEPT",
+        "package_semantic_promotion": false,
+        "rationale": "The accepted evidence discusses purpose in life, loss of meaning after fulfilling a life goal, and the need to reformulate that goal. This supports a reusable «Цель жизни» Concept. The second machine-titled fragment concerns finishing work at age 23 and returning to the present, so it does not support a life-goal link.",
+        "rejected_link_reason": "The word:018026–word:018129 evidence contains no life-goal discussion and instead covers completing work at age 23 and returning to the present.",
+        "rejected_topic_references": [
+          "issue_68_video_003_topic_proposal_064"
+        ],
+        "result_concept_ids": [
+          "issue_68_candidate_concept_life_goals"
+        ],
+        "review_gate": "DOMAIN_REVIEW",
+        "status": "DECIDED",
+        "target_candidate_concept_id": "issue_68_candidate_concept_life_goals"
       },
-      "proposed_canonical_label": "Жизненные цели",
+      "domain_review_status": "DECIDED",
+      "evidence_reference_count": 1,
+      "exception": null,
+      "proposed_canonical_label": "Цель жизни",
       "semantic_status": "PROVISIONAL",
       "source_terms": [
-        "Жизненные цели",
-        "Цели Жизни"
+        "цель жизни",
+        "жизненные цели",
+        "цели жизни"
       ]
     },
     {
@@ -3691,20 +3751,19 @@
   ],
   "errors": [],
   "first_material_exception": {
-    "candidate_concept_id": "issue_68_candidate_concept_life_goals",
+    "candidate_concept_id": "issue_68_candidate_concept_self_regulation",
     "classification": "IDENTITY_EXCEPTION",
     "domain_review_status": "REVIEW_REQUIRED",
     "evidence_reference_count": 2,
     "exception": {
       "human_decision_required": true,
-      "problem": "The candidate is supported by a narrow title/summary signal and lacks a robust exact-term evidence base.",
-      "recommendation": "Confirm that the evidence denotes a reusable Concept rather than a local session formulation."
+      "problem": "The candidate is generated from a broad summary phrase and has no matching exact source expression in the current authored ranges.",
+      "recommendation": "Defer or define the identity only with explicit human evidence review."
     },
-    "proposed_canonical_label": "Жизненные цели",
+    "proposed_canonical_label": "Саморегуляция",
     "semantic_status": "PROVISIONAL",
     "source_terms": [
-      "Жизненные цели",
-      "Цели Жизни"
+      "Управление стрессом"
     ]
   },
   "input_inventory": {
@@ -3712,7 +3771,7 @@
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "097d9b38d1e0ddf53f8aff8e0a553429295835869c938f2c08bea27850fcc49c",
+    "domain_review_decisions_sha256": "ffb90beb0e6fb95cfbee2f200b4365a1990c5ebcb2b5c1bcf0b760c297246031",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -3723,7 +3782,7 @@
     "current_semantic_package_link_projection": 179,
     "explanation": "The QA input rebuilds the original provisional 18/254 inventory from the same hash-bound generator artifacts before DOMAIN_AUTHORING. Explicit DOMAIN_REVIEW identity decisions may create additional Concept and provisional link results without deleting baseline provenance. The current 15/179 projection is a lossy preview-based regeneration after split/merge authoring and is not treated as deletion or review.",
     "qa_concept_results_after_review_decisions": 23,
-    "qa_link_results_after_review_decisions": 262,
+    "qa_link_results_after_review_decisions": 261,
     "semantic_change_inferred": false
   },
   "link_results": [
@@ -13473,6 +13532,17 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_life_goals",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_life_goal",
+        "partition_basis": "EXPLICIT_EVIDENCE_LINK_REVIEW",
+        "review_outcome": "ACCEPT",
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_life_goals"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -13495,45 +13565,6 @@
         "issue_68_video_003_topic_proposal_051d"
       ],
       "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_003"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_life_goals",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_051e",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:018092",
-          "intersection_sha256": "cc232825f4df6fdf1930668c809d84bf28e122d060bc40328b94b962f0389482",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:018026"
-        },
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_051f",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:018129",
-          "intersection_sha256": "c136d82a9c6f94d106b875ab02e60294870eb295305615dc82364121a43b9678",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:018093"
-        }
-      ],
-      "exact_term_target_references": [],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_003_topic_proposal_064",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_064_life_goals",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_003_topic_proposal_051e",
-        "issue_68_video_003_topic_proposal_051f"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -13673,14 +13704,14 @@
   "status": "READY_WITH_EXCEPTIONS",
   "summary": {
     "concept_candidates_total": 23,
-    "concept_clear": 21,
-    "concept_domain_review_decisions": 5,
-    "concept_identity_exception": 2,
+    "concept_clear": 22,
+    "concept_domain_review_decisions": 6,
+    "concept_identity_exception": 1,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
     "link_clear": 197,
-    "link_exception": 65,
-    "links_total": 262,
+    "link_exception": 64,
+    "links_total": 261,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,

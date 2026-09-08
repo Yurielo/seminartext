@@ -10,9 +10,9 @@ does not mean `ACCEPTED`.
 - Topic `REVIEW_CLEAR`: **182**
 - Topic `REVIEW_EXCEPTION`: **0**
 - Concept candidates after review decisions: **23** (baseline: **18**)
-- Concept identity exceptions: **2**
-- Topic→Concept QA results after review decisions: **262** (baseline: **254**)
-- Link exceptions: **65**
+- Concept identity exceptions: **1**
+- Topic→Concept QA results after review decisions: **261** (baseline: **254**)
+- Link exceptions: **64**
 - Selective transcript-verification exceptions: **2**
 - Coverage gaps / overlaps: **0 / 0**
 
@@ -22,19 +22,19 @@ packet exposes only the first unresolved material exception.
 
 ## First material exception — Concept identity
 
-- Concept candidate: `issue_68_candidate_concept_life_goals`
-- Proposed label: **Жизненные цели**
-- Source terms: Жизненные цели, Цели Жизни
+- Concept candidate: `issue_68_candidate_concept_self_regulation`
+- Proposed label: **Саморегуляция**
+- Source terms: Управление стрессом
 - Exact evidence references: **2**
 - Classification: `IDENTITY_EXCEPTION`
 
 ### Exact problem
 
-The candidate is supported by a narrow title/summary signal and lacks a robust exact-term evidence base.
+The candidate is generated from a broad summary phrase and has no matching exact source expression in the current authored ranges.
 
 ### Recommended review
 
-Confirm that the evidence denotes a reusable Concept rather than a local session formulation.
+Defer or define the identity only with explicit human evidence review.
 
 ### Human decision required
 

@@ -227,6 +227,38 @@
         "Уровни сознания"
       ],
       "target_candidate_concept_id": "issue_68_candidate_concept_consciousness"
+    },
+    {
+      "accepted_canonical_label": "Цель жизни",
+      "accepted_lexical_forms": [
+        "цель жизни",
+        "жизненные цели",
+        "цели жизни"
+      ],
+      "accepted_topic_references": [
+        "issue_68_video_003_topic_proposal_060"
+      ],
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "candidate_snapshot": {
+        "evidence_reference_count": 2,
+        "proposed_canonical_label": "Жизненные цели",
+        "source_terms": [
+          "Жизненные цели",
+          "Цели Жизни"
+        ]
+      },
+      "decision_date": "2026-09-08",
+      "decision_id": "issue_68_domain_review_concept_life_goal",
+      "identity_confirmed_reusable": true,
+      "outcome": "NEW_CONCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The accepted evidence discusses purpose in life, loss of meaning after fulfilling a life goal, and the need to reformulate that goal. This supports a reusable «Цель жизни» Concept. The second machine-titled fragment concerns finishing work at age 23 and returning to the present, so it does not support a life-goal link.",
+      "rejected_link_reason": "The word:018026–word:018129 evidence contains no life-goal discussion and instead covers completing work at age 23 and returning to the present.",
+      "rejected_topic_references": [
+        "issue_68_video_003_topic_proposal_064"
+      ],
+      "review_strategy": "LIFE_GOAL_REUSABLE_CONCEPT_WITH_EXACT_LINK_REVIEW",
+      "target_candidate_concept_id": "issue_68_candidate_concept_life_goals"
     }
   ],
   "decisions": [

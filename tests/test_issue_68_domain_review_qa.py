@@ -47,7 +47,7 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
 
     assert len(topics) == 182
     assert len(concepts) == 23
-    assert len(links) == 262
+    assert len(links) == 261
     assert len({item["candidate_concept_id"] for item in concepts}) == len(concepts)
     assert len({item["link_id"] for item in links}) == len(links)
     concept_ids = {item["candidate_concept_id"] for item in concepts}
@@ -84,7 +84,7 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["candidate_concept_id"] == "issue_68_candidate_concept_life_goals"
+    assert first["candidate_concept_id"] == "issue_68_candidate_concept_self_regulation"
     assert first["classification"] == "IDENTITY_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
     assert "issue_68_video_002_topic_proposal_020a" not in review
@@ -96,7 +96,8 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_candidate_concept_brain" not in review
     assert "issue_68_candidate_concept_eye_movement" not in review
     assert "issue_68_candidate_concept_consciousness" not in review
-    assert "issue_68_candidate_concept_life_goals" in review
+    assert "issue_68_candidate_concept_life_goals" not in review
+    assert "issue_68_candidate_concept_self_regulation" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -565,8 +566,61 @@ def test_product_owner_consciousness_frameworks_use_evidence_context() -> None:
     )
     assert resolution["link_semantic_acceptance"] is False
 
-    assert qa["summary"]["concept_domain_review_decisions"] == 5
+
+
+def test_product_owner_confirms_life_goal_and_rejects_false_link() -> None:
+    qa = read_json(QA_PATH)
+    concept = next(
+        item
+        for item in qa["concept_results"]
+        if item["candidate_concept_id"]
+        == "issue_68_candidate_concept_life_goals"
+    )
+    resolution = concept["domain_review_resolution"]
+
+    assert concept["proposed_canonical_label"] == "Цель жизни"
+    assert concept["source_terms"] == [
+        "цель жизни",
+        "жизненные цели",
+        "цели жизни",
+    ]
+    assert concept["evidence_reference_count"] == 1
+    assert concept["classification"] == "CLEAR_FOR_HUMAN_BATCH_REVIEW"
+    assert concept["domain_review_status"] == "DECIDED"
+    assert concept["semantic_status"] == "PROVISIONAL"
+    assert resolution["outcome"] == "NEW_CONCEPT"
+    assert resolution["identity_confirmed_reusable"] is True
+    assert resolution["accepted_topic_references"] == [
+        "issue_68_video_003_topic_proposal_060"
+    ]
+    assert resolution["rejected_topic_references"] == [
+        "issue_68_video_003_topic_proposal_064"
+    ]
+    assert resolution["candidate_snapshot"] == {
+        "evidence_reference_count": 2,
+        "proposed_canonical_label": "Жизненные цели",
+        "source_terms": ["Жизненные цели", "Цели Жизни"],
+    }
+    assert resolution["package_semantic_promotion"] is False
+    assert resolution["link_semantic_acceptance"] is False
+    assert [
+        item["review_outcome"] for item in resolution["evidence_partition"]
+    ] == ["ACCEPT", "REJECT"]
+
+    links = [
+        item
+        for item in qa["link_results"]
+        if item["candidate_concept_reference"]
+        == "issue_68_candidate_concept_life_goals"
+    ]
+    assert [item["input_topic_reference"] for item in links] == [
+        "issue_68_video_003_topic_proposal_060"
+    ]
+    assert links[0]["concept_identity_rebuild"]["review_outcome"] == "ACCEPT"
+    assert links[0]["concept_identity_rebuild"]["semantic_acceptance"] is False
+
+    assert qa["summary"]["concept_domain_review_decisions"] == 6
     assert qa["summary"]["concept_candidates_total"] == 23
-    assert qa["summary"]["concept_clear"] == 21
-    assert qa["summary"]["concept_identity_exception"] == 2
-    assert qa["summary"]["links_total"] == 262
+    assert qa["summary"]["concept_clear"] == 22
+    assert qa["summary"]["concept_identity_exception"] == 1
+    assert qa["summary"]["links_total"] == 261
