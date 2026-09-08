@@ -168,6 +168,65 @@
         }
       ],
       "target_candidate_concept_id": "issue_68_candidate_concept_eye_movement"
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "candidate_snapshot": {
+        "evidence_reference_count": 7,
+        "proposed_canonical_label": "Уровни сознания",
+        "source_terms": [
+          "Уровень Осознавания",
+          "Уровни Осознания",
+          "Уровни сознания",
+          "уровни сознания"
+        ]
+      },
+      "component_concept_labels": [
+        "Сознание",
+        "Подсознание",
+        "Тело"
+      ],
+      "component_identities_merged": false,
+      "decision_date": "2026-09-08",
+      "decision_id": "issue_68_domain_review_concept_consciousness",
+      "identities_merged": false,
+      "outcome": "RELATED",
+      "partition_strategy": "HAWKINS_VS_THREE_LEVEL_AWARENESS_EXACT_CONTEXT",
+      "related_concept": {
+        "candidate_concept_id": "issue_68_candidate_concept_three_level_awareness",
+        "proposed_canonical_label": "Три уровня осознания: сознание, подсознание и тело",
+        "source_terms": [
+          "Уровень Осознавания",
+          "Уровни Осознания",
+          "Уровни сознания",
+          "уровни сознания"
+        ]
+      },
+      "related_topic_references": [
+        "issue_68_video_003_topic_proposal_015",
+        "issue_68_video_003_topic_proposal_016",
+        "issue_68_video_003_topic_proposal_019",
+        "issue_68_video_003_topic_proposal_020",
+        "issue_68_video_003_topic_proposal_049",
+        "issue_68_video_003_topic_proposal_062"
+      ],
+      "relation": "RELATED",
+      "retained_concept": {
+        "candidate_concept_id": "issue_68_candidate_concept_consciousness",
+        "proposed_canonical_label": "Уровни развития сознания по Дэвиду Хокинсу",
+        "source_terms": [
+          "Уровни сознания"
+        ]
+      },
+      "retained_topic_references": [
+        "issue_113_reviewed_topic_08"
+      ],
+      "rationale": "The Hawkins developmental scale and the seminar's operational three-level model are related but distinct frameworks. The same surface phrase can identify either framework only through its exact evidence context. Consciousness, subconscious, and body remain distinct component identities rather than aliases of the three-level umbrella Concept.",
+      "semantic_relation": null,
+      "shared_contextual_source_terms": [
+        "Уровни сознания"
+      ],
+      "target_candidate_concept_id": "issue_68_candidate_concept_consciousness"
     }
   ],
   "decisions": [

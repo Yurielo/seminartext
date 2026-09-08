@@ -46,7 +46,7 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
     links = qa["link_results"]
 
     assert len(topics) == 182
-    assert len(concepts) == 22
+    assert len(concepts) == 23
     assert len(links) == 262
     assert len({item["candidate_concept_id"] for item in concepts}) == len(concepts)
     assert len({item["link_id"] for item in links}) == len(links)
@@ -84,7 +84,7 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["candidate_concept_id"] == "issue_68_candidate_concept_consciousness"
+    assert first["candidate_concept_id"] == "issue_68_candidate_concept_life_goals"
     assert first["classification"] == "IDENTITY_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
     assert "issue_68_video_002_topic_proposal_020a" not in review
@@ -95,7 +95,8 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_candidate_concept_nervous_system" not in review
     assert "issue_68_candidate_concept_brain" not in review
     assert "issue_68_candidate_concept_eye_movement" not in review
-    assert "issue_68_candidate_concept_consciousness" in review
+    assert "issue_68_candidate_concept_consciousness" not in review
+    assert "issue_68_candidate_concept_life_goals" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -402,11 +403,6 @@ def test_product_owner_brain_and_hemispheres_have_part_of_relation() -> None:
     }
     assert resolution["link_semantic_acceptance"] is False
     assert len(resolution["evidence_partition"]) == 12
-    assert qa["summary"]["concept_domain_review_decisions"] == 4
-    assert qa["summary"]["concept_candidates_total"] == 22
-    assert qa["summary"]["concept_clear"] == 19
-    assert qa["summary"]["concept_identity_exception"] == 3
-    assert qa["summary"]["links_total"] == 262
 
 
 def test_product_owner_eye_movement_emdr_and_muscles_are_distinct() -> None:
@@ -496,3 +492,81 @@ def test_product_owner_eye_movement_emdr_and_muscles_are_distinct() -> None:
         item["concept_identity_rebuild"]["semantic_acceptance"] is False
         for item in rebuilt
     )
+
+
+def test_product_owner_consciousness_frameworks_use_evidence_context() -> None:
+    qa = read_json(QA_PATH)
+    concept_ids = {
+        "issue_68_candidate_concept_consciousness",
+        "issue_68_candidate_concept_three_level_awareness",
+    }
+    concepts = {
+        item["candidate_concept_id"]: item
+        for item in qa["concept_results"]
+        if item["candidate_concept_id"] in concept_ids
+    }
+
+    assert set(concepts) == concept_ids
+    hawkins = concepts["issue_68_candidate_concept_consciousness"]
+    three_levels = concepts[
+        "issue_68_candidate_concept_three_level_awareness"
+    ]
+    assert hawkins["proposed_canonical_label"] == (
+        "Уровни развития сознания по Дэвиду Хокинсу"
+    )
+    assert three_levels["proposed_canonical_label"] == (
+        "Три уровня осознания: сознание, подсознание и тело"
+    )
+    assert hawkins["evidence_reference_count"] == 1
+    assert three_levels["evidence_reference_count"] == 6
+    assert all(
+        item["classification"] == "CLEAR_FOR_HUMAN_BATCH_REVIEW"
+        and item["domain_review_status"] == "DECIDED"
+        and item["semantic_status"] == "PROVISIONAL"
+        for item in concepts.values()
+    )
+
+    resolution = hawkins["domain_review_resolution"]
+    assert three_levels["domain_review_resolution"] == resolution
+    assert resolution["outcome"] == "RELATED"
+    assert resolution["identities_merged"] is False
+    assert resolution["shared_contextual_source_terms"] == ["Уровни сознания"]
+    assert resolution["component_concept_labels"] == [
+        "Сознание",
+        "Подсознание",
+        "Тело",
+    ]
+    assert resolution["component_identities_merged"] is False
+    assert resolution["result_concept_ids"] == [
+        "issue_68_candidate_concept_consciousness",
+        "issue_68_candidate_concept_three_level_awareness",
+    ]
+    assert resolution["link_rebuild_authority"] == (
+        "CODEX_DETERMINISTIC_EVIDENCE_CONTEXT_PARTITION"
+    )
+    assert len(resolution["evidence_partition"]) == 7
+    by_topic = {
+        item["topic_reference"]: item
+        for item in resolution["evidence_partition"]
+    }
+    assert by_topic["issue_113_reviewed_topic_08"]["target_concept_ids"] == [
+        "issue_68_candidate_concept_consciousness"
+    ]
+    assert all(
+        item["target_concept_ids"]
+        == ["issue_68_candidate_concept_three_level_awareness"]
+        for topic_id, item in by_topic.items()
+        if topic_id != "issue_113_reviewed_topic_08"
+    )
+    assert all(
+        item["partition_basis"] == "EXPLICIT_EVIDENCE_CONTEXT"
+        and item["unresolved_exact_term_signal"] is False
+        for item in resolution["evidence_partition"]
+    )
+    assert resolution["link_semantic_acceptance"] is False
+
+    assert qa["summary"]["concept_domain_review_decisions"] == 5
+    assert qa["summary"]["concept_candidates_total"] == 23
+    assert qa["summary"]["concept_clear"] == 21
+    assert qa["summary"]["concept_identity_exception"] == 2
+    assert qa["summary"]["links_total"] == 262

@@ -118,6 +118,8 @@
       "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
       "domain_review_resolution": {
         "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "component_concept_labels": [],
+        "component_identities_merged": null,
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "evidence_partition": [
           {
@@ -125,6 +127,7 @@
             "end_word_id": "transcript_revision_video_001_r1:word:001134",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 2,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_001",
             "start_word_id": "transcript_revision_video_001_r1:word:000829",
             "target_concept_ids": [
@@ -138,6 +141,7 @@
             "end_word_id": "transcript_revision_video_002_r1:word:003549",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_002",
             "start_word_id": "transcript_revision_video_002_r1:word:003447",
             "target_concept_ids": [
@@ -151,6 +155,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:007484",
             "exact_related_match_count": 1,
             "exact_retained_match_count": 0,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:007343",
             "target_concept_ids": [
@@ -164,6 +169,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:023464",
             "exact_related_match_count": 6,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023184",
             "target_concept_ids": [
@@ -178,6 +184,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:024088",
             "exact_related_match_count": 8,
             "exact_retained_match_count": 0,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023582",
             "target_concept_ids": [
@@ -191,6 +198,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:024601",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:024343",
             "target_concept_ids": [
@@ -204,6 +212,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:025600",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:024810",
             "target_concept_ids": [
@@ -217,6 +226,7 @@
             "end_word_id": "transcript_revision_video_004_r1:word:003690",
             "exact_related_match_count": 1,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:003382",
             "target_concept_ids": [
@@ -231,6 +241,7 @@
             "end_word_id": "transcript_revision_video_004_r1:word:003755",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 2,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:003691",
             "target_concept_ids": [
@@ -244,6 +255,7 @@
             "end_word_id": "transcript_revision_video_004_r1:word:010486",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 0,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:010416",
             "target_concept_ids": [
@@ -284,6 +296,7 @@
         },
         "review_gate": "DOMAIN_REVIEW",
         "semantic_relation": null,
+        "shared_contextual_source_terms": [],
         "status": "DECIDED",
         "target_candidate_concept_id": "issue_68_candidate_concept_nervous_system"
       },
@@ -304,6 +317,8 @@
       "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
       "domain_review_resolution": {
         "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "component_concept_labels": [],
+        "component_identities_merged": null,
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "evidence_partition": [
           {
@@ -311,6 +326,7 @@
             "end_word_id": "transcript_revision_video_001_r1:word:001134",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 2,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_001",
             "start_word_id": "transcript_revision_video_001_r1:word:000829",
             "target_concept_ids": [
@@ -324,6 +340,7 @@
             "end_word_id": "transcript_revision_video_002_r1:word:003549",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_002",
             "start_word_id": "transcript_revision_video_002_r1:word:003447",
             "target_concept_ids": [
@@ -337,6 +354,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:007484",
             "exact_related_match_count": 1,
             "exact_retained_match_count": 0,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:007343",
             "target_concept_ids": [
@@ -350,6 +368,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:023464",
             "exact_related_match_count": 6,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023184",
             "target_concept_ids": [
@@ -364,6 +383,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:024088",
             "exact_related_match_count": 8,
             "exact_retained_match_count": 0,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023582",
             "target_concept_ids": [
@@ -377,6 +397,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:024601",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:024343",
             "target_concept_ids": [
@@ -390,6 +411,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:025600",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:024810",
             "target_concept_ids": [
@@ -403,6 +425,7 @@
             "end_word_id": "transcript_revision_video_004_r1:word:003690",
             "exact_related_match_count": 1,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:003382",
             "target_concept_ids": [
@@ -417,6 +440,7 @@
             "end_word_id": "transcript_revision_video_004_r1:word:003755",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 2,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:003691",
             "target_concept_ids": [
@@ -430,6 +454,7 @@
             "end_word_id": "transcript_revision_video_004_r1:word:010486",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 0,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:010416",
             "target_concept_ids": [
@@ -470,6 +495,7 @@
         },
         "review_gate": "DOMAIN_REVIEW",
         "semantic_relation": null,
+        "shared_contextual_source_terms": [],
         "status": "DECIDED",
         "target_candidate_concept_id": "issue_68_candidate_concept_nervous_system"
       },
@@ -501,6 +527,8 @@
       "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
       "domain_review_resolution": {
         "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "component_concept_labels": [],
+        "component_identities_merged": null,
         "decision_id": "issue_68_domain_review_concept_brain",
         "evidence_partition": [
           {
@@ -508,6 +536,7 @@
             "end_word_id": "transcript_revision_video_001_r1:word:002755",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 3,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_001",
             "start_word_id": "transcript_revision_video_001_r1:word:002529",
             "target_concept_ids": [
@@ -521,6 +550,7 @@
             "end_word_id": "transcript_revision_video_001_r1:word:007262",
             "exact_related_match_count": 14,
             "exact_retained_match_count": 7,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_001",
             "start_word_id": "transcript_revision_video_001_r1:word:006290",
             "target_concept_ids": [
@@ -535,6 +565,7 @@
             "end_word_id": "transcript_revision_video_002_r1:word:005523",
             "exact_related_match_count": 4,
             "exact_retained_match_count": 2,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_002",
             "start_word_id": "transcript_revision_video_002_r1:word:004644",
             "target_concept_ids": [
@@ -549,6 +580,7 @@
             "end_word_id": "transcript_revision_video_002_r1:word:020867",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_002",
             "start_word_id": "transcript_revision_video_002_r1:word:020741",
             "target_concept_ids": [
@@ -562,6 +594,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:007484",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:007343",
             "target_concept_ids": [
@@ -575,6 +608,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:012628",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:012358",
             "target_concept_ids": [
@@ -588,6 +622,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:022007",
             "exact_related_match_count": 4,
             "exact_retained_match_count": 3,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:021532",
             "target_concept_ids": [
@@ -602,6 +637,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:022997",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 3,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:022589",
             "target_concept_ids": [
@@ -615,6 +651,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:023086",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 5,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:022998",
             "target_concept_ids": [
@@ -628,6 +665,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:023183",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023087",
             "target_concept_ids": [
@@ -641,6 +679,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:024088",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 0,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023582",
             "target_concept_ids": [
@@ -654,6 +693,7 @@
             "end_word_id": "transcript_revision_video_004_r1:word:010486",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:010416",
             "target_concept_ids": [
@@ -697,6 +737,7 @@
           "target_concept_id": "issue_68_candidate_concept_brain",
           "type": "PART_OF"
         },
+        "shared_contextual_source_terms": [],
         "status": "DECIDED",
         "target_candidate_concept_id": "issue_68_candidate_concept_brain"
       },
@@ -716,6 +757,8 @@
       "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
       "domain_review_resolution": {
         "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "component_concept_labels": [],
+        "component_identities_merged": null,
         "decision_id": "issue_68_domain_review_concept_brain",
         "evidence_partition": [
           {
@@ -723,6 +766,7 @@
             "end_word_id": "transcript_revision_video_001_r1:word:002755",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 3,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_001",
             "start_word_id": "transcript_revision_video_001_r1:word:002529",
             "target_concept_ids": [
@@ -736,6 +780,7 @@
             "end_word_id": "transcript_revision_video_001_r1:word:007262",
             "exact_related_match_count": 14,
             "exact_retained_match_count": 7,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_001",
             "start_word_id": "transcript_revision_video_001_r1:word:006290",
             "target_concept_ids": [
@@ -750,6 +795,7 @@
             "end_word_id": "transcript_revision_video_002_r1:word:005523",
             "exact_related_match_count": 4,
             "exact_retained_match_count": 2,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_002",
             "start_word_id": "transcript_revision_video_002_r1:word:004644",
             "target_concept_ids": [
@@ -764,6 +810,7 @@
             "end_word_id": "transcript_revision_video_002_r1:word:020867",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_002",
             "start_word_id": "transcript_revision_video_002_r1:word:020741",
             "target_concept_ids": [
@@ -777,6 +824,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:007484",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:007343",
             "target_concept_ids": [
@@ -790,6 +838,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:012628",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:012358",
             "target_concept_ids": [
@@ -803,6 +852,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:022007",
             "exact_related_match_count": 4,
             "exact_retained_match_count": 3,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:021532",
             "target_concept_ids": [
@@ -817,6 +867,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:022997",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 3,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:022589",
             "target_concept_ids": [
@@ -830,6 +881,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:023086",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 5,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:022998",
             "target_concept_ids": [
@@ -843,6 +895,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:023183",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023087",
             "target_concept_ids": [
@@ -856,6 +909,7 @@
             "end_word_id": "transcript_revision_video_003_r1:word:024088",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 0,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023582",
             "target_concept_ids": [
@@ -869,6 +923,7 @@
             "end_word_id": "transcript_revision_video_004_r1:word:010486",
             "exact_related_match_count": 0,
             "exact_retained_match_count": 1,
+            "partition_basis": "EXACT_TERM_MATCH",
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:010416",
             "target_concept_ids": [
@@ -912,6 +967,7 @@
           "target_concept_id": "issue_68_candidate_concept_brain",
           "type": "PART_OF"
         },
+        "shared_contextual_source_terms": [],
         "status": "DECIDED",
         "target_candidate_concept_id": "issue_68_candidate_concept_brain"
       },
@@ -1692,15 +1748,313 @@
     },
     {
       "candidate_concept_id": "issue_68_candidate_concept_consciousness",
-      "classification": "IDENTITY_EXCEPTION",
-      "domain_review_status": "REVIEW_REQUIRED",
-      "evidence_reference_count": 7,
-      "exception": {
-        "human_decision_required": true,
-        "problem": "The seed combines levels of consciousness, awareness, and осознавание without an identity decision.",
-        "recommendation": "Resolve terminology and Concept scope through DOMAIN_REVIEW."
+      "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
+      "domain_review_resolution": {
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "component_concept_labels": [
+          "Сознание",
+          "Подсознание",
+          "Тело"
+        ],
+        "component_identities_merged": false,
+        "decision_id": "issue_68_domain_review_concept_consciousness",
+        "evidence_partition": [
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_001_r1:word:006095",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_001",
+            "start_word_id": "transcript_revision_video_001_r1:word:005125",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_consciousness"
+            ],
+            "topic_reference": "issue_113_reviewed_topic_08",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:005625",
+            "exact_related_match_count": 1,
+            "exact_retained_match_count": 1,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:005527",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_015",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:005679",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:005626",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_016",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:005992",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:005934",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_019",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:006078",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:005993",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_020",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:015040",
+            "exact_related_match_count": 3,
+            "exact_retained_match_count": 3,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:014535",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_049",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:017726",
+            "exact_related_match_count": 2,
+            "exact_retained_match_count": 2,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:017634",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_062",
+            "unresolved_exact_term_signal": false
+          }
+        ],
+        "identities_merged": false,
+        "link_rebuild_authority": "CODEX_DETERMINISTIC_EVIDENCE_CONTEXT_PARTITION",
+        "link_semantic_acceptance": false,
+        "outcome": "RELATED",
+        "package_semantic_promotion": false,
+        "rationale": "The Hawkins developmental scale and the seminar's operational three-level model are related but distinct frameworks. The same surface phrase can identify either framework only through its exact evidence context. Consciousness, subconscious, and body remain distinct component identities rather than aliases of the three-level umbrella Concept.",
+        "related_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_three_level_awareness",
+          "proposed_canonical_label": "Три уровня осознания: сознание, подсознание и тело",
+          "source_terms": [
+            "Уровень Осознавания",
+            "Уровни Осознания",
+            "Уровни сознания",
+            "уровни сознания"
+          ]
+        },
+        "relation": "RELATED",
+        "result_concept_ids": [
+          "issue_68_candidate_concept_consciousness",
+          "issue_68_candidate_concept_three_level_awareness"
+        ],
+        "retained_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_consciousness",
+          "proposed_canonical_label": "Уровни развития сознания по Дэвиду Хокинсу",
+          "source_terms": [
+            "Уровни сознания"
+          ]
+        },
+        "review_gate": "DOMAIN_REVIEW",
+        "semantic_relation": null,
+        "shared_contextual_source_terms": [
+          "Уровни сознания"
+        ],
+        "status": "DECIDED",
+        "target_candidate_concept_id": "issue_68_candidate_concept_consciousness"
       },
-      "proposed_canonical_label": "Уровни сознания",
+      "domain_review_status": "DECIDED",
+      "evidence_reference_count": 1,
+      "exception": null,
+      "proposed_canonical_label": "Уровни развития сознания по Дэвиду Хокинсу",
+      "semantic_status": "PROVISIONAL",
+      "source_terms": [
+        "Уровни сознания"
+      ]
+    },
+    {
+      "candidate_concept_id": "issue_68_candidate_concept_three_level_awareness",
+      "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
+      "domain_review_resolution": {
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "component_concept_labels": [
+          "Сознание",
+          "Подсознание",
+          "Тело"
+        ],
+        "component_identities_merged": false,
+        "decision_id": "issue_68_domain_review_concept_consciousness",
+        "evidence_partition": [
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_001_r1:word:006095",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_001",
+            "start_word_id": "transcript_revision_video_001_r1:word:005125",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_consciousness"
+            ],
+            "topic_reference": "issue_113_reviewed_topic_08",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:005625",
+            "exact_related_match_count": 1,
+            "exact_retained_match_count": 1,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:005527",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_015",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:005679",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:005626",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_016",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:005992",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:005934",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_019",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:006078",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:005993",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_020",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:015040",
+            "exact_related_match_count": 3,
+            "exact_retained_match_count": 3,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:014535",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_049",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_consciousness",
+            "end_word_id": "transcript_revision_video_003_r1:word:017726",
+            "exact_related_match_count": 2,
+            "exact_retained_match_count": 2,
+            "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:017634",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_three_level_awareness"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_062",
+            "unresolved_exact_term_signal": false
+          }
+        ],
+        "identities_merged": false,
+        "link_rebuild_authority": "CODEX_DETERMINISTIC_EVIDENCE_CONTEXT_PARTITION",
+        "link_semantic_acceptance": false,
+        "outcome": "RELATED",
+        "package_semantic_promotion": false,
+        "rationale": "The Hawkins developmental scale and the seminar's operational three-level model are related but distinct frameworks. The same surface phrase can identify either framework only through its exact evidence context. Consciousness, subconscious, and body remain distinct component identities rather than aliases of the three-level umbrella Concept.",
+        "related_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_three_level_awareness",
+          "proposed_canonical_label": "Три уровня осознания: сознание, подсознание и тело",
+          "source_terms": [
+            "Уровень Осознавания",
+            "Уровни Осознания",
+            "Уровни сознания",
+            "уровни сознания"
+          ]
+        },
+        "relation": "RELATED",
+        "result_concept_ids": [
+          "issue_68_candidate_concept_consciousness",
+          "issue_68_candidate_concept_three_level_awareness"
+        ],
+        "retained_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_consciousness",
+          "proposed_canonical_label": "Уровни развития сознания по Дэвиду Хокинсу",
+          "source_terms": [
+            "Уровни сознания"
+          ]
+        },
+        "review_gate": "DOMAIN_REVIEW",
+        "semantic_relation": null,
+        "shared_contextual_source_terms": [
+          "Уровни сознания"
+        ],
+        "status": "DECIDED",
+        "target_candidate_concept_id": "issue_68_candidate_concept_consciousness"
+      },
+      "domain_review_status": "DECIDED",
+      "evidence_reference_count": 6,
+      "exception": null,
+      "proposed_canonical_label": "Три уровня осознания: сознание, подсознание и тело",
       "semantic_status": "PROVISIONAL",
       "source_terms": [
         "Уровень Осознавания",
@@ -3337,22 +3691,20 @@
   ],
   "errors": [],
   "first_material_exception": {
-    "candidate_concept_id": "issue_68_candidate_concept_consciousness",
+    "candidate_concept_id": "issue_68_candidate_concept_life_goals",
     "classification": "IDENTITY_EXCEPTION",
     "domain_review_status": "REVIEW_REQUIRED",
-    "evidence_reference_count": 7,
+    "evidence_reference_count": 2,
     "exception": {
       "human_decision_required": true,
-      "problem": "The seed combines levels of consciousness, awareness, and осознавание without an identity decision.",
-      "recommendation": "Resolve terminology and Concept scope through DOMAIN_REVIEW."
+      "problem": "The candidate is supported by a narrow title/summary signal and lacks a robust exact-term evidence base.",
+      "recommendation": "Confirm that the evidence denotes a reusable Concept rather than a local session formulation."
     },
-    "proposed_canonical_label": "Уровни сознания",
+    "proposed_canonical_label": "Жизненные цели",
     "semantic_status": "PROVISIONAL",
     "source_terms": [
-      "Уровень Осознавания",
-      "Уровни Осознания",
-      "Уровни сознания",
-      "уровни сознания"
+      "Жизненные цели",
+      "Цели Жизни"
     ]
   },
   "input_inventory": {
@@ -3360,7 +3712,7 @@
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "032bffcd264e628551c56146490cf407ca6056bc41968d07e3e82af79ba45e08",
+    "domain_review_decisions_sha256": "097d9b38d1e0ddf53f8aff8e0a553429295835869c938f2c08bea27850fcc49c",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -3370,7 +3722,7 @@
     "current_semantic_package_concept_projection": 15,
     "current_semantic_package_link_projection": 179,
     "explanation": "The QA input rebuilds the original provisional 18/254 inventory from the same hash-bound generator artifacts before DOMAIN_AUTHORING. Explicit DOMAIN_REVIEW identity decisions may create additional Concept and provisional link results without deleting baseline provenance. The current 15/179 projection is a lossy preview-based regeneration after split/merge authoring and is not treated as deletion or review.",
-    "qa_concept_results_after_review_decisions": 22,
+    "qa_concept_results_after_review_decisions": 23,
     "qa_link_results_after_review_decisions": 262,
     "semantic_change_inferred": false
   },
@@ -8951,6 +9303,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 2,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -8990,6 +9343,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9033,6 +9387,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 1,
         "exact_retained_match_count": 0,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9076,6 +9431,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 6,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9129,6 +9485,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 6,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9178,6 +9535,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 8,
         "exact_retained_match_count": 0,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9226,6 +9584,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9278,6 +9637,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9321,6 +9681,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 1,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9365,6 +9726,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 1,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9409,6 +9771,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 2,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9448,6 +9811,7 @@
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 0,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9595,6 +9959,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 3,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9634,6 +9999,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 14,
         "exact_retained_match_count": 7,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9674,6 +10040,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 14,
         "exact_retained_match_count": 7,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9714,6 +10081,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 4,
         "exact_retained_match_count": 2,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9790,6 +10158,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 4,
         "exact_retained_match_count": 2,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9866,6 +10235,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9914,6 +10284,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -9957,6 +10328,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -10009,6 +10381,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 4,
         "exact_retained_match_count": 3,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -10058,6 +10431,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 4,
         "exact_retained_match_count": 3,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -10107,6 +10481,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 3,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -10155,6 +10530,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 5,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -10194,6 +10570,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -10237,6 +10614,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 0,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -10287,6 +10665,7 @@
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
         "exact_retained_match_count": 1,
+        "partition_basis": "EXACT_TERM_MATCH",
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -11559,6 +11938,18 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_consciousness",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_consciousness",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 0,
+        "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_consciousness"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -11587,8 +11978,20 @@
       "source_id": "source_video_001"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_consciousness",
+      "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_consciousness",
+        "exact_related_match_count": 1,
+        "exact_retained_match_count": 1,
+        "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_three_level_awareness"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -11609,7 +12012,7 @@
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_015",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_015_consciousness",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_015_three_level_awareness",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
@@ -11619,8 +12022,20 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_consciousness",
+      "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_consciousness",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 0,
+        "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_three_level_awareness"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -11639,7 +12054,7 @@
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_016",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_016_consciousness",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_016_three_level_awareness",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
@@ -11649,8 +12064,20 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_consciousness",
+      "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_consciousness",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 0,
+        "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_three_level_awareness"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -11669,7 +12096,7 @@
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_019",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_019_consciousness",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_019_three_level_awareness",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
@@ -11679,8 +12106,20 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_consciousness",
+      "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_consciousness",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 0,
+        "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_three_level_awareness"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -11699,7 +12138,7 @@
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_020",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_020_consciousness",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_020_three_level_awareness",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
@@ -11709,8 +12148,20 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_consciousness",
+      "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_consciousness",
+        "exact_related_match_count": 3,
+        "exact_retained_match_count": 3,
+        "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_three_level_awareness"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -11741,7 +12192,7 @@
         "issue_68_video_003_topic_proposal_045d"
       ],
       "input_topic_reference": "issue_68_video_003_topic_proposal_049",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_049_consciousness",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_049_three_level_awareness",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_045c",
         "issue_68_video_003_topic_proposal_045d",
@@ -11755,8 +12206,20 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_consciousness",
+      "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_consciousness",
+        "exact_related_match_count": 2,
+        "exact_retained_match_count": 2,
+        "partition_basis": "EXPLICIT_EVIDENCE_CONTEXT",
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_three_level_awareness"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -11779,7 +12242,7 @@
         "issue_68_video_003_topic_proposal_051e"
       ],
       "input_topic_reference": "issue_68_video_003_topic_proposal_062",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_062_consciousness",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_062_three_level_awareness",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_051d",
         "issue_68_video_003_topic_proposal_051e"
@@ -13209,10 +13672,10 @@
   "semantic_authority": "PROVISIONAL_UNREVIEWED",
   "status": "READY_WITH_EXCEPTIONS",
   "summary": {
-    "concept_candidates_total": 22,
-    "concept_clear": 19,
-    "concept_domain_review_decisions": 4,
-    "concept_identity_exception": 3,
+    "concept_candidates_total": 23,
+    "concept_clear": 21,
+    "concept_domain_review_decisions": 5,
+    "concept_identity_exception": 2,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
     "link_clear": 197,

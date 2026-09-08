@@ -189,6 +189,7 @@ CONCEPT_PATTERNS = {
     "emdr": r"\bдпдг\b",
     "extraocular_muscles": r"глазодвигатель\w*",
     "consciousness": r"уровн\w*\s+(?:созн|осознав|осознан)",
+    "three_level_awareness": r"уровн\w*\s+(?:созн|осознав|осознан)",
     "subconscious": r"подсозн",
     "memory": r"памят|воспомин|запомин",
     "trauma": r"травм",
@@ -249,6 +250,27 @@ RELATED_PARTITION_STRATEGIES = {
                 ),
             },
         ],
+    },
+    "HAWKINS_VS_THREE_LEVEL_AWARENESS_EXACT_CONTEXT": {
+        "target_concept_id": "issue_68_candidate_concept_consciousness",
+        "related_concept_id": (
+            "issue_68_candidate_concept_three_level_awareness"
+        ),
+        "retained_pattern_key": "consciousness",
+        "related_pattern_key": "consciousness",
+        "semantic_relation": None,
+        "retained_topic_references": ["issue_113_reviewed_topic_08"],
+        "related_topic_references": [
+            "issue_68_video_003_topic_proposal_015",
+            "issue_68_video_003_topic_proposal_016",
+            "issue_68_video_003_topic_proposal_019",
+            "issue_68_video_003_topic_proposal_020",
+            "issue_68_video_003_topic_proposal_049",
+            "issue_68_video_003_topic_proposal_062",
+        ],
+        "shared_contextual_source_terms": ["Уровни сознания"],
+        "component_concept_labels": ["Сознание", "Подсознание", "Тело"],
+        "component_identities_merged": False,
     },
 }
 
@@ -890,13 +912,40 @@ def apply_concept_identity_decisions(
             continue
         retained_terms = retained_spec.get("source_terms", [])
         related_terms = related.get("source_terms", [])
+        shared_contextual_terms = set(
+            strategy.get("shared_contextual_source_terms", [])
+        )
         if (
-            set(retained_terms) & set(related_terms)
+            set(retained_terms) & set(related_terms) != shared_contextual_terms
             or set(retained_terms) | set(related_terms)
             != set(candidate.get("source_terms", []))
+            or decision.get("shared_contextual_source_terms", [])
+            != strategy.get("shared_contextual_source_terms", [])
         ):
             errors.append(f"RELATED source-term partition mismatch in {decision_id}")
             continue
+        retained_topic_partition = strategy.get("retained_topic_references")
+        related_topic_partition = strategy.get("related_topic_references")
+        if retained_topic_partition is not None:
+            if (
+                decision.get("retained_topic_references")
+                != retained_topic_partition
+                or decision.get("related_topic_references")
+                != related_topic_partition
+                or set(retained_topic_partition) & set(related_topic_partition)
+                or set(retained_topic_partition) | set(related_topic_partition)
+                != set(candidate.get("topic_references", []))
+            ):
+                errors.append(f"RELATED context partition mismatch in {decision_id}")
+                continue
+            if (
+                decision.get("component_concept_labels")
+                != strategy.get("component_concept_labels")
+                or decision.get("component_identities_merged")
+                is not strategy.get("component_identities_merged")
+            ):
+                errors.append(f"RELATED component safeguard mismatch in {decision_id}")
+                continue
         if decision.get("identities_merged") is not False:
             errors.append(f"RELATED decision merged identities in {decision_id}")
             continue
@@ -931,21 +980,44 @@ def apply_concept_identity_decisions(
             retained_matches = len(retained_pattern.findall(text))
             related_matches = len(related_pattern.findall(text))
             target_ids = []
-            if retained_matches or not related_matches:
+            if retained_topic_partition is not None:
+                if topic_reference in retained_topic_partition:
+                    target_ids.append(target_id)
+                elif topic_reference in related_topic_partition:
+                    target_ids.append(related_id)
+                else:
+                    errors.append(
+                        f"unpartitioned RELATED context in {decision_id}: "
+                        f"{topic_reference}"
+                    )
+            elif retained_matches or not related_matches:
+                target_ids.append(target_id)
+            if target_id in target_ids:
                 retained_topics.append(topic_reference)
                 retained_evidence.append(evidence)
-                target_ids.append(target_id)
-            if related_matches:
+            if (
+                related_id in target_ids
+                or retained_topic_partition is None
+                and related_matches
+            ):
                 related_topics.append(topic_reference)
                 related_evidence.append(evidence)
-                target_ids.append(related_id)
+                if related_id not in target_ids:
+                    target_ids.append(related_id)
             link_rewrites[(target_id, topic_reference)] = {
                 "decision_id": decision_id,
                 "target_concept_ids": target_ids,
                 "exact_retained_match_count": retained_matches,
                 "exact_related_match_count": related_matches,
                 "unresolved_exact_term_signal": (
-                    not retained_matches and not related_matches
+                    not retained_matches
+                    and not related_matches
+                    and retained_topic_partition is None
+                ),
+                "partition_basis": (
+                    "EXPLICIT_EVIDENCE_CONTEXT"
+                    if retained_topic_partition is not None
+                    else "EXACT_TERM_MATCH"
                 ),
             }
             evidence_partition.append(
@@ -992,11 +1064,24 @@ def apply_concept_identity_decisions(
                 "outcome": "RELATED",
                 "relation": "RELATED",
                 "semantic_relation": decision.get("semantic_relation"),
+                "shared_contextual_source_terms": decision.get(
+                    "shared_contextual_source_terms", []
+                ),
+                "component_concept_labels": decision.get(
+                    "component_concept_labels", []
+                ),
+                "component_identities_merged": decision.get(
+                    "component_identities_merged"
+                ),
                 "identities_merged": False,
                 "retained_concept": retained_spec,
                 "related_concept": related,
                 "evidence_partition": evidence_partition,
-                "link_rebuild_authority": "CODEX_DETERMINISTIC_EXACT_TERM_PARTITION",
+                "link_rebuild_authority": (
+                    "CODEX_DETERMINISTIC_EVIDENCE_CONTEXT_PARTITION"
+                    if retained_topic_partition is not None
+                    else "CODEX_DETERMINISTIC_EXACT_TERM_PARTITION"
+                ),
                 "link_semantic_acceptance": False,
                 "rationale": decision["rationale"],
                 "package_semantic_promotion": False,

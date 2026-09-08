@@ -1,18 +1,18 @@
 {
   "artifact_type": "seminartext.issue_68_domain_review_manifest",
   "files": {
-    "DOMAIN_REVIEW.md": "ebce4ca0cc2cf87f8e5e6183b9e1e18d9d398e1fd00ddf9924a4215860fb481e",
-    "domain_review_decisions.json": "032bffcd264e628551c56146490cf407ca6056bc41968d07e3e82af79ba45e08",
-    "domain_review_qa.json": "0a2823160ce2bf884b7fa8a5822dd56d1599247549f9e1d6e67d5253cc80331b"
+    "DOMAIN_REVIEW.md": "5d7b56721859cea8e62e94db878216463883cdca9c7869ff27350e7074e21783",
+    "domain_review_decisions.json": "097d9b38d1e0ddf53f8aff8e0a553429295835869c938f2c08bea27850fcc49c",
+    "domain_review_qa.json": "a925ac5a2b3b5ca1191f0fd9a68e4c7e53bdd374e471470593677b4f3f1f04a1"
   },
   "qa_status": "READY_WITH_EXCEPTIONS",
   "schema_version": "1.0.0",
   "semantic_authority": "PROVISIONAL_UNREVIEWED",
   "summary": {
-    "concept_candidates_total": 22,
-    "concept_clear": 19,
-    "concept_domain_review_decisions": 4,
-    "concept_identity_exception": 3,
+    "concept_candidates_total": 23,
+    "concept_clear": 21,
+    "concept_domain_review_decisions": 5,
+    "concept_identity_exception": 2,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
     "link_clear": 197,
