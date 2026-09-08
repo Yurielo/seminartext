@@ -1321,7 +1321,11 @@ def apply_link_decisions(
             errors.append(f"non-authoritative link decision {decision_id}")
             continue
         outcome = decision.get("outcome")
-        if outcome not in {"REJECT_LINK", "REMAP_LINK"}:
+        if outcome not in {
+            "REJECT_LINK",
+            "REMAP_LINK",
+            "MERGE_LINK_PROVENANCE",
+        }:
             errors.append(f"unsupported link decision outcome in {decision_id}")
             continue
         if target_id in decided:
@@ -1354,6 +1358,87 @@ def apply_link_decisions(
             or decision.get("package_semantic_promotion") is not False
         ):
             errors.append(f"link rejection safeguards missing in {decision_id}")
+            continue
+
+        if outcome == "MERGE_LINK_PROVENANCE":
+            merge_target_id = decision.get("merge_into_link_id")
+            merge_target = next(
+                (
+                    item
+                    for item in transformed
+                    if item["link_id"] == merge_target_id
+                ),
+                None,
+            )
+            if (
+                merge_target is None
+                or merge_target_id == target_id
+                or merge_target["candidate_concept_reference"]
+                != link["candidate_concept_reference"]
+                or merge_target["source_id"] != link["source_id"]
+                or merge_target["input_topic_reference"]
+                != decision.get("contained_by_topic_reference")
+                or link["overlapping_authored_topic_references"]
+                != [decision.get("contained_by_topic_reference")]
+                or decision.get("additional_semantic_link_created") is not False
+                or not decision.get("merge_reason")
+            ):
+                errors.append(f"link provenance merge mismatch in {decision_id}")
+                continue
+            if any(
+                item.get("source_link_id") == target_id
+                for item in merge_target.get("merged_source_link_provenance", [])
+            ):
+                errors.append(f"duplicate merged link provenance in {decision_id}")
+                continue
+
+            provenance = {
+                "decision_id": decision_id,
+                "source_link_id": target_id,
+                "source_topic_reference": link["input_topic_reference"],
+                "evidence_support": link["evidence_support"],
+                "merge_basis": "CONTAINED_BY_ALREADY_REVIEWED_AUTHORED_TOPIC",
+                "semantic_link_created": False,
+            }
+            merged = dict(merge_target)
+            merged["merged_source_link_provenance"] = [
+                *merge_target.get("merged_source_link_provenance", []),
+                provenance,
+            ]
+            merged["merged_provenance_decision_ids"] = [
+                *merge_target.get("merged_provenance_decision_ids", []),
+                decision_id,
+            ]
+            transformed = [item for item in transformed if item["link_id"] != target_id]
+            merge_position = next(
+                index
+                for index, item in enumerate(transformed)
+                if item["link_id"] == merge_target_id
+            )
+            transformed[merge_position] = merged
+            decided.add(target_id)
+            resolutions.append(
+                {
+                    "decision_id": decision_id,
+                    "target_link_id": target_id,
+                    "result_link_id": merge_target_id,
+                    "authority": decision["authority"],
+                    "review_gate": "DOMAIN_REVIEW",
+                    "status": "DECIDED",
+                    "outcome": "MERGE_LINK_PROVENANCE",
+                    "link_snapshot": snapshot,
+                    "contained_by_topic_reference": decision[
+                        "contained_by_topic_reference"
+                    ],
+                    "merged_source_link_provenance": provenance,
+                    "additional_semantic_link_created": False,
+                    "topic_changed": False,
+                    "concept_changed": False,
+                    "merge_reason": decision["merge_reason"],
+                    "rationale": decision["rationale"],
+                    "package_semantic_promotion": False,
+                }
+            )
             continue
 
         if outcome == "REMAP_LINK":

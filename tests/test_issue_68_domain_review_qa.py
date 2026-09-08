@@ -47,7 +47,7 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
 
     assert len(topics) == 182
     assert len(concepts) == 22
-    assert len(links) == 258
+    assert len(links) == 257
     assert len({item["candidate_concept_id"] for item in concepts}) == len(concepts)
     assert len({item["link_id"] for item in links}) == len(links)
     concept_ids = {item["candidate_concept_id"] for item in concepts}
@@ -85,7 +85,7 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
     assert first["link_id"] == (
-        "issue_68_link_issue_68_video_003_topic_proposal_018_stress"
+        "issue_68_link_issue_68_video_003_topic_proposal_053_stress"
     )
     assert first["classification"] == "LINK_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
@@ -102,7 +102,8 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_candidate_concept_self_regulation" not in review
     assert "issue_68_video_002_topic_proposal_001" not in review
     assert "issue_68_video_003_topic_proposal_014" not in review
-    assert "issue_68_video_003_topic_proposal_018" in review
+    assert "issue_68_video_003_topic_proposal_018" not in review
+    assert "issue_68_video_003_topic_proposal_053" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -628,7 +629,7 @@ def test_product_owner_confirms_life_goal_and_rejects_false_link() -> None:
     assert qa["summary"]["concept_candidates_total"] == 22
     assert qa["summary"]["concept_clear"] == 22
     assert qa["summary"]["concept_identity_exception"] == 0
-    assert qa["summary"]["links_total"] == 258
+    assert qa["summary"]["links_total"] == 257
 
 
 def test_product_owner_rejects_unsupported_self_regulation_candidate() -> None:
@@ -711,7 +712,7 @@ def test_product_owner_rejects_program_name_stress_link_only() -> None:
         }
     ]
     assert resolution["package_semantic_promotion"] is False
-    assert qa["summary"]["link_domain_review_decisions"] == 2
+    assert qa["summary"]["link_domain_review_decisions"] == 3
 
 
 def test_product_owner_remaps_stress_link_to_full_authored_topic() -> None:
@@ -751,3 +752,44 @@ def test_product_owner_remaps_stress_link_to_full_authored_topic() -> None:
     assert replacement["evidence_support"] == [
         resolution["replacement_evidence_support"]
     ]
+
+
+def test_product_owner_merges_duplicate_stress_link_provenance() -> None:
+    qa = read_json(QA_PATH)
+    source_link_id = (
+        "issue_68_link_issue_68_video_003_topic_proposal_018_stress"
+    )
+    result_link_id = (
+        "issue_68_link_issue_68_video_003_topic_proposal_015_stress"
+    )
+    resolution = next(
+        item
+        for item in qa["link_review_resolutions"]
+        if item["target_link_id"] == source_link_id
+    )
+    result_link = next(
+        item for item in qa["link_results"] if item["link_id"] == result_link_id
+    )
+
+    assert all(item["link_id"] != source_link_id for item in qa["link_results"])
+    assert sum(item["link_id"] == result_link_id for item in qa["link_results"]) == 1
+    assert resolution["outcome"] == "MERGE_LINK_PROVENANCE"
+    assert resolution["result_link_id"] == result_link_id
+    assert resolution["additional_semantic_link_created"] is False
+    assert resolution["topic_changed"] is False
+    assert resolution["concept_changed"] is False
+    assert resolution["package_semantic_promotion"] is False
+    assert result_link["merged_provenance_decision_ids"] == [
+        "issue_68_domain_review_link_day3_topic_018_stress"
+    ]
+    assert result_link["merged_source_link_provenance"] == [
+        resolution["merged_source_link_provenance"]
+    ]
+    assert result_link["merged_source_link_provenance"][0]["source_link_id"] == (
+        source_link_id
+    )
+    assert (
+        result_link["merged_source_link_provenance"][0]["semantic_link_created"]
+        is False
+    )
+    assert qa["summary"]["link_domain_review_decisions"] == 3
