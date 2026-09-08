@@ -9,9 +9,9 @@ does not mean `ACCEPTED`.
 - Resulting authored semantic units: **182**
 - Topic `REVIEW_CLEAR`: **182**
 - Topic `REVIEW_EXCEPTION`: **0**
-- Concept candidates after review decisions: **19** (baseline: **18**)
-- Concept identity exceptions: **5**
-- Topic→Concept QA results after review decisions: **256** (baseline: **254**)
+- Concept candidates after review decisions: **20** (baseline: **18**)
+- Concept identity exceptions: **4**
+- Topic→Concept QA results after review decisions: **259** (baseline: **254**)
 - Link exceptions: **64**
 - Selective transcript-verification exceptions: **2**
 - Coverage gaps / overlaps: **0 / 0**
@@ -22,19 +22,19 @@ packet exposes only the first unresolved material exception.
 
 ## First material exception — Concept identity
 
-- Concept candidate: `issue_68_candidate_concept_brain`
-- Proposed label: **Мозг и полушария**
-- Source terms: Мозг, мозг, мозга, полушарий, полушария
-- Exact evidence references: **12**
+- Concept candidate: `issue_68_candidate_concept_eye_movement`
+- Proposed label: **Движения глаз и ДПДГ**
+- Source terms: Глазодвигательная, Глазодвигательные, глазодвигательные, движения глаз, ДПДГ
+- Exact evidence references: **11**
 - Classification: `IDENTITY_EXCEPTION`
 
 ### Exact problem
 
-«Мозг» and «полушария» mix a whole structure with one of its organizational distinctions.
+Generic eye movements and the named ДПДГ method are related but not automatically identical.
 
 ### Recommended review
 
-Choose one umbrella identity or separate hierarchical Concepts.
+Review SAME_CONCEPT versus RELATED/hierarchical identities.
 
 ### Human decision required
 

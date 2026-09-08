@@ -181,7 +181,8 @@ CONCEPT_PATTERNS = {
         r"(?:нейронн\w*\s+(?:связ|сет|цеп)|нервн\w*\s+(?:связ|сет|цеп))"
     ),
     "adaptation": r"адаптац|адаптив",
-    "brain": r"мозг|полушар",
+    "brain": r"мозг",
+    "cerebral_hemispheres": r"полушар",
     "meridians": r"меридиан",
     "eye_movement": r"дпдг|движени\w*\s+глаз|глазодвиг",
     "consciousness": r"уровн\w*\s+(?:созн|осознав|осознан)",
@@ -191,6 +192,31 @@ CONCEPT_PATTERNS = {
     "psychosomatics": r"психосомат",
     "life_goals": r"жизненн\w*\s+цел|цел\w*\s+жизн",
     "self_regulation": r"саморегуляц|самовосстанов|управлен\w*\s+стресс",
+}
+
+RELATED_PARTITION_STRATEGIES = {
+    "NERVOUS_SYSTEM_VS_NEURAL_CONNECTIONS_EXACT_TERMS": {
+        "target_concept_id": "issue_68_candidate_concept_nervous_system",
+        "related_concept_id": (
+            "issue_68_candidate_concept_neural_connections_and_networks"
+        ),
+        "retained_pattern_key": "nervous_system",
+        "related_pattern_key": "neural_connections_and_networks",
+        "semantic_relation": None,
+    },
+    "BRAIN_VS_CEREBRAL_HEMISPHERES_EXACT_TERMS": {
+        "target_concept_id": "issue_68_candidate_concept_brain",
+        "related_concept_id": "issue_68_candidate_concept_cerebral_hemispheres",
+        "retained_pattern_key": "brain",
+        "related_pattern_key": "cerebral_hemispheres",
+        "semantic_relation": {
+            "type": "PART_OF",
+            "source_concept_id": (
+                "issue_68_candidate_concept_cerebral_hemispheres"
+            ),
+            "target_concept_id": "issue_68_candidate_concept_brain",
+        },
+    },
 }
 
 TRANSCRIPT_EXCEPTIONS = [
@@ -650,17 +676,19 @@ def apply_concept_identity_decisions(
         if not related_id or related_id in candidate_by_id:
             errors.append(f"invalid related Concept identity in {decision_id}")
             continue
-        if (
-            target_id != "issue_68_candidate_concept_nervous_system"
-            or decision.get("partition_strategy")
-            != "NERVOUS_SYSTEM_VS_NEURAL_CONNECTIONS_EXACT_TERMS"
-        ):
+        strategy = RELATED_PARTITION_STRATEGIES.get(decision.get("partition_strategy"))
+        if not strategy or target_id != strategy["target_concept_id"]:
             errors.append(f"unsupported RELATED partition in {decision_id}")
+            continue
+        if related_id != strategy["related_concept_id"]:
+            errors.append(f"RELATED result identity mismatch in {decision_id}")
+            continue
+        if decision.get("semantic_relation") != strategy["semantic_relation"]:
+            errors.append(f"RELATED semantic relation mismatch in {decision_id}")
             continue
         if (
             retained_spec.get("candidate_concept_id") != target_id
-            or retained_spec.get("proposed_canonical_label")
-            != candidate.get("proposed_canonical_label")
+            or not retained_spec.get("proposed_canonical_label")
             or not related.get("proposed_canonical_label")
         ):
             errors.append(f"RELATED Concept result mismatch in {decision_id}")
@@ -686,9 +714,11 @@ def apply_concept_identity_decisions(
             errors.append(f"Concept reference alignment mismatch in {decision_id}")
             continue
 
-        system_pattern = re.compile(CONCEPT_PATTERNS["nervous_system"], re.IGNORECASE)
-        network_pattern = re.compile(
-            CONCEPT_PATTERNS["neural_connections_and_networks"], re.IGNORECASE
+        retained_pattern = re.compile(
+            CONCEPT_PATTERNS[strategy["retained_pattern_key"]], re.IGNORECASE
+        )
+        related_pattern = re.compile(
+            CONCEPT_PATTERNS[strategy["related_pattern_key"]], re.IGNORECASE
         )
         retained_topics: list[str] = []
         retained_evidence: list[dict[str, Any]] = []
@@ -703,23 +733,25 @@ def apply_concept_identity_decisions(
             end = word_sequence(evidence["end_word_id"])
             source_words = words_by_source[source_id]
             text = " ".join(item["text"] for item in source_words[start : end + 1])
-            system_matches = len(system_pattern.findall(text))
-            network_matches = len(network_pattern.findall(text))
+            retained_matches = len(retained_pattern.findall(text))
+            related_matches = len(related_pattern.findall(text))
             target_ids = []
-            if system_matches or not network_matches:
+            if retained_matches or not related_matches:
                 retained_topics.append(topic_reference)
                 retained_evidence.append(evidence)
                 target_ids.append(target_id)
-            if network_matches:
+            if related_matches:
                 related_topics.append(topic_reference)
                 related_evidence.append(evidence)
                 target_ids.append(related_id)
             link_rewrites[(target_id, topic_reference)] = {
                 "decision_id": decision_id,
                 "target_concept_ids": target_ids,
-                "exact_system_match_count": system_matches,
-                "exact_network_match_count": network_matches,
-                "unresolved_exact_term_signal": not system_matches and not network_matches,
+                "exact_retained_match_count": retained_matches,
+                "exact_related_match_count": related_matches,
+                "unresolved_exact_term_signal": (
+                    not retained_matches and not related_matches
+                ),
             }
             evidence_partition.append(
                 {
@@ -730,6 +762,9 @@ def apply_concept_identity_decisions(
             )
 
         retained = dict(candidate)
+        retained["proposed_canonical_label"] = retained_spec[
+            "proposed_canonical_label"
+        ]
         retained["source_terms"] = retained_terms
         retained["topic_references"] = retained_topics
         retained["evidence_references"] = retained_evidence
@@ -761,6 +796,7 @@ def apply_concept_identity_decisions(
                 "status": "DECIDED",
                 "outcome": "RELATED",
                 "relation": "RELATED",
+                "semantic_relation": decision.get("semantic_relation"),
                 "identities_merged": False,
                 "retained_concept": retained_spec,
                 "related_concept": related,

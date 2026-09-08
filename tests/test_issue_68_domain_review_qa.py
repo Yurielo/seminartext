@@ -46,8 +46,8 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
     links = qa["link_results"]
 
     assert len(topics) == 182
-    assert len(concepts) == 19
-    assert len(links) == 256
+    assert len(concepts) == 20
+    assert len(links) == 259
     assert len({item["candidate_concept_id"] for item in concepts}) == len(concepts)
     assert len({item["link_id"] for item in links}) == len(links)
     concept_ids = {item["candidate_concept_id"] for item in concepts}
@@ -84,7 +84,7 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["candidate_concept_id"] == "issue_68_candidate_concept_brain"
+    assert first["candidate_concept_id"] == "issue_68_candidate_concept_eye_movement"
     assert first["classification"] == "IDENTITY_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
     assert "issue_68_video_002_topic_proposal_020a" not in review
@@ -93,7 +93,8 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_video_004_topic_proposal_024h" not in review
     assert "issue_68_candidate_concept_correction" not in review
     assert "issue_68_candidate_concept_nervous_system" not in review
-    assert "issue_68_candidate_concept_brain" in review
+    assert "issue_68_candidate_concept_brain" not in review
+    assert "issue_68_candidate_concept_eye_movement" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -337,7 +338,8 @@ def test_product_owner_nervous_system_related_concepts_are_not_merged() -> None:
     rewritten = [
         item
         for item in qa["link_results"]
-        if "concept_identity_rebuild" in item
+        if item.get("concept_identity_rebuild", {}).get("decision_id")
+        == "issue_68_domain_review_concept_nervous_system"
     ]
     by_topic = {}
     for item in rewritten:
@@ -356,8 +358,51 @@ def test_product_owner_nervous_system_related_concepts_are_not_merged() -> None:
         "issue_68_candidate_concept_nervous_system",
         "issue_68_candidate_concept_neural_connections_and_networks",
     }
-    assert qa["summary"]["concept_domain_review_decisions"] == 2
-    assert qa["summary"]["concept_candidates_total"] == 19
-    assert qa["summary"]["concept_clear"] == 14
-    assert qa["summary"]["concept_identity_exception"] == 5
-    assert qa["summary"]["links_total"] == 256
+
+
+def test_product_owner_brain_and_hemispheres_have_part_of_relation() -> None:
+    qa = read_json(QA_PATH)
+    concepts = {
+        item["candidate_concept_id"]: item
+        for item in qa["concept_results"]
+        if item["candidate_concept_id"]
+        in {
+            "issue_68_candidate_concept_brain",
+            "issue_68_candidate_concept_cerebral_hemispheres",
+        }
+    }
+    brain = concepts["issue_68_candidate_concept_brain"]
+    hemispheres = concepts["issue_68_candidate_concept_cerebral_hemispheres"]
+    resolution = brain["domain_review_resolution"]
+
+    assert brain["proposed_canonical_label"] == "Мозг"
+    assert hemispheres["proposed_canonical_label"] == "Полушария головного мозга"
+    assert brain["classification"] == "CLEAR_FOR_HUMAN_BATCH_REVIEW"
+    assert hemispheres["classification"] == "CLEAR_FOR_HUMAN_BATCH_REVIEW"
+    assert (
+        brain["domain_review_status"]
+        == hemispheres["domain_review_status"]
+        == "DECIDED"
+    )
+    assert (
+        brain["semantic_status"]
+        == hemispheres["semantic_status"]
+        == "PROVISIONAL"
+    )
+    assert brain["evidence_reference_count"] == 12
+    assert hemispheres["evidence_reference_count"] == 3
+    assert resolution == hemispheres["domain_review_resolution"]
+    assert resolution["outcome"] == "RELATED"
+    assert resolution["identities_merged"] is False
+    assert resolution["semantic_relation"] == {
+        "source_concept_id": "issue_68_candidate_concept_cerebral_hemispheres",
+        "target_concept_id": "issue_68_candidate_concept_brain",
+        "type": "PART_OF",
+    }
+    assert resolution["link_semantic_acceptance"] is False
+    assert len(resolution["evidence_partition"]) == 12
+    assert qa["summary"]["concept_domain_review_decisions"] == 3
+    assert qa["summary"]["concept_candidates_total"] == 20
+    assert qa["summary"]["concept_clear"] == 16
+    assert qa["summary"]["concept_identity_exception"] == 4
+    assert qa["summary"]["links_total"] == 259

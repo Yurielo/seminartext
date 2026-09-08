@@ -123,8 +123,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_001_r1:word:001134",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 2,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 2,
             "source_id": "source_video_001",
             "start_word_id": "transcript_revision_video_001_r1:word:000829",
             "target_concept_ids": [
@@ -136,8 +136,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_002_r1:word:003549",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_002",
             "start_word_id": "transcript_revision_video_002_r1:word:003447",
             "target_concept_ids": [
@@ -149,8 +149,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:007484",
-            "exact_network_match_count": 1,
-            "exact_system_match_count": 0,
+            "exact_related_match_count": 1,
+            "exact_retained_match_count": 0,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:007343",
             "target_concept_ids": [
@@ -162,8 +162,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:023464",
-            "exact_network_match_count": 6,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 6,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023184",
             "target_concept_ids": [
@@ -176,8 +176,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:024088",
-            "exact_network_match_count": 8,
-            "exact_system_match_count": 0,
+            "exact_related_match_count": 8,
+            "exact_retained_match_count": 0,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023582",
             "target_concept_ids": [
@@ -189,8 +189,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:024601",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:024343",
             "target_concept_ids": [
@@ -202,8 +202,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:025600",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:024810",
             "target_concept_ids": [
@@ -215,8 +215,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_004_r1:word:003690",
-            "exact_network_match_count": 1,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 1,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:003382",
             "target_concept_ids": [
@@ -229,8 +229,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_004_r1:word:003755",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 2,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 2,
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:003691",
             "target_concept_ids": [
@@ -242,8 +242,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_004_r1:word:010486",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 0,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:010416",
             "target_concept_ids": [
@@ -283,6 +283,7 @@
           ]
         },
         "review_gate": "DOMAIN_REVIEW",
+        "semantic_relation": null,
         "status": "DECIDED",
         "target_candidate_concept_id": "issue_68_candidate_concept_nervous_system"
       },
@@ -308,8 +309,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_001_r1:word:001134",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 2,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 2,
             "source_id": "source_video_001",
             "start_word_id": "transcript_revision_video_001_r1:word:000829",
             "target_concept_ids": [
@@ -321,8 +322,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_002_r1:word:003549",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_002",
             "start_word_id": "transcript_revision_video_002_r1:word:003447",
             "target_concept_ids": [
@@ -334,8 +335,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:007484",
-            "exact_network_match_count": 1,
-            "exact_system_match_count": 0,
+            "exact_related_match_count": 1,
+            "exact_retained_match_count": 0,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:007343",
             "target_concept_ids": [
@@ -347,8 +348,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:023464",
-            "exact_network_match_count": 6,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 6,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023184",
             "target_concept_ids": [
@@ -361,8 +362,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:024088",
-            "exact_network_match_count": 8,
-            "exact_system_match_count": 0,
+            "exact_related_match_count": 8,
+            "exact_retained_match_count": 0,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:023582",
             "target_concept_ids": [
@@ -374,8 +375,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:024601",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:024343",
             "target_concept_ids": [
@@ -387,8 +388,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_003_r1:word:025600",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_003",
             "start_word_id": "transcript_revision_video_003_r1:word:024810",
             "target_concept_ids": [
@@ -400,8 +401,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_004_r1:word:003690",
-            "exact_network_match_count": 1,
-            "exact_system_match_count": 1,
+            "exact_related_match_count": 1,
+            "exact_retained_match_count": 1,
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:003382",
             "target_concept_ids": [
@@ -414,8 +415,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_004_r1:word:003755",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 2,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 2,
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:003691",
             "target_concept_ids": [
@@ -427,8 +428,8 @@
           {
             "decision_id": "issue_68_domain_review_concept_nervous_system",
             "end_word_id": "transcript_revision_video_004_r1:word:010486",
-            "exact_network_match_count": 0,
-            "exact_system_match_count": 0,
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
             "source_id": "source_video_004",
             "start_word_id": "transcript_revision_video_004_r1:word:010416",
             "target_concept_ids": [
@@ -468,6 +469,7 @@
           ]
         },
         "review_gate": "DOMAIN_REVIEW",
+        "semantic_relation": null,
         "status": "DECIDED",
         "target_candidate_concept_id": "issue_68_candidate_concept_nervous_system"
       },
@@ -496,20 +498,429 @@
     },
     {
       "candidate_concept_id": "issue_68_candidate_concept_brain",
-      "classification": "IDENTITY_EXCEPTION",
-      "domain_review_status": "REVIEW_REQUIRED",
-      "evidence_reference_count": 12,
-      "exception": {
-        "human_decision_required": true,
-        "problem": "«Мозг» and «полушария» mix a whole structure with one of its organizational distinctions.",
-        "recommendation": "Choose one umbrella identity or separate hierarchical Concepts."
+      "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
+      "domain_review_resolution": {
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "evidence_partition": [
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_001_r1:word:002755",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 3,
+            "source_id": "source_video_001",
+            "start_word_id": "transcript_revision_video_001_r1:word:002529",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_113_reviewed_topic_05c",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_001_r1:word:007262",
+            "exact_related_match_count": 14,
+            "exact_retained_match_count": 7,
+            "source_id": "source_video_001",
+            "start_word_id": "transcript_revision_video_001_r1:word:006290",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain",
+              "issue_68_candidate_concept_cerebral_hemispheres"
+            ],
+            "topic_reference": "issue_113_reviewed_topic_09",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_002_r1:word:005523",
+            "exact_related_match_count": 4,
+            "exact_retained_match_count": 2,
+            "source_id": "source_video_002",
+            "start_word_id": "transcript_revision_video_002_r1:word:004644",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain",
+              "issue_68_candidate_concept_cerebral_hemispheres"
+            ],
+            "topic_reference": "issue_68_video_002_topic_proposal_014",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_002_r1:word:020867",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_002",
+            "start_word_id": "transcript_revision_video_002_r1:word:020741",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_002_topic_proposal_070",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:007484",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:007343",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_026",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:012628",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:012358",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_041",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:022007",
+            "exact_related_match_count": 4,
+            "exact_retained_match_count": 3,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:021532",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain",
+              "issue_68_candidate_concept_cerebral_hemispheres"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_077",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:022997",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 3,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022589",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_083",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:023086",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 5,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022998",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_084",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:023183",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:023087",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_085",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:024088",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:023582",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_088",
+            "unresolved_exact_term_signal": true
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_004_r1:word:010486",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_004",
+            "start_word_id": "transcript_revision_video_004_r1:word:010416",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_004_topic_proposal_040",
+            "unresolved_exact_term_signal": false
+          }
+        ],
+        "identities_merged": false,
+        "link_rebuild_authority": "CODEX_DETERMINISTIC_EXACT_TERM_PARTITION",
+        "link_semantic_acceptance": false,
+        "outcome": "RELATED",
+        "package_semantic_promotion": false,
+        "rationale": "The brain is the whole anatomical structure, while the cerebral hemispheres are its organizational parts. The decision preserves distinct identities and records the explicit PART_OF hierarchy.",
+        "related_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_cerebral_hemispheres",
+          "proposed_canonical_label": "Полушария головного мозга",
+          "source_terms": [
+            "полушарий",
+            "полушария"
+          ]
+        },
+        "relation": "RELATED",
+        "result_concept_ids": [
+          "issue_68_candidate_concept_brain",
+          "issue_68_candidate_concept_cerebral_hemispheres"
+        ],
+        "retained_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_brain",
+          "proposed_canonical_label": "Мозг",
+          "source_terms": [
+            "Мозг",
+            "мозг",
+            "мозга"
+          ]
+        },
+        "review_gate": "DOMAIN_REVIEW",
+        "semantic_relation": {
+          "source_concept_id": "issue_68_candidate_concept_cerebral_hemispheres",
+          "target_concept_id": "issue_68_candidate_concept_brain",
+          "type": "PART_OF"
+        },
+        "status": "DECIDED",
+        "target_candidate_concept_id": "issue_68_candidate_concept_brain"
       },
-      "proposed_canonical_label": "Мозг и полушария",
+      "domain_review_status": "DECIDED",
+      "evidence_reference_count": 12,
+      "exception": null,
+      "proposed_canonical_label": "Мозг",
       "semantic_status": "PROVISIONAL",
       "source_terms": [
         "Мозг",
         "мозг",
-        "мозга",
+        "мозга"
+      ]
+    },
+    {
+      "candidate_concept_id": "issue_68_candidate_concept_cerebral_hemispheres",
+      "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
+      "domain_review_resolution": {
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "evidence_partition": [
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_001_r1:word:002755",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 3,
+            "source_id": "source_video_001",
+            "start_word_id": "transcript_revision_video_001_r1:word:002529",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_113_reviewed_topic_05c",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_001_r1:word:007262",
+            "exact_related_match_count": 14,
+            "exact_retained_match_count": 7,
+            "source_id": "source_video_001",
+            "start_word_id": "transcript_revision_video_001_r1:word:006290",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain",
+              "issue_68_candidate_concept_cerebral_hemispheres"
+            ],
+            "topic_reference": "issue_113_reviewed_topic_09",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_002_r1:word:005523",
+            "exact_related_match_count": 4,
+            "exact_retained_match_count": 2,
+            "source_id": "source_video_002",
+            "start_word_id": "transcript_revision_video_002_r1:word:004644",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain",
+              "issue_68_candidate_concept_cerebral_hemispheres"
+            ],
+            "topic_reference": "issue_68_video_002_topic_proposal_014",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_002_r1:word:020867",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_002",
+            "start_word_id": "transcript_revision_video_002_r1:word:020741",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_002_topic_proposal_070",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:007484",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:007343",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_026",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:012628",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:012358",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_041",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:022007",
+            "exact_related_match_count": 4,
+            "exact_retained_match_count": 3,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:021532",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain",
+              "issue_68_candidate_concept_cerebral_hemispheres"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_077",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:022997",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 3,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022589",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_083",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:023086",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 5,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022998",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_084",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:023183",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:023087",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_085",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_003_r1:word:024088",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 0,
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:023582",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_088",
+            "unresolved_exact_term_signal": true
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_brain",
+            "end_word_id": "transcript_revision_video_004_r1:word:010486",
+            "exact_related_match_count": 0,
+            "exact_retained_match_count": 1,
+            "source_id": "source_video_004",
+            "start_word_id": "transcript_revision_video_004_r1:word:010416",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_brain"
+            ],
+            "topic_reference": "issue_68_video_004_topic_proposal_040",
+            "unresolved_exact_term_signal": false
+          }
+        ],
+        "identities_merged": false,
+        "link_rebuild_authority": "CODEX_DETERMINISTIC_EXACT_TERM_PARTITION",
+        "link_semantic_acceptance": false,
+        "outcome": "RELATED",
+        "package_semantic_promotion": false,
+        "rationale": "The brain is the whole anatomical structure, while the cerebral hemispheres are its organizational parts. The decision preserves distinct identities and records the explicit PART_OF hierarchy.",
+        "related_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_cerebral_hemispheres",
+          "proposed_canonical_label": "Полушария головного мозга",
+          "source_terms": [
+            "полушарий",
+            "полушария"
+          ]
+        },
+        "relation": "RELATED",
+        "result_concept_ids": [
+          "issue_68_candidate_concept_brain",
+          "issue_68_candidate_concept_cerebral_hemispheres"
+        ],
+        "retained_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_brain",
+          "proposed_canonical_label": "Мозг",
+          "source_terms": [
+            "Мозг",
+            "мозг",
+            "мозга"
+          ]
+        },
+        "review_gate": "DOMAIN_REVIEW",
+        "semantic_relation": {
+          "source_concept_id": "issue_68_candidate_concept_cerebral_hemispheres",
+          "target_concept_id": "issue_68_candidate_concept_brain",
+          "type": "PART_OF"
+        },
+        "status": "DECIDED",
+        "target_candidate_concept_id": "issue_68_candidate_concept_brain"
+      },
+      "domain_review_status": "DECIDED",
+      "evidence_reference_count": 3,
+      "exception": null,
+      "proposed_canonical_label": "Полушария головного мозга",
+      "semantic_status": "PROVISIONAL",
+      "source_terms": [
         "полушарий",
         "полушария"
       ]
@@ -2197,23 +2608,23 @@
   ],
   "errors": [],
   "first_material_exception": {
-    "candidate_concept_id": "issue_68_candidate_concept_brain",
+    "candidate_concept_id": "issue_68_candidate_concept_eye_movement",
     "classification": "IDENTITY_EXCEPTION",
     "domain_review_status": "REVIEW_REQUIRED",
-    "evidence_reference_count": 12,
+    "evidence_reference_count": 11,
     "exception": {
       "human_decision_required": true,
-      "problem": "«Мозг» and «полушария» mix a whole structure with one of its organizational distinctions.",
-      "recommendation": "Choose one umbrella identity or separate hierarchical Concepts."
+      "problem": "Generic eye movements and the named ДПДГ method are related but not automatically identical.",
+      "recommendation": "Review SAME_CONCEPT versus RELATED/hierarchical identities."
     },
-    "proposed_canonical_label": "Мозг и полушария",
+    "proposed_canonical_label": "Движения глаз и ДПДГ",
     "semantic_status": "PROVISIONAL",
     "source_terms": [
-      "Мозг",
-      "мозг",
-      "мозга",
-      "полушарий",
-      "полушария"
+      "Глазодвигательная",
+      "Глазодвигательные",
+      "глазодвигательные",
+      "движения глаз",
+      "ДПДГ"
     ]
   },
   "input_inventory": {
@@ -2221,7 +2632,7 @@
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "5d294a8dbb58c739f4084c3dba72810c3afa9fbeea4366033ba5de2e7a1ee093",
+    "domain_review_decisions_sha256": "094ef3ffec119f878e1542c158d01620f5893b6ab7c6a1165ce07936cc97614c",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -2231,8 +2642,8 @@
     "current_semantic_package_concept_projection": 15,
     "current_semantic_package_link_projection": 179,
     "explanation": "The QA input rebuilds the original provisional 18/254 inventory from the same hash-bound generator artifacts before DOMAIN_AUTHORING. Explicit DOMAIN_REVIEW identity decisions may create additional Concept and provisional link results without deleting baseline provenance. The current 15/179 projection is a lossy preview-based regeneration after split/merge authoring and is not treated as deletion or review.",
-    "qa_concept_results_after_review_decisions": 19,
-    "qa_link_results_after_review_decisions": 256,
+    "qa_concept_results_after_review_decisions": 20,
+    "qa_link_results_after_review_decisions": 259,
     "semantic_change_inferred": false
   },
   "link_results": [
@@ -7810,8 +8221,8 @@
       "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 0,
-        "exact_system_match_count": 2,
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 2,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -7849,8 +8260,8 @@
       "classification": "LINK_EXCEPTION",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 0,
-        "exact_system_match_count": 1,
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 1,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -7892,8 +8303,8 @@
       "classification": "LINK_EXCEPTION",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 1,
-        "exact_system_match_count": 0,
+        "exact_related_match_count": 1,
+        "exact_retained_match_count": 0,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -7935,8 +8346,8 @@
       "classification": "LINK_EXCEPTION",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 6,
-        "exact_system_match_count": 1,
+        "exact_related_match_count": 6,
+        "exact_retained_match_count": 1,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -7988,8 +8399,8 @@
       "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 6,
-        "exact_system_match_count": 1,
+        "exact_related_match_count": 6,
+        "exact_retained_match_count": 1,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -8037,8 +8448,8 @@
       "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 8,
-        "exact_system_match_count": 0,
+        "exact_related_match_count": 8,
+        "exact_retained_match_count": 0,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -8085,8 +8496,8 @@
       "classification": "LINK_EXCEPTION",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 0,
-        "exact_system_match_count": 1,
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 1,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -8137,8 +8548,8 @@
       "classification": "LINK_EXCEPTION",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 0,
-        "exact_system_match_count": 1,
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 1,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -8180,8 +8591,8 @@
       "classification": "LINK_EXCEPTION",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 1,
-        "exact_system_match_count": 1,
+        "exact_related_match_count": 1,
+        "exact_retained_match_count": 1,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -8224,8 +8635,8 @@
       "classification": "LINK_EXCEPTION",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 1,
-        "exact_system_match_count": 1,
+        "exact_related_match_count": 1,
+        "exact_retained_match_count": 1,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -8268,8 +8679,8 @@
       "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 0,
-        "exact_system_match_count": 2,
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 2,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -8307,8 +8718,8 @@
       "classification": "LINK_EXCEPTION",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_network_match_count": 0,
-        "exact_system_match_count": 0,
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 0,
         "semantic_acceptance": false,
         "semantic_status": "PROVISIONAL",
         "target_concept_ids": [
@@ -8452,6 +8863,17 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 3,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -8480,11 +8902,23 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 14,
+        "exact_retained_match_count": 7,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain",
+          "issue_68_candidate_concept_cerebral_hemispheres"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
           "authored_topic_reference": "issue_113_reviewed_topic_09",
-          "exact_pattern_match_count": 21,
+          "exact_pattern_match_count": 7,
           "intersection_end_word_id": "transcript_revision_video_001_r1:word:007262",
           "intersection_sha256": "89501246d166e65a6ef8a781d518fbcb6ff96969e505e32a29f68344ee0a6041",
           "intersection_start_word_id": "transcript_revision_video_001_r1:word:006290"
@@ -8506,8 +8940,60 @@
       "source_id": "source_video_001"
     },
     {
+      "candidate_concept_reference": "issue_68_candidate_concept_cerebral_hemispheres",
+      "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 14,
+        "exact_retained_match_count": 7,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain",
+          "issue_68_candidate_concept_cerebral_hemispheres"
+        ],
+        "unresolved_exact_term_signal": false
+      },
+      "evidence_support": [
+        {
+          "authored_title_correspondence": true,
+          "authored_topic_reference": "issue_113_reviewed_topic_09",
+          "exact_pattern_match_count": 14,
+          "intersection_end_word_id": "transcript_revision_video_001_r1:word:007262",
+          "intersection_sha256": "89501246d166e65a6ef8a781d518fbcb6ff96969e505e32a29f68344ee0a6041",
+          "intersection_start_word_id": "transcript_revision_video_001_r1:word:006290"
+        }
+      ],
+      "exact_term_target_references": [
+        "issue_113_reviewed_topic_09"
+      ],
+      "input_topic_reference": "issue_113_reviewed_topic_09",
+      "link_id": "issue_68_link_issue_113_reviewed_topic_09_cerebral_hemispheres",
+      "overlapping_authored_topic_references": [
+        "issue_113_reviewed_topic_09"
+      ],
+      "recommended_target_topic_references": [
+        "issue_113_reviewed_topic_09"
+      ],
+      "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
+      "semantic_status": "PROVISIONAL",
+      "source_id": "source_video_001"
+    },
+    {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 4,
+        "exact_retained_match_count": 2,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain",
+          "issue_68_candidate_concept_cerebral_hemispheres"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8526,9 +9012,9 @@
           "intersection_start_word_id": "transcript_revision_video_002_r1:word:004854"
         },
         {
-          "authored_title_correspondence": true,
+          "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_002_topic_proposal_014b",
-          "exact_pattern_match_count": 6,
+          "exact_pattern_match_count": 2,
           "intersection_end_word_id": "transcript_revision_video_002_r1:word:005352",
           "intersection_sha256": "7f52d9844f367337f0a772d3802b60c74a38d69d8d69e4c8110af06e3ea3e17b",
           "intersection_start_word_id": "transcript_revision_video_002_r1:word:005116"
@@ -8570,8 +9056,95 @@
       "source_id": "source_video_002"
     },
     {
+      "candidate_concept_reference": "issue_68_candidate_concept_cerebral_hemispheres",
+      "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 4,
+        "exact_retained_match_count": 2,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain",
+          "issue_68_candidate_concept_cerebral_hemispheres"
+        ],
+        "unresolved_exact_term_signal": false
+      },
+      "evidence_support": [
+        {
+          "authored_title_correspondence": false,
+          "authored_topic_reference": "issue_68_video_002_topic_proposal_013b",
+          "exact_pattern_match_count": 0,
+          "intersection_end_word_id": "transcript_revision_video_002_r1:word:004853",
+          "intersection_sha256": "7d6b09e7d7488331b823412a815d01902087ba34f92f13e9a21547288dc81aba",
+          "intersection_start_word_id": "transcript_revision_video_002_r1:word:004644"
+        },
+        {
+          "authored_title_correspondence": false,
+          "authored_topic_reference": "issue_68_video_002_topic_proposal_014a",
+          "exact_pattern_match_count": 0,
+          "intersection_end_word_id": "transcript_revision_video_002_r1:word:005115",
+          "intersection_sha256": "af7d387316287b22adfbf024bea046b6b59a314ed8f99146dada87e72f3c0856",
+          "intersection_start_word_id": "transcript_revision_video_002_r1:word:004854"
+        },
+        {
+          "authored_title_correspondence": true,
+          "authored_topic_reference": "issue_68_video_002_topic_proposal_014b",
+          "exact_pattern_match_count": 4,
+          "intersection_end_word_id": "transcript_revision_video_002_r1:word:005352",
+          "intersection_sha256": "7f52d9844f367337f0a772d3802b60c74a38d69d8d69e4c8110af06e3ea3e17b",
+          "intersection_start_word_id": "transcript_revision_video_002_r1:word:005116"
+        },
+        {
+          "authored_title_correspondence": false,
+          "authored_topic_reference": "issue_68_video_002_topic_proposal_014c",
+          "exact_pattern_match_count": 0,
+          "intersection_end_word_id": "transcript_revision_video_002_r1:word:005508",
+          "intersection_sha256": "a7e91760821efc8ca4629716bcba2a288a9f1f4b4adbbbcbea67c13d8098bf2a",
+          "intersection_start_word_id": "transcript_revision_video_002_r1:word:005353"
+        },
+        {
+          "authored_title_correspondence": false,
+          "authored_topic_reference": "issue_68_video_002_topic_proposal_015a",
+          "exact_pattern_match_count": 0,
+          "intersection_end_word_id": "transcript_revision_video_002_r1:word:005523",
+          "intersection_sha256": "24ae483645ce4fea6310dbd73f9f0a91ecb536c0d9030216685475bc093cc1b5",
+          "intersection_start_word_id": "transcript_revision_video_002_r1:word:005509"
+        }
+      ],
+      "exact_term_target_references": [
+        "issue_68_video_002_topic_proposal_014b"
+      ],
+      "input_topic_reference": "issue_68_video_002_topic_proposal_014",
+      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_014_cerebral_hemispheres",
+      "overlapping_authored_topic_references": [
+        "issue_68_video_002_topic_proposal_013b",
+        "issue_68_video_002_topic_proposal_014a",
+        "issue_68_video_002_topic_proposal_014b",
+        "issue_68_video_002_topic_proposal_014c",
+        "issue_68_video_002_topic_proposal_015a"
+      ],
+      "recommended_target_topic_references": [
+        "issue_68_video_002_topic_proposal_014b"
+      ],
+      "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
+      "semantic_status": "PROVISIONAL",
+      "source_id": "source_video_002"
+    },
+    {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 1,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8609,6 +9182,17 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 1,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8641,6 +9225,17 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 1,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8682,11 +9277,23 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 4,
+        "exact_retained_match_count": 3,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain",
+          "issue_68_candidate_concept_cerebral_hemispheres"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
-          "authored_title_correspondence": true,
+          "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_003_topic_proposal_070e",
-          "exact_pattern_match_count": 7,
+          "exact_pattern_match_count": 3,
           "intersection_end_word_id": "transcript_revision_video_003_r1:word:021854",
           "intersection_sha256": "acb664f053a23d6e99cb8f9bef2242fc1201e5a7f0456a74c2e62d1cbe390054",
           "intersection_start_word_id": "transcript_revision_video_003_r1:word:021532"
@@ -8717,8 +9324,68 @@
       "source_id": "source_video_003"
     },
     {
+      "candidate_concept_reference": "issue_68_candidate_concept_cerebral_hemispheres",
+      "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 4,
+        "exact_retained_match_count": 3,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain",
+          "issue_68_candidate_concept_cerebral_hemispheres"
+        ],
+        "unresolved_exact_term_signal": false
+      },
+      "evidence_support": [
+        {
+          "authored_title_correspondence": true,
+          "authored_topic_reference": "issue_68_video_003_topic_proposal_070e",
+          "exact_pattern_match_count": 4,
+          "intersection_end_word_id": "transcript_revision_video_003_r1:word:021854",
+          "intersection_sha256": "acb664f053a23d6e99cb8f9bef2242fc1201e5a7f0456a74c2e62d1cbe390054",
+          "intersection_start_word_id": "transcript_revision_video_003_r1:word:021532"
+        },
+        {
+          "authored_title_correspondence": false,
+          "authored_topic_reference": "issue_68_video_003_topic_proposal_070f",
+          "exact_pattern_match_count": 0,
+          "intersection_end_word_id": "transcript_revision_video_003_r1:word:022007",
+          "intersection_sha256": "d6d13c340e5f6ce3b26a3108578a39fd8747c3ce4223b7c03baf553b4c59b3e8",
+          "intersection_start_word_id": "transcript_revision_video_003_r1:word:021855"
+        }
+      ],
+      "exact_term_target_references": [
+        "issue_68_video_003_topic_proposal_070e"
+      ],
+      "input_topic_reference": "issue_68_video_003_topic_proposal_077",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_077_cerebral_hemispheres",
+      "overlapping_authored_topic_references": [
+        "issue_68_video_003_topic_proposal_070e",
+        "issue_68_video_003_topic_proposal_070f"
+      ],
+      "recommended_target_topic_references": [
+        "issue_68_video_003_topic_proposal_070e"
+      ],
+      "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
+      "semantic_status": "PROVISIONAL",
+      "source_id": "source_video_003"
+    },
+    {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 3,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8756,6 +9423,17 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 5,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8784,6 +9462,17 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 1,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8816,6 +9505,17 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 0,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain"
+        ],
+        "unresolved_exact_term_signal": true
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8855,6 +9555,17 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_brain",
+        "exact_related_match_count": 0,
+        "exact_retained_match_count": 1,
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_brain"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -11469,15 +12180,15 @@
   "semantic_authority": "PROVISIONAL_UNREVIEWED",
   "status": "READY_WITH_EXCEPTIONS",
   "summary": {
-    "concept_candidates_total": 19,
-    "concept_clear": 14,
-    "concept_domain_review_decisions": 2,
-    "concept_identity_exception": 5,
+    "concept_candidates_total": 20,
+    "concept_clear": 16,
+    "concept_domain_review_decisions": 3,
+    "concept_identity_exception": 4,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 192,
+    "link_clear": 195,
     "link_exception": 64,
-    "links_total": 256,
+    "links_total": 259,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,

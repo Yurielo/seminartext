@@ -65,6 +65,50 @@
       },
       "rationale": "The whole physiological nervous system and the neural connections/networks used to describe memory and behavior are related but distinct semantic identities. The decision preserves two Concepts and forbids identity merging.",
       "target_candidate_concept_id": "issue_68_candidate_concept_nervous_system"
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "candidate_snapshot": {
+        "evidence_reference_count": 12,
+        "proposed_canonical_label": "Мозг и полушария",
+        "source_terms": [
+          "Мозг",
+          "мозг",
+          "мозга",
+          "полушарий",
+          "полушария"
+        ]
+      },
+      "decision_date": "2026-09-08",
+      "decision_id": "issue_68_domain_review_concept_brain",
+      "identities_merged": false,
+      "outcome": "RELATED",
+      "partition_strategy": "BRAIN_VS_CEREBRAL_HEMISPHERES_EXACT_TERMS",
+      "related_concept": {
+        "candidate_concept_id": "issue_68_candidate_concept_cerebral_hemispheres",
+        "proposed_canonical_label": "Полушария головного мозга",
+        "source_terms": [
+          "полушарий",
+          "полушария"
+        ]
+      },
+      "relation": "RELATED",
+      "retained_concept": {
+        "candidate_concept_id": "issue_68_candidate_concept_brain",
+        "proposed_canonical_label": "Мозг",
+        "source_terms": [
+          "Мозг",
+          "мозг",
+          "мозга"
+        ]
+      },
+      "rationale": "The brain is the whole anatomical structure, while the cerebral hemispheres are its organizational parts. The decision preserves distinct identities and records the explicit PART_OF hierarchy.",
+      "semantic_relation": {
+        "source_concept_id": "issue_68_candidate_concept_cerebral_hemispheres",
+        "target_concept_id": "issue_68_candidate_concept_brain",
+        "type": "PART_OF"
+      },
+      "target_candidate_concept_id": "issue_68_candidate_concept_brain"
     }
   ],
   "decisions": [
