@@ -109,6 +109,65 @@
         "type": "PART_OF"
       },
       "target_candidate_concept_id": "issue_68_candidate_concept_brain"
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "candidate_snapshot": {
+        "evidence_reference_count": 11,
+        "proposed_canonical_label": "Движения глаз и ДПДГ",
+        "source_terms": [
+          "Глазодвигательная",
+          "Глазодвигательные",
+          "глазодвигательные",
+          "движения глаз",
+          "ДПДГ"
+        ]
+      },
+      "decision_date": "2026-09-08",
+      "decision_id": "issue_68_domain_review_concept_eye_movement",
+      "identities_merged": false,
+      "outcome": "RELATED",
+      "partition_strategy": "EYE_MOVEMENTS_VS_EMDR_VS_EXTRAOCULAR_MUSCLES_EXACT_TERMS",
+      "related_concepts": [
+        {
+          "candidate_concept_id": "issue_68_candidate_concept_emdr",
+          "proposed_canonical_label": "ДПДГ",
+          "source_terms": [
+            "ДПДГ"
+          ]
+        },
+        {
+          "candidate_concept_id": "issue_68_candidate_concept_extraocular_muscles",
+          "proposed_canonical_label": "Глазодвигательные мышцы",
+          "source_terms": [
+            "Глазодвигательная",
+            "Глазодвигательные",
+            "глазодвигательные"
+          ]
+        }
+      ],
+      "relation": "RELATED",
+      "retained_concept": {
+        "candidate_concept_id": "issue_68_candidate_concept_eye_movement",
+        "proposed_canonical_label": "Движения глаз",
+        "source_terms": [
+          "движения глаз"
+        ]
+      },
+      "rationale": "ДПДГ is a named method, eye movements are a technique used in that method, and extraocular muscles are the anatomical structures that perform the movements. The decision preserves three related but distinct semantic identities and forbids alias-based identity merging.",
+      "semantic_relations": [
+        {
+          "source_concept_id": "issue_68_candidate_concept_eye_movement",
+          "target_concept_id": "issue_68_candidate_concept_emdr",
+          "type": "USED_IN"
+        },
+        {
+          "source_concept_id": "issue_68_candidate_concept_eye_movement",
+          "target_concept_id": "issue_68_candidate_concept_extraocular_muscles",
+          "type": "PERFORMED_BY"
+        }
+      ],
+      "target_candidate_concept_id": "issue_68_candidate_concept_eye_movement"
     }
   ],
   "decisions": [

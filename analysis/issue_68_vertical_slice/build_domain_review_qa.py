@@ -185,6 +185,9 @@ CONCEPT_PATTERNS = {
     "cerebral_hemispheres": r"полушар",
     "meridians": r"меридиан",
     "eye_movement": r"дпдг|движени\w*\s+глаз|глазодвиг",
+    "eye_movements_only": r"движени\w*\s+глаз\w*",
+    "emdr": r"\bдпдг\b",
+    "extraocular_muscles": r"глазодвигатель\w*",
     "consciousness": r"уровн\w*\s+(?:созн|осознав|осознан)",
     "subconscious": r"подсозн",
     "memory": r"памят|воспомин|запомин",
@@ -216,6 +219,36 @@ RELATED_PARTITION_STRATEGIES = {
             ),
             "target_concept_id": "issue_68_candidate_concept_brain",
         },
+    },
+    "EYE_MOVEMENTS_VS_EMDR_VS_EXTRAOCULAR_MUSCLES_EXACT_TERMS": {
+        "target_concept_id": "issue_68_candidate_concept_eye_movement",
+        "retained_pattern_key": "eye_movements_only",
+        "related_concepts": [
+            {
+                "candidate_concept_id": "issue_68_candidate_concept_emdr",
+                "pattern_key": "emdr",
+            },
+            {
+                "candidate_concept_id": (
+                    "issue_68_candidate_concept_extraocular_muscles"
+                ),
+                "pattern_key": "extraocular_muscles",
+            },
+        ],
+        "semantic_relations": [
+            {
+                "type": "USED_IN",
+                "source_concept_id": "issue_68_candidate_concept_eye_movement",
+                "target_concept_id": "issue_68_candidate_concept_emdr",
+            },
+            {
+                "type": "PERFORMED_BY",
+                "source_concept_id": "issue_68_candidate_concept_eye_movement",
+                "target_concept_id": (
+                    "issue_68_candidate_concept_extraocular_muscles"
+                ),
+            },
+        ],
     },
 }
 
@@ -670,15 +703,177 @@ def apply_concept_identity_decisions(
             )
             continue
 
-        related = decision.get("related_concept", {})
         retained_spec = decision.get("retained_concept", {})
-        related_id = related.get("candidate_concept_id")
-        if not related_id or related_id in candidate_by_id:
-            errors.append(f"invalid related Concept identity in {decision_id}")
-            continue
         strategy = RELATED_PARTITION_STRATEGIES.get(decision.get("partition_strategy"))
         if not strategy or target_id != strategy["target_concept_id"]:
             errors.append(f"unsupported RELATED partition in {decision_id}")
+            continue
+        if strategy.get("related_concepts"):
+            related_specs = decision.get("related_concepts", [])
+            strategy_related = strategy["related_concepts"]
+            expected_related_ids = [
+                item["candidate_concept_id"] for item in strategy_related
+            ]
+            related_ids = [item.get("candidate_concept_id") for item in related_specs]
+            if (
+                related_ids != expected_related_ids
+                or any(not item or item in candidate_by_id for item in related_ids)
+            ):
+                errors.append(f"invalid related Concept identities in {decision_id}")
+                continue
+            if decision.get("semantic_relations") != strategy["semantic_relations"]:
+                errors.append(f"RELATED semantic relations mismatch in {decision_id}")
+                continue
+            if (
+                retained_spec.get("candidate_concept_id") != target_id
+                or not retained_spec.get("proposed_canonical_label")
+                or any(not item.get("proposed_canonical_label") for item in related_specs)
+            ):
+                errors.append(f"RELATED Concept results mismatch in {decision_id}")
+                continue
+            term_groups = [
+                retained_spec.get("source_terms", []),
+                *(item.get("source_terms", []) for item in related_specs),
+            ]
+            flattened_terms = [term for group in term_groups for term in group]
+            if (
+                len(flattened_terms) != len(set(flattened_terms))
+                or set(flattened_terms) != set(candidate.get("source_terms", []))
+            ):
+                errors.append(f"RELATED source-term partition mismatch in {decision_id}")
+                continue
+            if decision.get("identities_merged") is not False:
+                errors.append(f"RELATED decision merged identities in {decision_id}")
+                continue
+            if decision.get("relation") != "RELATED":
+                errors.append(f"RELATED relation missing in {decision_id}")
+                continue
+            if len(candidate.get("topic_references", [])) != len(
+                candidate.get("evidence_references", [])
+            ):
+                errors.append(f"Concept reference alignment mismatch in {decision_id}")
+                continue
+
+            retained_pattern = re.compile(
+                CONCEPT_PATTERNS[strategy["retained_pattern_key"]], re.IGNORECASE
+            )
+            related_patterns = {
+                item["candidate_concept_id"]: re.compile(
+                    CONCEPT_PATTERNS[item["pattern_key"]], re.IGNORECASE
+                )
+                for item in strategy_related
+            }
+            topics_by_id: dict[str, list[str]] = {
+                target_id: [],
+                **{item: [] for item in related_ids},
+            }
+            evidence_by_id: dict[str, list[dict[str, Any]]] = {
+                target_id: [],
+                **{item: [] for item in related_ids},
+            }
+            evidence_partition = []
+            for topic_reference, evidence in zip(
+                candidate["topic_references"], candidate["evidence_references"]
+            ):
+                source_id = evidence["source_id"]
+                start = word_sequence(evidence["start_word_id"])
+                end = word_sequence(evidence["end_word_id"])
+                source_words = words_by_source[source_id]
+                text = " ".join(
+                    item["text"] for item in source_words[start : end + 1]
+                )
+                match_counts = {
+                    target_id: len(retained_pattern.findall(text)),
+                    **{
+                        concept_id: len(pattern.findall(text))
+                        for concept_id, pattern in related_patterns.items()
+                    },
+                }
+                target_ids = [
+                    concept_id
+                    for concept_id, count in match_counts.items()
+                    if count
+                ]
+                unresolved = not target_ids
+                if unresolved:
+                    target_ids = [target_id]
+                for concept_id in target_ids:
+                    topics_by_id[concept_id].append(topic_reference)
+                    evidence_by_id[concept_id].append(evidence)
+                rewrite = {
+                    "decision_id": decision_id,
+                    "target_concept_ids": target_ids,
+                    "exact_match_counts": match_counts,
+                    "unresolved_exact_term_signal": unresolved,
+                }
+                link_rewrites[(target_id, topic_reference)] = rewrite
+                evidence_partition.append(
+                    {"topic_reference": topic_reference, **evidence, **rewrite}
+                )
+
+            retained = dict(candidate)
+            retained["proposed_canonical_label"] = retained_spec[
+                "proposed_canonical_label"
+            ]
+            retained["source_terms"] = retained_spec["source_terms"]
+            retained["topic_references"] = topics_by_id[target_id]
+            retained["evidence_references"] = evidence_by_id[target_id]
+            related_candidates = [
+                {
+                    "candidate_concept_id": spec["candidate_concept_id"],
+                    "proposed_canonical_label": spec["proposed_canonical_label"],
+                    "source_terms": spec["source_terms"],
+                    "topic_references": topics_by_id[spec["candidate_concept_id"]],
+                    "evidence_references": evidence_by_id[
+                        spec["candidate_concept_id"]
+                    ],
+                    "semantic_status": "PROVISIONAL",
+                    "review_status": "DOMAIN_REVIEW_DECIDED",
+                }
+                for spec in related_specs
+            ]
+            position = next(
+                index
+                for index, item in enumerate(transformed)
+                if item["candidate_concept_id"] == target_id
+            )
+            transformed[position : position + 1] = [retained, *related_candidates]
+            candidate_by_id[target_id] = retained
+            for related_candidate in related_candidates:
+                candidate_by_id[
+                    related_candidate["candidate_concept_id"]
+                ] = related_candidate
+            result_ids = [target_id, *related_ids]
+            resolved.update(result_ids)
+            resolutions.append(
+                {
+                    "decision_id": decision_id,
+                    "target_candidate_concept_id": target_id,
+                    "result_concept_ids": result_ids,
+                    "authority": decision["authority"],
+                    "review_gate": "DOMAIN_REVIEW",
+                    "status": "DECIDED",
+                    "outcome": "RELATED",
+                    "relation": "RELATED",
+                    "semantic_relations": decision["semantic_relations"],
+                    "identities_merged": False,
+                    "retained_concept": retained_spec,
+                    "related_concepts": related_specs,
+                    "evidence_partition": evidence_partition,
+                    "link_rebuild_authority": (
+                        "CODEX_DETERMINISTIC_EXACT_TERM_PARTITION"
+                    ),
+                    "link_semantic_acceptance": False,
+                    "rationale": decision["rationale"],
+                    "package_semantic_promotion": False,
+                }
+            )
+            continue
+
+        related = decision.get("related_concept", {})
+        related_id = related.get("candidate_concept_id")
+        if not related_id or related_id in candidate_by_id:
+            errors.append(f"invalid related Concept identity in {decision_id}")
             continue
         if related_id != strategy["related_concept_id"]:
             errors.append(f"RELATED result identity mismatch in {decision_id}")

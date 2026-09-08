@@ -943,22 +943,751 @@
     },
     {
       "candidate_concept_id": "issue_68_candidate_concept_eye_movement",
-      "classification": "IDENTITY_EXCEPTION",
-      "domain_review_status": "REVIEW_REQUIRED",
-      "evidence_reference_count": 11,
-      "exception": {
-        "human_decision_required": true,
-        "problem": "Generic eye movements and the named ДПДГ method are related but not automatically identical.",
-        "recommendation": "Review SAME_CONCEPT versus RELATED/hierarchical identities."
+      "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
+      "domain_review_resolution": {
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "evidence_partition": [
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_001_r1:word:018871",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 6,
+              "issue_68_candidate_concept_extraocular_muscles": 2,
+              "issue_68_candidate_concept_eye_movement": 5
+            },
+            "source_id": "source_video_001",
+            "start_word_id": "transcript_revision_video_001_r1:word:016347",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_eye_movement",
+              "issue_68_candidate_concept_emdr",
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_113_reviewed_topic_19",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:010610",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 3,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:010128",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_034",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:020257",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 1,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:019976",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_071",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:020365",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 1,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:020258",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_072",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:020456",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 3,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:020366",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_073",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:021531",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 1,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:021402",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_076",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:022495",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 1
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022267",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_eye_movement"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_080",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:022588",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 3,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022505",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_082",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:022997",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 2,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 1
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022589",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_eye_movement",
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_083",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_004_r1:word:012726",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 2,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_004",
+            "start_word_id": "transcript_revision_video_004_r1:word:012441",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_004_topic_proposal_046",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_004_r1:word:023341",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 1,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_004",
+            "start_word_id": "transcript_revision_video_004_r1:word:023127",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_004_topic_proposal_074",
+            "unresolved_exact_term_signal": false
+          }
+        ],
+        "identities_merged": false,
+        "link_rebuild_authority": "CODEX_DETERMINISTIC_EXACT_TERM_PARTITION",
+        "link_semantic_acceptance": false,
+        "outcome": "RELATED",
+        "package_semantic_promotion": false,
+        "rationale": "ДПДГ is a named method, eye movements are a technique used in that method, and extraocular muscles are the anatomical structures that perform the movements. The decision preserves three related but distinct semantic identities and forbids alias-based identity merging.",
+        "related_concepts": [
+          {
+            "candidate_concept_id": "issue_68_candidate_concept_emdr",
+            "proposed_canonical_label": "ДПДГ",
+            "source_terms": [
+              "ДПДГ"
+            ]
+          },
+          {
+            "candidate_concept_id": "issue_68_candidate_concept_extraocular_muscles",
+            "proposed_canonical_label": "Глазодвигательные мышцы",
+            "source_terms": [
+              "Глазодвигательная",
+              "Глазодвигательные",
+              "глазодвигательные"
+            ]
+          }
+        ],
+        "relation": "RELATED",
+        "result_concept_ids": [
+          "issue_68_candidate_concept_eye_movement",
+          "issue_68_candidate_concept_emdr",
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "retained_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_eye_movement",
+          "proposed_canonical_label": "Движения глаз",
+          "source_terms": [
+            "движения глаз"
+          ]
+        },
+        "review_gate": "DOMAIN_REVIEW",
+        "semantic_relations": [
+          {
+            "source_concept_id": "issue_68_candidate_concept_eye_movement",
+            "target_concept_id": "issue_68_candidate_concept_emdr",
+            "type": "USED_IN"
+          },
+          {
+            "source_concept_id": "issue_68_candidate_concept_eye_movement",
+            "target_concept_id": "issue_68_candidate_concept_extraocular_muscles",
+            "type": "PERFORMED_BY"
+          }
+        ],
+        "status": "DECIDED",
+        "target_candidate_concept_id": "issue_68_candidate_concept_eye_movement"
       },
-      "proposed_canonical_label": "Движения глаз и ДПДГ",
+      "domain_review_status": "DECIDED",
+      "evidence_reference_count": 3,
+      "exception": null,
+      "proposed_canonical_label": "Движения глаз",
+      "semantic_status": "PROVISIONAL",
+      "source_terms": [
+        "движения глаз"
+      ]
+    },
+    {
+      "candidate_concept_id": "issue_68_candidate_concept_emdr",
+      "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
+      "domain_review_resolution": {
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "evidence_partition": [
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_001_r1:word:018871",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 6,
+              "issue_68_candidate_concept_extraocular_muscles": 2,
+              "issue_68_candidate_concept_eye_movement": 5
+            },
+            "source_id": "source_video_001",
+            "start_word_id": "transcript_revision_video_001_r1:word:016347",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_eye_movement",
+              "issue_68_candidate_concept_emdr",
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_113_reviewed_topic_19",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:010610",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 3,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:010128",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_034",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:020257",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 1,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:019976",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_071",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:020365",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 1,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:020258",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_072",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:020456",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 3,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:020366",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_073",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:021531",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 1,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:021402",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_076",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:022495",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 1
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022267",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_eye_movement"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_080",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:022588",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 3,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022505",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_082",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:022997",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 2,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 1
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022589",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_eye_movement",
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_083",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_004_r1:word:012726",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 2,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_004",
+            "start_word_id": "transcript_revision_video_004_r1:word:012441",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_004_topic_proposal_046",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_004_r1:word:023341",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 1,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_004",
+            "start_word_id": "transcript_revision_video_004_r1:word:023127",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_004_topic_proposal_074",
+            "unresolved_exact_term_signal": false
+          }
+        ],
+        "identities_merged": false,
+        "link_rebuild_authority": "CODEX_DETERMINISTIC_EXACT_TERM_PARTITION",
+        "link_semantic_acceptance": false,
+        "outcome": "RELATED",
+        "package_semantic_promotion": false,
+        "rationale": "ДПДГ is a named method, eye movements are a technique used in that method, and extraocular muscles are the anatomical structures that perform the movements. The decision preserves three related but distinct semantic identities and forbids alias-based identity merging.",
+        "related_concepts": [
+          {
+            "candidate_concept_id": "issue_68_candidate_concept_emdr",
+            "proposed_canonical_label": "ДПДГ",
+            "source_terms": [
+              "ДПДГ"
+            ]
+          },
+          {
+            "candidate_concept_id": "issue_68_candidate_concept_extraocular_muscles",
+            "proposed_canonical_label": "Глазодвигательные мышцы",
+            "source_terms": [
+              "Глазодвигательная",
+              "Глазодвигательные",
+              "глазодвигательные"
+            ]
+          }
+        ],
+        "relation": "RELATED",
+        "result_concept_ids": [
+          "issue_68_candidate_concept_eye_movement",
+          "issue_68_candidate_concept_emdr",
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "retained_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_eye_movement",
+          "proposed_canonical_label": "Движения глаз",
+          "source_terms": [
+            "движения глаз"
+          ]
+        },
+        "review_gate": "DOMAIN_REVIEW",
+        "semantic_relations": [
+          {
+            "source_concept_id": "issue_68_candidate_concept_eye_movement",
+            "target_concept_id": "issue_68_candidate_concept_emdr",
+            "type": "USED_IN"
+          },
+          {
+            "source_concept_id": "issue_68_candidate_concept_eye_movement",
+            "target_concept_id": "issue_68_candidate_concept_extraocular_muscles",
+            "type": "PERFORMED_BY"
+          }
+        ],
+        "status": "DECIDED",
+        "target_candidate_concept_id": "issue_68_candidate_concept_eye_movement"
+      },
+      "domain_review_status": "DECIDED",
+      "evidence_reference_count": 6,
+      "exception": null,
+      "proposed_canonical_label": "ДПДГ",
+      "semantic_status": "PROVISIONAL",
+      "source_terms": [
+        "ДПДГ"
+      ]
+    },
+    {
+      "candidate_concept_id": "issue_68_candidate_concept_extraocular_muscles",
+      "classification": "CLEAR_FOR_HUMAN_BATCH_REVIEW",
+      "domain_review_resolution": {
+        "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "evidence_partition": [
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_001_r1:word:018871",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 6,
+              "issue_68_candidate_concept_extraocular_muscles": 2,
+              "issue_68_candidate_concept_eye_movement": 5
+            },
+            "source_id": "source_video_001",
+            "start_word_id": "transcript_revision_video_001_r1:word:016347",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_eye_movement",
+              "issue_68_candidate_concept_emdr",
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_113_reviewed_topic_19",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:010610",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 3,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:010128",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_034",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:020257",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 1,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:019976",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_071",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:020365",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 1,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:020258",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_072",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:020456",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 3,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:020366",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_073",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:021531",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 1,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:021402",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_076",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:022495",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 1
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022267",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_eye_movement"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_080",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:022588",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 3,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022505",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_082",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_003_r1:word:022997",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 2,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 1
+            },
+            "source_id": "source_video_003",
+            "start_word_id": "transcript_revision_video_003_r1:word:022589",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_eye_movement",
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_003_topic_proposal_083",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_004_r1:word:012726",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 2,
+              "issue_68_candidate_concept_extraocular_muscles": 0,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_004",
+            "start_word_id": "transcript_revision_video_004_r1:word:012441",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_emdr"
+            ],
+            "topic_reference": "issue_68_video_004_topic_proposal_046",
+            "unresolved_exact_term_signal": false
+          },
+          {
+            "decision_id": "issue_68_domain_review_concept_eye_movement",
+            "end_word_id": "transcript_revision_video_004_r1:word:023341",
+            "exact_match_counts": {
+              "issue_68_candidate_concept_emdr": 0,
+              "issue_68_candidate_concept_extraocular_muscles": 1,
+              "issue_68_candidate_concept_eye_movement": 0
+            },
+            "source_id": "source_video_004",
+            "start_word_id": "transcript_revision_video_004_r1:word:023127",
+            "target_concept_ids": [
+              "issue_68_candidate_concept_extraocular_muscles"
+            ],
+            "topic_reference": "issue_68_video_004_topic_proposal_074",
+            "unresolved_exact_term_signal": false
+          }
+        ],
+        "identities_merged": false,
+        "link_rebuild_authority": "CODEX_DETERMINISTIC_EXACT_TERM_PARTITION",
+        "link_semantic_acceptance": false,
+        "outcome": "RELATED",
+        "package_semantic_promotion": false,
+        "rationale": "ДПДГ is a named method, eye movements are a technique used in that method, and extraocular muscles are the anatomical structures that perform the movements. The decision preserves three related but distinct semantic identities and forbids alias-based identity merging.",
+        "related_concepts": [
+          {
+            "candidate_concept_id": "issue_68_candidate_concept_emdr",
+            "proposed_canonical_label": "ДПДГ",
+            "source_terms": [
+              "ДПДГ"
+            ]
+          },
+          {
+            "candidate_concept_id": "issue_68_candidate_concept_extraocular_muscles",
+            "proposed_canonical_label": "Глазодвигательные мышцы",
+            "source_terms": [
+              "Глазодвигательная",
+              "Глазодвигательные",
+              "глазодвигательные"
+            ]
+          }
+        ],
+        "relation": "RELATED",
+        "result_concept_ids": [
+          "issue_68_candidate_concept_eye_movement",
+          "issue_68_candidate_concept_emdr",
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "retained_concept": {
+          "candidate_concept_id": "issue_68_candidate_concept_eye_movement",
+          "proposed_canonical_label": "Движения глаз",
+          "source_terms": [
+            "движения глаз"
+          ]
+        },
+        "review_gate": "DOMAIN_REVIEW",
+        "semantic_relations": [
+          {
+            "source_concept_id": "issue_68_candidate_concept_eye_movement",
+            "target_concept_id": "issue_68_candidate_concept_emdr",
+            "type": "USED_IN"
+          },
+          {
+            "source_concept_id": "issue_68_candidate_concept_eye_movement",
+            "target_concept_id": "issue_68_candidate_concept_extraocular_muscles",
+            "type": "PERFORMED_BY"
+          }
+        ],
+        "status": "DECIDED",
+        "target_candidate_concept_id": "issue_68_candidate_concept_eye_movement"
+      },
+      "domain_review_status": "DECIDED",
+      "evidence_reference_count": 5,
+      "exception": null,
+      "proposed_canonical_label": "Глазодвигательные мышцы",
       "semantic_status": "PROVISIONAL",
       "source_terms": [
         "Глазодвигательная",
         "Глазодвигательные",
-        "глазодвигательные",
-        "движения глаз",
-        "ДПДГ"
+        "глазодвигательные"
       ]
     },
     {
@@ -2608,23 +3337,22 @@
   ],
   "errors": [],
   "first_material_exception": {
-    "candidate_concept_id": "issue_68_candidate_concept_eye_movement",
+    "candidate_concept_id": "issue_68_candidate_concept_consciousness",
     "classification": "IDENTITY_EXCEPTION",
     "domain_review_status": "REVIEW_REQUIRED",
-    "evidence_reference_count": 11,
+    "evidence_reference_count": 7,
     "exception": {
       "human_decision_required": true,
-      "problem": "Generic eye movements and the named ДПДГ method are related but not automatically identical.",
-      "recommendation": "Review SAME_CONCEPT versus RELATED/hierarchical identities."
+      "problem": "The seed combines levels of consciousness, awareness, and осознавание without an identity decision.",
+      "recommendation": "Resolve terminology and Concept scope through DOMAIN_REVIEW."
     },
-    "proposed_canonical_label": "Движения глаз и ДПДГ",
+    "proposed_canonical_label": "Уровни сознания",
     "semantic_status": "PROVISIONAL",
     "source_terms": [
-      "Глазодвигательная",
-      "Глазодвигательные",
-      "глазодвигательные",
-      "движения глаз",
-      "ДПДГ"
+      "Уровень Осознавания",
+      "Уровни Осознания",
+      "Уровни сознания",
+      "уровни сознания"
     ]
   },
   "input_inventory": {
@@ -2632,7 +3360,7 @@
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "094ef3ffec119f878e1542c158d01620f5893b6ab7c6a1165ce07936cc97614c",
+    "domain_review_decisions_sha256": "032bffcd264e628551c56146490cf407ca6056bc41968d07e3e82af79ba45e08",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -2642,8 +3370,8 @@
     "current_semantic_package_concept_projection": 15,
     "current_semantic_package_link_projection": 179,
     "explanation": "The QA input rebuilds the original provisional 18/254 inventory from the same hash-bound generator artifacts before DOMAIN_AUTHORING. Explicit DOMAIN_REVIEW identity decisions may create additional Concept and provisional link results without deleting baseline provenance. The current 15/179 projection is a lossy preview-based regeneration after split/merge authoring and is not treated as deletion or review.",
-    "qa_concept_results_after_review_decisions": 20,
-    "qa_link_results_after_review_decisions": 259,
+    "qa_concept_results_after_review_decisions": 22,
+    "qa_link_results_after_review_decisions": 262,
     "semantic_change_inferred": false
   },
   "link_results": [
@@ -10171,6 +10899,22 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 6,
+          "issue_68_candidate_concept_extraocular_muscles": 2,
+          "issue_68_candidate_concept_eye_movement": 5
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_eye_movement",
+          "issue_68_candidate_concept_emdr",
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -10197,8 +10941,110 @@
       "source_id": "source_video_001"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
+      "candidate_concept_reference": "issue_68_candidate_concept_emdr",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 6,
+          "issue_68_candidate_concept_extraocular_muscles": 2,
+          "issue_68_candidate_concept_eye_movement": 5
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_eye_movement",
+          "issue_68_candidate_concept_emdr",
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "unresolved_exact_term_signal": false
+      },
+      "evidence_support": [
+        {
+          "authored_title_correspondence": true,
+          "authored_topic_reference": "issue_113_reviewed_topic_19",
+          "exact_pattern_match_count": 6,
+          "intersection_end_word_id": "transcript_revision_video_001_r1:word:018871",
+          "intersection_sha256": "5ee4e46454de51230d6761bf23cc205558ddd4463d66137c95ffffbbf1cf1406",
+          "intersection_start_word_id": "transcript_revision_video_001_r1:word:016347"
+        }
+      ],
+      "exact_term_target_references": [
+        "issue_113_reviewed_topic_19"
+      ],
+      "input_topic_reference": "issue_113_reviewed_topic_19",
+      "link_id": "issue_68_link_issue_113_reviewed_topic_19_emdr",
+      "overlapping_authored_topic_references": [
+        "issue_113_reviewed_topic_19"
+      ],
+      "recommended_target_topic_references": [
+        "issue_113_reviewed_topic_19"
+      ],
+      "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
+      "semantic_status": "PROVISIONAL",
+      "source_id": "source_video_001"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_extraocular_muscles",
+      "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 6,
+          "issue_68_candidate_concept_extraocular_muscles": 2,
+          "issue_68_candidate_concept_eye_movement": 5
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_eye_movement",
+          "issue_68_candidate_concept_emdr",
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "unresolved_exact_term_signal": false
+      },
+      "evidence_support": [
+        {
+          "authored_title_correspondence": false,
+          "authored_topic_reference": "issue_113_reviewed_topic_19",
+          "exact_pattern_match_count": 2,
+          "intersection_end_word_id": "transcript_revision_video_001_r1:word:018871",
+          "intersection_sha256": "5ee4e46454de51230d6761bf23cc205558ddd4463d66137c95ffffbbf1cf1406",
+          "intersection_start_word_id": "transcript_revision_video_001_r1:word:016347"
+        }
+      ],
+      "exact_term_target_references": [
+        "issue_113_reviewed_topic_19"
+      ],
+      "input_topic_reference": "issue_113_reviewed_topic_19",
+      "link_id": "issue_68_link_issue_113_reviewed_topic_19_extraocular_muscles",
+      "overlapping_authored_topic_references": [
+        "issue_113_reviewed_topic_19"
+      ],
+      "recommended_target_topic_references": [
+        "issue_113_reviewed_topic_19"
+      ],
+      "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
+      "semantic_status": "PROVISIONAL",
+      "source_id": "source_video_001"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_extraocular_muscles",
+      "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 0,
+          "issue_68_candidate_concept_extraocular_muscles": 3,
+          "issue_68_candidate_concept_eye_movement": 0
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -10221,7 +11067,7 @@
         "issue_68_video_003_topic_proposal_032c"
       ],
       "input_topic_reference": "issue_68_video_003_topic_proposal_034",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_034_eye_movement",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_034_extraocular_muscles",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_032b",
         "issue_68_video_003_topic_proposal_032c"
@@ -10234,8 +11080,22 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
+      "candidate_concept_reference": "issue_68_candidate_concept_emdr",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 1,
+          "issue_68_candidate_concept_extraocular_muscles": 0,
+          "issue_68_candidate_concept_eye_movement": 0
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_emdr"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -10250,7 +11110,7 @@
         "issue_68_video_003_topic_proposal_070a"
       ],
       "input_topic_reference": "issue_68_video_003_topic_proposal_071",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_eye_movement",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_emdr",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070a"
       ],
@@ -10262,8 +11122,22 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
+      "candidate_concept_reference": "issue_68_candidate_concept_emdr",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 1,
+          "issue_68_candidate_concept_extraocular_muscles": 0,
+          "issue_68_candidate_concept_eye_movement": 0
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_emdr"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -10274,7 +11148,7 @@
           "intersection_start_word_id": "transcript_revision_video_003_r1:word:020258"
         },
         {
-          "authored_title_correspondence": true,
+          "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_003_topic_proposal_070b",
           "exact_pattern_match_count": 0,
           "intersection_end_word_id": "transcript_revision_video_003_r1:word:020365",
@@ -10286,7 +11160,7 @@
         "issue_68_video_003_topic_proposal_070a"
       ],
       "input_topic_reference": "issue_68_video_003_topic_proposal_072",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_072_eye_movement",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_072_emdr",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070a",
         "issue_68_video_003_topic_proposal_070b"
@@ -10299,8 +11173,22 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
+      "candidate_concept_reference": "issue_68_candidate_concept_extraocular_muscles",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 0,
+          "issue_68_candidate_concept_extraocular_muscles": 3,
+          "issue_68_candidate_concept_eye_movement": 0
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -10315,7 +11203,7 @@
         "issue_68_video_003_topic_proposal_070b"
       ],
       "input_topic_reference": "issue_68_video_003_topic_proposal_073",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_073_eye_movement",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_073_extraocular_muscles",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070b"
       ],
@@ -10327,11 +11215,25 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
-      "classification": "LINK_CLEAR",
+      "candidate_concept_reference": "issue_68_candidate_concept_extraocular_muscles",
+      "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 0,
+          "issue_68_candidate_concept_extraocular_muscles": 1,
+          "issue_68_candidate_concept_eye_movement": 0
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
-          "authored_title_correspondence": true,
+          "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_003_topic_proposal_070e",
           "exact_pattern_match_count": 1,
           "intersection_end_word_id": "transcript_revision_video_003_r1:word:021531",
@@ -10342,21 +11244,39 @@
       "exact_term_target_references": [
         "issue_68_video_003_topic_proposal_070e"
       ],
+      "exception": {
+        "confidence": "MEDIUM",
+        "human_decision_required": true,
+        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
+        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
+      },
       "input_topic_reference": "issue_68_video_003_topic_proposal_076",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_076_eye_movement",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_076_extraocular_muscles",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070e"
       ],
-      "recommended_target_topic_references": [
-        "issue_68_video_003_topic_proposal_070e"
-      ],
-      "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
+      "recommended_target_topic_references": [],
+      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 0,
+          "issue_68_candidate_concept_extraocular_muscles": 0,
+          "issue_68_candidate_concept_eye_movement": 1
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_eye_movement"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -10383,8 +11303,22 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
+      "candidate_concept_reference": "issue_68_candidate_concept_emdr",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 3,
+          "issue_68_candidate_concept_extraocular_muscles": 0,
+          "issue_68_candidate_concept_eye_movement": 0
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_emdr"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -10408,7 +11342,7 @@
         "issue_68_video_003_topic_proposal_070g"
       ],
       "input_topic_reference": "issue_68_video_003_topic_proposal_082",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_082_eye_movement",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_082_emdr",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070f",
         "issue_68_video_003_topic_proposal_070g"
@@ -10424,6 +11358,21 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 2,
+          "issue_68_candidate_concept_extraocular_muscles": 0,
+          "issue_68_candidate_concept_eye_movement": 1
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_eye_movement",
+          "issue_68_candidate_concept_emdr"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -10459,8 +11408,74 @@
       "source_id": "source_video_003"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
+      "candidate_concept_reference": "issue_68_candidate_concept_emdr",
       "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 2,
+          "issue_68_candidate_concept_extraocular_muscles": 0,
+          "issue_68_candidate_concept_eye_movement": 1
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_eye_movement",
+          "issue_68_candidate_concept_emdr"
+        ],
+        "unresolved_exact_term_signal": false
+      },
+      "evidence_support": [
+        {
+          "authored_title_correspondence": true,
+          "authored_topic_reference": "issue_68_video_003_topic_proposal_070g",
+          "exact_pattern_match_count": 2,
+          "intersection_end_word_id": "transcript_revision_video_003_r1:word:022730",
+          "intersection_sha256": "18bde2b53e0b02b3cd07c56e22f371e07896e59b874ae4a5cadf4331236106fb",
+          "intersection_start_word_id": "transcript_revision_video_003_r1:word:022589"
+        },
+        {
+          "authored_title_correspondence": false,
+          "authored_topic_reference": "issue_68_video_003_topic_proposal_084a",
+          "exact_pattern_match_count": 0,
+          "intersection_end_word_id": "transcript_revision_video_003_r1:word:022997",
+          "intersection_sha256": "240b595dfecf836c12c7033f8697f6bd5b1da8929b46ed0b88646c6f8bead773",
+          "intersection_start_word_id": "transcript_revision_video_003_r1:word:022731"
+        }
+      ],
+      "exact_term_target_references": [
+        "issue_68_video_003_topic_proposal_070g"
+      ],
+      "input_topic_reference": "issue_68_video_003_topic_proposal_083",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_083_emdr",
+      "overlapping_authored_topic_references": [
+        "issue_68_video_003_topic_proposal_070g",
+        "issue_68_video_003_topic_proposal_084a"
+      ],
+      "recommended_target_topic_references": [
+        "issue_68_video_003_topic_proposal_070g"
+      ],
+      "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
+      "semantic_status": "PROVISIONAL",
+      "source_id": "source_video_003"
+    },
+    {
+      "candidate_concept_reference": "issue_68_candidate_concept_emdr",
+      "classification": "LINK_CLEAR",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 2,
+          "issue_68_candidate_concept_extraocular_muscles": 0,
+          "issue_68_candidate_concept_eye_movement": 0
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_emdr"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -10471,7 +11486,7 @@
           "intersection_start_word_id": "transcript_revision_video_004_r1:word:012441"
         },
         {
-          "authored_title_correspondence": true,
+          "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_004_topic_proposal_044b",
           "exact_pattern_match_count": 0,
           "intersection_end_word_id": "transcript_revision_video_004_r1:word:012726",
@@ -10483,7 +11498,7 @@
         "issue_68_video_004_topic_proposal_044a"
       ],
       "input_topic_reference": "issue_68_video_004_topic_proposal_046",
-      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_046_eye_movement",
+      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_046_emdr",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_044a",
         "issue_68_video_004_topic_proposal_044b"
@@ -10496,8 +11511,22 @@
       "source_id": "source_video_004"
     },
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_eye_movement",
+      "candidate_concept_reference": "issue_68_candidate_concept_extraocular_muscles",
       "classification": "LINK_EXCEPTION",
+      "concept_identity_rebuild": {
+        "decision_id": "issue_68_domain_review_concept_eye_movement",
+        "exact_match_counts": {
+          "issue_68_candidate_concept_emdr": 0,
+          "issue_68_candidate_concept_extraocular_muscles": 1,
+          "issue_68_candidate_concept_eye_movement": 0
+        },
+        "semantic_acceptance": false,
+        "semantic_status": "PROVISIONAL",
+        "target_concept_ids": [
+          "issue_68_candidate_concept_extraocular_muscles"
+        ],
+        "unresolved_exact_term_signal": false
+      },
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -10518,7 +11547,7 @@
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_074",
-      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_074_eye_movement",
+      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_074_extraocular_muscles",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_066e"
       ],
@@ -12180,15 +13209,15 @@
   "semantic_authority": "PROVISIONAL_UNREVIEWED",
   "status": "READY_WITH_EXCEPTIONS",
   "summary": {
-    "concept_candidates_total": 20,
-    "concept_clear": 16,
-    "concept_domain_review_decisions": 3,
-    "concept_identity_exception": 4,
+    "concept_candidates_total": 22,
+    "concept_clear": 19,
+    "concept_domain_review_decisions": 4,
+    "concept_identity_exception": 3,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 195,
-    "link_exception": 64,
-    "links_total": 259,
+    "link_clear": 197,
+    "link_exception": 65,
+    "links_total": 262,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,

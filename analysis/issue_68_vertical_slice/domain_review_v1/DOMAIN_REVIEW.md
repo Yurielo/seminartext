@@ -9,10 +9,10 @@ does not mean `ACCEPTED`.
 - Resulting authored semantic units: **182**
 - Topic `REVIEW_CLEAR`: **182**
 - Topic `REVIEW_EXCEPTION`: **0**
-- Concept candidates after review decisions: **20** (baseline: **18**)
-- Concept identity exceptions: **4**
-- Topic→Concept QA results after review decisions: **259** (baseline: **254**)
-- Link exceptions: **64**
+- Concept candidates after review decisions: **22** (baseline: **18**)
+- Concept identity exceptions: **3**
+- Topic→Concept QA results after review decisions: **262** (baseline: **254**)
+- Link exceptions: **65**
 - Selective transcript-verification exceptions: **2**
 - Coverage gaps / overlaps: **0 / 0**
 
@@ -22,19 +22,19 @@ packet exposes only the first unresolved material exception.
 
 ## First material exception — Concept identity
 
-- Concept candidate: `issue_68_candidate_concept_eye_movement`
-- Proposed label: **Движения глаз и ДПДГ**
-- Source terms: Глазодвигательная, Глазодвигательные, глазодвигательные, движения глаз, ДПДГ
-- Exact evidence references: **11**
+- Concept candidate: `issue_68_candidate_concept_consciousness`
+- Proposed label: **Уровни сознания**
+- Source terms: Уровень Осознавания, Уровни Осознания, Уровни сознания, уровни сознания
+- Exact evidence references: **7**
 - Classification: `IDENTITY_EXCEPTION`
 
 ### Exact problem
 
-Generic eye movements and the named ДПДГ method are related but not automatically identical.
+The seed combines levels of consciousness, awareness, and осознавание without an identity decision.
 
 ### Recommended review
 
-Review SAME_CONCEPT versus RELATED/hierarchical identities.
+Resolve terminology and Concept scope through DOMAIN_REVIEW.
 
 ### Human decision required
 

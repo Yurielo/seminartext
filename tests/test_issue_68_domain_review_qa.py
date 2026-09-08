@@ -46,8 +46,8 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
     links = qa["link_results"]
 
     assert len(topics) == 182
-    assert len(concepts) == 20
-    assert len(links) == 259
+    assert len(concepts) == 22
+    assert len(links) == 262
     assert len({item["candidate_concept_id"] for item in concepts}) == len(concepts)
     assert len({item["link_id"] for item in links}) == len(links)
     concept_ids = {item["candidate_concept_id"] for item in concepts}
@@ -84,7 +84,7 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["candidate_concept_id"] == "issue_68_candidate_concept_eye_movement"
+    assert first["candidate_concept_id"] == "issue_68_candidate_concept_consciousness"
     assert first["classification"] == "IDENTITY_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
     assert "issue_68_video_002_topic_proposal_020a" not in review
@@ -94,7 +94,8 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_candidate_concept_correction" not in review
     assert "issue_68_candidate_concept_nervous_system" not in review
     assert "issue_68_candidate_concept_brain" not in review
-    assert "issue_68_candidate_concept_eye_movement" in review
+    assert "issue_68_candidate_concept_eye_movement" not in review
+    assert "issue_68_candidate_concept_consciousness" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -401,8 +402,97 @@ def test_product_owner_brain_and_hemispheres_have_part_of_relation() -> None:
     }
     assert resolution["link_semantic_acceptance"] is False
     assert len(resolution["evidence_partition"]) == 12
-    assert qa["summary"]["concept_domain_review_decisions"] == 3
-    assert qa["summary"]["concept_candidates_total"] == 20
-    assert qa["summary"]["concept_clear"] == 16
-    assert qa["summary"]["concept_identity_exception"] == 4
-    assert qa["summary"]["links_total"] == 259
+    assert qa["summary"]["concept_domain_review_decisions"] == 4
+    assert qa["summary"]["concept_candidates_total"] == 22
+    assert qa["summary"]["concept_clear"] == 19
+    assert qa["summary"]["concept_identity_exception"] == 3
+    assert qa["summary"]["links_total"] == 262
+
+
+def test_product_owner_eye_movement_emdr_and_muscles_are_distinct() -> None:
+    qa = read_json(QA_PATH)
+    concept_ids = {
+        "issue_68_candidate_concept_eye_movement",
+        "issue_68_candidate_concept_emdr",
+        "issue_68_candidate_concept_extraocular_muscles",
+    }
+    concepts = {
+        item["candidate_concept_id"]: item
+        for item in qa["concept_results"]
+        if item["candidate_concept_id"] in concept_ids
+    }
+
+    assert set(concepts) == concept_ids
+    assert {
+        concept_id: item["proposed_canonical_label"]
+        for concept_id, item in concepts.items()
+    } == {
+        "issue_68_candidate_concept_eye_movement": "Движения глаз",
+        "issue_68_candidate_concept_emdr": "ДПДГ",
+        "issue_68_candidate_concept_extraocular_muscles": (
+            "Глазодвигательные мышцы"
+        ),
+    }
+    assert all(
+        item["classification"] == "CLEAR_FOR_HUMAN_BATCH_REVIEW"
+        and item["domain_review_status"] == "DECIDED"
+        and item["semantic_status"] == "PROVISIONAL"
+        for item in concepts.values()
+    )
+    assert {
+        concept_id: item["evidence_reference_count"]
+        for concept_id, item in concepts.items()
+    } == {
+        "issue_68_candidate_concept_eye_movement": 3,
+        "issue_68_candidate_concept_emdr": 6,
+        "issue_68_candidate_concept_extraocular_muscles": 5,
+    }
+
+    resolution = concepts[
+        "issue_68_candidate_concept_eye_movement"
+    ]["domain_review_resolution"]
+    assert all(
+        item["domain_review_resolution"] == resolution
+        for item in concepts.values()
+    )
+    assert resolution["outcome"] == "RELATED"
+    assert resolution["identities_merged"] is False
+    assert resolution["result_concept_ids"] == [
+        "issue_68_candidate_concept_eye_movement",
+        "issue_68_candidate_concept_emdr",
+        "issue_68_candidate_concept_extraocular_muscles",
+    ]
+    assert resolution["semantic_relations"] == [
+        {
+            "source_concept_id": "issue_68_candidate_concept_eye_movement",
+            "target_concept_id": "issue_68_candidate_concept_emdr",
+            "type": "USED_IN",
+        },
+        {
+            "source_concept_id": "issue_68_candidate_concept_eye_movement",
+            "target_concept_id": (
+                "issue_68_candidate_concept_extraocular_muscles"
+            ),
+            "type": "PERFORMED_BY",
+        },
+    ]
+    assert len(resolution["evidence_partition"]) == 11
+    assert not any(
+        item["unresolved_exact_term_signal"]
+        for item in resolution["evidence_partition"]
+    )
+    assert resolution["link_semantic_acceptance"] is False
+
+    rebuilt = [
+        item
+        for item in qa["link_results"]
+        if item.get("concept_identity_rebuild", {}).get("decision_id")
+        == "issue_68_domain_review_concept_eye_movement"
+    ]
+    assert {
+        item["candidate_concept_reference"] for item in rebuilt
+    } == concept_ids
+    assert all(
+        item["concept_identity_rebuild"]["semantic_acceptance"] is False
+        for item in rebuilt
+    )
