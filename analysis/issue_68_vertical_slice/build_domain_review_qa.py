@@ -292,6 +292,18 @@ NEW_CONCEPT_STRATEGIES = {
     },
 }
 
+REJECT_CONCEPT_STRATEGIES = {
+    "SELF_REGULATION_UNSUPPORTED_MACHINE_SUMMARY": {
+        "target_concept_id": "issue_68_candidate_concept_self_regulation",
+        "rejected_canonical_label": "Саморегуляция",
+        "rejected_source_terms": ["Управление стрессом"],
+        "rejected_topic_references": [
+            "issue_68_video_003_topic_proposal_069",
+            "issue_68_video_004_topic_proposal_006",
+        ],
+    },
+}
+
 TRANSCRIPT_EXCEPTIONS = [
     {
         "exception_id": "issue_68_transcript_exception_craniosacral_term",
@@ -676,7 +688,7 @@ def apply_concept_identity_decisions(
             errors.append(f"non-authoritative Concept decision {decision_id}")
             continue
         outcome = decision.get("outcome")
-        if outcome not in {"SAME_CONCEPT", "NEW_CONCEPT", "RELATED"}:
+        if outcome not in {"SAME_CONCEPT", "NEW_CONCEPT", "RELATED", "REJECT"}:
             errors.append(f"unsupported Concept decision outcome in {decision_id}")
             continue
         if target_id in resolved:
@@ -699,6 +711,84 @@ def apply_concept_identity_decisions(
             candidate.get("evidence_references", [])
         ):
             errors.append(f"Concept evidence-count snapshot mismatch in {decision_id}")
+            continue
+        if outcome == "REJECT":
+            strategy = REJECT_CONCEPT_STRATEGIES.get(decision.get("review_strategy"))
+            if not strategy or target_id != strategy["target_concept_id"]:
+                errors.append(f"unsupported REJECT review in {decision_id}")
+                continue
+            rejected_topics = decision.get("rejected_topic_references", [])
+            if (
+                decision.get("rejected_canonical_label")
+                != strategy["rejected_canonical_label"]
+                or decision.get("rejected_source_terms")
+                != strategy["rejected_source_terms"]
+                or rejected_topics != strategy["rejected_topic_references"]
+                or set(rejected_topics) != set(candidate.get("topic_references", []))
+            ):
+                errors.append(f"REJECT candidate snapshot mismatch in {decision_id}")
+                continue
+            if (
+                decision.get("rejected_provisional_candidate") is not True
+                or decision.get("source_term_identity_not_confirmed") is not True
+                or decision.get("all_link_proposals_rejected") is not True
+                or decision.get("package_semantic_promotion") is not False
+                or not decision.get("rejection_reason")
+            ):
+                errors.append(f"REJECT safeguards missing in {decision_id}")
+                continue
+
+            evidence_partition = []
+            for topic_reference, evidence in zip(
+                candidate["topic_references"], candidate["evidence_references"]
+            ):
+                rewrite = {
+                    "decision_id": decision_id,
+                    "target_concept_ids": [],
+                    "review_outcome": "REJECT",
+                    "partition_basis": "PRODUCT_OWNER_EXACT_EVIDENCE_REJECTION",
+                    "unresolved_exact_term_signal": False,
+                }
+                link_rewrites[(target_id, topic_reference)] = rewrite
+                evidence_partition.append(
+                    {"topic_reference": topic_reference, **evidence, **rewrite}
+                )
+
+            transformed = [
+                item
+                for item in transformed
+                if item["candidate_concept_id"] != target_id
+            ]
+            candidate_by_id.pop(target_id)
+            resolved.add(target_id)
+            resolutions.append(
+                {
+                    "decision_id": decision_id,
+                    "target_candidate_concept_id": target_id,
+                    "result_concept_ids": [],
+                    "authority": decision["authority"],
+                    "review_gate": "DOMAIN_REVIEW",
+                    "status": "DECIDED",
+                    "outcome": "REJECT",
+                    "rejected_provisional_candidate": True,
+                    "rejected_canonical_label": decision[
+                        "rejected_canonical_label"
+                    ],
+                    "rejected_source_terms": decision["rejected_source_terms"],
+                    "source_term_identity_not_confirmed": True,
+                    "rejected_topic_references": rejected_topics,
+                    "all_link_proposals_rejected": True,
+                    "candidate_snapshot": snapshot,
+                    "evidence_partition": evidence_partition,
+                    "link_rebuild_authority": (
+                        "PRODUCT_OWNER_EXPLICIT_EVIDENCE_LINK_REJECTION"
+                    ),
+                    "link_semantic_acceptance": False,
+                    "rejection_reason": decision["rejection_reason"],
+                    "rationale": decision["rationale"],
+                    "package_semantic_promotion": False,
+                }
+            )
             continue
         if outcome == "NEW_CONCEPT":
             strategy = NEW_CONCEPT_STRATEGIES.get(decision.get("review_strategy"))
@@ -1651,6 +1741,11 @@ def build_qa(
         },
         "topic_results": topic_results,
         "domain_review_resolutions": domain_review_resolutions,
+        "rejected_concept_resolutions": [
+            item
+            for item in concept_identity_resolutions
+            if item["outcome"] == "REJECT"
+        ],
         "concept_results": concept_results,
         "link_results": link_results,
         "selective_transcript_verification_exceptions": transcript_exception_results,

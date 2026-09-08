@@ -259,6 +259,35 @@
       ],
       "review_strategy": "LIFE_GOAL_REUSABLE_CONCEPT_WITH_EXACT_LINK_REVIEW",
       "target_candidate_concept_id": "issue_68_candidate_concept_life_goals"
+    },
+    {
+      "all_link_proposals_rejected": true,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "candidate_snapshot": {
+        "evidence_reference_count": 2,
+        "proposed_canonical_label": "Саморегуляция",
+        "source_terms": [
+          "Управление стрессом"
+        ]
+      },
+      "decision_date": "2026-09-08",
+      "decision_id": "issue_68_domain_review_concept_self_regulation",
+      "outcome": "REJECT",
+      "package_semantic_promotion": false,
+      "rationale": "Neither exact evidence range uses or establishes self-regulation as a reusable Concept. The first discusses an anti-stress correction and focusing on positive changes; the second discusses age selection for a stressful event. The machine-generated «Управление стрессом» title is not evidence of Concept identity.",
+      "rejected_canonical_label": "Саморегуляция",
+      "rejected_provisional_candidate": true,
+      "rejected_source_terms": [
+        "Управление стрессом"
+      ],
+      "rejected_topic_references": [
+        "issue_68_video_003_topic_proposal_069",
+        "issue_68_video_004_topic_proposal_006"
+      ],
+      "rejection_reason": "The proposed Concept and both Topic-to-Concept links are unsupported by exact source evidence; «Управление стрессом» is a machine summary label rather than a confirmed source synonym for «Саморегуляция».",
+      "review_strategy": "SELF_REGULATION_UNSUPPORTED_MACHINE_SUMMARY",
+      "source_term_identity_not_confirmed": true,
+      "target_candidate_concept_id": "issue_68_candidate_concept_self_regulation"
     }
   ],
   "decisions": [

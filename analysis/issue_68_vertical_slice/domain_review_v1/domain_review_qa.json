@@ -2197,22 +2197,6 @@
         "жизненные цели",
         "цели жизни"
       ]
-    },
-    {
-      "candidate_concept_id": "issue_68_candidate_concept_self_regulation",
-      "classification": "IDENTITY_EXCEPTION",
-      "domain_review_status": "REVIEW_REQUIRED",
-      "evidence_reference_count": 2,
-      "exception": {
-        "human_decision_required": true,
-        "problem": "The candidate is generated from a broad summary phrase and has no matching exact source expression in the current authored ranges.",
-        "recommendation": "Defer or define the identity only with explicit human evidence review."
-      },
-      "proposed_canonical_label": "Саморегуляция",
-      "semantic_status": "PROVISIONAL",
-      "source_terms": [
-        "Управление стрессом"
-      ]
     }
   ],
   "coverage": {
@@ -3751,27 +3735,43 @@
   ],
   "errors": [],
   "first_material_exception": {
-    "candidate_concept_id": "issue_68_candidate_concept_self_regulation",
-    "classification": "IDENTITY_EXCEPTION",
-    "domain_review_status": "REVIEW_REQUIRED",
-    "evidence_reference_count": 2,
+    "candidate_concept_reference": "issue_68_candidate_concept_stress",
+    "classification": "LINK_EXCEPTION",
+    "evidence_support": [
+      {
+        "authored_title_correspondence": false,
+        "authored_topic_reference": "issue_68_video_002_topic_proposal_001",
+        "exact_pattern_match_count": 1,
+        "intersection_end_word_id": "transcript_revision_video_002_r1:word:000066",
+        "intersection_sha256": "92173596ea22156ba98ee5275db673f9acef4511cf446b61cc79686bfd55ce27",
+        "intersection_start_word_id": "transcript_revision_video_002_r1:word:000000"
+      }
+    ],
+    "exact_term_target_references": [
+      "issue_68_video_002_topic_proposal_001"
+    ],
     "exception": {
+      "confidence": "MEDIUM",
       "human_decision_required": true,
-      "problem": "The candidate is generated from a broad summary phrase and has no matching exact source expression in the current authored ranges.",
-      "recommendation": "Defer or define the identity only with explicit human evidence review."
+      "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
+      "recommended_correction": "Review the exact context and accept, remap, or reject this link."
     },
-    "proposed_canonical_label": "Саморегуляция",
+    "input_topic_reference": "issue_68_video_002_topic_proposal_001",
+    "link_id": "issue_68_link_issue_68_video_002_topic_proposal_001_stress",
+    "overlapping_authored_topic_references": [
+      "issue_68_video_002_topic_proposal_001"
+    ],
+    "recommended_target_topic_references": [],
+    "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
     "semantic_status": "PROVISIONAL",
-    "source_terms": [
-      "Управление стрессом"
-    ]
+    "source_id": "source_video_002"
   },
   "input_inventory": {
     "authored_topic_results": 182,
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "ffb90beb0e6fb95cfbee2f200b4365a1990c5ebcb2b5c1bcf0b760c297246031",
+    "domain_review_decisions_sha256": "33724f6f7f7b6ec9ffcef6a175cd1031c81fbe7cd38fe06576be4b13d454f061",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -3781,8 +3781,8 @@
     "current_semantic_package_concept_projection": 15,
     "current_semantic_package_link_projection": 179,
     "explanation": "The QA input rebuilds the original provisional 18/254 inventory from the same hash-bound generator artifacts before DOMAIN_AUTHORING. Explicit DOMAIN_REVIEW identity decisions may create additional Concept and provisional link results without deleting baseline provenance. The current 15/179 projection is a lossy preview-based regeneration after split/merge authoring and is not treated as deletion or review.",
-    "qa_concept_results_after_review_decisions": 23,
-    "qa_link_results_after_review_decisions": 261,
+    "qa_concept_results_after_review_decisions": 22,
+    "qa_link_results_after_review_decisions": 259,
     "semantic_change_inferred": false
   },
   "link_results": [
@@ -13567,84 +13567,64 @@
       "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
-    },
+    }
+  ],
+  "rejected_concept_resolutions": [
     {
-      "candidate_concept_reference": "issue_68_candidate_concept_self_regulation",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
+      "all_link_proposals_rejected": true,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "candidate_snapshot": {
+        "evidence_reference_count": 2,
+        "proposed_canonical_label": "Саморегуляция",
+        "source_terms": [
+          "Управление стрессом"
+        ]
+      },
+      "decision_id": "issue_68_domain_review_concept_self_regulation",
+      "evidence_partition": [
         {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_051h",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:019558",
-          "intersection_sha256": "6bab83ea1012211f66bd40c631dadbe0aee4af31a93de259b8cc922c2206bda9",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:019429"
+          "decision_id": "issue_68_domain_review_concept_self_regulation",
+          "end_word_id": "transcript_revision_video_003_r1:word:019777",
+          "partition_basis": "PRODUCT_OWNER_EXACT_EVIDENCE_REJECTION",
+          "review_outcome": "REJECT",
+          "source_id": "source_video_003",
+          "start_word_id": "transcript_revision_video_003_r1:word:019429",
+          "target_concept_ids": [],
+          "topic_reference": "issue_68_video_003_topic_proposal_069",
+          "unresolved_exact_term_signal": false
         },
         {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_051j",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:019739",
-          "intersection_sha256": "48e39ee3634b7b68f6f2631acd2bb986c338beb7f6dff40bb2b9b310149bb7df",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:019586"
-        },
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:019777",
-          "intersection_sha256": "60b4696aece8e4ed78e695468662b2cb3f86e7b91bd768ac254bc6458a1dc462",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:019740"
+          "decision_id": "issue_68_domain_review_concept_self_regulation",
+          "end_word_id": "transcript_revision_video_004_r1:word:001135",
+          "partition_basis": "PRODUCT_OWNER_EXACT_EVIDENCE_REJECTION",
+          "review_outcome": "REJECT",
+          "source_id": "source_video_004",
+          "start_word_id": "transcript_revision_video_004_r1:word:001055",
+          "target_concept_ids": [],
+          "topic_reference": "issue_68_video_004_topic_proposal_006",
+          "unresolved_exact_term_signal": false
         }
       ],
-      "exact_term_target_references": [],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_003_topic_proposal_069",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_069_self_regulation",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_003_topic_proposal_051h",
-        "issue_68_video_003_topic_proposal_051j",
-        "issue_68_video_003_topic_proposal_070a"
+      "link_rebuild_authority": "PRODUCT_OWNER_EXPLICIT_EVIDENCE_LINK_REJECTION",
+      "link_semantic_acceptance": false,
+      "outcome": "REJECT",
+      "package_semantic_promotion": false,
+      "rationale": "Neither exact evidence range uses or establishes self-regulation as a reusable Concept. The first discusses an anti-stress correction and focusing on positive changes; the second discusses age selection for a stressful event. The machine-generated «Управление стрессом» title is not evidence of Concept identity.",
+      "rejected_canonical_label": "Саморегуляция",
+      "rejected_provisional_candidate": true,
+      "rejected_source_terms": [
+        "Управление стрессом"
       ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_003"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_self_regulation",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_001e",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:001135",
-          "intersection_sha256": "c9b59c2d5b150f99afd039a10d9ca27ce6367b34b250ce06c5e164aba2252db4",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:001055"
-        }
+      "rejected_topic_references": [
+        "issue_68_video_003_topic_proposal_069",
+        "issue_68_video_004_topic_proposal_006"
       ],
-      "exact_term_target_references": [],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_004_topic_proposal_006",
-      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_006_self_regulation",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_004_topic_proposal_001e"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_004"
+      "rejection_reason": "The proposed Concept and both Topic-to-Concept links are unsupported by exact source evidence; «Управление стрессом» is a machine summary label rather than a confirmed source synonym for «Саморегуляция».",
+      "result_concept_ids": [],
+      "review_gate": "DOMAIN_REVIEW",
+      "source_term_identity_not_confirmed": true,
+      "status": "DECIDED",
+      "target_candidate_concept_id": "issue_68_candidate_concept_self_regulation"
     }
   ],
   "review_policy": {
@@ -13703,15 +13683,15 @@
   "semantic_authority": "PROVISIONAL_UNREVIEWED",
   "status": "READY_WITH_EXCEPTIONS",
   "summary": {
-    "concept_candidates_total": 23,
+    "concept_candidates_total": 22,
     "concept_clear": 22,
-    "concept_domain_review_decisions": 6,
-    "concept_identity_exception": 1,
+    "concept_domain_review_decisions": 7,
+    "concept_identity_exception": 0,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
     "link_clear": 197,
-    "link_exception": 64,
-    "links_total": 261,
+    "link_exception": 62,
+    "links_total": 259,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,

@@ -46,8 +46,8 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
     links = qa["link_results"]
 
     assert len(topics) == 182
-    assert len(concepts) == 23
-    assert len(links) == 261
+    assert len(concepts) == 22
+    assert len(links) == 259
     assert len({item["candidate_concept_id"] for item in concepts}) == len(concepts)
     assert len({item["link_id"] for item in links}) == len(links)
     concept_ids = {item["candidate_concept_id"] for item in concepts}
@@ -84,8 +84,10 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["candidate_concept_id"] == "issue_68_candidate_concept_self_regulation"
-    assert first["classification"] == "IDENTITY_EXCEPTION"
+    assert first["link_id"] == (
+        "issue_68_link_issue_68_video_002_topic_proposal_001_stress"
+    )
+    assert first["classification"] == "LINK_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
     assert "issue_68_video_002_topic_proposal_020a" not in review
     assert "issue_68_video_003_topic_proposal_051a" not in review
@@ -97,7 +99,8 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_candidate_concept_eye_movement" not in review
     assert "issue_68_candidate_concept_consciousness" not in review
     assert "issue_68_candidate_concept_life_goals" not in review
-    assert "issue_68_candidate_concept_self_regulation" in review
+    assert "issue_68_candidate_concept_self_regulation" not in review
+    assert "issue_68_video_002_topic_proposal_001" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -619,8 +622,49 @@ def test_product_owner_confirms_life_goal_and_rejects_false_link() -> None:
     assert links[0]["concept_identity_rebuild"]["review_outcome"] == "ACCEPT"
     assert links[0]["concept_identity_rebuild"]["semantic_acceptance"] is False
 
-    assert qa["summary"]["concept_domain_review_decisions"] == 6
-    assert qa["summary"]["concept_candidates_total"] == 23
+    assert qa["summary"]["concept_domain_review_decisions"] == 7
+    assert qa["summary"]["concept_candidates_total"] == 22
     assert qa["summary"]["concept_clear"] == 22
-    assert qa["summary"]["concept_identity_exception"] == 1
-    assert qa["summary"]["links_total"] == 261
+    assert qa["summary"]["concept_identity_exception"] == 0
+    assert qa["summary"]["links_total"] == 259
+
+
+def test_product_owner_rejects_unsupported_self_regulation_candidate() -> None:
+    qa = read_json(QA_PATH)
+    concepts = qa["concept_results"]
+    links = qa["link_results"]
+    resolution = next(
+        item
+        for item in qa["rejected_concept_resolutions"]
+        if item["decision_id"]
+        == "issue_68_domain_review_concept_self_regulation"
+    )
+
+    assert all(
+        item["candidate_concept_id"]
+        != "issue_68_candidate_concept_self_regulation"
+        for item in concepts
+    )
+    assert all(
+        item["candidate_concept_reference"]
+        != "issue_68_candidate_concept_self_regulation"
+        for item in links
+    )
+    assert resolution["outcome"] == "REJECT"
+    assert resolution["result_concept_ids"] == []
+    assert resolution["rejected_provisional_candidate"] is True
+    assert resolution["source_term_identity_not_confirmed"] is True
+    assert resolution["all_link_proposals_rejected"] is True
+    assert resolution["rejected_topic_references"] == [
+        "issue_68_video_003_topic_proposal_069",
+        "issue_68_video_004_topic_proposal_006",
+    ]
+    assert [
+        item["review_outcome"] for item in resolution["evidence_partition"]
+    ] == ["REJECT", "REJECT"]
+    assert all(
+        item["target_concept_ids"] == []
+        for item in resolution["evidence_partition"]
+    )
+    assert resolution["link_semantic_acceptance"] is False
+    assert resolution["package_semantic_promotion"] is False
