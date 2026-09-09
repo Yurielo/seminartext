@@ -404,6 +404,47 @@
       "rationale": "Preserve the historical machine-link evidence under the already reviewed authored Topic 015 → «Стресс» link without creating a duplicate semantic relation.",
       "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_018_stress",
       "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-09-09",
+      "decision_id": "issue_68_domain_review_link_day3_topic_053_stress",
+      "expected_exact_pattern_match_count": 1,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_051b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:015620",
+            "intersection_sha256": "fa194845ce3e123a608f2e268390c12b85d9d12c5cc92450671cb4208cfc5369",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:015513"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_051b"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_053",
+        "source_id": "source_video_003"
+      },
+      "outcome": "REMAP_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The exact context shows a protocol demonstration in which the instructor explicitly tests stress, elicits the participant's discomfort score, measures negative emotional charge, and proceeds to identify the underlying emotional state. Stress is therefore substantive to the authored semantic unit despite occurring once as an exact term.",
+      "remap_reason": "Machine Topic 053 is wholly contained by authored Topic 051B, and Product Owner DOMAIN_REVIEW confirms that the full context—not term frequency alone—supports the Topic-to-Concept relation.",
+      "replacement_topic_reference": "issue_68_video_003_topic_proposal_051b",
+      "replacement_topic_snapshot": {
+        "canonical_evidence_sha256": "35905bf29167be2f4325f00058a1a022e57f3838833f5c0fd907957d85db1efc",
+        "end_word_id": "transcript_revision_video_003_r1:word:015857",
+        "source_id": "source_video_003",
+        "start_word_id": "transcript_revision_video_003_r1:word:015450",
+        "title": "Настройка протокола и определение эмоционального состояния"
+      },
+      "single_match_context_reviewed": true,
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_053_stress",
+      "topic_changed": false
     }
   ],
   "decisions": [

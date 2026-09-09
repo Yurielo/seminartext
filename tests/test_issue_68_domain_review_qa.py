@@ -85,7 +85,7 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
     assert first["link_id"] == (
-        "issue_68_link_issue_68_video_003_topic_proposal_053_stress"
+        "issue_68_link_issue_68_video_003_topic_proposal_070_stress"
     )
     assert first["classification"] == "LINK_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
@@ -103,7 +103,8 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_video_002_topic_proposal_001" not in review
     assert "issue_68_video_003_topic_proposal_014" not in review
     assert "issue_68_video_003_topic_proposal_018" not in review
-    assert "issue_68_video_003_topic_proposal_053" in review
+    assert "issue_68_video_003_topic_proposal_053" not in review
+    assert "issue_68_video_003_topic_proposal_070" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -712,7 +713,7 @@ def test_product_owner_rejects_program_name_stress_link_only() -> None:
         }
     ]
     assert resolution["package_semantic_promotion"] is False
-    assert qa["summary"]["link_domain_review_decisions"] == 3
+    assert qa["summary"]["link_domain_review_decisions"] == 4
 
 
 def test_product_owner_remaps_stress_link_to_full_authored_topic() -> None:
@@ -792,4 +793,44 @@ def test_product_owner_merges_duplicate_stress_link_provenance() -> None:
         result_link["merged_source_link_provenance"][0]["semantic_link_created"]
         is False
     )
-    assert qa["summary"]["link_domain_review_decisions"] == 3
+    assert qa["summary"]["link_domain_review_decisions"] == 4
+
+
+def test_product_owner_remaps_context_reviewed_single_match_stress_link() -> None:
+    qa = read_json(QA_PATH)
+    original_link_id = (
+        "issue_68_link_issue_68_video_003_topic_proposal_053_stress"
+    )
+    replacement_link_id = (
+        "issue_68_link_issue_68_video_003_topic_proposal_051b_stress"
+    )
+    resolution = next(
+        item
+        for item in qa["link_review_resolutions"]
+        if item["target_link_id"] == original_link_id
+    )
+    replacement = next(
+        item for item in qa["link_results"] if item["link_id"] == replacement_link_id
+    )
+
+    assert all(item["link_id"] != original_link_id for item in qa["link_results"])
+    assert sum(
+        item["link_id"] == replacement_link_id for item in qa["link_results"]
+    ) == 1
+    assert resolution["outcome"] == "REMAP_LINK"
+    assert resolution["replacement_topic_reference"] == (
+        "issue_68_video_003_topic_proposal_051b"
+    )
+    assert resolution["single_match_context_reviewed"] is True
+    assert resolution["replacement_evidence_support"][
+        "exact_pattern_match_count"
+    ] == 1
+    assert resolution["topic_changed"] is False
+    assert resolution["concept_changed"] is False
+    assert resolution["package_semantic_promotion"] is False
+    assert replacement["classification"] == "LINK_CLEAR"
+    assert replacement["domain_review_status"] == "DECIDED"
+    assert replacement["semantic_status"] == "PROVISIONAL"
+    assert replacement["relevance_basis"] == (
+        "PRODUCT_OWNER_REMAP_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE"
+    )

@@ -3740,15 +3740,15 @@
     "evidence_support": [
       {
         "authored_title_correspondence": false,
-        "authored_topic_reference": "issue_68_video_003_topic_proposal_051b",
+        "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
         "exact_pattern_match_count": 1,
-        "intersection_end_word_id": "transcript_revision_video_003_r1:word:015620",
-        "intersection_sha256": "fa194845ce3e123a608f2e268390c12b85d9d12c5cc92450671cb4208cfc5369",
-        "intersection_start_word_id": "transcript_revision_video_003_r1:word:015513"
+        "intersection_end_word_id": "transcript_revision_video_003_r1:word:019975",
+        "intersection_sha256": "84ee1c730a716abfe7e8f0433f4773e5b68d59f71e0f2101c259164c1bcf706b",
+        "intersection_start_word_id": "transcript_revision_video_003_r1:word:019778"
       }
     ],
     "exact_term_target_references": [
-      "issue_68_video_003_topic_proposal_051b"
+      "issue_68_video_003_topic_proposal_070a"
     ],
     "exception": {
       "confidence": "MEDIUM",
@@ -3756,10 +3756,10 @@
       "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
       "recommended_correction": "Review the exact context and accept, remap, or reject this link."
     },
-    "input_topic_reference": "issue_68_video_003_topic_proposal_053",
-    "link_id": "issue_68_link_issue_68_video_003_topic_proposal_053_stress",
+    "input_topic_reference": "issue_68_video_003_topic_proposal_070",
+    "link_id": "issue_68_link_issue_68_video_003_topic_proposal_070_stress",
     "overlapping_authored_topic_references": [
-      "issue_68_video_003_topic_proposal_051b"
+      "issue_68_video_003_topic_proposal_070a"
     ],
     "recommended_target_topic_references": [],
     "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
@@ -3771,7 +3771,7 @@
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "ca6fa323912e7eace11bbee47eb7eb0640d88ec36ae893e3c6c4cc1264e7eab6",
+    "domain_review_decisions_sha256": "89ebb7eb3a687886712efc089a3b46110304501f0ade490c8eab87e76ace141b",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -4905,33 +4905,31 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_stress",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_003_topic_proposal_051b",
           "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:015620",
-          "intersection_sha256": "fa194845ce3e123a608f2e268390c12b85d9d12c5cc92450671cb4208cfc5369",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:015513"
+          "intersection_end_word_id": "transcript_revision_video_003_r1:word:015857",
+          "intersection_sha256": "35905bf29167be2f4325f00058a1a022e57f3838833f5c0fd907957d85db1efc",
+          "intersection_start_word_id": "transcript_revision_video_003_r1:word:015450"
         }
       ],
       "exact_term_target_references": [
         "issue_68_video_003_topic_proposal_051b"
       ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_003_topic_proposal_053",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_053_stress",
+      "input_topic_reference": "issue_68_video_003_topic_proposal_051b",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_051b_stress",
+      "link_review_decision_id": "issue_68_domain_review_link_day3_topic_053_stress",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_051b"
       ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "recommended_target_topic_references": [
+        "issue_68_video_003_topic_proposal_051b"
+      ],
+      "relevance_basis": "PRODUCT_OWNER_REMAP_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -13603,6 +13601,7 @@
       },
       "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_015_stress",
       "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
       "status": "DECIDED",
       "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_014_stress",
       "topic_changed": false
@@ -13657,6 +13656,56 @@
       "review_gate": "DOMAIN_REVIEW",
       "status": "DECIDED",
       "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_018_stress",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_link_day3_topic_053_stress",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_051b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:015620",
+            "intersection_sha256": "fa194845ce3e123a608f2e268390c12b85d9d12c5cc92450671cb4208cfc5369",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:015513"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_051b"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_053",
+        "source_id": "source_video_003"
+      },
+      "outcome": "REMAP_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The exact context shows a protocol demonstration in which the instructor explicitly tests stress, elicits the participant's discomfort score, measures negative emotional charge, and proceeds to identify the underlying emotional state. Stress is therefore substantive to the authored semantic unit despite occurring once as an exact term.",
+      "remap_reason": "Machine Topic 053 is wholly contained by authored Topic 051B, and Product Owner DOMAIN_REVIEW confirms that the full context—not term frequency alone—supports the Topic-to-Concept relation.",
+      "replacement_evidence_support": {
+        "authored_title_correspondence": false,
+        "authored_topic_reference": "issue_68_video_003_topic_proposal_051b",
+        "exact_pattern_match_count": 1,
+        "intersection_end_word_id": "transcript_revision_video_003_r1:word:015857",
+        "intersection_sha256": "35905bf29167be2f4325f00058a1a022e57f3838833f5c0fd907957d85db1efc",
+        "intersection_start_word_id": "transcript_revision_video_003_r1:word:015450"
+      },
+      "replacement_topic_reference": "issue_68_video_003_topic_proposal_051b",
+      "replacement_topic_snapshot": {
+        "canonical_evidence_sha256": "35905bf29167be2f4325f00058a1a022e57f3838833f5c0fd907957d85db1efc",
+        "end_word_id": "transcript_revision_video_003_r1:word:015857",
+        "source_id": "source_video_003",
+        "start_word_id": "transcript_revision_video_003_r1:word:015450",
+        "title": "Настройка протокола и определение эмоционального состояния"
+      },
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_051b_stress",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": true,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_053_stress",
       "topic_changed": false
     }
   ],
@@ -13780,9 +13829,9 @@
     "concept_identity_exception": 0,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 198,
-    "link_domain_review_decisions": 3,
-    "link_exception": 59,
+    "link_clear": 199,
+    "link_domain_review_decisions": 4,
+    "link_exception": 58,
     "links_total": 257,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,

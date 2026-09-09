@@ -12,7 +12,7 @@ does not mean `ACCEPTED`.
 - Concept candidates after review decisions: **22** (baseline: **18**)
 - Concept identity exceptions: **0**
 - Topic→Concept QA results after review decisions: **257** (baseline: **254**)
-- Link exceptions: **59**
+- Link exceptions: **58**
 - Selective transcript-verification exceptions: **2**
 - Coverage gaps / overlaps: **0 / 0**
 
@@ -22,8 +22,8 @@ packet exposes only the first unresolved material exception.
 
 ## First material exception — Topic→Concept link
 
-- Link: `issue_68_link_issue_68_video_003_topic_proposal_053_stress`
-- Topic: `issue_68_video_003_topic_proposal_053`
+- Link: `issue_68_link_issue_68_video_003_topic_proposal_070_stress`
+- Topic: `issue_68_video_003_topic_proposal_070`
 - Concept candidate: `issue_68_candidate_concept_stress`
 - Source: `source_video_003`
 - Classification: `LINK_EXCEPTION`

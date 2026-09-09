@@ -1478,9 +1478,12 @@ def apply_link_decisions(
             match_count = len(
                 list(re.finditer(pattern, replacement_text, re.IGNORECASE))
             )
+            single_match_context_reviewed = (
+                decision.get("single_match_context_reviewed") is True
+            )
             if (
                 match_count != decision.get("expected_exact_pattern_match_count")
-                or match_count < 2
+                or match_count < (1 if single_match_context_reviewed else 2)
                 or not decision.get("remap_reason")
             ):
                 errors.append(f"replacement evidence mismatch in {decision_id}")
@@ -1519,6 +1522,7 @@ def apply_link_decisions(
                 "replacement_topic_reference": replacement_topic_id,
                 "replacement_topic_snapshot": expected_topic_snapshot,
                 "replacement_evidence_support": replacement_evidence,
+                "single_match_context_reviewed": single_match_context_reviewed,
                 "topic_changed": False,
                 "concept_changed": False,
                 "remap_reason": decision["remap_reason"],
@@ -1538,7 +1542,9 @@ def apply_link_decisions(
                 "recommended_target_topic_references": [replacement_topic_id],
                 "evidence_support": [replacement_evidence],
                 "relevance_basis": (
-                    "PRODUCT_OWNER_REMAP_WITH_REPEATED_EXACT_EVIDENCE"
+                    "PRODUCT_OWNER_REMAP_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE"
+                    if single_match_context_reviewed
+                    else "PRODUCT_OWNER_REMAP_WITH_REPEATED_EXACT_EVIDENCE"
                 ),
                 "semantic_status": "PROVISIONAL",
                 "domain_review_status": "DECIDED",
