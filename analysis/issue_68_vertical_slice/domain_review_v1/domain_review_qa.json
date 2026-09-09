@@ -3740,15 +3740,15 @@
     "evidence_support": [
       {
         "authored_title_correspondence": false,
-        "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+        "authored_topic_reference": "issue_68_video_004_topic_proposal_024g",
         "exact_pattern_match_count": 1,
-        "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
-        "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
-        "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
+        "intersection_end_word_id": "transcript_revision_video_004_r1:word:009121",
+        "intersection_sha256": "aed62ac05d0beffe32200a5d8421f9a5e92d2e0205dd93a7aeb1bcbcd893329d",
+        "intersection_start_word_id": "transcript_revision_video_004_r1:word:009026"
       }
     ],
     "exact_term_target_references": [
-      "issue_68_video_003_topic_proposal_070a"
+      "issue_68_video_004_topic_proposal_024g"
     ],
     "exception": {
       "confidence": "MEDIUM",
@@ -3756,22 +3756,22 @@
       "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
       "recommended_correction": "Review the exact context and accept, remap, or reject this link."
     },
-    "input_topic_reference": "issue_68_video_003_topic_proposal_071",
-    "link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_stress",
+    "input_topic_reference": "issue_68_video_004_topic_proposal_034",
+    "link_id": "issue_68_link_issue_68_video_004_topic_proposal_034_stress",
     "overlapping_authored_topic_references": [
-      "issue_68_video_003_topic_proposal_070a"
+      "issue_68_video_004_topic_proposal_024g"
     ],
     "recommended_target_topic_references": [],
     "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
     "semantic_status": "PROVISIONAL",
-    "source_id": "source_video_003"
+    "source_id": "source_video_004"
   },
   "input_inventory": {
     "authored_topic_results": 182,
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "52c6738ddcc783b749f4aad4726b6f372dff3d19191986fccd2473b69480f9aa",
+    "domain_review_decisions_sha256": "7da35ac5eff3fb7e15c98aeaf7f4ba37e03ef5eab87f9bd662cfcedebca8a474",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -3782,7 +3782,7 @@
     "current_semantic_package_link_projection": 179,
     "explanation": "The QA input rebuilds the original provisional 18/254 inventory from the same hash-bound generator artifacts before DOMAIN_AUTHORING. Explicit DOMAIN_REVIEW identity decisions may create additional Concept and provisional link results without deleting baseline provenance. The current 15/179 projection is a lossy preview-based regeneration after split/merge authoring and is not treated as deletion or review.",
     "qa_concept_results_after_review_decisions": 22,
-    "qa_link_results_after_review_decisions": 257,
+    "qa_link_results_after_review_decisions": 256,
     "semantic_change_inferred": false
   },
   "link_results": [
@@ -5042,6 +5042,28 @@
       "input_topic_reference": "issue_68_video_003_topic_proposal_070a",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_070a_stress",
       "link_review_decision_id": "issue_68_domain_review_link_day3_topic_070_stress",
+      "merged_provenance_decision_ids": [
+        "issue_68_domain_review_link_day3_topic_071_stress"
+      ],
+      "merged_source_link_provenance": [
+        {
+          "decision_id": "issue_68_domain_review_link_day3_topic_071_stress",
+          "evidence_support": [
+            {
+              "authored_title_correspondence": false,
+              "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+              "exact_pattern_match_count": 1,
+              "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
+              "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
+              "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
+            }
+          ],
+          "merge_basis": "CONTAINED_BY_ALREADY_REVIEWED_AUTHORED_TOPIC",
+          "semantic_link_created": false,
+          "source_link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_stress",
+          "source_topic_reference": "issue_68_video_003_topic_proposal_071"
+        }
+      ],
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070a"
       ],
@@ -5049,38 +5071,6 @@
         "issue_68_video_003_topic_proposal_070a"
       ],
       "relevance_basis": "PRODUCT_OWNER_REMAP_WITH_REPEATED_EXACT_EVIDENCE",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_003"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_stress",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
-          "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
-        }
-      ],
-      "exact_term_target_references": [
-        "issue_68_video_003_topic_proposal_070a"
-      ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_003_topic_proposal_071",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_stress",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_003_topic_proposal_070a"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -13755,6 +13745,58 @@
       "status": "DECIDED",
       "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_070_stress",
       "topic_changed": false
+    },
+    {
+      "additional_semantic_link_created": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contained_by_topic_reference": "issue_68_video_003_topic_proposal_070a",
+      "decision_id": "issue_68_domain_review_link_day3_topic_071_stress",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
+            "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_071",
+        "source_id": "source_video_003"
+      },
+      "merge_reason": "Machine Topic 071 is wholly contained by authored Topic 070A and contributes one of the four exact stress-family occurrences already bound to that Topic. A second semantic link would duplicate the same Topic-to-Concept relation.",
+      "merged_source_link_provenance": {
+        "decision_id": "issue_68_domain_review_link_day3_topic_071_stress",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
+            "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
+          }
+        ],
+        "merge_basis": "CONTAINED_BY_ALREADY_REVIEWED_AUTHORED_TOPIC",
+        "semantic_link_created": false,
+        "source_link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_stress",
+        "source_topic_reference": "issue_68_video_003_topic_proposal_071"
+      },
+      "outcome": "MERGE_LINK_PROVENANCE",
+      "package_semantic_promotion": false,
+      "rationale": "Preserve the historical machine-link evidence under the already reviewed authored Topic 070A → «Стресс» link without creating a duplicate semantic relation.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_070a_stress",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_stress",
+      "topic_changed": false
     }
   ],
   "rejected_concept_resolutions": [
@@ -13878,9 +13920,9 @@
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
     "link_clear": 200,
-    "link_domain_review_decisions": 5,
-    "link_exception": 57,
-    "links_total": 257,
+    "link_domain_review_decisions": 6,
+    "link_exception": 56,
+    "links_total": 256,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,

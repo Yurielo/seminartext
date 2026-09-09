@@ -485,6 +485,40 @@
       },
       "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_070_stress",
       "topic_changed": false
+    },
+    {
+      "additional_semantic_link_created": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contained_by_topic_reference": "issue_68_video_003_topic_proposal_070a",
+      "decision_date": "2026-09-09",
+      "decision_id": "issue_68_domain_review_link_day3_topic_071_stress",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
+            "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_071",
+        "source_id": "source_video_003"
+      },
+      "merge_into_link_id": "issue_68_link_issue_68_video_003_topic_proposal_070a_stress",
+      "merge_reason": "Machine Topic 071 is wholly contained by authored Topic 070A and contributes one of the four exact stress-family occurrences already bound to that Topic. A second semantic link would duplicate the same Topic-to-Concept relation.",
+      "outcome": "MERGE_LINK_PROVENANCE",
+      "package_semantic_promotion": false,
+      "rationale": "Preserve the historical machine-link evidence under the already reviewed authored Topic 070A → «Стресс» link without creating a duplicate semantic relation.",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_stress",
+      "topic_changed": false
     }
   ],
   "decisions": [
