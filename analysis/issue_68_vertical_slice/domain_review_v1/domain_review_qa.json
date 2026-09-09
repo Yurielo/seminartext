@@ -3742,9 +3742,9 @@
         "authored_title_correspondence": false,
         "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
         "exact_pattern_match_count": 1,
-        "intersection_end_word_id": "transcript_revision_video_003_r1:word:019975",
-        "intersection_sha256": "84ee1c730a716abfe7e8f0433f4773e5b68d59f71e0f2101c259164c1bcf706b",
-        "intersection_start_word_id": "transcript_revision_video_003_r1:word:019778"
+        "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
+        "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
+        "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
       }
     ],
     "exact_term_target_references": [
@@ -3756,8 +3756,8 @@
       "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
       "recommended_correction": "Review the exact context and accept, remap, or reject this link."
     },
-    "input_topic_reference": "issue_68_video_003_topic_proposal_070",
-    "link_id": "issue_68_link_issue_68_video_003_topic_proposal_070_stress",
+    "input_topic_reference": "issue_68_video_003_topic_proposal_071",
+    "link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_stress",
     "overlapping_authored_topic_references": [
       "issue_68_video_003_topic_proposal_070a"
     ],
@@ -3771,7 +3771,7 @@
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "89ebb7eb3a687886712efc089a3b46110304501f0ade490c8eab87e76ace141b",
+    "domain_review_decisions_sha256": "52c6738ddcc783b749f4aad4726b6f372dff3d19191986fccd2473b69480f9aa",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -5024,33 +5024,31 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_stress",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:019975",
-          "intersection_sha256": "84ee1c730a716abfe7e8f0433f4773e5b68d59f71e0f2101c259164c1bcf706b",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:019778"
+          "exact_pattern_match_count": 4,
+          "intersection_end_word_id": "transcript_revision_video_003_r1:word:020337",
+          "intersection_sha256": "77615d6a481c18ffdac2b42d0c69c7bfa7a7901abef5482257eaf89e0b55015b",
+          "intersection_start_word_id": "transcript_revision_video_003_r1:word:019740"
         }
       ],
       "exact_term_target_references": [
         "issue_68_video_003_topic_proposal_070a"
       ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_003_topic_proposal_070",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_070_stress",
+      "input_topic_reference": "issue_68_video_003_topic_proposal_070a",
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_070a_stress",
+      "link_review_decision_id": "issue_68_domain_review_link_day3_topic_070_stress",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070a"
       ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "recommended_target_topic_references": [
+        "issue_68_video_003_topic_proposal_070a"
+      ],
+      "relevance_basis": "PRODUCT_OWNER_REMAP_WITH_REPEATED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -13707,6 +13705,56 @@
       "status": "DECIDED",
       "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_053_stress",
       "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_link_day3_topic_070_stress",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:019975",
+            "intersection_sha256": "84ee1c730a716abfe7e8f0433f4773e5b68d59f71e0f2101c259164c1bcf706b",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:019778"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_070",
+        "source_id": "source_video_003"
+      },
+      "outcome": "REMAP_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The authored Topic 070A substantively explains DPDG as treatment for traumatic stress disorders and stress events, describes distress overwhelming coping mechanisms, and discusses dysfunctional stresses. The Concept «Стресс» is therefore directly supported throughout the full authored semantic unit.",
+      "remap_reason": "Machine Topic 070 spans multiple authored Topics; its stress evidence belongs to authored Topic 070A, whose full Canonical Word interval contains four exact stress-family matches.",
+      "replacement_evidence_support": {
+        "authored_title_correspondence": false,
+        "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+        "exact_pattern_match_count": 4,
+        "intersection_end_word_id": "transcript_revision_video_003_r1:word:020337",
+        "intersection_sha256": "77615d6a481c18ffdac2b42d0c69c7bfa7a7901abef5482257eaf89e0b55015b",
+        "intersection_start_word_id": "transcript_revision_video_003_r1:word:019740"
+      },
+      "replacement_topic_reference": "issue_68_video_003_topic_proposal_070a",
+      "replacement_topic_snapshot": {
+        "canonical_evidence_sha256": "77615d6a481c18ffdac2b42d0c69c7bfa7a7901abef5482257eaf89e0b55015b",
+        "end_word_id": "transcript_revision_video_003_r1:word:020337",
+        "source_id": "source_video_003",
+        "start_word_id": "transcript_revision_video_003_r1:word:019740",
+        "title": "ДПДГ: переработка травматического опыта и переход от негатива к позитиву"
+      },
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_070a_stress",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_070_stress",
+      "topic_changed": false
     }
   ],
   "rejected_concept_resolutions": [
@@ -13829,9 +13877,9 @@
     "concept_identity_exception": 0,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 199,
-    "link_domain_review_decisions": 4,
-    "link_exception": 58,
+    "link_clear": 200,
+    "link_domain_review_decisions": 5,
+    "link_exception": 57,
     "links_total": 257,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,

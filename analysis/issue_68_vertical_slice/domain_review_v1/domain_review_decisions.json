@@ -445,6 +445,46 @@
       "single_match_context_reviewed": true,
       "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_053_stress",
       "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-09-09",
+      "decision_id": "issue_68_domain_review_link_day3_topic_070_stress",
+      "expected_exact_pattern_match_count": 4,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:019975",
+            "intersection_sha256": "84ee1c730a716abfe7e8f0433f4773e5b68d59f71e0f2101c259164c1bcf706b",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:019778"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_070",
+        "source_id": "source_video_003"
+      },
+      "outcome": "REMAP_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The authored Topic 070A substantively explains DPDG as treatment for traumatic stress disorders and stress events, describes distress overwhelming coping mechanisms, and discusses dysfunctional stresses. The Concept «Стресс» is therefore directly supported throughout the full authored semantic unit.",
+      "remap_reason": "Machine Topic 070 spans multiple authored Topics; its stress evidence belongs to authored Topic 070A, whose full Canonical Word interval contains four exact stress-family matches.",
+      "replacement_topic_reference": "issue_68_video_003_topic_proposal_070a",
+      "replacement_topic_snapshot": {
+        "canonical_evidence_sha256": "77615d6a481c18ffdac2b42d0c69c7bfa7a7901abef5482257eaf89e0b55015b",
+        "end_word_id": "transcript_revision_video_003_r1:word:020337",
+        "source_id": "source_video_003",
+        "start_word_id": "transcript_revision_video_003_r1:word:019740",
+        "title": "ДПДГ: переработка травматического опыта и переход от негатива к позитиву"
+      },
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_070_stress",
+      "topic_changed": false
     }
   ],
   "decisions": [
