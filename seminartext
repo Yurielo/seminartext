@@ -859,28 +859,117 @@ quality_check() {
   python3 - "$1" <<'PYCHECK'
 import re, sys
 from collections import Counter
+from difflib import SequenceMatcher
 from pathlib import Path
+
+def reject(reason, detail=''):
+    suffix = f' {detail}' if detail else ''
+    print(f'ASR quality gate: REJECT reason={reason}{suffix}', file=sys.stderr)
+    raise SystemExit(1)
+
 p=Path(sys.argv[1])
 if not p.is_file() or p.stat().st_size == 0:
-    raise SystemExit(1)
+    reject('missing_or_empty_transcript')
 t=p.read_text(encoding='utf-8', errors='replace').strip()
 if len(t) < 20:
-    raise SystemExit(1)
+    reject('transcript_too_short')
 sents=[re.sub(r'\s+',' ',x.strip().lower()) for x in re.split(r'(?<=[.!?…])\s+',t) if x.strip()]
 if not sents:
-    raise SystemExit(1)
+    reject('no_sentences')
 c=Counter(sents)
 most,n=c.most_common(1)[0]
 if len(most.split()) <= 6 and n >= 12 and n/max(1,len(sents)) >= .45:
-    raise SystemExit(1)
+    reject('exact_short_sentence_loop', f'repeats={n}')
 tail=sents[-30:]
 if len(tail) >= 15 and len(set(tail)) <= 3:
-    raise SystemExit(1)
+    reject('collapsed_tail_loop', f'sentences={len(tail)} unique={len(set(tail))}')
 words=re.findall(r'[а-яёa-z0-9]+',t.lower())
 if words:
     w,n=Counter(words).most_common(1)[0]
     if len(w) <= 12 and n >= 40 and n/len(words) >= .55:
-        raise SystemExit(1)
+        reject('single_word_loop', f'repeats={n} word_ratio={n/len(words):.2f}')
+
+# Whisper contextual loops often keep a long local anchor while changing a few
+# surrounding words.  Whole-sentence equality misses that pattern, especially
+# when several repetitions land inside one punctuated sentence.  Look for four
+# near-identical 12-token spans (at least 10 tokens aligned in order) inside a
+# bounded 180-token neighbourhood.  Matches must be separated so overlapping
+# windows from one occurrence cannot count as multiple repetitions.
+normalized_words=[word.replace('ё', 'е') for word in words]
+stopwords={
+    'а', 'без', 'бы', 'в', 'во', 'вот', 'все', 'всего', 'всей', 'всем', 'всех',
+    'вы', 'где', 'да', 'для', 'до', 'его', 'ее', 'ей', 'есть', 'еще', 'же', 'за', 'и', 'из',
+    'или', 'им', 'их', 'к', 'как', 'ко', 'кто', 'ли', 'меня', 'мне', 'мы', 'на', 'нам', 'нас',
+    'не', 'нет', 'но', 'о', 'об', 'он', 'она', 'они', 'оно', 'от', 'по', 'при', 'с', 'себя',
+    'так', 'такой', 'там', 'тем', 'то', 'того', 'тоже', 'тут', 'ты', 'у', 'уже', 'чем', 'чего',
+    'что', 'чтобы', 'это', 'этого', 'этой', 'я',
+    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'but', 'by', 'for', 'from', 'in',
+    'is', 'it', 'of', 'on', 'or', 'that', 'the', 'this', 'to', 'was', 'we', 'with',
+}
+phrase_words=12
+local_window_words=180
+minimum_gap_words=8
+minimum_content_words=3
+minimum_common_words=9
+minimum_similarity=.82
+minimum_repetitions=4
+ordinal_roots=(
+    'перв', 'втор', 'трет', 'четверт', 'пят',
+    'шест', 'седьм', 'восьм', 'девят', 'десят',
+)
+english_ordinals={
+    'first', 'second', 'third', 'fourth', 'fifth',
+    'sixth', 'seventh', 'eighth', 'ninth', 'tenth',
+}
+
+def ordinal_kinds(tokens):
+    kinds={word for word in tokens if word in english_ordinals}
+    kinds.update(root for root in ordinal_roots if any(word.startswith(root) for word in tokens))
+    return kinds
+
+structured_repetition_until=-1
+for start in range(max(0, len(normalized_words) - phrase_words + 1)):
+    if start < structured_repetition_until:
+        continue
+    anchor=normalized_words[start:start + phrase_words]
+    content={word for word in anchor if len(word) > 2 and word not in stopwords}
+    if len(content) < minimum_content_words:
+        continue
+    anchor_counts=Counter(anchor)
+    matches=[start]
+    last_match=start
+    stop=min(len(normalized_words) - phrase_words + 1, start + local_window_words + 1)
+    for candidate_start in range(start + minimum_gap_words, stop):
+        if candidate_start - last_match < minimum_gap_words:
+            continue
+        candidate=normalized_words[candidate_start:candidate_start + phrase_words]
+        common=sum((anchor_counts & Counter(candidate)).values())
+        if common < minimum_common_words:
+            continue
+        similarity=SequenceMatcher(None, anchor, candidate, autojunk=False).ratio()
+        if similarity < minimum_similarity:
+            continue
+        matches.append(candidate_start)
+        last_match=candidate_start
+        if len(matches) >= minimum_repetitions:
+            # Repeated syntax can be legitimate when a speaker develops an
+            # explicit list.  Three distinct ordinal markers inside the same
+            # candidate cluster are strong textual evidence of enumerative
+            # progression, which a lexical-window similarity score otherwise
+            # mistakes for cycling.  Suppress only this local detector region;
+            # exact/tail/word-loop checks above remain unchanged.
+            cluster=normalized_words[matches[0]:matches[-1] + phrase_words]
+            if len(ordinal_kinds(cluster)) >= 3:
+                structured_repetition_until=min(
+                    len(normalized_words),
+                    matches[-1] + phrase_words + local_window_words,
+                )
+                break
+            reject(
+                'fuzzy_contextual_repetition',
+                f'repeats={len(matches)} phrase_words={phrase_words} '
+                f'span_words={matches[-1] - matches[0]} similarity>={minimum_similarity:.2f}',
+            )
 raise SystemExit(0)
 PYCHECK
 }
@@ -938,7 +1027,7 @@ run_whisper_piece() {
 
 process_record() {
   local input="$1" requested="$2" source_type="${3:-файл}"
-  local name="" dir="" wav="" raw="" clean="" review="" srt="" docx="" log="" info="" marker="" transcript_number=""
+  local name="" dir="" wav="" raw="" clean="" review="" srt="" docx="" log="" info="" marker="" transcript_number="" quality_message=""
   local media_input="$input" youtube_media=""
   name="$(sanitize_name "$requested")"
   dir="$(choose_output_dir "$name" "$input")"
@@ -1028,11 +1117,13 @@ process_record() {
       continue
     fi
 
-    if ! quality_check "$prefix.txt"; then
+    if ! quality_message="$(quality_check "$prefix.txt" 2>&1)"; then
+      [[ -z "$quality_message" ]] || printf '%s\n' "$quality_message" | tee -a "$log"
       echo "Обнаружено возможное зацикливание; повторяю с защитными параметрами." | tee -a "$log"
       cp -f "$prefix.txt" "$prefix.first.txt" 2>/dev/null || true
       run_whisper_piece "$piece" "$prefix" "$log" 1 || true
-      if ! quality_check "$prefix.txt"; then
+      if ! quality_message="$(quality_check "$prefix.txt" 2>&1)"; then
+        [[ -z "$quality_message" ]] || printf '%s\n' "$quality_message" | tee -a "$log"
         echo "ПРЕДУПРЕЖДЕНИЕ: фрагмент $((idx+1)) остаётся подозрительным." | tee -a "$log"
         ((bad+=1))
       else
