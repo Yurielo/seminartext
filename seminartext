@@ -30,6 +30,15 @@ LIST_ONLY=0
 OPEN_RESULTS=1
 INPUTS=()
 
+# Automated runs must never trigger macOS GUI applications. Interactive shell
+# use keeps the historical auto-open behavior unless the user passes --no-open.
+if [[ "${SEMINARTEXT_HEADLESS:-}" == "1" \
+   || -n "${CI:-}" \
+   || -n "${PYTEST_CURRENT_TEST:-}" \
+   || -n "${CODEX_HOME:-}" ]]; then
+  OPEN_RESULTS=0
+fi
+
 PROJECT_MODE=0
 PROJECT_OUTPUT_DIR=""
 PROJECT_SOURCE_ID=""
@@ -327,6 +336,7 @@ BENCHMARK И GOLD
   SEMINARTEXT_TOPICS_MODULE
   SEMINARTEXT_TRANSLATE_MODULE
   SEMINARTEXT_YTDLP_COOKIES_FROM_BROWSER
+  SEMINARTEXT_HEADLESS=1 (не открывать GUI в automated/Codex run)
 
 По умолчанию результаты:
   ~/Documents/Расшифровки
@@ -4541,6 +4551,10 @@ HELP
         dry_run=1
         shift
         ;;
+      --no-open)
+        OPEN_RESULTS=0
+        shift
+        ;;
       --combined-clear)
         combined_clear=1
         shift
@@ -4563,6 +4577,11 @@ HELP
 
 --dry-run
     Только показать очередь обработки. Whisper не запускается.
+
+--no-open
+    Не открывать GUI/папку результатов. В CI, pytest и Codex headless mode
+    это поведение включается автоматически; также можно задать
+    SEMINARTEXT_HEADLESS=1.
 
 --combined-clear
     После успешной обработки дополнительно создать
