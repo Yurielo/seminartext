@@ -54,6 +54,28 @@ SEMINARTEXT_YTDLP_COOKIES_FROM_BROWSER=chrome seminartext project-transcribe "$H
 Use the browser name/profile accepted by `yt-dlp --cookies-from-browser` for
 your local setup.
 
+### Объединённая чистая расшифровка локальной сессии
+
+Когда несколько локальных audio/video-файлов являются частями одной записи,
+добавьте к обычной обработке `--combined-clear`:
+
+```bash
+seminartext project-transcribe "/путь/к/проекту" --combined-clear
+```
+
+SeminarText сохраняет отдельные расшифровки каждой части и дополнительно
+создаёт `transcript/combined_clear.txt`. Локальные источники сортируются
+хронологически: embedded creation date медиа, затем macOS birth time, затем
+mtime как fallback (inode `ctime` не используется). При равной дате порядок
+детерминирован: filename, затем source_id. Это derived artifact с provenance в
+`transcript/combined_clear_manifest.json`, а не новый source of truth.
+
+Для читаемого файла с границами частей, filename и разрешённой датой используйте
+`--combined-with-sources`; он также создаёт чистый `combined_clear.txt`.
+Если creation dates утрачены или неверны, проверьте metadata исходных файлов:
+текущая реализация использует `creation_date`; контракты `filename`,
+`selection_order` и `manual` оставлены для будущего выбора порядка.
+
 ### Task workflow
 
 For each GitHub Issue:
