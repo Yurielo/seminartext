@@ -247,12 +247,17 @@ cat <<'HELP'
   seminartext project-review-boundary-resolve PROJECT --proposals FILE --ledger FILE --output FILE
   seminartext project-review-boundary-status PROJECT --proposals FILE --decisions FILE
   seminartext project-obsidian-export PROJECT --knowledge-input FILE --destination DIR [--dry-run]
-  seminartext project-transcribe PROJECT
+  seminartext project-transcribe PROJECT [--combined-clear] [--combined-with-sources]
   seminartext project-documents PROJECT
   seminartext project-corpus PROJECT
   seminartext project-topics PROJECT
 
       Создание, наполнение, проверка и обработка seminar-проекта.
+
+      --combined-clear дополнительно собирает чистые individual transcripts
+      локальных частей в один chronological derived artifact. Источники
+      упорядочиваются по embedded creation date, затем macOS birth time,
+      затем mtime; individual transcripts и provenance сохраняются.
 
 BENCHMARK И GOLD
 
@@ -4496,6 +4501,23 @@ project_transcribe() {
   local project_dir="${1:-}"
   local only_source=""
   local dry_run=0
+  local combined_clear=0
+  local combined_with_sources=0
+
+  if [[ "$project_dir" == "-h" || "$project_dir" == "--help" ]]; then
+    cat <<'HELP'
+Использование:
+
+  seminartext project-transcribe PROJECT [--combined-clear] [--combined-with-sources]
+  seminartext project-transcribe PROJECT --only video_001
+
+--combined-clear создаёт чистый chronological derived artifact из сохранённых
+individual transcript_clean.txt локальных частей: embedded creation date,
+macOS birth time, затем mtime. --combined-with-sources дополнительно создаёт
+вариант с filename и датами; provenance находится в combined_clear_manifest.json.
+HELP
+    return 0
+  fi
 
   if [[ -z "$project_dir" ]]; then
     echo 'Ошибка: укажите папку проекта.' >&2
@@ -4519,11 +4541,20 @@ project_transcribe() {
         dry_run=1
         shift
         ;;
+      --combined-clear)
+        combined_clear=1
+        shift
+        ;;
+      --combined-with-sources)
+        combined_clear=1
+        combined_with_sources=1
+        shift
+        ;;
       -h|--help)
         cat <<'HELP'
 Использование:
 
-  seminartext project-transcribe PROJECT
+  seminartext project-transcribe PROJECT [--combined-clear] [--combined-with-sources]
   seminartext project-transcribe PROJECT --only video_001
   seminartext project-transcribe PROJECT --only video_001 --dry-run
 
@@ -4532,6 +4563,24 @@ project_transcribe() {
 
 --dry-run
     Только показать очередь обработки. Whisper не запускается.
+
+--combined-clear
+    После успешной обработки дополнительно создать
+    transcript/combined_clear.txt из сохранённых transcript_clean.txt
+    локальных источников. Части сортируются по дате создания: embedded
+    media date, затем macOS birth time, затем mtime. Равные даты
+    разрешаются детерминированно по filename и source_id. Это derived
+    artifact: individual transcripts не заменяются; lineage сохраняется в
+    transcript/combined_clear_manifest.json.
+
+--combined-with-sources
+    Также создать transcript/combined_clear_with_sources.txt с читаемыми
+    границами filename и разрешённой датой. Включает --combined-clear.
+
+Если даты неверны или потеряны, проверьте metadata исходных файлов: mtime
+используется только как fallback. Для пользовательского ручного порядка
+предусмотрены будущие ordering_method filename, selection_order и manual;
+сейчас реализован creation_date.
 HELP
         return 0
         ;;
@@ -4835,6 +4884,190 @@ for video in combined["videos"]:
 
 print(f"  combined.json — {len(combined['videos'])} видео")
 PYJSON
+
+  if (( combined_clear == 1 )); then
+    echo
+    echo "Собираю объединённую чистую расшифровку..."
+    python3 - "$project_dir" "$registry" "$only_source" "$combined_with_sources" <<'PYCLEAR'
+import datetime as dt
+import hashlib
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+project = Path(sys.argv[1]).resolve()
+registry = Path(sys.argv[2])
+only_source = sys.argv[3].strip()
+with_sources = sys.argv[4] == "1"
+transcript_root = project / "transcript"
+
+data = json.loads(registry.read_text(encoding="utf-8"))
+
+def sha256_file(path):
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+def parse_date(value):
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    try:
+        parsed = dt.datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=dt.timezone.utc)
+    return parsed.astimezone(dt.timezone.utc)
+
+def embedded_creation_date(source):
+    # ffprobe is the portable metadata reader already required by this command.
+    command = [
+        "ffprobe", "-v", "error", "-show_entries",
+        "format_tags=creation_time:format_tags=com.apple.quicktime.creationdate",
+        "-of", "json", str(source),
+    ]
+    try:
+        result = subprocess.run(command, text=True, capture_output=True, check=False)
+        payload = json.loads(result.stdout) if result.returncode == 0 else {}
+    except (OSError, json.JSONDecodeError):
+        return None
+    tags = payload.get("format", {}).get("tags", {})
+    for key in ("creation_time", "com.apple.quicktime.creationdate"):
+        parsed = parse_date(tags.get(key))
+        if parsed is not None:
+            return parsed
+    return None
+
+def macos_birthtime(source):
+    # macOS stat %B is birth time. Do not substitute POSIX inode ctime.
+    try:
+        result = subprocess.run(
+            ["stat", "-f", "%B", str(source)],
+            text=True, capture_output=True, check=False,
+        )
+        value = int(result.stdout.strip()) if result.returncode == 0 else 0
+    except (OSError, ValueError):
+        return None
+    if value <= 0:
+        return None
+    return dt.datetime.fromtimestamp(value, tz=dt.timezone.utc)
+
+def resolved_ordering_date(source):
+    embedded = embedded_creation_date(source)
+    if embedded is not None:
+        return embedded, "embedded"
+    birthtime = macos_birthtime(source)
+    if birthtime is not None:
+        return birthtime, "birthtime"
+    return dt.datetime.fromtimestamp(source.stat().st_mtime, tz=dt.timezone.utc), "mtime"
+
+def iso_date(value):
+    return value.astimezone(dt.timezone.utc).isoformat().replace("+00:00", "Z")
+
+entries = []
+for item in data.get("videos", []):
+    if item.get("type") != "local":
+        continue
+    source_id = item.get("source_id")
+    if not source_id or (only_source and source_id != only_source):
+        continue
+    source_ref = item.get("file")
+    source = project / source_ref if source_ref else None
+    clean = transcript_root / source_id / "transcript_clean.txt"
+    marker = transcript_root / source_id / ".seminartext_complete"
+    if source is None or not source.is_file():
+        raise SystemExit(f"Ошибка combined-clear: локальный source отсутствует: {source_id}")
+    if not marker.is_file() or not clean.is_file():
+        raise SystemExit(
+            f"Ошибка combined-clear: {source_id} incomplete; "
+            "нужны .seminartext_complete и transcript_clean.txt"
+        )
+    text = clean.read_text(encoding="utf-8", errors="replace").strip()
+    if not text:
+        raise SystemExit(f"Ошибка combined-clear: пустой transcript_clean.txt для {source_id}")
+    ordering_date, ordering_date_source = resolved_ordering_date(source)
+    entries.append({
+        "source_id": source_id,
+        "filename": source.name,
+        "source_path": source_ref,
+        "ordering_date": iso_date(ordering_date),
+        "ordering_date_source": ordering_date_source,
+        "input_sha256": sha256_file(source),
+        "transcript_revision": {
+            "artifact": str(clean.relative_to(project)),
+            "sha256": sha256_file(clean),
+        },
+        "text": text,
+    })
+
+if not entries:
+    raise SystemExit("Ошибка combined-clear: не выбраны готовые локальные источники.")
+
+entries.sort(key=lambda entry: (entry["ordering_date"], entry["filename"], entry["source_id"]))
+
+combined_parts = []
+offset = 0
+line = 1
+for index, entry in enumerate(entries, start=1):
+    if combined_parts:
+        offset += 2
+        line += 2
+    text = entry.pop("text")
+    start = offset
+    end = start + len(text)
+    text_lines = text.count("\n") + 1
+    entry["sequence_index"] = index
+    entry["combined_clear_char_range"] = {"start": start, "end": end}
+    entry["combined_clear_line_range"] = {"start": line, "end": line + text_lines - 1}
+    combined_parts.append(text)
+    offset = end
+    line += text_lines
+
+combined_text = "\n\n".join(combined_parts) + "\n"
+combined_path = transcript_root / "combined_clear.txt"
+combined_path.write_text(combined_text, encoding="utf-8")
+
+with_sources_path = None
+if with_sources:
+    source_parts = []
+    for entry, text in zip(entries, combined_parts):
+        source_parts.append(
+            f"===== {entry['filename']} — {entry['ordering_date']} "
+            f"({entry['ordering_date_source']}) =====\n\n{text}"
+        )
+    with_sources_path = transcript_root / "combined_clear_with_sources.txt"
+    with_sources_path.write_text("\n\n".join(source_parts) + "\n", encoding="utf-8")
+
+manifest = {
+    "schema_version": 1,
+    "artifact_type": "combined_clear_transcript",
+    "ordering_method": "creation_date",
+    "supported_ordering_methods": ["creation_date", "filename", "selection_order", "manual"],
+    "ordering_policy": "embedded -> birthtime -> mtime; ties: filename -> source_id",
+    "derived_from": "fixed individual transcript_clean.txt artifacts",
+    "combined_clear": {
+        "artifact": str(combined_path.relative_to(project)),
+        "sha256": sha256_file(combined_path),
+    },
+    "combined_clear_with_sources": (
+        {"artifact": str(with_sources_path.relative_to(project)), "sha256": sha256_file(with_sources_path)}
+        if with_sources_path else None
+    ),
+    "sources": entries,
+}
+manifest_path = transcript_root / "combined_clear_manifest.json"
+manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+print(f"  combined_clear.txt — {len(entries)} частей")
+if with_sources_path:
+    print("  combined_clear_with_sources.txt — с границами источников")
+print("  combined_clear_manifest.json — provenance")
+PYCLEAR
+  fi
 
   echo
   echo "ГОТОВО: проектная расшифровка"
