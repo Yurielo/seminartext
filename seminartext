@@ -4518,13 +4518,17 @@ project_transcribe() {
     cat <<'HELP'
 Использование:
 
-  seminartext project-transcribe PROJECT [--combined-clear] [--combined-with-sources]
-  seminartext project-transcribe PROJECT --only video_001
+  seminartext project-transcribe PROJECT [--careful] [--combined-clear] [--combined-with-sources]
+  seminartext project-transcribe PROJECT --only video_001 [--careful]
 
 --combined-clear создаёт чистый chronological derived artifact из сохранённых
 individual transcript_clean.txt локальных частей: embedded creation date,
 macOS birth time, затем mtime. --combined-with-sources дополнительно создаёт
 вариант с filename и датами; provenance находится в combined_clear_manifest.json.
+
+--careful использует существующие тщательные параметры распознавания для
+каждого фрагмента проекта. Защитная повторная попытка остаётся одинаковой
+для обоих режимов.
 HELP
     return 0
   fi
@@ -4551,6 +4555,10 @@ HELP
         dry_run=1
         shift
         ;;
+      --careful)
+        MODE="careful"
+        shift
+        ;;
       --no-open)
         OPEN_RESULTS=0
         shift
@@ -4568,8 +4576,8 @@ HELP
         cat <<'HELP'
 Использование:
 
-  seminartext project-transcribe PROJECT [--combined-clear] [--combined-with-sources]
-  seminartext project-transcribe PROJECT --only video_001
+  seminartext project-transcribe PROJECT [--careful] [--combined-clear] [--combined-with-sources]
+  seminartext project-transcribe PROJECT --only video_001 [--careful]
   seminartext project-transcribe PROJECT --only video_001 --dry-run
 
 --only SOURCE_ID
@@ -4577,6 +4585,12 @@ HELP
 
 --dry-run
     Только показать очередь обработки. Whisper не запускается.
+
+--careful
+    Использовать существующие тщательные параметры распознавания: более
+    широкий beam search и VAD, рассчитанный на менее агрессивное отсечение
+    речи. Защитная повторная попытка при ошибке или подозрительном фрагменте
+    одинакова для обоих режимов.
 
 --no-open
     Не открывать GUI/папку результатов. В CI, pytest и Codex headless mode
