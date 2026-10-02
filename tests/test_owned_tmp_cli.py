@@ -15,7 +15,14 @@ class CLIContainmentTests(unittest.TestCase):
             base = Path(fixture).resolve()
             source = base / 'lecture.wav'
             source.write_bytes(b'fixture')
-            env = {**os.environ, 'SEMINARTEXT_OWNED_TMP_BASE': str(base), 'SEMINARTEXT_OUTPUT': str(base/'output'), 'SEMINARTEXT_HEADLESS':'1'}
+            tools = base / 'bin'
+            tools.mkdir()
+            for tool in ['ffmpeg','ffprobe','whisper-cli']:
+                executable=tools/tool
+                executable.write_text('#!/bin/sh\nexit 0\n')
+                executable.chmod(0o755)
+            model=base/'model.bin';model.write_bytes(b'fixture')
+            env = {**os.environ, 'SEMINARTEXT_OWNED_TMP_BASE': str(base), 'SEMINARTEXT_OUTPUT': str(base/'output'), 'SEMINARTEXT_HEADLESS':'1', 'PATH':str(tools)+os.pathsep+os.environ['PATH'], 'SEMINARTEXT_MODEL':str(model), 'SEMINARTEXT_VAD_MODEL':str(model)}
             for args,code in [(['--list',str(source)],0),(['--not-a-real-option'],2)]*3:
                 result=subprocess.run([str(ROOT/'seminartext'),*args],env=env,capture_output=True,text=True)
                 self.assertEqual(result.returncode,code,result.stderr)
