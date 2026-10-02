@@ -1,0 +1,5 @@
+#!/bin/bash
+set -Eeuo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PYTHON="${SEMINARTEXT_TEST_PYTHON:-python3}"
+exec "$PYTHON" "$ROOT/seminartext_modules/owned_tmp.py" -- "$@"
