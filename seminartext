@@ -10,6 +10,12 @@ while [[ -L "$SEMINARTEXT_ENTRYPOINT" ]]; do
 done
 SEMINARTEXT_ENTRYPOINT_DIR="$(cd -P "$(dirname "$SEMINARTEXT_ENTRYPOINT")" >/dev/null 2>&1 && pwd)"
 SEMINARTEXT_ENTRYPOINT="$SEMINARTEXT_ENTRYPOINT_DIR/$(basename "$SEMINARTEXT_ENTRYPOINT")"
+# A supervisor owns all queue/subtitle/tool scratch, independently of local traps.
+SEMINARTEXT_TMP_HELPER="$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/owned_tmp.py"
+[[ -f "$SEMINARTEXT_TMP_HELPER" ]] || { echo "Missing owned TMP lifecycle helper" >&2; exit 1; }
+if ! python3 "$SEMINARTEXT_TMP_HELPER" --check; then
+  exec python3 "$SEMINARTEXT_TMP_HELPER" -- /bin/bash "$SEMINARTEXT_ENTRYPOINT" "$@"
+fi
 SEMINARTEXT_VERSION_FILE="${SEMINARTEXT_VERSION_FILE:-$SEMINARTEXT_ENTRYPOINT_DIR/SEMINARTEXT_VERSION}"
 [[ -f "$SEMINARTEXT_VERSION_FILE" ]] || {
   echo "Ошибка: не найден authoritative version-файл: $SEMINARTEXT_VERSION_FILE" >&2
