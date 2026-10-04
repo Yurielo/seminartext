@@ -31,6 +31,7 @@ MODEL="${SEMINARTEXT_MODEL:-}"
 VAD_MODEL="${SEMINARTEXT_VAD_MODEL:-}"
 SEMINARTEXT_PYTHON="${SEMINARTEXT_PYTHON:-$HOME/.seminartext-venv/bin/python}"
 MODE="normal"
+SOURCE_LANGUAGE="ru"
 FORCE=0
 LIST_ONLY=0
 OPEN_RESULTS=1
@@ -213,9 +214,11 @@ cat <<'HELP'
 
   seminartext файл.mp4
   seminartext transcribe файл.mp4
+  seminartext transcribe файл.mp4 --language ru|en
 
       Расшифровка аудио/видео.
       Старый вызов без команды сохранён и равнозначен transcribe.
+      Язык источника по умолчанию: ru. Поддерживаются ru и en.
 
   seminartext topics файл.mp4
 
@@ -497,6 +500,20 @@ parse_args() {
     case "$1" in
       doctor) doctor; exit $? ;;
       --careful) MODE="careful" ;;
+      --language)
+        shift
+        (($#)) || { echo "Ошибка: после --language укажите ru или en." >&2; exit 2; }
+        case "$1" in
+          ru|en) SOURCE_LANGUAGE="$1" ;;
+          *) echo "Ошибка: неподдерживаемый язык '$1'. Допустимые значения: ru, en." >&2; exit 2 ;;
+        esac
+        ;;
+      --language=*)
+        case "${1#*=}" in
+          ru|en) SOURCE_LANGUAGE="${1#*=}" ;;
+          *) echo "Ошибка: неподдерживаемый язык '${1#*=}'. Допустимые значения: ru, en." >&2; exit 2 ;;
+        esac
+        ;;
       --force) FORCE=1 ;;
       --list) LIST_ONLY=1 ;;
       --no-open) OPEN_RESULTS=0 ;;
@@ -646,7 +663,7 @@ PY
 }
 
 clean_text() {
-  python3 - "$1" "$2" "${3:-}" <<'PY'
+  python3 - "$1" "$2" "${3:-}" "${4:-ru}" <<'PY'
 import collections
 import re
 import sys
@@ -655,13 +672,14 @@ from pathlib import Path
 src = Path(sys.argv[1])
 dst = Path(sys.argv[2])
 report_path = Path(sys.argv[3]) if len(sys.argv) > 3 and sys.argv[3] else None
+language = sys.argv[4]
 text = src.read_text(encoding='utf-8', errors='replace')
 
 FALSE_PHRASES = [
     r'продолжение следует', r'спасибо за просмотр', r'спасибо за внимание',
     r'субтитры сделал', r'субтитры подготов', r'редактор субтитров',
     r'подписывайтесь на канал', r'ставьте лайк'
-]
+] if language == 'ru' else []
 
 REPLACEMENTS = {
     r'\bвсеоблимливающ(?:ий|ая|ее|ие|ими|их)\b': 'всеобъемлющие',
@@ -673,13 +691,15 @@ REPLACEMENTS = {
     r'\bотсослать\b': 'отослать',
     r'\bпровождаются\b': 'сопровождаются',
     r'\bправа почки\b': 'правой почки',
-}
+} if language == 'ru' else {}
 
 SUSPICIOUS = [
     'резонансный расход', 'динамического сапатического', 'тамуашеки',
     'можно в состав стола', 'подорваться за ручку', 'майтик',
     'весновидение', 'пальцы начинают тягаться', 'партиру двумя руками'
-]
+] if language == 'ru' else []
+
+LANGUAGE_BOUNDARIES = {'камера мотор', 'голос за кадром'} if language == 'ru' else set()
 
 def norm(s: str) -> str:
     s = s.lower().replace('ё', 'е')
@@ -748,11 +768,11 @@ out_paragraphs = []
 buf = []
 for sentence in cleaned:
     low = norm(sentence)
-    boundary = low in {'камера мотор', 'голос за кадром'} or sentence.endswith(':') or len(buf) >= 6
+    boundary = low in LANGUAGE_BOUNDARIES or sentence.endswith(':') or len(buf) >= 6
     if boundary and buf:
         out_paragraphs.append(' '.join(buf)); buf = []
     buf.append(sentence)
-    if low in {'камера мотор', 'голос за кадром'}:
+    if low in LANGUAGE_BOUNDARIES:
         out_paragraphs.append(' '.join(buf)); buf = []
 if buf:
     out_paragraphs.append(' '.join(buf))
@@ -1036,8 +1056,8 @@ run_whisper_piece() {
   fi
   (( retry == 1 )) && { threshold=0.68; silence=350; beam=3; best=3; }
   rm -f "$prefix.txt" "$prefix.srt"
-  local -a cmd=(whisper-cli -m "$MODEL" -f "$wav" -l ru -t "$threads" -bo "$best" -bs "$beam")
-  (( retry == 0 )) && cmd+=(--prompt "$PROMPT")
+  local -a cmd=(whisper-cli -m "$MODEL" -f "$wav" -l "$SOURCE_LANGUAGE" -t "$threads" -bo "$best" -bs "$beam")
+  [[ "$SOURCE_LANGUAGE" == "ru" && "$retry" -eq 0 ]] && cmd+=(--prompt "$PROMPT")
   cmd+=(--vad -vm "$VAD_MODEL" -vt "$threshold" -vspd 250 -vsd "$silence" -vp 200 -vo 0.10 -nth 0.60 -sns -ml 80 -sow -otxt -osrt -nt -pp -of "$prefix")
   set +e
   "${cmd[@]}" 2>&1 | tee -a "$log"
@@ -1160,7 +1180,7 @@ process_record() {
   done
 
   echo "4/5 Очищаю и проверяю текст..."
-  clean_text "$raw" "$clean" "$review"
+  clean_text "$raw" "$clean" "$review" "$SOURCE_LANGUAGE"
   [[ -s "$clean" ]] || { echo "Ошибка: очищенный текст пуст." >&2; return 1; }
   if (( bad > 0 )); then
     printf '\nПРЕДУПРЕЖДЕНИЕ: %d фрагмент(а/ов) требуют ручной проверки по аудио. См. transcription.log.\n' "$bad" >> "$review"
@@ -1186,6 +1206,7 @@ process_record() {
       echo "Номер расшифровки: $transcript_number"
     fi
     echo "Режим: $MODE"
+    echo "Язык источника: $SOURCE_LANGUAGE"
     echo "Дата: $(date '+%d.%m.%Y %H:%M')"
     echo "Модель: $MODEL"
     echo "VAD: $VAD_MODEL"
