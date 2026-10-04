@@ -32,6 +32,7 @@ VAD_MODEL="${SEMINARTEXT_VAD_MODEL:-}"
 SEMINARTEXT_PYTHON="${SEMINARTEXT_PYTHON:-$HOME/.seminartext-venv/bin/python}"
 MODE="normal"
 SOURCE_LANGUAGE="ru"
+STRUCTURED_TIMING=0
 FORCE=0
 LIST_ONLY=0
 OPEN_RESULTS=1
@@ -215,6 +216,7 @@ cat <<'HELP'
   seminartext файл.mp4
   seminartext transcribe файл.mp4
   seminartext transcribe файл.mp4 --language ru|en
+  seminartext transcribe файл.mp4 --structured-timing
 
       Расшифровка аудио/видео.
       Старый вызов без команды сохранён и равнозначен transcribe.
@@ -265,7 +267,7 @@ cat <<'HELP'
   seminartext project-review-boundary-resolve PROJECT --proposals FILE --ledger FILE --output FILE
   seminartext project-review-boundary-status PROJECT --proposals FILE --decisions FILE
   seminartext project-obsidian-export PROJECT --knowledge-input FILE --destination DIR [--dry-run]
-  seminartext project-transcribe PROJECT [--combined-clear] [--combined-with-sources]
+  seminartext project-transcribe PROJECT [--structured-timing] [--combined-clear] [--combined-with-sources]
   seminartext project-documents PROJECT
   seminartext project-corpus PROJECT
   seminartext project-topics PROJECT
@@ -304,6 +306,8 @@ BENCHMARK И GOLD
 ПАРАМЕТРЫ РАСШИФРОВКИ
 
   --careful   более тщательное распознавание
+  --structured-timing
+              сохранить JSON-full выбранных Whisper-попыток и manifest
   --force     повторно обработать уже готовую запись
   --list      только показать найденные записи
   --no-open   не открывать папку результатов после завершения
@@ -514,6 +518,7 @@ parse_args() {
           *) echo "Ошибка: неподдерживаемый язык '${1#*=}'. Допустимые значения: ru, en." >&2; exit 2 ;;
         esac
         ;;
+      --structured-timing) STRUCTURED_TIMING=1 ;;
       --force) FORCE=1 ;;
       --list) LIST_ONLY=1 ;;
       --no-open) OPEN_RESULTS=0 ;;
@@ -1055,20 +1060,144 @@ run_whisper_piece() {
     threshold=0.55; silence=550; beam=5; best=5
   fi
   (( retry == 1 )) && { threshold=0.68; silence=350; beam=3; best=3; }
-  rm -f "$prefix.txt" "$prefix.srt"
+  rm -f "$prefix.txt" "$prefix.srt" "$prefix.json"
   local -a cmd=(whisper-cli -m "$MODEL" -f "$wav" -l "$SOURCE_LANGUAGE" -t "$threads" -bo "$best" -bs "$beam")
   [[ "$SOURCE_LANGUAGE" == "ru" && "$retry" -eq 0 ]] && cmd+=(--prompt "$PROMPT")
-  cmd+=(--vad -vm "$VAD_MODEL" -vt "$threshold" -vspd 250 -vsd "$silence" -vp 200 -vo 0.10 -nth 0.60 -sns -ml 80 -sow -otxt -osrt -nt -pp -of "$prefix")
+  cmd+=(--vad -vm "$VAD_MODEL" -vt "$threshold" -vspd 250 -vsd "$silence" -vp 200 -vo 0.10 -nth 0.60 -sns -ml 80 -sow -otxt -osrt)
+  (( STRUCTURED_TIMING == 1 )) && cmd+=(-ojf)
+  cmd+=(-nt -pp -of "$prefix")
   set +e
   "${cmd[@]}" 2>&1 | tee -a "$log"
   local status=${PIPESTATUS[0]}
   set -e
+  if (( status == 0 && STRUCTURED_TIMING == 1 )) && [[ ! -s "$prefix.json" ]]; then
+    echo "Whisper не создал JSON-full для выбранной попытки." | tee -a "$log" >&2
+    return 1
+  fi
   return "$status"
+}
+
+retain_selected_timing_part() {
+  local prefix="$1" stage="$2" idx="$3" offset_seconds="$4" duration_seconds="$5" selected_attempt="$6" ledger="$7"
+  local part_id extension
+  part_id="part_$(printf '%04d' "$idx")"
+  mkdir -p "$stage/parts"
+  for extension in txt srt json; do
+    [[ -f "$prefix.$extension" ]] || {
+      echo "Ошибка: выбранная Whisper-попытка не содержит $extension для $part_id." >&2
+      return 1
+    }
+    cp -f "$prefix.$extension" "$stage/parts/$part_id.$extension"
+  done
+  printf '%s\t%s\t%s\t%s\t%s\n' \
+    "$idx" "$offset_seconds" "$duration_seconds" "$selected_attempt" "$part_id" >> "$ledger"
+}
+
+publish_structured_timing_manifest() {
+  local stage="$1" ledger="$2" source_reference="$3" source_type="$4" media="$5" language="$6" mode="$7" model="$8" vad_model="$9" chunk_seconds="${10}"
+  python3 - "$stage" "$ledger" "$source_reference" "$source_type" "$media" "$language" "$mode" "$model" "$vad_model" "$chunk_seconds" "$VERSION" <<'PYTIMING'
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+stage = Path(sys.argv[1])
+ledger = Path(sys.argv[2])
+source_reference = sys.argv[3]
+source_type = sys.argv[4]
+media = Path(sys.argv[5])
+language = sys.argv[6]
+mode = sys.argv[7]
+model = Path(sys.argv[8])
+vad_model = Path(sys.argv[9])
+chunk_seconds = int(sys.argv[10])
+version = sys.argv[11]
+
+
+def sha256_file(path):
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def sha256_text(value):
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def artifact(part_id, extension):
+    relative = f"parts/{part_id}.{extension}"
+    path = stage / relative
+    return {"path": relative, "sha256": sha256_file(path)}
+
+
+parts = []
+for line in ledger.read_text(encoding="utf-8").splitlines():
+    if not line.strip():
+        continue
+    index, offset, duration, selected_attempt, part_id = line.split("\t")
+    start = float(offset)
+    end = start + float(duration)
+    txt_path = stage / "parts" / f"{part_id}.txt"
+    parts.append(
+        {
+            "id": part_id,
+            "order": int(index),
+            "absolute_offset_seconds": round(start, 6),
+            "absolute_range": {
+                "start_seconds": round(start, 6),
+                "end_seconds": round(end, 6),
+            },
+            "selected_attempt": selected_attempt,
+            "speech_detected": txt_path.stat().st_size > 0,
+            "artifacts": {
+                "txt": artifact(part_id, "txt"),
+                "srt": artifact(part_id, "srt"),
+                "json_full": artifact(part_id, "json"),
+            },
+        }
+    )
+
+if [part["order"] for part in parts] != list(range(len(parts))):
+    raise SystemExit("structured timing parts are not contiguous and ordered")
+
+document = {
+    "schema_version": 1,
+    "artifact_type": "seminartext.selected_whisper_timing",
+    "seminartext_version": version,
+    "source": {
+        "type": source_type,
+        "reference": source_reference,
+        "reference_sha256": sha256_text(source_reference),
+        "media_sha256": sha256_file(media),
+    },
+    "transcription": {
+        "language": language,
+        "mode": mode,
+        "chunk_seconds": chunk_seconds,
+        "whisper_model": {
+            "path": str(model.resolve()),
+            "sha256": sha256_file(model),
+        },
+        "vad_model": {
+            "path": str(vad_model.resolve()),
+            "sha256": sha256_file(vad_model),
+        },
+    },
+    "parts": parts,
+}
+(stage / "manifest.json").write_text(
+    json.dumps(document, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+    encoding="utf-8",
+)
+PYTIMING
 }
 
 process_record() {
   local input="$1" requested="$2" source_type="${3:-файл}"
   local name="" dir="" wav="" raw="" clean="" review="" srt="" docx="" log="" info="" marker="" transcript_number="" quality_message=""
+  local timing_dir="" timing_stage="" timing_ledger=""
   local media_input="$input" youtube_media=""
   name="$(sanitize_name "$requested")"
   dir="$(choose_output_dir "$name" "$input")"
@@ -1106,6 +1235,13 @@ process_record() {
   info="$dir/info.txt"
   local chunks="$dir/.chunks" parts="$dir/.parts"
   local chunk_seconds="${SEMINARTEXT_CHUNK_SECONDS:-300}"
+  if (( PROJECT_MODE == 1 )); then
+    timing_dir="$dir/structured_timing"
+  else
+    timing_dir="$dir/structured_timing${transcript_number}"
+  fi
+  timing_stage="$parts/selected_timing"
+  timing_ledger="$parts/selected_timing.tsv"
 
   cleanup_temp() {
     [[ -n "${wav:-}" ]] && rm -f "$wav"
@@ -1128,7 +1264,12 @@ process_record() {
     media_input="$youtube_media"
   fi
   rm -f "$marker" "$raw" "$clean" "$review" "$srt" "$docx"
+  rm -rf "$timing_dir"
   mkdir -p "$chunks" "$parts"
+  if (( STRUCTURED_TIMING == 1 )); then
+    mkdir -p "$timing_stage"
+    : > "$timing_ledger"
+  fi
 
   echo "1/5 Подготавливаю аудио..."
   ffmpeg -nostdin -hide_banner -loglevel error -stats -y -i "$media_input" -vn -ar 16000 -ac 1 -c:a pcm_s16le "$wav"
@@ -1137,7 +1278,7 @@ process_record() {
   ffmpeg -nostdin -hide_banner -loglevel error -y -i "$wav" -f segment -segment_time "$chunk_seconds" -reset_timestamps 1 -c:a pcm_s16le "$chunks/chunk_%04d.wav"
 
   echo "3/5 Распознаю речь по фрагментам..."
-  local idx=0 bad=0 piece prefix offset_ms
+  local idx=0 bad=0 piece prefix offset_ms piece_duration selected_attempt
   shopt -s nullglob
   local chunk_files=("$chunks"/chunk_*.wav)
   shopt -u nullglob
@@ -1145,15 +1286,21 @@ process_record() {
 
   for piece in "${chunk_files[@]}"; do
     prefix="$parts/part_$(printf '%04d' "$idx")"
+    selected_attempt="initial"
     echo "--- Фрагмент $((idx+1)) из ${#chunk_files[@]} ---" | tee -a "$log"
     if ! run_whisper_piece "$piece" "$prefix" "$log" 0; then
       echo "Первичная попытка завершилась ошибкой; повторяю фрагмент." | tee -a "$log"
       run_whisper_piece "$piece" "$prefix" "$log" 1 || { echo "Ошибка Whisper на фрагменте $((idx+1))." >&2; return 1; }
+      selected_attempt="retry"
     fi
     # Полностью тихий фрагмент является нормальной частью записи.
     # Whisper + VAD при отсутствии речи создаёт пустой TXT.
     if [[ ! -s "$prefix.txt" ]]; then
       echo "Фрагмент $((idx+1)): речь не обнаружена — пропускаю как тишину." | tee -a "$log"
+      if (( STRUCTURED_TIMING == 1 )); then
+        piece_duration="$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$piece")"
+        retain_selected_timing_part "$prefix" "$timing_stage" "$idx" "$((idx * chunk_seconds))" "$piece_duration" "$selected_attempt" "$timing_ledger" || return 1
+      fi
       ((idx+=1))
       continue
     fi
@@ -1163,6 +1310,7 @@ process_record() {
       echo "Обнаружено возможное зацикливание; повторяю с защитными параметрами." | tee -a "$log"
       cp -f "$prefix.txt" "$prefix.first.txt" 2>/dev/null || true
       run_whisper_piece "$piece" "$prefix" "$log" 1 || true
+      selected_attempt="retry"
       if ! quality_message="$(quality_check "$prefix.txt" 2>&1)"; then
         [[ -z "$quality_message" ]] || printf '%s\n' "$quality_message" | tee -a "$log"
         echo "ПРЕДУПРЕЖДЕНИЕ: фрагмент $((idx+1)) остаётся подозрительным." | tee -a "$log"
@@ -1176,6 +1324,10 @@ process_record() {
     printf '\n\n' >> "$raw"
     offset_ms=$((idx * chunk_seconds * 1000))
     merge_srt_with_offset "$prefix.srt" "$offset_ms" "$srt"
+    if (( STRUCTURED_TIMING == 1 )); then
+      piece_duration="$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$piece")"
+      retain_selected_timing_part "$prefix" "$timing_stage" "$idx" "$((idx * chunk_seconds))" "$piece_duration" "$selected_attempt" "$timing_ledger" || return 1
+    fi
     ((idx+=1))
   done
 
@@ -1192,6 +1344,13 @@ process_record() {
       echo "Предупреждение: DOCX создать не удалось, остальные файлы сохранены." >&2
       rm -f "$docx"
     fi
+  fi
+
+  if (( STRUCTURED_TIMING == 1 )); then
+    publish_structured_timing_manifest \
+      "$timing_stage" "$timing_ledger" "$input" "$source_type" "$media_input" \
+      "$SOURCE_LANGUAGE" "$MODE" "$MODEL" "$VAD_MODEL" "$chunk_seconds"
+    mv "$timing_stage" "$timing_dir"
   fi
 
   {
@@ -1213,6 +1372,9 @@ process_record() {
     echo "Размер фрагмента: ${chunk_seconds} сек."
     echo "Количество фрагментов: $idx"
     echo "Подозрительных фрагментов: $bad"
+    if (( STRUCTURED_TIMING == 1 )); then
+      echo "Structured timing: $(basename "$timing_dir")/manifest.json"
+    fi
     if (( PROJECT_MODE == 1 )); then
       echo "Файлы: transcript.txt, transcript_clean.txt, transcript_review.txt, transcript.srt$( [[ -f "$docx" ]] && printf ', transcript.docx' )"
     else
@@ -4545,8 +4707,8 @@ project_transcribe() {
     cat <<'HELP'
 Использование:
 
-  seminartext project-transcribe PROJECT [--careful] [--combined-clear] [--combined-with-sources]
-  seminartext project-transcribe PROJECT --only video_001 [--careful]
+  seminartext project-transcribe PROJECT [--careful] [--structured-timing] [--combined-clear] [--combined-with-sources]
+  seminartext project-transcribe PROJECT --only video_001 [--careful] [--structured-timing]
 
 --combined-clear создаёт чистый chronological derived artifact из сохранённых
 individual transcript_clean.txt локальных частей: embedded creation date,
@@ -4556,6 +4718,9 @@ macOS birth time, затем mtime. --combined-with-sources дополнител
 --careful использует существующие тщательные параметры распознавания для
 каждого фрагмента проекта. Защитная повторная попытка остаётся одинаковой
 для обоих режимов.
+
+--structured-timing сохраняет JSON-full только выбранных Whisper-попыток и
+manifest с абсолютными временными смещениями частей.
 HELP
     return 0
   fi
@@ -4586,6 +4751,10 @@ HELP
         MODE="careful"
         shift
         ;;
+      --structured-timing)
+        STRUCTURED_TIMING=1
+        shift
+        ;;
       --no-open)
         OPEN_RESULTS=0
         shift
@@ -4603,8 +4772,8 @@ HELP
         cat <<'HELP'
 Использование:
 
-  seminartext project-transcribe PROJECT [--careful] [--combined-clear] [--combined-with-sources]
-  seminartext project-transcribe PROJECT --only video_001 [--careful]
+  seminartext project-transcribe PROJECT [--careful] [--structured-timing] [--combined-clear] [--combined-with-sources]
+  seminartext project-transcribe PROJECT --only video_001 [--careful] [--structured-timing]
   seminartext project-transcribe PROJECT --only video_001 --dry-run
 
 --only SOURCE_ID
@@ -4618,6 +4787,10 @@ HELP
     широкий beam search и VAD, рассчитанный на менее агрессивное отсечение
     речи. Защитная повторная попытка при ошибке или подозрительном фрагменте
     одинакова для обоих режимов.
+
+--structured-timing
+    Сохранить JSON-full выбранных Whisper-попыток и manifest с абсолютными
+    временными смещениями частей без дополнительного запуска Whisper.
 
 --no-open
     Не открывать GUI/папку результатов. В CI, pytest и Codex headless mode
