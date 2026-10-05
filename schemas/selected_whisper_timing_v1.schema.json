@@ -96,6 +96,12 @@
             "end_seconds": {"type": "number", "exclusiveMinimum": 0}
           }
         },
+        "selected_timing_absolute_range": {
+          "oneOf": [
+            {"$ref": "#/$defs/time_range"},
+            {"type": "null"}
+          ]
+        },
         "selected_attempt": {"enum": ["initial", "retry"]},
         "speech_detected": {"type": "boolean"},
         "artifacts": {
@@ -108,6 +114,15 @@
             "json_full": {"$ref": "#/$defs/artifact"}
           }
         }
+      }
+    },
+    "time_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_seconds", "end_seconds"],
+      "properties": {
+        "start_seconds": {"type": "number", "minimum": 0},
+        "end_seconds": {"type": "number", "exclusiveMinimum": 0}
       }
     }
   }
