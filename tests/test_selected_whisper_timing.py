@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 
 import jsonschema
@@ -34,7 +35,7 @@ def install_tools(bin_dir: Path) -> None:
 set -euo pipefail
 input="${@: -1}"
 case "$(basename "$input")" in
-  chunk_0000.wav) printf '300.000000\n' ;;
+  chunk_0000.wav) printf '%s\n' "${MOCK_FIRST_DURATION:-300.000000}" ;;
   chunk_0001.wav) printf '42.500000\n' ;;
   *) printf '342.500000\n' ;;
 esac
@@ -79,6 +80,8 @@ printf '%s\n' "$calls" > "$count_file"
 attempt="initial"
 (( calls > 1 )) && attempt="retry"
 part="$(basename "$prefix")"
+json_end_ms="${MOCK_JSON_END_MS:-5000}"
+srt_end="${MOCK_SRT_END:-00:00:05,000}"
 
 if [[ "${MOCK_QUALITY_RETRY:-0}" == "1" && "$part" == "part_0000" && "$attempt" == "initial" ]]; then
   text="Loop phrase. Loop phrase. Loop phrase. Loop phrase. Loop phrase. Loop phrase. Loop phrase. Loop phrase. Loop phrase. Loop phrase. Loop phrase. Loop phrase."
@@ -89,7 +92,7 @@ fi
 printf '%s\n' "$text" > "$prefix.txt"
 cat > "$prefix.srt" <<SRT
 1
-00:00:00,000 --> 00:00:05,000
+00:00:00,000 --> $srt_end
 $text
 
 SRT
@@ -100,9 +103,9 @@ if (( json_full == 1 )); then
   "transcription": [
     {
       "text": "$text",
-      "offsets": {"from": 0, "to": 5000},
+      "offsets": {"from": 0, "to": $json_end_ms},
       "tokens": [
-        {"text": " $part", "offsets": {"from": 0, "to": 1000}, "p": 0.95}
+        {"text": " $part", "offsets": {"from": 0, "to": $json_end_ms}, "p": 0.95}
       ]
     }
   ]
@@ -190,6 +193,54 @@ def assert_artifact_hashes(timing: Path, manifest: dict) -> None:
             assert artifact["sha256"] == sha256(path)
 
 
+def selected_local_timing_range(timing: Path, part: dict) -> tuple[float, float] | None:
+    """The published evidence envelope must contain every JSON/SRT timestamp."""
+    starts: list[float] = []
+    ends: list[float] = []
+
+    def collect(value: object) -> None:
+        if isinstance(value, dict):
+            offsets = value.get("offsets")
+            if isinstance(offsets, dict):
+                if isinstance(offsets.get("from"), (int, float)):
+                    starts.append(float(offsets["from"]) / 1000)
+                if isinstance(offsets.get("to"), (int, float)):
+                    ends.append(float(offsets["to"]) / 1000)
+            for nested in value.values():
+                collect(nested)
+        elif isinstance(value, list):
+            for nested in value:
+                collect(nested)
+
+    json_path = timing / part["artifacts"]["json_full"]["path"]
+    collect(json.loads(json_path.read_text(encoding="utf-8")))
+    srt_path = timing / part["artifacts"]["srt"]["path"]
+    for start, end in re.findall(
+        r"(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})",
+        srt_path.read_text(encoding="utf-8"),
+    ):
+        def seconds(value: str) -> float:
+            hours, minutes, remainder = value.split(":")
+            whole, millis = remainder.split(",")
+            return int(hours) * 3600 + int(minutes) * 60 + int(whole) + int(millis) / 1000
+
+        starts.append(seconds(start))
+        ends.append(seconds(end))
+    return (min(starts), max(ends)) if starts and ends else None
+
+
+def assert_selected_timing_ranges_are_truthful(timing: Path, manifest: dict) -> None:
+    for part in manifest["parts"]:
+        local_range = selected_local_timing_range(timing, part)
+        published = part["selected_timing_absolute_range"]
+        if local_range is None:
+            assert published is None
+        else:
+            assert published is not None
+            assert published["start_seconds"] == part["absolute_offset_seconds"] + local_range[0]
+            assert published["end_seconds"] == part["absolute_offset_seconds"] + local_range[1]
+
+
 @pytest.mark.parametrize("language", ["ru", "en"])
 def test_same_pass_initial_selection_publishes_ordered_json_full(tmp_path, language):
     env = environment(tmp_path, chunks=2)
@@ -213,7 +264,12 @@ def test_same_pass_initial_selection_publishes_ordered_json_full(tmp_path, langu
         {"start_seconds": 0.0, "end_seconds": 300.0},
         {"start_seconds": 300.0, "end_seconds": 342.5},
     ]
+    assert [part["selected_timing_absolute_range"] for part in manifest["parts"]] == [
+        {"start_seconds": 0.0, "end_seconds": 5.0},
+        {"start_seconds": 300.0, "end_seconds": 305.0},
+    ]
     assert_artifact_hashes(timing, manifest)
+    assert_selected_timing_ranges_are_truthful(timing, manifest)
     assert not (package / ".parts").exists()
     assert not (package / ".chunks").exists()
 
@@ -241,6 +297,32 @@ def test_quality_retry_selects_matching_retry_trio_and_hides_rejected_json(tmp_p
     assert all("Loop phrase" not in value and '"attempt": "initial"' not in value for value in published)
     assert "exact_short_sentence_loop" in (package / "transcription.log").read_text(encoding="utf-8")
     assert_artifact_hashes(timing, manifest)
+    assert_selected_timing_ranges_are_truthful(timing, manifest)
+
+
+def test_selected_evidence_range_preserves_whisper_padding_past_prepared_audio(tmp_path):
+    env = environment(tmp_path, chunks=1)
+    # This mirrors the LED evidence: WAV/chunk duration is shorter than native
+    # Whisper's final selected timing. Both facts must be published unchanged.
+    env.update(
+        {
+            "MOCK_FIRST_DURATION": "56.449125",
+            "MOCK_JSON_END_MS": "60000",
+            "MOCK_SRT_END": "00:00:56,580",
+        }
+    )
+    result, _package, timing = run_transcribe(tmp_path, env, language="en")
+    assert result.returncode == 0, result.stdout + result.stderr
+
+    manifest = load_manifest(timing)
+    part = manifest["parts"][0]
+    assert part["absolute_range"] == {"start_seconds": 0.0, "end_seconds": 56.449125}
+    assert part["selected_timing_absolute_range"] == {
+        "start_seconds": 0.0,
+        "end_seconds": 60.0,
+    }
+    assert "accepted initial" in (timing / "parts" / "part_0000.txt").read_text(encoding="utf-8")
+    assert_selected_timing_ranges_are_truthful(timing, manifest)
 
 
 def test_without_opt_in_keeps_legacy_package_and_does_not_request_json_full(tmp_path):

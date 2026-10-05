@@ -30,9 +30,19 @@ quality/retry logic selects that attempt as canonical. A rejected initial JSON
 is not published when a retry wins.
 
 The manifest binds source and model hashes, language, mode, chunk order,
-absolute media ranges, selected attempt kind, and SHA-256 identities of the
-published TXT/SRT/JSON-full artifacts. Consumers shift local JSON-full timing by
-`absolute_offset_seconds`; they do not infer token timing from SRT.
+selected attempt kind, and SHA-256 identities of the published TXT/SRT/JSON-full
+artifacts. Each part carries two explicit absolute time ranges:
+
+- `absolute_range` is the extent of the prepared audio chunk in the source
+  timeline. It is measured from the chunk WAV and is not a claim about the
+  selected Whisper timestamps.
+- `selected_timing_absolute_range` is the inclusive envelope of every selected
+  JSON-full offset and SRT cue after applying the part's absolute offset. It may
+  extend past `absolute_range` because native Whisper VAD/timestamp padding is
+  preserved verbatim.
+
+Consumers shift local JSON-full timing by `absolute_offset_seconds`; they do
+not infer token timing from SRT or clip a selected artifact to `absolute_range`.
 
 Without `--structured-timing`, the existing package and Whisper flags remain
 unchanged.

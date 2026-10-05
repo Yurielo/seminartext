@@ -1132,6 +1132,52 @@ def artifact(part_id, extension):
     return {"path": relative, "sha256": sha256_file(path)}
 
 
+def selected_timing_range(part_id):
+    """Return the local envelope of all published JSON-full and SRT timing.
+
+    `absolute_range` deliberately describes the prepared audio chunk. Whisper's
+    VAD/timestamp padding can legitimately make selected evidence extend beyond
+    that chunk duration, so its envelope is published separately rather than
+    clipping or rewriting the selected artifacts.
+    """
+    ends = []
+    starts = []
+
+    def collect_offsets(value):
+        if isinstance(value, dict):
+            offsets = value.get("offsets")
+            if isinstance(offsets, dict):
+                start = offsets.get("from")
+                end = offsets.get("to")
+                if isinstance(start, (int, float)):
+                    starts.append(float(start) / 1000.0)
+                if isinstance(end, (int, float)):
+                    ends.append(float(end) / 1000.0)
+            for nested in value.values():
+                collect_offsets(nested)
+        elif isinstance(value, list):
+            for nested in value:
+                collect_offsets(nested)
+
+    collect_offsets(json.loads((stage / "parts" / f"{part_id}.json").read_text(encoding="utf-8")))
+    srt = (stage / "parts" / f"{part_id}.srt").read_text(encoding="utf-8")
+    for start, end in __import__("re").findall(
+        r"(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})", srt
+    ):
+        def seconds(value):
+            hours, minutes, remainder = value.split(":")
+            whole, millis = remainder.split(",")
+            return int(hours) * 3600 + int(minutes) * 60 + int(whole) + int(millis) / 1000
+        starts.append(seconds(start))
+        ends.append(seconds(end))
+
+    if not starts and not ends:
+        return None
+    if not starts or not ends:
+        raise SystemExit(f"selected timing artifact for {part_id} has incomplete timestamps")
+    return {"start_seconds": round(min(starts), 6), "end_seconds": round(max(ends), 6)}
+
+
 parts = []
 for line in ledger.read_text(encoding="utf-8").splitlines():
     if not line.strip():
@@ -1140,6 +1186,13 @@ for line in ledger.read_text(encoding="utf-8").splitlines():
     start = float(offset)
     end = start + float(duration)
     txt_path = stage / "parts" / f"{part_id}.txt"
+    local_selected_range = selected_timing_range(part_id)
+    selected_absolute_range = None
+    if local_selected_range is not None:
+        selected_absolute_range = {
+            "start_seconds": round(start + local_selected_range["start_seconds"], 6),
+            "end_seconds": round(start + local_selected_range["end_seconds"], 6),
+        }
     parts.append(
         {
             "id": part_id,
@@ -1149,6 +1202,7 @@ for line in ledger.read_text(encoding="utf-8").splitlines():
                 "start_seconds": round(start, 6),
                 "end_seconds": round(end, 6),
             },
+            "selected_timing_absolute_range": selected_absolute_range,
             "selected_attempt": selected_attempt,
             "speech_detected": txt_path.stat().st_size > 0,
             "artifacts": {
