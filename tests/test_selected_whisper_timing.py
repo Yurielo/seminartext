@@ -62,6 +62,12 @@ fi
         r"""#!/bin/bash
 set -euo pipefail
 printf '%s\n' "$*" >> "$MOCK_ARGS_LOG"
+python3 - "$MOCK_ARGS_LOG.jsonl" "$@" <<'PYARGS'
+import json
+import sys
+with open(sys.argv[1], "a", encoding="utf-8") as stream:
+    stream.write(json.dumps(sys.argv[2:]) + "\n")
+PYARGS
 prefix=""
 json_full=0
 while (($#)); do
@@ -158,12 +164,15 @@ def run_transcribe(
     *,
     language: str = "ru",
     structured: bool = True,
+    careful: bool = False,
 ) -> tuple[subprocess.CompletedProcess[str], Path, Path]:
     source = tmp_path / "lecture.mp4"
     source.write_bytes(b"source-media")
     command = [str(CLI), "transcribe", str(source), "--language", language]
     if structured:
         command.append("--structured-timing")
+    if careful:
+        command.append("--careful")
     result = subprocess.run(
         command,
         cwd=ROOT,
@@ -191,6 +200,59 @@ def assert_artifact_hashes(timing: Path, manifest: dict) -> None:
             path = timing / artifact["path"]
             assert path.is_file()
             assert artifact["sha256"] == sha256(path)
+
+
+def assert_native_timestamp_invocations(tmp_path: Path) -> None:
+    for args in recorded_invocations(tmp_path):
+        assert "-nt" not in args
+        assert "--no-timestamps" not in args
+        for flag in ("--vad", "-vm", "-otxt", "-osrt", "-nth", "-sns", "-ml", "-sow", "-pp"):
+            assert flag in args
+
+
+def recorded_invocations(tmp_path: Path) -> list[list[str]]:
+    return [json.loads(line) for line in (tmp_path / "whisper_args.log.jsonl").read_text().splitlines()]
+
+
+@pytest.mark.parametrize("language", ["ru", "en"])
+@pytest.mark.parametrize("careful", [False, True])
+@pytest.mark.parametrize("structured", [False, True])
+def test_native_timestamps_preserve_vad_and_output_modes(tmp_path, language, careful, structured):
+    tmp_path = tmp_path / "case with spaces"
+    tmp_path.mkdir()
+    env = environment(tmp_path, chunks=1)
+    result, package, timing = run_transcribe(
+        tmp_path, env, language=language, structured=structured, careful=careful
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert_native_timestamp_invocations(tmp_path)
+    calls = (tmp_path / "whisper_args.log").read_text(encoding="utf-8").splitlines()
+    assert len(calls) == 1  # Native timing never requires a second ASR pass.
+    args, = recorded_invocations(tmp_path)
+    assert args[args.index("-l") + 1] == language
+    assert args[args.index("-vt") + 1] == ("0.45" if careful else "0.55")
+    assert args[args.index("-vsd") + 1] == ("700" if careful else "550")
+    assert args[args.index("-bs") + 1] == ("8" if careful else "5")
+    assert args[args.index("-bo") + 1] == ("8" if careful else "5")
+    assert ("-ojf" in args) == structured
+    assert ("--prompt" in args) == (language == "ru")
+    if language == "ru":
+        assert args[args.index("--prompt") + 1].startswith("Семинар на русском языке.")
+    assert args[args.index("-f") + 1].startswith(str(tmp_path))
+    number = (package / ".transcript_number").read_text().strip()
+    txt = (package / f"transcript{number}.txt").read_text(encoding="utf-8").strip()
+    srt = (package / f"transcript{number}.srt").read_text(encoding="utf-8")
+    assert (package / f"transcript_clean{number}.txt").is_file()
+    assert (package / f"transcript_review{number}.txt").is_file()
+    assert txt in srt
+    if structured:
+        manifest = load_manifest(timing)
+        part = manifest["parts"][0]
+        raw = json.loads((timing / part["artifacts"]["json_full"]["path"]).read_text())
+        assert raw["transcription"][0]["text"] == txt
+        assert part["selected_attempt"] == "initial"
+        assert_artifact_hashes(timing, manifest)
+        assert_selected_timing_ranges_are_truthful(timing, manifest)
 
 
 def selected_local_timing_range(timing: Path, part: dict) -> tuple[float, float] | None:
@@ -274,9 +336,10 @@ def test_same_pass_initial_selection_publishes_ordered_json_full(tmp_path, langu
     assert not (package / ".chunks").exists()
 
 
-def test_quality_retry_selects_matching_retry_trio_and_hides_rejected_json(tmp_path):
+@pytest.mark.parametrize("language", ["ru", "en"])
+def test_quality_retry_selects_matching_retry_trio_and_hides_rejected_json(tmp_path, language):
     env = environment(tmp_path, chunks=1, quality_retry=True)
-    result, package, timing = run_transcribe(tmp_path, env, language="en")
+    result, package, timing = run_transcribe(tmp_path, env, language=language)
     assert result.returncode == 0, result.stdout + result.stderr
 
     calls = (tmp_path / "whisper_args.log").read_text(encoding="utf-8").splitlines()
@@ -284,6 +347,8 @@ def test_quality_retry_selects_matching_retry_trio_and_hides_rejected_json(tmp_p
     assert "-ojf" in calls[0] and "-ojf" in calls[1]
     assert "-vt 0.55" in calls[0]
     assert "-vt 0.68" in calls[1]
+    assert_native_timestamp_invocations(tmp_path)
+    assert "--prompt" not in recorded_invocations(tmp_path)[1]
 
     manifest = load_manifest(timing)
     assert len(manifest["parts"]) == 1
