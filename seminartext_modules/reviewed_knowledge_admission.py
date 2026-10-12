@@ -190,21 +190,47 @@ def compile_revision(bundle_payload, reviewed_payload, package, decisions, *, pa
              "K1 Evidence binding mismatch")
     proposals = _index(package["proposals"], "proposal")
     _require(decisions["package_id"] == package["artifact_id"] and decisions["package_sha256"] == digest(package), "stale proposal package")
+    execution_mode = decisions.get("execution_mode", "HUMAN_REVIEW")
     system_defer = decisions["reviewer"]["actor_type"] == "system_validator"
+    mixed_defer = execution_mode == "HUMAN_REVIEW_WITH_SYSTEM_DEFER"
     if system_defer:
-        _require(machine_derived and decisions.get("execution_mode") == "SYSTEM_NONAUTHORITATIVE_DEFER" and
+        _require(machine_derived and execution_mode == "SYSTEM_NONAUTHORITATIVE_DEFER" and
                  decisions["explicit_confirmation"] is False and decisions["confirmed_proposal_ids"] == sorted(proposals),
                  "system path must be an enumerated non-authoritative defer")
+    elif mixed_defer:
+        _require(machine_derived and decisions["reviewer"]["actor_type"] in {"human_domain_reviewer", "product_owner"} and
+                 decisions["confirmed_proposal_ids"] == sorted(proposals) and decisions["explicit_confirmation"] is True,
+                 "mixed path requires an explicit human exception confirmation over exact machine-derived evidence")
     else:
-        _require(decisions.get("execution_mode", "HUMAN_REVIEW") == "HUMAN_REVIEW" and
+        _require(execution_mode == "HUMAN_REVIEW" and
                  decisions["reviewer"]["actor_type"] in {"human_domain_reviewer", "product_owner"} and
                  decisions["confirmed_proposal_ids"] == sorted(proposals) and decisions["explicit_confirmation"] is True,
                  "explicit enumerated human package confirmation required")
     choices = {item["proposal_id"]: item for item in decisions["decisions"]}
     _require(len(choices) == len(decisions["decisions"]) and set(choices) == set(proposals), "missing/duplicate semantic ReviewDecision")
-    for choice in choices.values():
+    decision_actors = {}
+    for proposal_id, choice in choices.items():
         _require(datetime.fromisoformat(choice["timestamp"].replace("Z", "+00:00")).tzinfo is not None,
                  "semantic ReviewDecision timestamp requires timezone")
+        actor = choice.get("decision_actor")
+        if mixed_defer:
+            _require(isinstance(actor, dict) and set(actor) == {"actor_type", "actor_id"},
+                     "mixed path requires per-decision provenance")
+            if actor["actor_type"] == "system_validator":
+                _require(actor == {"actor_type": "system_validator", "actor_id": "integra_system"} and
+                         choice["action"] == "DEFER" and not choice.get("edited_fields") and
+                         proposals[proposal_id]["operation"] == "CREATE",
+                         "system decision may only defer a new provisional proposal")
+            else:
+                _require(actor == decisions["reviewer"], "human exception decision actor differs from confirmed reviewer")
+        else:
+            _require(actor is None, "per-decision provenance is only valid for a mixed exception receipt")
+            actor = decisions["reviewer"]
+        decision_actors[proposal_id] = actor
+    if mixed_defer:
+        _require(any(actor["actor_type"] == "system_validator" for actor in decision_actors.values()) and
+                 any(actor["actor_type"] != "system_validator" for actor in decision_actors.values()),
+                 "mixed receipt requires both a human exception and an independent system defer")
     previous = None
     if parent is not None:
         validate_revision(parent, bundle_payload)
@@ -271,8 +297,10 @@ def compile_revision(bundle_payload, reviewed_payload, package, decisions, *, pa
         errors = list(Draft202012Validator({"$schema": entity_schema["$schema"], "$defs": entity_schema["$defs"],
                                            "$ref": "#/$defs/" + kind[:-1]}).iter_errors(record))
         _require(not errors, "canonical entity schema invalid: " + (errors[0].message if errors else ""))
-        semantic_decisions.append({**copy.deepcopy(choice), "reviewer": copy.deepcopy(decisions["reviewer"]),
-                                   "execution_mode": decisions.get("execution_mode", "HUMAN_REVIEW")})
+        actor = decision_actors[proposal_id]
+        semantic_decisions.append({**copy.deepcopy(choice), "reviewer": copy.deepcopy(actor),
+                                   "execution_mode": ("SYSTEM_NONAUTHORITATIVE_DEFER"
+                                                      if actor["actor_type"] == "system_validator" else "HUMAN_REVIEW")})
         if record["status"] != "ACCEPTED":
             continue  # REJECT/DEFER remain in the immutable receipt, never become canonical entities.
         record["provenance"] = {"origin": "human_review", "source_artifact_id": package["artifact_id"],
@@ -280,7 +308,7 @@ def compile_revision(bundle_payload, reviewed_payload, package, decisions, *, pa
         records[kind] = [item for item in records[kind] if item["id"] != record["id"]] + [record]
         review_records.append({"id": "decision_" + digest({"package": digest(package), "choice": choice}),
             "action": "ACCEPT", "target_ids": [record["id"]], "result_ids": [record["id"]],
-            "reason": choice["reason"], **decisions["reviewer"], "timestamp": choice["timestamp"],
+            "reason": choice["reason"], **decision_actors[proposal_id], "timestamp": choice["timestamp"],
             "input_version": old["version"] if old else 1, "output_version": record["version"],
             "provenance": {"origin": "human_review", "source_artifact_id": package["artifact_id"]}})
     used = {ref for name in records for item in records[name] for ref in item["evidence_refs"]}

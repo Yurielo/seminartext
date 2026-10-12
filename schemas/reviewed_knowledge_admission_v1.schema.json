@@ -7,6 +7,7 @@
     "id": {"type": "string", "pattern": "^[a-z][a-z0-9._:-]{2,127}$"},
     "hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
     "nullable_hash": {"anyOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+    "actor": {"type": "object", "additionalProperties": false, "required": ["actor_type", "actor_id"], "properties": {"actor_type": {"enum": ["human_domain_reviewer", "product_owner", "system_validator"]}, "actor_id": {"$ref": "#/$defs/id"}}},
     "package": {
       "type": "object", "additionalProperties": false,
       "required": ["schema_version", "artifact_type", "artifact_id", "contract", "producer", "source_binding", "k1_binding", "parent_revision_sha256", "proposals"],
@@ -39,10 +40,10 @@
       "required": ["schema_version", "package_id", "package_sha256", "reviewer", "explicit_confirmation", "confirmed_proposal_ids", "decisions"],
       "properties": {
         "schema_version": {"const": "1.0.0"}, "package_id": {"$ref": "#/$defs/id"}, "package_sha256": {"$ref": "#/$defs/hash"},
-        "reviewer": {"type": "object", "additionalProperties": false, "required": ["actor_type", "actor_id"], "properties": {"actor_type": {"enum": ["human_domain_reviewer", "product_owner", "system_validator"]}, "actor_id": {"$ref": "#/$defs/id"}}},
-        "execution_mode": {"enum": ["HUMAN_REVIEW", "SYSTEM_NONAUTHORITATIVE_DEFER"]},
+        "reviewer": {"$ref": "#/$defs/actor"},
+        "execution_mode": {"enum": ["HUMAN_REVIEW", "SYSTEM_NONAUTHORITATIVE_DEFER", "HUMAN_REVIEW_WITH_SYSTEM_DEFER"]},
         "explicit_confirmation": {"type": "boolean"}, "confirmed_proposal_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
-        "decisions": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["proposal_id", "proposal_sha256", "action", "reason", "timestamp"], "properties": {"proposal_id": {"$ref": "#/$defs/id"}, "proposal_sha256": {"$ref": "#/$defs/hash"}, "action": {"enum": ["ACCEPT", "EDIT", "REJECT", "DEFER"]}, "reason": {"type": "string", "minLength": 1}, "timestamp": {"type": "string", "format": "date-time", "minLength": 1}, "edited_fields": {"type": "object"}}}}
+        "decisions": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["proposal_id", "proposal_sha256", "action", "reason", "timestamp"], "properties": {"proposal_id": {"$ref": "#/$defs/id"}, "proposal_sha256": {"$ref": "#/$defs/hash"}, "action": {"enum": ["ACCEPT", "EDIT", "REJECT", "DEFER"]}, "reason": {"type": "string", "minLength": 1}, "timestamp": {"type": "string", "format": "date-time", "minLength": 1}, "edited_fields": {"type": "object"}, "decision_actor": {"$ref": "#/$defs/actor"}}}}
       }
     }
   }
