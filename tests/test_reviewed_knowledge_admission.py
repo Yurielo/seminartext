@@ -267,3 +267,60 @@ def test_cue_order_and_positive_duration_fail_closed(case):
         first["source_locator"]["end_seconds"] = first["source_locator"]["start_seconds"]
     with pytest.raises(ValueError, match="cue text/time"):
         admission._span(fragment, bundle)
+
+
+def mixed_exception_inputs():
+    """One explicit human exception plus one independent system defer."""
+    bundle, machine, package, _ = machine_inputs()
+    second = copy.deepcopy(package["proposals"][0])
+    second["id"] = "proposal_independent"
+    second["record"]["id"] = "concept_independent"
+    second["record"]["preferred_label"] = "Независимое понятие"
+    package["proposals"].append(second)
+    human = {"actor_type": "human_domain_reviewer", "actor_id": "fixture_reviewer"}
+    system = {"actor_type": "system_validator", "actor_id": "integra_system"}
+    decisions = {
+        "schema_version": "1.0.0", "package_id": package["artifact_id"], "package_sha256": admission.digest(package),
+        "reviewer": human, "execution_mode": "HUMAN_REVIEW_WITH_SYSTEM_DEFER",
+        "explicit_confirmation": True, "confirmed_proposal_ids": sorted(item["id"] for item in package["proposals"]),
+        "decisions": [
+            {"proposal_id": package["proposals"][0]["id"], "proposal_sha256": admission.digest(package["proposals"][0]),
+             "action": "ACCEPT", "reason": "Explicit synthetic exception decision", "timestamp": "2026-10-09T09:00:00Z",
+             "decision_actor": human},
+            {"proposal_id": second["id"], "proposal_sha256": admission.digest(second),
+             "action": "DEFER", "reason": "Independent machine-derived proposal is provisional.", "timestamp": "2026-10-09T09:00:00Z",
+             "decision_actor": system},
+        ],
+    }
+    return bundle, machine, package, decisions
+
+
+def test_mixed_exception_receipt_preserves_human_and_system_decision_provenance():
+    bundle, machine, package, decisions = mixed_exception_inputs()
+    result = admission.compile_revision(bundle, machine, package, decisions)
+    admission.validate_revision(result, bundle)
+    semantic = {item["proposal_id"]: item for item in result["semantic_decisions"]}
+    assert semantic["proposal_exact"]["reviewer"] == decisions["reviewer"]
+    assert semantic["proposal_exact"]["execution_mode"] == "HUMAN_REVIEW"
+    assert semantic["proposal_independent"]["reviewer"] == {"actor_type": "system_validator", "actor_id": "integra_system"}
+    assert semantic["proposal_independent"]["execution_mode"] == "SYSTEM_NONAUTHORITATIVE_DEFER"
+    assert [item["id"] for item in result["canonical_knowledge"]["concepts"]] == ["concept_exact"]
+    assert [item["actor_type"] for item in result["canonical_knowledge"]["review_decisions"]] == ["human_domain_reviewer"]
+
+
+@pytest.mark.parametrize("mutation", ["system_accept", "system_edit", "missing_actor", "wrong_human_actor", "missing_system"])
+def test_mixed_exception_receipt_fails_closed_without_exact_per_decision_authority(mutation):
+    bundle, machine, package, decisions = mixed_exception_inputs()
+    system_choice = decisions["decisions"][1]
+    if mutation == "system_accept":
+        system_choice["action"] = "ACCEPT"
+    elif mutation == "system_edit":
+        system_choice["edited_fields"] = {"description": "forbidden"}
+    elif mutation == "missing_actor":
+        system_choice.pop("decision_actor")
+    elif mutation == "wrong_human_actor":
+        decisions["decisions"][0]["decision_actor"] = {"actor_type": "human_domain_reviewer", "actor_id": "other_reviewer"}
+    else:
+        system_choice["decision_actor"] = decisions["reviewer"]
+    with pytest.raises(ValueError):
+        admission.compile_revision(bundle, machine, package, decisions)

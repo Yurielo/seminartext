@@ -67,6 +67,16 @@ decision provenance remains distinct from the source's machine-derived K1
 provenance.  Thus absence of a human decision never becomes acceptance,
 rejection, human review, or author authority.
 
+One enumerated package may use `HUMAN_REVIEW_WITH_SYSTEM_DEFER` when it has
+both a real semantic exception and independent ordinary proposals.  Each
+choice then carries exact `decision_actor` provenance.  The confirmed human
+actor may ACCEPT, EDIT, REJECT, or DEFER only the displayed exception; the
+fixed `system_validator` actor may only DEFER a new unedited proposal.  System
+choices remain provisional and never create canonical entities, result IDs,
+or human review records.  This mixed receipt does not add merge, redirect, or
+replacement semantics, and it fails closed if either actor provenance is
+missing, substituted, or used for the wrong operation.
+
 ## Immutable revision and validation
 
 The output is `seminartext.canonical_knowledge_revision`, containing the
