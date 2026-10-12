@@ -28,6 +28,9 @@ from seminartext_modules.human_review_workflow import validate_schema_v2
 CONTRACT_ID = "seminartext.reviewed_knowledge_admission_v1"
 SCHEMA_PATH = ROOT / "schemas/reviewed_knowledge_admission_v1.schema.json"
 CONTRACT_SHA256 = hashlib.sha256(SCHEMA_PATH.read_bytes()).hexdigest()
+MACHINE_DERIVED_RESULT_TYPE = "seminartext.machine_derived_fragment_result"
+MACHINE_DERIVED_RESULT_VERSION = "1.0.0"
+MACHINE_DERIVED_REVIEW_STATE = "MACHINE_DERIVED_FRAGMENTS_V1"
 
 
 def digest(value):
@@ -101,6 +104,55 @@ def _span(fragment, bundle):
             "reviewed_fragment_id": fragment["id"], "reviewed_fragment_sha256": digest(fragment)}
 
 
+def _machine_derived_fragments(result: dict, bundle: dict, k1: dict) -> tuple[dict, set[str]]:
+    """Validate the non-authoritative K1 result used for owner-by-exception.
+
+    This path is deliberately narrower than the human-review V2 result: it
+    preserves exact source evidence and can only feed provisional/deferred
+    K2 records.  It never asserts human review or boundary authority.
+    """
+    required = {
+        "schema_version", "artifact_type", "artifact_id", "canonical_evidence",
+        "fragment_lineage", "semantic_knowledge", "application_status", "provenance",
+    }
+    _require(set(result) == required, "machine-derived K1 result fields differ")
+    _require(result["schema_version"] == MACHINE_DERIVED_RESULT_VERSION and
+             result["artifact_type"] == MACHINE_DERIVED_RESULT_TYPE and
+             result["application_status"] == "MACHINE_DERIVED", "machine-derived K1 result contract mismatch")
+    _require(result["canonical_evidence"] == {
+        "artifact_id": bundle["artifact_id"],
+        "sha256": hashlib.sha256(canonical_bytes(bundle)).hexdigest(),
+    }, "machine-derived K1 Evidence binding mismatch")
+    provenance = result["provenance"]
+    _require(provenance == {
+        "actor_type": "system_validator",
+        "authority": "NONAUTHORITATIVE_MACHINE_DERIVED",
+    }, "machine-derived K1 provenance must remain non-authoritative")
+    fragments = _index(result["fragment_lineage"], "machine-derived fragment")
+    _require(fragments, "machine-derived K1 has no fragments")
+    for fragment in fragments.values():
+        review = fragment.get("review_decision_provenance")
+        _require(review == {
+            "actor_type": "system_validator",
+            "authority": "NONAUTHORITATIVE_MACHINE_DERIVED",
+        }, "machine-derived fragment claims human review")
+        _span(fragment, bundle)
+    eligible: set[str] = set()
+    _require(result["semantic_knowledge"], "machine-derived K1 has no semantic units")
+    for unit in result["semantic_knowledge"]:
+        _require(unit.get("provenance") == {
+            "boundary_authority": "MACHINE_DERIVED",
+            "semantic_authority": "NONE",
+        }, "machine-derived semantic unit claims human authority")
+        refs = unit.get("fragment_refs")
+        _require(isinstance(refs, list) and refs and set(refs).issubset(fragments),
+                 "machine-derived semantic unit has invalid fragment references")
+        eligible.update(refs)
+    _require(k1["review_state"] == MACHINE_DERIVED_REVIEW_STATE and
+             result["artifact_id"] == k1["artifact_id"], "machine-derived K1 binding mismatch")
+    return fragments, eligible
+
+
 def compile_revision(bundle_payload, reviewed_payload, package, decisions, *, parent=None):
     """Pure deterministic admission. Caller supplies current independently verified inputs."""
     package, decisions, parent = copy.deepcopy((package, decisions, parent))
@@ -121,21 +173,33 @@ def compile_revision(bundle_payload, reviewed_payload, package, decisions, *, pa
              revision["text_sha256"] == binding["transcript_sha256"] and
              hashlib.sha256(bundle_payload).hexdigest() == binding["evidence_sha256"], "stale source/evidence hash")
     k1 = package["k1_binding"]
-    validate_schema_v2(reviewed)
-    _require(reviewed.get("artifact_type") == "seminartext.human_review_result" and reviewed.get("schema_version") == "2.0.0"
-             and reviewed.get("application_status") == "APPLIED" and k1["review_state"] == "REVIEWED_FRAGMENTS_V2"
-             and reviewed["artifact_id"] == k1["artifact_id"] and hashlib.sha256(reviewed_payload).hexdigest() == k1["sha256"],
-             "K1 review/result hash mismatch")
+    machine_derived = k1["review_state"] == MACHINE_DERIVED_REVIEW_STATE
+    if machine_derived:
+        fragments, eligible = _machine_derived_fragments(reviewed, bundle, k1)
+    else:
+        validate_schema_v2(reviewed)
+        _require(reviewed.get("artifact_type") == "seminartext.human_review_result" and reviewed.get("schema_version") == "2.0.0"
+                 and reviewed.get("application_status") == "APPLIED" and k1["review_state"] == "REVIEWED_FRAGMENTS_V2"
+                 and reviewed["artifact_id"] == k1["artifact_id"], "K1 review/result contract mismatch")
+        fragments = _index(reviewed["fragment_lineage"], "fragment")
+        eligible = {ref for unit in reviewed["semantic_knowledge"] for ref in unit["fragment_refs"]}
+        _require(all(unit.get("provenance", {}).get("boundary_authority") == "PRODUCT_OWNER_DOMAIN_REVIEW"
+                     for unit in reviewed["semantic_knowledge"]), "K1 boundaries lack explicit review")
+    _require(hashlib.sha256(reviewed_payload).hexdigest() == k1["sha256"], "K1 review/result hash mismatch")
     _require(reviewed["canonical_evidence"] == {"artifact_id": bundle["artifact_id"], "sha256": binding["evidence_sha256"]},
              "K1 Evidence binding mismatch")
-    fragments = _index(reviewed["fragment_lineage"], "fragment")
-    eligible = {ref for unit in reviewed["semantic_knowledge"] for ref in unit["fragment_refs"]}
-    _require(all(unit.get("provenance", {}).get("boundary_authority") == "PRODUCT_OWNER_DOMAIN_REVIEW"
-                 for unit in reviewed["semantic_knowledge"]), "K1 boundaries lack explicit review")
     proposals = _index(package["proposals"], "proposal")
     _require(decisions["package_id"] == package["artifact_id"] and decisions["package_sha256"] == digest(package), "stale proposal package")
-    _require(decisions["confirmed_proposal_ids"] == sorted(proposals) and decisions["explicit_confirmation"] is True,
-             "explicit enumerated package confirmation required")
+    system_defer = decisions["reviewer"]["actor_type"] == "system_validator"
+    if system_defer:
+        _require(machine_derived and decisions.get("execution_mode") == "SYSTEM_NONAUTHORITATIVE_DEFER" and
+                 decisions["explicit_confirmation"] is False and decisions["confirmed_proposal_ids"] == sorted(proposals),
+                 "system path must be an enumerated non-authoritative defer")
+    else:
+        _require(decisions.get("execution_mode", "HUMAN_REVIEW") == "HUMAN_REVIEW" and
+                 decisions["reviewer"]["actor_type"] in {"human_domain_reviewer", "product_owner"} and
+                 decisions["confirmed_proposal_ids"] == sorted(proposals) and decisions["explicit_confirmation"] is True,
+                 "explicit enumerated human package confirmation required")
     choices = {item["proposal_id"]: item for item in decisions["decisions"]}
     _require(len(choices) == len(decisions["decisions"]) and set(choices) == set(proposals), "missing/duplicate semantic ReviewDecision")
     for choice in choices.values():
@@ -167,6 +231,9 @@ def compile_revision(bundle_payload, reviewed_payload, package, decisions, *, pa
         old = next((item for item in records[kind] if item["id"] == record["id"]), None)
         _require(proposal["before_sha256"] == (digest(old) if old else None), "stale current canonical record")
         _require((old is None) == (proposal["operation"] == "CREATE"), "ambiguous Concept identity/operation")
+        if system_defer:
+            _require(proposal["operation"] == "CREATE" and choice["action"] == "DEFER" and
+                     not choice.get("edited_fields"), "system validator may only defer new provisional proposals")
         refs = []
         for ref in proposal["fragment_refs"]:
             _require(ref["id"] in eligible and ref["id"] in fragments, "missing or excluded reviewed fragment Evidence")
@@ -174,8 +241,12 @@ def compile_revision(bundle_payload, reviewed_payload, package, decisions, *, pa
             _require(digest(fragment) == ref["sha256"], "changed fragment boundaries/hash")
             _require(fragment["source_id"] == binding["source_id"] and fragment["transcript_revision_id"] == revision["id"],
                      "cross-source fragment unsupported")
-            _require(fragment.get("review_decision_provenance", {}).get("actor_type") in {"human_domain_reviewer", "product_owner"},
-                     "fragment lacks human K1 review provenance")
+            allowed_actor = "system_validator" if machine_derived else None
+            _require(
+                fragment.get("review_decision_provenance", {}).get("actor_type") in
+                ({"human_domain_reviewer", "product_owner", allowed_actor} if machine_derived else {"human_domain_reviewer", "product_owner"}),
+                "fragment has incompatible K1 review provenance",
+            )
             evidence = _span(fragment, bundle)
             refs.append(evidence["id"])
             ev_index[evidence["id"]] = evidence
@@ -200,7 +271,8 @@ def compile_revision(bundle_payload, reviewed_payload, package, decisions, *, pa
         errors = list(Draft202012Validator({"$schema": entity_schema["$schema"], "$defs": entity_schema["$defs"],
                                            "$ref": "#/$defs/" + kind[:-1]}).iter_errors(record))
         _require(not errors, "canonical entity schema invalid: " + (errors[0].message if errors else ""))
-        semantic_decisions.append(copy.deepcopy(choice))
+        semantic_decisions.append({**copy.deepcopy(choice), "reviewer": copy.deepcopy(decisions["reviewer"]),
+                                   "execution_mode": decisions.get("execution_mode", "HUMAN_REVIEW")})
         if record["status"] != "ACCEPTED":
             continue  # REJECT/DEFER remain in the immutable receipt, never become canonical entities.
         record["provenance"] = {"origin": "human_review", "source_artifact_id": package["artifact_id"],

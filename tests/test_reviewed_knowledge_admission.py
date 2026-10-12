@@ -70,6 +70,60 @@ def decide(package, action="ACCEPT", edits=None):
             **({"edited_fields": edits} if edits else {})} for item in package["proposals"]]}
 
 
+def machine_inputs():
+    """A bounded K1 machine-derived result is never a human-review substitute."""
+    bundle_payload, reviewed_payload, package, _ = inputs()
+    reviewed = json.loads(reviewed_payload)
+    fragment = reviewed["fragment_lineage"][0]
+    fragment["review_decision_provenance"] = {
+        "actor_type": "system_validator",
+        "authority": "NONAUTHORITATIVE_MACHINE_DERIVED",
+    }
+    machine = {
+        "schema_version": "1.0.0",
+        "artifact_type": admission.MACHINE_DERIVED_RESULT_TYPE,
+        "artifact_id": "machine_result_exact",
+        "canonical_evidence": reviewed["canonical_evidence"],
+        "fragment_lineage": [fragment],
+        "semantic_knowledge": [{
+            "fragment_refs": [fragment["id"]],
+            "provenance": {
+                "boundary_authority": "MACHINE_DERIVED",
+                "semantic_authority": "NONE",
+            },
+        }],
+        "application_status": "MACHINE_DERIVED",
+        "provenance": {
+            "actor_type": "system_validator",
+            "authority": "NONAUTHORITATIVE_MACHINE_DERIVED",
+        },
+    }
+    machine_payload = admission.canonical_bytes(machine)
+    package["proposals"][0]["fragment_refs"][0]["sha256"] = admission.digest(fragment)
+    package["k1_binding"].update({
+        "artifact_id": machine["artifact_id"],
+        "sha256": hashlib.sha256(machine_payload).hexdigest(),
+        "review_state": admission.MACHINE_DERIVED_REVIEW_STATE,
+    })
+    decisions = {
+        "schema_version": "1.0.0",
+        "package_id": package["artifact_id"],
+        "package_sha256": admission.digest(package),
+        "reviewer": {"actor_type": "system_validator", "actor_id": "integra_system"},
+        "execution_mode": "SYSTEM_NONAUTHORITATIVE_DEFER",
+        "explicit_confirmation": False,
+        "confirmed_proposal_ids": sorted(item["id"] for item in package["proposals"]),
+        "decisions": [{
+            "proposal_id": item["id"],
+            "proposal_sha256": admission.digest(item),
+            "action": "DEFER",
+            "reason": "No semantic exception detected; retained as machine-derived provisional knowledge.",
+            "timestamp": "2026-10-09T09:00:00Z",
+        } for item in package["proposals"]],
+    }
+    return bundle_payload, machine_payload, package, decisions
+
+
 @pytest.mark.parametrize("cue", [False, True])
 def test_exact_range_compiles_without_benchmark_substitution(cue):
     bundle, reviewed, package, decisions = inputs(cue)
@@ -89,6 +143,46 @@ def test_rejected_and_deferred_do_not_enter_canonical_revision(action):
     result = admission.compile_revision(bundle, reviewed, package, decide(package, action))
     assert result["canonical_knowledge"]["concepts"] == []
     assert result["semantic_decisions"][0]["action"] == action
+
+
+def test_machine_derived_input_can_only_create_non_authoritative_deferred_receipt():
+    bundle, machine, package, decisions = machine_inputs()
+    result = admission.compile_revision(bundle, machine, package, decisions)
+    admission.validate_revision(result, bundle)
+    assert result["canonical_knowledge"]["concepts"] == []
+    assert result["canonical_knowledge"]["review_decisions"] == []
+    decision = result["semantic_decisions"][0]
+    assert decision["action"] == "DEFER"
+    assert decision["reviewer"]["actor_type"] == "system_validator"
+    assert decision["execution_mode"] == "SYSTEM_NONAUTHORITATIVE_DEFER"
+
+
+@pytest.mark.parametrize("mutation", ["accept", "update", "confirmation", "human_claim"])
+def test_machine_derived_path_fails_closed_on_authoritative_or_hidden_transition(mutation):
+    bundle, machine, package, decisions = machine_inputs()
+    if mutation == "accept":
+        decisions["decisions"][0]["action"] = "ACCEPT"
+    elif mutation == "update":
+        package["proposals"][0]["operation"] = "UPDATE"
+        package["proposals"][0]["before_sha256"] = "a" * 64
+    elif mutation == "confirmation":
+        decisions["explicit_confirmation"] = True
+    else:
+        payload = json.loads(machine)
+        payload["fragment_lineage"][0]["review_decision_provenance"]["actor_type"] = "human_domain_reviewer"
+        machine = admission.canonical_bytes(payload)
+        package["k1_binding"]["sha256"] = hashlib.sha256(machine).hexdigest()
+    decisions["package_sha256"] = admission.digest(package)
+    with pytest.raises(ValueError):
+        admission.compile_revision(bundle, machine, package, decisions)
+
+
+def test_human_can_explicitly_review_machine_derived_evidence_without_relabeling_the_source():
+    bundle, machine, package, _ = machine_inputs()
+    decisions = decide(package, "ACCEPT")
+    result = admission.compile_revision(bundle, machine, package, decisions)
+    assert result["canonical_knowledge"]["concepts"][0]["status"] == "ACCEPTED"
+    assert result["semantic_decisions"][0]["reviewer"]["actor_type"] == "human_domain_reviewer"
 
 
 def test_edit_preserves_identity_and_parent_revision():

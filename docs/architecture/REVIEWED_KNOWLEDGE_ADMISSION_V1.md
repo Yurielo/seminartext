@@ -44,6 +44,29 @@ type. IDs do not depend on labels. Identity merge/redirect is unsupported.
 REJECT/DEFER persist in the receipt and do not introduce new canonical entities.
 An existing record remains unchanged when its update is rejected/deferred.
 
+## Owner interaction by exception
+
+The admission also accepts an explicitly marked
+`MACHINE_DERIVED_FRAGMENTS_V1` K1 binding.  It is a narrow non-authoritative
+input path for exact source fragments that have been mechanically prepared but
+not human reviewed.  It preserves the same Canonical Evidence binding, exact
+fragment ranges, and machine provenance, while expressly recording
+`NONAUTHORITATIVE_MACHINE_DERIVED` and `semantic_authority: NONE`.
+
+For this input, `system_validator` may only submit the enumerated
+`SYSTEM_NONAUTHORITATIVE_DEFER` ledger: every proposal is a new provisional
+record, every action is `DEFER`, no fields are edited, and no canonical entity
+or accepted semantic decision is produced.  This is a useful, persistent
+machine-derived result, not human review, Product Owner acceptance, or Canonical
+Knowledge acceptance.
+
+Explicit human semantic decisions remain required for ACCEPT, EDIT, REJECT,
+identity change, replacement, or any other authoritative outcome.  A human
+decision may be made later against exact machine-derived evidence; its
+decision provenance remains distinct from the source's machine-derived K1
+provenance.  Thus absence of a human decision never becomes acceptance,
+rejection, human review, or author authority.
+
 ## Immutable revision and validation
 
 The output is `seminartext.canonical_knowledge_revision`, containing the
