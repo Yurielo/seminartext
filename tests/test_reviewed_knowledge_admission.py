@@ -124,6 +124,28 @@ def machine_inputs():
     return bundle_payload, machine_payload, package, decisions
 
 
+def reviewed_system_defer_inputs():
+    """A prior human K1 boundary review permits only provisional K2 continuation."""
+    bundle, reviewed, package, _ = inputs()
+    decisions = {
+        "schema_version": "1.0.0",
+        "package_id": package["artifact_id"],
+        "package_sha256": admission.digest(package),
+        "reviewer": {"actor_type": "system_validator", "actor_id": "integra_system"},
+        "execution_mode": "SYSTEM_NONAUTHORITATIVE_DEFER",
+        "explicit_confirmation": False,
+        "confirmed_proposal_ids": sorted(item["id"] for item in package["proposals"]),
+        "decisions": [{
+            "proposal_id": item["id"],
+            "proposal_sha256": admission.digest(item),
+            "action": "DEFER",
+            "reason": "No K2 semantic exception detected; retained as provisional knowledge.",
+            "timestamp": "2026-10-09T09:00:00Z",
+        } for item in package["proposals"]],
+    }
+    return bundle, reviewed, package, decisions
+
+
 @pytest.mark.parametrize("cue", [False, True])
 def test_exact_range_compiles_without_benchmark_substitution(cue):
     bundle, reviewed, package, decisions = inputs(cue)
@@ -157,6 +179,19 @@ def test_machine_derived_input_can_only_create_non_authoritative_deferred_receip
     assert decision["execution_mode"] == "SYSTEM_NONAUTHORITATIVE_DEFER"
 
 
+def test_human_reviewed_k1_can_only_continue_with_non_authoritative_system_defer():
+    bundle, reviewed, package, decisions = reviewed_system_defer_inputs()
+    result = admission.compile_revision(bundle, reviewed, package, decisions)
+    admission.validate_revision(result, bundle)
+    assert result["canonical_knowledge"]["concepts"] == []
+    assert result["canonical_knowledge"]["review_decisions"] == []
+    assert result["source_evidence"]["admission"]["package"]["k1_binding"]["review_state"] == "REVIEWED_FRAGMENTS_V2"
+    decision = result["semantic_decisions"][0]
+    assert decision["action"] == "DEFER"
+    assert decision["reviewer"] == {"actor_type": "system_validator", "actor_id": "integra_system"}
+    assert decision["execution_mode"] == "SYSTEM_NONAUTHORITATIVE_DEFER"
+
+
 @pytest.mark.parametrize("mutation", ["accept", "update", "confirmation", "human_claim"])
 def test_machine_derived_path_fails_closed_on_authoritative_or_hidden_transition(mutation):
     bundle, machine, package, decisions = machine_inputs()
@@ -175,6 +210,23 @@ def test_machine_derived_path_fails_closed_on_authoritative_or_hidden_transition
     decisions["package_sha256"] = admission.digest(package)
     with pytest.raises(ValueError):
         admission.compile_revision(bundle, machine, package, decisions)
+
+
+@pytest.mark.parametrize("mutation", ["accept", "update", "confirmation", "human_reviewer"])
+def test_human_reviewed_k1_system_continuation_fails_closed_on_authoritative_transition(mutation):
+    bundle, reviewed, package, decisions = reviewed_system_defer_inputs()
+    if mutation == "accept":
+        decisions["decisions"][0]["action"] = "ACCEPT"
+    elif mutation == "update":
+        package["proposals"][0]["operation"] = "UPDATE"
+        package["proposals"][0]["before_sha256"] = "a" * 64
+    elif mutation == "confirmation":
+        decisions["explicit_confirmation"] = True
+    else:
+        decisions["reviewer"] = {"actor_type": "human_domain_reviewer", "actor_id": "fixture_reviewer"}
+    decisions["package_sha256"] = admission.digest(package)
+    with pytest.raises(ValueError):
+        admission.compile_revision(bundle, reviewed, package, decisions)
 
 
 def test_human_can_explicitly_review_machine_derived_evidence_without_relabeling_the_source():
