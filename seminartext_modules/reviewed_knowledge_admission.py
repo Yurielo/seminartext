@@ -194,7 +194,12 @@ def compile_revision(bundle_payload, reviewed_payload, package, decisions, *, pa
     system_defer = decisions["reviewer"]["actor_type"] == "system_validator"
     mixed_defer = execution_mode == "HUMAN_REVIEW_WITH_SYSTEM_DEFER"
     if system_defer:
-        _require(machine_derived and execution_mode == "SYSTEM_NONAUTHORITATIVE_DEFER" and
+        # A valid K1 human review already supplies the authoritative boundary
+        # decision.  K2 may continue mechanically with new source-bound
+        # proposals, but only as the same non-authoritative, fully enumerated
+        # DEFER receipt used for machine-derived K1.  This does not accept,
+        # edit, merge, or create a ReviewDecision for any Knowledge entity.
+        _require(execution_mode == "SYSTEM_NONAUTHORITATIVE_DEFER" and
                  decisions["explicit_confirmation"] is False and decisions["confirmed_proposal_ids"] == sorted(proposals),
                  "system path must be an enumerated non-authoritative defer")
     elif mixed_defer:
