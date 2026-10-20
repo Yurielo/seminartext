@@ -935,6 +935,20 @@ if words:
     if len(w) <= 12 and n >= 40 and n/len(words) >= .55:
         reject('single_word_loop', f'repeats={n} word_ratio={n/len(words):.2f}')
 
+    # Very short Whisper loops can be one punctuation-free periodic phrase.
+    # They contain too few tokens for the fuzzy 12-word contextual detector
+    # below and evade the long single-word-loop threshold above.  Requiring at
+    # least four matching positions keeps ordinary conversational repetition
+    # eligible for a normal first-pass transcript.
+    for period in range(1, min(12, len(words)//2) + 1):
+        comparisons=len(words)-period
+        matches=sum(words[index] == words[index + period] for index in range(comparisons))
+        if comparisons >= 4 and matches >= 4 and matches/comparisons >= .80:
+            reject(
+                'short_periodic_token_loop',
+                f'period={period} comparisons={comparisons} match_ratio={matches/comparisons:.2f}',
+            )
+
 # Whisper contextual loops often keep a long local anchor while changing a few
 # surrounding words.  Whole-sentence equality misses that pattern, especially
 # when several repetitions land inside one punctuated sentence.  Look for four

@@ -25,6 +25,8 @@ GOOD_TRANSCRIPT = """\
 После этого мы сравним пульс и физическую нагрузку для разных групп.
 """
 
+SHORT_PERIODIC_LOOP = "Вопросы и ответы на вопросы и ответы на вопросы"
+
 MEANINGFUL_REPETITION = """\
 Здоровье важнее материальных вещей, потому что оно определяет качество нашей жизни.
 Повторю эту мысль иначе: без здоровья трудно пользоваться тем, что мы накопили.
@@ -87,6 +89,12 @@ def test_fuzzy_contextual_loop_is_rejected(tmp_path):
     result = run_quality_check(tmp_path, FUZZY_LOOP)
     assert result.returncode == 1
     assert "fuzzy_contextual_repetition" in result.stderr
+
+
+def test_short_periodic_token_loop_is_rejected(tmp_path):
+    result = run_quality_check(tmp_path, SHORT_PERIODIC_LOOP)
+    assert result.returncode == 1
+    assert "short_periodic_token_loop" in result.stderr
 
 
 def test_confirmed_production_loop_is_rejected(tmp_path):
