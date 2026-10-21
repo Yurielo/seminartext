@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seminartext.local/schemas/reviewed_knowledge_admission_v1.schema.json",
+  "title": "SeminarText exact-fragment Knowledge admission v1",
+  "$ref": "#/$defs/package",
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9._:-]{2,127}$"},
+    "hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "nullable_hash": {"anyOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+    "actor": {"type": "object", "additionalProperties": false, "required": ["actor_type", "actor_id"], "properties": {"actor_type": {"enum": ["human_domain_reviewer", "product_owner", "system_validator"]}, "actor_id": {"$ref": "#/$defs/id"}}},
+    "package": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "artifact_type", "artifact_id", "contract", "producer", "source_binding", "k1_binding", "parent_revision_sha256", "proposals"],
+      "properties": {
+        "schema_version": {"const": "1.0.0"},
+        "artifact_type": {"const": "seminartext.reviewed_knowledge_proposals"},
+        "artifact_id": {"$ref": "#/$defs/id"},
+        "contract": {"type": "object", "additionalProperties": false, "required": ["id", "sha256"], "properties": {"id": {"const": "seminartext.reviewed_knowledge_admission_v1"}, "sha256": {"$ref": "#/$defs/hash"}}},
+        "producer": {"type": "object", "additionalProperties": false, "required": ["component_id", "runtime_id", "runtime_sha256"], "properties": {"component_id": {"const": "integra"}, "runtime_id": {"$ref": "#/$defs/id"}, "runtime_sha256": {"$ref": "#/$defs/hash"}}},
+        "source_binding": {"type": "object", "additionalProperties": false,
+          "required": ["project_id", "source_id", "source_revision_sha256", "source_sha256", "transcript_revision_id", "transcript_sha256", "evidence_sha256"],
+          "properties": {"project_id": {"$ref": "#/$defs/id"}, "source_id": {"$ref": "#/$defs/id"}, "source_revision_sha256": {"$ref": "#/$defs/hash"}, "source_sha256": {"$ref": "#/$defs/hash"}, "transcript_revision_id": {"$ref": "#/$defs/id"}, "transcript_sha256": {"$ref": "#/$defs/hash"}, "evidence_sha256": {"$ref": "#/$defs/hash"}}
+        },
+        "k1_binding": {"type": "object", "additionalProperties": false, "required": ["artifact_id", "sha256", "notebook_id", "notebook_sha256", "review_state"], "properties": {"artifact_id": {"$ref": "#/$defs/id"}, "sha256": {"$ref": "#/$defs/hash"}, "notebook_id": {"type": "string", "minLength": 1}, "notebook_sha256": {"$ref": "#/$defs/hash"}, "review_state": {"enum": ["REVIEWED_FRAGMENTS_V2", "MACHINE_DERIVED_FRAGMENTS_V1"]}}},
+        "parent_revision_sha256": {"$ref": "#/$defs/nullable_hash"},
+        "proposals": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/proposal"}}
+      }
+    },
+    "proposal": {"type": "object", "additionalProperties": false,
+      "required": ["id", "entity_kind", "operation", "record", "fragment_refs", "before_sha256", "review_status", "generation_provenance"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "entity_kind": {"enum": ["topics", "concepts", "relations"]}, "operation": {"enum": ["CREATE", "UPDATE"]},
+        "record": {"type": "object"},
+        "fragment_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["id", "sha256"], "properties": {"id": {"$ref": "#/$defs/id"}, "sha256": {"$ref": "#/$defs/hash"}}}},
+        "before_sha256": {"$ref": "#/$defs/nullable_hash"}, "review_status": {"const": "REVIEW_REQUIRED"},
+        "generation_provenance": {"type": "object", "additionalProperties": false, "required": ["method", "producer_sha256"], "properties": {"method": {"type": "string", "minLength": 1}, "producer_sha256": {"$ref": "#/$defs/hash"}}}
+      }
+    },
+    "decisions": {"type": "object", "additionalProperties": false,
+      "required": ["schema_version", "package_id", "package_sha256", "reviewer", "explicit_confirmation", "confirmed_proposal_ids", "decisions"],
+      "properties": {
+        "schema_version": {"const": "1.0.0"}, "package_id": {"$ref": "#/$defs/id"}, "package_sha256": {"$ref": "#/$defs/hash"},
+        "reviewer": {"$ref": "#/$defs/actor"},
+        "execution_mode": {"enum": ["HUMAN_REVIEW", "SYSTEM_NONAUTHORITATIVE_DEFER", "HUMAN_REVIEW_WITH_SYSTEM_DEFER"]},
+        "explicit_confirmation": {"type": "boolean"}, "confirmed_proposal_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "decisions": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["proposal_id", "proposal_sha256", "action", "reason", "timestamp"], "properties": {"proposal_id": {"$ref": "#/$defs/id"}, "proposal_sha256": {"$ref": "#/$defs/hash"}, "action": {"enum": ["ACCEPT", "EDIT", "REJECT", "DEFER"]}, "reason": {"type": "string", "minLength": 1}, "timestamp": {"type": "string", "format": "date-time", "minLength": 1}, "edited_fields": {"type": "object"}, "decision_actor": {"$ref": "#/$defs/actor"}}}}
+      }
+    }
+  }
+}

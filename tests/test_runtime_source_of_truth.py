@@ -125,11 +125,13 @@ def test_runtime_identity_resolves_bundled_modules_and_hashes():
 def test_runtime_identity_supports_installed_sibling_layout(tmp_path):
     installed_cli = tmp_path / "seminartext"
     shutil.copy2(CLI, installed_cli)
+    (tmp_path / "seminartext_modules").mkdir(exist_ok=True)
+    shutil.copy2(ROOT / "seminartext_modules/owned_tmp.py", tmp_path / "seminartext_modules/owned_tmp.py")
     shutil.copy2(VERSION_FILE, tmp_path / VERSION_FILE.name)
     shutil.copy2(TOPICS, tmp_path / TOPICS.name)
     shutil.copy2(TRANSLATE, tmp_path / TRANSLATE.name)
     modules = tmp_path / "seminartext_modules"
-    modules.mkdir()
+    modules.mkdir(exist_ok=True)
     shutil.copy2(DATASET_GOVERNANCE, modules / DATASET_GOVERNANCE.name)
     governance = tmp_path / "governance"
     governance.mkdir()
@@ -238,4 +240,4 @@ def test_dev_status_compares_both_runtime_modules(tmp_path):
     assert result.returncode == 0, result.stderr
     assert "Topics:  SYNC" in result.stdout
     assert "Translate: SYNC" in result.stdout
-    assert "DEPLOY STATUS: DIFFERENT (20/22)" in result.stdout
+    assert "DEPLOY STATUS: DIFFERENT (22/24)" in result.stdout

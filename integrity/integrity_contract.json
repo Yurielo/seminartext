@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "integrity_contract_version": "1.1.0",
+  "integrity_contract_version": "1.1.1",
   "allowed_statuses": [
     "PASS",
     "FAIL",
@@ -48,6 +48,18 @@
       "id": "human_review_workflow",
       "repository_path": "seminartext_modules/human_review_workflow.py",
       "deployed_name": "seminartext_modules/human_review_workflow.py",
+      "required": true
+    },
+    {
+      "id": "owned_tmp",
+      "repository_path": "seminartext_modules/owned_tmp.py",
+      "deployed_name": "seminartext_modules/owned_tmp.py",
+      "required": true
+    },
+    {
+      "id": "group_sources",
+      "repository_path": "seminartext_modules/group_sources.py",
+      "deployed_name": "seminartext_modules/group_sources.py",
       "required": true
     },
     {

@@ -106,6 +106,7 @@ def test_every_dispatched_user_command_is_discoverable_in_main_help():
         "cut",
         "dataset-policy-check",
         "doctor",
+        "group",
         "help",
         "init",
             "project-add",
@@ -179,6 +180,8 @@ def test_roadmap_status_detects_stale_deployed_snapshot(tmp_path):
 def test_installed_snapshot_is_resolved_but_never_claimed_current(tmp_path):
     installed_cli = tmp_path / "seminartext"
     shutil.copy2(CLI, installed_cli)
+    (tmp_path / "seminartext_modules").mkdir(exist_ok=True)
+    shutil.copy2(ROOT / "seminartext_modules/owned_tmp.py", tmp_path / "seminartext_modules/owned_tmp.py")
     shutil.copy2(VERSION, tmp_path / VERSION.name)
     shutil.copy2(STATE, tmp_path / STATE.name)
     shutil.copy2(ROADMAP, tmp_path / ROADMAP.name)

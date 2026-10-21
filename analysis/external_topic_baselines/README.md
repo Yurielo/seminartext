@@ -7,19 +7,19 @@ Create an isolated environment (Python 3.10+; the recorded run used 3.14.6 on
 Apple Silicon):
 
 ```bash
-python3 -m venv /tmp/seminartext-issue45
-/tmp/seminartext-issue45/bin/python -m pip install -r \
+python3 -m venv .venv-issue45
+.venv-issue45/bin/python -m pip install -r \
   analysis/external_topic_baselines/requirements.txt
-NLTK_DATA=/tmp/seminartext-issue45-nltk \
-  /tmp/seminartext-issue45/bin/python -m nltk.downloader \
-  -d /tmp/seminartext-issue45-nltk stopwords
+NLTK_DATA="$HOME/.cache/seminartext/issue45-nltk" \
+  .venv-issue45/bin/python -m nltk.downloader \
+  -d "$HOME/.cache/seminartext/issue45-nltk" stopwords
 ```
 
 With local Ollama running and `bge-m3:latest` installed:
 
 ```bash
-NLTK_DATA=/tmp/seminartext-issue45-nltk \
-  /tmp/seminartext-issue45/bin/python \
+NLTK_DATA="$HOME/.cache/seminartext/issue45-nltk" \
+  ./scripts/seminartext-owned-run .venv-issue45/bin/python \
   analysis/external_topic_baselines/run_baseline_challenge.py \
   --dataset-a "$SEMINARTEXT_PROJECTS/Стресс код/analysis/benchmark/topic_benchmark.json" \
   --dataset-b analysis/dataset_b/topic_benchmark_dataset_b.json \
