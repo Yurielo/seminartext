@@ -106,6 +106,7 @@ def test_every_dispatched_user_command_is_discoverable_in_main_help():
         "cut",
         "dataset-policy-check",
         "doctor",
+        "group",
         "help",
         "init",
             "project-add",

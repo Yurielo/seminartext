@@ -220,6 +220,10 @@ cat <<'HELP'
 
       Расшифровка аудио/видео.
       Старый вызов без команды сохранён и равнозначен transcribe.
+
+  seminartext group SOURCE... [--output DIR]
+
+      Групповая расшифровка папок и выбранных файлов в единый clean-файл.
       Язык источника по умолчанию: ru. Поддерживаются ru и en.
 
   seminartext topics файл.mp4
@@ -273,6 +277,17 @@ cat <<'HELP'
   seminartext project-topics PROJECT
 
       Создание, наполнение, проверка и обработка seminar-проекта.
+
+ГРУППОВАЯ РАСШИФРОВКА
+
+  seminartext group "/путь/к/папке"
+  seminartext group "запись 1.ogg" "запись 2.mp4"
+  seminartext group "/папка" "выбранная запись.m4a" --output "/путь/к/группе"
+
+      Каждый SOURCE может быть медиафайлом или папкой. Папки сканируются
+      рекурсивно. Одинаковые по содержимому файлы определяются по SHA-256 и
+      не расшифровываются повторно. Результаты: group/transcript/
+      combined_clear.txt, combined_clear_with_sources.txt и provenance-manifest.
 
       --combined-clear дополнительно собирает чистые individual transcripts
       локальных частей в один chronological derived artifact. Источники
@@ -2608,6 +2623,123 @@ print(f"Видеоисточников всего: {len(data['videos'])}")
 print(f"Документов всего: {len(data['documents'])}")
 print(f"Реестр: {registry_path}")
 PYADD
+}
+
+group_command() {
+  local output_dir="" list_only=0 careful=0 force=0
+  local -a sources=()
+
+  if [[ $# -eq 0 || "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+    cat <<'HELP'
+Использование:
+
+  seminartext group SOURCE... [--output DIR] [--list] [--force] [--careful] [--no-open]
+
+SOURCE — медиафайл или папка. Папки сканируются рекурсивно; можно передать
+папки и выбранные файлы в одном вызове.
+
+Примеры:
+
+  seminartext group "/путь/к/папке"
+  seminartext group "запись 1.ogg" "запись 2.mp4"
+  seminartext group "/папка" "/путь/к/выбранной записи.m4a" --output "/путь/к/группе"
+
+Без --output группа создаётся в подкаталоге group рядом с первым источником.
+--output DIR задаёт постоянную папку группы. В ней создаются source/,
+transcript/combined_clear.txt, transcript/combined_clear_with_sources.txt и
+transcript/combined_clear_manifest.json.
+
+Одинаковые по содержимому файлы распознаются по SHA-256 и не добавляются или
+расшифровываются повторно. --list только показывает новые и повторяющиеся
+источники. --force заново обрабатывает все уникальные записи группы.
+
+Результат создаётся машиной: при важных фрагментах сверяйте clean-текст и
+transcript_review.txt с исходным аудио.
+HELP
+    return 0
+  fi
+
+  while (($#)); do
+    case "$1" in
+      --output)
+        [[ $# -ge 2 ]] || { echo "Ошибка: после --output нужна папка группы." >&2; return 2; }
+        output_dir="$2"
+        shift 2
+        ;;
+      --list)
+        list_only=1
+        shift
+        ;;
+      --force)
+        force=1
+        shift
+        ;;
+      --careful)
+        careful=1
+        shift
+        ;;
+      --no-open)
+        OPEN_RESULTS=0
+        shift
+        ;;
+      -h|--help)
+        group_command --help
+        return 0
+        ;;
+      -*)
+        echo "Ошибка: неизвестный параметр group: $1" >&2
+        return 2
+        ;;
+      *)
+        sources+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  ((${#sources[@]} > 0)) || {
+    echo "Ошибка: укажите хотя бы один файл или папку." >&2
+    return 2
+  }
+
+  local result
+  result="$(mktemp -t seminartext_group.XXXXXX)"
+  trap 'rm -f "$result"' RETURN
+
+  local -a prepare_args=(--result "$result")
+  [[ -n "$output_dir" ]] && prepare_args+=(--output "$output_dir")
+  (( list_only == 1 )) && prepare_args+=(--list)
+  python3 "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/group_sources.py" \
+    "${prepare_args[@]}" "${sources[@]}" || return $?
+
+  if (( list_only == 1 )); then
+    rm -f "$result"
+    trap - RETURN
+    return 0
+  fi
+
+  local group_dir
+  group_dir="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["group_dir"])' "$result")"
+
+  local line source
+  while IFS= read -r line; do
+    [[ -n "$line" ]] || continue
+    source="$(python3 -c 'import json,sys; print(json.loads(sys.stdin.read())["path"])' <<<"$line")"
+    project_add "$group_dir" --video-link "$source" || return 1
+  done < <(python3 -c 'import json,sys; [print(json.dumps(item, ensure_ascii=False)) for item in json.load(open(sys.argv[1], encoding="utf-8"))["new_sources"]]' "$result")
+
+  rm -f "$result"
+  trap - RETURN
+
+  (( force == 1 )) && FORCE=1
+  local -a transcribe_args=(--combined-with-sources --no-open)
+  (( careful == 1 )) && transcribe_args+=(--careful)
+  project_transcribe "$group_dir" "${transcribe_args[@]}" || return 1
+
+  echo
+  echo "ГОТОВО: групповая расшифровка"
+  echo "Clean: $group_dir/transcript/combined_clear.txt"
+  echo "С источниками: $group_dir/transcript/combined_clear_with_sources.txt"
 }
 
 
@@ -6041,6 +6173,11 @@ main() {
     project-obsidian-export)
       shift
       project_knowledge_bridge_command "$@"
+      exit $?
+      ;;
+    group)
+      shift
+      group_command "$@"
       exit $?
       ;;
     init)
