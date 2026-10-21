@@ -131,6 +131,7 @@ main "$@"
         "seminartext_modules/project_knowledge_bridge.py",
         "seminartext_modules/human_review_workflow.py",
         "seminartext_modules/owned_tmp.py",
+        "seminartext_modules/group_sources.py",
         "seminartext_modules/dataset_governance.py",
         "seminartext_modules/topic_engine_governance.py",
         "schemas/validate_canonical_evidence_v1.py",
