@@ -322,7 +322,7 @@ cmd_status() {
   if (( mismatches == 0 )); then
     echo "DEPLOY STATUS: SYNC"
   else
-    echo "DEPLOY STATUS: DIFFERENT ($mismatches/24)"
+    echo "DEPLOY STATUS: DIFFERENT ($mismatches/25)"
   fi
 }
 
