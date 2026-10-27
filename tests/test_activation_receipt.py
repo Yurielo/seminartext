@@ -366,6 +366,7 @@ def test_governed_rollback_preserves_installed_bytes_and_invalidates_pending(tmp
         target = deployed / component["deployed_name"]
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / component["repository_path"], target)
+    (deployed / "seminartext_modules" / "asr_completion.py").unlink()
     before = {str(p.relative_to(deployed)): hashlib.sha256(p.read_bytes()).hexdigest()
               for p in deployed.rglob("*") if p.is_file()}
     env = {**os.environ, "SEMINARTEXT_DEV_REPO": str(ROOT), "SEMINARTEXT_DEV_BIN": str(deployed),
