@@ -180,3 +180,17 @@ def test_failed_retranscription_restores_previous_readable_artifacts(tmp_path):
     rerun = _run(project, env)
     assert rerun.returncode == 0, rerun.stdout + rerun.stderr
     assert "Переиспользую проверенную расшифровку" not in rerun.stdout
+
+
+def test_failed_retry_preserves_partial_project_without_marker(tmp_path):
+    project, _, env, _ = _fixture(tmp_path)
+    transcript = project / "transcript/video_001"
+    transcript.mkdir(parents=True)
+    prior = b"partial user transcript\n"
+    (transcript / "transcript.txt").write_bytes(prior)
+    env["MOCK_CANCEL"] = "1"
+
+    failed = _run(project, env)
+    assert failed.returncode != 0
+    assert (transcript / "transcript.txt").read_bytes() == prior
+    assert not (transcript / ".seminartext_complete").exists()
