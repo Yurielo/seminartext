@@ -245,6 +245,11 @@ policy covers that exact operation.
 
 ### Autonomous Failure Recovery
 
+The existing post-deploy checks can be completed and durably recorded through
+the [native activation/central registry adapter](docs/architecture/NATIVE_ACTIVATION_REGISTRY.md).
+It does not authorize a deployment or replace any gate above; publication failure
+is reported separately from native activation success.
+
 Deterministic unit-test, lint/type, CI, generated-artifact, branch-drift,
 runtime-hash, documentation-state, and mechanically unambiguous merge-conflict
 failures are investigated and repaired autonomously when the repair remains in

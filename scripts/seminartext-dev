@@ -65,6 +65,13 @@ hash_file() {
   shasum -a 256 "$1" | awk '{print $1}'
 }
 
+activation_record() {
+  local command="$1" operation="$2"
+  shift 2
+  "${SEMINARTEXT_INTEGRITY_PYTHON:-python3}" "$REPO/scripts/activation_receipt.py" "$command" \
+    --root "$REPO" --deploy-dir "$BIN" --operation "$operation" "$@"
+}
+
 require_repo() {
   [[ "$(git -C "$REPO" rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || die "Git repository не найден: $REPO"
 
@@ -529,6 +536,10 @@ source_commit=$commit
 source_branch=$(git branch --show-current)
 MANIFEST
 
+  # Capture native mutation identity and a bounded central predecessor snapshot
+  # before replacing files. Registry availability is not required for deployment.
+  activation_record begin "$backup" >/dev/null
+
   local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_evidence_foundation tmp_project_knowledge_bridge tmp_human_review_workflow tmp_owned_tmp tmp_group_sources tmp_canonical_validator tmp_canonical_schema tmp_canonical_knowledge_validator tmp_canonical_knowledge_schema tmp_canonical_knowledge_lifecycle tmp_project_knowledge_input_schema tmp_topic_review_workflow_schema tmp_topic_review_workflow_schema_v2 tmp_dataset_governance tmp_dataset_registry tmp_topic_engine_governance tmp_topic_engine_lifecycle tmp_topic_engine_freeze tmp_version
   tmp_code="$DEPLOY_CODE.new.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.new.$$"
@@ -738,6 +749,9 @@ PYMODULES
   [[ "$(hash_file "$VERSION_FILE")" == "$(hash_file "$DEPLOY_VERSION")" ]] \
     || die "deploy hash mismatch: Version"
 
+  activation_record installed "$backup" >/dev/null
+  LAST_DEPLOY_BACKUP="$backup"
+
   echo "[OK] Code deployed"
   echo "[OK] Roadmap deployed"
   echo "[OK] State deployed"
@@ -756,6 +770,7 @@ PYMODULES
   echo
   echo "DEPLOY: PASS"
   echo "Backup: $backup"
+  echo "ACTIVATION: POST_CHECKS_REQUIRED (activation-complete $backup)"
 }
 
 cmd_rollback() {
@@ -841,6 +856,9 @@ cmd_rollback() {
   local rollback_guard
   rollback_guard="$BACKUP_ROOT/pre_rollback_$(date '+%Y%m%d_%H%M%S')"
   mkdir -p "$rollback_guard"
+
+  # Invalidate pending publications even when rollback restores identical bytes.
+  activation_record begin "$rollback_guard" --action rollback >/dev/null
 
   [[ -f "$DEPLOY_CODE" ]] \
     && cp -p "$DEPLOY_CODE" "$rollback_guard/seminartext_4.0_work"
@@ -1033,6 +1051,7 @@ cmd_rollback() {
 
   echo "ROLLBACK: PASS"
   echo "Restored: $backup"
+  echo "REGISTRY: RECONCILIATION_REQUIRED; older pending activation retries are invalidated"
   if [[ ! -f "$backup_owned_tmp" || ! -f "$backup_group_sources" || ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_project_knowledge_bridge" || ! -f "$backup_human_review_workflow" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_canonical_knowledge_validator" || ! -f "$backup_canonical_knowledge_schema" || ! -f "$backup_canonical_knowledge_lifecycle" || ! -f "$backup_project_knowledge_input_schema" || ! -f "$backup_topic_review_workflow_schema" || ! -f "$backup_topic_review_workflow_schema_v2" || ! -f "$backup_dataset_governance" || ! -f "$backup_dataset_registry" || ! -f "$backup_topic_engine_governance" || ! -f "$backup_topic_engine_lifecycle" || ! -f "$backup_topic_engine_freeze" || ! -f "$backup_version" ]]; then
     echo "Legacy backup: отсутствующие runtime/version-файлы оставлены без изменения."
   fi
@@ -1065,6 +1084,20 @@ show_help() {
       создаёт backup ~/bin, атомарно разворачивает master-файлы
       и проверяет SHA-256.
 
+  scripts/seminartext-dev deploy --complete
+
+      После разрешённого deploy выполняет существующие post-deploy Integrity
+      и full tests, сохраняет native receipt и вызывает центральный publisher.
+      Exit 3 означает PUBLICATION_PENDING, а не неудачный deployment.
+
+  scripts/seminartext-dev activation-complete BACKUP_PATH
+
+      Завершает post-checks инструментированного deploy без повторной установки.
+
+  scripts/seminartext-dev registry-retry BACKUP_PATH
+
+      Повторяет только публикацию сохранённого события; не deploy и не tests.
+
   scripts/seminartext-dev rollback list
 
       Показывает доступные deploy-backups.
@@ -1091,7 +1124,20 @@ case "${1:-}" in
     cmd_checkpoint "$@"
     ;;
   deploy)
+    [[ $# -eq 1 || ( $# -eq 2 && "$2" == "--complete" ) ]] || die "deploy: expected optional --complete"
     cmd_deploy
+    if [[ "${2:-}" == "--complete" ]]; then
+      activation_record complete "$LAST_DEPLOY_BACKUP"
+    fi
+    ;;
+  activation-complete|registry-retry)
+    [[ $# -eq 2 && -d "$2" ]] || die "$1: exact operation directory required"
+    require_repo
+    if [[ "$1" == "activation-complete" ]]; then
+      activation_record complete "$2"
+    else
+      activation_record retry "$2"
+    fi
     ;;
   rollback)
     shift
