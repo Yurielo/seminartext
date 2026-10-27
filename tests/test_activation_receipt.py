@@ -113,6 +113,7 @@ def test_receipt_only_after_existing_post_checks_and_idempotent_completion(nativ
     assert not (native["operation"] / "activation-receipt.json").exists()
     receipt = complete(native)
     assert receipt["status"] == "SUCCEEDED"
+    assert receipt["target"] == native["deployed"].as_uri()
     assert receipt["installation"]["source_commit"] == local_git(native["root"], "rev-parse", "HEAD")
     assert len(receipt["installation"]["components"]) == 2
     assert receipt["integrity"]["gates"][5]["status"] == "NOT_IMPLEMENTED"

@@ -238,7 +238,7 @@ def complete(root, deployed, operation):
         require(record["contract_sha256"] == digest((root / "integrity/integrity_contract.json").read_bytes()),
                 "Integrity contract changed during post-checks")
         receipt = {"schema_version": 1, "product": "seminartext", "status": "SUCCEEDED",
-                   "activated_at": now(), "target": "local-primary", "installation": record,
+                   "activated_at": now(), "target": deployed.as_uri(), "installation": record,
                    "integrity": report, "integrity_contract": contract(root),
                    "integrity_report_sha256": digest(stdout),
                    "scope": "Native technical activation; not semantic acceptance or full product MVP acceptance."}
