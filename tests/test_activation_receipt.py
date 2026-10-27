@@ -406,3 +406,20 @@ def test_governed_deploy_tracks_new_asr_module_as_absent_in_prior_runtime(tmp_pa
     assert (operation / "ASR_COMPLETION_ABSENT").is_file()
     installed = deployed / "seminartext_modules" / "asr_completion.py"
     assert installed.read_bytes() == (ROOT / "seminartext_modules" / "asr_completion.py").read_bytes()
+
+
+def test_deploy_complete_returns_success_after_postcheck_dispatch(tmp_path):
+    fake_python = tmp_path / "python"
+    fake_python.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+    fake_python.chmod(0o755)
+    deployed, backups = tmp_path / "bin", tmp_path / "backups"
+    env = {**os.environ, "SEMINARTEXT_DEV_REPO": str(ROOT),
+           "SEMINARTEXT_DEV_BIN": str(deployed),
+           "SEMINARTEXT_DEV_BACKUP_ROOT": str(backups),
+           "SEMINARTEXT_INTEGRITY_PYTHON": str(fake_python),
+           "SEMINARTEXT_REGISTRY_REPO": str(tmp_path / "absent")}
+    result = subprocess.run([str(ROOT / "scripts/seminartext-dev"), "deploy", "--complete"],
+                            cwd=ROOT, env=env, capture_output=True, text=True)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "DEPLOY: PASS" in result.stdout
+    assert "PUBLISHED" not in result.stderr
