@@ -22,6 +22,10 @@ class Incomplete(ValueError):
     pass
 
 
+class ReconciliationRequired(Incomplete):
+    pass
+
+
 def require(condition, message):
     if not condition:
         raise Incomplete(message)
@@ -118,13 +122,13 @@ def runtime_matches(rows):
                 f"deployed component changed or missing: {row['id']}")
 
 
-def begin(root, deployed, operation, registry_root, action):
+def begin(root, deployed, operation, registry_root, action, backup=None):
     """Called by the governed shell path before its first runtime replacement."""
     with mutation_lock(operation):
         epoch = uuid.uuid4().hex
         base = None
         observation = "UNAVAILABLE"
-        if action == "deploy" and registry_root.is_dir():
+        if registry_root.is_dir():
             try:
                 base = git(registry_root, "rev-parse", "--verify", "refs/remotes/origin/main")
                 observation = "CACHED"
@@ -143,11 +147,14 @@ def begin(root, deployed, operation, registry_root, action):
                 "mutation_id": epoch, "started_at": now(), "registry_base_head": base,
                 "registry_base_observation": observation,
                 "source_root": str(root), "source_commit": git(root, "rev-parse", "HEAD"),
-                "deployment_dir": str(deployed)}
+                "deployment_dir": str(deployed),
+                "contract_sha256": digest((root / "integrity/integrity_contract.json").read_bytes())}
         if action == "deploy":
             data.update(version=(root / "SEMINARTEXT_VERSION").read_text().strip(),
-                        components=source_inventory(root, deployed),
-                        contract_sha256=digest((root / "integrity/integrity_contract.json").read_bytes()))
+                        components=source_inventory(root, deployed))
+        else:
+            require(backup is not None and backup.is_dir(), "rollback source backup missing")
+            data["restored_from_backup"] = str(backup)
         retain(operation / "activation-operation.json", encoded(data))
         temporary = operation.parent / (".activation-epoch-" + epoch)
         retain(temporary, epoch.encode())
@@ -246,6 +253,62 @@ def complete(root, deployed, operation):
         return receipt
 
 
+def rollback_complete(root, deployed, operation):
+    """Record the restored bytes; never infer their source from a deploy manifest."""
+    with mutation_lock(operation):
+        start = read(operation / "activation-operation.json")
+        current_operation(operation, start)
+        require(start["action"] == "rollback" and start["deployment_dir"] == str(deployed),
+                "wrong rollback operation or target")
+        require(start["source_commit"] == git(root, "rev-parse", "HEAD") and
+                start["contract_sha256"] == digest((root / "integrity/integrity_contract.json").read_bytes()),
+                "rollback verifier or contract changed during restoration")
+        backup = Path(start["restored_from_backup"])
+        rows = []
+        for item in contract(root)["runtime_components"]:
+            old = backup / item["deployed_name"]
+            live = deployed / item["deployed_name"]
+            old_hash = digest(old.read_bytes()) if old.is_file() and not old.is_symlink() else None
+            live_hash = digest(live.read_bytes()) if live.is_file() and not live.is_symlink() else None
+            rows.append({"id": item["id"], "backup_path": str(old), "deployed_path": str(live),
+                         "backup_sha256": old_hash, "sha256": live_hash,
+                         "status": "MATCH" if old_hash is not None and old_hash == live_hash else "INCOMPLETE"})
+        checks = []
+        cli = next(Path(row["deployed_path"]) for row in rows if row["id"] == "cli")
+        state = deployed / "SEMINARTEXT_4_STATE.json"
+        for command in (["bash", "-n", str(cli)], [sys.executable, "-m", "json.tool", str(state)],
+                        [str(cli), "project-evidence-check", "--help"],
+                        [str(cli), "project-obsidian-export", "--help"]):
+            try:
+                code, _, stderr = run(command, cwd=deployed, timeout=15)
+                checks.append({"command": command, "status": "PASS" if code == 0 else "FAIL",
+                               "exit_code": code, "stderr_tail": stderr.decode(errors="replace")[-1000:]})
+            except (OSError, Incomplete) as error:
+                checks.append({"command": command, "status": "FAIL", "error": str(error)})
+        verified = all(row["status"] == "MATCH" for row in rows) and all(
+            check["status"] == "PASS" for check in checks)
+        inspection = {"schema_version": 1, "action": "rollback", "operation": start,
+                      "status": "VERIFIED" if verified else "INCOMPLETE", "inspected_at": now(),
+                      "components": rows, "functional_checks": checks}
+        receipt_path = operation / "rollback-receipt.json"
+        if receipt_path.exists():
+            receipt = read(receipt_path)
+            require(receipt["operation"] == start, "rollback receipt belongs to another operation")
+            require(verified and receipt["components"] == rows, "restored runtime changed since receipt")
+            return receipt
+        retain(operation / ("rollback-inspection-" + uuid.uuid4().hex + ".json"), encoded(inspection))
+        require(verified, "restoration inventory or native functional verification incomplete")
+        version = (deployed / "SEMINARTEXT_VERSION").read_text().strip()
+        require(bool(version), "restored version missing")
+        receipt = {"schema_version": 1, "product": "seminartext", "action": "rollback",
+                   "status": "SUCCEEDED", "activated_at": now(), "target": deployed.as_uri(),
+                   "operation": start, "restored_from_backup": str(backup), "version": version,
+                   "components": rows, "functional_checks": checks,
+                   "scope": "Verified native restoration; registration requires an exact historical target."}
+        retain(receipt_path, encoded(receipt))
+        return receipt
+
+
 def central_module(registry_root):
     origin = git(registry_root, "remote", "get-url", "origin").removesuffix(".git")
     require(origin in {"https://github.com/Yurielo/four-product-architecture",
@@ -259,6 +322,8 @@ def central_module(registry_root):
 
 
 def prepare_publication(operation, registry_root, central):
+    if (operation / "rollback-receipt.json").is_file():
+        return prepare_rollback_publication(operation, registry_root, central)
     receipt = read(operation / "activation-receipt.json")
     record = receipt["installation"]
     require(receipt["product"] == "seminartext" and receipt["status"] == "SUCCEEDED", "native receipt incomplete")
@@ -309,12 +374,115 @@ def prepare_publication(operation, registry_root, central):
     return event
 
 
+def prepare_rollback_publication(operation, registry_root, central):
+    receipt = read(operation / "rollback-receipt.json")
+    start = receipt["operation"]
+    require(receipt["product"] == "seminartext" and receipt["action"] == "rollback"
+            and receipt["status"] == "SUCCEEDED", "native rollback receipt incomplete")
+    current_operation(operation, start)
+    require(start["action"] == "rollback", "wrong rollback operation")
+    require(receipt["target"] == Path(start["deployment_dir"]).as_uri(), "rollback target changed")
+    declarations = contract(Path(start["source_root"]))["runtime_components"]
+    require(start["contract_sha256"] == digest((Path(start["source_root"]) / "integrity/integrity_contract.json").read_bytes()),
+            "rollback inventory contract changed")
+    expected_paths = {(item["id"], str(Path(start["restored_from_backup"]) / item["deployed_name"]),
+                       str(Path(start["deployment_dir"]) / item["deployed_name"])) for item in declarations}
+    actual_paths = {(row["id"], row["backup_path"], row["deployed_path"]) for row in receipt["components"]}
+    require(len(actual_paths) == len(receipt["components"]) == len(expected_paths) and
+            actual_paths == expected_paths, "rollback inventory differs from native contract")
+    for row in receipt["components"]:
+        backup = Path(row["backup_path"])
+        require(row["status"] == "MATCH" and row["backup_sha256"] == row["sha256"]
+                and backup.is_file() and not backup.is_symlink()
+                and digest(backup.read_bytes()) == row["sha256"], "rollback backup changed")
+    runtime_matches(receipt["components"])
+    base = start["registry_base_head"]
+    require(base is not None, "no pre-rollback central baseline; verify reconciliation before publication")
+    state = central.decode(central.at(registry_root, base, "registry.json"))
+    central.validate(state, central.decode(central.at(registry_root, base, central.SCHEMA)),
+                     lambda path: central.at(registry_root, base, path))
+    previous = state["products"]["seminartext"]["current"]
+    if previous is None:
+        record = {"schema_version": 1, "status": "RECONCILIATION_REQUIRED",
+                  "rollback_receipt_sha256": digest((operation / "rollback-receipt.json").read_bytes()),
+                  "registry_base_head": base, "registered_predecessor": None,
+                  "reason": "no registered predecessor at rollback start"}
+        retain(operation / "rollback-reconciliation-required.json", encoded(record))
+        raise ReconciliationRequired(record["reason"])
+    historical = [e for e in state["history"] if e["product"] == "seminartext"]
+    predecessor = next((e for e in historical if e["event_id"] == previous), None)
+    require(predecessor is not None, "registered predecessor absent from baseline history")
+    expected = {(row["id"], row["deployed_path"], row["sha256"]) for row in receipt["components"]}
+    require(len(expected) == len(receipt["components"]), "duplicate rollback component identity")
+    def matches(event):
+        artifacts = event["release"]["artifacts"]
+        actual = {(item["role"], item["location"], item["digest"]["value"])
+                  for item in artifacts if item["digest"]["algorithm"] == "sha256-file"}
+        return (event["target"] == receipt["target"] and event["release"]["version"] == receipt["version"]
+                and len(actual) == len(artifacts) == len(expected) and actual == expected)
+    if matches(predecessor):
+        return None  # Restored bytes are already the registered current release.
+    candidates = [e for e in historical if e["event_id"] != previous and matches(e)]
+    releases = {central.encode(e["release"]) for e in candidates}
+    if not candidates or len(releases) != 1:
+        record = {"schema_version": 1, "status": "RECONCILIATION_REQUIRED",
+                  "rollback_receipt_sha256": digest((operation / "rollback-receipt.json").read_bytes()),
+                  "registry_base_head": base, "registered_predecessor": previous,
+                  "reason": "no unique registered historical release matches all restored artifacts and target"}
+        retain(operation / "rollback-reconciliation-required.json", encoded(record))
+        raise ReconciliationRequired(record["reason"])
+    target = candidates[-1]
+    event_path = operation / "publication-event.json"
+    if event_path.exists():
+        event = central.decode(event_path.read_bytes())
+        proof = read(operation / "publication-evidence.json")
+        require(event["action"] == "rollback" and event["rollback_of"] == target["event_id"]
+                and event["predecessor"] == previous and event["release"] == target["release"]
+                and event["target"] == target["target"] and event["dependencies"] == target["dependencies"]
+                and event["activated_at"] == receipt["activated_at"],
+                "pending rollback event differs from native receipt or historical target")
+        require(proof["native_evidence"] == receipt and proof["subject_sha256"] == central.subject_hash(event),
+                "pending rollback evidence differs from native receipt")
+        return event
+    event = {"product": "seminartext", "generation": predecessor["generation"] + 1,
+             "predecessor": previous, "action": "rollback", "rollback_of": target["event_id"],
+             "target": target["target"], "activated_at": receipt["activated_at"],
+             "recorded_at": receipt["activated_at"], "dependencies": target["dependencies"],
+             "release": target["release"]}
+    proof = {"kind": "native_activation", "status": "SUCCEEDED", "subject_sha256": central.subject_hash(event),
+             "native_reference": (operation / "rollback-receipt.json").as_uri(), "native_evidence": receipt}
+    payload = central.encode(proof)
+    retain(operation / "publication-evidence.json", payload)
+    event["evidence"] = [{"path": "evidence/seminartext-activation-" + digest(payload) + ".json",
+                          "sha256": digest(payload)}]
+    event["event_id"] = central.event_id(event)
+    retain(event_path, central.encode(event))
+    return event
+
+
 def publish(operation, registry_root):
     """Publication failure is separate from successful native activation."""
     try:
         with mutation_lock(operation):
             central = central_module(registry_root)
             event = prepare_publication(operation, registry_root, central)
+            if event is None:
+                head = central.remote_head(registry_root)
+                state = central.decode(central.at(registry_root, head, "registry.json"))
+                central.validate(state, central.decode(central.at(registry_root, head, central.SCHEMA)),
+                                 lambda path: central.at(registry_root, head, path))
+                current = state["products"]["seminartext"]["current"]
+                latest = next(e for e in state["history"] if e["event_id"] == current)
+                receipt = read(operation / "rollback-receipt.json")
+                expected = {(row["id"], row["deployed_path"], row["sha256"]) for row in receipt["components"]}
+                actual = {(row["role"], row["location"], row["digest"]["value"])
+                          for row in latest["release"]["artifacts"] if row["digest"]["algorithm"] == "sha256-file"}
+                require(len(actual) == len(latest["release"]["artifacts"]) == len(expected)
+                        and actual == expected and latest["target"] == receipt["target"]
+                        and latest["release"]["version"] == receipt["version"],
+                        "central current changed after rollback; reconcile before retry")
+                return {"status": "ALREADY_CURRENT", "head": head, "current": current,
+                        "operation": str(operation)}, 0
             proof = (operation / "publication-evidence.json").read_bytes()
             require(digest(proof) == event["evidence"][0]["sha256"], "pending proof changed")
             require(event["event_id"] == central.event_id(event), "pending event changed")
@@ -325,19 +493,24 @@ def publish(operation, registry_root):
                     result.get("status") in {"PUBLISHED", "ALREADY_PUBLISHED"}, "publication not confirmed")
             retain(operation / ("publication-confirmed-" + digest(encoded(result)) + ".json"), encoded(result))
             return result, 0
+    except ReconciliationRequired as error:
+        return {"status": "RECONCILIATION_REQUIRED", "native_rollback": "RECEIPT_RETAINED",
+                "operation": str(operation), "event_prepared": False, "reason": str(error)}, 3
     except (OSError, ValueError, KeyError, ImportError, subprocess.SubprocessError) as error:
-        return {"status": "PUBLICATION_PENDING", "native_activation": "RECEIPT_RETAINED",
+        kind = "native_rollback" if (operation / "rollback-receipt.json").is_file() else "native_activation"
+        return {"status": "PUBLICATION_PENDING", kind: "RECEIPT_RETAINED",
                 "operation": str(operation), "event_prepared": (operation / "publication-event.json").exists(),
                 "reason": str(error)}, 3
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["begin", "installed", "complete", "retry", "publish"])
+    parser.add_argument("command", choices=["begin", "installed", "complete", "rollback-complete", "retry", "publish"])
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--deploy-dir", type=Path, required=True)
     parser.add_argument("--operation", type=Path, required=True)
     parser.add_argument("--action", choices=["deploy", "rollback"], default="deploy")
+    parser.add_argument("--backup", type=Path)
     parser.add_argument("--registry-root", type=Path,
                         default=Path(os.environ.get("SEMINARTEXT_REGISTRY_REPO", "~/Documents/four-product-architecture")))
     args = parser.parse_args()
@@ -345,14 +518,18 @@ def main():
                                                (args.root, args.deploy_dir, args.operation, args.registry_root)]
     try:
         if args.command == "begin":
-            result, code = begin(root, deployed, operation, registry_root, args.action), 0
+            backup = args.backup.expanduser().resolve() if args.backup else None
+            result, code = begin(root, deployed, operation, registry_root, args.action, backup), 0
         elif args.command == "installed":
             result, code = installed(root, deployed, operation), 0
         else:
             if args.command == "complete":
                 complete(root, deployed, operation)
+            elif args.command == "rollback-complete":
+                rollback_complete(root, deployed, operation)
             # Retry never reruns deployment or native tests.
-            require((operation / "activation-receipt.json").is_file(), "successful native receipt missing")
+            require((operation / "activation-receipt.json").is_file()
+                    or (operation / "rollback-receipt.json").is_file(), "successful native receipt missing")
             if args.command == "publish":
                 result, code = publish(operation, registry_root)
             else:

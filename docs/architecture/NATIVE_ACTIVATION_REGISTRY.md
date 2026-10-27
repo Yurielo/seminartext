@@ -64,10 +64,10 @@ origin and an unmodified publisher/schema. `SEMINARTEXT_REGISTRY_PYTHON` may
 select its supported Python; otherwise its existing `.venv/bin/python` is used,
 then the caller's interpreter. No dependencies are installed by this adapter.
 
-At deployment start, a bounded read-only lookup captures the central predecessor
-before runtime mutation. Offline operation falls back to a known cached commit,
-or explicitly records no available baseline. This never prevents standalone
-deployment or product use. Rollback does not contact the registry.
+At deployment or rollback start, a bounded read-only lookup captures the central
+predecessor before runtime mutation. Offline operation falls back to a known
+cached commit, or explicitly records no available baseline. This never prevents
+standalone deployment, rollback restoration, or ordinary product use.
 
 After native success, the adapter uses the central module's existing encoding,
 schema validation, event identity and `publish()` implementation. It builds a
@@ -107,12 +107,37 @@ invent a generation. With no deployment-time baseline, preparation is permitted
 only for an unregistered SeminarText; replacing an existing record requires
 separately verified reconciliation. A stale cached baseline fails closed.
 
-The existing `rollback` command keeps its file restoration and guard backup.
-It invalidates older pending activation operations before changing runtime bytes
-and explicitly reports `REGISTRY: RECONCILIATION_REQUIRED`. It does not infer the
-restored source from a backup's forward-deployment manifest or fabricate a
-central rollback event. Any central rollback still needs exact restored release
-identity and successful native evidence under the central rollback contract.
+## Governed rollback reconciliation
+
+The existing `rollback` command retains its restoration and guard backup. Its
+mutation start invalidates older pending activation operations. After restoration,
+`rollback-complete` inventories every component declared by the current native
+contract, compares each restored byte hash with the exact backup byte hash, and
+runs bounded native syntax/JSON/CLI smokes. The immutable
+`rollback-receipt.json` records the verified restoration, target, version,
+component paths and hashes, backup identity, mutation ID, and checks. An
+incomplete restoration retains a `rollback-inspection-*.json` and cannot be
+published. The backup's forward-deployment manifest is never treated as the
+source of the restored release.
+
+For a registered historical target, the adapter matches the entire restored
+inventory, version and target against a prior SeminarText registry event. The
+new rollback event uses that event's original release, source, artifacts,
+dependencies and target unchanged, references it through `rollback_of`, and
+advances the current generation. The existing central publisher validates the
+append-only history and performs remote CAS/read-back. If restored bytes already
+match the registered current release, it verifies remote current and reports
+`ALREADY_CURRENT` without a redundant event.
+
+If no unique historical release matches, the native receipt and
+`rollback-reconciliation-required.json` remain durable, while the command
+reports `REGISTRY: RECONCILIATION_REQUIRED` (exit 3). No rollback event is
+fabricated. If central history cannot be read or publication fails, it reports
+`PUBLICATION_PENDING` (exit 3); any prepared event/proof remains byte-identical
+for `registry-retry` without restoring files again. A stale predecessor is
+rejected. The central schema has no unresolved-state field; the native pending
+record and explicit command status represent that state without changing the
+central registry's published-current contract.
 
 The central registry remains the sole published current-version authority.
 Until read-back succeeds, report native success separately from pending registry
