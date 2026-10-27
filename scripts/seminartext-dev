@@ -767,6 +767,10 @@ PYMODULES
     || die "deploy hash mismatch: Version"
 
   activation_record installed "$backup" >/dev/null
+  # Do not let the deploy cleanup trap run again when the dispatcher returns
+  # from the subsequent activation-complete call, after these locals are gone.
+  cleanup_deploy_tmp
+  trap - RETURN INT TERM
   LAST_DEPLOY_BACKUP="$backup"
 
   echo "[OK] Code deployed"
