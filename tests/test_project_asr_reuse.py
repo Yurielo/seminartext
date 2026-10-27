@@ -2,7 +2,9 @@
 
 import json
 import os
+import shlex
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -177,3 +179,38 @@ def test_selected_timing_artifact_tamper_invalidates_and_rebuilds(tmp_path):
     assert second.returncode == 0, second.stdout + second.stderr
     assert _calls(log) == 2
     assert json.loads(selected_json.read_text(encoding="utf-8"))["offsets"]["to"] == 1000
+
+
+def test_failed_retry_preserves_partial_project_without_marker(tmp_path):
+    project, _, env, _ = _fixture(tmp_path)
+    transcript = project / "transcript/video_001"
+    transcript.mkdir(parents=True)
+    prior = b"partial user transcript\n"
+    (transcript / "transcript.txt").write_bytes(prior)
+    env["MOCK_CANCEL"] = "1"
+
+    failed = _run(project, env)
+    assert failed.returncode != 0
+    assert (transcript / "transcript.txt").read_bytes() == prior
+    assert not (transcript / ".seminartext_complete").exists()
+
+
+def test_source_change_between_verify_and_pending_cannot_certify_old_text(tmp_path):
+    project, source, env, log = _fixture(tmp_path)
+    assert _run(project, env).returncode == 0
+    wrapper = tmp_path / "bin" / "python3"
+    _executable(wrapper, "#!/bin/bash\n" +
+        f"{shlex.quote(sys.executable)} \"$@\"\nstatus=$?\n" +
+        'if [[ "${3:-}" == "verify" && "$status" == "0" ]]; then printf BBBB > "$MOCK_SOURCE_PATH"; fi\n' +
+        'exit "$status"\n')
+    env["MOCK_SOURCE_PATH"] = str(source)
+
+    interrupted = _run(project, env)
+    assert interrupted.returncode != 0
+    assert source.read_bytes() == b"BBBB"
+    assert _calls(log) == 1
+
+    retry = _run(project, env)
+    assert retry.returncode == 0, retry.stdout + retry.stderr
+    assert "Переиспользую проверенную расшифровку" not in retry.stdout
+    assert _calls(log) == 2
