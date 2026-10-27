@@ -4,12 +4,16 @@
 import hashlib
 import json
 import os
+import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "seminartext"
+sys.path.insert(0, str(SCRIPT.parent))
+from seminartext_modules.asr_completion import build_configuration, write_completion
 
 
 def write_executable(path: Path, content: str) -> None:
@@ -58,11 +62,40 @@ def ready_source(project: Path, source: dict, text: str) -> Path:
     out = project / "transcript" / source["source_id"]
     out.mkdir(parents=True)
     (out / "transcript_clean.txt").write_text(text, encoding="utf-8")
+    (out / "transcript.txt").write_text(text + "\n", encoding="utf-8")
+    (out / "transcript_review.txt").write_text("review\n", encoding="utf-8")
     (out / ".seminartext_complete").touch()
     (out / "transcript.srt").write_text(
         "1\n00:00:00,000 --> 00:00:01,000\n" + text + "\n", encoding="utf-8"
     )
+    (project / "transcript" / f"{source['source_id']}.json").write_text("{}\n", encoding="utf-8")
     return media
+
+
+def certify_ready_sources(project: Path, sources: list[dict], env: dict) -> None:
+    whisper = Path(shutil.which("whisper-cli", path=env["PATH"]))
+    model = Path(env["SEMINARTEXT_MODEL"])
+    vad = Path(env["SEMINARTEXT_VAD_MODEL"])
+    version = (SCRIPT.parent / "SEMINARTEXT_VERSION").read_text(encoding="utf-8").strip()
+    threads = subprocess.run(["sysctl", "-n", "hw.logicalcpu"], capture_output=True, text=True, env=env)
+    whisper_threads = min(8, int(threads.stdout.strip())) if threads.returncode == 0 else 4
+    registry = json.loads((project / "sources.json").read_text(encoding="utf-8"))
+    for source in sources:
+        media = (project / source["file"]).resolve()
+        projection = {key: source.get(key) for key in ("source_id", "type", "file", "url")}
+        manifest_identity = hashlib.sha256(
+            json.dumps(projection, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        identity = {
+            "source_id": source["source_id"], "type": "project-local", "reference": str(media),
+            "sha256": sha256(media), "source_manifest_identity_sha256": manifest_identity,
+        }
+        configuration = build_configuration(
+            language="ru", mode="normal", chunk_seconds=300, model_path=model, vad_model_path=vad,
+            whisper_path=whisper, producer_path=SCRIPT, producer_version=version,
+            whisper_threads=whisper_threads, structured_timing=False,
+        )
+        write_completion(project, source["source_id"], identity, configuration)
 
 
 def env_for(root: Path, bin_dir: Path, embedded: dict | None = None, birthtime: dict | None = None) -> dict:
@@ -118,6 +151,7 @@ def test_embedded_order_clean_output_manifest_and_repeatability():
             embedded={"часть А.mp4": "2024-03-01T10:00:00Z", "часть Б.mp4": "2024-01-01T10:00:00Z"},
             birthtime={"часть А.mp4": 1, "часть Б.mp4": 1, "часть В.mp4": 1706745600},
         )
+        certify_ready_sources(project, sources, env)
         result = run(project, env, "--combined-with-sources")
         assert result.returncode == 0, result.stdout + result.stderr
         transcript_root = project / "transcript"
@@ -168,6 +202,7 @@ def test_birthtime_then_mtime_fallback_and_deterministic_ties():
             bin_dir,
             birthtime={"zeta.mp4": 1707000000, "альфа.mp4": 1706000000, "same.mp4": 1708000000},
         )
+        certify_ready_sources(project, sources, env)
         result = run(project, env, "--combined-clear")
         assert result.returncode == 0, result.stdout + result.stderr
         manifest = json.loads((project / "transcript" / "combined_clear_manifest.json").read_text(encoding="utf-8"))
@@ -192,7 +227,9 @@ def test_incomplete_local_source_fails_closed_and_help_documents_mode():
         sources = [source("ready", "ready.mp4", 1), source("missing", "missing.mp4", 2)]
         project = make_project(root, sources)
         ready_source(project, sources[0], "Готовый текст")
-        result = run(project, env_for(root, bin_dir), "--combined-clear")
+        env = env_for(root, bin_dir)
+        certify_ready_sources(project, [sources[0]], env)
+        result = run(project, env, "--combined-clear")
         output = result.stdout + result.stderr
         assert result.returncode != 0
         assert "combined-clear" in output and "missing" in output
