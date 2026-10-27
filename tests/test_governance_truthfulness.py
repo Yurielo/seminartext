@@ -261,6 +261,7 @@ def test_documented_deploy_command_can_create_verified_isolated_snapshot(tmp_pat
         "SEMINARTEXT_DEV_REPO": str(ROOT),
         "SEMINARTEXT_DEV_BIN": str(deploy_bin),
         "SEMINARTEXT_DEV_BACKUP_ROOT": str(backups),
+        "SEMINARTEXT_REGISTRY_REPO": str(tmp_path / "unconfigured-registry"),
     }
     deployed = subprocess.run(
         [str(DEV_CLI), "deploy"],
