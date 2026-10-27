@@ -192,7 +192,7 @@ def test_rollback_invalidates_retry_even_when_installed_bytes_equal(native, publ
     a.publish(native["operation"], native["central"])
     rollback = native["operation"].parent / "rollback"
     rollback.mkdir()
-    a.begin(native["root"], native["deployed"], rollback, native["central"], "rollback")
+    a.begin(native["root"], native["deployed"], rollback, native["central"], "rollback", native["operation"])
     before = len(publisher.attempts)
     result, code = a.publish(native["operation"], native["central"])
     assert code == 3 and "superseded" in result["reason"]
@@ -234,6 +234,131 @@ def test_pending_event_cannot_switch_product_or_artifacts(native, publisher):
     assert code == 3 and "differs from native" in result["reason"]
 
 
+def prepared_rollback(native, publisher, monkeypatch, *, registered=True):
+    """Two synthetic activations and a byte-for-byte restored historical target."""
+    complete(native)
+    result, code = a.publish(native["operation"], native["central"])
+    assert code == 0 and result["status"] == "PUBLISHED"
+    first = deepcopy(publisher.state["history"][0])
+    backup = native["operation"].parent / "old-runtime"
+    backup.mkdir()
+    for row in native["record"]["components"]:
+        shutil.copy2(row["deployed_path"], backup / Path(row["deployed_path"]).name)
+        Path(row["deployed_path"]).write_text("new runtime " + row["id"])
+    current = deepcopy(first)
+    current["event_id"] = "sha256:" + "e" * 64
+    current["generation"] = 2 if registered else 1
+    current["predecessor"] = first["event_id"] if registered else None
+    current["release"]["version"] = "5.0.0"
+    current["release"]["source_commit"] = "f" * 40
+    for row in current["release"]["artifacts"]:
+        row["digest"]["value"] = a.digest(Path(row["location"]).read_bytes())
+        row["source_commit"] = "f" * 40
+    publisher.state["history"] = [first, current] if registered else [current]
+    publisher.state["products"]["seminartext"]["current"] = current["event_id"]
+    publisher.head = "c" * 40
+    baseline = deepcopy(publisher.state)
+    original_at = publisher.at
+    def fixture_at(root, head, path):
+        if head == "c" * 40 and path == "registry.json":
+            return a.encoded(baseline)
+        return original_at(root, head, path)
+    monkeypatch.setattr(publisher, "at", fixture_at)
+    original_git = a.git
+    def fixture_git(root, *args):
+        if root == native["central"]:
+            if args[0] == "rev-parse": return publisher.head
+            if args[0] == "remote": return "https://github.com/Yurielo/four-product-architecture"
+            if args[0] == "ls-remote": return publisher.head + " refs/heads/main"
+            if args[0] == "fetch": return ""
+        return original_git(root, *args)
+    monkeypatch.setattr(a, "git", fixture_git)
+    operation = native["operation"].parent / "rollback"
+    operation.mkdir()
+    a.begin(native["root"], native["deployed"], operation, native["central"], "rollback", backup)
+    for row in native["record"]["components"]:
+        shutil.copy2(backup / Path(row["deployed_path"]).name, row["deployed_path"])
+    (native["deployed"] / "SEMINARTEXT_4_STATE.json").write_text("{}")
+    original_run = a.run
+    def fixture_run(command, **kwargs):
+        if command[0] == "bash" or command[0] == str(native["deployed"] / "seminartext_4.0_work"):
+            return 0, b"", b""
+        return original_run(command, **kwargs)
+    monkeypatch.setattr(a, "run", fixture_run)
+    return operation, backup, first, current
+
+
+def test_registered_rollback_publishes_historical_release_and_retries(native, publisher, monkeypatch):
+    operation, _, target, previous = prepared_rollback(native, publisher, monkeypatch)
+    receipt = a.rollback_complete(native["root"], native["deployed"], operation)
+    assert receipt["status"] == "SUCCEEDED" and len(receipt["components"]) == 2
+    result, code = a.publish(operation, native["central"])
+    assert code == 0 and result["status"] == "PUBLISHED"
+    event = publisher.state["history"][-1]
+    assert event["action"] == "rollback" and event["rollback_of"] == target["event_id"]
+    assert event["predecessor"] == previous["event_id"] and event["generation"] == 3
+    assert event["release"] == target["release"] and event["target"] == target["target"]
+    assert publisher.state["history"][0] == target
+    exact = (operation / "publication-event.json").read_bytes()
+    again, code = a.publish(operation, native["central"])
+    assert code == 0 and again["status"] == "ALREADY_PUBLISHED"
+    assert (operation / "publication-event.json").read_bytes() == exact
+
+
+def test_unregistered_rollback_retains_evidence_without_event(native, publisher, monkeypatch):
+    operation, _, _, _ = prepared_rollback(native, publisher, monkeypatch, registered=False)
+    a.rollback_complete(native["root"], native["deployed"], operation)
+    result, code = a.publish(operation, native["central"])
+    assert code == 3 and result["status"] == "RECONCILIATION_REQUIRED"
+    assert (operation / "rollback-receipt.json").is_file()
+    assert (operation / "rollback-reconciliation-required.json").is_file()
+    assert not (operation / "publication-event.json").exists()
+
+
+def test_rollback_publication_failure_and_exact_retry(native, publisher, monkeypatch):
+    operation, _, _, _ = prepared_rollback(native, publisher, monkeypatch)
+    a.rollback_complete(native["root"], native["deployed"], operation)
+    publisher.fail = True
+    first, code = a.publish(operation, native["central"])
+    assert code == 3 and first["status"] == "PUBLICATION_PENDING" and first["event_prepared"]
+    exact = (operation / "publication-event.json").read_bytes()
+    publisher.fail = False
+    second, code = a.publish(operation, native["central"])
+    assert code == 0 and second["status"] == "PUBLISHED"
+    assert (operation / "publication-event.json").read_bytes() == exact
+    assert publisher.attempts[-1] == publisher.attempts[-2]
+
+
+def test_rollback_identity_mismatch_and_partial_restoration_fail_closed(native, publisher, monkeypatch):
+    operation, _, _, _ = prepared_rollback(native, publisher, monkeypatch)
+    (native["deployed"] / "seminartext_4.0_work").write_text("partial")
+    with pytest.raises(a.Incomplete, match="restoration inventory"):
+        a.rollback_complete(native["root"], native["deployed"], operation)
+    assert list(operation.glob("rollback-inspection-*.json"))
+    assert not (operation / "rollback-receipt.json").exists()
+    assert not publisher.attempts[-1]["action"] == "rollback"
+    shutil.copy2(operation.parent / "old-runtime" / "seminartext_4.0_work",
+                 native["deployed"] / "seminartext_4.0_work")
+    a.rollback_complete(native["root"], native["deployed"], operation)
+    (native["deployed"] / "seminartext_4.0_work").write_text("drift")
+    result, code = a.publish(operation, native["central"])
+    assert code == 3 and "changed" in result["reason"]
+    assert not (operation / "publication-event.json").exists()
+
+
+def test_rollback_stale_event_cannot_be_resealed(native, publisher, monkeypatch):
+    operation, _, _, _ = prepared_rollback(native, publisher, monkeypatch)
+    a.rollback_complete(native["root"], native["deployed"], operation)
+    publisher.fail = True
+    a.publish(operation, native["central"])
+    exact = (operation / "publication-event.json").read_bytes()
+    publisher.fail = False
+    publisher.state["products"]["seminartext"]["current"] = "sha256:" + "d" * 64
+    result, code = a.publish(operation, native["central"])
+    assert code == 3 and result["status"] == "PUBLICATION_PENDING"
+    assert (operation / "publication-event.json").read_bytes() == exact
+
+
 def test_governed_rollback_preserves_installed_bytes_and_invalidates_pending(tmp_path):
     deployed, backups = tmp_path / "bin", tmp_path / "backups"
     contract = a.contract(ROOT)
@@ -252,8 +377,10 @@ def test_governed_rollback_preserves_installed_bytes_and_invalidates_pending(tmp
     record = a.read(operation / "installation-verified.json")
     result = subprocess.run([str(ROOT / "scripts/seminartext-dev"), "rollback", str(operation)],
                             cwd=ROOT, env=env, capture_output=True, text=True)
-    assert result.returncode == 0, result.stdout + result.stderr
-    assert "ROLLBACK: PASS" in result.stdout and "REGISTRY: RECONCILIATION_REQUIRED" in result.stdout
+    assert result.returncode == 3, result.stdout + result.stderr
+    assert "ROLLBACK: PASS" in result.stdout and "REGISTRY: PUBLICATION_PENDING" in result.stdout
+    guard = next(p for p in backups.iterdir() if p.name.startswith("pre_rollback_"))
+    assert (guard / "rollback-receipt.json").is_file()
     assert before == {str(p.relative_to(deployed)): hashlib.sha256(p.read_bytes()).hexdigest()
                       for p in deployed.rglob("*") if p.is_file()}
     with pytest.raises(a.Incomplete, match="superseded"): a.current_operation(operation, record)

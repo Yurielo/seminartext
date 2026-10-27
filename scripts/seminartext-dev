@@ -858,7 +858,7 @@ cmd_rollback() {
   mkdir -p "$rollback_guard"
 
   # Invalidate pending publications even when rollback restores identical bytes.
-  activation_record begin "$rollback_guard" --action rollback >/dev/null
+  activation_record begin "$rollback_guard" --action rollback --backup "$backup" >/dev/null
 
   [[ -f "$DEPLOY_CODE" ]] \
     && cp -p "$DEPLOY_CODE" "$rollback_guard/seminartext_4.0_work"
@@ -1049,14 +1049,32 @@ cmd_rollback() {
   [[ -z "$tmp_topic_engine_freeze" ]] || mv "$tmp_topic_engine_freeze" "$DEPLOY_TOPIC_ENGINE_FREEZE"
   [[ -z "$tmp_version" ]] || mv "$tmp_version" "$DEPLOY_VERSION"
 
-  echo "ROLLBACK: PASS"
+  local registry_result registry_code=0
+  registry_result="$(activation_record rollback-complete "$rollback_guard")" || registry_code=$?
+  if [[ "$registry_code" -eq 2 ]]; then
+    echo "ROLLBACK: INCOMPLETE"
+  else
+    echo "ROLLBACK: PASS"
+  fi
   echo "Restored: $backup"
-  echo "REGISTRY: RECONCILIATION_REQUIRED; older pending activation retries are invalidated"
+  [[ -z "$registry_result" ]] || printf '%s\n' "$registry_result"
+  case "$registry_code" in
+    0) echo "REGISTRY: VERIFIED" ;;
+    3)
+      if [[ "$registry_result" == *'"status": "RECONCILIATION_REQUIRED"'* ]]; then
+        echo "REGISTRY: RECONCILIATION_REQUIRED"
+      else
+        echo "REGISTRY: PUBLICATION_PENDING"
+      fi
+      ;;
+    *) echo "REGISTRY: RECONCILIATION_REQUIRED; native verification incomplete" ;;
+  esac
   if [[ ! -f "$backup_owned_tmp" || ! -f "$backup_group_sources" || ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_project_knowledge_bridge" || ! -f "$backup_human_review_workflow" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_canonical_knowledge_validator" || ! -f "$backup_canonical_knowledge_schema" || ! -f "$backup_canonical_knowledge_lifecycle" || ! -f "$backup_project_knowledge_input_schema" || ! -f "$backup_topic_review_workflow_schema" || ! -f "$backup_topic_review_workflow_schema_v2" || ! -f "$backup_dataset_governance" || ! -f "$backup_dataset_registry" || ! -f "$backup_topic_engine_governance" || ! -f "$backup_topic_engine_lifecycle" || ! -f "$backup_topic_engine_freeze" || ! -f "$backup_version" ]]; then
     echo "Legacy backup: отсутствующие runtime/version-файлы оставлены без изменения."
   fi
   echo "Previous deployed state saved:"
   echo "$rollback_guard"
+  return "$registry_code"
 }
 
 show_help() {
@@ -1108,7 +1126,9 @@ show_help() {
 
   scripts/seminartext-dev rollback BACKUP
 
-      Восстанавливает конкретный backup.
+      Восстанавливает конкретный backup. После проверки точных восстановленных
+      байтов публикует только доказанный исторический rollback; exit 3 означает
+      RECONCILIATION_REQUIRED либо PUBLICATION_PENDING, без повторного rollback.
 HELP
 }
 
