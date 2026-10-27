@@ -71,14 +71,14 @@ sha256_file() {
 
 project_completion() {
   local action="$1" output_dir="${2:-}" source_id="${3:-}" source_type="${4:-}"
-  local reference="${5:-}" media_path="${6:-}" ledger="${7:-}"
+  local reference="${5:-}" media_path="${6:-}" ledger="${7:-}" expected_digest="${8:-}"
   local whisper_threads
   whisper_threads="$(sysctl -n hw.logicalcpu 2>/dev/null || echo 4)"
   if (( whisper_threads > 8 )); then whisper_threads=8; fi
   python3 - "$SEMINARTEXT_ENTRYPOINT_DIR" "$action" "$output_dir" "$PROJECT_ROOT" \
     "$source_id" "$source_type" "$reference" "$media_path" "$ledger" \
     "$SOURCE_LANGUAGE" "$MODE" "${SEMINARTEXT_CHUNK_SECONDS:-300}" "$MODEL" "$VAD_MODEL" \
-    "$(command -v whisper-cli)" "$SEMINARTEXT_ENTRYPOINT" "$VERSION" "$whisper_threads" "$STRUCTURED_TIMING" <<'PYCOMPLETION'
+    "$(command -v whisper-cli)" "$SEMINARTEXT_ENTRYPOINT" "$VERSION" "$whisper_threads" "$STRUCTURED_TIMING" "$expected_digest" <<'PYCOMPLETION'
 import json
 import sys
 from pathlib import Path
@@ -89,7 +89,7 @@ from seminartext_modules.asr_completion import build_configuration, sha256_file,
 
 action, output_dir, project_root = sys.argv[2:5]
 source_id, source_type, reference, media_path, ledger = sys.argv[5:10]
-language, mode, chunk_seconds, model, vad_model, whisper, producer, version, threads, structured = sys.argv[10:]
+language, mode, chunk_seconds, model, vad_model, whisper, producer, version, threads, structured, expected_digest = sys.argv[10:]
 if action in {"backup", "restore", "discard"}:
     root = Path(project_root)
     ledger_path = Path(ledger)
@@ -149,10 +149,17 @@ if action == "finalize":
         if not line.strip():
             continue
         record = json.loads(line)
+        if record["source"]["type"] == "project-local":
+            current_media = Path(record["source"]["reference"]).resolve(strict=True)
+            if sha256_file(current_media) != record["source"]["sha256"]:
+                raise SystemExit("source bytes changed before completion publication")
         write_completion(root, record["source_id"], record["source"], record["configuration"])
     raise SystemExit(0)
 
 media = Path(media_path).resolve(strict=True)
+media_digest = sha256_file(media)
+if expected_digest and media_digest != expected_digest:
+    raise SystemExit("source bytes changed during completion verification")
 registry = json.loads((Path(project_root) / "sources.json").read_text(encoding="utf-8"))
 record = next((item for item in registry.get("videos", []) if item.get("source_id") == source_id), None)
 if not isinstance(record, dict):
@@ -163,7 +170,7 @@ source = {
     "source_id": source_id,
     "type": source_type,
     "reference": reference,
-    "sha256": sha256_file(media),
+    "sha256": media_digest,
     "source_manifest_identity_sha256": __import__("hashlib").sha256(manifest_projection).hexdigest(),
 }
 
@@ -1487,7 +1494,7 @@ process_record() {
   fi
   if [[ -f "$marker" && "$FORCE" -eq 0 ]]; then
     if (( PROJECT_MODE == 1 )); then
-      if completion_reason="$(project_completion verify "$dir" "$PROJECT_SOURCE_ID" "$source_type" "$input" "$media_input" "$PROJECT_COMPLETION_LEDGER")"; then
+        if completion_reason="$(project_completion verify "$dir" "$PROJECT_SOURCE_ID" "$source_type" "$input" "$media_input" "$PROJECT_COMPLETION_LEDGER" "$source_digest")"; then
         if [[ "$completion_reason" == *"transcript_clean.txt"* || "$completion_reason" == *"transcript_review.txt"* ]]; then
           clean_text "$raw" "$clean" "$review" "$SOURCE_LANGUAGE"
           local prior_bad="0"
@@ -1499,7 +1506,7 @@ process_record() {
             printf '\nПРЕДУПРЕЖДЕНИЕ: %s фрагмент(а/ов) требуют ручной проверки по аудио. См. transcription.log.\n' "$prior_bad" >> "$review"
           fi
         fi
-        project_completion pending "$dir" "$PROJECT_SOURCE_ID" "$source_type" "$input" "$media_input" "$PROJECT_COMPLETION_LEDGER" || return 1
+        project_completion pending "$dir" "$PROJECT_SOURCE_ID" "$source_type" "$input" "$media_input" "$PROJECT_COMPLETION_LEDGER" "$source_digest" || return 1
         echo "Переиспользую проверенную расшифровку: $(basename "$dir")${completion_reason:+ ($completion_reason)}"
         cleanup_temp
         trap - RETURN INT TERM
@@ -1644,7 +1651,7 @@ process_record() {
       echo "Ошибка: исходные байты изменились во время распознавания; результат не публикуется." >&2
       return 1
     fi
-    project_completion pending "$dir" "$PROJECT_SOURCE_ID" "$source_type" "$input" "$media_input" "$PROJECT_COMPLETION_LEDGER" || return 1
+    project_completion pending "$dir" "$PROJECT_SOURCE_ID" "$source_type" "$input" "$media_input" "$PROJECT_COMPLETION_LEDGER" "$source_digest" || return 1
   else
     touch "$marker"
   fi
