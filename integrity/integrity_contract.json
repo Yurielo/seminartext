@@ -63,6 +63,12 @@
       "required": true
     },
     {
+      "id": "asr_completion",
+      "repository_path": "seminartext_modules/asr_completion.py",
+      "deployed_name": "seminartext_modules/asr_completion.py",
+      "required": true
+    },
+    {
       "id": "canonical_validator",
       "repository_path": "schemas/validate_canonical_evidence_v1.py",
       "deployed_name": "schemas/validate_canonical_evidence_v1.py",

@@ -385,3 +385,24 @@ def test_governed_rollback_preserves_installed_bytes_and_invalidates_pending(tmp
                       for p in deployed.rglob("*") if p.is_file()}
     with pytest.raises(a.Incomplete, match="superseded"): a.current_operation(operation, record)
     assert not (operation / "activation-receipt.json").exists()
+
+
+def test_governed_deploy_tracks_new_asr_module_as_absent_in_prior_runtime(tmp_path):
+    deployed, backups = tmp_path / "bin", tmp_path / "backups"
+    deployed.mkdir()
+    for component in a.contract(ROOT)["runtime_components"]:
+        if component["id"] == "asr_completion":
+            continue
+        target = deployed / component["deployed_name"]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / component["repository_path"], target)
+    assert not (deployed / "seminartext_modules" / "asr_completion.py").exists()
+    env = {**os.environ, "SEMINARTEXT_DEV_REPO": str(ROOT), "SEMINARTEXT_DEV_BIN": str(deployed),
+           "SEMINARTEXT_DEV_BACKUP_ROOT": str(backups), "SEMINARTEXT_REGISTRY_REPO": str(tmp_path / "absent")}
+    result = subprocess.run([str(ROOT / "scripts/seminartext-dev"), "deploy"],
+                            cwd=ROOT, env=env, capture_output=True, text=True)
+    assert result.returncode == 0, result.stdout + result.stderr
+    operation = next(p for p in backups.iterdir() if p.is_dir())
+    assert (operation / "ASR_COMPLETION_ABSENT").is_file()
+    installed = deployed / "seminartext_modules" / "asr_completion.py"
+    assert installed.read_bytes() == (ROOT / "seminartext_modules" / "asr_completion.py").read_bytes()

@@ -62,6 +62,7 @@ def base_env(root: Path, bin_dir: Path) -> dict:
             "PATH": str(bin_dir) + os.pathsep + env.get("PATH", ""),
             "SEMINARTEXT_MODEL": str(model),
             "SEMINARTEXT_VAD_MODEL": str(vad),
+            "MOCK_WHISPER_LOG": str(root / "whisper.log"),
         }
     )
     return env
@@ -90,6 +91,7 @@ fi
         bin_dir / "whisper-cli",
         """#!/bin/bash
 set -euo pipefail
+if [[ -n "${MOCK_WHISPER_LOG:-}" ]]; then printf '%s\\n' "$*" >> "$MOCK_WHISPER_LOG"; fi
 prefix=""
 while (($#)); do
   if [[ "$1" == "-of" ]]; then
@@ -207,6 +209,11 @@ exit 0
         video_json = json.loads((project / "transcript" / "video_001.json").read_text(encoding="utf-8"))
         assert video_json["source_id"] == "video_001"
         assert video_json["segment_count"] == 1
+        calls_before_reuse = len((root / "whisper.log").read_text(encoding="utf-8").splitlines())
+        reused = run_project_transcribe(project, env)
+        assert reused.returncode == 0, reused.stdout + reused.stderr
+        assert "Переиспользую проверенную расшифровку" in reused.stdout
+        assert len((root / "whisper.log").read_text(encoding="utf-8").splitlines()) == calls_before_reuse
 
 
 if __name__ == "__main__":
