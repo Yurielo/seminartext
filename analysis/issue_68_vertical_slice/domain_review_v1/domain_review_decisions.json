@@ -333,6 +333,47 @@
       "topic_changed": false
     },
     {
+      "alternative_method_reference_only": true,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-10-28",
+      "decision_id": "issue_68_domain_review_link_day2_topic_064_kinesiology",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_064",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:019633",
+            "intersection_sha256": "5b59d85bed5344dd67450be7df0c5b2589a00a22e65b1903b764d1ca580ab5d3",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:019438"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_065a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:019659",
+            "intersection_sha256": "0ee88ea2f0c93f3def29967b60bfdedd545d600045a30dc8aff39d9c13325a13",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:019634"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_064"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_064",
+        "source_id": "source_video_002"
+      },
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Domain Owner rejects the proposed relationship because «кинезиология» appears only as an alternative method alongside other possible approaches. The Topic remains about safety questions before a session, not about kinesiology.",
+      "rejection_basis": "ALTERNATIVE_METHOD_MENTION_ONLY",
+      "rejection_reason": "An incidental alternative-method mention does not establish that this Topic substantively concerns the Concept «Кинезиология».",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_064_kinesiology",
+      "topic_changed": false
+    },
+    {
       "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
       "concept_changed": false,
       "decision_date": "2026-09-08",

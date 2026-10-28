@@ -1633,9 +1633,18 @@ def apply_link_decisions(
             resolutions.append(resolution)
             continue
 
+        rejection_basis = decision.get("rejection_basis")
+        if rejection_basis is None and decision.get("named_program_reference_only") is True:
+            rejection_basis = "NAMED_PROGRAM_REFERENCE_ONLY"
+        valid_rejection_basis = (
+            rejection_basis == "NAMED_PROGRAM_REFERENCE_ONLY"
+            and decision.get("named_program_reference_only") is True
+            or rejection_basis == "ALTERNATIVE_METHOD_MENTION_ONLY"
+            and decision.get("alternative_method_reference_only") is True
+        )
         if (
-            decision.get("named_program_reference_only") is not True
-            or not decision.get("rejection_reason")
+            not decision.get("rejection_reason")
+            or not valid_rejection_basis
         ):
             errors.append(f"link rejection safeguards missing in {decision_id}")
             continue
@@ -1651,7 +1660,13 @@ def apply_link_decisions(
                 "status": "DECIDED",
                 "outcome": "REJECT_LINK",
                 "link_snapshot": snapshot,
-                "named_program_reference_only": True,
+                "rejection_basis": rejection_basis,
+                "named_program_reference_only": (
+                    decision.get("named_program_reference_only") is True
+                ),
+                "alternative_method_reference_only": (
+                    decision.get("alternative_method_reference_only") is True
+                ),
                 "topic_changed": False,
                 "concept_changed": False,
                 "rejection_reason": decision["rejection_reason"],

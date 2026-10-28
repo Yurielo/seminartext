@@ -3735,52 +3735,41 @@
   ],
   "errors": [],
   "first_material_exception": {
-    "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
+    "candidate_concept_reference": "issue_68_candidate_concept_muscle_testing",
     "classification": "LINK_EXCEPTION",
     "evidence_support": [
       {
-        "authored_title_correspondence": false,
-        "authored_topic_reference": "issue_68_video_002_topic_proposal_064",
-        "exact_pattern_match_count": 1,
-        "intersection_end_word_id": "transcript_revision_video_002_r1:word:019633",
-        "intersection_sha256": "5b59d85bed5344dd67450be7df0c5b2589a00a22e65b1903b764d1ca580ab5d3",
-        "intersection_start_word_id": "transcript_revision_video_002_r1:word:019438"
-      },
-      {
-        "authored_title_correspondence": false,
-        "authored_topic_reference": "issue_68_video_002_topic_proposal_065a",
+        "authored_title_correspondence": true,
+        "authored_topic_reference": "issue_113_reviewed_topic_27",
         "exact_pattern_match_count": 0,
-        "intersection_end_word_id": "transcript_revision_video_002_r1:word:019659",
-        "intersection_sha256": "0ee88ea2f0c93f3def29967b60bfdedd545d600045a30dc8aff39d9c13325a13",
-        "intersection_start_word_id": "transcript_revision_video_002_r1:word:019634"
+        "intersection_end_word_id": "transcript_revision_video_001_r1:word:020489",
+        "intersection_sha256": "e1b3e9049e98edabcca28c910bce809ed648647aabb119d7f8891dcd069b15a1",
+        "intersection_start_word_id": "transcript_revision_video_001_r1:word:020482"
       }
     ],
-    "exact_term_target_references": [
-      "issue_68_video_002_topic_proposal_064"
-    ],
+    "exact_term_target_references": [],
     "exception": {
       "confidence": "MEDIUM",
       "human_decision_required": true,
       "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
       "recommended_correction": "Review the exact context and accept, remap, or reject this link."
     },
-    "input_topic_reference": "issue_68_video_002_topic_proposal_064",
-    "link_id": "issue_68_link_issue_68_video_002_topic_proposal_064_kinesiology",
+    "input_topic_reference": "issue_113_reviewed_topic_27",
+    "link_id": "issue_68_link_issue_113_reviewed_topic_27_muscle_testing",
     "overlapping_authored_topic_references": [
-      "issue_68_video_002_topic_proposal_064",
-      "issue_68_video_002_topic_proposal_065a"
+      "issue_113_reviewed_topic_27"
     ],
     "recommended_target_topic_references": [],
     "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
     "semantic_status": "PROVISIONAL",
-    "source_id": "source_video_002"
+    "source_id": "source_video_001"
   },
   "input_inventory": {
     "authored_topic_results": 182,
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "95a467b01573af5a2c30046e2f780526bec6492a8991f8b8ec3f06460d835f09",
+    "domain_review_decisions_sha256": "15836bd7f696248203e41d85938edb217d2e116795e70101be194efd861944b4",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -3791,7 +3780,7 @@
     "current_semantic_package_link_projection": 179,
     "explanation": "The QA input rebuilds the original provisional 18/254 inventory from the same hash-bound generator artifacts before DOMAIN_AUTHORING. Explicit DOMAIN_REVIEW identity decisions may create additional Concept and provisional link results without deleting baseline provenance. The current 15/179 projection is a lossy preview-based regeneration after split/merge authoring and is not treated as deletion or review.",
     "qa_concept_results_after_review_decisions": 22,
-    "qa_link_results_after_review_decisions": 256,
+    "qa_link_results_after_review_decisions": 255,
     "semantic_change_inferred": false
   },
   "link_results": [
@@ -5742,47 +5731,6 @@
         "issue_68_video_002_topic_proposal_046c"
       ],
       "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_002"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_002_topic_proposal_064",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_002_r1:word:019633",
-          "intersection_sha256": "5b59d85bed5344dd67450be7df0c5b2589a00a22e65b1903b764d1ca580ab5d3",
-          "intersection_start_word_id": "transcript_revision_video_002_r1:word:019438"
-        },
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_002_topic_proposal_065a",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_002_r1:word:019659",
-          "intersection_sha256": "0ee88ea2f0c93f3def29967b60bfdedd545d600045a30dc8aff39d9c13325a13",
-          "intersection_start_word_id": "transcript_revision_video_002_r1:word:019634"
-        }
-      ],
-      "exact_term_target_references": [
-        "issue_68_video_002_topic_proposal_064"
-      ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_002_topic_proposal_064",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_064_kinesiology",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_002_topic_proposal_064",
-        "issue_68_video_002_topic_proposal_065a"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002"
     },
@@ -13558,6 +13506,50 @@
       "topic_changed": false
     },
     {
+      "alternative_method_reference_only": true,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_link_day2_topic_064_kinesiology",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_064",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:019633",
+            "intersection_sha256": "5b59d85bed5344dd67450be7df0c5b2589a00a22e65b1903b764d1ca580ab5d3",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:019438"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_065a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:019659",
+            "intersection_sha256": "0ee88ea2f0c93f3def29967b60bfdedd545d600045a30dc8aff39d9c13325a13",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:019634"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_064"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_064",
+        "source_id": "source_video_002"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Domain Owner rejects the proposed relationship because «кинезиология» appears only as an alternative method alongside other possible approaches. The Topic remains about safety questions before a session, not about kinesiology.",
+      "rejection_basis": "ALTERNATIVE_METHOD_MENTION_ONLY",
+      "rejection_reason": "An incidental alternative-method mention does not establish that this Topic substantively concerns the Concept «Кинезиология».",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_064_kinesiology",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
       "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
       "concept_changed": false,
       "decision_id": "issue_68_domain_review_link_day2_intro_stress",
@@ -13584,6 +13576,7 @@
       "outcome": "REJECT_LINK",
       "package_semantic_promotion": false,
       "rationale": "The sole match is the program name «Стресс-код» in the Day 2 introduction. The fragment introduces the training day and the move from theory to practice; it does not discuss stress as a semantic Concept.",
+      "rejection_basis": "NAMED_PROGRAM_REFERENCE_ONLY",
       "rejection_reason": "A named-program occurrence is not exact evidence that this Topic discusses the Concept «Стресс».",
       "review_gate": "DOMAIN_REVIEW",
       "status": "DECIDED",
@@ -14024,9 +14017,9 @@
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
     "link_clear": 202,
-    "link_domain_review_decisions": 8,
-    "link_exception": 54,
-    "links_total": 256,
+    "link_domain_review_decisions": 9,
+    "link_exception": 53,
+    "links_total": 255,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,
