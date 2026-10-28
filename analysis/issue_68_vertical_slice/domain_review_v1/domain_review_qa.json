@@ -3735,20 +3735,28 @@
   ],
   "errors": [],
   "first_material_exception": {
-    "candidate_concept_reference": "issue_68_candidate_concept_stress",
+    "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
     "classification": "LINK_EXCEPTION",
     "evidence_support": [
       {
         "authored_title_correspondence": false,
-        "authored_topic_reference": "issue_68_video_004_topic_proposal_024g",
+        "authored_topic_reference": "issue_68_video_002_topic_proposal_002",
         "exact_pattern_match_count": 1,
-        "intersection_end_word_id": "transcript_revision_video_004_r1:word:009121",
-        "intersection_sha256": "aed62ac05d0beffe32200a5d8421f9a5e92d2e0205dd93a7aeb1bcbcd893329d",
-        "intersection_start_word_id": "transcript_revision_video_004_r1:word:009026"
+        "intersection_end_word_id": "transcript_revision_video_002_r1:word:000169",
+        "intersection_sha256": "7897223e585f6eb093b4c3d9f2f91657a493a3bc0fb6305c1586d2433372c0c3",
+        "intersection_start_word_id": "transcript_revision_video_002_r1:word:000067"
+      },
+      {
+        "authored_title_correspondence": false,
+        "authored_topic_reference": "issue_68_video_002_topic_proposal_003a",
+        "exact_pattern_match_count": 0,
+        "intersection_end_word_id": "transcript_revision_video_002_r1:word:000193",
+        "intersection_sha256": "f01ff01c1dd40186806b0956630449881e74c5b2e2fd37a04ba88bf5e73ce501",
+        "intersection_start_word_id": "transcript_revision_video_002_r1:word:000170"
       }
     ],
     "exact_term_target_references": [
-      "issue_68_video_004_topic_proposal_024g"
+      "issue_68_video_002_topic_proposal_002"
     ],
     "exception": {
       "confidence": "MEDIUM",
@@ -3756,22 +3764,23 @@
       "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
       "recommended_correction": "Review the exact context and accept, remap, or reject this link."
     },
-    "input_topic_reference": "issue_68_video_004_topic_proposal_034",
-    "link_id": "issue_68_link_issue_68_video_004_topic_proposal_034_stress",
+    "input_topic_reference": "issue_68_video_002_topic_proposal_002",
+    "link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_kinesiology",
     "overlapping_authored_topic_references": [
-      "issue_68_video_004_topic_proposal_024g"
+      "issue_68_video_002_topic_proposal_002",
+      "issue_68_video_002_topic_proposal_003a"
     ],
     "recommended_target_topic_references": [],
     "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
     "semantic_status": "PROVISIONAL",
-    "source_id": "source_video_004"
+    "source_id": "source_video_002"
   },
   "input_inventory": {
     "authored_topic_results": 182,
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "7da35ac5eff3fb7e15c98aeaf7f4ba37e03ef5eab87f9bd662cfcedebca8a474",
+    "domain_review_decisions_sha256": "b316a35a9db786465e00a3c507fddec103e6f1e1f2426b3433cd1c89b4d4ff63",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -5327,33 +5336,31 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_stress",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
           "authored_topic_reference": "issue_68_video_004_topic_proposal_024g",
           "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:009121",
-          "intersection_sha256": "aed62ac05d0beffe32200a5d8421f9a5e92d2e0205dd93a7aeb1bcbcd893329d",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:009026"
+          "intersection_end_word_id": "transcript_revision_video_004_r1:word:009737",
+          "intersection_sha256": "e455dbd496b1487dcbb1395007270ed94f094de2e67cf66ce7af2b2f086b0927",
+          "intersection_start_word_id": "transcript_revision_video_004_r1:word:008612"
         }
       ],
       "exact_term_target_references": [
         "issue_68_video_004_topic_proposal_024g"
       ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_004_topic_proposal_034",
-      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_034_stress",
+      "input_topic_reference": "issue_68_video_004_topic_proposal_024g",
+      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_024g_stress",
+      "link_review_decision_id": "issue_68_domain_review_link_day4_topic_034_stress",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_024g"
       ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "recommended_target_topic_references": [
+        "issue_68_video_004_topic_proposal_024g"
+      ],
+      "relevance_basis": "PRODUCT_OWNER_REMAP_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -13595,6 +13602,56 @@
       "topic_changed": false
     },
     {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_link_day4_topic_034_stress",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024g",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:009121",
+            "intersection_sha256": "aed62ac05d0beffe32200a5d8421f9a5e92d2e0205dd93a7aeb1bcbcd893329d",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:009026"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024g"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_034",
+        "source_id": "source_video_004"
+      },
+      "outcome": "REMAP_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Domain Owner confirms that «Стресс» is meaningfully present in the context of learning and behavioral development during the first year of life within resulting Topic 024G. The Concept does not define the primary meaning of the entire Topic, and no new relationship classification is introduced.",
+      "remap_reason": "Machine proposal 034 is absorbed into resulting Topic 024G. The reviewed full Topic context contains the exact stress-family occurrence, and the Domain Owner confirms that this context supports the Topic-to-Concept relation.",
+      "replacement_evidence_support": {
+        "authored_title_correspondence": false,
+        "authored_topic_reference": "issue_68_video_004_topic_proposal_024g",
+        "exact_pattern_match_count": 1,
+        "intersection_end_word_id": "transcript_revision_video_004_r1:word:009737",
+        "intersection_sha256": "e455dbd496b1487dcbb1395007270ed94f094de2e67cf66ce7af2b2f086b0927",
+        "intersection_start_word_id": "transcript_revision_video_004_r1:word:008612"
+      },
+      "replacement_topic_reference": "issue_68_video_004_topic_proposal_024g",
+      "replacement_topic_snapshot": {
+        "canonical_evidence_sha256": "e455dbd496b1487dcbb1395007270ed94f094de2e67cf66ce7af2b2f086b0927",
+        "end_word_id": "transcript_revision_video_004_r1:word:009737",
+        "source_id": "source_video_004",
+        "start_word_id": "transcript_revision_video_004_r1:word:008612",
+        "title": "Рефлекс Моро, первый год жизни и формирование моделей поведения"
+      },
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_024g_stress",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": true,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_034_stress",
+      "topic_changed": false
+    },
+    {
       "additional_semantic_link_created": false,
       "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
       "concept_changed": false,
@@ -13919,9 +13976,9 @@
     "concept_identity_exception": 0,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 200,
-    "link_domain_review_decisions": 6,
-    "link_exception": 56,
+    "link_clear": 201,
+    "link_domain_review_decisions": 7,
+    "link_exception": 55,
     "links_total": 256,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,

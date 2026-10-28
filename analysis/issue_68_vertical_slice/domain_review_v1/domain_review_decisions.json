@@ -372,6 +372,47 @@
       "topic_changed": false
     },
     {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-10-28",
+      "decision_id": "issue_68_domain_review_link_day4_topic_034_stress",
+      "expected_exact_pattern_match_count": 1,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024g",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:009121",
+            "intersection_sha256": "aed62ac05d0beffe32200a5d8421f9a5e92d2e0205dd93a7aeb1bcbcd893329d",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:009026"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024g"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_034",
+        "source_id": "source_video_004"
+      },
+      "outcome": "REMAP_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Domain Owner confirms that «Стресс» is meaningfully present in the context of learning and behavioral development during the first year of life within resulting Topic 024G. The Concept does not define the primary meaning of the entire Topic, and no new relationship classification is introduced.",
+      "remap_reason": "Machine proposal 034 is absorbed into resulting Topic 024G. The reviewed full Topic context contains the exact stress-family occurrence, and the Domain Owner confirms that this context supports the Topic-to-Concept relation.",
+      "replacement_topic_reference": "issue_68_video_004_topic_proposal_024g",
+      "replacement_topic_snapshot": {
+        "canonical_evidence_sha256": "e455dbd496b1487dcbb1395007270ed94f094de2e67cf66ce7af2b2f086b0927",
+        "end_word_id": "transcript_revision_video_004_r1:word:009737",
+        "source_id": "source_video_004",
+        "start_word_id": "transcript_revision_video_004_r1:word:008612",
+        "title": "Рефлекс Моро, первый год жизни и формирование моделей поведения"
+      },
+      "single_match_context_reviewed": true,
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_034_stress",
+      "topic_changed": false
+    },
+    {
       "additional_semantic_link_created": false,
       "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
       "concept_changed": false,
