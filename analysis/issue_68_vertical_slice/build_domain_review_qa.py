@@ -1323,6 +1323,7 @@ def apply_link_decisions(
         outcome = decision.get("outcome")
         if outcome not in {
             "ACCEPT_LINK",
+            "DEFER_LINK",
             "REJECT_LINK",
             "REMAP_LINK",
             "MERGE_LINK_PROVENANCE",
@@ -1359,6 +1360,58 @@ def apply_link_decisions(
             or decision.get("package_semantic_promotion") is not False
         ):
             errors.append(f"link rejection safeguards missing in {decision_id}")
+            continue
+
+        if outcome == "DEFER_LINK":
+            if (
+                decision.get("full_source_context_verification_required") is not True
+                or not decision.get("deferral_reason")
+                or not decision.get("evidence_required")
+            ):
+                errors.append(f"link deferral safeguards missing in {decision_id}")
+                continue
+            deferred_exception = {
+                **link["exception"],
+                "human_decision_required": False,
+                "deferred": True,
+                "evidence_required": decision["evidence_required"],
+            }
+            deferred = {
+                **link,
+                "exception": deferred_exception,
+                "relevance_basis": (
+                    "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION"
+                ),
+                "semantic_status": "PROVISIONAL",
+                "domain_review_status": "DEFERRED",
+                "link_review_decision_id": decision_id,
+            }
+            position = next(
+                index
+                for index, item in enumerate(transformed)
+                if item["link_id"] == target_id
+            )
+            transformed[position] = deferred
+            decided.add(target_id)
+            resolutions.append(
+                {
+                    "decision_id": decision_id,
+                    "target_link_id": target_id,
+                    "result_link_id": target_id,
+                    "authority": decision["authority"],
+                    "review_gate": "DOMAIN_REVIEW",
+                    "status": "DEFERRED",
+                    "outcome": "DEFER_LINK",
+                    "owner_decision": "DEFER",
+                    "link_snapshot": snapshot,
+                    "full_source_context_verification_required": True,
+                    "evidence_required": decision["evidence_required"],
+                    "deferral_reason": decision["deferral_reason"],
+                    "topic_changed": False,
+                    "concept_changed": False,
+                    "package_semantic_promotion": False,
+                }
+            )
             continue
 
         if outcome == "ACCEPT_LINK":
@@ -2000,7 +2053,12 @@ def build_qa(
         None,
     )
     first_link_exception = next(
-        (item for item in link_results if item["classification"] == "LINK_EXCEPTION"),
+        (
+            item
+            for item in link_results
+            if item["classification"] == "LINK_EXCEPTION"
+            and item.get("domain_review_status") != "DEFERRED"
+        ),
         None,
     )
     first_exception = first_topic_exception or first_concept_exception or first_link_exception
@@ -2074,6 +2132,10 @@ def build_qa(
             "links_total": len(link_results),
             "link_clear": link_clear,
             "link_exception": len(link_results) - link_clear,
+            "link_deferred": sum(
+                item.get("domain_review_status") == "DEFERRED"
+                for item in link_results
+            ),
             "selective_transcript_verification_exceptions": len(TRANSCRIPT_EXCEPTIONS),
             "coverage_gaps": sum(len(item["gaps"]) for item in package["coverage"].values()),
             "coverage_overlaps": sum(len(item["overlaps"]) for item in package["coverage"].values()),

@@ -376,6 +376,37 @@
     {
       "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
       "concept_changed": false,
+      "decision_date": "2026-10-28",
+      "decision_id": "issue_68_domain_review_link_day1_topic_27_muscle_testing",
+      "deferral_reason": "The Domain Owner requires verification of the complete source context before deciding whether the short evidence range substantively supports the Topic-to-Concept relationship.",
+      "evidence_required": "Verify the complete source context surrounding Topic 027 against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+      "full_source_context_verification_required": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_muscle_testing",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": true,
+            "authored_topic_reference": "issue_113_reviewed_topic_27",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_001_r1:word:020489",
+            "intersection_sha256": "e1b3e9049e98edabcca28c910bce809ed648647aabb119d7f8891dcd069b15a1",
+            "intersection_start_word_id": "transcript_revision_video_001_r1:word:020482"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_113_reviewed_topic_27",
+        "source_id": "source_video_001"
+      },
+      "outcome": "DEFER_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "DEFER preserves the Topic, Concept candidate, source evidence, and unresolved relationship without semantic acceptance or rejection.",
+      "target_link_id": "issue_68_link_issue_113_reviewed_topic_27_muscle_testing",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
       "decision_date": "2026-09-08",
       "decision_id": "issue_68_domain_review_link_day2_intro_stress",
       "link_snapshot": {

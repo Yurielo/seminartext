@@ -22,10 +22,10 @@ packet exposes only the first unresolved material exception.
 
 ## First material exception — Topic→Concept link
 
-- Link: `issue_68_link_issue_113_reviewed_topic_27_muscle_testing`
-- Topic: `issue_113_reviewed_topic_27`
-- Concept candidate: `issue_68_candidate_concept_muscle_testing`
-- Source: `source_video_001`
+- Link: `issue_68_link_issue_68_video_002_topic_proposal_069_correction`
+- Topic: `issue_68_video_002_topic_proposal_069`
+- Concept candidate: `issue_68_candidate_concept_correction`
+- Source: `source_video_002`
 - Classification: `LINK_EXCEPTION`
 
 ### Exact problem

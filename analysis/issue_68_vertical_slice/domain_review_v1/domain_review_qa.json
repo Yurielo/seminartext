@@ -3735,41 +3735,43 @@
   ],
   "errors": [],
   "first_material_exception": {
-    "candidate_concept_reference": "issue_68_candidate_concept_muscle_testing",
+    "candidate_concept_reference": "issue_68_candidate_concept_correction",
     "classification": "LINK_EXCEPTION",
     "evidence_support": [
       {
-        "authored_title_correspondence": true,
-        "authored_topic_reference": "issue_113_reviewed_topic_27",
-        "exact_pattern_match_count": 0,
-        "intersection_end_word_id": "transcript_revision_video_001_r1:word:020489",
-        "intersection_sha256": "e1b3e9049e98edabcca28c910bce809ed648647aabb119d7f8891dcd069b15a1",
-        "intersection_start_word_id": "transcript_revision_video_001_r1:word:020482"
+        "authored_title_correspondence": false,
+        "authored_topic_reference": "issue_68_video_002_topic_proposal_065b",
+        "exact_pattern_match_count": 1,
+        "intersection_end_word_id": "transcript_revision_video_002_r1:word:020740",
+        "intersection_sha256": "dc342063faf033340f4c8843707ae049dac05d0aa7093291aed4d0afbf612f31",
+        "intersection_start_word_id": "transcript_revision_video_002_r1:word:020394"
       }
     ],
-    "exact_term_target_references": [],
+    "exact_term_target_references": [
+      "issue_68_video_002_topic_proposal_065b"
+    ],
     "exception": {
       "confidence": "MEDIUM",
       "human_decision_required": true,
       "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
       "recommended_correction": "Review the exact context and accept, remap, or reject this link."
     },
-    "input_topic_reference": "issue_113_reviewed_topic_27",
-    "link_id": "issue_68_link_issue_113_reviewed_topic_27_muscle_testing",
+    "input_topic_reference": "issue_68_video_002_topic_proposal_069",
+    "link_id": "issue_68_link_issue_68_video_002_topic_proposal_069_correction",
     "overlapping_authored_topic_references": [
-      "issue_113_reviewed_topic_27"
+      "issue_68_video_002_topic_proposal_065b"
     ],
     "recommended_target_topic_references": [],
     "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
     "semantic_status": "PROVISIONAL",
-    "source_id": "source_video_001"
+    "source_id": "source_video_002"
   },
   "input_inventory": {
     "authored_topic_results": 182,
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "15836bd7f696248203e41d85938edb217d2e116795e70101be194efd861944b4",
+    "domain_review_decisions_sha256": "9c0d71843dabd465e94f453f6d4e43578452ff633c86a38227ec441605f2efde",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -5793,6 +5795,7 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_muscle_testing",
       "classification": "LINK_EXCEPTION",
+      "domain_review_status": "DEFERRED",
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -5806,17 +5809,20 @@
       "exact_term_target_references": [],
       "exception": {
         "confidence": "MEDIUM",
-        "human_decision_required": true,
+        "deferred": true,
+        "evidence_required": "Verify the complete source context surrounding Topic 027 against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+        "human_decision_required": false,
         "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_113_reviewed_topic_27",
       "link_id": "issue_68_link_issue_113_reviewed_topic_27_muscle_testing",
+      "link_review_decision_id": "issue_68_domain_review_link_day1_topic_27_muscle_testing",
       "overlapping_authored_topic_references": [
         "issue_113_reviewed_topic_27"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_001"
     },
@@ -13549,6 +13555,39 @@
       "topic_changed": false
     },
     {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_link_day1_topic_27_muscle_testing",
+      "deferral_reason": "The Domain Owner requires verification of the complete source context before deciding whether the short evidence range substantively supports the Topic-to-Concept relationship.",
+      "evidence_required": "Verify the complete source context surrounding Topic 027 against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+      "full_source_context_verification_required": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_muscle_testing",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": true,
+            "authored_topic_reference": "issue_113_reviewed_topic_27",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_001_r1:word:020489",
+            "intersection_sha256": "e1b3e9049e98edabcca28c910bce809ed648647aabb119d7f8891dcd069b15a1",
+            "intersection_start_word_id": "transcript_revision_video_001_r1:word:020482"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_113_reviewed_topic_27",
+        "source_id": "source_video_001"
+      },
+      "outcome": "DEFER_LINK",
+      "owner_decision": "DEFER",
+      "package_semantic_promotion": false,
+      "result_link_id": "issue_68_link_issue_113_reviewed_topic_27_muscle_testing",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DEFERRED",
+      "target_link_id": "issue_68_link_issue_113_reviewed_topic_27_muscle_testing",
+      "topic_changed": false
+    },
+    {
       "alternative_method_reference_only": false,
       "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
       "concept_changed": false,
@@ -14017,7 +14056,8 @@
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
     "link_clear": 202,
-    "link_domain_review_decisions": 9,
+    "link_deferred": 1,
+    "link_domain_review_decisions": 10,
     "link_exception": 53,
     "links_total": 255,
     "selective_transcript_verification_exceptions": 2,
