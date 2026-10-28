@@ -85,7 +85,7 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
     assert first["link_id"] == (
-        "issue_68_link_issue_68_video_002_topic_proposal_002_kinesiology"
+        "issue_68_link_issue_68_video_002_topic_proposal_064_kinesiology"
     )
     assert first["classification"] == "LINK_EXCEPTION"
     assert first["exception"]["human_decision_required"] is True
@@ -107,7 +107,8 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_video_003_topic_proposal_070" not in review
     assert "issue_68_video_003_topic_proposal_071" not in review
     assert "issue_68_video_004_topic_proposal_034" not in review
-    assert "issue_68_video_002_topic_proposal_002" in review
+    assert "issue_68_video_002_topic_proposal_002" not in review
+    assert "issue_68_video_002_topic_proposal_064" in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
@@ -716,7 +717,7 @@ def test_product_owner_rejects_program_name_stress_link_only() -> None:
         }
     ]
     assert resolution["package_semantic_promotion"] is False
-    assert qa["summary"]["link_domain_review_decisions"] == 7
+    assert qa["summary"]["link_domain_review_decisions"] == 8
 
 
 def test_product_owner_remaps_stress_link_to_full_authored_topic() -> None:
@@ -796,7 +797,7 @@ def test_product_owner_merges_duplicate_stress_link_provenance() -> None:
         result_link["merged_source_link_provenance"][0]["semantic_link_created"]
         is False
     )
-    assert qa["summary"]["link_domain_review_decisions"] == 7
+    assert qa["summary"]["link_domain_review_decisions"] == 8
 
 
 def test_product_owner_remaps_context_reviewed_single_match_stress_link() -> None:
@@ -917,7 +918,7 @@ def test_product_owner_merges_second_dpdg_stress_link_provenance() -> None:
         result_link["merged_source_link_provenance"][0]["semantic_link_created"]
         is False
     )
-    assert qa["summary"]["link_domain_review_decisions"] == 7
+    assert qa["summary"]["link_domain_review_decisions"] == 8
 
 
 def test_domain_owner_reassigns_day4_stress_link_to_resulting_topic() -> None:
@@ -958,4 +959,40 @@ def test_domain_owner_reassigns_day4_stress_link_to_resulting_topic() -> None:
     assert replacement["relevance_basis"] == (
         "PRODUCT_OWNER_REMAP_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE"
     )
-    assert qa["summary"]["link_domain_review_decisions"] == 7
+    assert qa["summary"]["link_domain_review_decisions"] == 8
+
+
+def test_domain_owner_accepts_kinesiology_link_without_semantic_promotion() -> None:
+    qa = read_json(QA_PATH)
+    link_id = "issue_68_link_issue_68_video_002_topic_proposal_002_kinesiology"
+    resolution = next(
+        item
+        for item in qa["link_review_resolutions"]
+        if item["target_link_id"] == link_id
+    )
+    link = next(item for item in qa["link_results"] if item["link_id"] == link_id)
+
+    assert resolution["outcome"] == "ACCEPT_LINK"
+    assert resolution["owner_decision"] == "ACCEPT"
+    assert resolution["result_link_id"] == link_id
+    assert resolution["accepted_topic_reference"] == (
+        "issue_68_video_002_topic_proposal_002"
+    )
+    assert resolution["accepted_exact_pattern_match_count"] == 1
+    assert resolution["single_match_context_reviewed"] is True
+    assert resolution["topic_changed"] is False
+    assert resolution["concept_changed"] is False
+    assert resolution["package_semantic_promotion"] is False
+    assert link["input_topic_reference"] == (
+        "issue_68_video_002_topic_proposal_002"
+    )
+    assert link["candidate_concept_reference"] == (
+        "issue_68_candidate_concept_kinesiology"
+    )
+    assert link["source_id"] == "source_video_002"
+    assert link["classification"] == "LINK_CLEAR"
+    assert link["domain_review_status"] == "DECIDED"
+    assert link["semantic_status"] == "PROVISIONAL"
+    assert link["relevance_basis"] == (
+        "PRODUCT_OWNER_ACCEPT_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE"
+    )

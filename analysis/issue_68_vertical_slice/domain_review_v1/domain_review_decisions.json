@@ -292,6 +292,47 @@
   ],
   "link_decisions": [
     {
+      "accept_reason": "The Domain Owner explicitly confirms that the source reference to «кинезиологический тест» supports preservation of this Topic-to-Concept relationship. This decision is limited to the reviewed link and does not establish equivalence with manual muscle testing or authorize Concept identity work.",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-10-28",
+      "decision_id": "issue_68_domain_review_link_day2_topic_002_kinesiology",
+      "expected_exact_pattern_match_count": 1,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_002",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000169",
+            "intersection_sha256": "7897223e585f6eb093b4c3d9f2f91657a493a3bc0fb6305c1586d2433372c0c3",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000067"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_003a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000193",
+            "intersection_sha256": "f01ff01c1dd40186806b0956630449881e74c5b2e2fd37a04ba88bf5e73ce501",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000170"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_002"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_002",
+        "source_id": "source_video_002"
+      },
+      "outcome": "ACCEPT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Domain Owner accepts the relationship between the reviewed Topic «Мануальное мышечное тестирование и реакция мышц на стресс» and the provisional Concept candidate «Кинезиология» based on the exact source reference «кинезиологический тест».",
+      "single_match_context_reviewed": true,
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_kinesiology",
+      "topic_changed": false
+    },
+    {
       "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
       "concept_changed": false,
       "decision_date": "2026-09-08",

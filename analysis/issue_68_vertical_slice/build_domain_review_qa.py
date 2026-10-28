@@ -1322,6 +1322,7 @@ def apply_link_decisions(
             continue
         outcome = decision.get("outcome")
         if outcome not in {
+            "ACCEPT_LINK",
             "REJECT_LINK",
             "REMAP_LINK",
             "MERGE_LINK_PROVENANCE",
@@ -1358,6 +1359,78 @@ def apply_link_decisions(
             or decision.get("package_semantic_promotion") is not False
         ):
             errors.append(f"link rejection safeguards missing in {decision_id}")
+            continue
+
+        if outcome == "ACCEPT_LINK":
+            accepted_topic = next(
+                (
+                    item
+                    for item in topic_results
+                    if item["topic_id"] == link["input_topic_reference"]
+                ),
+                None,
+            )
+            concept_key = link["candidate_concept_reference"].removeprefix(
+                "issue_68_candidate_concept_"
+            )
+            pattern = CONCEPT_PATTERNS[concept_key]
+            if accepted_topic is None or accepted_topic["source_id"] != link["source_id"]:
+                errors.append(f"accepted link Topic mismatch in {decision_id}")
+                continue
+            source_words = words_by_source[accepted_topic["source_id"]]
+            start = accepted_topic["start_word_sequence"]
+            end = accepted_topic["end_word_sequence"]
+            accepted_text = " ".join(
+                item["text"] for item in source_words[start : end + 1]
+            )
+            match_count = len(list(re.finditer(pattern, accepted_text, re.IGNORECASE)))
+            if (
+                decision.get("single_match_context_reviewed") is not True
+                or match_count != decision.get("expected_exact_pattern_match_count")
+                or match_count != 1
+                or not decision.get("accept_reason")
+            ):
+                errors.append(f"accepted link evidence mismatch in {decision_id}")
+                continue
+
+            accepted = {
+                **link,
+                "classification": "LINK_CLEAR",
+                "relevance_basis": (
+                    "PRODUCT_OWNER_ACCEPT_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE"
+                ),
+                "semantic_status": "PROVISIONAL",
+                "domain_review_status": "DECIDED",
+                "link_review_decision_id": decision_id,
+            }
+            position = next(
+                index
+                for index, item in enumerate(transformed)
+                if item["link_id"] == target_id
+            )
+            transformed[position] = accepted
+            decided.add(target_id)
+            resolutions.append(
+                {
+                    "decision_id": decision_id,
+                    "target_link_id": target_id,
+                    "result_link_id": target_id,
+                    "authority": decision["authority"],
+                    "review_gate": "DOMAIN_REVIEW",
+                    "status": "DECIDED",
+                    "outcome": "ACCEPT_LINK",
+                    "owner_decision": "ACCEPT",
+                    "link_snapshot": snapshot,
+                    "accepted_topic_reference": link["input_topic_reference"],
+                    "accepted_exact_pattern_match_count": match_count,
+                    "single_match_context_reviewed": True,
+                    "topic_changed": False,
+                    "concept_changed": False,
+                    "accept_reason": decision["accept_reason"],
+                    "rationale": decision["rationale"],
+                    "package_semantic_promotion": False,
+                }
+            )
             continue
 
         if outcome == "MERGE_LINK_PROVENANCE":

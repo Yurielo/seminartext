@@ -3740,23 +3740,23 @@
     "evidence_support": [
       {
         "authored_title_correspondence": false,
-        "authored_topic_reference": "issue_68_video_002_topic_proposal_002",
+        "authored_topic_reference": "issue_68_video_002_topic_proposal_064",
         "exact_pattern_match_count": 1,
-        "intersection_end_word_id": "transcript_revision_video_002_r1:word:000169",
-        "intersection_sha256": "7897223e585f6eb093b4c3d9f2f91657a493a3bc0fb6305c1586d2433372c0c3",
-        "intersection_start_word_id": "transcript_revision_video_002_r1:word:000067"
+        "intersection_end_word_id": "transcript_revision_video_002_r1:word:019633",
+        "intersection_sha256": "5b59d85bed5344dd67450be7df0c5b2589a00a22e65b1903b764d1ca580ab5d3",
+        "intersection_start_word_id": "transcript_revision_video_002_r1:word:019438"
       },
       {
         "authored_title_correspondence": false,
-        "authored_topic_reference": "issue_68_video_002_topic_proposal_003a",
+        "authored_topic_reference": "issue_68_video_002_topic_proposal_065a",
         "exact_pattern_match_count": 0,
-        "intersection_end_word_id": "transcript_revision_video_002_r1:word:000193",
-        "intersection_sha256": "f01ff01c1dd40186806b0956630449881e74c5b2e2fd37a04ba88bf5e73ce501",
-        "intersection_start_word_id": "transcript_revision_video_002_r1:word:000170"
+        "intersection_end_word_id": "transcript_revision_video_002_r1:word:019659",
+        "intersection_sha256": "0ee88ea2f0c93f3def29967b60bfdedd545d600045a30dc8aff39d9c13325a13",
+        "intersection_start_word_id": "transcript_revision_video_002_r1:word:019634"
       }
     ],
     "exact_term_target_references": [
-      "issue_68_video_002_topic_proposal_002"
+      "issue_68_video_002_topic_proposal_064"
     ],
     "exception": {
       "confidence": "MEDIUM",
@@ -3764,11 +3764,11 @@
       "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
       "recommended_correction": "Review the exact context and accept, remap, or reject this link."
     },
-    "input_topic_reference": "issue_68_video_002_topic_proposal_002",
-    "link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_kinesiology",
+    "input_topic_reference": "issue_68_video_002_topic_proposal_064",
+    "link_id": "issue_68_link_issue_68_video_002_topic_proposal_064_kinesiology",
     "overlapping_authored_topic_references": [
-      "issue_68_video_002_topic_proposal_002",
-      "issue_68_video_002_topic_proposal_003a"
+      "issue_68_video_002_topic_proposal_064",
+      "issue_68_video_002_topic_proposal_065a"
     ],
     "recommended_target_topic_references": [],
     "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
@@ -3780,7 +3780,7 @@
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "b316a35a9db786465e00a3c507fddec103e6f1e1f2426b3433cd1c89b4d4ff63",
+    "domain_review_decisions_sha256": "95a467b01573af5a2c30046e2f780526bec6492a8991f8b8ec3f06460d835f09",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -5667,7 +5667,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -5697,12 +5698,13 @@
       },
       "input_topic_reference": "issue_68_video_002_topic_proposal_002",
       "link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_kinesiology",
+      "link_review_decision_id": "issue_68_domain_review_link_day2_topic_002_kinesiology",
       "overlapping_authored_topic_references": [
         "issue_68_video_002_topic_proposal_002",
         "issue_68_video_002_topic_proposal_003a"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002"
     },
@@ -13511,6 +13513,51 @@
   ],
   "link_review_resolutions": [
     {
+      "accept_reason": "The Domain Owner explicitly confirms that the source reference to «кинезиологический тест» supports preservation of this Topic-to-Concept relationship. This decision is limited to the reviewed link and does not establish equivalence with manual muscle testing or authorize Concept identity work.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_002_topic_proposal_002",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_link_day2_topic_002_kinesiology",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_002",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000169",
+            "intersection_sha256": "7897223e585f6eb093b4c3d9f2f91657a493a3bc0fb6305c1586d2433372c0c3",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000067"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_003a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000193",
+            "intersection_sha256": "f01ff01c1dd40186806b0956630449881e74c5b2e2fd37a04ba88bf5e73ce501",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000170"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_002"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_002",
+        "source_id": "source_video_002"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Domain Owner accepts the relationship between the reviewed Topic «Мануальное мышечное тестирование и реакция мышц на стресс» and the provisional Concept candidate «Кинезиология» based on the exact source reference «кинезиологический тест».",
+      "result_link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_kinesiology",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": true,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_kinesiology",
+      "topic_changed": false
+    },
+    {
       "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
       "concept_changed": false,
       "decision_id": "issue_68_domain_review_link_day2_intro_stress",
@@ -13976,9 +14023,9 @@
     "concept_identity_exception": 0,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 201,
-    "link_domain_review_decisions": 7,
-    "link_exception": 55,
+    "link_clear": 202,
+    "link_domain_review_decisions": 8,
+    "link_exception": 54,
     "links_total": 256,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
