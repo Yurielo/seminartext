@@ -2331,6 +2331,47 @@ re-QA'd.
     path.write_text(text, encoding="utf-8")
 
 
+def write_review_outputs(
+    output: Path,
+    qa: dict[str, Any],
+    decision_path: Path,
+    evidence_path: Path,
+    semantic_package_path: Path,
+) -> None:
+    """Render the governed QA and the exception-only batch projection."""
+    import batch_review
+
+    output.mkdir(parents=True, exist_ok=True)
+    qa_path = output / "domain_review_qa.json"
+    review_path = output / "DOMAIN_REVIEW.md"
+    write_json(qa_path, qa)
+    write_review_markdown(review_path, qa)
+    files = {
+        "domain_review_decisions.json": sha256(decision_path),
+        "domain_review_qa.json": sha256(qa_path),
+        "DOMAIN_REVIEW.md": sha256(review_path),
+    }
+    if qa["status"] != "INVALID":
+        package = batch_review.prepare(qa_path, evidence_path, semantic_package_path)
+        batch_path = output / "batch_review.json"
+        batch_markdown_path = output / "BATCH_REVIEW.md"
+        batch_path.write_bytes(batch_review.encoded(package))
+        batch_markdown_path.write_text(batch_review.markdown(package), encoding="utf-8")
+        files["batch_review.json"] = sha256(batch_path)
+        files["BATCH_REVIEW.md"] = sha256(batch_markdown_path)
+    write_json(
+        output / "manifest.json",
+        {
+            "schema_version": "1.0.0",
+            "artifact_type": "seminartext.issue_68_domain_review_manifest",
+            "semantic_authority": qa["semantic_authority"],
+            "qa_status": qa["status"],
+            "summary": qa["summary"],
+            "files": files,
+        },
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository", type=Path, default=Path.cwd())
@@ -2356,24 +2397,10 @@ def main() -> int:
         args.semantic_package.resolve(),
         decision_path,
     )
-    qa_path = output / "domain_review_qa.json"
-    review_path = output / "DOMAIN_REVIEW.md"
-    write_json(qa_path, qa)
-    write_review_markdown(review_path, qa)
-    write_json(
-        output / "manifest.json",
-        {
-            "schema_version": "1.0.0",
-            "artifact_type": "seminartext.issue_68_domain_review_manifest",
-            "semantic_authority": qa["semantic_authority"],
-            "qa_status": qa["status"],
-            "summary": qa["summary"],
-            "files": {
-                "domain_review_decisions.json": sha256(decision_path),
-                "domain_review_qa.json": sha256(qa_path),
-                "DOMAIN_REVIEW.md": sha256(review_path),
-            },
-        },
+    write_review_outputs(
+        output, qa, decision_path,
+        args.project.resolve() / "evidence" / "canonical_bundle.json",
+        args.semantic_package.resolve(),
     )
     return 1 if qa["status"] == "INVALID" else 0
 
