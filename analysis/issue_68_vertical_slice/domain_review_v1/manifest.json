@@ -1,9 +1,11 @@
 {
   "artifact_type": "seminartext.issue_68_domain_review_manifest",
   "files": {
-    "DOMAIN_REVIEW.md": "f82674a83d9fd2677fb9c16c6666ce1b7e1ff31731d6a7625de0238450f8d5d4",
-    "domain_review_decisions.json": "7da35ac5eff3fb7e15c98aeaf7f4ba37e03ef5eab87f9bd662cfcedebca8a474",
-    "domain_review_qa.json": "80a1978c7ea6616f542e1b3412250813763074f996ee5c337e4b64dc82934751"
+    "BATCH_REVIEW.md": "357d4c9bfc195ec676050e760a1e1114138e56159666a37efc43536236509a79",
+    "DOMAIN_REVIEW.md": "ea056a37ee4c442286ae2066ef96223578cebba04060a72ff7da7b8fd7533472",
+    "batch_review.json": "35491b780ed84332a57fc6ebdc2972a76d8521ac2e331239772997178bb339a5",
+    "domain_review_decisions.json": "9c0d71843dabd465e94f453f6d4e43578452ff633c86a38227ec441605f2efde",
+    "domain_review_qa.json": "39bfcd718d4d40b441ef39d1b04119907c025210cc745981a7c9f2211b1bc8c9"
   },
   "qa_status": "READY_WITH_EXCEPTIONS",
   "schema_version": "1.0.0",
@@ -15,10 +17,11 @@
     "concept_identity_exception": 0,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 200,
-    "link_domain_review_decisions": 6,
-    "link_exception": 56,
-    "links_total": 256,
+    "link_clear": 202,
+    "link_deferred": 1,
+    "link_domain_review_decisions": 10,
+    "link_exception": 53,
+    "links_total": 255,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,

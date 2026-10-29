@@ -54,20 +54,70 @@ exact Canonical Word partition, preserves `NON_SEMANTIC_EXCLUDED` lineage,
 re-QA's both neighboring boundaries, and then exposes the next unresolved
 exception. A decided exception does not promote the remaining package.
 
+## Batch DOMAIN_REVIEW
+
+The same builder also writes `domain_review_v1/BATCH_REVIEW.md` and
+`domain_review_v1/batch_review.json`. The Markdown is the compact review table;
+the JSON contains one entry per active link, the separate deferred list,
+four grouping indexes, exact Topic/Concept IDs, source revision, word ranges,
+evidence hashes, and the existing governed link snapshot. The complete source
+context remains in the project's `evidence/canonical_bundle.json`; the packet
+contains only a short excerpt. No group implies a shared decision.
+
+To submit a batch, prepare a JSON document with `review_package_sha256` (SHA-256
+of the exact `batch_review.json` bytes), `decision_ledger_sha256` from that
+package, and a nonempty `decisions` list. Every list item must include
+`link_id`, `topic_id`, `concept_id`, `source_revision_id`, `evidence_sha256`,
+`review_package_sha256`, `action`, `human_confirmed: true`, and
+`governed_decision`. Copy the bound IDs
+and hashes from the packet. `action` is one of `ACCEPT`, `REJECT`, `REASSIGN`,
+or `DEFER`. The `governed_decision` is an explicit Product Owner decision in
+the existing ledger schema, including its own unique `decision_id`,
+`authority: PRODUCT_OWNER_DOMAIN_REVIEW`, matching `target_link_id`, full
+`link_snapshot`, rationale, and outcome `ACCEPT_LINK`, `REJECT_LINK`,
+`REMAP_LINK`, or `DEFER_LINK`, respectively. For `REASSIGN`, the governed record
+must name the exact existing replacement Topic and its snapshot. The existing
+builder validates evidence and the action-specific safeguards. Omitted links
+remain unresolved; the batch tool never infers a decision.
+The transport schema is `schemas/issue_68_batch_review_v1.schema.json`.
+
+Apply and rebuild in one command:
+
+```bash
+python analysis/issue_68_vertical_slice/batch_review.py apply \
+  --package /path/to/submitted_batch_review.json \
+  --batch /path/to/explicit_owner_decisions.json \
+  --ledger analysis/issue_68_vertical_slice/domain_review_v1/domain_review_decisions.json \
+  --repository . \
+  --project "/path/to/Стресс код" \
+  --review-result "/path/to/topic_review_result_v2.json" \
+  --semantic-package analysis/issue_68_vertical_slice/semantic_authoring_v1/semantic_authoring_package.json \
+  --output-dir analysis/issue_68_vertical_slice/domain_review_v1
+```
+
+The batch is validated in full before one atomic ledger replacement. A stale
+package, changed ledger, unknown link, duplicate target, invalid replacement,
+unsupported action, or any governed QA error rejects the whole batch. An exact
+retry of an applied batch returns the current ledger hash. QA and the next
+batch packet are rebuilt from the resulting ledger. Preserve the submitted
+package separately because the current packet is regenerated after application.
+
 ## Current gate
 
 - Engineering evidence validation: `PASS`
 - Full Canonical Word coverage by provisional Topic proposals: `PASS`
 - Days 2–4 authoring: `262/262 COMPLETED_PROVISIONAL`
 - Resulting semantic units classified by QA: `182`
-- Persisted exact DOMAIN_REVIEW decisions: `17` (`4` Topic, `7` Concept, `6` Link)
+- Persisted exact DOMAIN_REVIEW decisions: `21` (`4` Topic, `7` Concept, `10` Link)
+- Active link exceptions in batch: `52`; deferred separately: `1`
 - Days 2–4 Topic authority: `UNREVIEWED`
 - Concept candidates and Topic→Concept links: `PROVISIONAL_UNREVIEWED`
 - Obsidian export: `NOT_RUN_BLOCKED_SEMANTIC_INPUT`
 - Issue #68 result: `PARTIAL`
 
-The next gate is the first material exception in
-`domain_review_v1/DOMAIN_REVIEW.md`. The full QA manifest preserves the
+The next gate is an explicit human decision on the active links in
+`domain_review_v1/BATCH_REVIEW.md`; the original first-exception card remains
+in `domain_review_v1/DOMAIN_REVIEW.md`. The full QA manifest preserves the
 original `18` Concept-candidate and `254` Topic→Concept-link input inventories;
 the smaller preview-derived projections in the authored package are not
 treated as semantic deletion. `REVIEW_CLEAR` does not imply acceptance;

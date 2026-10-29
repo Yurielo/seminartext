@@ -292,6 +292,119 @@
   ],
   "link_decisions": [
     {
+      "accept_reason": "The Domain Owner explicitly confirms that the source reference to «кинезиологический тест» supports preservation of this Topic-to-Concept relationship. This decision is limited to the reviewed link and does not establish equivalence with manual muscle testing or authorize Concept identity work.",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-10-28",
+      "decision_id": "issue_68_domain_review_link_day2_topic_002_kinesiology",
+      "expected_exact_pattern_match_count": 1,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_002",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000169",
+            "intersection_sha256": "7897223e585f6eb093b4c3d9f2f91657a493a3bc0fb6305c1586d2433372c0c3",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000067"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_003a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000193",
+            "intersection_sha256": "f01ff01c1dd40186806b0956630449881e74c5b2e2fd37a04ba88bf5e73ce501",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000170"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_002"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_002",
+        "source_id": "source_video_002"
+      },
+      "outcome": "ACCEPT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Domain Owner accepts the relationship between the reviewed Topic «Мануальное мышечное тестирование и реакция мышц на стресс» and the provisional Concept candidate «Кинезиология» based on the exact source reference «кинезиологический тест».",
+      "single_match_context_reviewed": true,
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_kinesiology",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": true,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-10-28",
+      "decision_id": "issue_68_domain_review_link_day2_topic_064_kinesiology",
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_kinesiology",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_064",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:019633",
+            "intersection_sha256": "5b59d85bed5344dd67450be7df0c5b2589a00a22e65b1903b764d1ca580ab5d3",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:019438"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_065a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:019659",
+            "intersection_sha256": "0ee88ea2f0c93f3def29967b60bfdedd545d600045a30dc8aff39d9c13325a13",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:019634"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_064"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_064",
+        "source_id": "source_video_002"
+      },
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Domain Owner rejects the proposed relationship because «кинезиология» appears only as an alternative method alongside other possible approaches. The Topic remains about safety questions before a session, not about kinesiology.",
+      "rejection_basis": "ALTERNATIVE_METHOD_MENTION_ONLY",
+      "rejection_reason": "An incidental alternative-method mention does not establish that this Topic substantively concerns the Concept «Кинезиология».",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_064_kinesiology",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-10-28",
+      "decision_id": "issue_68_domain_review_link_day1_topic_27_muscle_testing",
+      "deferral_reason": "The Domain Owner requires verification of the complete source context before deciding whether the short evidence range substantively supports the Topic-to-Concept relationship.",
+      "evidence_required": "Verify the complete source context surrounding Topic 027 against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+      "full_source_context_verification_required": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_muscle_testing",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": true,
+            "authored_topic_reference": "issue_113_reviewed_topic_27",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_001_r1:word:020489",
+            "intersection_sha256": "e1b3e9049e98edabcca28c910bce809ed648647aabb119d7f8891dcd069b15a1",
+            "intersection_start_word_id": "transcript_revision_video_001_r1:word:020482"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_113_reviewed_topic_27",
+        "source_id": "source_video_001"
+      },
+      "outcome": "DEFER_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "DEFER preserves the Topic, Concept candidate, source evidence, and unresolved relationship without semantic acceptance or rejection.",
+      "target_link_id": "issue_68_link_issue_113_reviewed_topic_27_muscle_testing",
+      "topic_changed": false
+    },
+    {
       "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
       "concept_changed": false,
       "decision_date": "2026-09-08",
@@ -369,6 +482,47 @@
         "title": "Проверка интерпретации сильного и слабого ответа мышечного теста"
       },
       "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_014_stress",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_date": "2026-10-28",
+      "decision_id": "issue_68_domain_review_link_day4_topic_034_stress",
+      "expected_exact_pattern_match_count": 1,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_stress",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024g",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:009121",
+            "intersection_sha256": "aed62ac05d0beffe32200a5d8421f9a5e92d2e0205dd93a7aeb1bcbcd893329d",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:009026"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024g"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_034",
+        "source_id": "source_video_004"
+      },
+      "outcome": "REMAP_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Domain Owner confirms that «Стресс» is meaningfully present in the context of learning and behavioral development during the first year of life within resulting Topic 024G. The Concept does not define the primary meaning of the entire Topic, and no new relationship classification is introduced.",
+      "remap_reason": "Machine proposal 034 is absorbed into resulting Topic 024G. The reviewed full Topic context contains the exact stress-family occurrence, and the Domain Owner confirms that this context supports the Topic-to-Concept relation.",
+      "replacement_topic_reference": "issue_68_video_004_topic_proposal_024g",
+      "replacement_topic_snapshot": {
+        "canonical_evidence_sha256": "e455dbd496b1487dcbb1395007270ed94f094de2e67cf66ce7af2b2f086b0927",
+        "end_word_id": "transcript_revision_video_004_r1:word:009737",
+        "source_id": "source_video_004",
+        "start_word_id": "transcript_revision_video_004_r1:word:008612",
+        "title": "Рефлекс Моро, первый год жизни и формирование моделей поведения"
+      },
+      "single_match_context_reviewed": true,
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_034_stress",
       "topic_changed": false
     },
     {

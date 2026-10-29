@@ -1322,6 +1322,8 @@ def apply_link_decisions(
             continue
         outcome = decision.get("outcome")
         if outcome not in {
+            "ACCEPT_LINK",
+            "DEFER_LINK",
             "REJECT_LINK",
             "REMAP_LINK",
             "MERGE_LINK_PROVENANCE",
@@ -1358,6 +1360,130 @@ def apply_link_decisions(
             or decision.get("package_semantic_promotion") is not False
         ):
             errors.append(f"link rejection safeguards missing in {decision_id}")
+            continue
+
+        if outcome == "DEFER_LINK":
+            if (
+                decision.get("full_source_context_verification_required") is not True
+                or not decision.get("deferral_reason")
+                or not decision.get("evidence_required")
+            ):
+                errors.append(f"link deferral safeguards missing in {decision_id}")
+                continue
+            deferred_exception = {
+                **link["exception"],
+                "human_decision_required": False,
+                "deferred": True,
+                "evidence_required": decision["evidence_required"],
+            }
+            deferred = {
+                **link,
+                "exception": deferred_exception,
+                "relevance_basis": (
+                    "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION"
+                ),
+                "semantic_status": "PROVISIONAL",
+                "domain_review_status": "DEFERRED",
+                "link_review_decision_id": decision_id,
+            }
+            position = next(
+                index
+                for index, item in enumerate(transformed)
+                if item["link_id"] == target_id
+            )
+            transformed[position] = deferred
+            decided.add(target_id)
+            resolutions.append(
+                {
+                    "decision_id": decision_id,
+                    "target_link_id": target_id,
+                    "result_link_id": target_id,
+                    "authority": decision["authority"],
+                    "review_gate": "DOMAIN_REVIEW",
+                    "status": "DEFERRED",
+                    "outcome": "DEFER_LINK",
+                    "owner_decision": "DEFER",
+                    "link_snapshot": snapshot,
+                    "full_source_context_verification_required": True,
+                    "evidence_required": decision["evidence_required"],
+                    "deferral_reason": decision["deferral_reason"],
+                    "topic_changed": False,
+                    "concept_changed": False,
+                    "package_semantic_promotion": False,
+                }
+            )
+            continue
+
+        if outcome == "ACCEPT_LINK":
+            accepted_topic = next(
+                (
+                    item
+                    for item in topic_results
+                    if item["topic_id"] == link["input_topic_reference"]
+                ),
+                None,
+            )
+            concept_key = link["candidate_concept_reference"].removeprefix(
+                "issue_68_candidate_concept_"
+            )
+            pattern = CONCEPT_PATTERNS[concept_key]
+            if accepted_topic is None or accepted_topic["source_id"] != link["source_id"]:
+                errors.append(f"accepted link Topic mismatch in {decision_id}")
+                continue
+            source_words = words_by_source[accepted_topic["source_id"]]
+            start = accepted_topic["start_word_sequence"]
+            end = accepted_topic["end_word_sequence"]
+            accepted_text = " ".join(
+                item["text"] for item in source_words[start : end + 1]
+            )
+            match_count = len(list(re.finditer(pattern, accepted_text, re.IGNORECASE)))
+            if (
+                decision.get("single_match_context_reviewed") is not True
+                or match_count != decision.get("expected_exact_pattern_match_count")
+                or match_count != 1
+                or not decision.get("accept_reason")
+            ):
+                errors.append(f"accepted link evidence mismatch in {decision_id}")
+                continue
+
+            accepted = {
+                **link,
+                "classification": "LINK_CLEAR",
+                "relevance_basis": (
+                    "PRODUCT_OWNER_ACCEPT_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE"
+                ),
+                "semantic_status": "PROVISIONAL",
+                "domain_review_status": "DECIDED",
+                "link_review_decision_id": decision_id,
+            }
+            position = next(
+                index
+                for index, item in enumerate(transformed)
+                if item["link_id"] == target_id
+            )
+            transformed[position] = accepted
+            decided.add(target_id)
+            resolutions.append(
+                {
+                    "decision_id": decision_id,
+                    "target_link_id": target_id,
+                    "result_link_id": target_id,
+                    "authority": decision["authority"],
+                    "review_gate": "DOMAIN_REVIEW",
+                    "status": "DECIDED",
+                    "outcome": "ACCEPT_LINK",
+                    "owner_decision": "ACCEPT",
+                    "link_snapshot": snapshot,
+                    "accepted_topic_reference": link["input_topic_reference"],
+                    "accepted_exact_pattern_match_count": match_count,
+                    "single_match_context_reviewed": True,
+                    "topic_changed": False,
+                    "concept_changed": False,
+                    "accept_reason": decision["accept_reason"],
+                    "rationale": decision["rationale"],
+                    "package_semantic_promotion": False,
+                }
+            )
             continue
 
         if outcome == "MERGE_LINK_PROVENANCE":
@@ -1560,9 +1686,18 @@ def apply_link_decisions(
             resolutions.append(resolution)
             continue
 
+        rejection_basis = decision.get("rejection_basis")
+        if rejection_basis is None and decision.get("named_program_reference_only") is True:
+            rejection_basis = "NAMED_PROGRAM_REFERENCE_ONLY"
+        valid_rejection_basis = (
+            rejection_basis == "NAMED_PROGRAM_REFERENCE_ONLY"
+            and decision.get("named_program_reference_only") is True
+            or rejection_basis == "ALTERNATIVE_METHOD_MENTION_ONLY"
+            and decision.get("alternative_method_reference_only") is True
+        )
         if (
-            decision.get("named_program_reference_only") is not True
-            or not decision.get("rejection_reason")
+            not decision.get("rejection_reason")
+            or not valid_rejection_basis
         ):
             errors.append(f"link rejection safeguards missing in {decision_id}")
             continue
@@ -1578,7 +1713,13 @@ def apply_link_decisions(
                 "status": "DECIDED",
                 "outcome": "REJECT_LINK",
                 "link_snapshot": snapshot,
-                "named_program_reference_only": True,
+                "rejection_basis": rejection_basis,
+                "named_program_reference_only": (
+                    decision.get("named_program_reference_only") is True
+                ),
+                "alternative_method_reference_only": (
+                    decision.get("alternative_method_reference_only") is True
+                ),
                 "topic_changed": False,
                 "concept_changed": False,
                 "rejection_reason": decision["rejection_reason"],
@@ -1912,7 +2053,12 @@ def build_qa(
         None,
     )
     first_link_exception = next(
-        (item for item in link_results if item["classification"] == "LINK_EXCEPTION"),
+        (
+            item
+            for item in link_results
+            if item["classification"] == "LINK_EXCEPTION"
+            and item.get("domain_review_status") != "DEFERRED"
+        ),
         None,
     )
     first_exception = first_topic_exception or first_concept_exception or first_link_exception
@@ -1986,6 +2132,10 @@ def build_qa(
             "links_total": len(link_results),
             "link_clear": link_clear,
             "link_exception": len(link_results) - link_clear,
+            "link_deferred": sum(
+                item.get("domain_review_status") == "DEFERRED"
+                for item in link_results
+            ),
             "selective_transcript_verification_exceptions": len(TRANSCRIPT_EXCEPTIONS),
             "coverage_gaps": sum(len(item["gaps"]) for item in package["coverage"].values()),
             "coverage_overlaps": sum(len(item["overlaps"]) for item in package["coverage"].values()),
@@ -2181,6 +2331,47 @@ re-QA'd.
     path.write_text(text, encoding="utf-8")
 
 
+def write_review_outputs(
+    output: Path,
+    qa: dict[str, Any],
+    decision_path: Path,
+    evidence_path: Path,
+    semantic_package_path: Path,
+) -> None:
+    """Render the governed QA and the exception-only batch projection."""
+    import batch_review
+
+    output.mkdir(parents=True, exist_ok=True)
+    qa_path = output / "domain_review_qa.json"
+    review_path = output / "DOMAIN_REVIEW.md"
+    write_json(qa_path, qa)
+    write_review_markdown(review_path, qa)
+    files = {
+        "domain_review_decisions.json": sha256(decision_path),
+        "domain_review_qa.json": sha256(qa_path),
+        "DOMAIN_REVIEW.md": sha256(review_path),
+    }
+    if qa["status"] != "INVALID":
+        package = batch_review.prepare(qa_path, evidence_path, semantic_package_path)
+        batch_path = output / "batch_review.json"
+        batch_markdown_path = output / "BATCH_REVIEW.md"
+        batch_path.write_bytes(batch_review.encoded(package))
+        batch_markdown_path.write_text(batch_review.markdown(package), encoding="utf-8")
+        files["batch_review.json"] = sha256(batch_path)
+        files["BATCH_REVIEW.md"] = sha256(batch_markdown_path)
+    write_json(
+        output / "manifest.json",
+        {
+            "schema_version": "1.0.0",
+            "artifact_type": "seminartext.issue_68_domain_review_manifest",
+            "semantic_authority": qa["semantic_authority"],
+            "qa_status": qa["status"],
+            "summary": qa["summary"],
+            "files": files,
+        },
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository", type=Path, default=Path.cwd())
@@ -2206,24 +2397,10 @@ def main() -> int:
         args.semantic_package.resolve(),
         decision_path,
     )
-    qa_path = output / "domain_review_qa.json"
-    review_path = output / "DOMAIN_REVIEW.md"
-    write_json(qa_path, qa)
-    write_review_markdown(review_path, qa)
-    write_json(
-        output / "manifest.json",
-        {
-            "schema_version": "1.0.0",
-            "artifact_type": "seminartext.issue_68_domain_review_manifest",
-            "semantic_authority": qa["semantic_authority"],
-            "qa_status": qa["status"],
-            "summary": qa["summary"],
-            "files": {
-                "domain_review_decisions.json": sha256(decision_path),
-                "domain_review_qa.json": sha256(qa_path),
-                "DOMAIN_REVIEW.md": sha256(review_path),
-            },
-        },
+    write_review_outputs(
+        output, qa, decision_path,
+        args.project.resolve() / "evidence" / "canonical_bundle.json",
+        args.semantic_package.resolve(),
     )
     return 1 if qa["status"] == "INVALID" else 0
 
