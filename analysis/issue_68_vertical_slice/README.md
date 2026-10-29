@@ -57,12 +57,15 @@ exception. A decided exception does not promote the remaining package.
 ## Batch DOMAIN_REVIEW
 
 The same builder also writes `domain_review_v1/BATCH_REVIEW.md` and
-`domain_review_v1/batch_review.json`. The Markdown is the compact review table;
-the JSON contains one entry per active link, the separate deferred list,
-four grouping indexes, exact Topic/Concept IDs, source revision, word ranges,
-evidence hashes, and the existing governed link snapshot. The complete source
-context remains in the project's `evidence/canonical_bundle.json`; the packet
-contains only a short excerpt. No group implies a shared decision.
+`domain_review_v1/batch_review.json`. The Russian Markdown is the consolidated,
+concept-grouped review table: it shows a presentation-only proposed action,
+short source context, rationale, and stated uncertainty for every active link.
+Those proposals are never decisions and do not change the ledger. The JSON
+contains one entry per active link, the separate deferred list, four grouping
+indexes, exact Topic/Concept IDs, source revision, word ranges, evidence hashes,
+and the existing governed link snapshot. The complete source context remains in
+the project's `evidence/canonical_bundle.json`; the packet contains only a
+short excerpt. No group implies a shared decision.
 
 To submit a batch, prepare a JSON document with `review_package_sha256` (SHA-256
 of the exact `batch_review.json` bytes), `decision_ledger_sha256` from that

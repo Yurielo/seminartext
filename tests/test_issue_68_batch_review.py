@@ -50,6 +50,19 @@ def test_committed_batch_covers_every_active_link_once() -> None:
     assert not any("decision" in item and item["decision"] for item in active)
 
 
+def test_consolidated_packet_covers_every_active_link_without_authorizing_it() -> None:
+    package = read(OUTPUT / "batch_review.json")
+    active_ids = {item["link_id"] for item in package["active"]}
+    assert set(batch.RECOMMENDATIONS) == active_ids
+    rendered = batch.markdown(package)
+    assert "Это один пакет рекомендаций, а не решение системы" in rendered
+    assert "Постановка Целей Сессии» → «Коррекция» должна быть отклонена" in rendered
+    assert rendered.count("| REJECT |") >= 1
+    assert rendered.count("| DEFER |") == 3
+    assert all(link_id in rendered for link_id in active_ids)
+    assert package["semantic_authority"] == "PROVISIONAL_UNREVIEWED"
+
+
 @pytest.mark.parametrize("problem", ["stale_revision", "unknown_link", "unsupported_action", "duplicate", "duplicate_historical_id", "stale_package", "stale_per_link_package", "stale_evidence", "missing_authority", "not_confirmed"])
 def test_invalid_batch_never_changes_ledger(tmp_path: Path, problem: str) -> None:
     package_path = OUTPUT / "batch_review.json"

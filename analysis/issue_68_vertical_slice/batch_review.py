@@ -28,6 +28,96 @@ ACTIONS = {
 }
 SCHEMA_PATH = Path(__file__).resolve().parents[2] / "schemas/issue_68_batch_review_v1.schema.json"
 
+# These are non-authoritative review proposals for the bounded Issue #68 packet.
+# They are intentionally presentation-only: ``apply_batch`` still accepts only a
+# hash-bound, explicit Product Owner decision.  Keeping the proposals alongside
+# the existing renderer prevents a second review format from drifting away from
+# the governed JSON package.
+RECOMMENDATION_PROFILES = {
+    "ACCEPT": (
+        "Контекст показывает, что понятие является предметом объяснения или упражнения в этой теме.",
+        "средняя: решение опирается на доступный фрагмент и требует подтверждения владельца",
+    ),
+    "REJECT": (
+        "Понятие названо как пример, фон или сопутствующее действие; предмет темы другой.",
+        "средняя: в доступном контексте нет самостоятельного раскрытия понятия",
+    ),
+    "DEFER": (
+        "Доступного фрагмента недостаточно, чтобы отличить предметное обсуждение от упоминания.",
+        "высокая: перед решением нужен более широкий исходный контекст",
+    ),
+    "CONFIRMED_REJECT": (
+        "Владелец уже отклонил именно эту связь: «коррекция» здесь лишь упомянута, а не раскрыта по существу.",
+        "подтверждено владельцем; техническое внесение ожидает hash-bound submission",
+    ),
+}
+
+RECOMMENDATIONS = {
+    "issue_68_link_issue_68_video_002_topic_proposal_069_correction": "CONFIRMED_REJECT",
+    "issue_68_link_issue_68_video_002_topic_proposal_082_correction": "REJECT",
+    "issue_68_link_issue_68_video_003_topic_proposal_001_correction": "REJECT",
+    "issue_68_link_issue_68_video_004_topic_proposal_021_correction": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_027_correction": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_032_correction": "REJECT",
+    "issue_68_link_issue_68_video_004_topic_proposal_047_correction": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_057_correction": "ACCEPT",
+    "issue_68_link_issue_68_video_002_topic_proposal_007_protocol": "ACCEPT",
+    "issue_68_link_issue_68_video_002_topic_proposal_061_protocol": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_061_protocol": "DEFER",
+    "issue_68_link_issue_68_video_002_topic_proposal_002_emotion": "REJECT",
+    "issue_68_link_issue_68_video_002_topic_proposal_058_emotion": "ACCEPT",
+    "issue_68_link_issue_68_video_002_topic_proposal_084_emotion": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_006_emotion": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_042_emotion": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_071_emotion": "DEFER",
+    "issue_68_link_issue_68_video_003_topic_proposal_072_emotion": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_026_emotion": "ACCEPT",
+    "issue_68_link_issue_68_video_002_topic_proposal_010_nervous_system": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_026_neural_connections_and_networks": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_086_nervous_system": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_090_nervous_system": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_092_nervous_system": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_014_nervous_system": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_014_neural_connections_and_networks": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_040_nervous_system": "REJECT",
+    "issue_68_link_issue_68_video_003_topic_proposal_031_adaptation": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_026_brain": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_041_brain": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_085_brain": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_088_brain": "DEFER",
+    "issue_68_link_issue_68_video_004_topic_proposal_008_meridians": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_039_meridians": "REJECT",
+    "issue_68_link_issue_68_video_004_topic_proposal_043_meridians": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_076_extraocular_muscles": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_074_extraocular_muscles": "ACCEPT",
+    "issue_68_link_issue_113_reviewed_topic_08_consciousness": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_015_three_level_awareness": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_016_three_level_awareness": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_019_three_level_awareness": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_020_three_level_awareness": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_019_subconscious": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_071_subconscious": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_082_subconscious": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_052_subconscious": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_045_memory": "ACCEPT",
+    "issue_68_link_issue_68_video_003_topic_proposal_061_memory": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_013_memory": "REJECT",
+    "issue_68_link_issue_68_video_004_topic_proposal_015_memory": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_077_memory": "ACCEPT",
+    "issue_68_link_issue_68_video_004_topic_proposal_042_trauma": "ACCEPT",
+}
+
+
+def recommendation_for(entry: dict[str, Any]) -> tuple[str, str, str]:
+    """Return a presentation-only recommendation for one governed entry."""
+    # A rebuild can expose a different unresolved item after a valid, atomic
+    # human decision.  It must remain reviewable, but no prior proposal may be
+    # silently extended to it; DEFER is the only safe presentation fallback.
+    profile = RECOMMENDATIONS.get(entry["link_id"], "DEFER")
+    action = "REJECT" if profile == "CONFIRMED_REJECT" else profile
+    rationale, uncertainty = RECOMMENDATION_PROFILES[profile]
+    return action, rationale, uncertainty
+
 
 def validate_schema(value: Any) -> None:
     schema = json.loads(SCHEMA_PATH.read_bytes())
@@ -169,20 +259,50 @@ def prepare(qa_path: Path, evidence_path: Path, semantic_path: Path) -> dict[str
 
 
 def markdown(package: dict[str, Any]) -> str:
-    lines = ["# Пакетная проверка связей — Issue #68", "",
-             "Каждая строка требует отдельного явного решения. Отсутствие ответа не означает согласие.", "",
-             "| Источник | Тема | Понятие | Упоминание | Проверить | ID связи |", "| --- | --- | --- | --- | --- | --- |"]
+    lines = [
+        "# Консолидированная DOMAIN_REVIEW-проверка — Issue #68",
+        "",
+        "Это один пакет рекомендаций, а не решение системы. Семантическое решение принимает только владелец.",
+        "",
+        "## Как подтвердить пакет",
+        "",
+        "Можно подтвердить все рекомендации этого точного пакета, подтвердить их с перечисленными исключениями, отклонить отдельные рекомендации или отложить отдельные связи. Неупомянутые связи остаются нерешёнными; молчание не означает согласие.",
+        "",
+        "Технические ID, диапазоны слов, ревизии источников и SHA-256 находятся в неизменяемом машинном приложении `batch_review.json`.",
+        "",
+        "## Уже подтверждено владельцем",
+        "",
+        "- Связь «Постановка Целей Сессии» → «Коррекция» должна быть отклонена: в теме есть лишь упоминание коррекции, а не её предметное объяснение. Решение сохранено из обсуждения PR #121 и не требует повторного решения; для записи в ledger ещё нужен hash-bound submission текущего пакета.",
+        "",
+        "## Активные рекомендации",
+        "",
+    ]
+    by_concept: dict[str, list[dict[str, Any]]] = {}
     for entry in package["active"]:
-        lines.append("| " + " | ".join((entry["source_id"], entry["topic_title"].replace("|", "\\|"),
-            entry["concept_label"].replace("|", "\\|"),
-            entry["mention_excerpt"].replace("|", "\\|").replace("\n", " "),
-            entry["explanation_ru"].replace("|", "\\|").replace("\n", " "),
-            "`" + entry["link_id"] + "`")) + " |")
-    lines += ["", f"Активных связей: **{len(package['active'])}**. Подробные диапазоны, хеши и группировка — в `batch_review.json`.",
-              "", "## Отложены отдельно", ""]
+        by_concept.setdefault(entry["concept_label"], []).append(entry)
+    for concept, entries in by_concept.items():
+        lines += [f"### {concept}", "", "| Источник | Тема | Контекст | Рекомендация | Основание и неопределённость |", "| --- | --- | --- | --- | --- |"]
+        for entry in entries:
+            action, rationale, uncertainty = recommendation_for(entry)
+            context = entry["mention_excerpt"].replace("|", "\\|").replace("\n", " ")
+            basis = f"{rationale} Неопределённость: {uncertainty}."
+            lines.append("| " + " | ".join((
+                entry["source_id"], entry["topic_title"].replace("|", "\\|"), context,
+                action, basis.replace("|", "\\|"),
+            )) + " |")
+        lines += ["", "Идентификаторы этой группы: " + ", ".join(
+            f"`{entry['link_id']}`" for entry in entries) + ".", ""]
+    lines += [
+        f"Активных связей: **{len(package['active'])}**. Все 52 имеют индивидуальную рекомендацию; группировка не объединяет решения.",
+        "", "## Особое внимание и отложенные вопросы", "",
+        "- Рекомендации `DEFER`: фрагмент для «Тема требует ручной проверки», «Работа с Подсознанием в Терапии» и «Нейронные сети и запоминание» не даёт достаточной самостоятельной основы для решения.",
+        "- В двух местах есть selective transcript-verification exceptions; они сохранены в `domain_review_qa.json` и не являются семантическим подтверждением.",
+        "- Четыре видео имеют Canonical Evidence/Word Timeline; три зарегистрированных документа не имеют Canonical Evidence. Это не полное покрытие всех семи источников.",
+        "", "## Ранее отложенная связь", "",
+    ]
     for entry in package["deferred"]:
-        lines.append(f"- `{entry['link_id']}` — {entry['topic_title']} / {entry['concept_label']}")
-    lines += ["", "Действия: ACCEPT, REJECT, REASSIGN (с точным Topic ID), DEFER. Решения по разным строкам независимы.", ""]
+        lines.append(f"- `{entry['link_id']}` — {entry['topic_title']} / {entry['concept_label']}: ранее подтверждённое `DEFER`; остаётся доступной для последующей проверки полного контекста.")
+    lines += ["", "Допустимые решения: ACCEPT, REJECT, REASSIGN (с точным Topic ID), DEFER. Каждое решение вносится только через существующий hash-bound workflow.", ""]
     return "\n".join(lines)
 
 
