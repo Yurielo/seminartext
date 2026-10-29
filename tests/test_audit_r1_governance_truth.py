@@ -76,7 +76,12 @@ def test_near_term_sequence_has_no_completed_gate_marked_pending():
     assert by_milestone["issue_104_product_bridge"] == "complete_accepted"
     assert by_milestone["issue_113_human_review_and_root_cause"] == "complete_accepted"
     assert by_milestone["autonomous_operating_model"] == "complete_accepted"
-    assert by_milestone["issue_68_real_multi_source_vertical_slice"] == "authorized_ready_to_execute"
+    assert by_milestone["issue_68_real_multi_source_vertical_slice"] == "in_progress"
+    sequence = [item["milestone"] for item in state["near_term_execution_sequence"]]
+    assert sequence.index("issue_68_real_multi_source_vertical_slice") < sequence.index("release_integration_readiness_audit")
+    assert sequence.index("release_integration_readiness_audit") < sequence.index("s2_cross_seminar_knowledge_accumulation")
+    assert sequence.index("s2_cross_seminar_knowledge_accumulation") < sequence.index("s3_integra_knowledge_navigation")
+    assert sequence.index("s2_cross_seminar_knowledge_accumulation") < sequence.index("dataset_d_blind_evaluation")
 
 
 def test_roadmap_mirrors_state_current_status_and_not_stale_review_labels():

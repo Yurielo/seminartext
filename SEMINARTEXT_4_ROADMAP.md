@@ -1,12 +1,20 @@
 # SeminarText 4.x Roadmap
 
-Последнее обновление: 2026-09-04
+Последнее обновление: 2026-10-29
 
 ## Главная цель
 
 Развить SeminarText из системы транскрипции и обработки семинаров в систему построения, развития и обслуживания единой авторской базы знаний.
 
 Архитектурный принцип: **Evidence-First Parallel Development**.
+
+Приоритет разработки: **VERTICAL-FIRST PRODUCT DEVELOPMENT** — завершать
+проверяемый пользовательский путь до необязательного расширения отдельных
+компонентов. Принятый межпродуктовый порядок S1 → существующий
+Release/Integration Readiness checkpoint → S2 → S3 закреплён в
+`Yurielo/four-product-architecture` `main:ROADMAP.md` (merged PR #1,
+`475c5f2d826a40f34f234508b83618c64aecd851`). Этот приоритет не является
+разрешением реализации S2 или обходом human, Dataset, Gold и release gates.
 
 ```text
 Sources
@@ -1141,7 +1149,8 @@ knowledge
 
 # 8. Human Review
 
-Статус: ACTIVE / STRESS CODE REVIEW CONTRACT V2 AND FIRST DOMAIN REVIEW COMPLETE
+Статус: ACTIVE / STRESS CODE REVIEW CONTRACT V2; PARTIAL DOMAIN_REVIEW
+DECISIONS APPLIED, REMAINING REVIEW PENDING
 
 Принцип:
 
@@ -1222,7 +1231,9 @@ Artifact и review guide:
 
 Цель:
 
-Obsidian становится долговременным Knowledge Layer авторской системы.
+Obsidian предоставляет перестраиваемое представление принятого Canonical
+Knowledge. SeminarText остаётся владельцем семантического состояния,
+provenance и ревизий; Vault не становится второй semantic authority.
 
 SeminarText становится механизмом автоматического наполнения и обслуживания этой базы.
 
@@ -1492,7 +1503,28 @@ knowledge-check
 
 # 13. Cross-Seminar Knowledge System
 
-Статус: PENDING
+Статус: S2 APPROVED ROADMAP PRIORITY AFTER ISSUE #68 AND EXISTING READINESS
+CHECKPOINT; IMPLEMENTATION NOT AUTHORIZED BY ISSUE #155
+
+Ограниченный S2 должен показать, как второй семинар обогащает уже принятое
+Canonical Knowledge первого: распознавание возможного существующего Concept,
+human-reviewed решение о его идентичности, создание нового Concept при
+подтверждении, развитие существующего Concept и связи с точным evidence обоих
+семинаров. Исходные термины, неизменяемые ревизии и видимая история развития
+сохраняются. Противоречивые и отложенные утверждения остаются явными до
+человеческого решения. Производный Obsidian export обновляется в той же
+вертикали. Используются существующие механизмы SeminarText; отдельный Knowledge
+Engine не создаётся.
+
+S2 имеет приоритет перед *необязательным* расширением Topic Automation и
+Dataset D evaluation. Production readiness Topic Engine и Dataset D не являются
+автоматическими prerequisites S2. Dataset D остаётся `LOCKED TEST`, Dataset E
+исключён, а G1/G2 и Gold сохраняют свои human gates. Реализация S2 требует
+отдельного ограниченного scope после принятого S1 и существующего checkpoint.
+
+S3 — отдельный будущий Integra-owned read-only просмотр принятых Concepts,
+relations, ревизий и исходного evidence. Integra не принимает семантических
+решений; реализация S3 требует собственной авторизации и lifecycle.
 
 После появления нескольких обработанных семинаров:
 
@@ -1642,13 +1674,27 @@ Knowledge Base должна обслуживать:
 
 # CURRENT NEXT ACTION
 
-Текущий этап: **ISSUE #68 — AUTHORIZED / READY TO EXECUTE**. AUDIT-R6 (Issue
+Текущий этап: **ISSUE #68 — IN PROGRESS / DOMAIN_REVIEW PENDING**. AUDIT-R6 (Issue
 #91), Product Bridge (Issue #104), Human Review/root-cause work (Issue #113) и
 Autonomous Operating Model (Issue #117) завершены и приняты. Утверждённая
-product sequence сохраняется: `#104 -> #68 -> Release/Integration Readiness
-Audit`. Cross-video recommendation из #113 остаётся отдельным неавторизованным
-Roadmap decision и не меняет эту последовательность. #65, #66, Dataset D и
+product sequence сохраняется: `#104 -> #68 -> существующий Release/Integration
+Readiness Audit -> S2 -> S3`. S2 — утверждённый приоритет, но не активный и не
+авторизованный к реализации этим Issue. Cross-video recommendation из #113
+остаётся отдельным неавторизованным Roadmap decision. #65, #66, Dataset D и
 Dataset E остаются защищёнными действующими firewall-правилами.
+
+Draft PR #121 на точном head `cea2d1ed964ad87593a458bfe595e6ce198f99e7`
+содержит Canonical Evidence и Word Timelines для четырёх видео проекта `Стресс
+код` из семи зарегистрированных источников; три документальных источника не
+имеют Canonical Evidence. Days 2–4 имеют 262 provisional machine Topic
+proposals и 182 provisional semantic Topic units. QA фиксирует 22 Concept
+candidates, 255 Topic–Concept links и 21 явное DOMAIN_REVIEW решение; 52 связи
+остаются активными исключениями, одна отложена. Пробелов и перекрытий word
+coverage нет. Эти данные сверены с
+`analysis/issue_68_vertical_slice/domain_review_v1/domain_review_qa.json` и
+`batch_review.json` в PR #121. Пакет остаётся provisional; semantic acceptance,
+Canonical Knowledge admission и принятый Obsidian export ещё не завершены.
+Следующая обязательная граница — решения Domain Owner по оставшимся связям.
 
 Активная машиночитаемая проекция ниже сверяется с
 `integrity/milestone_reconciliation.json`. Только этот ограниченный JSON-блок,
@@ -1658,11 +1704,11 @@ gate.
 <!-- SEMINARTEXT_CONTROL_PLANE_START -->
 ```json
 {
-  "contract_version": "2026-09-04.issue-68",
+  "contract_version": "2026-10-29.issue-68-progress",
   "current_milestone_id": "issue_68_real_multi_source_vertical_slice",
   "last_completed_milestone_id": "autonomous_operating_model",
   "next_eligible_milestone_id": null,
-  "lifecycle_state": "AUTHORIZED_READY_TO_EXECUTE",
+  "lifecycle_state": "IN_PROGRESS",
   "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
   "next_issue_allowed": false,
   "active_actions": [
@@ -1674,7 +1720,9 @@ gate.
     "execute_issue_65",
     "execute_issue_66",
     "dataset_d_blind_evaluation",
-    "issue_113_cross_video_experiment"
+    "issue_113_cross_video_experiment",
+    "execute_s2_cross_seminar_knowledge_accumulation",
+    "execute_s3_integra_knowledge_navigation"
   ],
   "authorization_states": {
     "audit_r4": "NOT_AUTHORIZED",
@@ -1760,9 +1808,9 @@ gate.
       "runtime_reconciliation_complete": true
     },
     "issue_68_real_multi_source_vertical_slice": {
-      "status": "AUTHORIZED_READY_TO_EXECUTE",
+      "status": "IN_PROGRESS",
       "accepted": false,
-      "implementation_state": "NOT_STARTED",
+      "implementation_state": "IN_PROGRESS",
       "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
       "runtime_reconciliation_required": false,
       "runtime_reconciliation_complete": true
@@ -1813,11 +1861,12 @@ gate.
     active; factual reconciliation, objective Issue lifecycle, safe merge, and
     reversible governed local-runtime reconciliation follow its fail-closed
     standing policy.
-18. **Issue #68 — AUTHORIZED / READY TO EXECUTE**: run one real full-seminar,
-    multi-source Evidence → Knowledge → Obsidian vertical slice without
-    inventing unavailable semantics. Engineering is `AUTO`; semantic usefulness
-    and any missing authoritative semantics retain `DOMAIN_REVIEW` /
-    `DOMAIN_AUTHORING` gates.
+18. **Issue #68 — IN PROGRESS / DOMAIN_REVIEW PENDING**: complete one real
+    seminar as a source-grounded Evidence → human-accepted Knowledge → usable
+    Obsidian vertical slice. Four-video technical evidence and provisional
+    semantic review preparation are present in Draft PR #121; accepted
+    knowledge and export remain incomplete. Engineering is `AUTO`; semantic
+    acceptance retains `DOMAIN_REVIEW` / `DOMAIN_AUTHORING` gates.
 19. **Release/Integration Readiness Audit — PENDING AFTER #68**. Its exact scope
     is not authorized while #68 remains active.
 
@@ -1825,14 +1874,19 @@ Supporting Data/Evaluation status (not a next action): Gold Expansion v2
 preparation — **DONE to `READY_FOR_GOLD_ANNOTATION` (Issue #50)**. Product Owner
 role review and manual Gold annotation remain human gates.
 
-20. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST;
-    this is not the current authorized action.
-21. Dataset D blind evaluation after candidate/config/criteria freeze and a
-    separate explicit run authority.
-22. Define and assess `TOPIC AUTOMATION USABLE`.
-23. Expand Knowledge Engine.
-24. Multi-seminar Knowledge MVP.
-25. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
+20. **S2 — approved priority, not implementation-authorized**: bounded
+    cross-seminar accumulation in SeminarText with human-reviewed Concept
+    identity, exact evidence from both seminars, immutable revisions, visible
+    history, deferred/contradictory claims and refreshed Obsidian projection.
+21. **S3 — future, separately authorized Integra scope**: read-only navigation
+    of accepted Concepts, relations, revisions and source evidence.
+22. Repair/prepare Dataset D topic-agnostically while preserving LOCKED TEST;
+    optional track, not the current authorized action or automatic S2 gate.
+23. Dataset D blind evaluation only after its existing candidate/config/criteria
+    freeze and separate explicit run authority.
+24. Define and assess `TOPIC AUTOMATION USABLE` on its governed track.
+25. Expand Knowledge Engine only where a demonstrated vertical requires it.
+26. Later: Cross-Seminar Graph / Learning / Marketing / Site / Media / Knowledge
     Assistant.
 
 Dataset guardrails apply throughout: A/B are development/history evidence; C is
