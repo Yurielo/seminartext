@@ -13,6 +13,9 @@ TRANSLATE="$REPO/seminartext_modules/seminartext_translate.py"
 EVIDENCE_FOUNDATION="$REPO/seminartext_modules/evidence_foundation.py"
 PROJECT_KNOWLEDGE_BRIDGE="$REPO/seminartext_modules/project_knowledge_bridge.py"
 HUMAN_REVIEW_WORKFLOW="$REPO/seminartext_modules/human_review_workflow.py"
+OWNED_TMP="$REPO/seminartext_modules/owned_tmp.py"
+GROUP_SOURCES="$REPO/seminartext_modules/group_sources.py"
+ASR_COMPLETION="$REPO/seminartext_modules/asr_completion.py"
 CANONICAL_VALIDATOR="$REPO/schemas/validate_canonical_evidence_v1.py"
 CANONICAL_SCHEMA="$REPO/schemas/canonical_evidence_v1.schema.json"
 CANONICAL_KNOWLEDGE_VALIDATOR="$REPO/schemas/validate_canonical_knowledge_v1.py"
@@ -37,6 +40,9 @@ DEPLOY_TRANSLATE="$BIN/seminartext_translate.py"
 DEPLOY_EVIDENCE_FOUNDATION="$BIN/seminartext_modules/evidence_foundation.py"
 DEPLOY_PROJECT_KNOWLEDGE_BRIDGE="$BIN/seminartext_modules/project_knowledge_bridge.py"
 DEPLOY_HUMAN_REVIEW_WORKFLOW="$BIN/seminartext_modules/human_review_workflow.py"
+DEPLOY_OWNED_TMP="$BIN/seminartext_modules/owned_tmp.py"
+DEPLOY_GROUP_SOURCES="$BIN/seminartext_modules/group_sources.py"
+DEPLOY_ASR_COMPLETION="$BIN/seminartext_modules/asr_completion.py"
 DEPLOY_CANONICAL_VALIDATOR="$BIN/schemas/validate_canonical_evidence_v1.py"
 DEPLOY_CANONICAL_SCHEMA="$BIN/schemas/canonical_evidence_v1.schema.json"
 DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR="$BIN/schemas/validate_canonical_knowledge_v1.py"
@@ -61,8 +67,15 @@ hash_file() {
   shasum -a 256 "$1" | awk '{print $1}'
 }
 
+activation_record() {
+  local command="$1" operation="$2"
+  shift 2
+  "${SEMINARTEXT_INTEGRITY_PYTHON:-python3}" "$REPO/scripts/activation_receipt.py" "$command" \
+    --root "$REPO" --deploy-dir "$BIN" --operation "$operation" "$@"
+}
+
 require_repo() {
-  [[ -d "$REPO/.git" ]] || die "Git repository не найден: $REPO"
+  [[ "$(git -C "$REPO" rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || die "Git repository не найден: $REPO"
 
   local actual
   actual="$(cd "$REPO" && git rev-parse --show-toplevel)"
@@ -128,15 +141,15 @@ cmd_status() {
 
   echo
   echo "MASTER FILES"
-  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$PROJECT_KNOWLEDGE_BRIDGE" "$HUMAN_REVIEW_WORKFLOW" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$CANONICAL_KNOWLEDGE_VALIDATOR" "$CANONICAL_KNOWLEDGE_SCHEMA" "$CANONICAL_KNOWLEDGE_LIFECYCLE" "$PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$TOPIC_REVIEW_WORKFLOW_SCHEMA" "$TOPIC_REVIEW_WORKFLOW_SCHEMA_V2" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
+  ls -lh "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$PROJECT_KNOWLEDGE_BRIDGE" "$HUMAN_REVIEW_WORKFLOW" "$OWNED_TMP" "$GROUP_SOURCES" "$ASR_COMPLETION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$CANONICAL_KNOWLEDGE_VALIDATOR" "$CANONICAL_KNOWLEDGE_SCHEMA" "$CANONICAL_KNOWLEDGE_LIFECYCLE" "$PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$TOPIC_REVIEW_WORKFLOW_SCHEMA" "$TOPIC_REVIEW_WORKFLOW_SCHEMA_V2" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "MASTER HASHES"
-  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$PROJECT_KNOWLEDGE_BRIDGE" "$HUMAN_REVIEW_WORKFLOW" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$CANONICAL_KNOWLEDGE_VALIDATOR" "$CANONICAL_KNOWLEDGE_SCHEMA" "$CANONICAL_KNOWLEDGE_LIFECYCLE" "$PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$TOPIC_REVIEW_WORKFLOW_SCHEMA" "$TOPIC_REVIEW_WORKFLOW_SCHEMA_V2" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
+  shasum -a 256 "$CODE" "$ROADMAP" "$STATE" "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$PROJECT_KNOWLEDGE_BRIDGE" "$HUMAN_REVIEW_WORKFLOW" "$OWNED_TMP" "$GROUP_SOURCES" "$ASR_COMPLETION" "$CANONICAL_VALIDATOR" "$CANONICAL_SCHEMA" "$CANONICAL_KNOWLEDGE_VALIDATOR" "$CANONICAL_KNOWLEDGE_SCHEMA" "$CANONICAL_KNOWLEDGE_LIFECYCLE" "$PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$TOPIC_REVIEW_WORKFLOW_SCHEMA" "$TOPIC_REVIEW_WORKFLOW_SCHEMA_V2" "$DATASET_GOVERNANCE" "$DATASET_REGISTRY" "$TOPIC_ENGINE_GOVERNANCE" "$TOPIC_ENGINE_LIFECYCLE" "$TOPIC_ENGINE_FREEZE" "$VERSION_FILE" | sed 's/^/  /'
 
   echo
   echo "DEPLOYED HASHES"
-  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE" "$DEPLOY_EVIDENCE_FOUNDATION" "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" "$DEPLOY_HUMAN_REVIEW_WORKFLOW" "$DEPLOY_CANONICAL_VALIDATOR" "$DEPLOY_CANONICAL_SCHEMA" "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR" "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA" "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE" "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$DEPLOY_TOPIC_REVIEW_WORKFLOW_SCHEMA" "$DEPLOY_TOPIC_REVIEW_WORKFLOW_SCHEMA_V2" "$DEPLOY_DATASET_GOVERNANCE" "$DEPLOY_DATASET_REGISTRY" "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" "$DEPLOY_TOPIC_ENGINE_FREEZE" "$DEPLOY_VERSION"; do
+  for f in "$DEPLOY_CODE" "$DEPLOY_ROADMAP" "$DEPLOY_STATE" "$DEPLOY_TOPICS" "$DEPLOY_TRANSLATE" "$DEPLOY_EVIDENCE_FOUNDATION" "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" "$DEPLOY_HUMAN_REVIEW_WORKFLOW" "$DEPLOY_OWNED_TMP" "$DEPLOY_GROUP_SOURCES" "$DEPLOY_ASR_COMPLETION" "$DEPLOY_CANONICAL_VALIDATOR" "$DEPLOY_CANONICAL_SCHEMA" "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR" "$DEPLOY_CANONICAL_KNOWLEDGE_SCHEMA" "$DEPLOY_CANONICAL_KNOWLEDGE_LIFECYCLE" "$DEPLOY_PROJECT_KNOWLEDGE_INPUT_SCHEMA" "$DEPLOY_TOPIC_REVIEW_WORKFLOW_SCHEMA" "$DEPLOY_TOPIC_REVIEW_WORKFLOW_SCHEMA_V2" "$DEPLOY_DATASET_GOVERNANCE" "$DEPLOY_DATASET_REGISTRY" "$DEPLOY_TOPIC_ENGINE_GOVERNANCE" "$DEPLOY_TOPIC_ENGINE_LIFECYCLE" "$DEPLOY_TOPIC_ENGINE_FREEZE" "$DEPLOY_VERSION"; do
     if [[ -f "$f" ]]; then
       shasum -a 256 "$f" | sed 's/^/  /'
     else
@@ -209,6 +222,30 @@ cmd_status() {
     echo "  Human Review workflow: SYNC"
   else
     echo "  Human Review workflow: DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
+  if [[ -f "$DEPLOY_OWNED_TMP" ]] \
+     && [[ "$(hash_file "$OWNED_TMP")" == "$(hash_file "$DEPLOY_OWNED_TMP")" ]]; then
+    echo "  Owned TMP: SYNC"
+  else
+    echo "  Owned TMP: DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
+  if [[ -f "$DEPLOY_GROUP_SOURCES" ]] \
+     && [[ "$(hash_file "$GROUP_SOURCES")" == "$(hash_file "$DEPLOY_GROUP_SOURCES")" ]]; then
+    echo "  Group sources: SYNC"
+  else
+    echo "  Group sources: DIFFERENT"
+    mismatches=$((mismatches + 1))
+  fi
+
+  if [[ -f "$DEPLOY_ASR_COMPLETION" ]] \
+     && [[ "$(hash_file "$ASR_COMPLETION")" == "$(hash_file "$DEPLOY_ASR_COMPLETION")" ]]; then
+    echo "  ASR completion identity: SYNC"
+  else
+    echo "  ASR completion identity: DIFFERENT"
     mismatches=$((mismatches + 1))
   fi
 
@@ -285,7 +322,7 @@ cmd_status() {
   if (( mismatches == 0 )); then
     echo "DEPLOY STATUS: SYNC"
   else
-    echo "DEPLOY STATUS: DIFFERENT ($mismatches/22)"
+    echo "DEPLOY STATUS: DIFFERENT ($mismatches/25)"
   fi
 }
 
@@ -304,6 +341,9 @@ cmd_check() {
   [[ -f "$EVIDENCE_FOUNDATION" ]] || die "нет master Evidence Foundation module"
   [[ -f "$PROJECT_KNOWLEDGE_BRIDGE" ]] || die "нет master Project Knowledge bridge module"
   [[ -f "$HUMAN_REVIEW_WORKFLOW" ]] || die "нет master Human Review workflow module"
+  [[ -f "$OWNED_TMP" ]] || die "missing owned TMP lifecycle module"
+  [[ -f "$GROUP_SOURCES" ]] || die "missing group sources module"
+  [[ -f "$ASR_COMPLETION" ]] || die "missing ASR completion identity module"
   [[ -f "$CANONICAL_VALIDATOR" ]] || die "нет master Canonical validator"
   [[ -f "$CANONICAL_SCHEMA" ]] || die "нет master Canonical schema"
   [[ -f "$CANONICAL_KNOWLEDGE_VALIDATOR" ]] || die "нет master Canonical Knowledge validator"
@@ -327,7 +367,7 @@ cmd_check() {
     || die "SEMINARTEXT_4_STATE.json invalid"
   echo "[OK] State JSON"
 
-  python3 - "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$PROJECT_KNOWLEDGE_BRIDGE" "$HUMAN_REVIEW_WORKFLOW" "$CANONICAL_VALIDATOR" "$CANONICAL_KNOWLEDGE_VALIDATOR" "$DATASET_GOVERNANCE" "$TOPIC_ENGINE_GOVERNANCE" <<'PYMODULES' \
+  python3 - "$TOPICS" "$TRANSLATE" "$EVIDENCE_FOUNDATION" "$PROJECT_KNOWLEDGE_BRIDGE" "$HUMAN_REVIEW_WORKFLOW" "$OWNED_TMP" "$GROUP_SOURCES" "$ASR_COMPLETION" "$CANONICAL_VALIDATOR" "$CANONICAL_KNOWLEDGE_VALIDATOR" "$DATASET_GOVERNANCE" "$TOPIC_ENGINE_GOVERNANCE" <<'PYMODULES' \
     || die "ошибка Python syntax в runtime-модулях"
 import ast
 import sys
@@ -467,6 +507,13 @@ cmd_deploy() {
     && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" "$backup/seminartext_modules/project_knowledge_bridge.py"; }
   [[ -f "$DEPLOY_HUMAN_REVIEW_WORKFLOW" ]] \
     && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_HUMAN_REVIEW_WORKFLOW" "$backup/seminartext_modules/human_review_workflow.py"; }
+  [[ -f "$DEPLOY_OWNED_TMP" ]] \
+    && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_OWNED_TMP" "$backup/seminartext_modules/owned_tmp.py"; }
+  [[ -f "$DEPLOY_GROUP_SOURCES" ]] \
+    && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_GROUP_SOURCES" "$backup/seminartext_modules/group_sources.py"; }
+  [[ -f "$DEPLOY_ASR_COMPLETION" ]] \
+    && { mkdir -p "$backup/seminartext_modules"; cp -p "$DEPLOY_ASR_COMPLETION" "$backup/seminartext_modules/asr_completion.py"; }
+  [[ -f "$DEPLOY_ASR_COMPLETION" ]] || : > "$backup/ASR_COMPLETION_ABSENT"
   [[ -f "$DEPLOY_CANONICAL_VALIDATOR" ]] \
     && { mkdir -p "$backup/schemas"; cp -p "$DEPLOY_CANONICAL_VALIDATOR" "$backup/schemas/validate_canonical_evidence_v1.py"; }
   [[ -f "$DEPLOY_CANONICAL_SCHEMA" ]] \
@@ -503,7 +550,11 @@ source_commit=$commit
 source_branch=$(git branch --show-current)
 MANIFEST
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_evidence_foundation tmp_project_knowledge_bridge tmp_human_review_workflow tmp_canonical_validator tmp_canonical_schema tmp_canonical_knowledge_validator tmp_canonical_knowledge_schema tmp_canonical_knowledge_lifecycle tmp_project_knowledge_input_schema tmp_topic_review_workflow_schema tmp_topic_review_workflow_schema_v2 tmp_dataset_governance tmp_dataset_registry tmp_topic_engine_governance tmp_topic_engine_lifecycle tmp_topic_engine_freeze tmp_version
+  # Capture native mutation identity and a bounded central predecessor snapshot
+  # before replacing files. Registry availability is not required for deployment.
+  activation_record begin "$backup" >/dev/null
+
+  local tmp_code tmp_roadmap tmp_state tmp_topics tmp_translate tmp_evidence_foundation tmp_project_knowledge_bridge tmp_human_review_workflow tmp_owned_tmp tmp_group_sources tmp_asr_completion tmp_canonical_validator tmp_canonical_schema tmp_canonical_knowledge_validator tmp_canonical_knowledge_schema tmp_canonical_knowledge_lifecycle tmp_project_knowledge_input_schema tmp_topic_review_workflow_schema tmp_topic_review_workflow_schema_v2 tmp_dataset_governance tmp_dataset_registry tmp_topic_engine_governance tmp_topic_engine_lifecycle tmp_topic_engine_freeze tmp_version
   tmp_code="$DEPLOY_CODE.new.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.new.$$"
   tmp_state="$DEPLOY_STATE.new.$$"
@@ -512,6 +563,9 @@ MANIFEST
   tmp_evidence_foundation="$DEPLOY_EVIDENCE_FOUNDATION.new.$$"
   tmp_project_knowledge_bridge="$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE.new.$$"
   tmp_human_review_workflow="$DEPLOY_HUMAN_REVIEW_WORKFLOW.new.$$"
+  tmp_owned_tmp="$DEPLOY_OWNED_TMP.new.$$"
+  tmp_group_sources="$DEPLOY_GROUP_SOURCES.new.$$"
+  tmp_asr_completion="$DEPLOY_ASR_COMPLETION.new.$$"
   tmp_canonical_validator="$DEPLOY_CANONICAL_VALIDATOR.new.$$"
   tmp_canonical_schema="$DEPLOY_CANONICAL_SCHEMA.new.$$"
   tmp_canonical_knowledge_validator="$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR.new.$$"
@@ -528,7 +582,7 @@ MANIFEST
   tmp_version="$DEPLOY_VERSION.new.$$"
 
   cleanup_deploy_tmp() {
-    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_project_knowledge_bridge" "$tmp_human_review_workflow" "$tmp_canonical_validator" "$tmp_canonical_schema" "$tmp_canonical_knowledge_validator" "$tmp_canonical_knowledge_schema" "$tmp_canonical_knowledge_lifecycle" "$tmp_project_knowledge_input_schema" "$tmp_topic_review_workflow_schema" "$tmp_topic_review_workflow_schema_v2" "$tmp_dataset_governance" "$tmp_dataset_registry" "$tmp_topic_engine_governance" "$tmp_topic_engine_lifecycle" "$tmp_topic_engine_freeze" "$tmp_version"
+    rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_project_knowledge_bridge" "$tmp_human_review_workflow" "$tmp_owned_tmp" "$tmp_group_sources" "$tmp_asr_completion" "$tmp_canonical_validator" "$tmp_canonical_schema" "$tmp_canonical_knowledge_validator" "$tmp_canonical_knowledge_schema" "$tmp_canonical_knowledge_lifecycle" "$tmp_project_knowledge_input_schema" "$tmp_topic_review_workflow_schema" "$tmp_topic_review_workflow_schema_v2" "$tmp_dataset_governance" "$tmp_dataset_registry" "$tmp_topic_engine_governance" "$tmp_topic_engine_lifecycle" "$tmp_topic_engine_freeze" "$tmp_version"
   }
   trap cleanup_deploy_tmp RETURN INT TERM
 
@@ -541,6 +595,9 @@ MANIFEST
   cp -p "$EVIDENCE_FOUNDATION" "$tmp_evidence_foundation"
   cp -p "$PROJECT_KNOWLEDGE_BRIDGE" "$tmp_project_knowledge_bridge"
   cp -p "$HUMAN_REVIEW_WORKFLOW" "$tmp_human_review_workflow"
+  cp -p "$OWNED_TMP" "$tmp_owned_tmp"
+  cp -p "$GROUP_SOURCES" "$tmp_group_sources"
+  cp -p "$ASR_COMPLETION" "$tmp_asr_completion"
   cp -p "$CANONICAL_VALIDATOR" "$tmp_canonical_validator"
   cp -p "$CANONICAL_SCHEMA" "$tmp_canonical_schema"
   cp -p "$CANONICAL_KNOWLEDGE_VALIDATOR" "$tmp_canonical_knowledge_validator"
@@ -565,7 +622,7 @@ MANIFEST
 
   validate_roadmap_file "$tmp_roadmap"
 
-  python3 - "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_project_knowledge_bridge" "$tmp_human_review_workflow" "$tmp_canonical_validator" "$tmp_canonical_knowledge_validator" "$tmp_dataset_governance" "$tmp_topic_engine_governance" <<'PYMODULES' \
+  python3 - "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_project_knowledge_bridge" "$tmp_human_review_workflow" "$tmp_owned_tmp" "$tmp_group_sources" "$tmp_canonical_validator" "$tmp_canonical_knowledge_validator" "$tmp_dataset_governance" "$tmp_topic_engine_governance" <<'PYMODULES' \
     || die "deploy temp runtime module syntax invalid"
 import ast
 import sys
@@ -605,6 +662,9 @@ PYMODULES
   mv "$tmp_evidence_foundation" "$DEPLOY_EVIDENCE_FOUNDATION"
   mv "$tmp_project_knowledge_bridge" "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE"
   mv "$tmp_human_review_workflow" "$DEPLOY_HUMAN_REVIEW_WORKFLOW"
+  mv "$tmp_owned_tmp" "$DEPLOY_OWNED_TMP"
+  mv "$tmp_group_sources" "$DEPLOY_GROUP_SOURCES"
+  mv "$tmp_asr_completion" "$DEPLOY_ASR_COMPLETION"
   mv "$tmp_canonical_validator" "$DEPLOY_CANONICAL_VALIDATOR"
   mv "$tmp_canonical_schema" "$DEPLOY_CANONICAL_SCHEMA"
   mv "$tmp_canonical_knowledge_validator" "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR"
@@ -643,6 +703,10 @@ PYMODULES
     || die "deploy hash mismatch: Project Knowledge bridge"
   [[ "$(hash_file "$HUMAN_REVIEW_WORKFLOW")" == "$(hash_file "$DEPLOY_HUMAN_REVIEW_WORKFLOW")" ]] \
     || die "deploy hash mismatch: Human Review workflow"
+  [[ "$(hash_file "$OWNED_TMP")" == "$(hash_file "$DEPLOY_OWNED_TMP")" ]] \
+    || die "deploy hash mismatch: owned TMP lifecycle"
+  [[ "$(hash_file "$GROUP_SOURCES")" == "$(hash_file "$DEPLOY_GROUP_SOURCES")" ]] \
+    || die "deploy hash mismatch: group sources"
 
   [[ "$(hash_file "$CANONICAL_VALIDATOR")" == "$(hash_file "$DEPLOY_CANONICAL_VALIDATOR")" ]] \
     || die "deploy hash mismatch: Canonical validator"
@@ -702,6 +766,13 @@ PYMODULES
   [[ "$(hash_file "$VERSION_FILE")" == "$(hash_file "$DEPLOY_VERSION")" ]] \
     || die "deploy hash mismatch: Version"
 
+  activation_record installed "$backup" >/dev/null
+  # Do not let the deploy cleanup trap run again when the dispatcher returns
+  # from the subsequent activation-complete call, after these locals are gone.
+  cleanup_deploy_tmp
+  trap - RETURN INT TERM
+  LAST_DEPLOY_BACKUP="$backup"
+
   echo "[OK] Code deployed"
   echo "[OK] Roadmap deployed"
   echo "[OK] State deployed"
@@ -720,6 +791,7 @@ PYMODULES
   echo
   echo "DEPLOY: PASS"
   echo "Backup: $backup"
+  echo "ACTIVATION: POST_CHECKS_REQUIRED (activation-complete $backup)"
 }
 
 cmd_rollback() {
@@ -759,7 +831,7 @@ cmd_rollback() {
   [[ -n "${backup:-}" && -d "$backup" ]] \
     || die "нет доступных deploy-backups"
 
-  local backup_code backup_roadmap backup_state backup_topics backup_translate backup_evidence_foundation backup_project_knowledge_bridge backup_human_review_workflow backup_canonical_validator backup_canonical_schema backup_canonical_knowledge_validator backup_canonical_knowledge_schema backup_canonical_knowledge_lifecycle backup_project_knowledge_input_schema backup_topic_review_workflow_schema backup_topic_review_workflow_schema_v2 backup_dataset_governance backup_dataset_registry backup_topic_engine_governance backup_topic_engine_lifecycle backup_topic_engine_freeze backup_version
+  local backup_code backup_roadmap backup_state backup_topics backup_translate backup_evidence_foundation backup_project_knowledge_bridge backup_human_review_workflow backup_owned_tmp backup_group_sources backup_asr_completion backup_canonical_validator backup_canonical_schema backup_canonical_knowledge_validator backup_canonical_knowledge_schema backup_canonical_knowledge_lifecycle backup_project_knowledge_input_schema backup_topic_review_workflow_schema backup_topic_review_workflow_schema_v2 backup_dataset_governance backup_dataset_registry backup_topic_engine_governance backup_topic_engine_lifecycle backup_topic_engine_freeze backup_version
   backup_code="$backup/seminartext_4.0_work"
   backup_roadmap="$backup/SEMINARTEXT_4_ROADMAP.md"
   backup_state="$backup/SEMINARTEXT_4_STATE.json"
@@ -768,6 +840,9 @@ cmd_rollback() {
   backup_evidence_foundation="$backup/seminartext_modules/evidence_foundation.py"
   backup_project_knowledge_bridge="$backup/seminartext_modules/project_knowledge_bridge.py"
   backup_human_review_workflow="$backup/seminartext_modules/human_review_workflow.py"
+  backup_owned_tmp="$backup/seminartext_modules/owned_tmp.py"
+  backup_group_sources="$backup/seminartext_modules/group_sources.py"
+  backup_asr_completion="$backup/seminartext_modules/asr_completion.py"
   backup_canonical_validator="$backup/schemas/validate_canonical_evidence_v1.py"
   backup_canonical_schema="$backup/schemas/canonical_evidence_v1.schema.json"
   backup_canonical_knowledge_validator="$backup/schemas/validate_canonical_knowledge_v1.py"
@@ -804,6 +879,9 @@ cmd_rollback() {
   rollback_guard="$BACKUP_ROOT/pre_rollback_$(date '+%Y%m%d_%H%M%S')"
   mkdir -p "$rollback_guard"
 
+  # Invalidate pending publications even when rollback restores identical bytes.
+  activation_record begin "$rollback_guard" --action rollback --backup "$backup" >/dev/null
+
   [[ -f "$DEPLOY_CODE" ]] \
     && cp -p "$DEPLOY_CODE" "$rollback_guard/seminartext_4.0_work"
   [[ -f "$DEPLOY_ROADMAP" ]] \
@@ -820,6 +898,12 @@ cmd_rollback() {
     && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE" "$rollback_guard/seminartext_modules/project_knowledge_bridge.py"; }
   [[ -f "$DEPLOY_HUMAN_REVIEW_WORKFLOW" ]] \
     && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_HUMAN_REVIEW_WORKFLOW" "$rollback_guard/seminartext_modules/human_review_workflow.py"; }
+  [[ -f "$DEPLOY_OWNED_TMP" ]] \
+    && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_OWNED_TMP" "$rollback_guard/seminartext_modules/owned_tmp.py"; }
+  [[ -f "$DEPLOY_GROUP_SOURCES" ]] \
+    && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_GROUP_SOURCES" "$rollback_guard/seminartext_modules/group_sources.py"; }
+  [[ -f "$DEPLOY_ASR_COMPLETION" ]] \
+    && { mkdir -p "$rollback_guard/seminartext_modules"; cp -p "$DEPLOY_ASR_COMPLETION" "$rollback_guard/seminartext_modules/asr_completion.py"; }
   [[ -f "$DEPLOY_CANONICAL_VALIDATOR" ]] \
     && { mkdir -p "$rollback_guard/schemas"; cp -p "$DEPLOY_CANONICAL_VALIDATOR" "$rollback_guard/schemas/validate_canonical_evidence_v1.py"; }
   [[ -f "$DEPLOY_CANONICAL_SCHEMA" ]] \
@@ -849,7 +933,7 @@ cmd_rollback() {
   [[ -f "$DEPLOY_VERSION" ]] \
     && cp -p "$DEPLOY_VERSION" "$rollback_guard/SEMINARTEXT_VERSION"
 
-  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate="" tmp_evidence_foundation="" tmp_project_knowledge_bridge="" tmp_human_review_workflow="" tmp_canonical_validator="" tmp_canonical_schema="" tmp_canonical_knowledge_validator="" tmp_canonical_knowledge_schema="" tmp_canonical_knowledge_lifecycle="" tmp_project_knowledge_input_schema="" tmp_topic_review_workflow_schema="" tmp_topic_review_workflow_schema_v2="" tmp_dataset_governance="" tmp_dataset_registry="" tmp_topic_engine_governance="" tmp_topic_engine_lifecycle="" tmp_topic_engine_freeze="" tmp_version=""
+  local tmp_code tmp_roadmap tmp_state tmp_topics="" tmp_translate="" tmp_evidence_foundation="" tmp_project_knowledge_bridge="" tmp_human_review_workflow="" tmp_owned_tmp="" tmp_group_sources="" tmp_asr_completion="" tmp_canonical_validator="" tmp_canonical_schema="" tmp_canonical_knowledge_validator="" tmp_canonical_knowledge_schema="" tmp_canonical_knowledge_lifecycle="" tmp_project_knowledge_input_schema="" tmp_topic_review_workflow_schema="" tmp_topic_review_workflow_schema_v2="" tmp_dataset_governance="" tmp_dataset_registry="" tmp_topic_engine_governance="" tmp_topic_engine_lifecycle="" tmp_topic_engine_freeze="" tmp_version=""
   tmp_code="$DEPLOY_CODE.rollback.$$"
   tmp_roadmap="$DEPLOY_ROADMAP.rollback.$$"
   tmp_state="$DEPLOY_STATE.rollback.$$"
@@ -879,6 +963,23 @@ cmd_rollback() {
     tmp_human_review_workflow="$DEPLOY_HUMAN_REVIEW_WORKFLOW.rollback.$$"
     mkdir -p "$(dirname "$tmp_human_review_workflow")"
     cp -p "$backup_human_review_workflow" "$tmp_human_review_workflow"
+  fi
+  if [[ -f "$backup_owned_tmp" ]]; then
+    tmp_owned_tmp="$DEPLOY_OWNED_TMP.rollback.$$"
+    mkdir -p "$(dirname "$tmp_owned_tmp")"
+    cp -p "$backup_owned_tmp" "$tmp_owned_tmp"
+  fi
+  if [[ -f "$backup_group_sources" ]]; then
+    tmp_group_sources="$DEPLOY_GROUP_SOURCES.rollback.$$"
+    mkdir -p "$(dirname "$tmp_group_sources")"
+    cp -p "$backup_group_sources" "$tmp_group_sources"
+  fi
+  if [[ -f "$backup_asr_completion" ]]; then
+    tmp_asr_completion="$DEPLOY_ASR_COMPLETION.rollback.$$"
+    mkdir -p "$(dirname "$tmp_asr_completion")"
+    cp -p "$backup_asr_completion" "$tmp_asr_completion"
+  elif [[ -f "$backup/ASR_COMPLETION_ABSENT" ]]; then
+    tmp_asr_completion="$DEPLOY_ASR_COMPLETION.rollback-absent.$$"
   fi
   if [[ -f "$backup_canonical_validator" ]]; then
     tmp_canonical_validator="$DEPLOY_CANONICAL_VALIDATOR.rollback.$$"
@@ -962,6 +1063,13 @@ cmd_rollback() {
   [[ -z "$tmp_evidence_foundation" ]] || mv "$tmp_evidence_foundation" "$DEPLOY_EVIDENCE_FOUNDATION"
   [[ -z "$tmp_project_knowledge_bridge" ]] || mv "$tmp_project_knowledge_bridge" "$DEPLOY_PROJECT_KNOWLEDGE_BRIDGE"
   [[ -z "$tmp_human_review_workflow" ]] || mv "$tmp_human_review_workflow" "$DEPLOY_HUMAN_REVIEW_WORKFLOW"
+  [[ -z "$tmp_owned_tmp" ]] || mv "$tmp_owned_tmp" "$DEPLOY_OWNED_TMP"
+  [[ -z "$tmp_group_sources" ]] || mv "$tmp_group_sources" "$DEPLOY_GROUP_SOURCES"
+  if [[ "$tmp_asr_completion" == *".rollback-absent."* ]]; then
+    rm -f "$DEPLOY_ASR_COMPLETION"
+  elif [[ -n "$tmp_asr_completion" ]]; then
+    mv "$tmp_asr_completion" "$DEPLOY_ASR_COMPLETION"
+  fi
   [[ -z "$tmp_canonical_validator" ]] || mv "$tmp_canonical_validator" "$DEPLOY_CANONICAL_VALIDATOR"
   [[ -z "$tmp_canonical_schema" ]] || mv "$tmp_canonical_schema" "$DEPLOY_CANONICAL_SCHEMA"
   [[ -z "$tmp_canonical_knowledge_validator" ]] || mv "$tmp_canonical_knowledge_validator" "$DEPLOY_CANONICAL_KNOWLEDGE_VALIDATOR"
@@ -977,13 +1085,32 @@ cmd_rollback() {
   [[ -z "$tmp_topic_engine_freeze" ]] || mv "$tmp_topic_engine_freeze" "$DEPLOY_TOPIC_ENGINE_FREEZE"
   [[ -z "$tmp_version" ]] || mv "$tmp_version" "$DEPLOY_VERSION"
 
-  echo "ROLLBACK: PASS"
+  local registry_result registry_code=0
+  registry_result="$(activation_record rollback-complete "$rollback_guard")" || registry_code=$?
+  if [[ "$registry_code" -eq 2 ]]; then
+    echo "ROLLBACK: INCOMPLETE"
+  else
+    echo "ROLLBACK: PASS"
+  fi
   echo "Restored: $backup"
-  if [[ ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_project_knowledge_bridge" || ! -f "$backup_human_review_workflow" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_canonical_knowledge_validator" || ! -f "$backup_canonical_knowledge_schema" || ! -f "$backup_canonical_knowledge_lifecycle" || ! -f "$backup_project_knowledge_input_schema" || ! -f "$backup_topic_review_workflow_schema" || ! -f "$backup_topic_review_workflow_schema_v2" || ! -f "$backup_dataset_governance" || ! -f "$backup_dataset_registry" || ! -f "$backup_topic_engine_governance" || ! -f "$backup_topic_engine_lifecycle" || ! -f "$backup_topic_engine_freeze" || ! -f "$backup_version" ]]; then
+  [[ -z "$registry_result" ]] || printf '%s\n' "$registry_result"
+  case "$registry_code" in
+    0) echo "REGISTRY: VERIFIED" ;;
+    3)
+      if [[ "$registry_result" == *'"status": "RECONCILIATION_REQUIRED"'* ]]; then
+        echo "REGISTRY: RECONCILIATION_REQUIRED"
+      else
+        echo "REGISTRY: PUBLICATION_PENDING"
+      fi
+      ;;
+    *) echo "REGISTRY: RECONCILIATION_REQUIRED; native verification incomplete" ;;
+  esac
+  if [[ ! -f "$backup_owned_tmp" || ! -f "$backup_group_sources" || ( ! -f "$backup_asr_completion" && ! -f "$backup/ASR_COMPLETION_ABSENT" ) || ! -f "$backup_topics" || ! -f "$backup_translate" || ! -f "$backup_evidence_foundation" || ! -f "$backup_project_knowledge_bridge" || ! -f "$backup_human_review_workflow" || ! -f "$backup_canonical_validator" || ! -f "$backup_canonical_schema" || ! -f "$backup_canonical_knowledge_validator" || ! -f "$backup_canonical_knowledge_schema" || ! -f "$backup_canonical_knowledge_lifecycle" || ! -f "$backup_project_knowledge_input_schema" || ! -f "$backup_topic_review_workflow_schema" || ! -f "$backup_topic_review_workflow_schema_v2" || ! -f "$backup_dataset_governance" || ! -f "$backup_dataset_registry" || ! -f "$backup_topic_engine_governance" || ! -f "$backup_topic_engine_lifecycle" || ! -f "$backup_topic_engine_freeze" || ! -f "$backup_version" ]]; then
     echo "Legacy backup: отсутствующие runtime/version-файлы оставлены без изменения."
   fi
   echo "Previous deployed state saved:"
   echo "$rollback_guard"
+  return "$registry_code"
 }
 
 show_help() {
@@ -1011,6 +1138,20 @@ show_help() {
       создаёт backup ~/bin, атомарно разворачивает master-файлы
       и проверяет SHA-256.
 
+  scripts/seminartext-dev deploy --complete
+
+      После разрешённого deploy выполняет существующие post-deploy Integrity
+      и full tests, сохраняет native receipt и вызывает центральный publisher.
+      Exit 3 означает PUBLICATION_PENDING, а не неудачный deployment.
+
+  scripts/seminartext-dev activation-complete BACKUP_PATH
+
+      Завершает post-checks инструментированного deploy без повторной установки.
+
+  scripts/seminartext-dev registry-retry BACKUP_PATH
+
+      Повторяет только публикацию сохранённого события; не deploy и не tests.
+
   scripts/seminartext-dev rollback list
 
       Показывает доступные deploy-backups.
@@ -1021,7 +1162,9 @@ show_help() {
 
   scripts/seminartext-dev rollback BACKUP
 
-      Восстанавливает конкретный backup.
+      Восстанавливает конкретный backup. После проверки точных восстановленных
+      байтов публикует только доказанный исторический rollback; exit 3 означает
+      RECONCILIATION_REQUIRED либо PUBLICATION_PENDING, без повторного rollback.
 HELP
 }
 
@@ -1037,7 +1180,20 @@ case "${1:-}" in
     cmd_checkpoint "$@"
     ;;
   deploy)
+    [[ $# -eq 1 || ( $# -eq 2 && "$2" == "--complete" ) ]] || die "deploy: expected optional --complete"
     cmd_deploy
+    if [[ "${2:-}" == "--complete" ]]; then
+      activation_record complete "$LAST_DEPLOY_BACKUP"
+    fi
+    ;;
+  activation-complete|registry-retry)
+    [[ $# -eq 2 && -d "$2" ]] || die "$1: exact operation directory required"
+    require_repo
+    if [[ "$1" == "activation-complete" ]]; then
+      activation_record complete "$2"
+    else
+      activation_record retry "$2"
+    fi
     ;;
   rollback)
     shift

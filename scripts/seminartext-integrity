@@ -7,4 +7,4 @@ INTEGRITY_PYTHON="${SEMINARTEXT_INTEGRITY_PYTHON:-python3}"
 
 cd "$REPO_ROOT"
 export PYTHONDONTWRITEBYTECODE=1
-exec "$INTEGRITY_PYTHON" -m integrity.runner --root "$REPO_ROOT" "$@"
+exec "$INTEGRITY_PYTHON" "$REPO_ROOT/seminartext_modules/owned_tmp.py" -- "$INTEGRITY_PYTHON" -m integrity.runner --root "$REPO_ROOT" "$@"

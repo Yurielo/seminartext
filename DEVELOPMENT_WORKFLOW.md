@@ -245,6 +245,11 @@ policy covers that exact operation.
 
 ### Autonomous Failure Recovery
 
+The existing post-deploy checks can be completed and durably recorded through
+the [native activation/central registry adapter](docs/architecture/NATIVE_ACTIVATION_REGISTRY.md).
+It does not authorize a deployment or replace any gate above; publication failure
+is reported separately from native activation success.
+
 Deterministic unit-test, lint/type, CI, generated-artifact, branch-drift,
 runtime-hash, documentation-state, and mechanically unambiguous merge-conflict
 failures are investigated and repaired autonomously when the repair remains in
@@ -369,3 +374,16 @@ The authoritative product journey and product-level Definition of Done are in
 No operating-model issue should change production Topic Engine algorithms,
 benchmark Gold data, experiment configurations, or CLI behavior unless a future
 Issue explicitly requires that scope.
+
+## Disposable development workspaces
+
+For temporary test/build/render/research subprocess work use
+`scripts/seminartext-owned-run COMMAND [ARGS...]`. It supplies an owned TMPDIR,
+cleans the exact workspace after exit/error/cancellation, and safely recovers
+crash leftovers on the next run. The full CI suite and Integrity use this
+mechanism. Hash-locked historical research adapters remain byte-identical;
+execute them through this runner rather than modifying their historical bytes.
+Use an explicit persistent output for deliberately retained diagnostic evidence;
+do not place venvs, exports, candidate builds or evidence archives in system TMP.
+Foreign/unknown/busy workspaces are retained, and exhausted owned capacity
+blocks new work. No global prefix/age cleanup is allowed.

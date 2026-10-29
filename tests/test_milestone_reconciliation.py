@@ -398,11 +398,21 @@ def test_completed_milestones_and_issue_68_active():
         assert completed["implementation_state"] == "COMPLETE"
         assert completed["human_gate"] == "SATISFIED"
         assert completed["runtime_reconciliation_complete"] is True
-    assert issue_68["status"] == "AUTHORIZED_READY_TO_EXECUTE"
+    assert issue_68["status"] == "IN_PROGRESS"
+    assert issue_68["implementation_state"] == "IN_PROGRESS"
     assert issue_68["decision"] == "AUTHORIZED_IMPLEMENTATION"
     assert issue_68["authorized"] is True
     assert issue_68["accepted"] is False
     assert issue_68["human_gate"] == "AUTO_UNTIL_DOMAIN_REVIEW"
+    state = json.loads((ROOT / "SEMINARTEXT_4_STATE.json").read_text())
+    priority = state["vertical_first_priority"]
+    assert priority == contract["vertical_first_priority"]
+    assert priority["decision"] == "APPROVED_ROADMAP_PRIORITY"
+    assert priority["s2_implementation_authorized"] is False
+    assert priority["s3_implementation_authorized"] is False
+    assert contract["next_eligible_milestone_id"] is None
+    assert contract["next_issue_allowed"] is False
+    assert "execute_s2_cross_seminar_knowledge_accumulation" in contract["blocked_actions"]
 
 
 def test_dataset_d_remains_locked_after_r3_acceptance():

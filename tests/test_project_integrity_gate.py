@@ -130,6 +130,9 @@ main "$@"
         "seminartext_modules/evidence_foundation.py",
         "seminartext_modules/project_knowledge_bridge.py",
         "seminartext_modules/human_review_workflow.py",
+        "seminartext_modules/owned_tmp.py",
+        "seminartext_modules/group_sources.py",
+        "seminartext_modules/asr_completion.py",
         "seminartext_modules/dataset_governance.py",
         "seminartext_modules/topic_engine_governance.py",
         "schemas/validate_canonical_evidence_v1.py",
@@ -389,7 +392,7 @@ def test_json_report_contract_and_exit_semantics(tmp_path):
     decoded = json.loads(encoded)
     assert exit_code == 0
     assert decoded["report_schema_version"] == 2
-    assert decoded["integrity_contract_version"] == "1.1.0"
+    assert decoded["integrity_contract_version"] == "1.1.1"
     assert decoded["control_plane_reconciled"] is True
     assert decoded["next_issue_allowed"] is False
     assert decoded["human_gate"] == "AUTO_UNTIL_DOMAIN_REVIEW"
