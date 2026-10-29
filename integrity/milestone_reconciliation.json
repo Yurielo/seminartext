@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "contract_version": "2026-09-04.issue-68",
+  "contract_version": "2026-10-29.issue-68-progress",
   "github_lifecycle_check": "NOT_RUN",
   "authoritative_sources": {
     "state": {
@@ -35,7 +35,7 @@
   "next_eligible_milestone_id": null,
   "state_current_milestone": "issue_68_real_multi_source_vertical_slice",
   "state_current_stage": "issue_68_real_multi_source_vertical_slice",
-  "lifecycle_state": "AUTHORIZED_READY_TO_EXECUTE",
+  "lifecycle_state": "IN_PROGRESS",
   "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
   "active_actions": [
     "execute_issue_68_real_multi_source_vertical_slice"
@@ -47,7 +47,9 @@
     "execute_issue_65",
     "execute_issue_66",
     "dataset_d_blind_evaluation",
-    "issue_113_cross_video_experiment"
+    "issue_113_cross_video_experiment",
+    "execute_s2_cross_seminar_knowledge_accumulation",
+    "execute_s3_integra_knowledge_navigation"
   ],
   "authorization_states": {
     "audit_r4": "NOT_AUTHORIZED",
@@ -58,6 +60,21 @@
     "issue_113_cross_video_experiment": "NOT_AUTHORIZED",
     "issue_65": "NOT_AUTHORIZED",
     "issue_66": "NOT_AUTHORIZED"
+  },
+  "vertical_first_priority": {
+    "authority": "Yurielo/four-product-architecture@475c5f2d826a40f34f234508b83618c64aecd851:ROADMAP.md",
+    "decision": "APPROVED_ROADMAP_PRIORITY",
+    "sequence": [
+      "S1_ISSUE_68_ACTIVE_INCOMPLETE",
+      "EXISTING_RELEASE_INTEGRATION_READINESS_CHECKPOINT_BLOCKED",
+      "S2_CROSS_SEMINAR_KNOWLEDGE_ACCUMULATION_APPROVED_PRIORITY_NOT_AUTHORIZED",
+      "S3_INTEGRA_KNOWLEDGE_NAVIGATION_REQUIRES_SEPARATE_AUTHORIZATION"
+    ],
+    "s2_implementation_authorized": false,
+    "s3_implementation_authorized": false,
+    "topic_automation_or_dataset_d_prerequisite_to_s2": false,
+    "seminartext_owns_canonical_knowledge": true,
+    "obsidian_is_derived_presentation": true
   },
   "milestones": [
     {
@@ -327,12 +344,12 @@
     {
       "milestone_id": "issue_68_real_multi_source_vertical_slice",
       "issue_id": 68,
-      "status": "AUTHORIZED_READY_TO_EXECUTE",
+      "status": "IN_PROGRESS",
       "decision": "AUTHORIZED_IMPLEMENTATION",
       "disposition": "IN_PROGRESS",
       "accepted": false,
       "authorized": true,
-      "implementation_state": "NOT_STARTED",
+      "implementation_state": "IN_PROGRESS",
       "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
       "next_allowed_actions": [],
       "blocked_actions": [
@@ -343,7 +360,10 @@
       "runtime_reconciliation_complete": true,
       "evidence_refs": [
         "https://github.com/Yurielo/seminartext/issues/68",
-        "SEMINARTEXT_4_ROADMAP.md#current-next-action"
+        "SEMINARTEXT_4_ROADMAP.md#current-next-action",
+        "https://github.com/Yurielo/seminartext/pull/121/commits/cea2d1ed964ad87593a458bfe595e6ce198f99e7",
+        "analysis/issue_68_vertical_slice/domain_review_v1/domain_review_qa.json",
+        "analysis/issue_68_vertical_slice/domain_review_v1/batch_review.json"
       ],
       "historical": false,
       "prerequisite_milestones": [
@@ -351,7 +371,7 @@
         "issue_113_human_review_and_root_cause",
         "autonomous_operating_model"
       ],
-      "state_sequence_status": "authorized_ready_to_execute"
+      "state_sequence_status": "in_progress"
     }
   ],
   "active_assertions": [

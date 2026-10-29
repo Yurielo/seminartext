@@ -1,17 +1,17 @@
 {
   "schema_version": 3,
   "seminartext_version": "4.0.0",
-  "updated": "2026-09-04",
+  "updated": "2026-10-29",
   "policy_checkpoint": "evidence_first_parallel_v1",
   "current_stage": "issue_68_real_multi_source_vertical_slice",
   "current_milestone": "issue_68_real_multi_source_vertical_slice",
   "current_project": "Стресс код",
   "control_plane": {
-    "contract_version": "2026-09-04.issue-68",
+    "contract_version": "2026-10-29.issue-68-progress",
     "current_milestone_id": "issue_68_real_multi_source_vertical_slice",
     "last_completed_milestone_id": "autonomous_operating_model",
     "next_eligible_milestone_id": null,
-    "lifecycle_state": "AUTHORIZED_READY_TO_EXECUTE",
+    "lifecycle_state": "IN_PROGRESS",
     "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
     "next_issue_allowed": false,
     "active_actions": [
@@ -23,7 +23,9 @@
       "execute_issue_65",
       "execute_issue_66",
       "dataset_d_blind_evaluation",
-      "issue_113_cross_video_experiment"
+      "issue_113_cross_video_experiment",
+      "execute_s2_cross_seminar_knowledge_accumulation",
+      "execute_s3_integra_knowledge_navigation"
     ],
     "authorization_states": {
       "audit_r4": "NOT_AUTHORIZED",
@@ -109,9 +111,9 @@
         "runtime_reconciliation_complete": true
       },
       "issue_68_real_multi_source_vertical_slice": {
-        "status": "AUTHORIZED_READY_TO_EXECUTE",
+        "status": "IN_PROGRESS",
         "accepted": false,
-        "implementation_state": "NOT_STARTED",
+        "implementation_state": "IN_PROGRESS",
         "human_gate": "AUTO_UNTIL_DOMAIN_REVIEW",
         "runtime_reconciliation_required": false,
         "runtime_reconciliation_complete": true
@@ -130,6 +132,43 @@
     "version": "4.0",
     "status": "defined_not_yet_product_integrated",
     "definition": "SEMINARTEXT_4_MVP_DEFINITION.md"
+  },
+  "issue_68_progress": {
+    "issue": "https://github.com/Yurielo/seminartext/issues/68",
+    "draft_pr": "https://github.com/Yurielo/seminartext/pull/121",
+    "verified_pr_head": "cea2d1ed964ad87593a458bfe595e6ce198f99e7",
+    "qa_ref": "analysis/issue_68_vertical_slice/domain_review_v1/domain_review_qa.json",
+    "batch_ref": "analysis/issue_68_vertical_slice/domain_review_v1/batch_review.json",
+    "registered_source_count": 7,
+    "canonical_evidence_and_word_timeline_video_count": 4,
+    "registered_documents_without_canonical_evidence_count": 3,
+    "provisional_machine_topic_proposals_days_2_to_4": 262,
+    "qa_classified_provisional_topic_units_days_2_to_4": 182,
+    "concept_candidates": 22,
+    "topic_concept_links": 255,
+    "recorded_domain_review_decisions": 21,
+    "active_unresolved_link_exceptions": 52,
+    "deferred_links": 1,
+    "transcript_assurance": "MACHINE_ORIGIN_NOT_FULLY_HUMAN_VERIFIED",
+    "semantic_authority": "PROVISIONAL_UNREVIEWED",
+    "domain_review_pending": true,
+    "semantic_acceptance_complete": false,
+    "accepted_knowledge_export_complete": false
+  },
+  "vertical_first_priority": {
+    "authority": "Yurielo/four-product-architecture@475c5f2d826a40f34f234508b83618c64aecd851:ROADMAP.md",
+    "decision": "APPROVED_ROADMAP_PRIORITY",
+    "sequence": [
+      "S1_ISSUE_68_ACTIVE_INCOMPLETE",
+      "EXISTING_RELEASE_INTEGRATION_READINESS_CHECKPOINT_BLOCKED",
+      "S2_CROSS_SEMINAR_KNOWLEDGE_ACCUMULATION_APPROVED_PRIORITY_NOT_AUTHORIZED",
+      "S3_INTEGRA_KNOWLEDGE_NAVIGATION_REQUIRES_SEPARATE_AUTHORIZATION"
+    ],
+    "s2_implementation_authorized": false,
+    "s3_implementation_authorized": false,
+    "topic_automation_or_dataset_d_prerequisite_to_s2": false,
+    "seminartext_owns_canonical_knowledge": true,
+    "obsidian_is_derived_presentation": true
   },
   "architecture": {
     "accepted_direction": "evidence_first_parallel_development",
@@ -538,7 +577,7 @@
       "not_blocked_by": "topic_engine.stable"
     },
     "human_review": {
-      "status": "contract_v2_and_stress_code_review_complete_domain_review_remains_intrinsic"
+      "status": "contract_v2_and_partial_stress_code_decisions_applied_domain_review_pending"
     },
     "obsidian_schema": {
       "status": "bounded_prototype_implemented",
@@ -703,14 +742,15 @@
     {"order": 15, "milestone": "issue_104_product_bridge", "status": "complete_accepted"},
     {"order": 16, "milestone": "issue_113_human_review_and_root_cause", "status": "complete_accepted"},
     {"order": 17, "milestone": "autonomous_operating_model", "status": "complete_accepted"},
-    {"order": 18, "milestone": "issue_68_real_multi_source_vertical_slice", "status": "authorized_ready_to_execute"},
+    {"order": 18, "milestone": "issue_68_real_multi_source_vertical_slice", "status": "in_progress"},
     {"order": 19, "milestone": "release_integration_readiness_audit", "status": "pending_after_issue_68"},
-    {"order": 20, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "blocked_not_current"},
-    {"order": 21, "milestone": "dataset_d_blind_evaluation", "status": "blocked_not_current"},
-    {"order": 22, "milestone": "define_and_assess_topic_automation_usable", "status": "pending"},
-    {"order": 23, "milestone": "expand_knowledge_engine", "status": "pending"},
-    {"order": 24, "milestone": "multi_seminar_knowledge_mvp", "status": "pending"},
-    {"order": 25, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
+    {"order": 20, "milestone": "s2_cross_seminar_knowledge_accumulation", "status": "approved_priority_not_authorized"},
+    {"order": 21, "milestone": "s3_integra_knowledge_navigation", "status": "future_separate_authorization"},
+    {"order": 22, "milestone": "repair_prepare_dataset_d_topic_agnostically", "status": "blocked_not_current"},
+    {"order": 23, "milestone": "dataset_d_blind_evaluation", "status": "blocked_not_current"},
+    {"order": 24, "milestone": "define_and_assess_topic_automation_usable", "status": "pending"},
+    {"order": 25, "milestone": "expand_knowledge_engine", "status": "pending"},
+    {"order": 26, "milestone": "later_cross_seminar_and_product_outputs", "status": "future"}
   ],
   "next_actions": [
     "execute_issue_68_real_multi_source_vertical_slice"
