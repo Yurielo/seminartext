@@ -126,6 +126,7 @@ def test_every_dispatched_user_command_is_discoverable_in_main_help():
                 "project-review-status",
                 "project-review-v2-apply",
                 "project-review-v2-status",
+        "project-semantic-workflow",
         "project-topic-benchmark-check",
         "project-topic-benchmark-init",
         "project-topic-benchmark-label",
