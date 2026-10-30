@@ -1,5 +1,6 @@
 """Two synthetic sources. No real seminar, ASR or human verification is used."""
 import argparse
+import copy
 import io
 import json
 import os
@@ -29,13 +30,19 @@ def fixture(root, case=CASES[0]):
                transcript_provenance=dict(origin='machine_generated', method='synthetic fixture; no ASR performed',
                  verification_state='machine_unverified', verification_ranges=[], reviewer=None))
     offset=0
+    template_cue=copy.deepcopy(bundle['cues'][0])
+    cues=[]
     for i,(w,token) in enumerate(zip(bundle['words'],text.split())):
         w.update(text=token,char_start=offset,char_end=offset+len(token),start_seconds=i*10,end_seconds=(i+1)*10,
                  alignment_status='aligned',qa_flags=[],confidence=None,
-                 timing_provenance=dict(kind='forced_alignment',alignment_run_id=bundle['alignment_runs'][0]['id'],method=None))
+                 timing_provenance=dict(kind='forced_alignment',alignment_run_id=bundle['alignment_runs'][0]['id'],method=None),
+                 source_cue_ids=[f"{rev['id']}:cue:{i:06d}"])
+        cue=copy.deepcopy(template_cue)
+        cue.update(id=f"{rev['id']}:cue:{i:06d}",sequence=i,text=token,char_start=offset,char_end=offset+len(token))
+        cue['source_locator'].update(start_seconds=i*10,end_seconds=(i+1)*10)
+        cues.append(cue)
         offset+=len(token)+1
-    cue=bundle['cues'][0];cue.update(text=text,char_start=0,char_end=len(text),start_seconds=0,end_seconds=50)
-    cue['source_locator'].update(start_seconds=0,end_seconds=50)
+    bundle['cues']=cues
     for a in bundle['alignment_runs']:
         a.update(source_content_sha256=src['content_sha256'],transcript_text_sha256=rev['text_sha256'])
     (root/'evidence').mkdir();(root/'evidence/canonical_bundle.json').write_bytes(auto.json_bytes(bundle))

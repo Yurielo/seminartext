@@ -83,12 +83,17 @@ retained at `/Users/yurielokhin/.codex/task-evidence/seminartext-issue160`.
 
 These runs exposed an adapter granularity defect: the initial adapter supplied
 individual Words where the engine expects transcript segments. The adapter was
-corrected to use existing cues with exact Word mapping. The final corrected
-adapter has regression coverage but **has not had another actual model smoke**:
-the authorized maximum of two source-level live runs has been consumed.
-Do not claim the live acceptance criterion or overall task COMPLETE. A bounded
-authorization to repeat the two corrected-adapter smoke runs is still required;
-no real seminar review or new model is required by this engineering boundary.
+corrected to use existing cues with exact Word mapping. Two authorized repeated
+smokes then reached this corrected adapter, but both fixtures supplied just one
+cue. The model returned the only valid boundary ID twelve times; the adapter
+rejected those duplicates and published no package. The fixture now supplies a
+multi-cue exact Word partition, matching the existing engine's source shape.
+
+The final adapter and revised synthetic fixtures have regression coverage but
+need a further bounded live smoke to prove the corrected fixture and adapter
+together. The authorized two repeated runs have been consumed. Do not claim the
+live acceptance criterion or overall task COMPLETE. Further live execution needs
+explicit authorization; no real seminar review or new model is required.
 
 ## Authority evidence
 
