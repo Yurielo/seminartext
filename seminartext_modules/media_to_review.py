@@ -65,11 +65,14 @@ def prerequisites():
 def write_state(directory, state):
     directory = Path(directory); directory.mkdir(parents=True, exist_ok=True)
     payload = review.canonical_bytes(state); key = hashlib.sha256(payload).hexdigest()
-    persist_revision(directory / f"state-{key}.json", state)
+    snapshots = sorted(directory.glob("state-*.json"))
+    persist_revision(directory / f"state-{len(snapshots):08d}-{key}.json", state)
 
 
 def latest(directory):
     files = sorted(Path(directory).glob("state-*.json")); require(files, "intake has not been prepared")
+    require(all(path.name.startswith(f"state-{number:08d}-") for number, path in enumerate(files)),
+            "non-contiguous intake state history")
     state = load(files[-1]); require(state.get("artifact_type") == STATE and state.get("schema_version") == VERSION, "invalid intake state")
     return state
 
