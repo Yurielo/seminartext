@@ -29,94 +29,78 @@ ACTIONS = {
 SCHEMA_PATH = Path(__file__).resolve().parents[2] / "schemas/issue_68_batch_review_v1.schema.json"
 
 # These are non-authoritative review proposals for the bounded Issue #68 packet.
-# They are intentionally presentation-only: ``apply_batch`` still accepts only a
-# hash-bound, explicit Product Owner decision.  Keeping the proposals alongside
-# the existing renderer prevents a second review format from drifting away from
-# the governed JSON package.
-RECOMMENDATION_PROFILES = {
-    "ACCEPT": (
-        "Контекст показывает, что понятие является предметом объяснения или упражнения в этой теме.",
-        "средняя: решение опирается на доступный фрагмент и требует подтверждения владельца",
-    ),
-    "REJECT": (
-        "Понятие названо как пример, фон или сопутствующее действие; предмет темы другой.",
-        "средняя: в доступном контексте нет самостоятельного раскрытия понятия",
-    ),
-    "DEFER": (
-        "Доступного фрагмента недостаточно, чтобы отличить предметное обсуждение от упоминания.",
-        "высокая: перед решением нужен более широкий исходный контекст",
-    ),
-    "CONFIRMED_REJECT": (
-        "Владелец уже отклонил именно эту связь: «коррекция» здесь лишь упомянута, а не раскрыта по существу.",
-        "подтверждено владельцем; техническое внесение ожидает hash-bound submission",
-    ),
-}
-
-RECOMMENDATIONS = {
-    "issue_68_link_issue_68_video_002_topic_proposal_069_correction": "CONFIRMED_REJECT",
-    "issue_68_link_issue_68_video_002_topic_proposal_082_correction": "REJECT",
-    "issue_68_link_issue_68_video_003_topic_proposal_001_correction": "REJECT",
-    "issue_68_link_issue_68_video_004_topic_proposal_021_correction": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_027_correction": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_032_correction": "REJECT",
-    "issue_68_link_issue_68_video_004_topic_proposal_047_correction": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_057_correction": "ACCEPT",
-    "issue_68_link_issue_68_video_002_topic_proposal_007_protocol": "ACCEPT",
-    "issue_68_link_issue_68_video_002_topic_proposal_061_protocol": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_061_protocol": "DEFER",
-    "issue_68_link_issue_68_video_002_topic_proposal_002_emotion": "REJECT",
-    "issue_68_link_issue_68_video_002_topic_proposal_058_emotion": "ACCEPT",
-    "issue_68_link_issue_68_video_002_topic_proposal_084_emotion": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_006_emotion": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_042_emotion": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_071_emotion": "DEFER",
-    "issue_68_link_issue_68_video_003_topic_proposal_072_emotion": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_026_emotion": "ACCEPT",
-    "issue_68_link_issue_68_video_002_topic_proposal_010_nervous_system": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_026_neural_connections_and_networks": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_086_nervous_system": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_090_nervous_system": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_092_nervous_system": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_014_nervous_system": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_014_neural_connections_and_networks": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_040_nervous_system": "REJECT",
-    "issue_68_link_issue_68_video_003_topic_proposal_031_adaptation": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_026_brain": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_041_brain": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_085_brain": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_088_brain": "DEFER",
-    "issue_68_link_issue_68_video_004_topic_proposal_008_meridians": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_039_meridians": "REJECT",
-    "issue_68_link_issue_68_video_004_topic_proposal_043_meridians": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_076_extraocular_muscles": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_074_extraocular_muscles": "ACCEPT",
-    "issue_68_link_issue_113_reviewed_topic_08_consciousness": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_015_three_level_awareness": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_016_three_level_awareness": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_019_three_level_awareness": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_020_three_level_awareness": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_019_subconscious": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_071_subconscious": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_082_subconscious": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_052_subconscious": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_045_memory": "ACCEPT",
-    "issue_68_link_issue_68_video_003_topic_proposal_061_memory": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_013_memory": "REJECT",
-    "issue_68_link_issue_68_video_004_topic_proposal_015_memory": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_077_memory": "ACCEPT",
-    "issue_68_link_issue_68_video_004_topic_proposal_042_trauma": "ACCEPT",
+# They are presentation-only: ``apply_batch`` still requires a hash-bound,
+# explicit Product Owner decision.  Each note cites the evidence actually shown
+# for its link; no action is inferred from a label or keyword alone.
+RECOMMENDATIONS: dict[str, tuple[str, str, str, str]] = {
+    "issue_68_link_issue_68_video_002_topic_proposal_069_correction": ("REJECT", "В теме о целях сессии слово «коррекциями» служит общим описанием результата сессий, без объяснения терапевтического действия.", "подтверждено владельцем; ledger ждёт hash-bound submission", "CONFIRMED_OWNER_DECISION"),
+    "issue_68_link_issue_68_video_002_topic_proposal_082_correction": ("REJECT", "Фрагмент объясняет шкалу тестирования УНЭ/УП; самостоятельного объяснения коррекции как терапевтического действия в нём нет.", "средняя: доступный диапазон не развивает понятие", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_001_correction": ("REJECT", "Во вводном обсуждении участницу просят сообщить результат после показательной коррекции; это отчёт о прошлом примере, а не разбор коррекции.", "низкая: роль упоминания явно справочная", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_021_correction": ("ACCEPT", "Инструкция клиенту задаёт условие «когда коррекция пройдёт» и сопровождает его конкретным действием и проверкой мышц; коррекция — часть демонстрируемой процедуры.", "средняя: термин не определяется отдельно", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_027_correction": ("ACCEPT", "После вопросов о родителях ведущий предписывает снять стресс и провести коррекцию; это следующий рабочий шаг темы, а не случайное упоминание.", "средняя: источник не раскрывает полный метод коррекции", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_032_correction": ("REJECT", "При разборе рефлекса Моро сказано, что эмоциональными коррекциями проблему не решить, и предлагаются другие средства; коррекция названа только как неуместный вариант.", "низкая: отрицательная роль понятия выражена прямо", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_047_correction": ("ACCEPT", "Тема учит находить точку для коррекции мышечным тестом, перечисляет точки и интерпретирует слабый ответ; понятие составляет предмет процедуры.", "низкая: связь поддержана последовательным описанием", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_057_correction": ("ACCEPT", "Фрагмент объясняет, что при коррекции высвобождается энергия, и как её направить после сессии; это предметное последствие коррекции.", "средняя: объясняется эффект, а не техника", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_002_topic_proposal_007_protocol": ("ACCEPT", "Претесты прямо названы первым пунктом протокола и объяснены как подготовка мышцы к тестированию.", "низкая: роль в протоколе названа явно", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_002_topic_proposal_061_protocol": ("ACCEPT", "Ведущий вводит последовательность пунктов протокола, включая претесты и получение разрешения на работу; протокол организует тему.", "низкая: есть последовательное описание шагов", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_061_protocol": ("DEFER", "В доступном коротком фрагменте лишь обещана демонстрация «в одну сессию»; содержание и роль протокола не раскрыты.", "высокая: требуется более широкий исходный контекст", "INSUFFICIENT_EVIDENCE"),
+    "issue_68_link_issue_68_video_002_topic_proposal_002_emotion": ("REJECT", "При введении мышечного тестирования эмоции перечислены как один из видов стресса наряду с химическим; самостоятельного разбора эмоций нет.", "низкая: понятие используется как классификационный пример", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_002_topic_proposal_058_emotion": ("ACCEPT", "Страх, гнев и обида проверяются как эмоциональные причины слабого ответа, после чего описывается работа с найденной эмоцией.", "низкая: эмоции являются объектом проверки", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_002_topic_proposal_084_emotion": ("ACCEPT", "Ведущий предлагает измерять уровень негативных эмоций и демонстрирует это тестирование перед упражнением для иммунитета.", "средняя: эмоции — рабочий параметр, хотя тема включает второй предмет", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_006_emotion": ("ACCEPT", "Эмоции названы одной из сторон треугольника здоровья и фактором патологических состояний в объяснении приоритетов.", "низкая: понятие раскрыто в модели темы", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_042_emotion": ("ACCEPT", "Карта эмоций названа одним из основных инструментов при антистрессовой коррекции и обсуждении материала.", "средняя: раскрыта инструментальная, а не теоретическая роль", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_071_emotion": ("DEFER", "Фрагмент говорит о самоощущении на карте эмоций, но основное объяснение посвящено смене модели поведения и терапии подсознания.", "высокая: доступный контекст не устанавливает, является ли эмоция самостоятельным предметом", "INSUFFICIENT_EVIDENCE"),
+    "issue_68_link_issue_68_video_003_topic_proposal_072_emotion": ("ACCEPT", "В коррекции ДПДГ состояние определяется по карте эмоций и заменяется уравновешивающим состоянием; эмоции управляют демонстрацией.", "средняя: термин раскрыт через применение карты", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_026_emotion": ("ACCEPT", "При разборе поведенческих моделей ведущий прямо предписывает определять эмоции для состояния родителей и раннего периода.", "средняя: роль эмоций процедурно существенна", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_002_topic_proposal_010_nervous_system": ("ACCEPT", "Перенапряжение нервной системы описано как состояние, его признаки и способ снять блокировку объясняются в теме.", "низкая: понятие — предмет объяснения", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_026_neural_connections_and_networks": ("ACCEPT", "Текст объясняет построение нервных связей и сетей, которые запоминают жизненный опыт и направляют реакции.", "низкая: понятие раскрыто прямо", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_086_nervous_system": ("ACCEPT", "Позитивное воспоминание описано как новая опора, на которую будет опираться нервная система при формировании поведения.", "средняя: роль системы объяснена причинно", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_090_nervous_system": ("ACCEPT", "В теме негативного поведения нервная система названа анализатором базы опыта, для которой создаётся позитивная опора.", "средняя: понятие поддерживает объяснение поведения", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_092_nervous_system": ("ACCEPT", "Фрагмент связывает позитивный опыт с тем, на что будет опираться нервная система, и помещает это в ход работы по протоколу.", "средняя: роль системы предметно объяснена", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_014_nervous_system": ("ACCEPT", "Семейная модель поведения объясняется тем, что нервная система сохраняет полезное для выживания и записывает его в генетике.", "средняя: это авторское объяснение причин модели", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_014_neural_connections_and_networks": ("ACCEPT", "Та же семейная модель прямо описана как запись в психике с помощью нейронных связей.", "низкая: связь сформулирована в источнике", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_040_nervous_system": ("REJECT", "В доступном диапазоне перечислены меридианы, гимнастика для мозга и вопросы; «нервная система» не объясняется и не упоминается.", "низкая: исходная опора для связи отсутствует", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_031_adaptation": ("ACCEPT", "Сужение поля зрения объяснено как реакция на стресс и связано с нереализованными адаптационными механизмами.", "низкая: понятие раскрыто причинно", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_026_brain": ("REJECT", "В теме о нервных сетях мозг упомянут лишь в пояснении, что вместе с ним прекращается жизненный опыт; предметом остаются сети и опыт.", "низкая: это фоновое упоминание", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_041_brain": ("ACCEPT", "Антистрессовая коррекция связывается с затылочной частью мозга, зрительной корой и лобными долями; мозг объясняет наблюдаемый эффект.", "низкая: есть несколько предметных ссылок", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_085_brain": ("ACCEPT", "Рассказ о Пенфилде связывает разные части мозга с воспроизведением событий и описывает хранение воспоминаний.", "низкая: мозг — предмет примера", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_088_brain": ("DEFER", "Доступный диапазон разбирает память и нейронные связи; явного предметного объяснения мозга в нём нет.", "высокая: без более широкого контекста нельзя установить связь", "INSUFFICIENT_EVIDENCE"),
+    "issue_68_link_issue_68_video_004_topic_proposal_008_meridians": ("ACCEPT", "В ходе закладки позитива ведущий даёт последовательность действий, где после дыхания нужно промахивать меридианы.", "средняя: меридианы входят в демонстрируемое упражнение", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_039_meridians": ("REJECT", "В длинном разборе генетической линии промахивание меридианов перечислено среди общей разминки, без объяснения меридианов.", "низкая: понятие остаётся фоновым действием", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_043_meridians": ("DEFER", "Источник упоминает меридианы при перечислении материалов, но не объясняет их роль в работе с информацией.", "высокая: доступный диапазон не показывает предметную связь", "INSUFFICIENT_EVIDENCE"),
+    "issue_68_link_issue_68_video_003_topic_proposal_076_extraocular_muscles": ("ACCEPT", "При сравнении очной и онлайн работы объясняется, что движение глаз по фигурам вовлекает глазодвигательные мышцы.", "низкая: физиологическая роль названа прямо", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_074_extraocular_muscles": ("ACCEPT", "Упражнение требует двигать глазами по кругу с максимальной траекторией, ограниченной глазодвигательными мышцами.", "низкая: понятие является частью инструкции", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_113_reviewed_topic_08_consciousness": ("ACCEPT", "Ведущий прямо формулирует уровни развития сознания по Дэвиду Хокинсу и поясняет их через близость к состоянию счастья.", "низкая: понятие объяснено самостоятельно", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_015_three_level_awareness": ("ACCEPT", "Три уровня — сознание, подсознание и тело — перечислены и применяются для определения уровня проблемы тестированием.", "низкая: состав и применение понятия раскрыты", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_016_three_level_awareness": ("ACCEPT", "Участникам предлагается различить сознание, подсознание и тело по сильному и слабому ответу; три уровня образуют задание.", "средняя: объяснение краткое, но процедурно полное", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_019_three_level_awareness": ("ACCEPT", "Вопрос «где находится проблема» требует выбора между сознанием, подсознанием и телом; это непосредственное применение трёх уровней.", "средняя: контекст учебного примера достаточен", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_020_three_level_awareness": ("ACCEPT", "Последовательно тестируются сознание, подсознание и тело, чтобы определить уровень проблемы.", "низкая: все элементы понятия задействованы", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_019_subconscious": ("DEFER", "Подсознание лишь названо одним вариантом ответа наряду с сознанием и телом; отдельного объяснения подсознания нет.", "высокая: не следует превращать один ярлык в самостоятельную связь", "INSUFFICIENT_EVIDENCE"),
+    "issue_68_link_issue_68_video_003_topic_proposal_071_subconscious": ("ACCEPT", "Терапия ДПДГ описана как работа со скрытыми областями, когда проблема находится на уровне подсознания или тела.", "средняя: подсознание — условие и предмет терапевтического объяснения", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_082_subconscious": ("ACCEPT", "Перед выбором коррекции ДПДГ проверяются сознание, подсознание и тело; подсознание — необходимый параметр процедуры.", "средняя: роль процедурная, а не отдельная теория", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_052_subconscious": ("DEFER", "В теме домашних заданий подсознание появляется в незавершённом объяснении, почему клиент не выполняет задание.", "высокая: доступный фрагмент не раскрывает причинную модель", "INSUFFICIENT_EVIDENCE"),
+    "issue_68_link_issue_68_video_003_topic_proposal_045_memory": ("ACCEPT", "Карта эмоций включает клеточную память как уровень тела и затем объясняет структуру уровней и категорий карты.", "средняя: память является элементом объясняемой карты", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_003_topic_proposal_061_memory": ("ACCEPT", "Ведущий просит восстановить событие 2005 года и объясняет, что при отсутствии воспоминания настаивать не следует; воспоминание управляет упражнением.", "средняя: используется конкретный эпизод, а не определение памяти", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_013_memory": ("REJECT", "Текст обсуждает наследование событий и генную информацию предков, но не объясняет память как понятие.", "средняя: нельзя приравнять генную информацию к памяти без решения владельца", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_015_memory": ("ACCEPT", "Нервная система описана как сохраняющая опыт, полезный для выживания, включая запись генной информации.", "средняя: авторское употребление прямо связывает тему с запоминанием", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_077_memory": ("ACCEPT", "В упражнении школьное воспоминание наполняется погодой, запахами и позитивным состоянием; воспоминание — материал работы.", "низкая: процедура построена вокруг воспоминания", "MACHINE_RECOMMENDATION"),
+    "issue_68_link_issue_68_video_004_topic_proposal_042_trauma": ("ACCEPT", "Позитивное воспоминание создаётся взамен травмирующего; травма задаёт предмет замены в описанной технике.", "средняя: понятие используется как необходимый контраст", "MACHINE_RECOMMENDATION"),
 }
 
 
-def recommendation_for(entry: dict[str, Any]) -> tuple[str, str, str]:
+def recommendation_for(entry: dict[str, Any]) -> tuple[str, str, str, str]:
     """Return a presentation-only recommendation for one governed entry."""
-    # A rebuild can expose a different unresolved item after a valid, atomic
-    # human decision.  It must remain reviewable, but no prior proposal may be
-    # silently extended to it; DEFER is the only safe presentation fallback.
-    profile = RECOMMENDATIONS.get(entry["link_id"], "DEFER")
-    action = "REJECT" if profile == "CONFIRMED_REJECT" else profile
-    rationale, uncertainty = RECOMMENDATION_PROFILES[profile]
-    return action, rationale, uncertainty
+    recommendation = RECOMMENDATIONS.get(entry["link_id"])
+    if recommendation is not None:
+        return recommendation
+    # A valid later rebuild can expose a different unresolved link. Do not
+    # extend a prior semantic proposal to it: present the safe default only.
+    return (
+        "DEFER",
+        "Для этой новой нерешённой связи в пакете ещё нет проверенной индивидуальной рекомендации.",
+        "высокая: нужен отдельный анализ исходного контекста",
+        "INSUFFICIENT_EVIDENCE",
+    )
 
 
 def validate_schema(value: Any) -> None:
@@ -170,6 +154,11 @@ def prepare(qa_path: Path, evidence_path: Path, semantic_path: Path) -> dict[str
             raise ValueError(f"decided link remains unresolved: {link_id}")
         topic = topics[link["input_topic_reference"]]
         concept = concepts[link["candidate_concept_reference"]]
+        topic_start = words[topic["start_word_id"]]["sequence"]
+        topic_end = words[topic["end_word_id"]]["sequence"]
+        topic_text = " ".join(word["text"] for word in evidence["words"]
+                             if word["source_id"] == link["source_id"]
+                             and topic_start <= word["sequence"] <= topic_end)
         spans, source_texts = [], []
         for support in link["evidence_support"]:
             start = words[support["intersection_start_word_id"]]
@@ -192,14 +181,15 @@ def prepare(qa_path: Path, evidence_path: Path, semantic_path: Path) -> dict[str
             raise ValueError(f"missing or mixed source revisions: {link_id}")
         pattern_key = link["candidate_concept_reference"].removeprefix("issue_68_candidate_concept_")
         concept_pattern = governed.CONCEPT_PATTERNS[pattern_key]
-        mention_excerpt = ""
-        for source_text in source_texts:
-            found = re.search(concept_pattern, source_text, re.IGNORECASE)
-            if found:
-                mention_excerpt = source_text[max(0, found.start() - 90):found.end() + 90]
-                break
-        if not mention_excerpt:
-            mention_excerpt = source_texts[0][:180]
+        # The old overlap-only preview was too short to support a human
+        # semantic decision.  Render a bounded excerpt from the full authored
+        # Topic range instead; the package still carries the exact hash-bound
+        # intersection ranges separately.
+        found = re.search(concept_pattern, topic_text, re.IGNORECASE)
+        if found:
+            mention_excerpt = topic_text[max(0, found.start() - 360):found.end() + 640]
+        else:
+            mention_excerpt = topic_text[:1000]
         exact_mentions = sum(span["exact_pattern_match_count"] for span in spans)
         entry = {
             "link_id": link_id,
@@ -281,24 +271,29 @@ def markdown(package: dict[str, Any]) -> str:
     for entry in package["active"]:
         by_concept.setdefault(entry["concept_label"], []).append(entry)
     for concept, entries in by_concept.items():
-        lines += [f"### {concept}", "", "| Источник | Тема | Контекст | Рекомендация | Основание и неопределённость |", "| --- | --- | --- | --- | --- |"]
+        lines += [f"### {concept}", "", "| Источник | Тема | Контекст | Статус | Рекомендация | Основание и неопределённость |", "| --- | --- | --- | --- | --- | --- |"]
         for entry in entries:
-            action, rationale, uncertainty = recommendation_for(entry)
+            action, rationale, uncertainty, status = recommendation_for(entry)
             context = entry["mention_excerpt"].replace("|", "\\|").replace("\n", " ")
             basis = f"{rationale} Неопределённость: {uncertainty}."
             lines.append("| " + " | ".join((
                 entry["source_id"], entry["topic_title"].replace("|", "\\|"), context,
-                action, basis.replace("|", "\\|"),
+                status, action, basis.replace("|", "\\|"),
             )) + " |")
         lines += ["", "Идентификаторы этой группы: " + ", ".join(
             f"`{entry['link_id']}`" for entry in entries) + ".", ""]
+    insufficient = [entry for entry in package["active"]
+                    if recommendation_for(entry)[3] == "INSUFFICIENT_EVIDENCE"]
+    insufficient_labels = "; ".join(
+        f"«{entry['topic_title']}» → «{entry['concept_label']}»" for entry in insufficient
+    )
     lines += [
         f"Активных связей: **{len(package['active'])}**. Все 52 имеют индивидуальную рекомендацию; группировка не объединяет решения.",
         "", "## Особое внимание и отложенные вопросы", "",
-        "- Рекомендации `DEFER`: фрагмент для «Тема требует ручной проверки», «Работа с Подсознанием в Терапии» и «Нейронные сети и запоминание» не даёт достаточной самостоятельной основы для решения.",
+        "- `INSUFFICIENT_EVIDENCE` / рекомендован `DEFER`: " + insufficient_labels + ".",
         "- В двух местах есть selective transcript-verification exceptions; они сохранены в `domain_review_qa.json` и не являются семантическим подтверждением.",
         "- Четыре видео имеют Canonical Evidence/Word Timeline; три зарегистрированных документа не имеют Canonical Evidence. Это не полное покрытие всех семи источников.",
-        "", "## Ранее отложенная связь", "",
+        "", "## PREVIOUSLY_DEFERRED", "",
     ]
     for entry in package["deferred"]:
         lines.append(f"- `{entry['link_id']}` — {entry['topic_title']} / {entry['concept_label']}: ранее подтверждённое `DEFER`; остаётся доступной для последующей проверки полного контекста.")

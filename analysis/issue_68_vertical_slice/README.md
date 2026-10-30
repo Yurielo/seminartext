@@ -59,7 +59,8 @@ exception. A decided exception does not promote the remaining package.
 The same builder also writes `domain_review_v1/BATCH_REVIEW.md` and
 `domain_review_v1/batch_review.json`. The Russian Markdown is the consolidated,
 concept-grouped review table: it shows a presentation-only proposed action,
-short source context, rationale, and stated uncertainty for every active link.
+bounded context from the authored Topic range, a source-specific rationale, and
+stated uncertainty for every active link.
 Those proposals are never decisions and do not change the ledger. The JSON
 contains one entry per active link, the separate deferred list, four grouping
 indexes, exact Topic/Concept IDs, source revision, word ranges, evidence hashes,

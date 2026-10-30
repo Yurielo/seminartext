@@ -58,8 +58,13 @@ def test_consolidated_packet_covers_every_active_link_without_authorizing_it() -
     assert "Это один пакет рекомендаций, а не решение системы" in rendered
     assert "Постановка Целей Сессии» → «Коррекция» должна быть отклонена" in rendered
     assert rendered.count("| REJECT |") >= 1
-    assert rendered.count("| DEFER |") == 3
+    assert rendered.count("| DEFER |") == sum(
+        recommendation[0] == "DEFER" for recommendation in batch.RECOMMENDATIONS.values()
+    )
     assert all(link_id in rendered for link_id in active_ids)
+    assert "CONFIRMED_OWNER_DECISION" in rendered
+    assert "INSUFFICIENT_EVIDENCE" in rendered
+    assert len({recommendation[1] for recommendation in batch.RECOMMENDATIONS.values()}) == len(active_ids)
     assert package["semantic_authority"] == "PROVISIONAL_UNREVIEWED"
 
 

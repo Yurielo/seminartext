@@ -1,9 +1,9 @@
 {
   "artifact_type": "seminartext.issue_68_domain_review_manifest",
   "files": {
-    "BATCH_REVIEW.md": "84e29fe33ad5ece5a8c57b9f9db784980cd358e3ad7e4c1b4196142f4bc6f5e0",
+    "BATCH_REVIEW.md": "122df92ff2baebacb420c635d3c054ea9164a84e801e20d0b6362b1312253e48",
     "DOMAIN_REVIEW.md": "ea056a37ee4c442286ae2066ef96223578cebba04060a72ff7da7b8fd7533472",
-    "batch_review.json": "35491b780ed84332a57fc6ebdc2972a76d8521ac2e331239772997178bb339a5",
+    "batch_review.json": "eeee4931ca286750ac56f57e034ea084ee12222b77f47468570266502debbd3a",
     "domain_review_decisions.json": "9c0d71843dabd465e94f453f6d4e43578452ff633c86a38227ec441605f2efde",
     "domain_review_qa.json": "39bfcd718d4d40b441ef39d1b04119907c025210cc745981a7c9f2211b1bc8c9"
   },
