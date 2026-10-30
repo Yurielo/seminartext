@@ -113,7 +113,7 @@ def generate(items, run):
 
     urllib.request.urlopen = capture
     try:
-        rows = []
+        rows, fallbacks = [], []
         for window in engine.make_windows(items):
             boundaries = engine.analyze_window_boundaries(window, detail='auto', model=MODEL)
             require(not errors, 'producer failed; boundary fallback discarded: '+str(errors))
@@ -121,11 +121,20 @@ def generate(items, run):
             for i, start in enumerate(boundaries):
                 end = boundaries[i+1]-1 if i+1 < len(boundaries) else window[-1]['id']
                 part = [item for item in window if start <= item['id'] <= end]
-                rows.append(engine.run_ollama_topic_label(MODEL, engine.topic_range_prompt(part), start, end))
+                try:
+                    rows.append(engine.run_ollama_topic_label(MODEL, engine.topic_range_prompt(part), start, end))
+                except Exception as exc:
+                    # Existing engine fallback: a visible review warning, never
+                    # a successful model-derived semantic assertion.
+                    message = str(exc)
+                    fallbacks.append(dict(start_id=start, end_id=end, error=message))
+                    rows.append(dict(start_id=start, title='Тема требует ручной проверки', summary='',
+                                     evidence_start_id=start, evidence_end_id=end,
+                                     qa_status='fallback', qa_attempt='2stage-fallback'))
         require(rows and calls and not errors, 'empty/failed producer output')
         require(read_url('http://127.0.0.1:11434/api/tags', opener=original)['models'] == tags['models'],
                 'model inventory changed during generation')
-        return dict(model=MODEL, model_digest=model['digest'], rows=rows,
+        return dict(model=MODEL, model_digest=model['digest'], rows=rows, fallbacks=fallbacks,
                     calls={f'call_{i+1:04}.json': digest(json_bytes(c)) for i, c in enumerate(calls)})
     finally:
         urllib.request.urlopen = original
@@ -145,8 +154,8 @@ def drafts_for(bundle, words, binding, response, items):
         start, end = row['start_id'], row['evidence_end_id']
         require(type(start) is int and type(end) is int and start == expected and start <= end <= len(items),
                 'unknown, duplicate, overlapping or incomplete source range')
-        require(row['qa_status'] == 'ok' and engine.title_is_good(row['title']) and engine.summary_is_good(row['summary']),
-                'fallback or malformed label cannot become successful generation')
+        require(row['qa_status'] in {'ok','fallback'} and engine.title_is_good(row['title']) and engine.summary_is_good(row['summary']),
+                'malformed label cannot become a review draft')
         ref = dict(source_id=binding['source_id'], transcript_revision_id=binding['revision_id'],
                    word_start_id=words[items[start-1]['word_start']]['id'], word_end_id=words[items[end-1]['word_end']]['id'])
         eid = f'evidence_{key}_{number}'
@@ -239,6 +248,7 @@ def execute(args):
             print((run/'REVIEW.md').read_text(), end='')
         else:
             print(json.dumps(dict(status='REVIEW_REQUIRED', topics=len(drafts['topics']), decisions=0,
+                                  fallback_count=len(response.get('fallbacks', [])),
                                   package=str(run/'review_package.json'), model_digest=response['model_digest'])))
 
 

@@ -111,3 +111,19 @@ def test_unaligned_input_no_output(tmp_path):
     doc['words'][0]['start_seconds']=None;path.write_bytes(auto.json_bytes(doc))
     with pytest.raises(ValueError):auto.execute(args)
     assert not args.run.exists()
+
+
+def test_bad_label_is_an_explicit_pending_fallback(tmp_path,monkeypatch):
+    args=fixture(tmp_path/'project')
+    def one_word_label(request,timeout=3):
+        if isinstance(request,str): return transport(request,timeout)
+        data=json.loads(request.data)
+        response={'boundaries':[1]} if 'boundaries' in data['format']['properties'] else dict(title='Корни',summary='')
+        return io.BytesIO(auto.json_bytes(dict(message=dict(content=json.dumps(response,ensure_ascii=False)))))
+    monkeypatch.setattr(auto.urllib.request,'urlopen',one_word_label)
+    auto.execute(args)
+    status=json.loads(cli('status',args).stdout)
+    assert status['status']=='REVIEW_REQUIRED' and status['fallback_count']==1 and status['decisions']==0
+    response=json.loads((args.run/'response.json').read_bytes())
+    assert response['fallbacks'][0]['error'].startswith('плохой title')
+    assert 'Тема требует ручной проверки' in cli('inspect',args).stdout

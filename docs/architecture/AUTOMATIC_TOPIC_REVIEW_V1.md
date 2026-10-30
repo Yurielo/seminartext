@@ -34,8 +34,11 @@ The governed engine implementation must retain its exact recorded hash.
 Generation invokes only existing `gemma3:4b` through local Ollama, recording its
 observed digest. It never installs models. Each raw request/response is retained
 in numbered immutable call files. Invalid structured responses, duplicate or
-unknown boundaries, transport failure and swallowed boundary fallbacks prevent
-success. Invalid labels never become accepted substitute titles. The source
+unknown boundaries and transport failure prevent success. When a label violates
+the existing engine's quality validator, its neutral existing fallback title
+`Тема требует ручной проверки` is retained with a stored `fallbacks` diagnostic.
+It is a visible REVIEW_REQUIRED warning, not a successful model-derived title or
+semantic assertion. The source
 generation budget is 300 seconds, including calls/retries; selected model and
 inventory are rechecked before success.
 
@@ -89,11 +92,14 @@ cue. The model returned the only valid boundary ID twelve times; the adapter
 rejected those duplicates and published no package. The fixture now supplies a
 multi-cue exact Word partition, matching the existing engine's source shape.
 
-The final adapter and revised synthetic fixtures have regression coverage but
-need a further bounded live smoke to prove the corrected fixture and adapter
-together. The authorized two repeated runs have been consumed. Do not claim the
-live acceptance criterion or overall task COMPLETE. Further live execution needs
-explicit authorization; no real seminar review or new model is required.
+The final adapter and revised synthetic fixtures have regression coverage. Two
+live runs then completed on the multi-cue astronomy and botany fixtures. Each
+created two source-bound Topics and reopened its persisted REVIEW_REQUIRED
+package with zero decisions and `fallback_count: 1`. The same local model digest
+was observed. Raw inputs, responses and packages are retained at
+`/Users/yurielokhin/.codex/task-evidence/seminartext-issue160/multicue-live-smoke-fallback`.
+This proves the bounded technical journey, including visible fallback handling;
+it does not accept a real seminar or make fallback labels semantically valid.
 
 ## Authority evidence
 
