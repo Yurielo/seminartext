@@ -500,8 +500,15 @@
 
 ## 4. Отложенные связи — не принимать автоматически
 
-| № | Источник | Тема (Topic ID) | Понятие | Link ID |
+| № | Источник | Topic ID | Понятие | Link ID |
 |---:|---|---|---|---|
+| 1 | source_video_001 | `issue_113_reviewed_topic_27` | Мышечное тестирование | `issue_68_link_issue_113_reviewed_topic_27_muscle_testing` |
+| 2 | source_video_004 | `issue_68_video_004_topic_proposal_061` | Протокол работы | `issue_68_link_issue_68_video_004_topic_proposal_061_protocol` |
+| 3 | source_video_003 | `issue_68_video_003_topic_proposal_071` | Эмоции | `issue_68_link_issue_68_video_003_topic_proposal_071_emotion` |
+| 4 | source_video_003 | `issue_68_video_003_topic_proposal_088` | Мозг | `issue_68_link_issue_68_video_003_topic_proposal_088_brain` |
+| 5 | source_video_004 | `issue_68_video_004_topic_proposal_043` | Меридианы | `issue_68_link_issue_68_video_004_topic_proposal_043_meridians` |
+| 6 | source_video_003 | `issue_68_video_003_topic_proposal_019` | Подсознание | `issue_68_link_issue_68_video_003_topic_proposal_019_subconscious` |
+| 7 | source_video_004 | `issue_68_video_004_topic_proposal_052` | Подсознание | `issue_68_link_issue_68_video_004_topic_proposal_052_subconscious` |
 
 ## 5. Исключения машинной транскрипции
 
