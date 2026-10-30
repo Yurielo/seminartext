@@ -1306,6 +1306,7 @@ def apply_link_decisions(
     link_results: list[dict[str, Any]],
     decision_ledger: dict[str, Any],
     topic_results: list[dict[str, Any]],
+    semantic_topic_proposals: list[dict[str, Any]],
     words_by_source: dict[str, list[dict[str, Any]]],
     errors: list[str],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -1420,9 +1421,26 @@ def apply_link_decisions(
                     item
                     for item in topic_results
                     if item["topic_id"] == link["input_topic_reference"]
+                    and item["source_id"] == link["source_id"]
                 ),
                 None,
             )
+            if accepted_topic is None:
+                # A reviewed link can still target an explicitly preserved
+                # source proposal that was structurally absorbed into a later
+                # authored Topic. The link's hash-bound snapshot carries its
+                # original Topic ID and source, so never resolve this fallback
+                # by ID alone.
+                accepted_topic = next(
+                    (
+                        item
+                        for item in semantic_topic_proposals
+                        if item.get("proposal_id", item.get("topic_id"))
+                        == link["input_topic_reference"]
+                        and item["source_id"] == link["source_id"]
+                    ),
+                    None,
+                )
             concept_key = link["candidate_concept_reference"].removeprefix(
                 "issue_68_candidate_concept_"
             )
@@ -1431,16 +1449,46 @@ def apply_link_decisions(
                 errors.append(f"accepted link Topic mismatch in {decision_id}")
                 continue
             source_words = words_by_source[accepted_topic["source_id"]]
-            start = accepted_topic["start_word_sequence"]
-            end = accepted_topic["end_word_sequence"]
+            sequences = {word["id"]: index for index, word in enumerate(source_words)}
+            start = accepted_topic.get(
+                "start_word_sequence",
+                sequences.get(accepted_topic["start_word_id"]),
+            )
+            end = accepted_topic.get(
+                "end_word_sequence",
+                sequences.get(accepted_topic["end_word_id"]),
+            )
+            if start is None or end is None:
+                errors.append(f"accepted link Topic range mismatch in {decision_id}")
+                continue
             accepted_text = " ".join(
                 item["text"] for item in source_words[start : end + 1]
             )
             match_count = len(list(re.finditer(pattern, accepted_text, re.IGNORECASE)))
+            single_match_context_reviewed = (
+                decision.get("single_match_context_reviewed") is True
+            )
+            full_topic_context_reviewed = (
+                decision.get("full_topic_context_reviewed") is True
+            )
+            # A link exception can be a genuine semantic relation even when the
+            # machine pattern occurs zero or more than once in the authored
+            # Topic. This alternate path is intentionally not machine-driven:
+            # it is valid only for an explicit, hash-bound Owner decision that
+            # states it reviewed the complete Topic range and binds the observed
+            # pattern count. The original one-match path remains supported for
+            # historical decisions.
+            accepted_by_single_match = (
+                single_match_context_reviewed
+                and match_count == decision.get("expected_exact_pattern_match_count")
+                and match_count == 1
+            )
+            accepted_by_full_topic_context = (
+                full_topic_context_reviewed
+                and match_count == decision.get("expected_exact_pattern_match_count")
+            )
             if (
-                decision.get("single_match_context_reviewed") is not True
-                or match_count != decision.get("expected_exact_pattern_match_count")
-                or match_count != 1
+                not (accepted_by_single_match or accepted_by_full_topic_context)
                 or not decision.get("accept_reason")
             ):
                 errors.append(f"accepted link evidence mismatch in {decision_id}")
@@ -1450,7 +1498,9 @@ def apply_link_decisions(
                 **link,
                 "classification": "LINK_CLEAR",
                 "relevance_basis": (
-                    "PRODUCT_OWNER_ACCEPT_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE"
+                    "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED"
+                    if accepted_by_full_topic_context
+                    else "PRODUCT_OWNER_ACCEPT_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE"
                 ),
                 "semantic_status": "PROVISIONAL",
                 "domain_review_status": "DECIDED",
@@ -1463,27 +1513,28 @@ def apply_link_decisions(
             )
             transformed[position] = accepted
             decided.add(target_id)
-            resolutions.append(
-                {
-                    "decision_id": decision_id,
-                    "target_link_id": target_id,
-                    "result_link_id": target_id,
-                    "authority": decision["authority"],
-                    "review_gate": "DOMAIN_REVIEW",
-                    "status": "DECIDED",
-                    "outcome": "ACCEPT_LINK",
-                    "owner_decision": "ACCEPT",
-                    "link_snapshot": snapshot,
-                    "accepted_topic_reference": link["input_topic_reference"],
-                    "accepted_exact_pattern_match_count": match_count,
-                    "single_match_context_reviewed": True,
-                    "topic_changed": False,
-                    "concept_changed": False,
-                    "accept_reason": decision["accept_reason"],
-                    "rationale": decision["rationale"],
-                    "package_semantic_promotion": False,
-                }
-            )
+            resolution = {
+                "decision_id": decision_id,
+                "target_link_id": target_id,
+                "result_link_id": target_id,
+                "authority": decision["authority"],
+                "review_gate": "DOMAIN_REVIEW",
+                "status": "DECIDED",
+                "outcome": "ACCEPT_LINK",
+                "owner_decision": "ACCEPT",
+                "link_snapshot": snapshot,
+                "accepted_topic_reference": link["input_topic_reference"],
+                "accepted_exact_pattern_match_count": match_count,
+                "single_match_context_reviewed": single_match_context_reviewed,
+                "topic_changed": False,
+                "concept_changed": False,
+                "accept_reason": decision["accept_reason"],
+                "rationale": decision["rationale"],
+                "package_semantic_promotion": False,
+            }
+            if full_topic_context_reviewed:
+                resolution["full_topic_context_reviewed"] = True
+            resolutions.append(resolution)
             continue
 
         if outcome == "MERGE_LINK_PROVENANCE":
@@ -1689,11 +1740,20 @@ def apply_link_decisions(
         rejection_basis = decision.get("rejection_basis")
         if rejection_basis is None and decision.get("named_program_reference_only") is True:
             rejection_basis = "NAMED_PROGRAM_REFERENCE_ONLY"
+        full_topic_context_reviewed = (
+            decision.get("full_topic_context_reviewed") is True
+        )
+        contextual_reference_only = (
+            rejection_basis == "CONTEXTUAL_REFERENCE_ONLY"
+            and decision.get("contextual_reference_only") is True
+            and full_topic_context_reviewed
+        )
         valid_rejection_basis = (
             rejection_basis == "NAMED_PROGRAM_REFERENCE_ONLY"
             and decision.get("named_program_reference_only") is True
             or rejection_basis == "ALTERNATIVE_METHOD_MENTION_ONLY"
             and decision.get("alternative_method_reference_only") is True
+            or contextual_reference_only
         )
         if (
             not decision.get("rejection_reason")
@@ -1704,8 +1764,7 @@ def apply_link_decisions(
 
         transformed = [item for item in transformed if item["link_id"] != target_id]
         decided.add(target_id)
-        resolutions.append(
-            {
+        resolution = {
                 "decision_id": decision_id,
                 "target_link_id": target_id,
                 "authority": decision["authority"],
@@ -1726,7 +1785,10 @@ def apply_link_decisions(
                 "rationale": decision["rationale"],
                 "package_semantic_promotion": False,
             }
-        )
+        if contextual_reference_only:
+            resolution["contextual_reference_only"] = True
+            resolution["full_topic_context_reviewed"] = True
+        resolutions.append(resolution)
     return transformed, resolutions
 
 
@@ -2031,7 +2093,12 @@ def build_qa(
         link_results.append(result)
 
     link_results, link_review_resolutions = apply_link_decisions(
-        link_results, decision_ledger, topic_results, words_by_source, errors
+        link_results,
+        decision_ledger,
+        topic_results,
+        package["topic_proposals"] + package["day_1"]["topics"],
+        words_by_source,
+        errors,
     )
 
     topic_clear = sum(item["classification"] == "REVIEW_CLEAR" for item in topic_results)

@@ -24,7 +24,7 @@ def sha256(path: Path) -> str:
 def test_domain_review_qa_preserves_expected_input_inventory() -> None:
     qa = read_json(QA_PATH)
 
-    assert qa["status"] == "READY_WITH_EXCEPTIONS"
+    assert qa["status"] == "READY_FOR_FINAL_DOMAIN_REVIEW"
     assert qa["semantic_authority"] == "PROVISIONAL_UNREVIEWED"
     assert qa["input_inventory"]["machine_topic_proposals"] == 262
     assert qa["input_inventory"]["authored_topic_results"] == 182
@@ -47,7 +47,7 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
 
     assert len(topics) == 182
     assert len(concepts) == 22
-    assert len(links) == 255
+    assert len(links) == 246
     assert len({item["candidate_concept_id"] for item in concepts}) == len(concepts)
     assert len({item["link_id"] for item in links}) == len(links)
     concept_ids = {item["candidate_concept_id"] for item in concepts}
@@ -81,19 +81,15 @@ def test_every_result_is_classified_without_semantic_promotion() -> None:
 
 def test_first_material_exception_is_bounded_and_human_facing() -> None:
     qa = read_json(QA_PATH)
-    first = qa["first_material_exception"]
     review = REVIEW_PATH.read_text(encoding="utf-8")
 
-    assert first["link_id"] == (
-        "issue_68_link_issue_68_video_002_topic_proposal_069_correction"
-    )
-    assert first["classification"] == "LINK_EXCEPTION"
-    assert first["exception"]["human_decision_required"] is True
+    assert qa["first_material_exception"] is None
     assert "issue_68_video_002_topic_proposal_020a" not in review
     assert "issue_68_video_003_topic_proposal_051a" not in review
     assert "issue_68_video_004_topic_proposal_001c" not in review
     assert "issue_68_video_004_topic_proposal_024h" not in review
-    assert "issue_68_candidate_concept_correction" in review
+    assert "No material exception remains" in review
+    assert "issue_68_candidate_concept_correction" not in review
     assert "issue_68_candidate_concept_nervous_system" not in review
     assert "issue_68_candidate_concept_brain" not in review
     assert "issue_68_candidate_concept_eye_movement" not in review
@@ -110,14 +106,14 @@ def test_first_material_exception_is_bounded_and_human_facing() -> None:
     assert "issue_68_video_002_topic_proposal_002" not in review
     assert "issue_68_video_002_topic_proposal_064" not in review
     assert "issue_113_reviewed_topic_27" not in review
-    assert "issue_68_video_002_topic_proposal_069" in review
+    assert "issue_68_video_002_topic_proposal_069" not in review
     assert "REVIEW_CLEAR`\ndoes not mean `ACCEPTED" in review
 
 
 def test_manifest_binds_deterministic_review_outputs() -> None:
     manifest = read_json(MANIFEST_PATH)
 
-    assert manifest["qa_status"] == "READY_WITH_EXCEPTIONS"
+    assert manifest["qa_status"] == "READY_FOR_FINAL_DOMAIN_REVIEW"
     assert manifest["semantic_authority"] == "PROVISIONAL_UNREVIEWED"
     assert manifest["files"]["domain_review_qa.json"] == sha256(QA_PATH)
     assert manifest["files"]["DOMAIN_REVIEW.md"] == sha256(REVIEW_PATH)
@@ -636,7 +632,7 @@ def test_product_owner_confirms_life_goal_and_rejects_false_link() -> None:
     assert qa["summary"]["concept_candidates_total"] == 22
     assert qa["summary"]["concept_clear"] == 22
     assert qa["summary"]["concept_identity_exception"] == 0
-    assert qa["summary"]["links_total"] == 255
+    assert qa["summary"]["links_total"] == 246
 
 
 def test_product_owner_rejects_unsupported_self_regulation_candidate() -> None:
@@ -719,7 +715,7 @@ def test_product_owner_rejects_program_name_stress_link_only() -> None:
         }
     ]
     assert resolution["package_semantic_promotion"] is False
-    assert qa["summary"]["link_domain_review_decisions"] == 10
+    assert qa["summary"]["link_domain_review_decisions"] == 62
 
 
 def test_product_owner_remaps_stress_link_to_full_authored_topic() -> None:
@@ -799,7 +795,7 @@ def test_product_owner_merges_duplicate_stress_link_provenance() -> None:
         result_link["merged_source_link_provenance"][0]["semantic_link_created"]
         is False
     )
-    assert qa["summary"]["link_domain_review_decisions"] == 10
+    assert qa["summary"]["link_domain_review_decisions"] == 62
 
 
 def test_product_owner_remaps_context_reviewed_single_match_stress_link() -> None:
@@ -920,7 +916,7 @@ def test_product_owner_merges_second_dpdg_stress_link_provenance() -> None:
         result_link["merged_source_link_provenance"][0]["semantic_link_created"]
         is False
     )
-    assert qa["summary"]["link_domain_review_decisions"] == 10
+    assert qa["summary"]["link_domain_review_decisions"] == 62
 
 
 def test_domain_owner_reassigns_day4_stress_link_to_resulting_topic() -> None:
@@ -961,7 +957,7 @@ def test_domain_owner_reassigns_day4_stress_link_to_resulting_topic() -> None:
     assert replacement["relevance_basis"] == (
         "PRODUCT_OWNER_REMAP_WITH_CONTEXT_REVIEWED_EXACT_EVIDENCE"
     )
-    assert qa["summary"]["link_domain_review_decisions"] == 10
+    assert qa["summary"]["link_domain_review_decisions"] == 62
 
 
 def test_domain_owner_accepts_kinesiology_link_without_semantic_promotion() -> None:
@@ -1026,7 +1022,7 @@ def test_domain_owner_rejects_alternative_method_kinesiology_mention() -> None:
     assert resolution["link_snapshot"]["evidence_support"][0][
         "intersection_start_word_id"
     ].endswith(":word:019438")
-    assert qa["summary"]["link_domain_review_decisions"] == 10
+    assert qa["summary"]["link_domain_review_decisions"] == 62
 
 
 def test_domain_owner_defers_muscle_testing_link_pending_full_context() -> None:
@@ -1051,5 +1047,5 @@ def test_domain_owner_defers_muscle_testing_link_pending_full_context() -> None:
     assert link["semantic_status"] == "PROVISIONAL"
     assert link["exception"]["deferred"] is True
     assert link["exception"]["human_decision_required"] is False
-    assert qa["summary"]["link_deferred"] == 1
-    assert qa["summary"]["link_domain_review_decisions"] == 10
+    assert qa["summary"]["link_deferred"] == 7
+    assert qa["summary"]["link_domain_review_decisions"] == 62

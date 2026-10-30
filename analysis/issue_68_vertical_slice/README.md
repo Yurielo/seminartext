@@ -83,6 +83,16 @@ the existing ledger schema, including its own unique `decision_id`,
 must name the exact existing replacement Topic and its snapshot. The existing
 builder validates evidence and the action-specific safeguards. Omitted links
 remain unresolved; the batch tool never infers a decision.
+
+Historical single-match acceptances use `single_match_context_reviewed: true`
+and bind exactly one pattern match. An Owner may instead accept a reviewed link
+through `full_topic_context_reviewed: true`; this remains an explicit,
+hash-bound decision and must bind the observed pattern count for the complete
+authored Topic. This permits an Owner-confirmed contextual link whose source
+terminology does not literally equal the candidate label. A contextual rejection
+likewise requires `rejection_basis: CONTEXTUAL_REFERENCE_ONLY`,
+`contextual_reference_only: true`, and `full_topic_context_reviewed: true`.
+Neither path permits automatic semantic acceptance.
 The transport schema is `schemas/issue_68_batch_review_v1.schema.json`.
 
 Apply and rebuild in one command:
@@ -105,6 +115,13 @@ unsupported action, or any governed QA error rejects the whole batch. An exact
 retry of an applied batch returns the current ledger hash. QA and the next
 batch packet are rebuilt from the resulting ledger. Preserve the submitted
 package separately because the current packet is regenerated after application.
+For the 2026-10-30 approval, the exact submitted transport is
+`domain_review_v1/approved_batch_submission_2026-10-30.json`; it binds the
+immutable JSON companion at
+`63dc6bfed24e9c7c8bc2717b6e84b84df488abf8:analysis/issue_68_vertical_slice/domain_review_v1/batch_review.json`
+(`eeee4931ca286750ac56f57e034ea084ee12222b77f47468570266502debbd3a`).
+The corresponding human review document is retained as
+`domain_review_v1/approved_BATCH_REVIEW_2026-10-30.md`.
 
 ## Current gate
 
@@ -112,16 +129,17 @@ package separately because the current packet is regenerated after application.
 - Full Canonical Word coverage by provisional Topic proposals: `PASS`
 - Days 2–4 authoring: `262/262 COMPLETED_PROVISIONAL`
 - Resulting semantic units classified by QA: `182`
-- Persisted exact DOMAIN_REVIEW decisions: `21` (`4` Topic, `7` Concept, `10` Link)
-- Active link exceptions in batch: `52`; deferred separately: `1`
+- Persisted exact DOMAIN_REVIEW decisions: `73` (`4` Topic, `7` Concept, `62` Link)
+- Active link exceptions in batch: `0`; deferred separately: `7`
 - Days 2–4 Topic authority: `UNREVIEWED`
 - Concept candidates and Topic→Concept links: `PROVISIONAL_UNREVIEWED`
 - Obsidian export: `NOT_RUN_BLOCKED_SEMANTIC_INPUT`
 - Issue #68 result: `PARTIAL`
 
-The next gate is an explicit human decision on the active links in
-`domain_review_v1/BATCH_REVIEW.md`; the original first-exception card remains
-in `domain_review_v1/DOMAIN_REVIEW.md`. The full QA manifest preserves the
+The next gate is full-context evidence verification before any later human
+decision on the seven deferred links in `domain_review_v1/BATCH_REVIEW.md`.
+The original first-exception card remains in `domain_review_v1/DOMAIN_REVIEW.md`.
+The full QA manifest preserves the
 original `18` Concept-candidate and `254` Topic→Concept-link input inventories;
 the smaller preview-derived projections in the authored package are not
 treated as semantic deletion. `REVIEW_CLEAR` does not imply acceptance;

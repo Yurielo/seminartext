@@ -1,13 +1,13 @@
 {
   "artifact_type": "seminartext.issue_68_domain_review_manifest",
   "files": {
-    "BATCH_REVIEW.md": "122df92ff2baebacb420c635d3c054ea9164a84e801e20d0b6362b1312253e48",
-    "DOMAIN_REVIEW.md": "ea056a37ee4c442286ae2066ef96223578cebba04060a72ff7da7b8fd7533472",
-    "batch_review.json": "eeee4931ca286750ac56f57e034ea084ee12222b77f47468570266502debbd3a",
-    "domain_review_decisions.json": "9c0d71843dabd465e94f453f6d4e43578452ff633c86a38227ec441605f2efde",
-    "domain_review_qa.json": "39bfcd718d4d40b441ef39d1b04119907c025210cc745981a7c9f2211b1bc8c9"
+    "BATCH_REVIEW.md": "fab32b1018141a84ea36b845b3f3d4e50533d4f080744512c80f199a1af8e5d8",
+    "DOMAIN_REVIEW.md": "e18846ffb0f22e55395fce2f9f8781b676742e7a7a455d8052a95f712e35a498",
+    "batch_review.json": "81ada84b761914f0c46eb742c4cbf6e4c2eb51fabfd44f695f22f0762de2dbf2",
+    "domain_review_decisions.json": "13b1e3e4a5df06349f61f2ae6c2df0214004d5db59d1ea648c494159535c7e8e",
+    "domain_review_qa.json": "7e4dd0db44dc57d2af38ff2fb8a223169b2455e2d8e3a2a601b817089d842b0e"
   },
-  "qa_status": "READY_WITH_EXCEPTIONS",
+  "qa_status": "READY_FOR_FINAL_DOMAIN_REVIEW",
   "schema_version": "1.0.0",
   "semantic_authority": "PROVISIONAL_UNREVIEWED",
   "summary": {
@@ -17,11 +17,11 @@
     "concept_identity_exception": 0,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 202,
-    "link_deferred": 1,
-    "link_domain_review_decisions": 10,
-    "link_exception": 53,
-    "links_total": 255,
+    "link_clear": 239,
+    "link_deferred": 7,
+    "link_domain_review_decisions": 62,
+    "link_exception": 7,
+    "links_total": 246,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,

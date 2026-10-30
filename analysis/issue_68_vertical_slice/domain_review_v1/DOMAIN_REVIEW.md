@@ -11,8 +11,8 @@ does not mean `ACCEPTED`.
 - Topic `REVIEW_EXCEPTION`: **0**
 - Concept candidates after review decisions: **22** (baseline: **18**)
 - Concept identity exceptions: **0**
-- Topic→Concept QA results after review decisions: **255** (baseline: **254**)
-- Link exceptions: **53**
+- Topic→Concept QA results after review decisions: **246** (baseline: **254**)
+- Link exceptions: **7**
 - Selective transcript-verification exceptions: **2**
 - Coverage gaps / overlaps: **0 / 0**
 
@@ -20,24 +20,7 @@ The full deterministic classification and Day 2–4 semantic maps are stored in
 `domain_review_qa.json`. In accordance with the exception-only UX, this human
 packet exposes only the first unresolved material exception.
 
-## First material exception — Topic→Concept link
+## Final consolidated DOMAIN_REVIEW
 
-- Link: `issue_68_link_issue_68_video_002_topic_proposal_069_correction`
-- Topic: `issue_68_video_002_topic_proposal_069`
-- Concept candidate: `issue_68_candidate_concept_correction`
-- Source: `source_video_002`
-- Classification: `LINK_EXCEPTION`
-
-### Exact problem
-
-The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).
-
-### Recommended review
-
-Review the exact context and accept, remap, or reject this link.
-
-### Human decision required
-
-Accept, remap, reject, or defer this exact link. No later exception is
-presented until this decision is persisted and the affected neighborhood is
-re-QA'd.
+No material exception remains. Proposed decision: `DOMAIN_REVIEW_ACCEPT` or
+`DOMAIN_REVIEW_REJECT`.

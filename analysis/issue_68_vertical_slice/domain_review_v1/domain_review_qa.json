@@ -3734,44 +3734,13 @@
     }
   ],
   "errors": [],
-  "first_material_exception": {
-    "candidate_concept_reference": "issue_68_candidate_concept_correction",
-    "classification": "LINK_EXCEPTION",
-    "evidence_support": [
-      {
-        "authored_title_correspondence": false,
-        "authored_topic_reference": "issue_68_video_002_topic_proposal_065b",
-        "exact_pattern_match_count": 1,
-        "intersection_end_word_id": "transcript_revision_video_002_r1:word:020740",
-        "intersection_sha256": "dc342063faf033340f4c8843707ae049dac05d0aa7093291aed4d0afbf612f31",
-        "intersection_start_word_id": "transcript_revision_video_002_r1:word:020394"
-      }
-    ],
-    "exact_term_target_references": [
-      "issue_68_video_002_topic_proposal_065b"
-    ],
-    "exception": {
-      "confidence": "MEDIUM",
-      "human_decision_required": true,
-      "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-      "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-    },
-    "input_topic_reference": "issue_68_video_002_topic_proposal_069",
-    "link_id": "issue_68_link_issue_68_video_002_topic_proposal_069_correction",
-    "overlapping_authored_topic_references": [
-      "issue_68_video_002_topic_proposal_065b"
-    ],
-    "recommended_target_topic_references": [],
-    "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-    "semantic_status": "PROVISIONAL",
-    "source_id": "source_video_002"
-  },
+  "first_material_exception": null,
   "input_inventory": {
     "authored_topic_results": 182,
     "baseline_rebuilt_without_authoring_decisions": true,
     "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
     "concept_candidates": 18,
-    "domain_review_decisions_sha256": "9c0d71843dabd465e94f453f6d4e43578452ff633c86a38227ec441605f2efde",
+    "domain_review_decisions_sha256": "13b1e3e4a5df06349f61f2ae6c2df0214004d5db59d1ea648c494159535c7e8e",
     "machine_topic_proposals": 262,
     "review_result_sha256": "efd62ec72ce0e45623da1bc1417d632ec982bf5be33070df2ef4f590823e4f69",
     "semantic_package_sha256": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828",
@@ -3782,7 +3751,7 @@
     "current_semantic_package_link_projection": 179,
     "explanation": "The QA input rebuilds the original provisional 18/254 inventory from the same hash-bound generator artifacts before DOMAIN_AUTHORING. Explicit DOMAIN_REVIEW identity decisions may create additional Concept and provisional link results without deleting baseline provenance. The current 15/179 projection is a lossy preview-based regeneration after split/merge authoring and is not treated as deletion or review.",
     "qa_concept_results_after_review_decisions": 22,
-    "qa_link_results_after_review_decisions": 255,
+    "qa_link_results_after_review_decisions": 246,
     "semantic_change_inferred": false
   },
   "link_results": [
@@ -6285,38 +6254,6 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_002_topic_proposal_065b",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_002_r1:word:020740",
-          "intersection_sha256": "dc342063faf033340f4c8843707ae049dac05d0aa7093291aed4d0afbf612f31",
-          "intersection_start_word_id": "transcript_revision_video_002_r1:word:020394"
-        }
-      ],
-      "exact_term_target_references": [
-        "issue_68_video_002_topic_proposal_065b"
-      ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_002_topic_proposal_069",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_069_correction",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_002_topic_proposal_065b"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_002"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_correction",
       "classification": "LINK_CLEAR",
       "evidence_support": [
         {
@@ -6388,88 +6325,6 @@
       "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_002_topic_proposal_081",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_002_r1:word:023654",
-          "intersection_sha256": "5d03c91300b838b39f8289b8e42c73bcc7ed317b64d39e444094622bdc4c5f21",
-          "intersection_start_word_id": "transcript_revision_video_002_r1:word:023119"
-        },
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_002_topic_proposal_083a",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_002_r1:word:023851",
-          "intersection_sha256": "fc676b3b9108f5d017e456b80b9836d06e10905d24f567db629d43211d62e893",
-          "intersection_start_word_id": "transcript_revision_video_002_r1:word:023655"
-        }
-      ],
-      "exact_term_target_references": [
-        "issue_68_video_002_topic_proposal_083a"
-      ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_002_topic_proposal_082",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_082_correction",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_002_topic_proposal_081",
-        "issue_68_video_002_topic_proposal_083a"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_002"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_001a",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:000091",
-          "intersection_sha256": "ffc8aacc1a562b60910b1c341ff74d70626b9e95d75593627db7211b7908e379",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:000000"
-        },
-        {
-          "authored_title_correspondence": true,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_001b",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:000174",
-          "intersection_sha256": "f2c9d4cbe019f41f3949dc7bfcaae35aec55a576bc7a4d6aca06eb74b97ff2c0",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:000092"
-        }
-      ],
-      "exact_term_target_references": [
-        "issue_68_video_003_topic_proposal_001a"
-      ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_003_topic_proposal_001",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_001_correction",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_003_topic_proposal_001a",
-        "issue_68_video_003_topic_proposal_001b"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
@@ -7047,7 +6902,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -7069,17 +6925,19 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_021",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_021_correction",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_04",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_011e"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -7101,52 +6959,12 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_027",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_027_correction",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_05",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_024d"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_004"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_024f",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:008611",
-          "intersection_sha256": "1292ba22847bb87731c935f80961f90eae9251725c8835260b8565f04d77db1b",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:008546"
-        },
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_024g",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:008929",
-          "intersection_sha256": "46d69b7761767356735ae98b8c899d7b48bbbd99dceaf06172e7555504f61e23",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:008612"
-        }
-      ],
-      "exact_term_target_references": [
-        "issue_68_video_004_topic_proposal_024g"
-      ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_004_topic_proposal_032",
-      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_032_correction",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_004_topic_proposal_024f",
-        "issue_68_video_004_topic_proposal_024g"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -7226,7 +7044,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -7248,11 +7067,12 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_047",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_047_correction",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_07",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_044b"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -7401,7 +7221,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_correction",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -7423,11 +7244,12 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_057",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_057_correction",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_08",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_051e"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -7554,7 +7376,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_protocol",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -7584,18 +7407,20 @@
       },
       "input_topic_reference": "issue_68_video_002_topic_proposal_007",
       "link_id": "issue_68_link_issue_68_video_002_topic_proposal_007_protocol",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_09",
       "overlapping_authored_topic_references": [
         "issue_68_video_002_topic_proposal_007",
         "issue_68_video_002_topic_proposal_008"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_protocol",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -7617,11 +7442,12 @@
       },
       "input_topic_reference": "issue_68_video_002_topic_proposal_061",
       "link_id": "issue_68_link_issue_68_video_002_topic_proposal_061_protocol",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_10",
       "overlapping_authored_topic_references": [
         "issue_68_video_002_topic_proposal_061"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002"
     },
@@ -7751,6 +7577,7 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_protocol",
       "classification": "LINK_EXCEPTION",
+      "domain_review_status": "DEFERRED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -7774,18 +7601,21 @@
       ],
       "exception": {
         "confidence": "MEDIUM",
-        "human_decision_required": true,
+        "deferred": true,
+        "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+        "human_decision_required": false,
         "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_061",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_061_protocol",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_defer_11",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_051f",
         "issue_68_video_004_topic_proposal_051g"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -7844,47 +7674,6 @@
       "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_001"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_emotion",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_002_topic_proposal_002",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_002_r1:word:000169",
-          "intersection_sha256": "7897223e585f6eb093b4c3d9f2f91657a493a3bc0fb6305c1586d2433372c0c3",
-          "intersection_start_word_id": "transcript_revision_video_002_r1:word:000067"
-        },
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_002_topic_proposal_003a",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_002_r1:word:000193",
-          "intersection_sha256": "f01ff01c1dd40186806b0956630449881e74c5b2e2fd37a04ba88bf5e73ce501",
-          "intersection_start_word_id": "transcript_revision_video_002_r1:word:000170"
-        }
-      ],
-      "exact_term_target_references": [
-        "issue_68_video_002_topic_proposal_002"
-      ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_002_topic_proposal_002",
-      "link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_emotion",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_002_topic_proposal_002",
-        "issue_68_video_002_topic_proposal_003a"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_002"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
@@ -8193,7 +7982,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8215,17 +8005,19 @@
       },
       "input_topic_reference": "issue_68_video_002_topic_proposal_058",
       "link_id": "issue_68_link_issue_68_video_002_topic_proposal_058_emotion",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_13",
       "overlapping_authored_topic_references": [
         "issue_68_video_002_topic_proposal_056b"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8264,19 +8056,21 @@
       },
       "input_topic_reference": "issue_68_video_002_topic_proposal_084",
       "link_id": "issue_68_link_issue_68_video_002_topic_proposal_084_emotion",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_14",
       "overlapping_authored_topic_references": [
         "issue_68_video_002_topic_proposal_083a",
         "issue_68_video_002_topic_proposal_083b",
         "issue_68_video_002_topic_proposal_083c"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8298,11 +8092,12 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_006",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_006_emotion",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_15",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_006a"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -8639,7 +8434,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8669,12 +8465,13 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_042",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_042_emotion",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_16",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_039c",
         "issue_68_video_003_topic_proposal_039d"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -8954,6 +8751,7 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
       "classification": "LINK_EXCEPTION",
+      "domain_review_status": "DEFERRED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -8969,23 +8767,27 @@
       ],
       "exception": {
         "confidence": "MEDIUM",
-        "human_decision_required": true,
+        "deferred": true,
+        "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+        "human_decision_required": false,
         "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_071",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_emotion",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_defer_17",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070a"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9015,12 +8817,13 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_072",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_072_emotion",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_18",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070a",
         "issue_68_video_003_topic_proposal_070b"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -9128,7 +8931,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_emotion",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9158,12 +8962,13 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_026",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_026_emotion",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_19",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_024c",
         "issue_68_video_004_topic_proposal_024d"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -9293,7 +9098,7 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 0,
@@ -9306,6 +9111,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9327,17 +9133,18 @@
       },
       "input_topic_reference": "issue_68_video_002_topic_proposal_010",
       "link_id": "issue_68_link_issue_68_video_002_topic_proposal_010_nervous_system",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_20",
       "overlapping_authored_topic_references": [
         "issue_68_video_002_topic_proposal_010"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_002"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_neural_connections_and_networks",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 1,
@@ -9350,6 +9157,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9371,17 +9179,18 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_026",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_026_neural_connections_and_networks",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_21",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_022b"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 6,
@@ -9395,6 +9204,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9424,12 +9234,13 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_086",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_086_nervous_system",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_22",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_084a",
         "issue_68_video_003_topic_proposal_084b"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -9534,7 +9345,7 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 0,
@@ -9547,6 +9358,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9576,18 +9388,19 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_090",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_090_nervous_system",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_23",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_084c",
         "issue_68_video_003_topic_proposal_084d"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 0,
@@ -9600,6 +9413,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9621,17 +9435,18 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_092",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_092_nervous_system",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_24",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_092"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 1,
@@ -9645,6 +9460,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9666,17 +9482,18 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_014",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_014_nervous_system",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_25",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_011c"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_neural_connections_and_networks",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_nervous_system",
         "exact_related_match_count": 1,
@@ -9690,6 +9507,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9711,11 +9529,12 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_014",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_014_neural_connections_and_networks",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_26",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_011c"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -9756,57 +9575,6 @@
         "issue_68_video_004_topic_proposal_011c"
       ],
       "relevance_basis": "AUTHORED_TITLE_OR_REPEATED_EXACT_EVIDENCE",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_004"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
-      "classification": "LINK_EXCEPTION",
-      "concept_identity_rebuild": {
-        "decision_id": "issue_68_domain_review_concept_nervous_system",
-        "exact_related_match_count": 0,
-        "exact_retained_match_count": 0,
-        "partition_basis": "EXACT_TERM_MATCH",
-        "semantic_acceptance": false,
-        "semantic_status": "PROVISIONAL",
-        "target_concept_ids": [
-          "issue_68_candidate_concept_nervous_system"
-        ],
-        "unresolved_exact_term_signal": true
-      },
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h2",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:010431",
-          "intersection_sha256": "91c95997390eac8efdbdc61973eb9609d3ddc0437f3a44dbc68c3c91d5ede923",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:010416"
-        },
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_024i",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:010486",
-          "intersection_sha256": "642baa8e889c4969b786b06c79aea52fc53a56ef0de54784264c1b8ad1d2344b",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:010432"
-        }
-      ],
-      "exact_term_target_references": [],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_004_topic_proposal_040",
-      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_040_nervous_system",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_004_topic_proposal_024h2",
-        "issue_68_video_004_topic_proposal_024i"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -9868,7 +9636,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_adaptation",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -9898,12 +9667,13 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_031",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_031_adaptation",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_28",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_028b",
         "issue_68_video_003_topic_proposal_032a"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -10234,7 +10004,7 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
@@ -10247,50 +10017,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_003_topic_proposal_022b",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_003_r1:word:007484",
-          "intersection_sha256": "4cd7569349b1f48480353d463d42fcd7c653211a6103b07679530b753cd6e493",
-          "intersection_start_word_id": "transcript_revision_video_003_r1:word:007343"
-        }
-      ],
-      "exact_term_target_references": [
-        "issue_68_video_003_topic_proposal_022b"
-      ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_003_topic_proposal_026",
-      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_026_brain",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_003_topic_proposal_022b"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_003"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_brain",
-      "classification": "LINK_EXCEPTION",
-      "concept_identity_rebuild": {
-        "decision_id": "issue_68_domain_review_concept_brain",
-        "exact_related_match_count": 0,
-        "exact_retained_match_count": 1,
-        "partition_basis": "EXACT_TERM_MATCH",
-        "semantic_acceptance": false,
-        "semantic_status": "PROVISIONAL",
-        "target_concept_ids": [
-          "issue_68_candidate_concept_brain"
-        ],
-        "unresolved_exact_term_signal": false
-      },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -10320,12 +10047,13 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_041",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_041_brain",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_30",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_039b",
         "issue_68_video_003_topic_proposal_039c"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -10520,7 +10248,7 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_brain",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_brain",
         "exact_related_match_count": 0,
@@ -10533,6 +10261,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -10554,11 +10283,12 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_085",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_085_brain",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_31",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_084a"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -10577,6 +10307,7 @@
         ],
         "unresolved_exact_term_signal": true
       },
+      "domain_review_status": "DEFERRED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -10598,18 +10329,21 @@
       "exact_term_target_references": [],
       "exception": {
         "confidence": "MEDIUM",
-        "human_decision_required": true,
+        "deferred": true,
+        "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+        "human_decision_required": false,
         "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_088",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_088_brain",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_defer_32",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_084b",
         "issue_68_video_003_topic_proposal_084c"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -10858,7 +10592,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_meridians",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -10880,52 +10615,12 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_008",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_008_meridians",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_33",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_001f"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_004"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_meridians",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:010253",
-          "intersection_sha256": "25a7b55c60055af9a5fd163fde1fc11a7bb245ffc56aef705cdb99e56fb7a9f8",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:009741"
-        },
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_024h2",
-          "exact_pattern_match_count": 1,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:010415",
-          "intersection_sha256": "36c7617cbf96c39e6ae18f3ca6b0301e43b34a17879bf7d0aa1dec252d318628",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:010254"
-        }
-      ],
-      "exact_term_target_references": [
-        "issue_68_video_004_topic_proposal_024h2"
-      ],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_004_topic_proposal_039",
-      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_039_meridians",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_004_topic_proposal_024h",
-        "issue_68_video_004_topic_proposal_024h2"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -10969,6 +10664,7 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_meridians",
       "classification": "LINK_EXCEPTION",
+      "domain_review_status": "DEFERRED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -10992,18 +10688,21 @@
       ],
       "exception": {
         "confidence": "MEDIUM",
-        "human_decision_required": true,
+        "deferred": true,
+        "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+        "human_decision_required": false,
         "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_043",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_043_meridians",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_defer_35",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_024j",
         "issue_68_video_004_topic_proposal_044a"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -11550,7 +11249,7 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_extraocular_muscles",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_eye_movement",
         "exact_match_counts": {
@@ -11565,6 +11264,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -11586,11 +11286,12 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_076",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_076_extraocular_muscles",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_36",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070e"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -11846,7 +11547,7 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_extraocular_muscles",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_eye_movement",
         "exact_match_counts": {
@@ -11861,6 +11562,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -11882,17 +11584,18 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_074",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_074_extraocular_muscles",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_37",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_066e"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_consciousness",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_consciousness",
         "exact_related_match_count": 0,
@@ -11905,6 +11608,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -11924,17 +11628,18 @@
       },
       "input_topic_reference": "issue_113_reviewed_topic_08",
       "link_id": "issue_68_link_issue_113_reviewed_topic_08_consciousness",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_38",
       "overlapping_authored_topic_references": [
         "issue_113_reviewed_topic_08"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_001"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_consciousness",
         "exact_related_match_count": 1,
@@ -11947,6 +11652,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -11968,17 +11674,18 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_015",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_015_three_level_awareness",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_39",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_consciousness",
         "exact_related_match_count": 0,
@@ -11991,6 +11698,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -12010,17 +11718,18 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_016",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_016_three_level_awareness",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_40",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_consciousness",
         "exact_related_match_count": 0,
@@ -12033,6 +11742,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -12052,17 +11762,18 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_019",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_019_three_level_awareness",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_41",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
       "concept_identity_rebuild": {
         "decision_id": "issue_68_domain_review_concept_consciousness",
         "exact_related_match_count": 0,
@@ -12075,6 +11786,7 @@
         ],
         "unresolved_exact_term_signal": false
       },
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -12094,11 +11806,12 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_020",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_020_three_level_awareness",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_42",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -12435,6 +12148,7 @@
     {
       "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
       "classification": "LINK_EXCEPTION",
+      "domain_review_status": "DEFERRED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -12450,17 +12164,20 @@
       ],
       "exception": {
         "confidence": "MEDIUM",
-        "human_decision_required": true,
+        "deferred": true,
+        "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+        "human_decision_required": false,
         "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_019",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_019_subconscious",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_defer_43",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_015"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -12533,7 +12250,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -12555,17 +12273,19 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_071",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_subconscious",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_44",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070a"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -12595,18 +12315,20 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_082",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_082_subconscious",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_45",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_070f",
         "issue_68_video_003_topic_proposal_070g"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
       "classification": "LINK_EXCEPTION",
+      "domain_review_status": "DEFERRED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -12630,18 +12352,21 @@
       ],
       "exception": {
         "confidence": "MEDIUM",
-        "human_decision_required": true,
+        "deferred": true,
+        "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+        "human_decision_required": false,
         "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
         "recommended_correction": "Review the exact context and accept, remap, or reject this link."
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_052",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_052_subconscious",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_defer_46",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_051b",
         "issue_68_video_004_topic_proposal_051c"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -12739,7 +12464,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_memory",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -12761,17 +12487,19 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_045",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_045_memory",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_47",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_045a"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_memory",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -12791,11 +12519,12 @@
       },
       "input_topic_reference": "issue_68_video_003_topic_proposal_061",
       "link_id": "issue_68_link_issue_68_video_003_topic_proposal_061_memory",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_48",
       "overlapping_authored_topic_references": [
         "issue_68_video_003_topic_proposal_051d"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_003"
     },
@@ -13061,46 +12790,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_memory",
-      "classification": "LINK_EXCEPTION",
-      "evidence_support": [
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_011b",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:003181",
-          "intersection_sha256": "0f810dd887e9bd5179ddaf45a3686d2d139db76ae3ce556ec72e90e79e8a37d6",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:003080"
-        },
-        {
-          "authored_title_correspondence": false,
-          "authored_topic_reference": "issue_68_video_004_topic_proposal_011c",
-          "exact_pattern_match_count": 0,
-          "intersection_end_word_id": "transcript_revision_video_004_r1:word:003381",
-          "intersection_sha256": "e68a35d00fa5260d37ea914986f20605d74416d7f4f7c337111c50f75b1e4c21",
-          "intersection_start_word_id": "transcript_revision_video_004_r1:word:003182"
-        }
-      ],
-      "exact_term_target_references": [],
-      "exception": {
-        "confidence": "MEDIUM",
-        "human_decision_required": true,
-        "problem": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
-        "recommended_correction": "Review the exact context and accept, remap, or reject this link."
-      },
-      "input_topic_reference": "issue_68_video_004_topic_proposal_013",
-      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_013_memory",
-      "overlapping_authored_topic_references": [
-        "issue_68_video_004_topic_proposal_011b",
-        "issue_68_video_004_topic_proposal_011c"
-      ],
-      "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
-      "semantic_status": "PROVISIONAL",
-      "source_id": "source_video_004"
-    },
-    {
-      "candidate_concept_reference": "issue_68_candidate_concept_memory",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -13122,17 +12813,19 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_015",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_015_memory",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_50",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_011c"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_memory",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": true,
@@ -13160,12 +12853,13 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_077",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_077_memory",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_51",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_066f",
         "issue_68_video_004_topic_proposal_066g"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -13321,7 +13015,8 @@
     },
     {
       "candidate_concept_reference": "issue_68_candidate_concept_trauma",
-      "classification": "LINK_EXCEPTION",
+      "classification": "LINK_CLEAR",
+      "domain_review_status": "DECIDED",
       "evidence_support": [
         {
           "authored_title_correspondence": false,
@@ -13351,12 +13046,13 @@
       },
       "input_topic_reference": "issue_68_video_004_topic_proposal_042",
       "link_id": "issue_68_link_issue_68_video_004_topic_proposal_042_trauma",
+      "link_review_decision_id": "issue_68_domain_review_batch_20261030_accept_52",
       "overlapping_authored_topic_references": [
         "issue_68_video_004_topic_proposal_024i",
         "issue_68_video_004_topic_proposal_024j"
       ],
       "recommended_target_topic_references": [],
-      "relevance_basis": "INSUFFICIENT_CONTEXT_BEYOND_SINGLE_OR_MISSING_TERM_SIGNAL",
+      "relevance_basis": "PRODUCT_OWNER_ACCEPT_WITH_FULL_TOPIC_CONTEXT_REVIEWED",
       "semantic_status": "PROVISIONAL",
       "source_id": "source_video_004"
     },
@@ -13933,6 +13629,2130 @@
       "status": "DECIDED",
       "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_stress",
       "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contextual_reference_only": true,
+      "decision_id": "issue_68_domain_review_batch_20261030_reject_01",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_correction",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_065b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:020740",
+            "intersection_sha256": "dc342063faf033340f4c8843707ae049dac05d0aa7093291aed4d0afbf612f31",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:020394"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_065b"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_069",
+        "source_id": "source_video_002"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. В теме о целях сессии слово «коррекциями» служит общим описанием результата сессий, без объяснения терапевтического действия.",
+      "rejection_basis": "CONTEXTUAL_REFERENCE_ONLY",
+      "rejection_reason": "«Коррекция» означает терапевтические действия, включая перемещение магнита по проекции заднего или переднего срединного меридиана. В данной теме коррекция лишь упомянута и предметно не объясняется.",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_069_correction",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contextual_reference_only": true,
+      "decision_id": "issue_68_domain_review_batch_20261030_reject_02",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_correction",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_081",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:023654",
+            "intersection_sha256": "5d03c91300b838b39f8289b8e42c73bcc7ed317b64d39e444094622bdc4c5f21",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:023119"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_083a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:023851",
+            "intersection_sha256": "fc676b3b9108f5d017e456b80b9836d06e10905d24f567db629d43211d62e893",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:023655"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_083a"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_082",
+        "source_id": "source_video_002"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Фрагмент объясняет шкалу тестирования УНЭ/УП; самостоятельного объяснения коррекции как терапевтического действия в нём нет.",
+      "rejection_basis": "CONTEXTUAL_REFERENCE_ONLY",
+      "rejection_reason": "Фрагмент объясняет шкалу тестирования УНЭ/УП; самостоятельного объяснения коррекции как терапевтического действия в нём нет.",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_082_correction",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contextual_reference_only": true,
+      "decision_id": "issue_68_domain_review_batch_20261030_reject_03",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_correction",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_001a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:000091",
+            "intersection_sha256": "ffc8aacc1a562b60910b1c341ff74d70626b9e95d75593627db7211b7908e379",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:000000"
+          },
+          {
+            "authored_title_correspondence": true,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_001b",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:000174",
+            "intersection_sha256": "f2c9d4cbe019f41f3949dc7bfcaae35aec55a576bc7a4d6aca06eb74b97ff2c0",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:000092"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_001a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_001",
+        "source_id": "source_video_003"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Во вводном обсуждении участницу просят сообщить результат после показательной коррекции; это отчёт о прошлом примере, а не разбор коррекции.",
+      "rejection_basis": "CONTEXTUAL_REFERENCE_ONLY",
+      "rejection_reason": "Во вводном обсуждении участницу просят сообщить результат после показательной коррекции; это отчёт о прошлом примере, а не разбор коррекции.",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_001_correction",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Инструкция клиенту задаёт условие «когда коррекция пройдёт» и сопровождает его конкретным действием и проверкой мышц; коррекция — часть демонстрируемой процедуры.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_021",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_04",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_correction",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_011e",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:004891",
+            "intersection_sha256": "7f5f2f969a46d79fea0180377ee824c3cf721dc65a5b92bf7d49e5aa136976d5",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:004799"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_011e"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_021",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Инструкция клиенту задаёт условие «когда коррекция пройдёт» и сопровождает его конкретным действием и проверкой мышц; коррекция — часть демонстрируемой процедуры.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_021_correction",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_021_correction",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. После вопросов о родителях ведущий предписывает снять стресс и провести коррекцию; это следующий рабочий шаг темы, а не случайное упоминание.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_027",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_05",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_correction",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024d",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:007251",
+            "intersection_sha256": "f91020bf2ba9542e3aac6b16d6a2fa15586b9e47678f7f6f2e8b61dd43c87d38",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:007144"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024d"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_027",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. После вопросов о родителях ведущий предписывает снять стресс и провести коррекцию; это следующий рабочий шаг темы, а не случайное упоминание.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_027_correction",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_027_correction",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contextual_reference_only": true,
+      "decision_id": "issue_68_domain_review_batch_20261030_reject_06",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_correction",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024f",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:008611",
+            "intersection_sha256": "1292ba22847bb87731c935f80961f90eae9251725c8835260b8565f04d77db1b",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:008546"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024g",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:008929",
+            "intersection_sha256": "46d69b7761767356735ae98b8c899d7b48bbbd99dceaf06172e7555504f61e23",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:008612"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024g"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_032",
+        "source_id": "source_video_004"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. При разборе рефлекса Моро сказано, что эмоциональными коррекциями проблему не решить, и предлагаются другие средства; коррекция названа только как неуместный вариант.",
+      "rejection_basis": "CONTEXTUAL_REFERENCE_ONLY",
+      "rejection_reason": "При разборе рефлекса Моро сказано, что эмоциональными коррекциями проблему не решить, и предлагаются другие средства; коррекция названа только как неуместный вариант.",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_032_correction",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Тема учит находить точку для коррекции мышечным тестом, перечисляет точки и интерпретирует слабый ответ; понятие составляет предмет процедуры.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_047",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_07",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_correction",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_044b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:012840",
+            "intersection_sha256": "dd9871738e3ec8eb5255e7960d397b35b4c4b842f5a5f17f876d3406589197bc",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:012727"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_044b"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_047",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Тема учит находить точку для коррекции мышечным тестом, перечисляет точки и интерпретирует слабый ответ; понятие составляет предмет процедуры.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_047_correction",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_047_correction",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Фрагмент объясняет, что при коррекции высвобождается энергия, и как её направить после сессии; это предметное последствие коррекции.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_057",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_08",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_correction",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_051e",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:016918",
+            "intersection_sha256": "14440c1078bc68819c7d3ec1a0dbe3a025441d59213907816014584aeb237aea",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:016540"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_051e"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_057",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Фрагмент объясняет, что при коррекции высвобождается энергия, и как её направить после сессии; это предметное последствие коррекции.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_057_correction",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_057_correction",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Претесты прямо названы первым пунктом протокола и объяснены как подготовка мышцы к тестированию.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_002_topic_proposal_007",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_09",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_protocol",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_007",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:002586",
+            "intersection_sha256": "8466b5b13e36f036107cfe74ea68667b51e47d0561d7d4c48860cd5c250563df",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:002239"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_008",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:002753",
+            "intersection_sha256": "7a1fe5f93e35c12ff889a3da4a8463f7686845a97c150d419cd0b75e4fefd702",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:002587"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_007"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_007",
+        "source_id": "source_video_002"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Претесты прямо названы первым пунктом протокола и объяснены как подготовка мышцы к тестированию.",
+      "result_link_id": "issue_68_link_issue_68_video_002_topic_proposal_007_protocol",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_007_protocol",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Ведущий вводит последовательность пунктов протокола, включая претесты и получение разрешения на работу; протокол организует тему.",
+      "accepted_exact_pattern_match_count": 3,
+      "accepted_topic_reference": "issue_68_video_002_topic_proposal_061",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_10",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_protocol",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_061",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:018377",
+            "intersection_sha256": "0012ee3ec87a0b7d749e80fb3019d169f27a64a0c5d6b1cdd0f6ce4b034af956",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:017930"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_061"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_061",
+        "source_id": "source_video_002"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Ведущий вводит последовательность пунктов протокола, включая претесты и получение разрешения на работу; протокол организует тему.",
+      "result_link_id": "issue_68_link_issue_68_video_002_topic_proposal_061_protocol",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_061_protocol",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_defer_11",
+      "deferral_reason": "The Product Owner deferred this exact link because the available evidence does not establish a substantive relationship. В доступном коротком фрагменте лишь обещана демонстрация «в одну сессию»; содержание и роль протокола не раскрыты.",
+      "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+      "full_source_context_verification_required": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_protocol",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_051f",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:018928",
+            "intersection_sha256": "a03c037d5689e1333480db2199ec6734731e6ab291f8c0f34fccdd7f2aa7c69a",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:018831"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_051g",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:018933",
+            "intersection_sha256": "1a4860ed5ebf964ef596dabc789417b3e033b42a20e2b8066e8adb8127fe998d",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:018929"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_051f"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_061",
+        "source_id": "source_video_004"
+      },
+      "outcome": "DEFER_LINK",
+      "owner_decision": "DEFER",
+      "package_semantic_promotion": false,
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_061_protocol",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DEFERRED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_061_protocol",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contextual_reference_only": true,
+      "decision_id": "issue_68_domain_review_batch_20261030_reject_12",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_002",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000169",
+            "intersection_sha256": "7897223e585f6eb093b4c3d9f2f91657a493a3bc0fb6305c1586d2433372c0c3",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000067"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_003a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:000193",
+            "intersection_sha256": "f01ff01c1dd40186806b0956630449881e74c5b2e2fd37a04ba88bf5e73ce501",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:000170"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_002"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_002",
+        "source_id": "source_video_002"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. При введении мышечного тестирования эмоции перечислены как один из видов стресса наряду с химическим; самостоятельного разбора эмоций нет.",
+      "rejection_basis": "CONTEXTUAL_REFERENCE_ONLY",
+      "rejection_reason": "При введении мышечного тестирования эмоции перечислены как один из видов стресса наряду с химическим; самостоятельного разбора эмоций нет.",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_002_emotion",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Страх, гнев и обида проверяются как эмоциональные причины слабого ответа, после чего описывается работа с найденной эмоцией.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_002_topic_proposal_058",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_13",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_056b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:017413",
+            "intersection_sha256": "d569b23d1734786e41cc025640debf5e30d08de502d2eafd7ad3bcd027fa6f76",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:017213"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_056b"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_058",
+        "source_id": "source_video_002"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Страх, гнев и обида проверяются как эмоциональные причины слабого ответа, после чего описывается работа с найденной эмоцией.",
+      "result_link_id": "issue_68_link_issue_68_video_002_topic_proposal_058_emotion",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_058_emotion",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Ведущий предлагает измерять уровень негативных эмоций и демонстрирует это тестирование перед упражнением для иммунитета.",
+      "accepted_exact_pattern_match_count": 2,
+      "accepted_topic_reference": "issue_68_video_002_topic_proposal_084",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_14",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_083a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:024812",
+            "intersection_sha256": "cdb0e80436c868e7d72274aba996af1aa10f805d586e950331c32978d9da23d8",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:024604"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_083b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:025071",
+            "intersection_sha256": "48a075a06dc701e746cfd1ab6b8fb317baf8749e2fb24b74b5df0a327d3187d1",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:024813"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_083c",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:025082",
+            "intersection_sha256": "d282ac574c54123ce6e593e70c2f0a370f3292e995590e35961dcd59bc1a3d26",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:025072"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_083a",
+          "issue_68_video_002_topic_proposal_083b"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_084",
+        "source_id": "source_video_002"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Ведущий предлагает измерять уровень негативных эмоций и демонстрирует это тестирование перед упражнением для иммунитета.",
+      "result_link_id": "issue_68_link_issue_68_video_002_topic_proposal_084_emotion",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_084_emotion",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Эмоции названы одной из сторон треугольника здоровья и фактором патологических состояний в объяснении приоритетов.",
+      "accepted_exact_pattern_match_count": 13,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_006",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_15",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_006a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:001500",
+            "intersection_sha256": "d1d9456d7334a87245be3e6c360a9c3b4bdb3c5c346171dab6efc64ee151b548",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:001368"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_006a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_006",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Эмоции названы одной из сторон треугольника здоровья и фактором патологических состояний в объяснении приоритетов.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_006_emotion",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_006_emotion",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Карта эмоций названа одним из основных инструментов при антистрессовой коррекции и обсуждении материала.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_042",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_16",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_039c",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:012687",
+            "intersection_sha256": "aee7c8b618f37b85224294f09ffd5c0a282422fcf43b6d421234053f3915f282",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:012629"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_039d",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:012844",
+            "intersection_sha256": "cfd890df35ede0b9c09a3b6f8acb43e1edeefd341328c8b1ae55f38feb34e36e",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:012688"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_039d"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_042",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Карта эмоций названа одним из основных инструментов при антистрессовой коррекции и обсуждении материала.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_042_emotion",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_042_emotion",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_defer_17",
+      "deferral_reason": "The Product Owner deferred this exact link because the available evidence does not establish a substantive relationship. Фрагмент говорит о самоощущении на карте эмоций, но основное объяснение посвящено смене модели поведения и терапии подсознания.",
+      "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+      "full_source_context_verification_required": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
+            "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_071",
+        "source_id": "source_video_003"
+      },
+      "outcome": "DEFER_LINK",
+      "owner_decision": "DEFER",
+      "package_semantic_promotion": false,
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_emotion",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DEFERRED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_emotion",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. В коррекции ДПДГ состояние определяется по карте эмоций и заменяется уравновешивающим состоянием; эмоции управляют демонстрацией.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_072",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_18",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:020337",
+            "intersection_sha256": "e5f6077a2a569df3c2ea808549abbdb2716ac7ff5bfadaf8aff0df339b5459b9",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:020258"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070b",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:020365",
+            "intersection_sha256": "ecc824a8f585b7967763789e03f16ff1e15ca5dcaaa9b3c6e729c3bfa2e4ae43",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:020338"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_072",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. В коррекции ДПДГ состояние определяется по карте эмоций и заменяется уравновешивающим состоянием; эмоции управляют демонстрацией.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_072_emotion",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_072_emotion",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. При разборе поведенческих моделей ведущий прямо предписывает определять эмоции для состояния родителей и раннего периода.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_026",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_19",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024c",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:006917",
+            "intersection_sha256": "686aec74a7dca5b6560dfbbae4d62f39172e779f6130b3fe1bedaddbafc9786c",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:006615"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024d",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:007143",
+            "intersection_sha256": "fc23da3260af7a2068f165b55ab80ee88380b2f604673693ad30f7decd091bf0",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:006918"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024d"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_026",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. При разборе поведенческих моделей ведущий прямо предписывает определять эмоции для состояния родителей и раннего периода.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_026_emotion",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_026_emotion",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Перенапряжение нервной системы описано как состояние, его признаки и способ снять блокировку объясняются в теме.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_002_topic_proposal_010",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_20",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_002_topic_proposal_010",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_002_r1:word:003549",
+            "intersection_sha256": "eba3bb3682a7af7232481c2c7c65d7a3b8bbd1d0137e7fc8d5f4ed19abceadcf",
+            "intersection_start_word_id": "transcript_revision_video_002_r1:word:003447"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_002_topic_proposal_010"
+        ],
+        "input_topic_reference": "issue_68_video_002_topic_proposal_010",
+        "source_id": "source_video_002"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Перенапряжение нервной системы описано как состояние, его признаки и способ снять блокировку объясняются в теме.",
+      "result_link_id": "issue_68_link_issue_68_video_002_topic_proposal_010_nervous_system",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_002_topic_proposal_010_nervous_system",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Текст объясняет построение нервных связей и сетей, которые запоминают жизненный опыт и направляют реакции.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_026",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_21",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_neural_connections_and_networks",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_022b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:007484",
+            "intersection_sha256": "4cd7569349b1f48480353d463d42fcd7c653211a6103b07679530b753cd6e493",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:007343"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_022b"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_026",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Текст объясняет построение нервных связей и сетей, которые запоминают жизненный опыт и направляют реакции.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_026_neural_connections_and_networks",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_026_neural_connections_and_networks",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Позитивное воспоминание описано как новая опора, на которую будет опираться нервная система при формировании поведения.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_086",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_22",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_084a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:023187",
+            "intersection_sha256": "98156a3eea445065c73da8782749a1b2af4ee6d164abbf94083d4d4c53fe45f0",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:023184"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_084b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:023464",
+            "intersection_sha256": "1d23f46dd1a954f80c9ed05c4f9a44254c811381981e423eaa4c168e7707daa2",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:023188"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_084b"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_086",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Позитивное воспоминание описано как новая опора, на которую будет опираться нервная система при формировании поведения.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_086_nervous_system",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_086_nervous_system",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. В теме негативного поведения нервная система названа анализатором базы опыта, для которой создаётся позитивная опора.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_090",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_23",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_084c",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:024529",
+            "intersection_sha256": "aced4fbe9a7c350c7fc6cf922a5420e30e7a8f16dc218877d8ab86911d9fc6f7",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:024343"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_084d",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:024601",
+            "intersection_sha256": "f1bbfa4560c69bc77d46d2615ff88ed663bbe958bf0b4e9da9e72a18b767959c",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:024530"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_084c"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_090",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. В теме негативного поведения нервная система названа анализатором базы опыта, для которой создаётся позитивная опора.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_090_nervous_system",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_090_nervous_system",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Фрагмент связывает позитивный опыт с тем, на что будет опираться нервная система, и помещает это в ход работы по протоколу.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_092",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_24",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_092",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:025600",
+            "intersection_sha256": "6dd023d45e7ec4b7711457c9aaabfa31b3bd9910efbe87a7f6fb1d338844cdfa",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:024810"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_092"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_092",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Фрагмент связывает позитивный опыт с тем, на что будет опираться нервная система, и помещает это в ход работы по протоколу.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_092_nervous_system",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_092_nervous_system",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Семейная модель поведения объясняется тем, что нервная система сохраняет полезное для выживания и записывает его в генетике.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_014",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_25",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_011c",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:003690",
+            "intersection_sha256": "8aac8ea43d13ba221181ddbaef43f4d6a565455ae98647ae8c086020d980c448",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:003382"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_011c"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_014",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Семейная модель поведения объясняется тем, что нервная система сохраняет полезное для выживания и записывает его в генетике.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_014_nervous_system",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_014_nervous_system",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Та же семейная модель прямо описана как запись в психике с помощью нейронных связей.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_014",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_26",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_neural_connections_and_networks",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_011c",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:003690",
+            "intersection_sha256": "8aac8ea43d13ba221181ddbaef43f4d6a565455ae98647ae8c086020d980c448",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:003382"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_011c"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_014",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Та же семейная модель прямо описана как запись в психике с помощью нейронных связей.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_014_neural_connections_and_networks",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_014_neural_connections_and_networks",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contextual_reference_only": true,
+      "decision_id": "issue_68_domain_review_batch_20261030_reject_27",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_nervous_system",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024h2",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:010431",
+            "intersection_sha256": "91c95997390eac8efdbdc61973eb9609d3ddc0437f3a44dbc68c3c91d5ede923",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:010416"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024i",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:010486",
+            "intersection_sha256": "642baa8e889c4969b786b06c79aea52fc53a56ef0de54784264c1b8ad1d2344b",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:010432"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_040",
+        "source_id": "source_video_004"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. В доступном диапазоне перечислены меридианы, гимнастика для мозга и вопросы; «нервная система» не объясняется и не упоминается.",
+      "rejection_basis": "CONTEXTUAL_REFERENCE_ONLY",
+      "rejection_reason": "В доступном диапазоне перечислены меридианы, гимнастика для мозга и вопросы; «нервная система» не объясняется и не упоминается.",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_040_nervous_system",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Сужение поля зрения объяснено как реакция на стресс и связано с нереализованными адаптационными механизмами.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_031",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_28",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_adaptation",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_028b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:009608",
+            "intersection_sha256": "667d8b1f098ae5b90bcd518d1dea580e3a1b08fabf2ee2abfd077c4151bdf2b3",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:009530"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_032a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:009618",
+            "intersection_sha256": "9835c05b041589e40778311818795021dd8e29a1e6d164c60dd6bdcba29f286d",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:009609"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_028b"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_031",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Сужение поля зрения объяснено как реакция на стресс и связано с нереализованными адаптационными механизмами.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_031_adaptation",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_031_adaptation",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contextual_reference_only": true,
+      "decision_id": "issue_68_domain_review_batch_20261030_reject_29",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_brain",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_022b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:007484",
+            "intersection_sha256": "4cd7569349b1f48480353d463d42fcd7c653211a6103b07679530b753cd6e493",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:007343"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_022b"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_026",
+        "source_id": "source_video_003"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. В теме о нервных сетях мозг упомянут лишь в пояснении, что вместе с ним прекращается жизненный опыт; предметом остаются сети и опыт.",
+      "rejection_basis": "CONTEXTUAL_REFERENCE_ONLY",
+      "rejection_reason": "В теме о нервных сетях мозг упомянут лишь в пояснении, что вместе с ним прекращается жизненный опыт; предметом остаются сети и опыт.",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_026_brain",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Антистрессовая коррекция связывается с затылочной частью мозга, зрительной корой и лобными долями; мозг объясняет наблюдаемый эффект.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_041",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_30",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_brain",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_039b",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:012431",
+            "intersection_sha256": "aab8d9f04a0d489a2f9c51851022303e4d45a1cc948f4549ac449d299a65c228",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:012358"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_039c",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:012628",
+            "intersection_sha256": "b99dad42787eab6fa187d7888181c97f63085a85a66c101695a803237ea4e3ca",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:012432"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_039b"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_041",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Антистрессовая коррекция связывается с затылочной частью мозга, зрительной корой и лобными долями; мозг объясняет наблюдаемый эффект.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_041_brain",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_041_brain",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Рассказ о Пенфилде связывает разные части мозга с воспроизведением событий и описывает хранение воспоминаний.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_085",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_31",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_brain",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_084a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:023183",
+            "intersection_sha256": "3007dfce7adf0f9d105657dcbe64f71f174269a59b7cbe2e62838ff03b3fb8d4",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:023087"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_084a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_085",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Рассказ о Пенфилде связывает разные части мозга с воспроизведением событий и описывает хранение воспоминаний.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_085_brain",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_085_brain",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_defer_32",
+      "deferral_reason": "The Product Owner deferred this exact link because the available evidence does not establish a substantive relationship. Доступный диапазон разбирает память и нейронные связи; явного предметного объяснения мозга в нём нет.",
+      "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+      "full_source_context_verification_required": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_brain",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_084b",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:023601",
+            "intersection_sha256": "979cbb2f03f8d449a308a88e00a72f7b410c94123d80bac172e75cf1aa692985",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:023582"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_084c",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:024088",
+            "intersection_sha256": "11c484106c5d3bb01c86fe95d5781efe0df69f1c0e907b60b252bc032b6e0160",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:023602"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_088",
+        "source_id": "source_video_003"
+      },
+      "outcome": "DEFER_LINK",
+      "owner_decision": "DEFER",
+      "package_semantic_promotion": false,
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_088_brain",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DEFERRED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_088_brain",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. В ходе закладки позитива ведущий даёт последовательность действий, где после дыхания нужно промахивать меридианы.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_008",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_33",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_meridians",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_001f",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:001453",
+            "intersection_sha256": "586b834c0c088ae4bccc41905b95f53d212770782b0e89481664af468b6db639",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:001421"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_001f"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_008",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. В ходе закладки позитива ведущий даёт последовательность действий, где после дыхания нужно промахивать меридианы.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_008_meridians",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_008_meridians",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contextual_reference_only": true,
+      "decision_id": "issue_68_domain_review_batch_20261030_reject_34",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_meridians",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024h",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:010253",
+            "intersection_sha256": "25a7b55c60055af9a5fd163fde1fc11a7bb245ffc56aef705cdb99e56fb7a9f8",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:009741"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024h2",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:010415",
+            "intersection_sha256": "36c7617cbf96c39e6ae18f3ca6b0301e43b34a17879bf7d0aa1dec252d318628",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:010254"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024h2"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_039",
+        "source_id": "source_video_004"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. В длинном разборе генетической линии промахивание меридианов перечислено среди общей разминки, без объяснения меридианов.",
+      "rejection_basis": "CONTEXTUAL_REFERENCE_ONLY",
+      "rejection_reason": "В длинном разборе генетической линии промахивание меридианов перечислено среди общей разминки, без объяснения меридианов.",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_039_meridians",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_defer_35",
+      "deferral_reason": "The Product Owner deferred this exact link because the available evidence does not establish a substantive relationship. Источник упоминает меридианы при перечислении материалов, но не объясняет их роль в работе с информацией.",
+      "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+      "full_source_context_verification_required": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_meridians",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024j",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:011660",
+            "intersection_sha256": "ddf51b34fa83c290262c206b1a84e57f9ec67d9951a7d6fa3123db30fadfd1a6",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:011524"
+          },
+          {
+            "authored_title_correspondence": true,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_044a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:011678",
+            "intersection_sha256": "298f7a4ef1a75cfc0c81e3a2d6eb6b56eb33d8bb07d10c3fd1a6360af4bc3a38",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:011661"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024j"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_043",
+        "source_id": "source_video_004"
+      },
+      "outcome": "DEFER_LINK",
+      "owner_decision": "DEFER",
+      "package_semantic_promotion": false,
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_043_meridians",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DEFERRED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_043_meridians",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. При сравнении очной и онлайн работы объясняется, что движение глаз по фигурам вовлекает глазодвигательные мышцы.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_076",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_36",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_extraocular_muscles",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070e",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:021531",
+            "intersection_sha256": "ccbaa1279bbc985279632d4616ffe63cbf4f5315fe81f8fe0a74171aba150acb",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:021402"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070e"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_076",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. При сравнении очной и онлайн работы объясняется, что движение глаз по фигурам вовлекает глазодвигательные мышцы.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_076_extraocular_muscles",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_076_extraocular_muscles",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Упражнение требует двигать глазами по кругу с максимальной траекторией, ограниченной глазодвигательными мышцами.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_074",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_37",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_extraocular_muscles",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_066e",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:023341",
+            "intersection_sha256": "2f2319ef9704f2a24d33b066d306563b5e29eb56d26d5fa452a1c439a4069647",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:023127"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_066e"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_074",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Упражнение требует двигать глазами по кругу с максимальной траекторией, ограниченной глазодвигательными мышцами.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_074_extraocular_muscles",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_074_extraocular_muscles",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Ведущий прямо формулирует уровни развития сознания по Дэвиду Хокинсу и поясняет их через близость к состоянию счастья.",
+      "accepted_exact_pattern_match_count": 0,
+      "accepted_topic_reference": "issue_113_reviewed_topic_08",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_38",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_consciousness",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": true,
+            "authored_topic_reference": "issue_113_reviewed_topic_08",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_001_r1:word:006095",
+            "intersection_sha256": "7a0afa973bd4b6a34a9e945fe8d09e35c4880a3918567db6c5630b280d41fbd2",
+            "intersection_start_word_id": "transcript_revision_video_001_r1:word:005125"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_113_reviewed_topic_08",
+        "source_id": "source_video_001"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Ведущий прямо формулирует уровни развития сознания по Дэвиду Хокинсу и поясняет их через близость к состоянию счастья.",
+      "result_link_id": "issue_68_link_issue_113_reviewed_topic_08_consciousness",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_113_reviewed_topic_08_consciousness",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Три уровня — сознание, подсознание и тело — перечислены и применяются для определения уровня проблемы тестированием.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_015",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_39",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:005625",
+            "intersection_sha256": "e1e35af0629d1147671c057e91d7192ef8e19a6330a52631b9251a26f62e0cd6",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005527"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_015"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_015",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Три уровня — сознание, подсознание и тело — перечислены и применяются для определения уровня проблемы тестированием.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_015_three_level_awareness",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_015_three_level_awareness",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Участникам предлагается различить сознание, подсознание и тело по сильному и слабому ответу; три уровня образуют задание.",
+      "accepted_exact_pattern_match_count": 0,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_016",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_40",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:005679",
+            "intersection_sha256": "a5f6003b852b7cc6da78ecdbdca7c9230f779cab8da66262c3ebc9ad31adaa1f",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005626"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_016",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Участникам предлагается различить сознание, подсознание и тело по сильному и слабому ответу; три уровня образуют задание.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_016_three_level_awareness",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_016_three_level_awareness",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Вопрос «где находится проблема» требует выбора между сознанием, подсознанием и телом; это непосредственное применение трёх уровней.",
+      "accepted_exact_pattern_match_count": 0,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_019",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_41",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:005992",
+            "intersection_sha256": "ad2980ffd8e870fc44be8b84f6f303d7e79d2a3d549a7a0b966b3d135688f6ad",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005934"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_019",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Вопрос «где находится проблема» требует выбора между сознанием, подсознанием и телом; это непосредственное применение трёх уровней.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_019_three_level_awareness",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_019_three_level_awareness",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Последовательно тестируются сознание, подсознание и тело, чтобы определить уровень проблемы.",
+      "accepted_exact_pattern_match_count": 0,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_020",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_42",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_three_level_awareness",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:006078",
+            "intersection_sha256": "c742f6e9e805d020635f8238e130378e954e82bf558110cd1511bf2fb4acdf2d",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005993"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_020",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Последовательно тестируются сознание, подсознание и тело, чтобы определить уровень проблемы.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_020_three_level_awareness",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_020_three_level_awareness",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_defer_43",
+      "deferral_reason": "The Product Owner deferred this exact link because the available evidence does not establish a substantive relationship. Подсознание лишь названо одним вариантом ответа наряду с сознанием и телом; отдельного объяснения подсознания нет.",
+      "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+      "full_source_context_verification_required": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:005992",
+            "intersection_sha256": "ad2980ffd8e870fc44be8b84f6f303d7e79d2a3d549a7a0b966b3d135688f6ad",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005934"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_015"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_019",
+        "source_id": "source_video_003"
+      },
+      "outcome": "DEFER_LINK",
+      "owner_decision": "DEFER",
+      "package_semantic_promotion": false,
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_019_subconscious",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DEFERRED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_019_subconscious",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Терапия ДПДГ описана как работа со скрытыми областями, когда проблема находится на уровне подсознания или тела.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_071",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_44",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
+            "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_071",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Терапия ДПДГ описана как работа со скрытыми областями, когда проблема находится на уровне подсознания или тела.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_subconscious",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_subconscious",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Перед выбором коррекции ДПДГ проверяются сознание, подсознание и тело; подсознание — необходимый параметр процедуры.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_082",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_45",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070f",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:022566",
+            "intersection_sha256": "035d490bdf444010a034164d8fc9cdb37735dc44b16ace7d3e2dd2e3086d81b0",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:022505"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070g",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:022588",
+            "intersection_sha256": "0a4ab5590eba104d8a642bd5a6213cec0da93f8ca2ea5b34a94ceb63ff0368c5",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:022567"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070f"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_082",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Перед выбором коррекции ДПДГ проверяются сознание, подсознание и тело; подсознание — необходимый параметр процедуры.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_082_subconscious",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_082_subconscious",
+      "topic_changed": false
+    },
+    {
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_defer_46",
+      "deferral_reason": "The Product Owner deferred this exact link because the available evidence does not establish a substantive relationship. В теме домашних заданий подсознание появляется в незавершённом объяснении, почему клиент не выполняет задание.",
+      "evidence_required": "Verify complete source context for the exact Topic range against the preserved TranscriptRevision and Canonical Word Timeline before a later DOMAIN_REVIEW decision.",
+      "full_source_context_verification_required": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_051b",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:014883",
+            "intersection_sha256": "8f2b9e7587e4c551306b11cab21369f8d47c94000d9968f2e9751f3f5e70157e",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:014783"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_051c",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:015292",
+            "intersection_sha256": "87e18a895a5989fa2b7c60d7eb217ebc0c0c62994b66a408e566e00b4da815b9",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:014884"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_051c"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_052",
+        "source_id": "source_video_004"
+      },
+      "outcome": "DEFER_LINK",
+      "owner_decision": "DEFER",
+      "package_semantic_promotion": false,
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_052_subconscious",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DEFERRED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_052_subconscious",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Карта эмоций включает клеточную память как уровень тела и затем объясняет структуру уровней и категорий карты.",
+      "accepted_exact_pattern_match_count": 6,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_045",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_47",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_memory",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_045a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:013607",
+            "intersection_sha256": "043eb9a9a895c3fa2554c88927e2f39af917587185867e6b35c34de19e823be8",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:013501"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_045a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_045",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Карта эмоций включает клеточную память как уровень тела и затем объясняет структуру уровней и категорий карты.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_045_memory",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_045_memory",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Ведущий просит восстановить событие 2005 года и объясняет, что при отсутствии воспоминания настаивать не следует; воспоминание управляет упражнением.",
+      "accepted_exact_pattern_match_count": 0,
+      "accepted_topic_reference": "issue_68_video_003_topic_proposal_061",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_48",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_memory",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_051d",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:017633",
+            "intersection_sha256": "edbafd8940528f344823fd434275735532499f1e78eee106ecad48a7b15a59f1",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:017502"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_061",
+        "source_id": "source_video_003"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Ведущий просит восстановить событие 2005 года и объясняет, что при отсутствии воспоминания настаивать не следует; воспоминание управляет упражнением.",
+      "result_link_id": "issue_68_link_issue_68_video_003_topic_proposal_061_memory",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_003_topic_proposal_061_memory",
+      "topic_changed": false
+    },
+    {
+      "alternative_method_reference_only": false,
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "contextual_reference_only": true,
+      "decision_id": "issue_68_domain_review_batch_20261030_reject_49",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_memory",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_011b",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:003181",
+            "intersection_sha256": "0f810dd887e9bd5179ddaf45a3686d2d139db76ae3ce556ec72e90e79e8a37d6",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:003080"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_011c",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:003381",
+            "intersection_sha256": "e68a35d00fa5260d37ea914986f20605d74416d7f4f7c337111c50f75b1e4c21",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:003182"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_013",
+        "source_id": "source_video_004"
+      },
+      "named_program_reference_only": false,
+      "outcome": "REJECT_LINK",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Текст обсуждает наследование событий и генную информацию предков, но не объясняет память как понятие.",
+      "rejection_basis": "CONTEXTUAL_REFERENCE_ONLY",
+      "rejection_reason": "Текст обсуждает наследование событий и генную информацию предков, но не объясняет память как понятие.",
+      "review_gate": "DOMAIN_REVIEW",
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_013_memory",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Нервная система описана как сохраняющая опыт, полезный для выживания, включая запись генной информации.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_015",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_50",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_memory",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_011c",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:003755",
+            "intersection_sha256": "2eac72c8d70e77184028ad85e64a756e899e191ff83fb7ed075cc6de2ce61e77",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:003691"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_011c"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_015",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Нервная система описана как сохраняющая опыт, полезный для выживания, включая запись генной информации.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_015_memory",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_015_memory",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. В упражнении школьное воспоминание наполняется погодой, запахами и позитивным состоянием; воспоминание — материал работы.",
+      "accepted_exact_pattern_match_count": 0,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_077",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_51",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_memory",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": true,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_066f",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:024030",
+            "intersection_sha256": "7da9e94379f168e1cc3fa467abab30916e9ece6766085be71c6ed1774b724be3",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:023740"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_066g",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:024311",
+            "intersection_sha256": "db4e9d2ca7a3abe222ddc5f1b3e5f2be99ca229708286accfd5a15d3c9ae05f7",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:024031"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_077",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. В упражнении школьное воспоминание наполняется погодой, запахами и позитивным состоянием; воспоминание — материал работы.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_077_memory",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_077_memory",
+      "topic_changed": false
+    },
+    {
+      "accept_reason": "The Product Owner accepts this exact Topic-to-Concept link after review of the complete authored Topic context. Позитивное воспоминание создаётся взамен травмирующего; травма задаёт предмет замены в описанной технике.",
+      "accepted_exact_pattern_match_count": 1,
+      "accepted_topic_reference": "issue_68_video_004_topic_proposal_042",
+      "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
+      "concept_changed": false,
+      "decision_id": "issue_68_domain_review_batch_20261030_accept_52",
+      "full_topic_context_reviewed": true,
+      "link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_trauma",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024i",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:011057",
+            "intersection_sha256": "ad76f590992b7805851b248b0727059c68eb7b32f9b8b6ce29cf0d040475e407",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:011024"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024j",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:011523",
+            "intersection_sha256": "730be55c1c28b815664c3b1547d89cd1eaac14a6ea51860bb5ea0e3254f6aa53",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:011058"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024i"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_042",
+        "source_id": "source_video_004"
+      },
+      "outcome": "ACCEPT_LINK",
+      "owner_decision": "ACCEPT",
+      "package_semantic_promotion": false,
+      "rationale": "The Product Owner confirmed the exact 2026-10-30 consolidated DOMAIN_REVIEW package for this hash-bound link. Позитивное воспоминание создаётся взамен травмирующего; травма задаёт предмет замены в описанной технике.",
+      "result_link_id": "issue_68_link_issue_68_video_004_topic_proposal_042_trauma",
+      "review_gate": "DOMAIN_REVIEW",
+      "single_match_context_reviewed": false,
+      "status": "DECIDED",
+      "target_link_id": "issue_68_link_issue_68_video_004_topic_proposal_042_trauma",
+      "topic_changed": false
     }
   ],
   "rejected_concept_resolutions": [
@@ -14047,7 +15867,7 @@
     }
   ],
   "semantic_authority": "PROVISIONAL_UNREVIEWED",
-  "status": "READY_WITH_EXCEPTIONS",
+  "status": "READY_FOR_FINAL_DOMAIN_REVIEW",
   "summary": {
     "concept_candidates_total": 22,
     "concept_clear": 22,
@@ -14055,11 +15875,11 @@
     "concept_identity_exception": 0,
     "coverage_gaps": 0,
     "coverage_overlaps": 0,
-    "link_clear": 202,
-    "link_deferred": 1,
-    "link_domain_review_decisions": 10,
-    "link_exception": 53,
-    "links_total": 255,
+    "link_clear": 239,
+    "link_deferred": 7,
+    "link_domain_review_decisions": 62,
+    "link_exception": 7,
+    "links_total": 246,
     "selective_transcript_verification_exceptions": 2,
     "topic_domain_review_decisions": 4,
     "topic_results_total": 182,

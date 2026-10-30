@@ -21,13 +21,14 @@ SEMANTIC = ROOT / "analysis/issue_68_vertical_slice/semantic_authoring_v1/semant
 PROJECT = Path("/Users/yurielokhin/Documents/seminartext_projects/Стресс код")
 REVIEW = PROJECT / "review/issue_113_contract_v2/domain_review/topic_review_result_v2.json"
 EVIDENCE = PROJECT / "evidence/canonical_bundle.json"
+APPROVED_SUBMISSION = OUTPUT / "approved_batch_submission_2026-10-30.json"
 
 
 def read(path: Path) -> dict:
     return json.loads(path.read_bytes())
 
 
-def test_committed_batch_covers_every_active_link_once() -> None:
+def test_applied_batch_preserves_only_deferred_links() -> None:
     Draft202012Validator.check_schema(read(SCHEMA))
     qa = read(OUTPUT / "domain_review_qa.json")
     package = read(OUTPUT / "batch_review.json")
@@ -36,9 +37,9 @@ def test_committed_batch_covers_every_active_link_once() -> None:
     deferred = package["deferred"]
     assert package["semantic_authority"] == "PROVISIONAL_UNREVIEWED"
     assert package["qa_sha256"] == hashlib.sha256((OUTPUT / "domain_review_qa.json").read_bytes()).hexdigest()
-    assert len(active) == 52
-    assert len(deferred) == 1
-    assert len({item["link_id"] for item in active + deferred}) == 53
+    assert active == []
+    assert len(deferred) == 7
+    assert len({item["link_id"] for item in active + deferred}) == 7
     assert {item["link_id"] for item in active + deferred} == {
         link["link_id"] for link in qa["link_results"] if link["classification"] == "LINK_EXCEPTION"
     }
@@ -47,33 +48,61 @@ def test_committed_batch_covers_every_active_link_once() -> None:
     assert all(set(indexed) == {item["link_id"] for item in active}
                for groups in package["groups"].values()
                for indexed in [{link_id for ids in groups.values() for link_id in ids}])
-    assert not any("decision" in item and item["decision"] for item in active)
+    assert all(item["deferred"] for item in deferred)
 
 
-def test_consolidated_packet_covers_every_active_link_without_authorizing_it() -> None:
+def test_applied_submission_is_complete_and_hash_bound() -> None:
     package = read(OUTPUT / "batch_review.json")
-    active_ids = {item["link_id"] for item in package["active"]}
-    assert set(batch.RECOMMENDATIONS) == active_ids
+    submission = read(APPROVED_SUBMISSION)
+    ledger = read(OUTPUT / "domain_review_decisions.json")
+    assert submission["review_package_sha256"] == (
+        "eeee4931ca286750ac56f57e034ea084ee12222b77f47468570266502debbd3a"
+    )
+    assert len(submission["decisions"]) == 52
+    assert {item["action"] for item in submission["decisions"]} == {
+        "ACCEPT", "REJECT", "DEFER"
+    }
+    assert sum(item["action"] == "ACCEPT" for item in submission["decisions"]) == 37
+    assert sum(item["action"] == "REJECT" for item in submission["decisions"]) == 9
+    assert sum(item["action"] == "DEFER" for item in submission["decisions"]) == 6
+    persisted = {item["decision_id"]: item for item in ledger["link_decisions"]}
+    assert all(persisted[item["governed_decision"]["decision_id"]] == item["governed_decision"]
+               for item in submission["decisions"])
+    assert package["active"] == []
+    assert len(package["deferred"]) == 7
+    if EVIDENCE.exists() and REVIEW.exists():
+        rebuilt = governed.build_qa(
+            ROOT,
+            PROJECT,
+            REVIEW,
+            SEMANTIC,
+            OUTPUT / "domain_review_decisions.json",
+        )
+        assert batch.encoded(rebuilt) == (OUTPUT / "domain_review_qa.json").read_bytes()
     rendered = batch.markdown(package)
     assert "Это один пакет рекомендаций, а не решение системы" in rendered
     assert "Постановка Целей Сессии» → «Коррекция» должна быть отклонена" in rendered
-    assert rendered.count("| REJECT |") >= 1
-    assert rendered.count("| DEFER |") == sum(
-        recommendation[0] == "DEFER" for recommendation in batch.RECOMMENDATIONS.values()
-    )
-    assert all(link_id in rendered for link_id in active_ids)
-    assert "CONFIRMED_OWNER_DECISION" in rendered
-    assert "INSUFFICIENT_EVIDENCE" in rendered
-    assert len({recommendation[1] for recommendation in batch.RECOMMENDATIONS.values()}) == len(active_ids)
+    assert "## PREVIOUSLY_DEFERRED" in rendered
+    assert len({recommendation[1] for recommendation in batch.RECOMMENDATIONS.values()}) == 52
     assert package["semantic_authority"] == "PROVISIONAL_UNREVIEWED"
 
 
+@pytest.mark.skipif(not EVIDENCE.exists() or not REVIEW.exists(), reason="local Issue #68 source project unavailable")
 @pytest.mark.parametrize("problem", ["stale_revision", "unknown_link", "unsupported_action", "duplicate", "duplicate_historical_id", "stale_package", "stale_per_link_package", "stale_evidence", "missing_authority", "not_confirmed"])
 def test_invalid_batch_never_changes_ledger(tmp_path: Path, problem: str) -> None:
-    package_path = OUTPUT / "batch_review.json"
-    package = read(package_path)
+    original = read(OUTPUT / "domain_review_decisions.json")
+    applied = read(APPROVED_SUBMISSION)["decisions"][0]["governed_decision"]
     ledger_path = tmp_path / "domain_review_decisions.json"
-    ledger_path.write_bytes((OUTPUT / "domain_review_decisions.json").read_bytes())
+    baseline = {**original, "link_decisions": [
+        item for item in original["link_decisions"]
+        if item["decision_id"] != applied["decision_id"]
+    ]}
+    ledger_path.write_bytes(batch.encoded(baseline))
+    qa = governed.build_qa(ROOT, PROJECT, REVIEW, SEMANTIC, ledger_path)
+    assert qa["errors"] == []
+    governed.write_review_outputs(tmp_path, qa, ledger_path, EVIDENCE, SEMANTIC)
+    package_path = tmp_path / "batch_review.json"
+    package = read(package_path)
     item = package["active"][0]
     decision = {
         "decision_id": "synthetic_unapplied_decision", "authority": "PRODUCT_OWNER_DOMAIN_REVIEW",
