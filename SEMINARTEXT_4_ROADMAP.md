@@ -16,6 +16,15 @@ Release/Integration Readiness checkpoint → S2 → S3 закреплён в
 `475c5f2d826a40f34f234508b83618c64aecd851`). Этот приоритет не является
 разрешением реализации S2 или обходом human, Dataset, Gold и release gates.
 
+Отдельная авторизованная инженерная задача #158: повторно используемый
+[Semantic Processing Workflow v1](docs/architecture/SEMANTIC_PROCESSING_WORKFLOW_V1.md)
+для подготовленных Evidence/proposals, сохраняемой очереди проверки и существующего
+Canonical Knowledge admission. Техническая проверка использует синтетические
+проекты и не требует принятия реальных смыслов «Стресс код». S1 и его
+control-plane ниже остаются незавершёнными; S2/S3 не авторизуются этим шагом.
+Предложенный BookText-first next task из PR #157 заменён этой прямой задачей
+владельца, без удаления исторических результатов сверки.
+
 ```text
 Sources
   ↓

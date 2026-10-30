@@ -410,6 +410,8 @@ cat <<'HELP'
   seminartext project-promote-transcript PROJECT --source-id ID --text-file FILE --state verified --reviewer NAME
   seminartext project-align PROJECT --source-id ID --revision-id REVISION --alignment-json FILE [--media FILE]
   seminartext project-evidence-check PROJECT [--json]
+  seminartext project-semantic-workflow {prepare,inspect,status,decide,submit,apply,validate,next-round,result} --help
+      Source-checkout CLI: подготовленные admission-v1 proposals → явные решения → Canonical Knowledge.
   seminartext project-review-prepare PROJECT --drafts FILE --output DIR
   seminartext project-review-status PROJECT --package FILE [--decisions FILE]
   seminartext project-review-apply PROJECT --package FILE --decisions FILE --output FILE
@@ -6343,6 +6345,15 @@ main() {
     project-evidence-check)
       shift
       evidence_foundation_command evidence-check "$@"
+      exit $?
+      ;;
+    project-semantic-workflow)
+      shift
+      [[ -f "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/semantic_workflow.py" ]] || {
+        echo "Semantic workflow is unavailable in this runtime; use the supported source checkout." >&2
+        exit 2
+      }
+      "$SEMINARTEXT_PYTHON" "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/semantic_workflow.py" "$@"
       exit $?
       ;;
     project-review-prepare)
