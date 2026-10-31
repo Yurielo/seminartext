@@ -411,6 +411,8 @@ cat <<'HELP'
   seminartext project-align PROJECT --source-id ID --revision-id REVISION --alignment-json FILE [--media FILE]
   seminartext project-evidence-check PROJECT [--json]
   seminartext project-review-prepare PROJECT --drafts FILE --output DIR
+  seminartext project-topic-review {generate,replay,status,inspect} --help
+      Source-checkout: Canonical Evidence → существующий Topic Engine → REVIEW_REQUIRED.
   seminartext project-review-status PROJECT --package FILE [--decisions FILE]
   seminartext project-review-apply PROJECT --package FILE --decisions FILE --output FILE
   seminartext project-review-v2-status PROJECT --package FILE --decisions FILE
@@ -6343,6 +6345,11 @@ main() {
     project-evidence-check)
       shift
       evidence_foundation_command evidence-check "$@"
+      exit $?
+      ;;
+    project-topic-review)
+      shift
+      "$SEMINARTEXT_PYTHON" "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/automatic_topic_review.py" "$@"
       exit $?
       ;;
     project-review-prepare)
