@@ -115,3 +115,28 @@ These bounded samples establish integration, not full-corpus quality or
 semantic acceptance. Synthetic unit tests are separate evidence and run no
 inference. Installed SeminarText, dependency/model stores and other products
 are not modified by this source-checkout workflow.
+
+## Governed installed-runtime closure
+
+The existing `scripts/seminartext-dev` deployment includes the public review
+commands' fixed source closure in its existing hash inventory: automatic/batch/
+media adapters, the existing reviewed-admission helper and schema, the same Topic
+Engine at its package import path, the unchanged historical alignment producer,
+and existing alignment requirement/profile/lock metadata. This copies source
+files only; Python environments and model caches are never copied or changed.
+The existing Integrity inventory now contains 36 components.
+
+The governed backup retains each added file's old bytes or an explicit prior
+absence. Its closure manifest is hash-bound into the existing backup manifest.
+Rollback validates the complete backup and every current target before any
+restoration, rejects symlinks/foreign changed bytes/staging collisions, and
+removes a newly added file only when both its authenticated prior absence and
+its current governed bytes are proven. Legacy backups lacking this closure
+manifest never authorize removal of these files. Native rollback publication
+remains independently fail-closed; no receipt or central-publisher validation is
+weakened to accommodate a historical inventory.
+
+Deployment additionally smoke-dispatches the three public review commands with
+`--help`, without loading models or creating semantic output. This packaging
+support grants no deployment authority: the caller must still prove PR-014's
+clean merged-main, required checks, known-target, backup and rollback conditions.
