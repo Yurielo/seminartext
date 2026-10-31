@@ -413,6 +413,8 @@ cat <<'HELP'
   seminartext project-review-prepare PROJECT --drafts FILE --output DIR
   seminartext project-topic-review {generate,replay,status,inspect} --help
       Source-checkout: Canonical Evidence → существующий Topic Engine → REVIEW_REQUIRED.
+  seminartext project-topic-review-batch {prepare,run,resume,status,inspect} --help
+      Явно выбранные источники → отдельные пакеты REVIEW_REQUIRED без семантических решений.
   seminartext project-review-status PROJECT --package FILE [--decisions FILE]
   seminartext project-review-apply PROJECT --package FILE --decisions FILE --output FILE
   seminartext project-review-v2-status PROJECT --package FILE --decisions FILE
@@ -6350,6 +6352,11 @@ main() {
     project-topic-review)
       shift
       "$SEMINARTEXT_PYTHON" "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/automatic_topic_review.py" "$@"
+      exit $?
+      ;;
+    project-topic-review-batch)
+      shift
+      "$SEMINARTEXT_PYTHON" "$SEMINARTEXT_ENTRYPOINT_DIR/seminartext_modules/batch_topic_review.py" "$@"
       exit $?
       ;;
     project-review-prepare)
