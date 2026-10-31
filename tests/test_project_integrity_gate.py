@@ -164,6 +164,14 @@ main "$@"
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
 
+    # The fixture owns its stub engine; supply any newly declared closure file
+    # without replacing deliberately synthetic sources above.
+    for component in contract["runtime_components"]:
+        source = root / component["repository_path"]
+        if not source.exists():
+            source.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(ROOT / component["repository_path"], source)
+
     lifecycle_path = root / "governance" / "topic_engine_lifecycle.json"
     lifecycle = json.loads(lifecycle_path.read_text(encoding="utf-8"))
     fake_topics_hash = hashlib.sha256(
@@ -392,7 +400,7 @@ def test_json_report_contract_and_exit_semantics(tmp_path):
     decoded = json.loads(encoded)
     assert exit_code == 0
     assert decoded["report_schema_version"] == 2
-    assert decoded["integrity_contract_version"] == "1.1.1"
+    assert decoded["integrity_contract_version"] == "1.1.2"
     assert decoded["control_plane_reconciled"] is True
     assert decoded["next_issue_allowed"] is False
     assert decoded["human_gate"] == "AUTO_UNTIL_DOMAIN_REVIEW"

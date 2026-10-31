@@ -240,4 +240,5 @@ def test_dev_status_compares_both_runtime_modules(tmp_path):
     assert result.returncode == 0, result.stderr
     assert "Topics:  SYNC" in result.stdout
     assert "Translate: SYNC" in result.stdout
-    assert "DEPLOY STATUS: DIFFERENT (23/25)" in result.stdout
+    count = len(json.loads((ROOT / "integrity/integrity_contract.json").read_text())["runtime_components"])
+    assert f"DEPLOY STATUS: DIFFERENT ({count - 2}/{count})" in result.stdout

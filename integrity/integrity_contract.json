@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "integrity_contract_version": "1.1.1",
+  "integrity_contract_version": "1.1.2",
   "allowed_statuses": [
     "PASS",
     "FAIL",
@@ -163,10 +163,84 @@
       "repository_path": "SEMINARTEXT_4_ROADMAP.md",
       "deployed_name": "SEMINARTEXT_4_ROADMAP.md",
       "required": true
+    },
+    {
+      "id": "automatic_topic_review",
+      "repository_path": "seminartext_modules/automatic_topic_review.py",
+      "deployed_name": "seminartext_modules/automatic_topic_review.py",
+      "required": true
+    },
+    {
+      "id": "batch_topic_review",
+      "repository_path": "seminartext_modules/batch_topic_review.py",
+      "deployed_name": "seminartext_modules/batch_topic_review.py",
+      "required": true
+    },
+    {
+      "id": "media_to_review",
+      "repository_path": "seminartext_modules/media_to_review.py",
+      "deployed_name": "seminartext_modules/media_to_review.py",
+      "required": true
+    },
+    {
+      "id": "media_alignment",
+      "repository_path": "seminartext_modules/media_alignment.py",
+      "deployed_name": "seminartext_modules/media_alignment.py",
+      "required": true
+    },
+    {
+      "id": "reviewed_knowledge_admission",
+      "repository_path": "seminartext_modules/reviewed_knowledge_admission.py",
+      "deployed_name": "seminartext_modules/reviewed_knowledge_admission.py",
+      "required": true
+    },
+    {
+      "id": "topic_review_engine",
+      "repository_path": "seminartext_modules/seminartext_topics.py",
+      "deployed_name": "seminartext_modules/seminartext_topics.py",
+      "required": true
+    },
+    {
+      "id": "existing_alignment_producer",
+      "repository_path": "analysis/word_alignment_decision/run_whisperx_existing_text.py",
+      "deployed_name": "analysis/word_alignment_decision/run_whisperx_existing_text.py",
+      "required": true
+    },
+    {
+      "id": "alignment_requirements",
+      "repository_path": "requirements-alignment.txt",
+      "deployed_name": "requirements-alignment.txt",
+      "required": true
+    },
+    {
+      "id": "dependency_profiles",
+      "repository_path": "dependencies/dependency_profiles.json",
+      "deployed_name": "dependencies/dependency_profiles.json",
+      "required": true
+    },
+    {
+      "id": "alignment_lock",
+      "repository_path": "dependencies/locks/alignment-py3.13.lock",
+      "deployed_name": "dependencies/locks/alignment-py3.13.lock",
+      "required": true
+    },
+    {
+      "id": "reviewed_knowledge_admission_schema",
+      "repository_path": "schemas/reviewed_knowledge_admission_v1.schema.json",
+      "deployed_name": "schemas/reviewed_knowledge_admission_v1.schema.json",
+      "required": true
     }
   ],
   "test_policy": {
-    "command": ["{test_python}", "-m", "pytest", "-q", "-rs", "-p", "no:cacheprovider"],
+    "command": [
+      "{test_python}",
+      "-m",
+      "pytest",
+      "-q",
+      "-rs",
+      "-p",
+      "no:cacheprovider"
+    ],
     "skip_policy": "WARN_WHEN_ACTIVE_RUNTIME_IS_NOT_REBUILT_FROM_DEV_PROFILE",
     "known_current_limitation": "The shared runtime may retain visible jsonschema skips until it is rebuilt from requirements-dev.txt; the isolated dev profile resolves them without global mutation."
   },
