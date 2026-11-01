@@ -1,6 +1,7 @@
 """Two synthetic sources. No real seminar, ASR or human verification is used."""
 import argparse
 import copy
+import hashlib
 import io
 import json
 import os
@@ -14,6 +15,14 @@ from seminartext_modules import automatic_topic_review as auto
 ROOT = Path(__file__).resolve().parents[1]
 CASES = [('astronomy', 'Планеты вращаются вокруг далёкой звезды.'),
          ('botany', 'Корни растений впитывают воду почвы.')]
+
+
+def test_adapter_engine_pin_matches_governed_source_identity():
+    lifecycle = json.loads((ROOT / 'governance/topic_engine_lifecycle.json').read_text())
+    implementation = next(e['implementation'] for e in lifecycle['engines']
+                          if e['engine_id'] == 'legacy_ollama_gemma_runtime')
+    assert auto.ENGINE_HASH == implementation['sha256']
+    assert hashlib.sha256((ROOT / implementation['path']).read_bytes()).hexdigest() == auto.ENGINE_HASH
 
 
 def fixture(root, case=CASES[0]):

@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "seminartext_version": "4.0.0",
-  "updated": "2026-10-29",
+  "updated": "2026-11-01",
   "bounded_engineering_tasks": {
     "issue_158_semantic_workflow": {
       "authority": "EXPLICIT_OWNER_TASK_2026_10_30",
@@ -148,7 +148,7 @@
   "issue_68_progress": {
     "issue": "https://github.com/Yurielo/seminartext/issues/68",
     "draft_pr": "https://github.com/Yurielo/seminartext/pull/121",
-    "verified_pr_head": "63dc6bfed24e9c7c8bc2717b6e84b84df488abf8",
+    "verified_pr_head": "844e4698d7b39ba0238de32b4f4a738530497693",
     "qa_ref": "analysis/issue_68_vertical_slice/domain_review_v1/domain_review_qa.json",
     "batch_ref": "analysis/issue_68_vertical_slice/domain_review_v1/batch_review.json",
     "registered_source_count": 7,
@@ -157,8 +157,10 @@
     "provisional_machine_topic_proposals_days_2_to_4": 262,
     "qa_classified_provisional_topic_units_days_2_to_4": 182,
     "concept_candidates": 22,
-    "topic_concept_links": 255,
+    "topic_concept_links": 246,
     "recorded_domain_review_decisions": 73,
+    "recorded_topic_title_review_corrections": 8,
+    "author_title_review_ref": "analysis/issue_68_vertical_slice/domain_review_v1/AUTHOR_TITLE_REVIEW_2026-11-01.md",
     "active_unresolved_link_exceptions": 0,
     "deferred_links": 7,
     "transcript_assurance": "MACHINE_ORIGIN_NOT_FULLY_HUMAN_VERIFIED",
