@@ -58,6 +58,166 @@ DEPLOY_TOPIC_ENGINE_LIFECYCLE="$BIN/governance/topic_engine_lifecycle.json"
 DEPLOY_TOPIC_ENGINE_FREEZE="$BIN/governance/topic_engine_freeze.json"
 DEPLOY_VERSION="$BIN/SEMINARTEXT_VERSION"
 
+# Source-only files required by the accepted review CLI. Models and Python
+# environments remain external prerequisites and are never copied here.
+REVIEW_STAGED_FILES=()
+REVIEW_RUNTIME_FILES=(
+  seminartext_modules/automatic_topic_review.py
+  seminartext_modules/batch_topic_review.py
+  seminartext_modules/media_to_review.py
+  seminartext_modules/media_alignment.py
+  seminartext_modules/reviewed_knowledge_admission.py
+  schemas/reviewed_knowledge_admission_v1.schema.json
+  seminartext_modules/seminartext_topics.py
+  analysis/word_alignment_decision/run_whisperx_existing_text.py
+  requirements-alignment.txt
+  dependencies/dependency_profiles.json
+  dependencies/locks/alignment-py3.13.lock
+)
+
+review_runtime_targets() {
+  local relative target parent
+  [[ ! -L "$BIN" ]] || die "review runtime target root is a symlink"
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    target="$BIN/$relative"
+    [[ ! -L "$target" && ( ! -e "$target" || -f "$target" ) ]] \
+      || die "unsafe review runtime target: $target"
+    parent="$(dirname "$target")"
+    while [[ "$parent" != "$BIN" ]]; do
+      [[ ! -L "$parent" && ( ! -e "$parent" || -d "$parent" ) ]] \
+        || die "unsafe review runtime parent: $parent"
+      parent="$(dirname "$parent")"
+    done
+  done
+}
+
+review_runtime_backup() {
+  local destination="$1" relative target
+  mkdir -p "$destination/review-runtime-absent"
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    target="$BIN/$relative"
+    if [[ -f "$target" ]]; then
+      mkdir -p "$destination/$(dirname "$relative")"
+      cp -p "$target" "$destination/$relative"
+    else
+      mkdir -p "$destination/review-runtime-absent/$(dirname "$relative")"
+      : > "$destination/review-runtime-absent/$relative"
+    fi
+  done
+  python3 - "$destination" "${REVIEW_RUNTIME_FILES[@]}" <<'PYREVIEWBACKUP'
+import hashlib, json, sys
+from pathlib import Path
+root = Path(sys.argv[1])
+files = {name: hashlib.sha256((root/name).read_bytes()).hexdigest() if (root/name).is_file() else None for name in sys.argv[2:]}
+(root/"review-runtime-manifest.json").write_text(json.dumps(files, sort_keys=True) + "\n")
+PYREVIEWBACKUP
+  if [[ ! -f "$destination/manifest.txt" ]]; then
+    printf 'review_runtime_manifest_sha256=%s\n' "$(hash_file "$destination/review-runtime-manifest.json")" > "$destination/manifest.txt"
+  fi
+}
+
+review_runtime_stage() {
+  local relative staged
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    staged="$BIN/$relative.new.$$"
+    mkdir -p "$(dirname "$staged")"
+    [[ ! -e "$staged" && ! -L "$staged" ]] || die "review runtime staging already exists: $staged"
+    REVIEW_STAGED_FILES+=("$staged")
+    cp -p "$REPO/$relative" "$staged"
+    [[ "$(hash_file "$REPO/$relative")" == "$(hash_file "$staged")" ]] \
+      || die "review runtime staging hash mismatch: $relative"
+  done
+}
+
+review_runtime_cleanup() {
+  local staged
+  # macOS Bash 3.2 treats an empty array expansion as unbound under set -u.
+  if [[ -n "${REVIEW_STAGED_FILES[*]-}" ]]; then
+    for staged in "${REVIEW_STAGED_FILES[@]}"; do
+      rm -f "$staged"
+    done
+  fi
+}
+
+review_runtime_install() {
+  local relative
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    mv "$BIN/$relative.new.$$" "$BIN/$relative"
+    [[ "$(hash_file "$REPO/$relative")" == "$(hash_file "$BIN/$relative")" ]] \
+      || die "review runtime deployed hash mismatch: $relative"
+  done
+}
+
+review_runtime_validate_backup() {
+  local backup="$1"
+  # Legacy backups predate this closure and never authorize absent-file removal.
+  [[ -f "$backup/review-runtime-manifest.json" ]] || return 0
+  python3 - "$backup" "${REVIEW_RUNTIME_FILES[@]}" <<'PYREVIEWRESTORE' || die "review runtime backup integrity failed"
+import hashlib, json, sys
+from pathlib import Path
+root = Path(sys.argv[1]); manifest = root/"review-runtime-manifest.json"
+if manifest.is_symlink(): raise ValueError("symlink backup manifest")
+values = json.loads(manifest.read_bytes())
+if set(values) != set(sys.argv[2:]): raise ValueError("backup closure differs")
+expected = "review_runtime_manifest_sha256=" + hashlib.sha256(manifest.read_bytes()).hexdigest()
+if expected not in (root/"manifest.txt").read_text().splitlines(): raise ValueError("backup manifest binding differs")
+for name, digest in values.items():
+    saved = root/name; absent = root/"review-runtime-absent"/name
+    for path in [saved, absent]:
+        while path != root:
+            if path.is_symlink(): raise ValueError("symlink backup path")
+            path = path.parent
+    if digest is None:
+        if saved.exists() or not absent.is_file() or absent.read_bytes(): raise ValueError("invalid absence record")
+    elif not saved.is_file() or absent.exists() or hashlib.sha256(saved.read_bytes()).hexdigest() != digest:
+        raise ValueError("saved backup bytes differ")
+PYREVIEWRESTORE
+}
+
+review_runtime_restore_preflight() {
+  local backup="$1" relative target saved current
+  review_runtime_targets
+  review_runtime_validate_backup "$backup"
+  [[ -f "$backup/review-runtime-manifest.json" ]] || return 0
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    target="$BIN/$relative"; saved="$backup/$relative"
+    [[ ! -e "$target.rollback.$$" && ! -L "$target.rollback.$$" ]] \
+      || die "review rollback staging already exists"
+    if [[ -f "$target" ]]; then
+      current="$(hash_file "$target")"
+      if [[ "$current" != "$(hash_file "$REPO/$relative")" ]]; then
+        [[ -f "$saved" && "$current" == "$(hash_file "$saved")" ]] \
+          || die "review runtime changed since deploy: $relative"
+      fi
+    fi
+  done
+}
+
+review_runtime_restore() {
+  local backup="$1" relative target saved absent
+  # Validate every fixed target and backup before restoring any review file.
+  review_runtime_restore_preflight "$backup"
+  [[ -f "$backup/review-runtime-manifest.json" ]] || return 0
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    saved="$backup/$relative"; absent="$backup/review-runtime-absent/$relative"
+    [[ ! -L "$saved" && ! -L "$absent" ]] || die "symlink review runtime backup"
+    [[ ! ( -f "$saved" && -f "$absent" ) ]] || die "ambiguous review runtime backup"
+  done
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    target="$BIN/$relative"; saved="$backup/$relative"; absent="$backup/review-runtime-absent/$relative"
+    if [[ -f "$saved" ]]; then
+      mkdir -p "$(dirname "$target")"
+      [[ ! -e "$target.rollback.$$" && ! -L "$target.rollback.$$" ]] || die "review rollback staging already exists"
+      cp -p "$saved" "$target.rollback.$$"
+      [[ "$(hash_file "$saved")" == "$(hash_file "$target.rollback.$$")" ]] || die "review rollback staging mismatch"
+      mv "$target.rollback.$$" "$target"
+    elif [[ -f "$absent" && -f "$backup/review-runtime-manifest.json" ]]; then
+      # Only an explicit record from our exact backup authorizes removal.
+      rm -f "$target"
+    fi
+  done
+}
+
 die() {
   echo "FAIL: $*" >&2
   exit 1
@@ -318,11 +478,20 @@ cmd_status() {
     mismatches=$((mismatches + 1))
   fi
 
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    if [[ -f "$BIN/$relative" ]] && [[ "$(hash_file "$REPO/$relative")" == "$(hash_file "$BIN/$relative")" ]]; then
+      echo "  $relative: SYNC"
+    else
+      echo "  $relative: DIFFERENT"
+      mismatches=$((mismatches + 1))
+    fi
+  done
+
   echo
   if (( mismatches == 0 )); then
     echo "DEPLOY STATUS: SYNC"
   else
-    echo "DEPLOY STATUS: DIFFERENT ($mismatches/25)"
+    echo "DEPLOY STATUS: DIFFERENT ($mismatches/$((25 + ${#REVIEW_RUNTIME_FILES[@]})))"
   fi
 }
 
@@ -377,6 +546,18 @@ for raw_path in sys.argv[1:]:
     path = Path(raw_path)
     ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
 PYMODULES
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    [[ -f "$REPO/$relative" && ! -L "$REPO/$relative" ]] || die "missing or symlink review runtime source: $relative"
+    case "$relative" in
+      *.py) python3 - "$REPO/$relative" <<'PYREVIEW' || die "review runtime syntax invalid"
+import ast, sys
+from pathlib import Path
+ast.parse(Path(sys.argv[1]).read_text(encoding="utf-8"), filename=sys.argv[1])
+PYREVIEW
+        ;;
+      *.json) python3 -m json.tool "$REPO/$relative" >/dev/null || die "review runtime JSON invalid" ;;
+    esac
+  done
   echo "[OK] Runtime module syntax"
 
   python3 -m json.tool "$CANONICAL_SCHEMA" >/dev/null \
@@ -490,6 +671,9 @@ cmd_deploy() {
   echo "Backup: $backup"
   echo
 
+  review_runtime_targets
+  review_runtime_backup "$backup"
+
   # Сохраняем точное текущее deployed-состояние.
   [[ -f "$DEPLOY_CODE" ]] \
     && cp -p "$DEPLOY_CODE" "$backup/seminartext_4.0_work"
@@ -548,6 +732,7 @@ created=$stamp
 source_repo=$REPO
 source_commit=$commit
 source_branch=$(git branch --show-current)
+review_runtime_manifest_sha256=$(hash_file "$backup/review-runtime-manifest.json")
 MANIFEST
 
   # Capture native mutation identity and a bounded central predecessor snapshot
@@ -582,9 +767,12 @@ MANIFEST
   tmp_version="$DEPLOY_VERSION.new.$$"
 
   cleanup_deploy_tmp() {
+    review_runtime_cleanup
     rm -f "$tmp_code" "$tmp_roadmap" "$tmp_state" "$tmp_topics" "$tmp_translate" "$tmp_evidence_foundation" "$tmp_project_knowledge_bridge" "$tmp_human_review_workflow" "$tmp_owned_tmp" "$tmp_group_sources" "$tmp_asr_completion" "$tmp_canonical_validator" "$tmp_canonical_schema" "$tmp_canonical_knowledge_validator" "$tmp_canonical_knowledge_schema" "$tmp_canonical_knowledge_lifecycle" "$tmp_project_knowledge_input_schema" "$tmp_topic_review_workflow_schema" "$tmp_topic_review_workflow_schema_v2" "$tmp_dataset_governance" "$tmp_dataset_registry" "$tmp_topic_engine_governance" "$tmp_topic_engine_lifecycle" "$tmp_topic_engine_freeze" "$tmp_version"
   }
   trap cleanup_deploy_tmp RETURN INT TERM
+
+  review_runtime_stage
 
   cp -p "$CODE" "$tmp_code"
   cp -p "$ROADMAP" "$tmp_roadmap"
@@ -651,6 +839,8 @@ PYMODULES
     || die "deploy temp Topic Engine Freeze invalid"
 
   chmod +x "$tmp_code" "$tmp_topics" "$tmp_translate"
+
+  review_runtime_install
 
   # Atomic replace на том же filesystem.
   mv "$tmp_code" "$DEPLOY_CODE"
@@ -766,6 +956,11 @@ PYMODULES
   [[ "$(hash_file "$VERSION_FILE")" == "$(hash_file "$DEPLOY_VERSION")" ]] \
     || die "deploy hash mismatch: Version"
 
+  for review_command in project-topic-review project-topic-review-batch project-media-review; do
+    PYTHONDONTWRITEBYTECODE=1 "$DEPLOY_CODE" "$review_command" --help >/dev/null 2>&1 \
+      || die "deployed functional smoke failed: $review_command"
+  done
+
   activation_record installed "$backup" >/dev/null
   # Do not let the deploy cleanup trap run again when the dispatcher returns
   # from the subsequent activation-complete call, after these locals are gone.
@@ -878,6 +1073,18 @@ cmd_rollback() {
   local rollback_guard
   rollback_guard="$BACKUP_ROOT/pre_rollback_$(date '+%Y%m%d_%H%M%S')"
   mkdir -p "$rollback_guard"
+
+  review_runtime_targets
+  review_runtime_backup "$rollback_guard"
+  # Validate the new closure's rollback records before replacing legacy files.
+  for relative in "${REVIEW_RUNTIME_FILES[@]}"; do
+    [[ ! -L "$backup/$relative" && ! -L "$backup/review-runtime-absent/$relative" ]] \
+      || die "symlink review runtime backup"
+    [[ ! ( -f "$backup/$relative" && -f "$backup/review-runtime-absent/$relative" ) ]] \
+      || die "ambiguous review runtime backup"
+  done
+
+  review_runtime_restore_preflight "$backup"
 
   # Invalidate pending publications even when rollback restores identical bytes.
   activation_record begin "$rollback_guard" --action rollback --backup "$backup" >/dev/null
@@ -1084,6 +1291,8 @@ cmd_rollback() {
   [[ -z "$tmp_topic_engine_lifecycle" ]] || mv "$tmp_topic_engine_lifecycle" "$DEPLOY_TOPIC_ENGINE_LIFECYCLE"
   [[ -z "$tmp_topic_engine_freeze" ]] || mv "$tmp_topic_engine_freeze" "$DEPLOY_TOPIC_ENGINE_FREEZE"
   [[ -z "$tmp_version" ]] || mv "$tmp_version" "$DEPLOY_VERSION"
+
+  review_runtime_restore "$backup"
 
   local registry_result registry_code=0
   registry_result="$(activation_record rollback-complete "$rollback_guard")" || registry_code=$?
