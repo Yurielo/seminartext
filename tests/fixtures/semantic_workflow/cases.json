@@ -1,0 +1,4 @@
+[
+  {"id": "astronomy", "text": "Planets orbit stars through space", "label": "Orbit", "precision": "word"},
+  {"id": "botany", "text": "Roots absorb water from soil", "label": "Absorption", "precision": "cue"}
+]
