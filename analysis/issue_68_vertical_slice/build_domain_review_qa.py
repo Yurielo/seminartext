@@ -658,6 +658,108 @@ def apply_domain_review_decisions(
     return units, resolutions, resolved
 
 
+def apply_topic_title_corrections(
+    units: list[dict[str, Any]],
+    ledger: dict[str, Any],
+    ledger_path: Path,
+    words_by_source: dict[str, list[dict[str, Any]]],
+    evidence_sha256: str,
+    semantic_package_sha256: str,
+    errors: list[str],
+) -> list[dict[str, Any]]:
+    """Apply an explicit title-only review without accepting Topics or links."""
+    corrections = ledger.get("topic_title_corrections", [])
+    if not corrections:
+        return []
+    planned = []
+    try:
+        if not isinstance(corrections, list):
+            raise ValueError("title corrections must be a list")
+        revision = ledger["title_review_revision"]
+        parent_hash = revision["parent_ledger_sha256"]
+        if not re.fullmatch(r"[a-f0-9]{64}", parent_hash):
+            raise ValueError("invalid parent ledger hash")
+        if revision != {"schema_version": "1.0.0", "scope": "TOPIC_TITLE_ONLY",
+                        "parent_ledger_sha256": parent_hash}:
+            raise ValueError("unsupported title-review revision")
+        parent_path = ledger_path.parent / "revisions" / f"{parent_hash}.json"
+        if parent_path.is_symlink() or sha256(parent_path) != parent_hash:
+            raise ValueError("immutable parent ledger differs")
+        parent = read_json(parent_path)
+        decision_groups = ("decisions", "concept_identity_decisions", "link_decisions")
+        metadata = {k: v for k, v in ledger.items()
+                    if k not in {*decision_groups, "topic_title_corrections", "title_review_revision"}}
+        if metadata != {k: v for k, v in parent.items() if k not in decision_groups}:
+            raise ValueError("prior ReviewDecisions or ledger fields changed")
+        for key in decision_groups:
+            prior, current = parent.get(key, []), ledger.get(key, [])
+            if not isinstance(current, list) or current[:len(prior)] != prior:
+                raise ValueError("prior ReviewDecisions changed or disappeared")
+        known_ids = {d["decision_id"] for key in
+                     ("decisions", "concept_identity_decisions", "link_decisions")
+                     for d in ledger.get(key, [])}
+        targets = set()
+        by_id = {unit["topic_id"]: unit for unit in units}
+        for correction in corrections:
+            if not isinstance(correction, dict) or set(correction) != {
+                "decision_id", "authority", "action", "scope", "boundary_action",
+                "decision_date", "source_instruction", "target_topic_id", "source_id",
+                "transcript_revision_id", "original_title", "new_title", "start_word_id",
+                "end_word_id", "canonical_evidence_sha256", "semantic_package_sha256",
+                "span_sha256",
+            }:
+                raise ValueError("unsupported title correction fields")
+            if any(not isinstance(value, str) or not value.strip()
+                   for value in correction.values()):
+                raise ValueError("title correction fields must be nonempty strings")
+            identity = correction["decision_id"]
+            target_id = correction["target_topic_id"]
+            target = by_id[target_id]
+            if identity in known_ids or target_id in targets:
+                raise ValueError("duplicate title correction identity/target")
+            known_ids.add(identity)
+            targets.add(target_id)
+            if (correction["authority"] != "PRODUCT_OWNER_DOMAIN_REVIEW"
+                    or correction["action"] != "RENAME"
+                    or correction["scope"] != "TOPIC_TITLE_ONLY"
+                    or correction["boundary_action"] != "PRESERVE"
+                    or not correction["source_instruction"]
+                    or not correction["decision_date"]
+                    or not isinstance(correction["new_title"], str)
+                    or not correction["new_title"].strip()):
+                raise ValueError("explicit title-only Owner decision required")
+            if (correction["original_title"] != target["title"]
+                    or correction["source_id"] != target["source_id"]
+                    or correction["start_word_id"] != target["start_word_id"]
+                    or correction["end_word_id"] != target["end_word_id"]
+                    or correction["canonical_evidence_sha256"] != evidence_sha256
+                    or correction["semantic_package_sha256"] != semantic_package_sha256):
+                raise ValueError("stale title/source/evidence/package binding")
+            words = words_by_source[target["source_id"]][
+                target["start_word_sequence"]:target["end_word_sequence"] + 1]
+            if (not words or words[0]["id"] != correction["start_word_id"]
+                    or words[-1]["id"] != correction["end_word_id"]
+                    or any(w["transcript_revision_id"] != correction["transcript_revision_id"]
+                           for w in words)
+                    or sha256_bytes(" ".join(w["text"] for w in words).encode("utf-8"))
+                    != correction["span_sha256"]):
+                raise ValueError("title correction Word/revision binding differs")
+            planned.append((target, correction))
+    except (KeyError, TypeError, ValueError, OSError) as error:
+        errors.append(f"invalid topic-title review: {error}")
+        return []
+    # Validate the entire batch before changing any provisional unit.
+    resolutions = []
+    for target, correction in planned:
+        resolution = {**correction, "title_review_status": "AUTHOR_CORRECTED",
+                      "topic_semantic_acceptance": False,
+                      "relationship_decision_changed": False,
+                      "transcript_mutated": False}
+        target.update(title=correction["new_title"], title_review_resolution=resolution)
+        resolutions.append(resolution)
+    return resolutions
+
+
 def apply_concept_identity_decisions(
     candidates: list[dict[str, Any]],
     decision_ledger: dict[str, Any],
@@ -1833,6 +1935,10 @@ def build_qa(
     units, domain_review_resolutions, resolved_topic_ids = apply_domain_review_decisions(
         units, decision_ledger, words_by_source, errors
     )
+    title_review_resolutions = apply_topic_title_corrections(
+        units, decision_ledger, domain_review_decisions_path, words_by_source,
+        sha256(bundle_path), sha256(semantic_package_path), errors
+    )
     topic_results: list[dict[str, Any]] = []
     for unit in units:
         words = words_by_source[unit["source_id"]][
@@ -2151,6 +2257,7 @@ def build_qa(
             "mode": "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW",
             "review_clear_is_accepted": False,
             "automatic_semantic_acceptance": False,
+            "title_correction_is_topic_acceptance": False,
             "present_only_first_material_exception": True,
         },
         "input_inventory": {
@@ -2191,6 +2298,7 @@ def build_qa(
             "topic_review_clear": topic_clear,
             "topic_review_exception": topic_exceptions,
             "topic_domain_review_decisions": len(domain_review_resolutions),
+            "topic_title_review_corrections": len(title_review_resolutions),
             "concept_domain_review_decisions": len(concept_identity_resolutions),
             "link_domain_review_decisions": len(link_review_resolutions),
             "concept_candidates_total": len(concept_results),
@@ -2250,6 +2358,7 @@ def build_qa(
         },
         "topic_results": topic_results,
         "domain_review_resolutions": domain_review_resolutions,
+        "topic_title_review_resolutions": title_review_resolutions,
         "rejected_concept_resolutions": [
             item
             for item in concept_identity_resolutions
@@ -2289,6 +2398,7 @@ does not mean `ACCEPTED`.
 - Topic `REVIEW_CLEAR`: **{summary['topic_review_clear']}**
 - Topic `REVIEW_EXCEPTION`: **{summary['topic_review_exception']}**
 - Concept candidates after review decisions: **{summary['concept_candidates_total']}** (baseline: **{qa['input_inventory']['concept_candidates']}**)
+- Author-approved title-only corrections: **{summary.get('topic_title_review_corrections', 0)}**; Topic semantics remain provisional.
 - Concept identity exceptions: **{summary['concept_identity_exception']}**
 - Topic→Concept QA results after review decisions: **{summary['links_total']}** (baseline: **{qa['input_inventory']['topic_concept_link_proposals']}**)
 - Link exceptions: **{summary['link_exception']}**
@@ -2418,6 +2528,10 @@ def write_review_outputs(
         "domain_review_qa.json": sha256(qa_path),
         "DOMAIN_REVIEW.md": sha256(review_path),
     }
+    ledger = read_json(decision_path)
+    if ledger.get("topic_title_corrections"):
+        parent_hash = ledger["title_review_revision"]["parent_ledger_sha256"]
+        files[f"revisions/{parent_hash}.json"] = parent_hash
     if qa["status"] != "INVALID":
         package = batch_review.prepare(qa_path, evidence_path, semantic_package_path)
         batch_path = output / "batch_review.json"

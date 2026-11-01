@@ -2,7 +2,7 @@
   "active": [],
   "artifact_type": "seminartext.issue_68_batch_domain_review",
   "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
-  "decision_ledger_sha256": "13b1e3e4a5df06349f61f2ae6c2df0214004d5db59d1ea648c494159535c7e8e",
+  "decision_ledger_sha256": "4e5c0f674cab4cf01c8e6aa8cf5b4929dee87036780827922fa8a9b67f5650cf",
   "deferred": [
     {
       "available_decisions": [
@@ -512,7 +512,7 @@
     "source": {},
     "topic_lineage": {}
   },
-  "qa_sha256": "7e4dd0db44dc57d2af38ff2fb8a223169b2455e2d8e3a2a601b817089d842b0e",
+  "qa_sha256": "4b1529e5fad4fa2f259aca0b86cf9fb3f14e1a2326ee4e91a7a59b330cda996b",
   "schema_version": "1.0.0",
   "semantic_authority": "PROVISIONAL_UNREVIEWED"
 }

@@ -56,6 +56,28 @@ exception. A decided exception does not promote the remaining package.
 
 ## Batch DOMAIN_REVIEW
 
+### Author-approved title corrections
+
+`domain_review_v1/domain_review_decisions.json` may retain explicit
+`topic_title_corrections` with scope `TOPIC_TITLE_ONLY`. Each correction binds
+the prior title, exact Topic/Source/TranscriptRevision and Word endpoints, the
+Word-span hash, and current Evidence and semantic-package hashes. The normal
+QA builder validates the entire correction batch before changing its derived
+titles. It does not edit the original proposals, transcript, media or ranges.
+
+`title_review_revision` binds an immutable parent ledger in
+`domain_review_v1/revisions/<sha256>.json`. Prior Topic/Concept/link decisions
+must remain an unchanged prefix; later explicit decisions can still pass
+through the existing batch workflow. Its temporary validation retains the
+same parent archive. Duplicate IDs, stale bindings, history replacement and
+scope expansion fail closed.
+
+Title correction does not accept a Topic, Concept or relationship. Current
+QA exposes the correction provenance separately from its remaining semantic
+review status. The 2026-11-01 receipt and source investigation are in
+`domain_review_v1/AUTHOR_TITLE_REVIEW_2026-11-01.md` and
+`domain_review_v1/SOURCE_IDENTITY_REVIEW_2026-11-01.json`.
+
 The same builder also writes `domain_review_v1/BATCH_REVIEW.md` and
 `domain_review_v1/batch_review.json`. The Russian Markdown is the consolidated,
 concept-grouped review table: it shows a presentation-only proposed action,

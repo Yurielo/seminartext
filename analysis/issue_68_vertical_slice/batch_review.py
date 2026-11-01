@@ -316,8 +316,8 @@ def apply_batch(package_path: Path, batch_path: Path, ledger_path: Path,
     original = json.loads(ledger_bytes)
     existing_by_id = {d["decision_id"]: d for d in original["link_decisions"]}
     existing_by_link = {d["target_link_id"]: d for d in original["link_decisions"]}
-    historical_ids = {d["decision_id"] for key in ("decisions", "concept_identity_decisions", "link_decisions")
-                      for d in original[key]}
+    historical_ids = {d["decision_id"] for key in ("decisions", "concept_identity_decisions", "link_decisions", "topic_title_corrections")
+                      for d in original.get(key, [])}
     entries = batch.get("decisions")
     if not isinstance(entries, list) or not entries:
         raise ValueError("batch requires explicit decisions")
@@ -392,6 +392,11 @@ def apply_batch(package_path: Path, batch_path: Path, ledger_path: Path,
     with tempfile.TemporaryDirectory(prefix="issue68-batch-validate-") as staging:
         candidate_path = Path(staging) / "decisions.json"
         candidate_path.write_bytes(encoded(candidate))
+        if original.get("topic_title_corrections"):
+            parent_hash = original["title_review_revision"]["parent_ledger_sha256"]
+            relative = Path("revisions") / f"{parent_hash}.json"
+            (Path(staging) / relative).parent.mkdir()
+            (Path(staging) / relative).write_bytes((ledger_path.parent / relative).read_bytes())
         verified = governed.build_qa(repository, project, review_result, semantic_package, candidate_path)
         if verified["status"] == "INVALID" or verified["errors"]:
             raise ValueError("governed validation failed: " + "; ".join(verified["errors"]))

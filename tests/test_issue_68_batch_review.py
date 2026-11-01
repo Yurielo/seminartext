@@ -28,6 +28,16 @@ def read(path: Path) -> dict:
     return json.loads(path.read_bytes())
 
 
+def historical_link_review_ledger() -> dict:
+    # These tests remove past link decisions to replay their original admission.
+    # Start from the retained pre-title-review revision, rather than deleting
+    # history from a later ledger that explicitly binds that parent.
+    current = read(OUTPUT / "domain_review_decisions.json")
+    parent = current.get("title_review_revision")
+    return (read(OUTPUT / "revisions" / f"{parent['parent_ledger_sha256']}.json")
+            if parent else current)
+
+
 def test_applied_batch_preserves_only_deferred_links() -> None:
     Draft202012Validator.check_schema(read(SCHEMA))
     qa = read(OUTPUT / "domain_review_qa.json")
@@ -90,7 +100,7 @@ def test_applied_submission_is_complete_and_hash_bound() -> None:
 @pytest.mark.skipif(not EVIDENCE.exists() or not REVIEW.exists(), reason="local Issue #68 source project unavailable")
 @pytest.mark.parametrize("problem", ["stale_revision", "unknown_link", "unsupported_action", "duplicate", "duplicate_historical_id", "stale_package", "stale_per_link_package", "stale_evidence", "missing_authority", "not_confirmed"])
 def test_invalid_batch_never_changes_ledger(tmp_path: Path, problem: str) -> None:
-    original = read(OUTPUT / "domain_review_decisions.json")
+    original = historical_link_review_ledger()
     applied = read(APPROVED_SUBMISSION)["decisions"][0]["governed_decision"]
     ledger_path = tmp_path / "domain_review_decisions.json"
     baseline = {**original, "link_decisions": [
@@ -148,7 +158,7 @@ def test_invalid_batch_never_changes_ledger(tmp_path: Path, problem: str) -> Non
 
 @pytest.mark.skipif(not EVIDENCE.exists() or not REVIEW.exists(), reason="local Issue #68 source project unavailable")
 def test_mixed_historical_decisions_apply_atomically_and_retry(tmp_path: Path) -> None:
-    original = read(OUTPUT / "domain_review_decisions.json")
+    original = historical_link_review_ledger()
     choices = {"ACCEPT_LINK": "ACCEPT", "REJECT_LINK": "REJECT",
                "REMAP_LINK": "REASSIGN", "DEFER_LINK": "DEFER"}
     selected = []
@@ -226,3 +236,45 @@ def test_mixed_historical_decisions_apply_atomically_and_retry(tmp_path: Path) -
         tmp_path / "domain_review_qa.json").read_bytes()
     assert batch.apply_batch(submitted_package_path, submission_path, ledger, ROOT, PROJECT,
                              REVIEW, SEMANTIC, tmp_path) == result_hash
+
+
+@pytest.mark.skipif(not EVIDENCE.exists() or not REVIEW.exists(), reason="local Issue #68 source project unavailable")
+def test_existing_batch_workflow_preserves_title_review_history(tmp_path: Path) -> None:
+    current = read(OUTPUT / "domain_review_decisions.json")
+    parent = historical_link_review_ledger()
+    decision = read(APPROVED_SUBMISSION)["decisions"][0]["governed_decision"]
+    parent["link_decisions"] = [d for d in parent["link_decisions"]
+                                if d["decision_id"] != decision["decision_id"]]
+    parent_bytes = batch.encoded(parent)
+    parent_hash = hashlib.sha256(parent_bytes).hexdigest()
+    (tmp_path / "revisions").mkdir()
+    (tmp_path / "revisions" / f"{parent_hash}.json").write_bytes(parent_bytes)
+    ledger_data = {**parent, "topic_title_corrections": current["topic_title_corrections"],
+                   "title_review_revision": {**current["title_review_revision"],
+                                             "parent_ledger_sha256": parent_hash}}
+    ledger = tmp_path / "domain_review_decisions.json"
+    ledger.write_bytes(batch.encoded(ledger_data))
+    qa = governed.build_qa(ROOT, PROJECT, REVIEW, SEMANTIC, ledger)
+    assert qa["errors"] == []
+    governed.write_review_outputs(tmp_path, qa, ledger, EVIDENCE, SEMANTIC)
+    package_path = tmp_path / "batch_review.json"
+    saved_package = tmp_path / "submitted_package.json"
+    saved_package.write_bytes(package_path.read_bytes())
+    package = read(package_path)
+    item = next(x for x in package["active"] if x["link_id"] == decision["target_link_id"])
+    package_hash = hashlib.sha256(saved_package.read_bytes()).hexdigest()
+    submission = {"review_package_sha256": package_hash,
+                  "decision_ledger_sha256": hashlib.sha256(ledger.read_bytes()).hexdigest(),
+                  "decisions": [{"link_id": item["link_id"], "topic_id": item["topic_id"],
+                      "concept_id": item["concept_id"], "source_revision_id": item["source_revision_id"],
+                      "evidence_sha256": item["evidence_sha256"], "review_package_sha256": package_hash,
+                      "action": {v: k for k, v in batch.ACTIONS.items()}[decision["outcome"]],
+                      "human_confirmed": True, "governed_decision": decision}]}
+    submitted = tmp_path / "submission.json"
+    submitted.write_bytes(batch.encoded(submission))
+    result = batch.apply_batch(saved_package, submitted, ledger, ROOT, PROJECT, REVIEW, SEMANTIC, tmp_path)
+    after = read(ledger)
+    assert after["topic_title_corrections"] == current["topic_title_corrections"]
+    assert after["link_decisions"][-1] == decision
+    assert read(tmp_path / "domain_review_qa.json")["summary"]["topic_title_review_corrections"] == 8
+    assert batch.apply_batch(saved_package, submitted, ledger, ROOT, PROJECT, REVIEW, SEMANTIC, tmp_path) == result

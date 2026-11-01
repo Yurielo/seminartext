@@ -10,6 +10,7 @@ does not mean `ACCEPTED`.
 - Topic `REVIEW_CLEAR`: **182**
 - Topic `REVIEW_EXCEPTION`: **0**
 - Concept candidates after review decisions: **22** (baseline: **18**)
+- Author-approved title-only corrections: **8**; Topic semantics remain provisional.
 - Concept identity exceptions: **0**
 - Topic→Concept QA results after review decisions: **246** (baseline: **254**)
 - Link exceptions: **7**
