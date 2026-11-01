@@ -669,7 +669,10 @@ def apply_topic_title_corrections(
 ) -> list[dict[str, Any]]:
     """Apply an explicit title-only review without accepting Topics or links."""
     corrections = ledger.get("topic_title_corrections", [])
-    if not corrections:
+    if "topic_title_corrections" not in ledger and "title_review_revision" not in ledger:
+        return []
+    if not isinstance(corrections, list) or not corrections:
+        errors.append("invalid topic-title review: nonempty correction list required")
         return []
     planned = []
     try:

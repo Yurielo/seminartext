@@ -105,7 +105,7 @@ def test_invalid_last_correction_never_partially_applies(title_batch, field, val
     assert errors and result == [] and units == before
 
 
-@pytest.mark.parametrize("damage", ["duplicate", "old_decision", "parent_bytes", "extra_field"])
+@pytest.mark.parametrize("damage", ["duplicate", "old_decision", "parent_bytes", "extra_field", "empty"])
 def test_history_and_scope_fail_closed(title_batch, damage):
     units, ledger, path, _ = title_batch
     before = deepcopy(units)
@@ -115,6 +115,8 @@ def test_history_and_scope_fail_closed(title_batch, damage):
         ledger["decisions"][0]["meaning"] = "overwritten"
     elif damage == "parent_bytes":
         next((path.parent / "revisions").iterdir()).write_text("{}")
+    elif damage == "empty":
+        ledger["topic_title_corrections"] = []
     else:
         ledger["topic_title_corrections"][0]["accept_relationships"] = True
     result, errors = apply(title_batch)
