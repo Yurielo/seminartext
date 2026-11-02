@@ -1481,7 +1481,7 @@ process_record() {
     [[ -n "${wav:-}" ]] && rm -f "$wav"
     [[ -n "${youtube_media:-}" ]] && rm -f "$youtube_media"
     [[ -n "${chunks:-}" ]] && rm -rf "$chunks"
-    if (( unresolved_quality == 0 )); then
+    if (( ${unresolved_quality:-0} == 0 )); then
       [[ -n "${parts:-}" ]] && rm -rf "$parts"
     fi
   }
