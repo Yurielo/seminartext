@@ -39,6 +39,7 @@ import sys
 from pathlib import Path
 args = sys.argv[1:]
 prefix = Path(args[args.index("-of") + 1])
+print("mock Whisper execution")
 prefix.parent.mkdir(parents=True, exist_ok=True)
 text = "Это проверочная машинная расшифровка выбранной записи."
 prefix.with_suffix(".txt").write_text(text + "\\n", encoding="utf-8")
@@ -114,10 +115,23 @@ def test_group_accepts_directories_and_files_deduplicates_by_content_and_reuses_
         assert with_sources.read_text(encoding="utf-8").count("=====") == 4
         assert len(json.loads(manifest.read_text(encoding="utf-8"))["sources"]) == 2
 
+        logs = [transcript / item["source_id"] / "transcription.log" for item in sources["videos"]]
+        logs_before = {p: p.read_bytes() for p in logs}
+        assert all(b"mock Whisper execution" in value for value in logs_before.values())
+
         second_run = run(env, str(media_dir), str(selected), "--output", str(group))
         assert second_run.returncode == 0, second_run.stdout + second_run.stderr
         sources_after = json.loads((group / "sources.json").read_text(encoding="utf-8"))
         assert sources_after == sources
+        assert {p: p.read_bytes() for p in logs} == logs_before
+        assert second_run.stdout.count("Переиспользую проверенную расшифровку") == 2
+        assert "mock Whisper execution" not in second_run.stdout
+        for path in logs:
+            path.write_bytes(path.read_bytes() + b"previous run sentinel\n")
+        forced = run(env, str(media_dir), str(selected), "--output", str(group), "--force")
+        assert forced.returncode == 0, forced.stdout + forced.stderr
+        assert forced.stdout.count("mock Whisper execution") == 2
+        assert all(b"previous run sentinel" not in path.read_bytes() for path in logs)
 
 
 def test_group_defaults_to_sibling_group_for_selected_file():

@@ -40,6 +40,7 @@ fi
         """#!/bin/bash
 set -euo pipefail
 printf '%s\n' "$*" >> "$MOCK_ARGS_LOG"
+printf 'mock Whisper execution\n'
 prefix=""
 while (($#)); do
   if [[ "$1" == "-of" ]]; then prefix="$2"; break; fi
@@ -170,3 +171,26 @@ def test_unsupported_language_fails_before_transcription(tmp_path):
     assert result.returncode == 2
     assert "неподдерживаемый язык 'fr'" in result.stderr
     assert not (tmp_path / "whisper_args.log").exists()
+
+
+@pytest.mark.parametrize("language", ["ru", "en"])
+def test_reuse_preserves_package_and_force_starts_new_log(tmp_path, language):
+    env = environment(tmp_path, text="Это достаточно длинная проверочная расшифровка записи.")
+    first = run_transcribe(tmp_path, env, "--language", language)
+    assert first.returncode == 0, first.stdout + first.stderr
+    package = tmp_path / "output" / "lecture"
+    log = package / "transcription.log"
+    assert b"mock Whisper execution" in log.read_bytes()
+    log.write_bytes(log.read_bytes() + b"original diagnostic sentinel\n")
+    before = {p.name: p.read_bytes() for p in package.iterdir() if p.is_file()}
+    calls = (tmp_path / "whisper_args.log").read_bytes()
+    reused = run_transcribe(tmp_path, env, "--language", language)
+    assert reused.returncode == 0, reused.stdout + reused.stderr
+    assert "Пропущено (уже готово)" in reused.stdout
+    assert (tmp_path / "whisper_args.log").read_bytes() == calls
+    assert {p.name: p.read_bytes() for p in package.iterdir() if p.is_file()} == before
+    forced = run_transcribe(tmp_path, env, "--language", language, "--force")
+    assert forced.returncode == 0, forced.stdout + forced.stderr
+    assert len((tmp_path / "whisper_args.log").read_text().splitlines()) == 2
+    assert b"mock Whisper execution" in log.read_bytes()
+    assert b"original diagnostic sentinel" not in log.read_bytes()
