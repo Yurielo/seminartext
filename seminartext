@@ -1436,7 +1436,7 @@ PYTIMING
 process_record() {
   local input="$1" requested="$2" source_type="${3:-файл}"
   local name="" dir="" wav="" raw="" clean="" review="" srt="" docx="" log="" info="" marker="" transcript_number="" quality_message=""
-  local completion_reason=""
+  local completion_reason="" unresolved_quality=0
   local timing_dir="" timing_stage="" timing_ledger=""
   local media_input="$input" youtube_media=""
   name="$(sanitize_name "$requested")"
@@ -1481,7 +1481,9 @@ process_record() {
     [[ -n "${wav:-}" ]] && rm -f "$wav"
     [[ -n "${youtube_media:-}" ]] && rm -f "$youtube_media"
     [[ -n "${chunks:-}" ]] && rm -rf "$chunks"
-    [[ -n "${parts:-}" ]] && rm -rf "$parts"
+    if (( unresolved_quality == 0 )); then
+      [[ -n "${parts:-}" ]] && rm -rf "$parts"
+    fi
   }
   trap cleanup_temp RETURN INT TERM
 
@@ -1580,12 +1582,17 @@ process_record() {
       [[ -z "$quality_message" ]] || printf '%s\n' "$quality_message" | tee -a "$log"
       echo "Обнаружено возможное зацикливание; повторяю с защитными параметрами." | tee -a "$log"
       cp -f "$prefix.txt" "$prefix.first.txt" 2>/dev/null || true
-      run_whisper_piece "$piece" "$prefix" "$log" 1 || true
+      if ! run_whisper_piece "$piece" "$prefix" "$log" 1; then
+        unresolved_quality=1
+        echo "Ошибка: защитная попытка фрагмента $((idx+1)) завершилась сбоем; диагностика сохранена в $parts." | tee -a "$log" >&2
+        return 1
+      fi
       selected_attempt="retry"
       if ! quality_message="$(quality_check "$prefix.txt" 2>&1)"; then
         [[ -z "$quality_message" ]] || printf '%s\n' "$quality_message" | tee -a "$log"
-        echo "ПРЕДУПРЕЖДЕНИЕ: фрагмент $((idx+1)) остаётся подозрительным." | tee -a "$log"
-        ((bad+=1))
+        unresolved_quality=1
+        echo "Ошибка: фрагмент $((idx+1)) остаётся подозрительным после повтора; расшифровка не завершена. Диагностика: $parts. Повторите с SEMINARTEXT_CHUNK_SECONDS=60." | tee -a "$log" >&2
+        return 1
       else
         echo "Повторная расшифровка фрагмента успешна." | tee -a "$log"
       fi
