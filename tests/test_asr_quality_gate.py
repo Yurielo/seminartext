@@ -3,6 +3,7 @@ import os
 import re
 import subprocess
 import sys
+import pytest
 from pathlib import Path
 
 
@@ -120,7 +121,8 @@ def test_existing_exact_loop_is_still_rejected(tmp_path):
     assert run_quality_check(tmp_path, exact_loop).returncode == 1
 
 
-def test_normal_workflow_uses_existing_protective_retry_for_fuzzy_loop(tmp_path):
+@pytest.mark.parametrize("retry_outcome", ["good", "loop", "error"])
+def test_normal_workflow_uses_existing_protective_retry_for_fuzzy_loop(tmp_path, retry_outcome):
     bin_dir = tmp_path / "bin"
     bin_dir.mkdir()
     args_log = tmp_path / "whisper_args.log"
@@ -163,7 +165,8 @@ mkdir -p "$(dirname "$prefix")"
 if ((has_prompt)); then
   cp "{bad_text}" "$prefix.txt"
 else
-  cp "{good_text}" "$prefix.txt"
+  cp "{bad_text if retry_outcome == 'loop' else good_text}" "$prefix.txt"
+  {"exit 9" if retry_outcome == "error" else ":"}
 fi
 cat > "$prefix.srt" <<'SRT'
 1
@@ -199,11 +202,19 @@ SRT
         capture_output=True,
         check=False,
     )
-    assert result.returncode == 0, result.stdout + result.stderr
-
     result_dir = output_root / "lecture"
     log = (result_dir / "transcription.log").read_text(encoding="utf-8")
     calls = args_log.read_text(encoding="utf-8").splitlines()
+    if retry_outcome != "good":
+        assert result.returncode != 0
+        assert not (result_dir / ".seminartext_complete").exists()
+        assert not list(result_dir.glob("transcript_clean*.txt"))
+        assert (result_dir / ".parts" / "part_0000.first.txt").is_file()
+        assert (result_dir / ".parts" / "part_0000.txt").is_file()
+        assert len(calls) == 2
+        assert "Ошибка:" in log
+        return
+    assert result.returncode == 0, result.stdout + result.stderr
     raw = next(result_dir.glob("transcript[0-9]*.txt")).read_text(encoding="utf-8")
 
     assert len(calls) == 2
