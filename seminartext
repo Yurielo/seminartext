@@ -1438,7 +1438,7 @@ process_record() {
   local name="" dir="" wav="" raw="" clean="" review="" srt="" docx="" log="" info="" marker="" transcript_number="" quality_message=""
   local completion_reason="" unresolved_quality=0
   local timing_dir="" timing_stage="" timing_ledger=""
-  local media_input="$input" youtube_media=""
+  local media_input="$input" youtube_media="" download_log=""
   name="$(sanitize_name "$requested")"
   dir="$(choose_output_dir "$name" "$input")"
   marker="$dir/.seminartext_complete"
@@ -1480,6 +1480,7 @@ process_record() {
   cleanup_temp() {
     [[ -n "${wav:-}" ]] && rm -f "$wav"
     [[ -n "${youtube_media:-}" ]] && rm -f "$youtube_media"
+    [[ -n "${download_log:-}" ]] && rm -f "$download_log"
     [[ -n "${chunks:-}" ]] && rm -rf "$chunks"
     if (( ${unresolved_quality:-0} == 0 )); then
       [[ -n "${parts:-}" ]] && rm -rf "$parts"
@@ -1493,10 +1494,23 @@ process_record() {
   echo "Источник: $input"
   echo "Тип источника: $source_type"
   echo "Результаты: $dir"
-  : > "$log"
+
+  # Standalone reuse needs no download or mutation of the completed package.
+  if (( PROJECT_MODE == 0 && FORCE == 0 )) && [[ -f "$marker" ]]; then
+    echo "Пропущено (уже готово): $(basename "$dir")"
+    cleanup_temp
+    trap - RETURN INT TERM
+    return 0
+  fi
 
   if [[ "$source_type" == "YouTube" ]] || is_youtube_url "$input"; then
-    youtube_media="$(download_youtube_audio "$input" "$dir" "$log")" || return 1
+    download_log="$(mktemp "$dir/.youtube_download.XXXXXX")" || return 1
+    if ! youtube_media="$(download_youtube_audio "$input" "$dir" "$download_log")"; then
+      echo "Журнал ошибки скачивания: $download_log" >&2
+      # Retain failed intake diagnostics independently of any earlier ASR log.
+      download_log=""
+      return 1
+    fi
     media_input="$youtube_media"
   fi
   if (( PROJECT_MODE == 1 )); then
@@ -1523,16 +1537,16 @@ process_record() {
         return 0
       fi
       echo "Непроверенная или несовместимая расшифровка ($completion_reason); повторно распознаю: $(basename "$dir")" >&2
-    else
-      echo "Пропущено (уже готово): $(basename "$dir")"
-      cleanup_temp
-      trap - RETURN INT TERM
-      return 0
     fi
   fi
   # Preserve an existing partial project even when no completion marker exists.
   if (( PROJECT_MODE == 1 )); then
     project_completion backup "$dir" "$PROJECT_SOURCE_ID" "" "" "" "$PROJECT_BACKUP_LEDGER" || return 1
+  fi
+  if [[ -n "$download_log" ]]; then
+    cat "$download_log" > "$log"
+  else
+    : > "$log"
   fi
   printf '%s' "$input" > "$dir/.source_path"
   rm -f "$marker" "$raw" "$clean" "$review" "$srt" "$docx"

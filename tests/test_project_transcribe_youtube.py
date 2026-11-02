@@ -3,6 +3,7 @@ import json
 import os
 import subprocess
 import tempfile
+import pytest
 from pathlib import Path
 
 
@@ -123,7 +124,8 @@ def run_project_transcribe(project: Path, env: dict):
     )
 
 
-def test_failed_youtube_download_keeps_original_error_and_no_completion_marker():
+@pytest.mark.parametrize("prior_log", [False, True])
+def test_failed_youtube_download_keeps_original_error_and_no_completion_marker(prior_log):
     with tempfile.TemporaryDirectory() as td:
         root = Path(td)
         bin_dir = root / "bin"
@@ -145,6 +147,10 @@ exit 1
         )
 
         project = make_project(root)
+        transcript_dir = project / "transcript" / "video_001"
+        if prior_log:
+            transcript_dir.mkdir(parents=True)
+            (transcript_dir / "transcription.log").write_bytes(b"original diagnostic log\n")
         result = run_project_transcribe(project, base_env(root, bin_dir))
         output = result.stdout + result.stderr
 
@@ -156,6 +162,10 @@ exit 1
         assert not (transcript_dir / ".seminartext_complete").exists()
         assert not (transcript_dir / "transcript.srt").exists()
         assert not (project / "transcript" / "video_001.json").exists()
+        failures = list(transcript_dir.glob(".youtube_download.*"))
+        assert failures and any("HTTP Error 403" in p.read_text() for p in failures)
+        if prior_log:
+            assert (transcript_dir / "transcription.log").read_bytes() == b"original diagnostic log\n"
 
 
 def test_successful_youtube_project_transcribe_with_cookie_config():
@@ -187,6 +197,7 @@ done
 out="${{out//%(ext)s/m4a}}"
 mkdir -p "$(dirname "$out")"
 printf 'audio' > "$out"
+printf 'mock successful download\n'
 exit 0
 """,
         )
@@ -210,13 +221,18 @@ exit 0
         assert video_json["source_id"] == "video_001"
         assert video_json["segment_count"] == 1
         calls_before_reuse = len((root / "whisper.log").read_text(encoding="utf-8").splitlines())
+        log = transcript_dir / "transcription.log"
+        log_before = log.read_bytes()
+        assert b"mock successful download" in log_before
         reused = run_project_transcribe(project, env)
         assert reused.returncode == 0, reused.stdout + reused.stderr
         assert "Переиспользую проверенную расшифровку" in reused.stdout
         assert len((root / "whisper.log").read_text(encoding="utf-8").splitlines()) == calls_before_reuse
+        assert log.read_bytes() == log_before
+        assert not list(transcript_dir.glob(".youtube_download.*"))
 
 
 if __name__ == "__main__":
-    test_failed_youtube_download_keeps_original_error_and_no_completion_marker()
+    test_failed_youtube_download_keeps_original_error_and_no_completion_marker(False)
     test_successful_youtube_project_transcribe_with_cookie_config()
     print("project-transcribe YouTube regression tests passed")
