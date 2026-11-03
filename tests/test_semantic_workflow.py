@@ -226,6 +226,28 @@ def test_edit_preserves_identity_and_source_wording(tmp_path):
     assert result["source_evidence"]["evidence"][0]["quote"]=="Planets orbit"
 
 
+def test_typed_projection_preserves_plain_review_context_and_round_history(tmp_path):
+    paths, package = fixture(tmp_path / "source")
+    run = tmp_path / "workflow"
+    prepare_cli(run, paths)
+    projection = cli("projection", run)
+    assert projection["artifact_type"] == "seminartext.semantic_workflow_projection"
+    assert projection["workflow"]["status"] == "REVIEW_REQUIRED"
+    assert projection["proposals"][0]["evidence"][0]["quote"] == "Planets orbit"
+    assert projection["proposals"][0]["saved_decision"] is None
+    assert projection["round_history"][-1]["saved_decisions"] == []
+
+    first = submission(package, selected=[0])
+    decision_path = tmp_path / "decision.json"
+    decision_path.write_bytes(admission.canonical_bytes(first))
+    cli("submit", run, "--decisions", decision_path)
+    reopened = cli("projection", run)
+    saved = next(item for item in reopened["proposals"] if item["proposal_id"] == first["decisions"][0]["proposal_id"])
+    assert saved["saved_decision"]["action"] == "ACCEPT"
+    assert saved["saved_decision"]["reason"] == "EXPLICIT SYNTHETIC TEST ONLY"
+    assert all("path" not in item for item in reopened["round_history"])
+
+
 def test_source_change_before_commit_and_lost_response_retry(tmp_path):
     paths,package=fixture(tmp_path/"source");run=tmp_path/"workflow";workflow.prepare(run,paths)
     with workflow.locked(run) as root:
