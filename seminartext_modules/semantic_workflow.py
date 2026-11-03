@@ -285,6 +285,62 @@ def inspect_text(state, payloads):
     return "\n".join(lines) + "\n"
 
 
+def review_projection(root, state, payloads):
+    """Return a validated, UI-safe view without exposing workflow snapshots.
+
+    This is deliberately a projection of the provider-owned immutable history,
+    rather than a second review ledger for a consumer to reconstruct.  The
+    caller receives only review data that has passed the same input/hash-chain
+    checks as every other public workflow command.
+    """
+    evidence_bundle = json.loads(payloads["evidence"])
+    fragments = {item["id"]: item for item in json.loads(payloads["fragments"])["fragment_lineage"]}
+    transcript = next((item for item in evidence_bundle["transcript_revisions"]
+                       if item["id"] == state["package"]["source_binding"]["transcript_revision_id"]), None)
+    require(transcript is not None, "bound transcript revision is unavailable")
+
+    def proposal_view(proposal, choices):
+        spans = []
+        for reference in proposal["fragment_refs"]:
+            span = admission._span(fragments[reference["id"]], evidence_bundle)
+            spans.append({key: span[key] for key in ("id", "quote", "precision", "locator",
+                         "canonical_source_id", "canonical_transcript_revision_id")})
+        record = proposal["record"]
+        visible_record = {key: record[key] for key in (
+            "id", "title", "summary", "preferred_label", "description", "aliases",
+            "relation_type", "source_concept_id", "target_concept_id") if key in record}
+        choice = choices.get(proposal["id"])
+        return {"proposal_id": proposal["id"], "proposal_sha256": admission.digest(proposal),
+                "entity_kind": proposal["entity_kind"], "review_status": proposal["review_status"],
+                "record": visible_record, "evidence": spans,
+                "saved_decision": copy.deepcopy(choice) if choice else None}
+
+    # Re-read each committed snapshot under the established lock to expose a
+    # compact, append-only round history.  No filename or local path is made
+    # part of the public contract.
+    rounds = []
+    for path in sorted(item for item in root.iterdir() if EVENT.fullmatch(item.name)):
+        event = json.loads(read_file(path))
+        prior_state = event["state"]
+        rounds.append({"package_id": prior_state["package"]["artifact_id"],
+                       "package_sha256": admission.digest(prior_state["package"]),
+                       "parent_revision_sha256": (prior_state["parent"] or {}).get("revision_sha256"),
+                       "status": summary(prior_state)["status"],
+                       "reviewer": copy.deepcopy(prior_state["reviewer"]),
+                       "saved_decisions": [copy.deepcopy(prior_state["choices"][key])
+                                           for key in sorted(prior_state["choices"])],
+                       "revision_sha256": (prior_state["result"] or {}).get("revision_sha256")})
+    package = state["package"]
+    return {"schema_version": VERSION, "artifact_type": "seminartext.semantic_workflow_projection",
+            "workflow": summary(state),
+            "package": {"id": package["artifact_id"], "sha256": admission.digest(package),
+                        "source_binding": copy.deepcopy(package["source_binding"]),
+                        "transcript_assurance": copy.deepcopy(transcript.get("transcript_provenance")),
+                        "producer": copy.deepcopy(package["producer"])},
+            "proposals": [proposal_view(proposal, state["choices"]) for proposal in package["proposals"]],
+            "round_history": rounds}
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -292,7 +348,7 @@ def main(argv=None):
     prepare_parser.add_argument("workflow", type=Path)
     for role in ROLES:
         prepare_parser.add_argument("--" + role.replace("_", "-"), type=Path, required=True)
-    for name in ("status", "inspect", "submit", "decide", "apply", "validate", "next-round", "result"):
+    for name in ("status", "inspect", "projection", "submit", "decide", "apply", "validate", "next-round", "result"):
         sub = commands.add_parser(name)
         sub.add_argument("workflow", type=Path)
         if name == "submit":
@@ -342,6 +398,8 @@ def main(argv=None):
             append(root, updated, number, previous)
         if args.command == "inspect":
             print(inspect_text(state, payloads), end="")
+        elif args.command == "projection":
+            print(json.dumps(review_projection(root, state, payloads), ensure_ascii=False, sort_keys=True))
         elif args.command == "result":
             print(admission.canonical_bytes(state["result"]).decode(), end="")
         else:
