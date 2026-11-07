@@ -22,7 +22,7 @@ from seminartext_modules.owned_tmp import OwnedWorkspace
 from seminartext_modules.reviewed_knowledge_admission import persist_revision
 
 MODEL = "gemma3:4b"
-ENGINE_HASH = "d8a14e83b877024c3e016a33e594af17d512741a77735ff3d8c7d1262628c8db"
+ENGINE_HASH = "65e34ae4b4b462d4003e6af68f238448abfd467070837be5551a7526cc9ee6fd"
 
 
 def require(condition, message):

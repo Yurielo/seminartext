@@ -1,0 +1,35 @@
+{
+  "artifact_type": "seminartext.issue_68_semantic_package_manifest",
+  "domain_authoring_decision_ledger": {
+    "artifact_id": "issue_68_stress_code_domain_authoring_decisions_v1",
+    "decision_count": 76,
+    "sha256": "334eb68f65ac9abdfd9f4ed04110b3dec43f832daebf34ab2643e58edf6b40ff"
+  },
+  "files": {
+    "DOMAIN_AUTHORING_REVIEW.md": "d5d469f5f7312a1954920a3ecc97305d34a59853dbf8050043d95b483309a43a",
+    "review_batches.json": "9baa3fb32db68e5aedcf15f89e789555a301075512aeec17b600c2d6b6ff6314",
+    "semantic_authoring_package.json": "056640c52de428fdbc20896cc799bdbf2d06ae8a91e9ee7939e0656db9dd2828"
+  },
+  "human_decision_policy": {
+    "authority": "PRODUCT_OWNER_DIRECT_WORKFLOW_DECISION",
+    "codex_triage_required": true,
+    "decision_date": "2026-09-07",
+    "final_consolidated_domain_review_required": true,
+    "human_gate_conditions": [
+      "multiple_semantically_reasonable_boundaries_or_titles",
+      "material_evidence_or_provenance_conflict",
+      "uncertain_non_semantic_exclusion",
+      "concept_identity_or_alias_decision",
+      "semantic_acceptance_or_rejection"
+    ],
+    "machine_proposal_count_is_not_human_gate_count": true,
+    "mode": "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW",
+    "per_machine_proposal_human_gate_required": false,
+    "semantic_acceptance_automatic": false,
+    "source_instruction": "Предусмотреть human decisions только в по-настоящему спорных местах, а не во всех 262 предложениях.",
+    "straightforward_handling": "CODEX_ASSISTED_PROVISIONAL_AUTHORING_WITHOUT_PER_ITEM_HUMAN_GATE"
+  },
+  "package_status": "READY_FOR_DOMAIN_AUTHORING",
+  "schema_version": "1.0.0",
+  "semantic_authority": "PROVISIONAL_UNREVIEWED"
+}

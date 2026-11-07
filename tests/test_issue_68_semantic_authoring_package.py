@@ -1,0 +1,1310 @@
+from __future__ import annotations
+
+import importlib.util
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+BUILDER = ROOT / "analysis/issue_68_vertical_slice/build_semantic_authoring_package.py"
+SPEC = importlib.util.spec_from_file_location("issue_68_semantic_package", BUILDER)
+assert SPEC and SPEC.loader
+MODULE = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(MODULE)
+
+
+def write_json(path: Path, value: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def make_fixture(tmp_path: Path) -> tuple[Path, Path]:
+    project = tmp_path / "project"
+    words = []
+    revisions = []
+    for number in range(1, 5):
+        source = f"source_video_{number:03d}"
+        revision = f"transcript_revision_video_{number:03d}_r1"
+        revisions.append(
+            {
+                "id": revision,
+                "source_id": source,
+                "transcript_provenance": {
+                    "kind": "machine_generated",
+                    "verification_state": "machine_unverified",
+                },
+            }
+        )
+        for sequence in range(12):
+            words.append(
+                {
+                    "id": f"{revision}:word:{sequence:06d}",
+                    "source_id": source,
+                    "transcript_revision_id": revision,
+                    "sequence": sequence,
+                    "text": "Стресс" if sequence == 2 else f"слово{sequence}",
+                    "start_seconds": float(sequence),
+                    "end_seconds": float(sequence) + 0.8,
+                    "alignment_status": "aligned",
+                }
+            )
+    bundle = {
+        "artifact_id": "canonical_fixture",
+        "transcript_revisions": revisions,
+        "words": words,
+    }
+    bundle_path = project / "evidence/canonical_bundle.json"
+    write_json(bundle_path, bundle)
+    bundle_hash = MODULE.sha256(bundle_path)
+    review = {
+        "artifact_id": "review_day1",
+        "application_status": "APPLIED",
+        "canonical_evidence": {"sha256": bundle_hash},
+        "semantic_knowledge": [
+            {
+                "id": "day1_topic",
+                "source_id": "source_video_001",
+                "title": "Стресс и адаптация",
+                "summary": "",
+                "word_start_id": "transcript_revision_video_001_r1:word:000000",
+                "word_end_id": "transcript_revision_video_001_r1:word:000011",
+            }
+        ],
+    }
+    review_path = project / "review.json"
+    write_json(review_path, review)
+    for number in MODULE.SOURCE_NUMBERS:
+        registry = f"video_{number:03d}"
+        topic = {
+            "engine": "ollama",
+            "model": "gemma3:4b",
+            "detail": "auto",
+            "topics": [
+                {
+                    "start_seconds": 0.0,
+                    "end_seconds": 6.0,
+                    "title": "Стресс",
+                    "summary": "Обсуждение стресса.",
+                    "start_segment_id": 1,
+                    "qa_status": "ok",
+                    "qa_attempt": "2stage",
+                },
+                {
+                    "start_seconds": 6.0,
+                    "end_seconds": 12.0,
+                    "title": "Тема требует ручной проверки",
+                    "summary": "",
+                    "start_segment_id": 7,
+                    "qa_status": "fallback",
+                    "qa_attempt": "safe_fallback",
+                },
+            ],
+        }
+        qa = {
+            "engine": "ollama",
+            "model": "gemma3:4b",
+            "detail": "auto",
+            "windows": [{"start_segment_id": 1}],
+        }
+        write_json(project / f"transcript/{registry}/topics.json", topic)
+        write_json(project / f"transcript/{registry}/topics_qa.json", qa)
+    return project, review_path
+
+
+def test_package_is_complete_provisional_and_word_contiguous(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    package, batches = MODULE.build_package(project, review)
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert len(package["topic_proposals"]) == 6
+    assert all(item["review_status"] == "UNREVIEWED" for item in package["topic_proposals"])
+    assert all(item["semantic_status"] == "PROVISIONAL" for item in package["concept_candidates"])
+    assert all(item["status"] == "PROVISIONAL" for item in package["topic_concept_link_proposals"])
+    assert package["generator"]["not_generated_by"] == "bge_m3_local_peak_v1"
+    assert package["safety"]["day_1_reauthored"] is False
+    assert len(batches["topic_batches"]) == 6
+    for coverage in package["coverage"].values():
+        assert coverage["covered_word_count"] == coverage["canonical_word_count"]
+        assert coverage["gaps"] == []
+        assert coverage["overlaps"] == []
+
+
+def test_review_markdown_handles_fully_triaged_package(tmp_path: Path) -> None:
+    output = tmp_path / "DOMAIN_AUTHORING_REVIEW.md"
+    package = {
+        "coverage": {
+            source_id: {
+                "proposal_count": 1,
+                "covered_word_count": 12,
+                "canonical_word_count": 12,
+                "gaps": [],
+                "overlaps": [],
+            }
+            for source_id in ("source_video_002", "source_video_003", "source_video_004")
+        },
+        "topic_proposals": [
+            {
+                "proposal_id": "proposal_1",
+                "authoring_status": "COMPLETED",
+            }
+        ],
+        "concept_candidates": [],
+        "topic_concept_link_proposals": [],
+        "human_decision_policy": {
+            "mode": "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW",
+        },
+    }
+
+    MODULE.write_review_markdown(output, package)
+
+    review = output.read_text(encoding="utf-8")
+    assert "All machine proposals have a provisional DOMAIN_AUTHORING disposition" in review
+    assert "requires the explicit consolidated `DOMAIN_REVIEW`" in review
+    assert "Next Codex triage item" not in review
+
+
+def test_unexpected_generator_fails_closed(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    path = project / "transcript/video_003/topics.json"
+    document = json.loads(path.read_text(encoding="utf-8"))
+    document["model"] = "unauthorized-model"
+    write_json(path, document)
+
+    package, _ = MODULE.build_package(project, review)
+
+    assert package["status"] == "INVALID"
+    assert any("unexpected generator identity" in item for item in package["errors"])
+
+
+def test_exception_only_policy_cannot_enable_automatic_semantic_acceptance(
+    tmp_path: Path,
+) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "human_decision_policy": {
+                "mode": "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW",
+                "per_machine_proposal_human_gate_required": False,
+                "final_consolidated_domain_review_required": True,
+                "semantic_acceptance_automatic": True,
+            },
+            "decisions": [],
+        },
+    )
+
+    package, _ = MODULE.build_package(project, review, decision_path)
+
+    assert package["status"] == "INVALID"
+    assert "human decision policy permits automatic semantic acceptance" in package["errors"]
+
+
+def test_codex_assisted_authoring_requires_straightforward_triage_classification(
+    tmp_path: Path,
+) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "codex_decision_without_triage",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "source_id": "source_video_002",
+                    "action": "RENAME",
+                    "new_title": "Предварительное название",
+                    "boundary_action": "PRESERVE",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000005",
+                    "authority": "CODEX_ASSISTED_PROVISIONAL_AUTHORING",
+                }
+            ],
+        },
+    )
+
+    package, _ = MODULE.build_package(project, review, decision_path)
+
+    assert package["status"] == "INVALID"
+    assert any(
+        "Codex authoring lacks explicit triage classification" in item
+        for item in package["errors"]
+    )
+
+
+def test_rename_authoring_decision_preserves_word_range_and_stays_provisional(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "decision_1",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "source_id": "source_video_002",
+                    "action": "RENAME",
+                    "new_title": "Новое название",
+                    "boundary_action": "PRESERVE",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000005",
+                    "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+                }
+            ],
+        },
+    )
+
+    package, batches = MODULE.build_package(project, review, decision_path)
+    proposal = package["topic_proposals"][0]
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert proposal["proposed_title"] == "Стресс"
+    assert proposal["authored_title"] == "Новое название"
+    assert proposal["authoring_status"] == "COMPLETED"
+    assert proposal["semantic_status"] == "PROVISIONAL"
+    assert proposal["domain_review_status"] == "REVIEW_REQUIRED"
+    assert proposal["start_word_sequence"] == 0
+    assert proposal["end_word_sequence"] == 5
+    assert batches["topic_batches"][0]["authoring_status"] == "COMPLETED"
+    assert package["domain_authoring_progress"] == {
+        "completed": 1,
+        "human_decision_count_requires_codex_triage": False,
+        "machine_proposal_count_is_not_human_gate_count": False,
+        "pending": 5,
+        "pending_human_decisions": None,
+        "pending_machine_proposals": 5,
+        "total": 6,
+        "next_proposal_id": "issue_68_video_002_topic_proposal_002",
+    }
+
+
+def test_realign_rename_moves_shared_boundary_without_gap_or_acceptance(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "decision_realign",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "next_proposal_id": "issue_68_video_002_topic_proposal_002",
+                    "source_id": "source_video_002",
+                    "action": "REALIGN_RENAME",
+                    "new_title": "Новое название",
+                    "boundary_action": "REALIGN_RIGHT",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000003",
+                    "end_word_anchor_time": "00:00:03.000",
+                    "next_start_word_id": "transcript_revision_video_002_r1:word:000004",
+                    "next_start_word_anchor_time": "00:00:04.000",
+                    "previous_next_start_word_id": "transcript_revision_video_002_r1:word:000006",
+                    "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+                }
+            ],
+        },
+    )
+
+    package, _ = MODULE.build_package(project, review, decision_path)
+    first, second = package["topic_proposals"][:2]
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert first["end_word_sequence"] == 3
+    assert second["start_word_sequence"] == 4
+    assert first["authored_title"] == "Новое название"
+    assert first["semantic_status"] == "PROVISIONAL"
+    assert first["domain_review_status"] == "REVIEW_REQUIRED"
+    assert second["left_boundary_authoring_decision"]["decision_id"] == "decision_realign"
+    assert package["coverage"]["source_video_002"]["gaps"] == []
+    assert package["coverage"]["source_video_002"]["overlaps"] == []
+
+
+def test_split_realign_creates_contiguous_provisional_authored_topics(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "decision_split_realign",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "next_proposal_id": "issue_68_video_002_topic_proposal_002",
+                    "source_id": "source_video_002",
+                    "action": "SPLIT_REALIGN",
+                    "boundary_action": "REALIGN_RIGHT",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000008",
+                    "end_word_anchor_time": "00:00:08.000",
+                    "next_start_word_id": "transcript_revision_video_002_r1:word:000009",
+                    "next_start_word_anchor_time": "00:00:09.000",
+                    "previous_next_start_word_id": "transcript_revision_video_002_r1:word:000006",
+                    "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+                    "split_parts": [
+                        {
+                            "authoring_disposition": "NON_SEMANTIC_EXCLUDED",
+                            "part_id": "issue_68_video_002_topic_proposal_001a",
+                            "part_label": "1A",
+                            "title": "Первая часть",
+                            "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                            "end_word_id": "transcript_revision_video_002_r1:word:000002",
+                            "start_word_anchor_time": "00:00:00.000",
+                            "end_word_anchor_time": "00:00:02.000",
+                        },
+                        {
+                            "part_id": "issue_68_video_002_topic_proposal_001b",
+                            "part_label": "1B",
+                            "title": "Вторая часть",
+                            "start_word_id": "transcript_revision_video_002_r1:word:000003",
+                            "end_word_id": "transcript_revision_video_002_r1:word:000008",
+                            "start_word_anchor_time": "00:00:03.000",
+                            "end_word_anchor_time": "00:00:08.000",
+                        },
+                    ],
+                }
+            ],
+        },
+    )
+
+    package, _ = MODULE.build_package(project, review, decision_path)
+    first, second = package["topic_proposals"][:2]
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert first["end_word_sequence"] == 8
+    assert second["start_word_sequence"] == 9
+    assert [item["part_label"] for item in first["authored_topics"]] == ["1A", "1B"]
+    assert [item["start_word_sequence"] for item in first["authored_topics"]] == [0, 3]
+    assert [item["end_word_sequence"] for item in first["authored_topics"]] == [2, 8]
+    assert [
+        item["authoring_disposition"] for item in first["authored_topics"]
+    ] == ["NON_SEMANTIC_EXCLUDED", "SEMANTIC_TOPIC"]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in first["authored_topics"]
+    )
+    assert package["coverage"]["source_video_002"]["gaps"] == []
+    assert package["coverage"]["source_video_002"]["overlaps"] == []
+    assert all(
+        link["topic_reference"] != "issue_68_video_002_topic_proposal_001a"
+        for link in package["topic_concept_link_proposals"]
+    )
+
+
+def test_split_realign_can_absorb_a_consecutive_machine_proposal(tmp_path: Path) -> None:
+    project, review = make_fixture(tmp_path)
+    topic_path = project / "transcript/video_002/topics.json"
+    topic_document = json.loads(topic_path.read_text(encoding="utf-8"))
+    topic_document["topics"] = [
+        {
+            **topic_document["topics"][0],
+            "start_seconds": 0.0,
+            "end_seconds": 4.0,
+        },
+        {
+            **topic_document["topics"][1],
+            "start_seconds": 4.0,
+            "end_seconds": 8.0,
+        },
+        {
+            **topic_document["topics"][1],
+            "start_seconds": 8.0,
+            "end_seconds": 12.0,
+        },
+    ]
+    write_json(topic_path, topic_document)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "decision_split_absorb",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "absorbed_proposal_ids": [
+                        "issue_68_video_002_topic_proposal_002"
+                    ],
+                    "next_proposal_id": "issue_68_video_002_topic_proposal_003",
+                    "source_id": "source_video_002",
+                    "action": "SPLIT_REALIGN",
+                    "boundary_action": "REALIGN_RIGHT",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000007",
+                    "end_word_anchor_time": "00:00:07.000",
+                    "next_start_word_id": "transcript_revision_video_002_r1:word:000008",
+                    "next_start_word_anchor_time": "00:00:08.000",
+                    "previous_next_start_word_id": (
+                        "transcript_revision_video_002_r1:word:000004"
+                    ),
+                    "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+                    "split_parts": [
+                        {
+                            "part_id": "issue_68_video_002_topic_proposal_001a",
+                            "part_label": "1A",
+                            "title": "Первая часть",
+                            "start_word_id": (
+                                "transcript_revision_video_002_r1:word:000000"
+                            ),
+                            "end_word_id": (
+                                "transcript_revision_video_002_r1:word:000003"
+                            ),
+                            "start_word_anchor_time": "00:00:00.000",
+                            "end_word_anchor_time": "00:00:03.000",
+                        },
+                        {
+                            "part_id": "issue_68_video_002_topic_proposal_001b",
+                            "part_label": "1B",
+                            "title": "Вторая часть",
+                            "start_word_id": (
+                                "transcript_revision_video_002_r1:word:000004"
+                            ),
+                            "end_word_id": (
+                                "transcript_revision_video_002_r1:word:000007"
+                            ),
+                            "start_word_anchor_time": "00:00:04.000",
+                            "end_word_anchor_time": "00:00:07.000",
+                        },
+                    ],
+                }
+            ],
+        },
+    )
+
+    package, batches = MODULE.build_package(project, review, decision_path)
+    first, absorbed, third = package["topic_proposals"][:3]
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert first["end_word_sequence"] == 7
+    assert first["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_002"
+    ]
+    assert absorbed["authoring_status"] == "COMPLETED"
+    assert absorbed["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert absorbed["absorbed_by_authoring_decision"]["authored_topic_id"] == (
+        "issue_68_video_002_topic_proposal_001b"
+    )
+    assert third["start_word_sequence"] == 8
+    assert third["left_boundary_authoring_decision"]["decision_id"] == (
+        "decision_split_absorb"
+    )
+    assert batches["topic_batches"][1]["authoring_status"] == "COMPLETED"
+    assert package["coverage"]["source_video_002"]["covered_word_count"] == 12
+    assert package["coverage"]["source_video_002"]["gaps"] == []
+    assert package["coverage"]["source_video_002"]["overlaps"] == []
+    assert all(
+        link["topic_reference"] != "issue_68_video_002_topic_proposal_002"
+        for link in package["topic_concept_link_proposals"]
+    )
+
+
+def test_merge_realign_rename_absorbs_a_consecutive_machine_proposal(
+    tmp_path: Path,
+) -> None:
+    project, review = make_fixture(tmp_path)
+    topic_path = project / "transcript/video_002/topics.json"
+    topic_document = json.loads(topic_path.read_text(encoding="utf-8"))
+    topic_document["topics"] = [
+        {**topic_document["topics"][0], "start_seconds": 0.0, "end_seconds": 4.0},
+        {**topic_document["topics"][1], "start_seconds": 4.0, "end_seconds": 8.0},
+        {**topic_document["topics"][1], "start_seconds": 8.0, "end_seconds": 12.0},
+    ]
+    write_json(topic_path, topic_document)
+    decision_path = project / "authoring_decisions.json"
+    write_json(
+        decision_path,
+        {
+            "artifact_id": "decisions_fixture",
+            "semantic_gate": "DOMAIN_AUTHORING",
+            "decisions": [
+                {
+                    "decision_id": "decision_merge_absorb",
+                    "proposal_id": "issue_68_video_002_topic_proposal_001",
+                    "absorbed_proposal_ids": [
+                        "issue_68_video_002_topic_proposal_002"
+                    ],
+                    "next_proposal_id": "issue_68_video_002_topic_proposal_003",
+                    "source_id": "source_video_002",
+                    "action": "MERGE_REALIGN_RENAME",
+                    "new_title": "Объединённая тема",
+                    "boundary_action": "REALIGN_RIGHT",
+                    "start_word_id": "transcript_revision_video_002_r1:word:000000",
+                    "end_word_id": "transcript_revision_video_002_r1:word:000007",
+                    "end_word_anchor_time": "00:00:07.000",
+                    "next_start_word_id": "transcript_revision_video_002_r1:word:000008",
+                    "next_start_word_anchor_time": "00:00:08.000",
+                    "previous_next_start_word_id": (
+                        "transcript_revision_video_002_r1:word:000004"
+                    ),
+                    "authority": "PRODUCT_OWNER_DIRECT_DOMAIN_AUTHORING",
+                }
+            ],
+        },
+    )
+
+    package, batches = MODULE.build_package(project, review, decision_path)
+    first, absorbed, third = package["topic_proposals"][:3]
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert first["end_word_sequence"] == 7
+    assert first["authored_title"] == "Объединённая тема"
+    assert first["authoring_decision"]["action"] == "MERGE_REALIGN_RENAME"
+    assert first["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_002"
+    ]
+    assert absorbed["authoring_status"] == "COMPLETED"
+    assert absorbed["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert absorbed["absorbed_by_authoring_decision"]["authored_topic_id"] == (
+        "issue_68_video_002_topic_proposal_001"
+    )
+    assert third["start_word_sequence"] == 8
+    assert third["left_boundary_authoring_decision"]["decision_id"] == (
+        "decision_merge_absorb"
+    )
+    assert batches["topic_batches"][1]["authoring_status"] == "COMPLETED"
+    assert package["coverage"]["source_video_002"]["covered_word_count"] == 12
+    assert package["coverage"]["source_video_002"]["gaps"] == []
+    assert package["coverage"]["source_video_002"]["overlaps"] == []
+    assert all(
+        link["topic_reference"] != "issue_68_video_002_topic_proposal_002"
+        for link in package["topic_concept_link_proposals"]
+    )
+
+
+def test_committed_real_package_is_complete_and_fail_closed() -> None:
+    package_path = (
+        ROOT
+        / "analysis/issue_68_vertical_slice/semantic_authoring_v1"
+        / "semantic_authoring_package.json"
+    )
+    batches_path = package_path.with_name("review_batches.json")
+    package = json.loads(package_path.read_text(encoding="utf-8"))
+    batches = json.loads(batches_path.read_text(encoding="utf-8"))
+
+    assert package["status"] == "READY_FOR_DOMAIN_AUTHORING"
+    assert package["semantic_authority"] == "PROVISIONAL_UNREVIEWED"
+    assert package["day_1"]["status"] == "PRESERVED_ACCEPTED_HUMAN_REVIEWED"
+    assert package["day_1"]["topic_count"] == 36
+    assert package["errors"] == []
+    expected_counts = {
+        "source_video_002": 91,
+        "source_video_003": 92,
+        "source_video_004": 79,
+    }
+    assert {
+        source_id: item["proposal_count"]
+        for source_id, item in package["coverage"].items()
+    } == expected_counts
+    assert len(package["topic_proposals"]) == sum(expected_counts.values())
+    assert package["domain_authoring_progress"] == {
+        "completed": 262,
+        "human_decision_count_requires_codex_triage": True,
+        "machine_proposal_count_is_not_human_gate_count": True,
+        "pending": 0,
+        "pending_human_decisions": None,
+        "pending_machine_proposals": 0,
+        "total": 262,
+        "next_proposal_id": None,
+    }
+    assert package["human_decision_policy"]["mode"] == (
+        "EXCEPTION_ONLY_WITH_CONSOLIDATED_DOMAIN_REVIEW"
+    )
+    assert package["human_decision_policy"]["per_machine_proposal_human_gate_required"] is False
+    assert package["human_decision_policy"]["final_consolidated_domain_review_required"] is True
+    assert package["human_decision_policy"]["semantic_acceptance_automatic"] is False
+    assert batches["purpose"] == "CODEX_TRIAGE_QUEUE_NOT_PER_PROPOSAL_HUMAN_GATES"
+    assert len({item["proposal_id"] for item in package["topic_proposals"]}) == sum(
+        expected_counts.values()
+    )
+    required = {
+        "proposal_id",
+        "source_id",
+        "start_word_id",
+        "end_word_id",
+        "start_time",
+        "end_time",
+        "proposed_title",
+        "proposed_summary",
+        "review_summary",
+        "evidence_preview",
+        "boundary_reason",
+        "confidence",
+        "transcript_assurance",
+        "provenance",
+        "review_status",
+    }
+    for proposal in package["topic_proposals"]:
+        assert required <= proposal.keys()
+        assert proposal["review_status"] == "UNREVIEWED"
+        assert len(proposal["review_summary"]) == 2
+        assert proposal["transcript_assurance"]["verification_state"] == "machine_unverified"
+        assert proposal["semantic_status"] == "PROVISIONAL"
+        assert proposal["domain_review_status"] == "REVIEW_REQUIRED"
+    first = package["topic_proposals"][0]
+    assert first["authored_title"] == "Начало второго дня: переход от теории кинезиологии к практике"
+    assert first["authoring_status"] == "COMPLETED"
+    assert first["start_word_id"].endswith("word:000000")
+    assert first["end_word_id"].endswith("word:000066")
+    second = package["topic_proposals"][1]
+    third = package["topic_proposals"][2]
+    assert second["authored_title"] == "Мануальное мышечное тестирование и реакция мышц на стресс"
+    assert second["authoring_status"] == "COMPLETED"
+    assert second["start_word_id"].endswith("word:000067")
+    assert second["end_word_id"].endswith("word:000169")
+    assert third["start_word_id"].endswith("word:000170")
+    assert third["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_002"
+    assert third["end_word_id"].endswith("word:001218")
+    assert third["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in third["authored_topics"]] == [
+        "3A",
+        "3B",
+        "3C",
+        "3D",
+    ]
+    assert [item["authored_title"] for item in third["authored_topics"]] == [
+        "Претесты и выбор передней порции дельтовидной мышцы",
+        "Очное и дистанционное тестирование: получение индивидуальной информации",
+        "Передняя порция дельтовидной мышцы: анатомия и техника тестирования",
+        "Дыхание, вода и передача сигналов нервной системой",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in third["authored_topics"]
+    )
+    fourth = package["topic_proposals"][3]
+    assert fourth["start_word_id"].endswith("word:001219")
+    assert fourth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_003"
+    assert fourth["end_word_id"].endswith("word:001712")
+    assert fourth["authored_title"] == (
+        "Разбор домашнего мышечного тестирования: различение сильного и слабого ответа"
+    )
+    assert fourth["authoring_status"] == "COMPLETED"
+    fifth = package["topic_proposals"][4]
+    assert fifth["start_word_id"].endswith("word:001713")
+    assert fifth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_004"
+    assert fifth["end_word_id"].endswith("word:001920")
+    assert fifth["authored_title"] == (
+        "Сильный и слабый мышечный ответ как индикатор стресса"
+    )
+    assert fifth["authoring_status"] == "COMPLETED"
+    sixth = package["topic_proposals"][5]
+    assert sixth["start_word_id"].endswith("word:001921")
+    assert sixth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_005"
+    assert sixth["end_word_id"].endswith("word:002201")
+    assert sixth["authored_title"] == (
+        "Пример коррекции стресса и принцип мышечного ответа в кинезиологии"
+    )
+    assert sixth["authoring_status"] == "COMPLETED"
+    seventh = package["topic_proposals"][6]
+    assert seventh["start_word_id"].endswith("word:002202")
+    assert seventh["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_006"
+    assert seventh["end_word_id"].endswith("word:002586")
+    assert seventh["authored_title"] == (
+        "Претест «очищение»: восстановление нормотонуса мышцы"
+    )
+    assert seventh["authoring_status"] == "COMPLETED"
+    eighth = package["topic_proposals"][7]
+    assert eighth["start_word_id"].endswith("word:002587")
+    assert eighth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_007"
+    assert eighth["end_word_id"].endswith("word:003418")
+    assert eighth["authored_title"] == (
+        "Претест «перегрузка» и коррекция «переключение»"
+    )
+    assert eighth["authoring_status"] == "COMPLETED"
+    ninth = package["topic_proposals"][8]
+    assert ninth["start_word_id"].endswith("word:003419")
+    assert ninth["left_boundary_authoring_decision"]["decision_id"] == "issue_68_domain_authoring_topic_008"
+    assert ninth["end_word_id"].endswith("word:003446")
+    assert ninth["authored_title"] == "Претест «блокировка»: состояние угрозы"
+    assert ninth["authoring_status"] == "COMPLETED"
+    tenth = package["topic_proposals"][9]
+    assert tenth["start_word_id"].endswith("word:003447")
+    assert tenth["end_word_id"].endswith("word:003556")
+    assert tenth["authored_title"] == (
+        "Претест «блокировка»: диагностика и коррекция перенапряжения"
+    )
+    assert tenth["authoring_status"] == "COMPLETED"
+    eleventh = package["topic_proposals"][10]
+    assert eleventh["start_word_id"].endswith("word:003557")
+    assert eleventh["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_010"
+    )
+    assert eleventh["end_word_id"].endswith("word:003928")
+    assert eleventh["authored_title"] == (
+        "Баланс поляризации: коррекция дыханием через ноздри"
+    )
+    assert eleventh["authoring_status"] == "COMPLETED"
+    twelfth = package["topic_proposals"][11]
+    assert twelfth["start_word_id"].endswith("word:003929")
+    assert twelfth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_011"
+    )
+    assert twelfth["end_word_id"].endswith("word:004430")
+    assert twelfth["authored_title"] == (
+        "Коррекция поляризации через меридианы и завершение претестов"
+    )
+    assert twelfth["authoring_status"] == "COMPLETED"
+    thirteenth = package["topic_proposals"][12]
+    assert thirteenth["start_word_id"].endswith("word:004431")
+    assert thirteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_012"
+    )
+    assert thirteenth["end_word_id"].endswith("word:004853")
+    assert thirteenth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in thirteenth["authored_topics"]] == [
+        "13A",
+        "13B",
+    ]
+    assert [item["authored_title"] for item in thirteenth["authored_topics"]] == [
+        "Возраст начала прямого мышечного тестирования у детей",
+        "Работа без осознанного ответа: ограничения текущего метода и альтернативы",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in thirteenth["authored_topics"]
+    )
+    fourteenth = package["topic_proposals"][13]
+    assert fourteenth["start_word_id"].endswith("word:004854")
+    assert fourteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_013"
+    )
+    assert fourteenth["end_word_id"].endswith("word:005508")
+    assert fourteenth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in fourteenth["authored_topics"]] == [
+        "14A",
+        "14B",
+        "14C",
+    ]
+    assert [item["authored_title"] for item in fourteenth["authored_topics"]] == [
+        "Вопросы по мышечному тестированию и отработка претестов",
+        "Перерыв на гимнастику: перекрёстный шаг и баланс полушарий",
+        "Дистанционная работа: эффективность и поиск научного объяснения",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in fourteenth["authored_topics"]
+    )
+    fifteenth = package["topic_proposals"][14]
+    assert fifteenth["start_word_id"].endswith("word:005509")
+    assert fifteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_014"
+    )
+    assert fifteenth["end_word_id"].endswith("word:006197")
+    assert fifteenth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in fifteenth["authored_topics"]] == [
+        "15A",
+        "15B",
+        "15C",
+    ]
+    assert [item["authored_title"] for item in fifteenth["authored_topics"]] == [
+        "Очный мышечный эксперимент с мысленной похвалой и критикой",
+        "Влияние мыслей на состояние человека и понятие аутоагрессии",
+        "Проявления аутоагрессии и саморазрушающего поведения",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in fifteenth["authored_topics"]
+    )
+    sixteenth = package["topic_proposals"][15]
+    assert sixteenth["start_word_id"].endswith("word:006198")
+    assert sixteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_015"
+    )
+    assert sixteenth["end_word_id"].endswith("word:006596")
+    assert sixteenth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in sixteenth["authored_topics"]] == [
+        "16A",
+        "16B",
+    ]
+    assert [item["authored_title"] for item in sixteenth["authored_topics"]] == [
+        "Сила мысли: совпадения и ощущение чужого взгляда",
+        "Представления об энергии в разных культурах и невидимые формы энергии",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in sixteenth["authored_topics"]
+    )
+    seventeenth = package["topic_proposals"][16]
+    assert seventeenth["start_word_id"].endswith("word:006597")
+    assert seventeenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_016"
+    )
+    assert seventeenth["end_word_id"].endswith("word:006827")
+    assert seventeenth["authored_title"] == (
+        "Строение материи: от органов и клеток к атомам и субатомным частицам"
+    )
+    assert seventeenth["authoring_status"] == "COMPLETED"
+    assert seventeenth["semantic_status"] == "PROVISIONAL"
+    assert seventeenth["domain_review_status"] == "REVIEW_REQUIRED"
+    eighteenth = package["topic_proposals"][17]
+    assert eighteenth["start_word_id"].endswith("word:006828")
+    assert eighteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_017"
+    )
+    assert eighteenth["end_word_id"].endswith("word:007329")
+    assert eighteenth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in eighteenth["authored_topics"]] == [
+        "18A",
+        "18B",
+    ]
+    assert [item["authored_title"] for item in eighteenth["authored_topics"]] == [
+        "Материя и человек как энергетические системы",
+        "Восприятие энергии органами чувств",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in eighteenth["authored_topics"]
+    )
+    nineteenth = package["topic_proposals"][18]
+    assert nineteenth["start_word_id"].endswith("word:007330")
+    assert nineteenth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_018"
+    )
+    assert nineteenth["end_word_id"].endswith("word:007503")
+    assert nineteenth["authored_title"] == (
+        "Получение, обработка и передача информации как потоки энергии"
+    )
+    assert nineteenth["authoring_status"] == "COMPLETED"
+    assert nineteenth["semantic_status"] == "PROVISIONAL"
+    assert nineteenth["domain_review_status"] == "REVIEW_REQUIRED"
+    twentieth = package["topic_proposals"][19]
+    assert twentieth["start_word_id"].endswith("word:007504")
+    assert twentieth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_019"
+    )
+    assert twentieth["end_word_id"].endswith("word:007865")
+    assert twentieth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twentieth["authored_topics"]] == [
+        "20A",
+        "20B",
+    ]
+    assert [item["authored_title"] for item in twentieth["authored_topics"]] == [
+        "Перерыв и задание: классификация входящей, внутренней и производимой энергии",
+        "Входящая энергия и её источники во взаимодействии человека с окружающей средой",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in twentieth["authored_topics"]
+    )
+    twenty_first = package["topic_proposals"][20]
+    assert twenty_first["start_word_id"].endswith("word:007866")
+    assert twenty_first["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_020"
+    )
+    assert twenty_first["end_word_id"].endswith("word:008034")
+    assert twenty_first["authored_title"] == (
+        "Внутренняя энергия человека: химическая, электрическая и магнитная"
+    )
+    assert twenty_first["authoring_status"] == "COMPLETED"
+    assert twenty_first["semantic_status"] == "PROVISIONAL"
+    assert twenty_first["domain_review_status"] == "REVIEW_REQUIRED"
+    twenty_second = package["topic_proposals"][21]
+    assert twenty_second["start_word_id"].endswith("word:008035")
+    assert twenty_second["end_word_id"].endswith("word:008140")
+    assert twenty_second["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twenty_second["authored_topics"]] == [
+        "22A",
+        "22B",
+    ]
+    assert [item["authored_title"] for item in twenty_second["authored_topics"]] == [
+        "Энергетические структуры человека: меридианы, чакры и аура",
+        "Исходящая энергия человека: мысли, эмоции, тепло и звук",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in twenty_second["authored_topics"]
+    )
+    twenty_third = package["topic_proposals"][22]
+    assert twenty_third["start_word_id"].endswith("word:008141")
+    assert twenty_third["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_022"
+    )
+    assert twenty_third["end_word_id"].endswith("word:008353")
+    assert twenty_third["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twenty_third["authored_topics"]] == [
+        "23A",
+        "23B",
+    ]
+    assert [
+        item["authoring_disposition"] for item in twenty_third["authored_topics"]
+    ] == ["NON_SEMANTIC_EXCLUDED", "SEMANTIC_TOPIC"]
+    assert twenty_third["authored_topics"][0]["semantic_status"] == "PROVISIONAL"
+    assert twenty_third["authored_topics"][0]["domain_review_status"] == (
+        "REVIEW_REQUIRED"
+    )
+    assert twenty_third["authored_topics"][1]["authored_title"] == (
+        "Энергетический обмен человека и формирование реальности"
+    )
+    assert twenty_third["authored_topics"][1]["semantic_status"] == "PROVISIONAL"
+    assert twenty_third["authored_topics"][1]["domain_review_status"] == (
+        "REVIEW_REQUIRED"
+    )
+    assert all(
+        link["topic_reference"] != "issue_68_video_002_topic_proposal_023a"
+        for link in package["topic_concept_link_proposals"]
+    )
+    twenty_fourth = package["topic_proposals"][23]
+    assert twenty_fourth["start_word_id"].endswith("word:008354")
+    assert twenty_fourth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_023"
+    )
+    assert twenty_fourth["end_word_id"].endswith("word:008756")
+    assert twenty_fourth["authored_title"] == (
+        "Квантовая связанность: общее поле и влияние на расстоянии"
+    )
+    assert twenty_fourth["authoring_status"] == "COMPLETED"
+    assert twenty_fourth["semantic_status"] == "PROVISIONAL"
+    assert twenty_fourth["domain_review_status"] == "REVIEW_REQUIRED"
+    twenty_fifth = package["topic_proposals"][24]
+    assert twenty_fifth["start_word_id"].endswith("word:008757")
+    assert twenty_fifth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_024"
+    )
+    assert twenty_fifth["end_word_id"].endswith("word:009030")
+    assert twenty_fifth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twenty_fifth["authored_topics"]] == [
+        "25A",
+        "25B",
+        "25C",
+    ]
+    assert [
+        item["authored_title"] for item in twenty_fifth["authored_topics"]
+    ] == [
+        "Материальность мыслей и след действий и намерений во Вселенной",
+        "Мышечный тест как способ проверки истинности утверждений",
+        "Непрожитые эмоции и генетическая передача эмоциональных программ",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in twenty_fifth["authored_topics"]
+    )
+    twenty_sixth = package["topic_proposals"][25]
+    assert twenty_sixth["start_word_id"].endswith("word:009031")
+    assert twenty_sixth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_025"
+    )
+    assert twenty_sixth["end_word_id"].endswith("word:009133")
+    assert twenty_sixth["authored_title"] == (
+        "Макс Планк о материи, как проявлении Силы"
+    )
+    assert twenty_sixth["authoring_status"] == "COMPLETED"
+    assert twenty_sixth["semantic_status"] == "PROVISIONAL"
+    assert twenty_sixth["domain_review_status"] == "REVIEW_REQUIRED"
+    twenty_seventh = package["topic_proposals"][26]
+    assert twenty_seventh["start_word_id"].endswith("word:009134")
+    assert twenty_seventh["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_026"
+    )
+    assert twenty_seventh["end_word_id"].endswith("word:009213")
+    assert twenty_seventh["authored_title"] == (
+        "Выводы о материи, энергии и разумном начале"
+    )
+    assert twenty_seventh["authoring_status"] == "COMPLETED"
+    assert twenty_seventh["semantic_status"] == "PROVISIONAL"
+    assert twenty_seventh["domain_review_status"] == "REVIEW_REQUIRED"
+    twenty_eighth = package["topic_proposals"][27]
+    assert twenty_eighth["start_word_id"].endswith("word:009214")
+    assert twenty_eighth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_027"
+    )
+    assert twenty_eighth["end_word_id"].endswith("word:009345")
+    assert twenty_eighth["authored_title"] == (
+        "Квантовая связанность, энергия и намерение в работе на расстоянии"
+    )
+    assert twenty_eighth["authoring_status"] == "COMPLETED"
+    assert twenty_eighth["semantic_status"] == "PROVISIONAL"
+    assert twenty_eighth["domain_review_status"] == "REVIEW_REQUIRED"
+    twenty_ninth = package["topic_proposals"][28]
+    assert twenty_ninth["start_word_id"].endswith("word:009346")
+    assert twenty_ninth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_028"
+    )
+    assert twenty_ninth["end_word_id"].endswith("word:009832")
+    assert twenty_ninth["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in twenty_ninth["authored_topics"]] == [
+        "29A",
+        "29B",
+        "29C",
+    ]
+    assert [
+        item["authored_title"] for item in twenty_ninth["authored_topics"]
+    ] == [
+        "Примеры применения кинезиологии и резонансных техник на расстоянии",
+        "Введение в дистанционное тестирование и выбор метода самотеста",
+        "Метод сцепленных звеньев: техника различения сильного и слабого ответа",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in twenty_ninth["authored_topics"]
+    )
+    thirtieth = package["topic_proposals"][29]
+    assert thirtieth["start_word_id"].endswith("word:009833")
+    assert thirtieth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_029"
+    )
+    assert thirtieth["end_word_id"].endswith("word:010249")
+    assert thirtieth["authored_title"] == (
+        "Метод одной руки: техника и преимущества самотестирования"
+    )
+    assert thirtieth["authoring_status"] == "COMPLETED"
+    assert thirtieth["semantic_status"] == "PROVISIONAL"
+    assert thirtieth["domain_review_status"] == "REVIEW_REQUIRED"
+    thirty_first = package["topic_proposals"][30]
+    assert thirty_first["start_word_id"].endswith("word:010250")
+    assert thirty_first["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_030"
+    )
+    assert thirty_first["end_word_id"].endswith("word:010444")
+    assert thirty_first["authored_title"] == (
+        "Разбор результатов самотестирования: усилие, контроль и расслабление"
+    )
+    assert thirty_first["authoring_status"] == "COMPLETED"
+    assert thirty_first["semantic_status"] == "PROVISIONAL"
+    assert thirty_first["domain_review_status"] == "REVIEW_REQUIRED"
+    thirty_second = package["topic_proposals"][31]
+    assert thirty_second["start_word_id"].endswith("word:010445")
+    assert thirty_second["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_031"
+    )
+    assert thirty_second["end_word_id"].endswith("word:011056")
+    assert thirty_second["authoring_status"] == "COMPLETED"
+    assert [item["part_label"] for item in thirty_second["authored_topics"]] == [
+        "32A",
+        "32B",
+        "32C",
+    ]
+    assert [
+        item["authored_title"] for item in thirty_second["authored_topics"]
+    ] == [
+        "Самотестирование указательного пальца с участием второй руки",
+        "Метод кольца: два варианта самотестирования",
+        "Тестирование лучевого сгибателя кисти",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in thirty_second["authored_topics"]
+    )
+    assert thirty_second["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_033"
+    ]
+    thirty_third = package["topic_proposals"][32]
+    assert thirty_third["authoring_status"] == "COMPLETED"
+    assert thirty_third["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert thirty_third["absorbed_by_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_032"
+    )
+    assert thirty_third["absorbed_by_authoring_decision"]["authored_topic_id"] == (
+        "issue_68_video_002_topic_proposal_032c"
+    )
+    thirty_fourth = package["topic_proposals"][33]
+    assert thirty_fourth["start_word_id"].endswith("word:011057")
+    assert thirty_fourth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_032"
+    )
+    assert thirty_fourth["end_word_id"].endswith("word:011506")
+    assert thirty_fourth["authored_title"] == (
+        "Освоение мышечного тестирования: терпение, практика и мотивация"
+    )
+    assert thirty_fourth["authoring_status"] == "COMPLETED"
+    assert thirty_fourth["semantic_status"] == "PROVISIONAL"
+    assert thirty_fourth["domain_review_status"] == "REVIEW_REQUIRED"
+    thirty_fifth = package["topic_proposals"][34]
+    assert thirty_fifth["start_word_id"].endswith("word:011507")
+    assert thirty_fifth["end_word_id"].endswith("word:011657")
+    assert thirty_fifth["authored_title"] == (
+        "Дисциплина как основа результата в обучении"
+    )
+    assert thirty_fifth["authoring_status"] == "COMPLETED"
+    assert thirty_fifth["semantic_status"] == "PROVISIONAL"
+    assert thirty_fifth["domain_review_status"] == "REVIEW_REQUIRED"
+    thirty_sixth = package["topic_proposals"][35]
+    assert thirty_sixth["start_word_id"].endswith("word:011658")
+    assert thirty_sixth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_035"
+    )
+    assert thirty_sixth["end_word_id"].endswith("word:012186")
+    assert thirty_sixth["authored_title"] == (
+        "Тестирование по изображению: восприятие сильного и слабого ответа"
+    )
+    assert thirty_sixth["authoring_status"] == "COMPLETED"
+    assert thirty_sixth["semantic_status"] == "PROVISIONAL"
+    assert thirty_sixth["domain_review_status"] == "REVIEW_REQUIRED"
+    assert thirty_sixth["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_037"
+    ]
+    thirty_seventh = package["topic_proposals"][36]
+    assert thirty_seventh["authoring_status"] == "COMPLETED"
+    assert thirty_seventh["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert thirty_seventh["absorbed_by_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_036"
+    )
+    assert thirty_seventh["absorbed_by_authoring_decision"]["authored_topic_id"] == (
+        "issue_68_video_002_topic_proposal_036"
+    )
+    thirty_eighth = package["topic_proposals"][37]
+    assert thirty_eighth["start_word_id"].endswith("word:012187")
+    assert thirty_eighth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_036"
+    )
+    assert thirty_eighth["end_word_id"].endswith("word:013057")
+    assert [item["part_label"] for item in thirty_eighth["authored_topics"]] == [
+        "38A",
+        "38B",
+    ]
+    assert [
+        item["authored_title"] for item in thirty_eighth["authored_topics"]
+    ] == [
+        "Проекция человека: дистанционное тестирование и коррекция",
+        "Фантом человека: дистанционная работа и возвращение в тело",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in thirty_eighth["authored_topics"]
+    )
+    thirty_ninth = package["topic_proposals"][38]
+    assert thirty_ninth["start_word_id"].endswith("word:013058")
+    assert thirty_ninth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_038"
+    )
+    assert thirty_ninth["end_word_id"].endswith("word:013353")
+    assert [item["part_label"] for item in thirty_ninth["authored_topics"]] == [
+        "39A",
+        "39B",
+    ]
+    assert [item["authored_title"] for item in thirty_ninth["authored_topics"]] == [
+        "Практика тестирования проекции человека",
+        "Практика тестирования фантома и его возвращения",
+    ]
+    assert all(
+        item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in thirty_ninth["authored_topics"]
+    )
+    assert thirty_ninth["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_040"
+    ]
+    fortieth = package["topic_proposals"][39]
+    assert fortieth["authoring_status"] == "COMPLETED"
+    assert fortieth["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert fortieth["absorbed_by_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_039"
+    )
+    assert fortieth["absorbed_by_authoring_decision"]["authored_topic_id"] == (
+        "issue_68_video_002_topic_proposal_039b"
+    )
+    forty_first = package["topic_proposals"][40]
+    assert forty_first["start_word_id"].endswith("word:013354")
+    assert forty_first["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_039"
+    )
+    assert forty_first["end_word_id"].endswith("word:014008")
+    assert forty_first["authored_title"] == (
+        "Фасциальное тестирование: принцип, техника и преимущества"
+    )
+    assert forty_first["authoring_status"] == "COMPLETED"
+    assert forty_first["semantic_status"] == "PROVISIONAL"
+    assert forty_first["domain_review_status"] == "REVIEW_REQUIRED"
+    assert forty_first["authoring_decision"]["absorbed_proposal_ids"] == [
+        "issue_68_video_002_topic_proposal_042",
+        "issue_68_video_002_topic_proposal_043",
+    ]
+    forty_second = package["topic_proposals"][41]
+    assert forty_second["authoring_status"] == "COMPLETED"
+    assert forty_second["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert forty_second["absorbed_by_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_041"
+    )
+    forty_third = package["topic_proposals"][42]
+    assert forty_third["authoring_status"] == "COMPLETED"
+    assert forty_third["authoring_disposition"] == "MERGED_INTO_PREVIOUS"
+    assert forty_third["absorbed_by_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_041"
+    )
+    forty_fourth = package["topic_proposals"][43]
+    assert forty_fourth["start_word_id"].endswith("word:014009")
+    assert forty_fourth["left_boundary_authoring_decision"]["decision_id"] == (
+        "issue_68_domain_authoring_topic_041"
+    )
+    last_completed = package["topic_proposals"][-1]
+    assert last_completed["proposal_id"] == "issue_68_video_004_topic_proposal_079"
+    assert last_completed["authoring_status"] == "COMPLETED"
+    assert last_completed["authored_title"] == "Заключительные вопросы и завершение семинара"
+    assert all(
+        proposal["authoring_status"] == "COMPLETED"
+        for proposal in package["topic_proposals"]
+    )
+    codex_authored = [
+        item
+        for item in package["topic_proposals"]
+        if item.get("authoring_decision", {}).get("authority")
+        == "CODEX_ASSISTED_PROVISIONAL_AUTHORING"
+    ]
+    assert codex_authored
+    assert all(
+        item["authoring_decision"]["triage_classification"]
+        == "STRAIGHTFORWARD_PROVISIONAL_AUTHORING"
+        and item["semantic_status"] == "PROVISIONAL"
+        and item["domain_review_status"] == "REVIEW_REQUIRED"
+        for item in codex_authored
+    )
+    assert all(
+        link["topic_reference"]
+        not in {
+            "issue_68_video_002_topic_proposal_033",
+            "issue_68_video_002_topic_proposal_037",
+            "issue_68_video_002_topic_proposal_040",
+            "issue_68_video_002_topic_proposal_042",
+            "issue_68_video_002_topic_proposal_043",
+        }
+        for link in package["topic_concept_link_proposals"]
+    )
+    for coverage in package["coverage"].values():
+        assert coverage["covered_word_count"] == coverage["canonical_word_count"]
+        assert coverage["gaps"] == []
+        assert coverage["overlaps"] == []
+    assert package["concept_candidates"]
+    assert package["topic_concept_link_proposals"]
+    assert all(
+        concept["semantic_status"] == "PROVISIONAL"
+        and concept["review_status"] == "UNREVIEWED"
+        for concept in package["concept_candidates"]
+    )
+    assert all(
+        link["status"] == "PROVISIONAL" and link["review_status"] == "UNREVIEWED"
+        for link in package["topic_concept_link_proposals"]
+    )
+    assert max(len(batch["proposal_references"]) for batch in batches["topic_batches"]) <= 3
+    assert package["safety"] == {
+        "accepted_obsidian_export_created": False,
+        "all_concepts_provisional": True,
+        "all_links_provisional": True,
+        "all_new_topics_unreviewed": True,
+        "dataset_d_or_e_accessed": False,
+        "day_1_reauthored": False,
+        "gold_created_or_modified": False,
+        "transcript_revision_mutated": False,
+    }

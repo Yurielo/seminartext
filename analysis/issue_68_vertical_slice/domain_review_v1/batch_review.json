@@ -1,0 +1,518 @@
+{
+  "active": [],
+  "artifact_type": "seminartext.issue_68_batch_domain_review",
+  "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
+  "decision_ledger_sha256": "4e5c0f674cab4cf01c8e6aa8cf5b4929dee87036780827922fa8a9b67f5650cf",
+  "deferred": [
+    {
+      "available_decisions": [
+        "ACCEPT",
+        "REJECT",
+        "REASSIGN",
+        "DEFER"
+      ],
+      "canonical_evidence_reference": "evidence/canonical_bundle.json",
+      "concept_id": "issue_68_candidate_concept_muscle_testing",
+      "concept_label": "Мышечное тестирование",
+      "deferred": true,
+      "evidence_complete": true,
+      "evidence_ranges": [
+        {
+          "end_word_id": "transcript_revision_video_001_r1:word:020489",
+          "evidence_sha256": "e1b3e9049e98edabcca28c910bce809ed648647aabb119d7f8891dcd069b15a1",
+          "exact_pattern_match_count": 0,
+          "source_revision_id": "transcript_revision_video_001_r1",
+          "start_word_id": "transcript_revision_video_001_r1:word:020482"
+        }
+      ],
+      "evidence_sha256": "95bb48076466b02a797bd32698b0e718a62eba3b3c1469aaf1503e863ccc584e",
+      "exact_mentions_in_evidence": 0,
+      "exception_reason": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
+      "explanation_ru": "В теме «Практическая техника мышечного тестирования» предложена связь с понятием «Мышечное тестирование». В связанных фрагментах найдено точных упоминаний: 0. Нужно проверить, раскрывается ли понятие по существу.",
+      "governed_link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_muscle_testing",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": true,
+            "authored_topic_reference": "issue_113_reviewed_topic_27",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_001_r1:word:020489",
+            "intersection_sha256": "e1b3e9049e98edabcca28c910bce809ed648647aabb119d7f8891dcd069b15a1",
+            "intersection_start_word_id": "transcript_revision_video_001_r1:word:020482"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_113_reviewed_topic_27",
+        "source_id": "source_video_001"
+      },
+      "group": {
+        "concept_id": "issue_68_candidate_concept_muscle_testing",
+        "reason": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
+        "source_id": "source_video_001",
+        "topic_lineage": [
+          "issue_113_reviewed_topic_27"
+        ]
+      },
+      "link_id": "issue_68_link_issue_113_reviewed_topic_27_muscle_testing",
+      "mention_excerpt": "И первое, с чего мы с вами начнем.",
+      "source_id": "source_video_001",
+      "source_revision_id": "transcript_revision_video_001_r1",
+      "topic_id": "issue_113_reviewed_topic_27",
+      "topic_range": {
+        "end_word_id": "transcript_revision_video_001_r1:word:020489",
+        "start_word_id": "transcript_revision_video_001_r1:word:020482"
+      },
+      "topic_title": "Практическая техника мышечного тестирования"
+    },
+    {
+      "available_decisions": [
+        "ACCEPT",
+        "REJECT",
+        "REASSIGN",
+        "DEFER"
+      ],
+      "canonical_evidence_reference": "evidence/canonical_bundle.json",
+      "concept_id": "issue_68_candidate_concept_protocol",
+      "concept_label": "Протокол работы",
+      "deferred": true,
+      "evidence_complete": true,
+      "evidence_ranges": [
+        {
+          "end_word_id": "transcript_revision_video_004_r1:word:018928",
+          "evidence_sha256": "a03c037d5689e1333480db2199ec6734731e6ab291f8c0f34fccdd7f2aa7c69a",
+          "exact_pattern_match_count": 1,
+          "source_revision_id": "transcript_revision_video_004_r1",
+          "start_word_id": "transcript_revision_video_004_r1:word:018831"
+        },
+        {
+          "end_word_id": "transcript_revision_video_004_r1:word:018933",
+          "evidence_sha256": "1a4860ed5ebf964ef596dabc789417b3e033b42a20e2b8066e8adb8127fe998d",
+          "exact_pattern_match_count": 0,
+          "source_revision_id": "transcript_revision_video_004_r1",
+          "start_word_id": "transcript_revision_video_004_r1:word:018929"
+        }
+      ],
+      "evidence_sha256": "6aa54ce0f780ea05bf35f9cb7a854d7b5cae77b9f67802044c9a0c1a6d9a58b6",
+      "exact_mentions_in_evidence": 1,
+      "exception_reason": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
+      "explanation_ru": "В теме «Тема требует ручной проверки» предложена связь с понятием «Протокол работы». В связанных фрагментах найдено точных упоминаний: 1. Нужно проверить, раскрывается ли понятие по существу.",
+      "governed_link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_protocol",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_051f",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:018928",
+            "intersection_sha256": "a03c037d5689e1333480db2199ec6734731e6ab291f8c0f34fccdd7f2aa7c69a",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:018831"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_051g",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:018933",
+            "intersection_sha256": "1a4860ed5ebf964ef596dabc789417b3e033b42a20e2b8066e8adb8127fe998d",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:018929"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_051f"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_061",
+        "source_id": "source_video_004"
+      },
+      "group": {
+        "concept_id": "issue_68_candidate_concept_protocol",
+        "reason": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
+        "source_id": "source_video_004",
+        "topic_lineage": [
+          "issue_68_video_004_topic_proposal_051f",
+          "issue_68_video_004_topic_proposal_051g"
+        ]
+      },
+      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_061_protocol",
+      "mention_excerpt": "т это вот про то, что нужно что-то менять, это вот последний пункт. Причина отсутствия положительных результатов. То есть по факту изменения есть, но их надо как-то еще со стороны клиента. И давайте последнюю тему разберем, сделаем небольшой перерыв, коротенький, на пять минут, и все соберем в одну сессию, да, и сделаем демонстрацию. На каком-то, вот, всего протокола. Следующая тема, это причина дискомфорта",
+      "source_id": "source_video_004",
+      "source_revision_id": "transcript_revision_video_004_r1",
+      "topic_id": "issue_68_video_004_topic_proposal_061",
+      "topic_range": {
+        "end_word_id": "transcript_revision_video_004_r1:word:018933",
+        "start_word_id": "transcript_revision_video_004_r1:word:018831"
+      },
+      "topic_title": "Тема требует ручной проверки"
+    },
+    {
+      "available_decisions": [
+        "ACCEPT",
+        "REJECT",
+        "REASSIGN",
+        "DEFER"
+      ],
+      "canonical_evidence_reference": "evidence/canonical_bundle.json",
+      "concept_id": "issue_68_candidate_concept_emotion",
+      "concept_label": "Эмоции",
+      "deferred": true,
+      "evidence_complete": true,
+      "evidence_ranges": [
+        {
+          "end_word_id": "transcript_revision_video_003_r1:word:020257",
+          "evidence_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
+          "exact_pattern_match_count": 1,
+          "source_revision_id": "transcript_revision_video_003_r1",
+          "start_word_id": "transcript_revision_video_003_r1:word:019976"
+        }
+      ],
+      "evidence_sha256": "feda4342e2b275f5d32db9830008c8362b2f3c01c5de84fad3805666294f37d5",
+      "exact_mentions_in_evidence": 1,
+      "exception_reason": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
+      "explanation_ru": "В теме «Работа с Подсознанием в Терапии» предложена связь с понятием «Эмоции». В связанных фрагментах найдено точных упоминаний: 1. Нужно проверить, раскрывается ли понятие по существу.",
+      "governed_link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_emotion",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_070a",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:020257",
+            "intersection_sha256": "21b68a0f1ab64b5b86ef9837797617be159abf78a3ff1e7863760a232abbdb1d",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:019976"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_070a"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_071",
+        "source_id": "source_video_003"
+      },
+      "group": {
+        "concept_id": "issue_68_candidate_concept_emotion",
+        "reason": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
+        "source_id": "source_video_003",
+        "topic_lineage": [
+          "issue_68_video_003_topic_proposal_070a"
+        ]
+      },
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_071_emotion",
+      "mention_excerpt": "ебя чувствуем, не успевшими, не удавшимися и так далее, это не означает, что мы такие есть на самом деле. Это просто мы так себя ощущаем. Мы так себя чувствуем. И нам нужно с вот этого снять заряд. Это негативная модель поведения. И перейти в позитивную модель поведения к тому, какие мы есть на самом деле. И у нас вот это, то, как мы себя чувствуем на карте эмоций,",
+      "source_id": "source_video_003",
+      "source_revision_id": "transcript_revision_video_003_r1",
+      "topic_id": "issue_68_video_003_topic_proposal_071",
+      "topic_range": {
+        "end_word_id": "transcript_revision_video_003_r1:word:020257",
+        "start_word_id": "transcript_revision_video_003_r1:word:019976"
+      },
+      "topic_title": "Работа с Подсознанием в Терапии"
+    },
+    {
+      "available_decisions": [
+        "ACCEPT",
+        "REJECT",
+        "REASSIGN",
+        "DEFER"
+      ],
+      "canonical_evidence_reference": "evidence/canonical_bundle.json",
+      "concept_id": "issue_68_candidate_concept_brain",
+      "concept_label": "Мозг",
+      "deferred": true,
+      "evidence_complete": true,
+      "evidence_ranges": [
+        {
+          "end_word_id": "transcript_revision_video_003_r1:word:023601",
+          "evidence_sha256": "979cbb2f03f8d449a308a88e00a72f7b410c94123d80bac172e75cf1aa692985",
+          "exact_pattern_match_count": 0,
+          "source_revision_id": "transcript_revision_video_003_r1",
+          "start_word_id": "transcript_revision_video_003_r1:word:023582"
+        },
+        {
+          "end_word_id": "transcript_revision_video_003_r1:word:024088",
+          "evidence_sha256": "11c484106c5d3bb01c86fe95d5781efe0df69f1c0e907b60b252bc032b6e0160",
+          "exact_pattern_match_count": 0,
+          "source_revision_id": "transcript_revision_video_003_r1",
+          "start_word_id": "transcript_revision_video_003_r1:word:023602"
+        }
+      ],
+      "evidence_sha256": "7c9bbf00f075f39e64cca2a4b230e8df2eeb464cc870cb329274c83f52f3cce3",
+      "exact_mentions_in_evidence": 0,
+      "exception_reason": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
+      "explanation_ru": "В теме «Нейронные сети и запоминание» предложена связь с понятием «Мозг». В связанных фрагментах найдено точных упоминаний: 0. Нужно проверить, раскрывается ли понятие по существу.",
+      "governed_link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_brain",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_084b",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:023601",
+            "intersection_sha256": "979cbb2f03f8d449a308a88e00a72f7b410c94123d80bac172e75cf1aa692985",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:023582"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_084c",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:024088",
+            "intersection_sha256": "11c484106c5d3bb01c86fe95d5781efe0df69f1c0e907b60b252bc032b6e0160",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:023602"
+          }
+        ],
+        "exact_term_target_references": [],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_088",
+        "source_id": "source_video_003"
+      },
+      "group": {
+        "concept_id": "issue_68_candidate_concept_brain",
+        "reason": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
+        "source_id": "source_video_003",
+        "topic_lineage": [
+          "issue_68_video_003_topic_proposal_084b",
+          "issue_68_video_003_topic_proposal_084c"
+        ]
+      },
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_088_brain",
+      "mention_excerpt": "они сохранятся и, может, конфликтовать будут. То есть нужно вот это-то тоже лишить подпитки, а это делается с помощью коррекции. Юрий, вот я хотела спросить, то есть с помощью кризиологии, да, вот с помощью коррекции мы разрушаем старые нейронные связи и образуем новые, да? Ну, не совсем так, но как бы в упрощенном формате, наверное, так, в упрощенном. Но старые же, они же не остаются? Смотрите, мы это будет, как сказать, вот если мы скажем, что мы там разрушили, да, старые нейронные связи, то, ну, возможно, как бы мы в какой-то момент ну, ошибемся, да, потому что некоторые, вот это, давайте на примере, давайте памяти разберем, вот просто эта схема будет, сейчас, секунду, как у нас действует память, да, вот как по принципу памяти у нас действует любая другая нейронная сеть, нейронная, как бы, связь, там, и так далее, да, сеть. Вот мы, для того, чтобы что-то запомнить, либо у нас, что мы должны, вот в школе, как бы, да, что мы делаем, давайте, для того, чтобы запомнить новые знания. Ну,",
+      "source_id": "source_video_003",
+      "source_revision_id": "transcript_revision_video_003_r1",
+      "topic_id": "issue_68_video_003_topic_proposal_088",
+      "topic_range": {
+        "end_word_id": "transcript_revision_video_003_r1:word:024088",
+        "start_word_id": "transcript_revision_video_003_r1:word:023582"
+      },
+      "topic_title": "Нейронные сети и запоминание"
+    },
+    {
+      "available_decisions": [
+        "ACCEPT",
+        "REJECT",
+        "REASSIGN",
+        "DEFER"
+      ],
+      "canonical_evidence_reference": "evidence/canonical_bundle.json",
+      "concept_id": "issue_68_candidate_concept_meridians",
+      "concept_label": "Меридианы",
+      "deferred": true,
+      "evidence_complete": true,
+      "evidence_ranges": [
+        {
+          "end_word_id": "transcript_revision_video_004_r1:word:011660",
+          "evidence_sha256": "ddf51b34fa83c290262c206b1a84e57f9ec67d9951a7d6fa3123db30fadfd1a6",
+          "exact_pattern_match_count": 1,
+          "source_revision_id": "transcript_revision_video_004_r1",
+          "start_word_id": "transcript_revision_video_004_r1:word:011524"
+        },
+        {
+          "end_word_id": "transcript_revision_video_004_r1:word:011678",
+          "evidence_sha256": "298f7a4ef1a75cfc0c81e3a2d6eb6b56eb33d8bb07d10c3fd1a6360af4bc3a38",
+          "exact_pattern_match_count": 0,
+          "source_revision_id": "transcript_revision_video_004_r1",
+          "start_word_id": "transcript_revision_video_004_r1:word:011661"
+        }
+      ],
+      "evidence_sha256": "0fd03af68037362c515fde0126bd0e73ee533783f62d2720cb8c1fb27783f8ab",
+      "exact_mentions_in_evidence": 1,
+      "exception_reason": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
+      "explanation_ru": "В теме «Меридианы и Информация» предложена связь с понятием «Меридианы». В связанных фрагментах найдено точных упоминаний: 1. Нужно проверить, раскрывается ли понятие по существу.",
+      "governed_link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_meridians",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_024j",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:011660",
+            "intersection_sha256": "ddf51b34fa83c290262c206b1a84e57f9ec67d9951a7d6fa3123db30fadfd1a6",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:011524"
+          },
+          {
+            "authored_title_correspondence": true,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_044a",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:011678",
+            "intersection_sha256": "298f7a4ef1a75cfc0c81e3a2d6eb6b56eb33d8bb07d10c3fd1a6360af4bc3a38",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:011661"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_024j"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_043",
+        "source_id": "source_video_004"
+      },
+      "group": {
+        "concept_id": "issue_68_candidate_concept_meridians",
+        "reason": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
+        "source_id": "source_video_004",
+        "topic_lineage": [
+          "issue_68_video_004_topic_proposal_024j",
+          "issue_68_video_004_topic_proposal_044a"
+        ]
+      },
+      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_043_meridians",
+      "mention_excerpt": "меридианы появятся, и дзын, там, еще что-то, да. Здесь вот про информацию. У вас там, например, карты Чака Специана появятся. К примеру, говорю, да, не обязательно, там, что их каждый раз использовать. А здесь, там, карта успеха, карта любви, карта сексуальности. Не только это. Здесь вот могут быть у нас, мы еще не создали сам семинар в планах из дополнительных материалов. Там эссенции могут быть. Эссенции Баха, эссенции Поппи, эссенции Мао, эссенции Рос, и эссенции Переландра, там, да, ну, вот такие как бы вещи. А принцип всей коррекции остается тот же самый. Просто вы свой прибор, да, вот, когда, вот, если говорить про корректность вашей ",
+      "source_id": "source_video_004",
+      "source_revision_id": "transcript_revision_video_004_r1",
+      "topic_id": "issue_68_video_004_topic_proposal_043",
+      "topic_range": {
+        "end_word_id": "transcript_revision_video_004_r1:word:011660",
+        "start_word_id": "transcript_revision_video_004_r1:word:011524"
+      },
+      "topic_title": "Меридианы и Информация"
+    },
+    {
+      "available_decisions": [
+        "ACCEPT",
+        "REJECT",
+        "REASSIGN",
+        "DEFER"
+      ],
+      "canonical_evidence_reference": "evidence/canonical_bundle.json",
+      "concept_id": "issue_68_candidate_concept_subconscious",
+      "concept_label": "Подсознание",
+      "deferred": true,
+      "evidence_complete": true,
+      "evidence_ranges": [
+        {
+          "end_word_id": "transcript_revision_video_003_r1:word:005992",
+          "evidence_sha256": "ad2980ffd8e870fc44be8b84f6f303d7e79d2a3d549a7a0b966b3d135688f6ad",
+          "exact_pattern_match_count": 1,
+          "source_revision_id": "transcript_revision_video_003_r1",
+          "start_word_id": "transcript_revision_video_003_r1:word:005934"
+        }
+      ],
+      "evidence_sha256": "7ac7b3dcef721fc5f355d0899ce142a1940edf0564bbf36d183c2935772cfcdd",
+      "exact_mentions_in_evidence": 1,
+      "exception_reason": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
+      "explanation_ru": "В теме «Уровни сознания» предложена связь с понятием «Подсознание». В связанных фрагментах найдено точных упоминаний: 1. Нужно проверить, раскрывается ли понятие по существу.",
+      "governed_link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_003_topic_proposal_015",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_003_r1:word:005992",
+            "intersection_sha256": "ad2980ffd8e870fc44be8b84f6f303d7e79d2a3d549a7a0b966b3d135688f6ad",
+            "intersection_start_word_id": "transcript_revision_video_003_r1:word:005934"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_003_topic_proposal_015"
+        ],
+        "input_topic_reference": "issue_68_video_003_topic_proposal_019",
+        "source_id": "source_video_003"
+      },
+      "group": {
+        "concept_id": "issue_68_candidate_concept_subconscious",
+        "reason": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
+        "source_id": "source_video_003",
+        "topic_lineage": [
+          "issue_68_video_003_topic_proposal_015"
+        ]
+      },
+      "link_id": "issue_68_link_issue_68_video_003_topic_proposal_019_subconscious",
+      "mention_excerpt": "Сознание, подсознание, тело. Где находится проблема? На каком уровне? Я поняла, поняла. Ответили правильно, можем идти дальше. Все умницы. Отлично. Дальше. Я задаю вопрос. То есть тестирую по вопросу. У нас... Давайте также вот этот же пример используем, чтобы было понятно. Сейчас я сотру. Не стирается. Вот будем... Вот это вот сейчас будем... Тестирование по сильному ответу. И вот",
+      "source_id": "source_video_003",
+      "source_revision_id": "transcript_revision_video_003_r1",
+      "topic_id": "issue_68_video_003_topic_proposal_019",
+      "topic_range": {
+        "end_word_id": "transcript_revision_video_003_r1:word:005992",
+        "start_word_id": "transcript_revision_video_003_r1:word:005934"
+      },
+      "topic_title": "Уровни сознания"
+    },
+    {
+      "available_decisions": [
+        "ACCEPT",
+        "REJECT",
+        "REASSIGN",
+        "DEFER"
+      ],
+      "canonical_evidence_reference": "evidence/canonical_bundle.json",
+      "concept_id": "issue_68_candidate_concept_subconscious",
+      "concept_label": "Подсознание",
+      "deferred": true,
+      "evidence_complete": true,
+      "evidence_ranges": [
+        {
+          "end_word_id": "transcript_revision_video_004_r1:word:014883",
+          "evidence_sha256": "8f2b9e7587e4c551306b11cab21369f8d47c94000d9968f2e9751f3f5e70157e",
+          "exact_pattern_match_count": 0,
+          "source_revision_id": "transcript_revision_video_004_r1",
+          "start_word_id": "transcript_revision_video_004_r1:word:014783"
+        },
+        {
+          "end_word_id": "transcript_revision_video_004_r1:word:015292",
+          "evidence_sha256": "87e18a895a5989fa2b7c60d7eb217ebc0c0c62994b66a408e566e00b4da815b9",
+          "exact_pattern_match_count": 1,
+          "source_revision_id": "transcript_revision_video_004_r1",
+          "start_word_id": "transcript_revision_video_004_r1:word:014884"
+        }
+      ],
+      "evidence_sha256": "fa27df6ca1496a9795b7429d22115e352b14658f149de90d4cd27bf756fe63d4",
+      "exact_mentions_in_evidence": 1,
+      "exception_reason": "The current proposal is not supported beyond a single or missing term signal in the authored semantic unit(s).",
+      "explanation_ru": "В теме «Работа с домашними заданиями» предложена связь с понятием «Подсознание». В связанных фрагментах найдено точных упоминаний: 1. Нужно проверить, раскрывается ли понятие по существу.",
+      "governed_link_snapshot": {
+        "candidate_concept_reference": "issue_68_candidate_concept_subconscious",
+        "classification": "LINK_EXCEPTION",
+        "evidence_support": [
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_051b",
+            "exact_pattern_match_count": 0,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:014883",
+            "intersection_sha256": "8f2b9e7587e4c551306b11cab21369f8d47c94000d9968f2e9751f3f5e70157e",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:014783"
+          },
+          {
+            "authored_title_correspondence": false,
+            "authored_topic_reference": "issue_68_video_004_topic_proposal_051c",
+            "exact_pattern_match_count": 1,
+            "intersection_end_word_id": "transcript_revision_video_004_r1:word:015292",
+            "intersection_sha256": "87e18a895a5989fa2b7c60d7eb217ebc0c0c62994b66a408e566e00b4da815b9",
+            "intersection_start_word_id": "transcript_revision_video_004_r1:word:014884"
+          }
+        ],
+        "exact_term_target_references": [
+          "issue_68_video_004_topic_proposal_051c"
+        ],
+        "input_topic_reference": "issue_68_video_004_topic_proposal_052",
+        "source_id": "source_video_004"
+      },
+      "group": {
+        "concept_id": "issue_68_candidate_concept_subconscious",
+        "reason": "PRODUCT_OWNER_DEFER_PENDING_FULL_SOURCE_CONTEXT_VERIFICATION",
+        "source_id": "source_video_004",
+        "topic_lineage": [
+          "issue_68_video_004_topic_proposal_051b",
+          "issue_68_video_004_topic_proposal_051c"
+        ]
+      },
+      "link_id": "issue_68_link_issue_68_video_004_topic_proposal_052_subconscious",
+      "mention_excerpt": "ость на этом закончилась. Ваша ответственность будет на уровне того, как вы будете выполнять домашние задания. Домашние задания должны, нужны для закрепления позитивных результатов от сессии. Ну, то есть, понимаете, да, вот четко разграничите ответственность. Если, ну, к примеру, вы сделали сессию, да, человеку дали домашнее задание, он его не делает. А вот подсознание просто так, как бы, не будет давать",
+      "source_id": "source_video_004",
+      "source_revision_id": "transcript_revision_video_004_r1",
+      "topic_id": "issue_68_video_004_topic_proposal_052",
+      "topic_range": {
+        "end_word_id": "transcript_revision_video_004_r1:word:015292",
+        "start_word_id": "transcript_revision_video_004_r1:word:014783"
+      },
+      "topic_title": "Работа с домашними заданиями"
+    }
+  ],
+  "groups": {
+    "concept": {},
+    "reason": {},
+    "source": {},
+    "topic_lineage": {}
+  },
+  "qa_sha256": "4b1529e5fad4fa2f259aca0b86cf9fb3f14e1a2326ee4e91a7a59b330cda996b",
+  "schema_version": "1.0.0",
+  "semantic_authority": "PROVISIONAL_UNREVIEWED"
+}

@@ -61,7 +61,7 @@
       "role_id": "production_legacy",
       "provenance_state": "ACTIVE_IMPLEMENTATION",
       "lifecycle_status": "CURRENT_RUNTIME_BEHAVIOR_NOT_PRODUCTION_BASELINE",
-      "implementation": {"type": "repository_file", "path": "seminartext_modules/seminartext_topics.py", "deployed_path": "seminartext_topics.py", "sha256": "d8a14e83b877024c3e016a33e594af17d512741a77735ff3d8c7d1262628c8db", "entrypoint": "analyze_window_boundaries", "deployment_mode": "RUNTIME_FILE", "repository_verification_required_before_deploy": true},
+      "implementation": {"type": "repository_file", "path": "seminartext_modules/seminartext_topics.py", "deployed_path": "seminartext_topics.py", "sha256": "65e34ae4b4b462d4003e6af68f238448abfd467070837be5551a7526cc9ee6fd", "entrypoint": "analyze_window_boundaries", "deployment_mode": "RUNTIME_FILE", "repository_verification_required_before_deploy": true},
       "model": {"provider": "ollama", "identity": "gemma3:4b", "digest": null, "identity_policy": "LEGACY_RUNTIME_SELECTABLE_NOT_FROZEN_EVIDENCE_MODEL"},
       "configuration": {"detail": "runtime_selectable_low_auto_high", "temperature": 0, "window_seconds": 720, "refinement_max_depth": 2},
       "production_runtime": true,

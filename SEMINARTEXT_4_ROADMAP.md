@@ -1,6 +1,6 @@
 # SeminarText 4.x Roadmap
 
-Последнее обновление: 2026-10-29
+Последнее обновление: 2026-11-01
 
 ## Главная цель
 
@@ -1692,18 +1692,21 @@ Readiness Audit -> S2 -> S3`. S2 — утверждённый приоритет
 остаётся отдельным неавторизованным Roadmap decision. #65, #66, Dataset D и
 Dataset E остаются защищёнными действующими firewall-правилами.
 
-Draft PR #121 на точном head `cea2d1ed964ad87593a458bfe595e6ce198f99e7`
+Семантический checkpoint Draft PR #121 на точном head `844e4698d7b39ba0238de32b4f4a738530497693`
 содержит Canonical Evidence и Word Timelines для четырёх видео проекта `Стресс
 код` из семи зарегистрированных источников; три документальных источника не
 имеют Canonical Evidence. Days 2–4 имеют 262 provisional machine Topic
 proposals и 182 provisional semantic Topic units. QA фиксирует 22 Concept
-candidates, 255 Topic–Concept links и 21 явное DOMAIN_REVIEW решение; 52 связи
-остаются активными исключениями, одна отложена. Пробелов и перекрытий word
+candidates, 246 Topic–Concept links и 73 прежних явных DOMAIN_REVIEW решения;
+активных link-exceptions нет, семь связей остаются DEFER. Дополнительно
+сохранены восемь авторских title-only исправлений от 2026-11-01; они не
+принимают Topics, Concepts или отношения. Пробелов и перекрытий word
 coverage нет. Эти данные сверены с
 `analysis/issue_68_vertical_slice/domain_review_v1/domain_review_qa.json` и
 `batch_review.json` в PR #121. Пакет остаётся provisional; semantic acceptance,
 Canonical Knowledge admission и принятый Obsidian export ещё не завершены.
-Следующая обязательная граница — решения Domain Owner по оставшимся связям.
+Следующая обязательная граница — итоговый DOMAIN_REVIEW семантической структуры;
+семь отложенных связей остаются неподтверждёнными.
 
 Активная машиночитаемая проекция ниже сверяется с
 `integrity/milestone_reconciliation.json`. Только этот ограниченный JSON-блок,

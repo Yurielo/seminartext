@@ -1,0 +1,168 @@
+# Issue #68 — real multi-source vertical-slice readiness
+
+This directory contains the Issue #68 readiness checkpoint and the subsequent
+authorized machine-assisted `DOMAIN_AUTHORING` package for the real `Стресс
+код` seminar. All four video sources have valid, hash-bound Canonical Evidence
+and Word Timelines. Day 1 remains the applied Issue #113 Product Owner review;
+Days 2–4 are represented only by provisional, `UNREVIEWED` proposals. Their
+machine-assisted `DOMAIN_AUTHORING` pass is complete, and the deterministic
+exception-only QA entry point is now
+`domain_review_v1/DOMAIN_REVIEW.md`.
+
+The package is deliberately fail-closed. It prepares Topics, Concept candidates,
+and Topic→Concept links for review without promoting any of them to Canonical
+Knowledge. The mandatory accepted `Seminar -> Source/Topic -> Concept ->
+Evidence` path therefore remains blocked until human authoring/review decisions
+are recorded.
+
+Run the deterministic inventory with explicit local inputs:
+
+```bash
+python analysis/issue_68_vertical_slice/build_readiness_manifest.py \
+  --project "/path/to/Стресс код" \
+  --review-result "/path/to/topic_review_result_v2.json" \
+  --output analysis/issue_68_vertical_slice/readiness_manifest.json
+```
+
+The committed manifest contains hashes and counts, not media or full transcript
+content. Absolute local paths are intentionally excluded.
+
+Build the deterministic semantic package from the same governed inputs:
+
+```bash
+python analysis/issue_68_vertical_slice/build_semantic_authoring_package.py \
+  --project "/path/to/Стресс код" \
+  --review-result "/path/to/topic_review_result_v2.json" \
+  --output-dir analysis/issue_68_vertical_slice/semantic_authoring_v1
+```
+
+Build the exception-only DOMAIN_REVIEW QA package without promoting semantics:
+
+```bash
+python analysis/issue_68_vertical_slice/build_domain_review_qa.py \
+  --repository . \
+  --project "/path/to/Стресс код" \
+  --review-result "/path/to/topic_review_result_v2.json" \
+  --semantic-package \
+    analysis/issue_68_vertical_slice/semantic_authoring_v1/semantic_authoring_package.json \
+  --output-dir analysis/issue_68_vertical_slice/domain_review_v1
+```
+
+Explicit Product Owner decisions for individual exceptions are stored in
+`domain_review_v1/domain_review_decisions.json`. The builder validates their
+exact Canonical Word partition, preserves `NON_SEMANTIC_EXCLUDED` lineage,
+re-QA's both neighboring boundaries, and then exposes the next unresolved
+exception. A decided exception does not promote the remaining package.
+
+## Batch DOMAIN_REVIEW
+
+### Author-approved title corrections
+
+`domain_review_v1/domain_review_decisions.json` may retain explicit
+`topic_title_corrections` with scope `TOPIC_TITLE_ONLY`. Each correction binds
+the prior title, exact Topic/Source/TranscriptRevision and Word endpoints, the
+Word-span hash, and current Evidence and semantic-package hashes. The normal
+QA builder validates the entire correction batch before changing its derived
+titles. It does not edit the original proposals, transcript, media or ranges.
+
+`title_review_revision` binds an immutable parent ledger in
+`domain_review_v1/revisions/<sha256>.json`. Prior Topic/Concept/link decisions
+must remain an unchanged prefix; later explicit decisions can still pass
+through the existing batch workflow. Its temporary validation retains the
+same parent archive. Duplicate IDs, stale bindings, history replacement and
+scope expansion fail closed.
+
+Title correction does not accept a Topic, Concept or relationship. Current
+QA exposes the correction provenance separately from its remaining semantic
+review status. The 2026-11-01 receipt and source investigation are in
+`domain_review_v1/AUTHOR_TITLE_REVIEW_2026-11-01.md` and
+`domain_review_v1/SOURCE_IDENTITY_REVIEW_2026-11-01.json`.
+
+The same builder also writes `domain_review_v1/BATCH_REVIEW.md` and
+`domain_review_v1/batch_review.json`. The Russian Markdown is the consolidated,
+concept-grouped review table: it shows a presentation-only proposed action,
+bounded context from the authored Topic range, a source-specific rationale, and
+stated uncertainty for every active link.
+Those proposals are never decisions and do not change the ledger. The JSON
+contains one entry per active link, the separate deferred list, four grouping
+indexes, exact Topic/Concept IDs, source revision, word ranges, evidence hashes,
+and the existing governed link snapshot. The complete source context remains in
+the project's `evidence/canonical_bundle.json`; the packet contains only a
+short excerpt. No group implies a shared decision.
+
+To submit a batch, prepare a JSON document with `review_package_sha256` (SHA-256
+of the exact `batch_review.json` bytes), `decision_ledger_sha256` from that
+package, and a nonempty `decisions` list. Every list item must include
+`link_id`, `topic_id`, `concept_id`, `source_revision_id`, `evidence_sha256`,
+`review_package_sha256`, `action`, `human_confirmed: true`, and
+`governed_decision`. Copy the bound IDs
+and hashes from the packet. `action` is one of `ACCEPT`, `REJECT`, `REASSIGN`,
+or `DEFER`. The `governed_decision` is an explicit Product Owner decision in
+the existing ledger schema, including its own unique `decision_id`,
+`authority: PRODUCT_OWNER_DOMAIN_REVIEW`, matching `target_link_id`, full
+`link_snapshot`, rationale, and outcome `ACCEPT_LINK`, `REJECT_LINK`,
+`REMAP_LINK`, or `DEFER_LINK`, respectively. For `REASSIGN`, the governed record
+must name the exact existing replacement Topic and its snapshot. The existing
+builder validates evidence and the action-specific safeguards. Omitted links
+remain unresolved; the batch tool never infers a decision.
+
+Historical single-match acceptances use `single_match_context_reviewed: true`
+and bind exactly one pattern match. An Owner may instead accept a reviewed link
+through `full_topic_context_reviewed: true`; this remains an explicit,
+hash-bound decision and must bind the observed pattern count for the complete
+authored Topic. This permits an Owner-confirmed contextual link whose source
+terminology does not literally equal the candidate label. A contextual rejection
+likewise requires `rejection_basis: CONTEXTUAL_REFERENCE_ONLY`,
+`contextual_reference_only: true`, and `full_topic_context_reviewed: true`.
+Neither path permits automatic semantic acceptance.
+The transport schema is `schemas/issue_68_batch_review_v1.schema.json`.
+
+Apply and rebuild in one command:
+
+```bash
+python analysis/issue_68_vertical_slice/batch_review.py apply \
+  --package /path/to/submitted_batch_review.json \
+  --batch /path/to/explicit_owner_decisions.json \
+  --ledger analysis/issue_68_vertical_slice/domain_review_v1/domain_review_decisions.json \
+  --repository . \
+  --project "/path/to/Стресс код" \
+  --review-result "/path/to/topic_review_result_v2.json" \
+  --semantic-package analysis/issue_68_vertical_slice/semantic_authoring_v1/semantic_authoring_package.json \
+  --output-dir analysis/issue_68_vertical_slice/domain_review_v1
+```
+
+The batch is validated in full before one atomic ledger replacement. A stale
+package, changed ledger, unknown link, duplicate target, invalid replacement,
+unsupported action, or any governed QA error rejects the whole batch. An exact
+retry of an applied batch returns the current ledger hash. QA and the next
+batch packet are rebuilt from the resulting ledger. Preserve the submitted
+package separately because the current packet is regenerated after application.
+For the 2026-10-30 approval, the exact submitted transport is
+`domain_review_v1/approved_batch_submission_2026-10-30.json`; it binds the
+immutable JSON companion at
+`63dc6bfed24e9c7c8bc2717b6e84b84df488abf8:analysis/issue_68_vertical_slice/domain_review_v1/batch_review.json`
+(`eeee4931ca286750ac56f57e034ea084ee12222b77f47468570266502debbd3a`).
+The corresponding human review document is retained as
+`domain_review_v1/approved_BATCH_REVIEW_2026-10-30.md`.
+
+## Current gate
+
+- Engineering evidence validation: `PASS`
+- Full Canonical Word coverage by provisional Topic proposals: `PASS`
+- Days 2–4 authoring: `262/262 COMPLETED_PROVISIONAL`
+- Resulting semantic units classified by QA: `182`
+- Persisted exact DOMAIN_REVIEW decisions: `73` (`4` Topic, `7` Concept, `62` Link)
+- Active link exceptions in batch: `0`; deferred separately: `7`
+- Days 2–4 Topic authority: `UNREVIEWED`
+- Concept candidates and Topic→Concept links: `PROVISIONAL_UNREVIEWED`
+- Obsidian export: `NOT_RUN_BLOCKED_SEMANTIC_INPUT`
+- Issue #68 result: `PARTIAL`
+
+The next gate is full-context evidence verification before any later human
+decision on the seven deferred links in `domain_review_v1/BATCH_REVIEW.md`.
+The original first-exception card remains in `domain_review_v1/DOMAIN_REVIEW.md`.
+The full QA manifest preserves the
+original `18` Concept-candidate and `254` Topic→Concept-link input inventories;
+the smaller preview-derived projections in the authored package are not
+treated as semantic deletion. `REVIEW_CLEAR` does not imply acceptance;
+semantic acceptance remains an explicit `DOMAIN_REVIEW` decision.

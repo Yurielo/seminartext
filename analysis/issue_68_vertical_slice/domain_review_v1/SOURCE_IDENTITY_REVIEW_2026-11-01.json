@@ -1,0 +1,92 @@
+{
+  "alignment_run_id": "alignment_video_002_video_002_r1_6bae45b9aaa0",
+  "canonical_evidence_sha256": "40879d5a87cd1a8ea7869d51e81aa7f93cfc48bc34cb5858e5664363ee687273",
+  "canonical_source_id": "source_video_002",
+  "evidence_or_source_modified": false,
+  "fresh_asr_or_audio_retranscription_performed": true,
+  "interpretation": "The registered Stress Code Day2 source explicitly refers to another seminar/method, Emotional Code; the name alone is not evidence of contamination. Both passages occur in its hash-bound original TranscriptRevision and Canonical Word Timeline.",
+  "limitation": "Source identity and targeted source audio were corroborated by the existing local whisper-cli on59seconds of registered media. This non-authoritative audit does not replace the existing TranscriptRevision, certify every word by human listening, or endorse seminar claims.",
+  "media_sha256": "b17e0d3c109b6fc901b505ba02af3572467367b94840cfc7920c481fa047d6a4",
+  "media_size_bytes": 939336759,
+  "opening_identification": "Здравствуйте! Начинаем второй день нашего обучения по программе Стресс-код. Вчера\nмы с вами разобрали общие моменты, проговорили, что такое кинезиология, чем ",
+  "passages": [
+    {
+      "end_time": "02:58:01.725",
+      "end_word_id": "transcript_revision_video_002_r1:word:016879",
+      "source_excerpt": "ссии с Ларисой. У животных, конечно, этого нет. Животное не способно осознавать и прочее. У нас есть семинар, который называется «Эмоциональный код». Там мы работаем с неосознаваемыми эмоциями. Есть способы работы с животными тоже, которые очень интересные результаты у нас приносят. В моей практике это работа",
+      "start_time": "02:53:43.437",
+      "start_word_id": "transcript_revision_video_002_r1:word:016428",
+      "title_unchanged": "Работа с животными методом «Эмоциональный код»: примеры с кошками",
+      "topic_id": "issue_68_video_002_topic_proposal_055",
+      "transcript_revision_id": "transcript_revision_video_002_r1",
+      "word_span_sha256": "a1748570c72233c84c2f8e806a47b782a95a791feca5bf01b0d8d410dd145c54"
+    },
+    {
+      "end_time": "02:59:13.278",
+      "end_word_id": "transcript_revision_video_002_r1:word:016999",
+      "source_excerpt": ". Вся была в том, что он там что-то как-то. Ну, в общем, какие-то эмоции у этого слона. И пролечили по эмоциональному коду. У него эта проблема решилась. Не так давно. Тоже в группе. Где-то месяца 3-4. Ну, месяца 4, наверное, назад. Из Казахстана. Там коллега писала, что с теленком как бы она что-то там работ",
+      "start_time": "02:58:04.291",
+      "start_word_id": "transcript_revision_video_002_r1:word:016880",
+      "title_unchanged": "Работа с животными методом «Эмоциональный код»: примеры со слоном и телёнком",
+      "topic_id": "issue_68_video_002_topic_proposal_056a",
+      "transcript_revision_id": "transcript_revision_video_002_r1",
+      "word_span_sha256": "61b2bd0e2f5b281efff9e29b70a074015cf74c6cb8c53fe986634cbdfe368cf5"
+    }
+  ],
+  "registered_file": "source/video/Стресс Код декабрь 2022 День 2.mp4",
+  "registered_mirrors": [
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/watch?v=tHXqNbGNVbI"
+    }
+  ],
+  "registered_source_id": "video_002",
+  "registered_title": "Стресс Код декабрь 2022 День 2",
+  "registry_sha256": "7099cb7918af1f2365389ede578fd00ff16190d42d67f82689099cc5aee69ebc",
+  "scope": "READ_ONLY_SOURCE_INVESTIGATION",
+  "source_bundle_sha256": "1633b1596894f4d8f0a3e2447c02ab5f1164726d685c11d3ba308fcaf24e4e93",
+  "targeted_audio_audit": {
+    "audio_duration_seconds": 59,
+    "binary_sha256": "40bca494d49af736058eb3f33cbcebaa020eacf6d0087b623f334946e1ab2128",
+    "clips": [
+      {
+        "clip": "opening.wav",
+        "duration_seconds": 14,
+        "sha256": "9118e4f15daa6535ed58825aa45e8de2a61e6e6f15d8174c7796ab051a0659fb",
+        "source_start_seconds": 4
+      },
+      {
+        "clip": "topic055-reference.wav",
+        "duration_seconds": 23,
+        "sha256": "c713760cda4ae38ff2ed94aeb578f3a804dea360510113b7dc8a2f15893eead6",
+        "source_start_seconds": 10458
+      },
+      {
+        "clip": "topic056a-reference.wav",
+        "duration_seconds": 20,
+        "sha256": "cda06d213b4488295e4834aa886c7b3e577609dc37928f0742bb756967febb3d",
+        "source_start_seconds": 10715
+      }
+    ],
+    "corroborated": [
+      "Stress Code opening identification",
+      "Topic055 reference to another seminar Emotional Code",
+      "Topic056a emotional-code animal example"
+    ],
+    "existing_model_sha256": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2",
+    "output_sha256": "0dc05a6d06d91c51d5ed3a080f750111ae82db7b712c93a95ca15f5ff166a59b",
+    "recognized_text": "Здравствуйте! Начинаем второй день нашего обучения по программе Стресс-код. Вчера мы с вами разобрали общие моменты, про то, как осознавать и прочее. У нас есть семинар, который называется «Эмоциональный код». Там мы работаем с неосознаваемыми эмоциями. Есть способы работы с животными тоже, которые очень интересные результаты у нас. В общем, какие-то эмоции у этого слона. И пролечили по эмоциональному коду, у него эта проблема решилась. Не так давно, тоже в группе, где-то месяца 3-4 назад из Казахстана,",
+    "role": "NONAUTHORITATIVE_SOURCE_AUDIO_AUDIT_ONLY",
+    "status": "PASS"
+  },
+  "transcript_assurance": {
+    "method": "existing_machine_transcript_import",
+    "origin": "machine_generated",
+    "reviewer": null,
+    "verification_ranges": [],
+    "verification_state": "machine_unverified"
+  },
+  "transcript_revision_id": "transcript_revision_video_002_r1",
+  "transcript_text_sha256": "abce45c101101e76591821a6a7379d4849a2608462e46260797c51a209f88d2e",
+  "verdict": "REGISTERED_STRESS_CODE_SOURCE_BINDING_VERIFIED_NO_SOURCE_MISMATCH_FOUND"
+}
